@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IWindowInfo
+    <title>Interface ISplitPanelComponent
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IWindowInfo
+    <meta name="title" content="Interface ISplitPanelComponent
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.36.1.0">
     
@@ -78,39 +78,50 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IWindowInfo">
+            <article class="content wrap" id="_content" data-uid="AGS.API.ISplitPanelComponent">
   
   
-  <h1 id="AGS_API_IWindowInfo" data-uid="AGS.API.IWindowInfo" class="text-break">Interface IWindowInfo
+  <h1 id="AGS_API_ISplitPanelComponent" data-uid="AGS.API.ISplitPanelComponent" class="text-break">Interface ISplitPanelComponent
   </h1>
-  <div class="markdown level0 summary"><p>Information about the application window and the sub-window containing the game.
-Usually, the window hosting the game IS the application window, but for some scenarios (like for the editor which is hosting the game)
-the game can be configured to only use part of the window (a &quot;sub window&quot;).</p>
+  <div class="markdown level0 summary"><p>Adds the ability to place 2 panels adjacent to each other (either vertically or horizontally),
+and have a split line in between which can be dragged to resize both panels at the same time.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IWindowInfo_syntax">Syntax</h5>
+  <h5 id="AGS_API_ISplitPanelComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IWindowInfo : INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ISplitPanelComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_IWindowInfo_AppWindowHeight.md&amp;value=---%0Auid%3A%20AGS.API.IWindowInfo.AppWindowHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CheatSheetUpdates/apiSpec/new?filename=AGS_API_ISplitPanelComponent_BottomPanel.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.BottomPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/IWindowInfo.cs/#L17">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CheatSheetUpdates/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L19">View Source</a>
   </span>
-  <a id="AGS_API_IWindowInfo_AppWindowHeight_" data-uid="AGS.API.IWindowInfo.AppWindowHeight*"></a>
-  <h4 id="AGS_API_IWindowInfo_AppWindowHeight" data-uid="AGS.API.IWindowInfo.AppWindowHeight">AppWindowHeight</h4>
-  <div class="markdown level1 summary"><p>Gets the height of the application window.</p>
+  <a id="AGS_API_ISplitPanelComponent_BottomPanel_" data-uid="AGS.API.ISplitPanelComponent.BottomPanel*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_BottomPanel" data-uid="AGS.API.ISplitPanelComponent.BottomPanel">BottomPanel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the bottom panel (or the right panel, if this is a horizontal split panel).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float AppWindowHeight { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IPanel BottomPanel { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -122,27 +133,27 @@ the game can be configured to only use part of the window (a &quot;sub window&qu
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><p>The height of the application window.</p>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The bottom panel.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_IWindowInfo_AppWindowWidth.md&amp;value=---%0Auid%3A%20AGS.API.IWindowInfo.AppWindowWidth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CheatSheetUpdates/apiSpec/new?filename=AGS_API_ISplitPanelComponent_IsHorizontal.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.IsHorizontal%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/IWindowInfo.cs/#L23">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CheatSheetUpdates/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L25">View Source</a>
   </span>
-  <a id="AGS_API_IWindowInfo_AppWindowWidth_" data-uid="AGS.API.IWindowInfo.AppWindowWidth*"></a>
-  <h4 id="AGS_API_IWindowInfo_AppWindowWidth" data-uid="AGS.API.IWindowInfo.AppWindowWidth">AppWindowWidth</h4>
-  <div class="markdown level1 summary"><p>Gets the width of the application window.</p>
+  <a id="AGS_API_ISplitPanelComponent_IsHorizontal_" data-uid="AGS.API.ISplitPanelComponent.IsHorizontal*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_IsHorizontal" data-uid="AGS.API.ISplitPanelComponent.IsHorizontal">IsHorizontal</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this <a class="xref" href="AGS.API.ISplitPanelComponent.html">ISplitPanelComponent</a> is horizontal (or vertical- which is the default).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">float AppWindowWidth { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">bool IsHorizontal { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -154,30 +165,27 @@ the game can be configured to only use part of the window (a &quot;sub window&qu
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><p>The width of the application window.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p><code>true</code> if is horizonal; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_IWindowInfo_GameSubWindow.md&amp;value=---%0Auid%3A%20AGS.API.IWindowInfo.GameSubWindow%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CheatSheetUpdates/apiSpec/new?filename=AGS_API_ISplitPanelComponent_TopPanel.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent.TopPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/IWindowInfo.cs/#L32">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CheatSheetUpdates/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L13">View Source</a>
   </span>
-  <a id="AGS_API_IWindowInfo_GameSubWindow_" data-uid="AGS.API.IWindowInfo.GameSubWindow*"></a>
-  <h4 id="AGS_API_IWindowInfo_GameSubWindow" data-uid="AGS.API.IWindowInfo.GameSubWindow">GameSubWindow</h4>
-  <div class="markdown level1 summary"><p>Gets the rectangle (a subset of the application window) which contains the game.
-In the normal case this rectangle will be the entire application window.
-This rectangle includes possible black borders (if <a class="xref" href="AGS.API.IGameSettings.html#AGS_API_IGameSettings_PreserveAspectRatio">PreserveAspectRatio</a> is enabled).
-To get the rectangle without the black borders, <a class="xref" href="AGS.API.IViewport.html#AGS_API_IViewport_ScreenArea">ScreenArea</a>.</p>
+  <a id="AGS_API_ISplitPanelComponent_TopPanel_" data-uid="AGS.API.ISplitPanelComponent.TopPanel*"></a>
+  <h4 id="AGS_API_ISplitPanelComponent_TopPanel" data-uid="AGS.API.ISplitPanelComponent.TopPanel">TopPanel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the top panel (or the left panel, if this is a horizontal split panel).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Rectangle GameSubWindow { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IPanel TopPanel { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -189,8 +197,8 @@ To get the rectangle without the black borders, <a class="xref" href="AGS.API.IV
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.Rectangle.html">Rectangle</a></td>
-        <td><p>The game sub window.</p>
+        <td><a class="xref" href="AGS.API.IPanel.html">IPanel</a></td>
+        <td><p>The top panel.</p>
 </td>
       </tr>
     </tbody>
@@ -203,10 +211,10 @@ To get the rectangle without the black borders, <a class="xref" href="AGS.API.IV
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/DesignerObject/apiSpec/new?filename=AGS_API_IWindowInfo.md&amp;value=---%0Auid%3A%20AGS.API.IWindowInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CheatSheetUpdates/apiSpec/new?filename=AGS_API_ISplitPanelComponent.md&amp;value=---%0Auid%3A%20AGS.API.ISplitPanelComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Source/AGS.API/Input/IWindowInfo.cs/#L11" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CheatSheetUpdates/Source/AGS.API/UI/Controls/Panel/ISplitPanelComponent.cs/#L7" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
