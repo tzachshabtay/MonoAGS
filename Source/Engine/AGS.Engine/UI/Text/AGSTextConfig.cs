@@ -103,6 +103,6 @@ namespace AGS.Engine
                   && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
-        public override int GetHashCode() => Font.GetHashCode();
+        public override int GetHashCode() => Font?.GetHashCode() ?? 0;
     }
 }

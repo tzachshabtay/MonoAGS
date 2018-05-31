@@ -27,7 +27,7 @@ namespace Tests
         [Test]
         public void BindingCalledForExplicitTypeAlreadyAdded()
         {
-            AGSEmptyEntity entity = new AGSEmptyEntity("test", Mocks.GetResolver());
+            AGSEmptyEntity entity = new AGSEmptyEntity("test" + Guid.NewGuid(), Mocks.GetResolver());
             AGSCropSelfComponent crop = new AGSCropSelfComponent();
             entity.AddComponent<ICropSelfComponent>(crop);
             bool bindingCalled = false;
