@@ -7,6 +7,7 @@ using IOS::UIKit;
 using IOS::Foundation;
 using IOS::CoreGraphics;
 using IOS::CoreText;
+using System;
 
 namespace AGS.Engine.IOS
 {
@@ -41,14 +42,22 @@ namespace AGS.Engine.IOS
         {
             CGFont cgFont = _installedFonts.GetOrAdd(path, _ =>
             {
-                CGFont createdFont = CGFont.CreateFromProvider(new CGDataProvider(path));
-                NSError error;
-                if (!CTFontManager.RegisterGraphicsFont(createdFont, out error))
+                try
                 {
-                    Debug.WriteLine("Failed to load font from {0} (loading default font instead), error: {1}", path, error.ToString());
+                    CGFont createdFont = CGFont.CreateFromProvider(new CGDataProvider(path));
+                    NSError error;
+                    if (!CTFontManager.RegisterGraphicsFont(createdFont, out error))
+                    {
+                        Debug.WriteLine($"Failed to load font from {path} (loading default font instead), error: {error.ToString()}");
+                        return null;
+                    }
+                    return createdFont;
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.WriteLine($"Failed to load font from {path} (loading default font instead), exception: {e.ToString()}");
                     return null;
                 }
-                return createdFont;
             });
             if (cgFont == null) return LoadFont("Helvetica", sizeInPoints, style);
 

@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSGameWindow : IGameWindow, IHostingWindow
+    public class IOSGameWindow : IGameWindow, IWindowInfo
     {
         private IOSGameView _view;
         private bool _started;
@@ -25,7 +25,7 @@ namespace AGS.Engine.IOS
         private IOSGameWindow()
         {
             Debug.WriteLine("IOS Game Window Constructor");
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IHostingWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
@@ -42,8 +42,6 @@ namespace AGS.Engine.IOS
             }
         }
 
-        public Rectangle HostingWindow => new Rectangle(0, 0, Width, Height);
-
         public event EventHandler<IOSGameView> OnNewView;
 
         public Action StartGame { get; set; }
@@ -55,6 +53,24 @@ namespace AGS.Engine.IOS
         public int Height => _size.Value.Height;
 
         public int Width => _size.Value.Width;
+
+        public float AppWindowHeight => Height;
+
+        public float AppWindowWidth => Width;
+
+        public Rectangle GameSubWindow 
+        {
+            get
+            {
+                //we have to statically evaluate the window size, because Width & Height must be called from the UI thread.
+                float density = (float)UIScreen.MainScreen.Scale;
+                int windowWidth = Width;
+                int windowHeight = Height;
+
+                return new Rectangle(0, 0, (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density),
+                                           (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density));
+            }
+        }
 
         public double TargetUpdateFrequency { get => 60f; set { } } //todo
         public VsyncMode Vsync { get => VsyncMode.Off; set { } } //todo

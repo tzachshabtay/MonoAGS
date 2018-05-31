@@ -11,6 +11,8 @@ namespace DemoGame
 	{
         public IGameSettings Settings => new AGSGameSettings("Demo Game", new Size(320, 200),
                 windowSize: new Size(640, 400), windowState: WindowState.Normal);
+
+        public static string CustomAssemblyName;
         
         public void StartGame(IGame game)
         {
@@ -21,7 +23,7 @@ namespace DemoGame
             game.Events.OnLoad.Subscribe(async () =>
             {
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
-                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly, CustomAssemblyName), 1));
                 game.Factory.Fonts.InstallFonts("Fonts/pf_ronda_seven.ttf", "Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
                 game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
                 game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);

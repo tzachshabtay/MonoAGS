@@ -8,7 +8,7 @@ using OpenTK;
 
 namespace AGS.Engine.Android
 {
-    public class AndroidGameWindow : IGameWindow, IHostingWindow
+    public class AndroidGameWindow : IGameWindow, IWindowInfo
     {
         private GestureDetector _gestures;
         private bool _started;
@@ -22,7 +22,7 @@ namespace AGS.Engine.Android
             AndroidSimpleGestures simpleGestures = new AndroidSimpleGestures();
             _gestures = new GestureDetector(simpleGestures);
 
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IHostingWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
             Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
@@ -68,7 +68,11 @@ namespace AGS.Engine.Android
         public string Title { get => ""; set { } } //todo
         public bool IsExiting => false;  //todo
 
-        public Rectangle HostingWindow => new Rectangle(0, 0, Width, Height);
+        public float AppWindowHeight => Height;
+
+        public float AppWindowWidth => Width;
+
+        public Rectangle GameSubWindow => new Rectangle(0, 0, Width, Height);
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;

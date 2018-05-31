@@ -9,15 +9,17 @@ namespace AGS.Engine.IOS
 {
     public class IOSInput : IAGSInput
     {
-        private IGameWindow _gameWindow;
+        private IWindowInfo _gameWindow;
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
         private Size _virtualResolution;
+        private IOSGestures _gestures;
 
-        public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
+        public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IWindowInfo gameWindow)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), getWindow());
+            _gestures = gestures;
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), gameWindow);
             _shouldBlockInput = shouldBlockInput;
             _gameWindow = gameWindow;
             _state = state;
@@ -57,6 +59,7 @@ namespace AGS.Engine.IOS
         public void Init(AGS.API.Size virtualResolution)
         {
             _virtualResolution = virtualResolution;
+            _gestures.Init(virtualResolution, _gameWindow);
         }
 
         public IObject Cursor { get; set; }
@@ -93,18 +96,7 @@ namespace AGS.Engine.IOS
         {
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, getWindow());
-        }
-
-        private Rectangle getWindow()
-        {
-			//we have to statically evaluate the window size, because _gameWindow.Width & Height must be called from the UI thread.
-            float density = (float)UIScreen.MainScreen.Scale;
-			int windowWidth = _gameWindow.Width;
-            int windowHeight = _gameWindow.Height;
-
-            return new Rectangle(0, 0, (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density),
-                                       (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density));
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _gameWindow);
         }
 
         private float convertX(float x)

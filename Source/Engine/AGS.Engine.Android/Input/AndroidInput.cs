@@ -9,18 +9,18 @@ namespace AGS.Engine.Android
 {
     public class AndroidInput : IAGSInput
     {
-        private IGameWindowSize _windowSize;
+        private IWindowInfo _window;
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
         private AGSGameView _view;
         private Size _virtualResolution;
 
-        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
+        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IWindowInfo window)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), windowSize.GetWindow(null));
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), window);
             _shouldBlockInput = shouldBlockInput;
-            _windowSize = windowSize;
+            _window = window;
             _state = state;
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
@@ -121,7 +121,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _windowSize.GetWindow(null));
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _window);
         }
 
         private float convertX(float x)
