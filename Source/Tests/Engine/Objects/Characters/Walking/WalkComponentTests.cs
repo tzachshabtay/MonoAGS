@@ -87,6 +87,7 @@ namespace Tests
 			translate.Setup(o => o.X).Returns(() => x);
 			translate.Setup(o => o.Y).Returns(() => y);
             translate.Setup(o => o.Position).Returns(() => (x, y));
+            translate.SetupSet(o => o.Position = It.IsAny<Position>()).Callback<Position>(f => (x, y, _) = f);
 			translate.SetupSet(o => o.X = It.IsAny<float>()).Callback<float>(f => x = f);
 			translate.SetupSet(o => o.Y = It.IsAny<float>()).Callback<float>(f => y = f);
 

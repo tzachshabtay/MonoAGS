@@ -576,9 +576,14 @@ namespace AGS.Engine
             set { _walkComponent.DebugDrawWalkPath = value; } 
         }
 
-        public Task<Boolean> WalkAsync(Position position)
+        public Task<Boolean> WalkAsync(Position position, bool walkAnywhere = false)
         {
-            return _walkComponent.WalkAsync(position);
+            return _walkComponent.WalkAsync(position, walkAnywhere);
+        }
+
+        public Task<Boolean> WalkStraightAsync(Position position)
+        {
+            return _walkComponent.WalkStraightAsync(position);
         }
 
         public Task StopWalkingAsync()
