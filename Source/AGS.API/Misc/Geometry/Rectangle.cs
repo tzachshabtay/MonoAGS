@@ -4,8 +4,8 @@
     /// Represents a rectangle in 2D space.
     /// </summary>
 	public struct Rectangle
-	{
-		private readonly int _x, _y, _width, _height;
+    {
+        private readonly int _x, _y, _width, _height;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.Rectangle"/> struct.
@@ -15,12 +15,12 @@
         /// <param name="width">Width.</param>
         /// <param name="height">Height.</param>
 		public Rectangle(int x, int y, int width, int height)
-		{
-			_x = x;
-			_y = y;
-			_width = width;
-			_height = height;
-		}
+        {
+            _x = x;
+            _y = y;
+            _width = width;
+            _height = height;
+        }
 
         /// <summary>
         /// Gets the x coordinate.
@@ -61,6 +61,15 @@
             width = this.Width;
             height = this.Height;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Rectangle rect && rect.X == X && rect.Y == Y && rect.Width == Width && rect.Height == Height;
+        }
+
+        public override int GetHashCode()
+        {
+            return X.GetHashCode();
+        }
     }
 }
-

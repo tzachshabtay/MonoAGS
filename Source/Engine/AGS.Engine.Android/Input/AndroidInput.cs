@@ -9,21 +9,19 @@ namespace AGS.Engine.Android
 {
     public class AndroidInput : IAGSInput
     {
-        private IGameWindowSize _windowSize;
+        private IWindowInfo _window;
         private IGameState _state;
         private IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
         private AGSGameView _view;
+        private Size _virtualResolution;
 
-        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
+        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IWindowInfo window)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport);
+            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), window);
             _shouldBlockInput = shouldBlockInput;
-            _windowSize = windowSize;
+            _window = window;
             _state = state;
-            float density = Resources.System.DisplayMetrics.Density;
-            API.MousePosition.GetWindowWidth = () => (int)(_windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density));
-            API.MousePosition.GetWindowHeight = () => (int)(_windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density));
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
@@ -57,7 +55,7 @@ namespace AGS.Engine.Android
 
         public void Init(AGS.API.Size virtualResolution)
         {
-            API.MousePosition.VirtualResolution = virtualResolution;
+            _virtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -123,7 +121,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport);
+            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _window);
         }
 
         private float convertX(float x)

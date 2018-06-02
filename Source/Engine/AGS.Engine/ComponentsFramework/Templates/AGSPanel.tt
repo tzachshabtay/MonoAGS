@@ -41,15 +41,5 @@
     	{
     		return false;
     	}
-
-    	protected override void WriteAdditionalConstructorParams()
-    	{
-    		Write(", IImage image");
-    	}
-
-    	protected override void WriteAdditionalConstructorParamsCall()
-    	{
-    		Write(", image");
-    	}
 	}
 #>

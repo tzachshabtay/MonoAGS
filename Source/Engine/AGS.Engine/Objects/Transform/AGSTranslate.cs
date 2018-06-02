@@ -24,9 +24,9 @@ namespace AGS.Engine
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
         [DoNotNotify]
-        public Position Position 
-        { 
-            get => _position; 
+        public Position Position
+        {
+            get => _position;
             set
             {
                 float prevX = _position.X;
@@ -35,42 +35,47 @@ namespace AGS.Engine
 
                 _position = value;
 
-                bool hasChanged = false;
-                if (prevX != value.X)
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged != null)
                 {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsX);
-                }
-                if (prevY != value.Y)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsY);
-                }
-                if (prevZ != value.Z)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsZ);
-                }
-                if (hasChanged)
-                {
-                    PropertyChanged(this, _argsLocation);
+                    bool hasChanged = false;
+                    if (prevX != value.X)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsX);
+                    }
+                    if (prevY != value.Y)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsY);
+                    }
+                    if (prevZ != value.Z)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsZ);
+                    }
+                    if (hasChanged)
+                    {
+                        propertyChanged(this, _argsLocation);
+                    }
                 }
             }
         }
 
         [Property(Browsable = false)]
         [DoNotNotify]
-        public float X 
-        { 
-            get => _position.X; 
+        public float X
+        {
+            get => _position.X;
             set
             {
                 var prevX = _position.X;
                 _position = new Position(value, Y, Z == Y ? (float?)null : Z);
-                if (prevX != value)
+                var propertyChanged = PropertyChanged;
+                if (prevX != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsX);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsX);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -84,15 +89,17 @@ namespace AGS.Engine
             {
                 float prevY = _position.Y;
                 float prevZ = _position.Z;
-                _position = new Position(X, value, Z == Y ? (float?)null : Z);
+                _position = new Position(X, value, Z == Y ? value : Z);
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged == null) return;
                 if (prevZ != _position.Z)
                 {
-                    PropertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsZ);
                 }
                 if (prevY != value)
                 {
-                    PropertyChanged(this, _argsY);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsY);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -102,18 +109,28 @@ namespace AGS.Engine
         public float Z
         {
             get => _position.Z;
-            set 
+            set
             {
                 float prevZ = _position.Z;
-                _position = new Position(X, Y, value == Y ? (float?)null : value);
-                if (prevZ != value)
+                _position = new Position(X, Y, value);
+                var propertyChanged = PropertyChanged;
+                if (prevZ != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsZ);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
 
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+
+        public void Dispose()
+        {
+            PropertyChanged = null;
+            _argsLocation = null;
+            _argsX = null;
+            _argsY = null;
+            _argsZ = null;
+        }
     }
 }

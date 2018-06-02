@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using AGS.API;
 using Autofac;
 using OpenTK;
@@ -6,7 +7,7 @@ using OpenTK.Graphics;
 
 namespace AGS.Engine.Desktop
 {
-	public class AGSGameWindow : IGameWindow
+    public class AGSGameWindow : IGameWindow, IWindowInfo
 	{
         private static GameWindow _gameWindow;
         private IGameWindowSize _windowSize;
@@ -17,7 +18,7 @@ namespace AGS.Engine.Desktop
             _windowSize = windowSize;
             _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height,
                                          GraphicsMode.Default, settings.Title);
-
+            input.Init(this);
             input.Init(_gameWindow);
 
             _updateFrameArgs = new FrameEventArgs();
@@ -40,7 +41,10 @@ namespace AGS.Engine.Desktop
         }
         public event EventHandler<FrameEventArgs> UpdateFrame;
         public event EventHandler<FrameEventArgs> RenderFrame;
-         
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
         public double TargetUpdateFrequency { get => _gameWindow.TargetUpdateFrequency; set => _gameWindow.TargetUpdateFrequency = value; }
         public string Title { get => _gameWindow.Title; set => _gameWindow.Title = value; }
         public VsyncMode Vsync { get => (VsyncMode)_gameWindow.VSync; set => _gameWindow.VSync = (VSyncMode)value; }
@@ -60,6 +64,10 @@ namespace AGS.Engine.Desktop
         public int ClientWidth => _windowSize.GetWidth(_gameWindow);
         public int ClientHeight => _windowSize.GetHeight(_gameWindow);
         public void SetSize(Size size) => _windowSize.SetSize(_gameWindow, size);
+        public Rectangle GameSubWindow => _windowSize.GetWindow(_gameWindow);
+        public float AppWindowHeight => _windowSize.GetHeight(_gameWindow);
+        public float AppWindowWidth => _windowSize.GetWidth(_gameWindow);
+        public Rectangle ScreenViewport { get; set; }
 
         public void Run(double updateRate) => _gameWindow.Run(updateRate);
         public void SwapBuffers() => _gameWindow.SwapBuffers();
@@ -79,4 +87,3 @@ namespace AGS.Engine.Desktop
         }
     }
 }
-

@@ -14,21 +14,20 @@ namespace AGS.Engine.Desktop
 {
 	public class DesktopFontFamilyLoader
 	{
-		private IResourceLoader _resources;
-        private PrivateFontCollection _fontCollection;
-		private int _lastFontInCollection;
-        private Dictionary<string, FontFamily> _families;
+		private PrivateFontCollection _fontCollection;
+        private Dictionary<string, FontFamily> _familiesByPath;
+        private Dictionary<string, FontFamily> _familiesByName;
 		private Action _refreshFontCache;
 
 		private const string MAC_FONT_LIBRARY = "/Library/Fonts";
         private readonly string LINUX_FONT_LIBRARY = $"{Environment.GetEnvironmentVariable("HOME")}/.fonts"; //or: /usr/share/fonts/(truetype)
 
-		public DesktopFontFamilyLoader(IResourceLoader resources)
+		public DesktopFontFamilyLoader()
 		{
-			_resources = resources;
             _fontCollection = new PrivateFontCollection();
-            _families = new Dictionary<string, FontFamily>();
-		}
+            _familiesByPath = new Dictionary<string, FontFamily>();
+            _familiesByName = new Dictionary<string, FontFamily>();
+        }
 
 		public void InstallFonts(params string[] paths)
 		{
@@ -41,37 +40,58 @@ namespace AGS.Engine.Desktop
 
         public FontFamily LoadFontFamily(string path)
         {
-            return _families.GetOrAdd(path, () => loadFontFamily(path));
+            return _familiesByPath.GetOrAdd(path, () => loadFontFamily(path));
+        }
+
+        public FontFamily SearchByName(string name)
+        {
+            if (_familiesByName.TryGetValue(name, out var family))
+                return family;
+            return null;
         }
 
 		private FontFamily loadFontFamily(string path)
 		{
-			IResource resource = _resources.LoadResource(path);
+            IResource resource = AGSGame.Game.Factory.Resources.LoadResource(path);
 
-			var buffer = new byte[resource.Stream.Length];
-			resource.Stream.Read(buffer, 0, buffer.Length);
+            var buffer = new byte[resource.Stream.Length];
+            resource.Stream.Read(buffer, 0, buffer.Length);
 
-			IntPtr fontPtr = Marshal.AllocCoTaskMem(buffer.Length);
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(buffer.Length);
 
-			Marshal.Copy(buffer, 0, fontPtr, buffer.Length);
+            Marshal.Copy(buffer, 0, fontPtr, buffer.Length);
 
-			_fontCollection.AddMemoryFont(fontPtr, buffer.Length);
+            _fontCollection.AddMemoryFont(fontPtr, buffer.Length);
 
-			//Marshal.FreeCoTaskMem(fontPtr); The pointer should not be released: See Hans Passant's answer on this: http://stackoverflow.com/questions/25583394/privatefontcollection-addmemoryfont-producing-random-errors-on-windows-server-20
+            //Marshal.FreeCoTaskMem(fontPtr); The pointer should not be released: See Hans Passant's answer on this: http://stackoverflow.com/questions/25583394/privatefontcollection-addmemoryfont-producing-random-errors-on-windows-server-20
 
-			FontFamily family = _fontCollection.Families[_lastFontInCollection];
-			_lastFontInCollection++;
+            FontFamily family = null;
+            bool foundFamily = false;
+            for (int i = 0; i < _fontCollection.Families.Length; i++)
+            {
+                family = _fontCollection.Families[i];
+                if (!_familiesByName.ContainsKey(family.Name))
+                {
+                    _familiesByName[family.Name] = family;
+                    foundFamily = true;
+                    break;
+                }
+            }
+            if (!foundFamily)
+            {
+                throw new IOException($"Failed to find family from {path} after adding it to the private memory collection.");
+            }
 
-			if (isMac())
-			{
-				return loadFontFamilyOnMac(path, buffer, family);
-			}
+            if (isMac())
+            {
+                return loadFontFamilyOnMac(path, buffer, family);
+            }
             else if (isLinux())
             {
                 return loadFontFamilyOnLinux(path, buffer, family);
             }
 
-			return family;
+            return family;
 		}
 
 		//How to install fonts: http://www.dafont.com/faq.php

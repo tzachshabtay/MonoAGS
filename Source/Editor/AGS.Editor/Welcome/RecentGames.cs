@@ -13,14 +13,14 @@ namespace AGS.Editor
         const string PATH = "recent_games.txt";
         const int GAMES_LIMIT = 8;
         private readonly IFileSystem _fileSystem;
-        private readonly IGameFactory _factory;
+        private readonly AGSEditor _editor;
         private readonly List<(string, string)> _games = new List<(string, string)>();
         private readonly IRenderMessagePump _messagePump;
 
-        public RecentGames(IFileSystem fileSystem, IGameFactory factory, IRenderMessagePump messagePump)
+        public RecentGames(IFileSystem fileSystem, AGSEditor editor, IRenderMessagePump messagePump)
         {
             _fileSystem = fileSystem;
-            _factory = factory;
+            _editor = editor;
             _messagePump = messagePump;
         }
 
@@ -56,33 +56,34 @@ namespace AGS.Editor
 
         public IObject Show(IObject parent)
         {
-            var panel = _factory.UI.GetPanel("RecentGamesPanel", 800f, 600f, 0f, 0f, parent);
+            var factory = _editor.Editor.Factory;
+            var panel = factory.UI.GetPanel("RecentGamesPanel", 800f, 600f, 0f, 0f, parent);
             panel.Tint = GameViewColors.SubPanel;
             panel.Border = AGSBorders.SolidColor(GameViewColors.Border, 5f);
             var layout = panel.AddComponent<IStackLayoutComponent>();
             layout.StartLocation = panel.Height - 60f;
             layout.AbsoluteSpacing = -10f;
-            _factory.UI.GetLabel("RecentGamesLabel", "Recent Games:", 200f, 50f, 0f, 0f, panel);
+            factory.UI.GetLabel("RecentGamesLabel", "Recent Games:", 200f, 50f, 0f, 0f, panel);
 
-            var labelFont = _factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 8f, FontStyle.Italic);
+            var labelFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 8f, FontStyle.Italic);
             if (_games.Count == 0)
             {
-                _factory.UI.GetLabel("NoRecentGamesLabel", "There's nothing here yet, time to start making games!", 200f, 20f, 0f, 0f, panel, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
+                factory.UI.GetLabel("NoRecentGamesLabel", "There's nothing here yet, time to start making games!", 200f, 20f, 0f, 0f, panel, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
                 layout.StartLayout();
                 return panel;
             }
 
-            var buttonFont = _factory.Fonts.LoadFont(AGSGameSettings.DefaultTextFont.FontFamily, 14f, FontStyle.Bold);
+            var buttonFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 14f, FontStyle.Bold);
 
-            var idle = new ButtonAnimation(null, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.LightSkyBlue), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
-            var hovered = new ButtonAnimation(null, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
-            var pushed = new ButtonAnimation(null, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Black), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var idle = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.LightSkyBlue), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var hovered = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var pushed = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Black), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
 
             foreach (var (game, path) in _games)
             {
-                var gamePanel = _factory.UI.GetPanel($"RecentGamePanel_{path}", panel.Width, 40f, 0f, 0f, panel);
+                var gamePanel = factory.UI.GetPanel($"RecentGamePanel_{path}", panel.Width, 40f, 0f, 0f, panel);
                 gamePanel.Tint = Colors.Transparent;
-                var button = _factory.UI.GetButton($"RecentGameButton_{path}", idle, hovered, pushed, 0f, 20f, gamePanel, game, width: 30f, height: 20f);
+                var button = factory.UI.GetButton($"RecentGameButton_{path}", idle, hovered, pushed, 0f, 20f, gamePanel, game, width: 30f, height: 20f);
                 button.MouseClicked.Subscribe(async args =>
                 {
                     if (!_fileSystem.FileExists(path))
@@ -93,9 +94,9 @@ namespace AGS.Editor
                     parent.Visible = false;
                     AddGame(game, path);
                     await Task.Delay(100);
-                    GameLoader.Load(_messagePump, AGSProject.Load(path));
+                    GameLoader.Load(_messagePump, AGSProject.Load(path), _editor);
                 });
-                _factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, new AGSTextConfig(_factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
+                factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
             }
             layout.StartLayout();
             return panel;

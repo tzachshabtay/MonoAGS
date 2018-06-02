@@ -18,7 +18,8 @@ namespace AGS.Engine
 
         public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
-                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IRenderMessagePump messagePump)
+                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, 
+                                  IRenderMessagePump messagePump, IGameSettings settings)
 		{
             Icons = icons;
             Brushes = brushes;
@@ -29,7 +30,7 @@ namespace AGS.Engine
 			_bitmapLoader = bitmapLoader;
             _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();
+            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils, settings).CreateSkin();
 		}
 
         public IIconFactory Icons { get; private set; }
@@ -291,6 +292,10 @@ namespace AGS.Engine
 
         private IImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
+            if (resource == null)
+            {
+                return null;
+            }
             IImage image = null;
             _renderThread.RunBlocking(() =>
             {
@@ -361,4 +366,3 @@ namespace AGS.Engine
         }
 	}
 }
-

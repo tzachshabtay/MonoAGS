@@ -13,6 +13,8 @@ namespace AGS.API
     /// <code language="lang-csharp">
     /// public class MyGameStarter : IGameStarter
     /// {
+    ///     IGameSettings Settings => new AGSGameSettings("My Game", new Size(1280, 800));
+    /// 
     ///     public void StartGame(IGame game)
     ///     {
     ///         game.Events.OnLoad.Subscribe(onGameLoaded); //Here is where you create all of the rooms, characters, etc in the game.
@@ -22,6 +24,12 @@ namespace AGS.API
     /// </example>
     public interface IGameStarter
     {
+        /// <summary>
+        /// Gets the settings for the game.
+        /// </summary>
+        /// <value>The settings.</value>
+        IGameSettings Settings { get; }
+
         /// <summary>
         /// Creates the game.
         /// </summary>

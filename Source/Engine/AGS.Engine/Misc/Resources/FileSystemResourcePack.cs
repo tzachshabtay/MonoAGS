@@ -103,6 +103,7 @@ namespace AGS.Engine
         {
             string exeDir = assembly == null ? _fileSystem.GetCurrentDirectory() :
                 Path.GetDirectoryName(assembly.GetName().CodeBase.Replace("file:///", ""));
+            if (string.IsNullOrEmpty(exeDir)) return "";
             string dir = exeDir;
             while (true)
             {

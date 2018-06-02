@@ -50,10 +50,10 @@ namespace AGS.Engine
 		{
 			if (_state.Cutscene.IsSkipping)
 			{
-                if (_outfit != null) setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
+                if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
 				return;
 			}
-            if (_outfit != null) setAnimation(_outfit.Outfit[AGSOutfit.Speak]);
+            if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Speak]);
 			await Task.Delay(1);
             var speech = await _speechCache.GetSpeechLineAsync(_characterName, text);
             text = speech.Text;
@@ -85,7 +85,7 @@ namespace AGS.Engine
             label.Dispose();
             if (portrait != null) portrait.Visible = false;
 
-            if (_outfit != null) setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
+            if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
 		}
 
         private IObject showPortrait(PointF? portraitLocation)
@@ -102,12 +102,12 @@ namespace AGS.Engine
             return portrait;
         }
 
-		private void setAnimation(IDirectionalAnimation animation)
+		private async Task setAnimation(IDirectionalAnimation animation)
 		{
             if (animation != null)
 			{
 				_faceDirection.CurrentDirectionalAnimation = animation;
-				_faceDirection.FaceDirection(_faceDirection.Direction);
+				await _faceDirection.FaceDirectionAsync(_faceDirection.Direction);
 			}
 		}
 

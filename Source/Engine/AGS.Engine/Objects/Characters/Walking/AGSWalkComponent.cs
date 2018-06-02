@@ -9,42 +9,42 @@ using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
-	public class AGSWalkComponent : AGSComponent, IWalkComponent
-	{
+    public class AGSWalkComponent : AGSComponent, IWalkComponent
+    {
         private WalkInstruction _currentWalk;
         private ConcurrentQueue<WalkInstruction> _incomingInstructions;
         private IPathFinder _pathFinder;
-		private List<IObject> _debugPath;
-		private IFaceDirectionComponent _faceDirection;
-		private IOutfitComponent _outfit;
+        private List<IObject> _debugPath;
+        private IFaceDirectionComponent _faceDirection;
+        private IOutfitComponent _outfit;
         private IHasRoomComponent _room;
         private IDrawableInfoComponent _drawable;
-		private IObjectFactory _objFactory;
+        private IObjectFactory _objFactory;
         private ITranslate _translate;
         private IEntity _entity;
-		private ICutscene _cutscene;
-		private IGameState _state;
+        private ICutscene _cutscene;
+        private IGameState _state;
         private IGameEvents _events;
         private IAnimationComponent _animation;
         private readonly IGLUtils _glUtils;
 
-		public AGSWalkComponent(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
-		{
+        public AGSWalkComponent(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
+        {
             _incomingInstructions = new ConcurrentQueue<WalkInstruction>();
             _state = game.State;
             _cutscene = _state.Cutscene;
             _events = game.Events;
-			_pathFinder = pathFinder;
-			_objFactory = objFactory;
+            _pathFinder = pathFinder;
+            _objFactory = objFactory;
             _glUtils = glUtils;
 
-			_debugPath = new List<IObject> ();
+            _debugPath = new List<IObject>();
             AdjustWalkSpeedToScaleArea = true;
             MovementLinkedToAnimation = true;
             WalkStep = new PointF(8f, 8f);
 
             _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-		}
+        }
 
         public static int WalkLineTimeoutInMilliseconds = 15000; //15 seconds
 
@@ -52,6 +52,7 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _entity = null;
             var instructions = _incomingInstructions;
             if (instructions != null)
             {
@@ -76,30 +77,30 @@ namespace AGS.Engine
 
         #region IWalkBehavior implementation
 
-        public async Task<bool> WalkAsync (Position position, bool walkAnywhere = false)
-		{
+        public async Task<bool> WalkAsync(Position position, bool walkAnywhere = false)
+        {
             return await walkAsync(position, walkAnywhere, walkAnywhere);
-		}
+        }
 
         public async Task<bool> WalkStraightAsync(Position position)
         {
             return await walkAsync(position, true, false);
         }
 
-		public async Task StopWalkingAsync()
-		{
+        public async Task StopWalkingAsync()
+        {
             await addNewInstructionAsync((0, 0), false, false, true);
-		}
+        }
 
-		public void PlaceOnWalkableArea()
-		{
-            PointF current = new PointF (_translate.X, _translate.Y);
-			PointF? closestPoint = getClosestWalkablePoint (current);
-			if (closestPoint != null)
-			{
+        public void PlaceOnWalkableArea()
+        {
+            PointF current = new PointF(_translate.X, _translate.Y);
+            PointF? closestPoint = getClosestWalkablePoint(current);
+            if (closestPoint != null)
+            {
                 _translate.Position = (closestPoint.Value.X, closestPoint.Value.Y);
-			}
-		}
+            }
+        }
 
         public PointF WalkStep { get; set; }
 
@@ -107,19 +108,19 @@ namespace AGS.Engine
 
         public bool MovementLinkedToAnimation { get; set; }
 
-		public bool IsWalking
-		{
-			get
-			{
+        public bool IsWalking
+        {
+            get
+            {
                 Task task = _currentWalk?.OnCompletion.Task;
                 if (task == null) return false;
-				return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
-			}
-		}
+                return (!task.IsCompleted && !task.IsCanceled && !task.IsFaulted);
+            }
+        }
 
         public Position WalkDestination { get; private set; }
 
-		public bool DebugDrawWalkPath { get; set; }
+        public bool DebugDrawWalkPath { get; set; }
 
         #endregion
 
@@ -169,8 +170,8 @@ namespace AGS.Engine
             currentLine.Viewport = (_state.Viewport.X, _state.Viewport.Y);
 
             currentLine.NumSteps -= Math.Abs(currentLine.IsBaseStepX ? xStep : yStep);
-			if (currentLine.NumSteps >= 0f)
-			{
+            if (currentLine.NumSteps >= 0f)
+            {
                 var candidateX = _translate.X + (xStep - currentLine.Compensate.x);
                 var candidateY = _translate.Y + (yStep - currentLine.Compensate.y);
                 if (currentWalk.WalkAnywhere || isWalkable(new Position(candidateX, candidateY)))
@@ -182,7 +183,7 @@ namespace AGS.Engine
                     onWalkLineCompleted(currentWalk, currentLine, false);
                     return;
                 }
-			}
+            }
             currentLine.Compensate = (0f, 0f);
         }
 
@@ -273,86 +274,86 @@ namespace AGS.Engine
         }
 
         private async Task<bool> walkAsync(WalkInstruction currentWalk, Position location, bool straightLine, List<IObject> debugRenderers)
-		{
-            IEnumerable<Position> walkPoints = straightLine ? new List<Position> { location} : getWalkPoints (location);
+        {
+            IEnumerable<Position> walkPoints = straightLine ? new List<Position> { location } : getWalkPoints(location);
 
-			if (!walkPoints.Any ())
-				return false;
-			foreach (var point in walkPoints)
-			{
+            if (!walkPoints.Any())
+                return false;
+            foreach (var point in walkPoints)
+            {
                 if (point.X == _translate.X && point.Y == _translate.Y) continue;
                 if (!await walkStraightLine(currentWalk, point, debugRenderers))
                     return false;
-			}
-			return true;
-		}
+            }
+            return true;
+        }
 
         private async Task<bool> addNewInstructionAsync(Position destination, bool walkAnywhere, bool straightLine, bool stopOnly)
-		{
+        {
             WalkInstruction newWalk = new WalkInstruction(_room?.Room, destination, walkAnywhere, straightLine, stopOnly);
             _incomingInstructions.Enqueue(newWalk);
             return await newWalk.OnCompletion.Task;
-		}
+        }
 
-		private PointF? getClosestWalkablePoint(PointF target)
-		{
-			var points = getClosestWalkablePoints(target);
-			if (points.Count == 0) return null;
-			return points[0];
-		}
+        private PointF? getClosestWalkablePoint(PointF target)
+        {
+            var points = getClosestWalkablePoints(target);
+            if (points.Count == 0) return null;
+            return points[0];
+        }
 
-		private List<PointF> getClosestWalkablePoints(PointF target)
-		{
-            List<(PointF point, float distance)> points = new List<(PointF, float)> (_room.Room.Areas.Count);
+        private List<PointF> getClosestWalkablePoints(PointF target)
+        {
+            List<(PointF point, float distance)> points = new List<(PointF, float)>(_room.Room.Areas.Count);
             foreach (IArea area in getWalkableAreas())
-			{
-				float distance;
-				PointF? point = area.FindClosestPoint (target, out distance);
-				if (point == null) continue;
-				points.Add((point.Value, distance));
-			}
+            {
+                float distance;
+                PointF? point = area.FindClosestPoint(target, out distance);
+                if (point == null) continue;
+                points.Add((point.Value, distance));
+            }
             return points.OrderBy(p => p.distance).Select(p => p.point).ToList();
-		}
+        }
 
         private IEnumerable<Position> getWalkPoints(Position destination)
-		{
+        {
             if (!isWalkable(_translate.Position))
-                return new List<Position> ();
-            List<PointF> closestPoints = new List<PointF> (_room.Room.Areas.Count + 1);
-			if (isWalkable(destination))
-			{
-				closestPoints.Add(destination.XY);
-			}
+                return new List<Position>();
+            List<PointF> closestPoints = new List<PointF>(_room.Room.Areas.Count + 1);
+            if (isWalkable(destination))
+            {
+                closestPoints.Add(destination.XY);
+            }
 
-			closestPoints.AddRange(getClosestWalkablePoints (destination.XY));
-			if (closestPoints.Count == 0)
+            closestPoints.AddRange(getClosestWalkablePoints(destination.XY));
+            if (closestPoints.Count == 0)
                 return new List<Position>();
 
             Point offset;
-			bool[][] mask = getWalkableMask(out offset);
+            bool[][] mask = getWalkableMask(out offset);
             var from = _translate.Position;
             from = new Position(from.X - offset.X, from.Y - offset.Y, from.Z);
-			_pathFinder.Init(mask);
-			foreach (var closest in closestPoints)
-			{
+            _pathFinder.Init(mask);
+            foreach (var closest in closestPoints)
+            {
                 destination = new Position(closest.X - offset.X, closest.Y - offset.Y, destination.Z);
-				var walkPoints = _pathFinder.GetWalkPoints(from, destination);
+                var walkPoints = _pathFinder.GetWalkPoints(from, destination);
                 if (walkPoints.Any()) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y, w.Z));
-			}
-            return new List<Position> ();
-		}
+            }
+            return new List<Position>();
+        }
 
         private bool isWalkable(Position location)
-		{
+        {
             foreach (var area in getWalkableAreas())
-			{
+            {
                 if (area.IsInArea(location.XY)) return true;
-			}
-			return false;
-		}
+            }
+            return false;
+        }
 
-		private bool[][] getWalkableMask(out Point offset)
-		{
+        private bool[][] getWalkableMask(out Point offset)
+        {
             var walkables = getWalkableAreas().ToList();
             var minX = (int)walkables.Min(a => a.Mask.MinX);
             var maxX = (int)walkables.Max(a => a.Mask.MaxX);
@@ -361,14 +362,14 @@ namespace AGS.Engine
             int width = maxX - minX;
             int height = maxY - minY;
             offset = new Point(minX, minY);
-			bool[][] mask = new bool[width][];
+            bool[][] mask = new bool[width][];
             for (int i = 0; i < mask.Length; i++) mask[i] = new bool[height];
-			foreach (var area in walkables)
-			{
-				area.Mask.ApplyToMask(mask, offset);
-			}
-			return mask;
-		}
+            foreach (var area in walkables)
+            {
+                area.Mask.ApplyToMask(mask, offset);
+            }
+            return mask;
+        }
 
         private IEnumerable<IArea> getWalkableAreas()
         {
@@ -385,20 +386,23 @@ namespace AGS.Engine
         }
 
         private async Task<bool> walkStraightLine(WalkInstruction currentWalk, Position destination, List<IObject> debugRenderers)
-		{
+        {
             if (_room?.Room != currentWalk.Room) return false;
 
-			if (debugRenderers != null)
-			{
-				IObject renderer = _objFactory.GetObject("Debug Line");
+            if (debugRenderers != null)
+            {
+                IObject renderer = _objFactory.GetObject("Debug Line");
                 var line = renderer.AddComponent<GLLineRenderer>();
-                line.X1 = _translate.X;
-                line.Y1 = _translate.Y;
-                line.X2 = destination.X;
-                line.Y2 = destination.Y;
+                if (line != null)
+                {
+                    line.X1 = _translate.X;
+                    line.Y1 = _translate.Y;
+                    line.X2 = destination.X;
+                    line.Y2 = destination.Y;
+                }
                 await renderer.ChangeRoomAsync(currentWalk.Room);
-				debugRenderers.Add (renderer);
-			}
+                debugRenderers.Add(renderer);
+            }
 
             if (_cutscene.IsSkipping)
             {
@@ -407,31 +411,31 @@ namespace AGS.Engine
             }
 
             if (!isDistanceVeryShort(destination))
-			{
-				var lastDirection = _faceDirection.Direction;
+            {
+                var lastDirection = _faceDirection.Direction;
                 var walkAnimation = _outfit.Outfit[AGSOutfit.Walk];
                 bool alreadyWalking = _faceDirection.CurrentDirectionalAnimation == walkAnimation;
                 _faceDirection.CurrentDirectionalAnimation = walkAnimation;
                 await _faceDirection.FaceDirectionAsync(_translate.X, _translate.Y, destination.X, destination.Y);
-				if (lastDirection != _faceDirection.Direction && alreadyWalking)
-				{
-					await Task.Delay(200);
-				}
-			}
+                if (lastDirection != _faceDirection.Direction && alreadyWalking)
+                {
+                    await Task.Delay(200);
+                }
+            }
 
-            float xSteps = Math.Abs (destination.X - _translate.X);
-            float ySteps = Math.Abs (destination.Y - _translate.Y);
+            float xSteps = Math.Abs(destination.X - _translate.X);
+            float ySteps = Math.Abs(destination.Y - _translate.Y);
 
-			float numSteps = Math.Max (xSteps, ySteps);
-			bool isBaseStepX = xSteps >= ySteps;
+            float numSteps = Math.Max(xSteps, ySteps);
+            bool isBaseStepX = xSteps >= ySteps;
 
             float xStep = xSteps / numSteps;
             if (_translate.X > destination.X) xStep = -xStep;
 
-			float yStep = ySteps / numSteps;
+            float yStep = ySteps / numSteps;
             if (_translate.Y > destination.Y) yStep = -yStep;
 
-			WalkLineInstruction instruction = new WalkLineInstruction(numSteps, xStep, yStep,
+            WalkLineInstruction instruction = new WalkLineInstruction(numSteps, xStep, yStep,
                                                                       isBaseStepX, destination);
             currentWalk.CurrentLine = instruction;
             if (_currentWalk != currentWalk)
@@ -467,20 +471,20 @@ namespace AGS.Engine
             }
 
             return false;
-		}
+        }
 
         private bool isDistanceVeryShort(Position destination)
-		{
+        {
             var deltaX = destination.X - _translate.X;
             var deltaY = destination.Y - _translate.Y;
-			return (deltaX * deltaX) + (deltaY * deltaY) < 10;
-		}
+            return (deltaX * deltaX) + (deltaY * deltaY) < 10;
+        }
 
         private PointF adjustWalkSpeed(PointF walkSpeed)
-		{
+        {
             walkSpeed = adjustWalkSpeedBasedOnArea(walkSpeed);
-			return walkSpeed;
-		}
+            return walkSpeed;
+        }
 
         private PointF adjustWalkSpeedBasedOnArea(PointF walkSpeed)
         {
@@ -533,13 +537,13 @@ namespace AGS.Engine
 
         private class WalkLineInstruction
         {
-			public WalkLineInstruction(float numSteps, float xStep, float yStep,
+            public WalkLineInstruction(float numSteps, float xStep, float yStep,
                                        bool isBaseStepX, Position destination)
             {
                 NumSteps = numSteps;
                 XStep = xStep;
                 YStep = yStep;
-				IsBaseStepX = isBaseStepX;
+                IsBaseStepX = isBaseStepX;
                 Destination = destination;
                 OnCompletion = new TaskCompletionSource<bool>();
             }

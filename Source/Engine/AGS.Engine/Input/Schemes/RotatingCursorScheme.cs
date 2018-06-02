@@ -102,6 +102,7 @@ namespace AGS.Engine
 
         private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state, IHitTest hitTest)
 		{
+            if (!e.MousePosition.InWindow) return;
 			string mode = CurrentMode;
             IObject hotspot = hitTest.ObjectAtMousePosition;
             IHotspotComponent hotComp = hotspot?.GetComponent<IHotspotComponent>();
@@ -210,7 +211,7 @@ namespace AGS.Engine
 
 			public string Mode { get; private set; }
 			public IObject Animation { get; set; }
-			public bool Rotating { get; private set;}
+			public bool Rotating { get; private set; }
 		}
 	}
 }

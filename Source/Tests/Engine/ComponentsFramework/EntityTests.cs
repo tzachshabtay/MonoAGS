@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
@@ -40,7 +41,7 @@ namespace Tests
             for (int i = 0; i < 100; i++)
             {
                 OnlyOneComponent.LastID = 0;
-                AGSEmptyEntity entity = new AGSEmptyEntity("Test", resolver);
+                AGSEmptyEntity entity = new AGSEmptyEntity("Test" + Guid.NewGuid(), resolver);
 
                 List<Task> tasks = new List<Task>();
                 for (int j = 0; j < 10; j++)

@@ -51,49 +51,11 @@ namespace AGS.Engine
             _graphics.LoadIdentity();
         }
 
-        public void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, IViewport viewport)
+        public void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport, bool updateViewportScreenArea)
         {
-            float viewX = 0;
-            float viewY = 0;
-            int width = gameWindow.Width;
-            int height = gameWindow.Height;
-            if (settings.PreserveAspectRatio) //http://www.david-amador.com/2013/04/opengl-2d-independent-resolution-rendering/
-            {
-                float targetAspectRatio = (float)settings.VirtualResolution.Width / settings.VirtualResolution.Height;
-                Size screen = new Size(gameWindow.Width, gameWindow.Height);
-                width = screen.Width;
-                height = (int)(width / targetAspectRatio + 0.5f);
-                if (height > screen.Height)
-                {
-                    //It doesn't fit our height, we must switch to pillarbox then
-                    height = screen.Height;
-                    width = (int)(height * targetAspectRatio + 0.5f);
-                }
-
-                // set up the new viewport centered in the backbuffer
-                viewX = (screen.Width / 2) - (width / 2);
-                viewY = (screen.Height / 2) - (height / 2);
-            }
-
-            var projectionBox = viewport.ProjectionBox;
-			viewX = viewX + (float)(viewX + width) * projectionBox.X;
-			viewY = viewY + (float)(viewY + height) * projectionBox.Y;
-			var parent = viewport.Parent;
-			if (parent != null)
-			{
-                var boundingBoxes = parent.GetBoundingBoxes(_state.Viewport);
-				if (boundingBoxes != null)
-				{
-                    viewX += boundingBoxes.ViewportBox.MinX;
-                    viewY += boundingBoxes.ViewportBox.MinY;
-				}
-			}
-			width = (int)Math.Round((float)width * projectionBox.Width);
-			height = (int)Math.Round((float)height * projectionBox.Height);
-            var viewXInt = (int)Math.Round(viewX);
-            var viewYInt = (int)Math.Round(viewY);
-            ScreenViewport = new Rectangle(viewXInt, viewYInt, width, height);
-            _graphics.Viewport(viewXInt, viewYInt, width, height);
+            var area = viewport.GetScreenArea(settings, window, updateViewportScreenArea);
+            ScreenViewport = viewport.ScreenArea;
+            _graphics.Viewport(area.X, area.Y, area.Width, area.Height);
         }
 
 		public void GenBuffers()
@@ -161,7 +123,7 @@ namespace AGS.Engine
             return true;
         }
 
-        public IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IRuntimeSettings settings)
+        public IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IGameSettings settings)
         {
             float width = square.MaxX - square.MinX;
             float height = square.MaxY - square.MinY;

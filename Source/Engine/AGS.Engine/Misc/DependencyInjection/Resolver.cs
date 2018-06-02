@@ -11,7 +11,7 @@ namespace AGS.Engine
 	{
         private static List<Action<Resolver>> _overrides = new List<Action<Resolver>>();
 
-		public Resolver(IDevice device)
+        public Resolver(IDevice device, IGameSettings settings)
 		{
 			Builder = new ContainerBuilder ();
 
@@ -25,7 +25,6 @@ namespace AGS.Engine
 
             registerDevice(device);
 
-            RegisterType<AGSObject, IObject>();
             RegisterType<GLImage, IImage>();
             RegisterType<AGSDialogActions, IDialogActions>();
             RegisterType<AGSSayLocationProvider, ISayLocationProvider>();
@@ -56,14 +55,46 @@ namespace AGS.Engine
             Builder.RegisterType<GLTextureCache>().SingleInstance().As<ITextureCache>();
             Builder.RegisterType<AGSDefaultInteractions>().SingleInstance().As<IDefaultInteractions>();
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();
+            Builder.RegisterType<AGSShouldBlockInput>().SingleInstance().As<IShouldBlockInput>();
+            Builder.RegisterType<AGSMaskLoader>().SingleInstance().As<IMaskLoader>();
+            Builder.RegisterType<AGSGameFactory>().SingleInstance().As<IGameFactory>();
+            Builder.RegisterType<ALAudioFactory>().SingleInstance().As<IAudioFactory>();
 
-			registerComponents();
+            registerComponents();
+
+            //Registering lambdas for increasing performance
+            Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IButton>((c, p) => new AGSButton(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ILabel>((c, p) => new AGSLabel(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IObject>((c, p) => new AGSObject(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ISlider>((c, p) => new AGSSlider(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ITextBox>((c, p) => new AGSTextbox(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ICheckBox>((c, p) => new AGSCheckBox(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<IComboBox>((c, p) => new AGSComboBox(p.TypedAs<string>(), this)).ExternallyOwned();
+            Builder.Register<ITranslateComponent>((c, p) => new AGSTranslateComponent(c.Resolve<ITranslate>())).ExternallyOwned();
+            Builder.Register<ITranslate>((c, p) => new AGSTranslate()).ExternallyOwned();
+            Builder.Register<IScaleComponent>((c, p) => new AGSScaleComponent(c.Resolve<IScale>())).ExternallyOwned();
+            Builder.Register<IScale>((c, p) => new AGSScale()).ExternallyOwned();
+            Builder.Register<IRotateComponent>((c, p) => new AGSRotateComponent(c.Resolve<IRotate>())).ExternallyOwned();
+            Builder.Register<IRotate>((c, p) => new AGSRotate()).ExternallyOwned();
+            Builder.Register<IDrawableInfoComponent>((c, p) => new AGSDrawableInfoComponent()).ExternallyOwned();
+            Builder.Register<IUIEvents>((c, p) => new AGSUIEvents(c.Resolve<UIEventsAggregator>())).ExternallyOwned();
+            Builder.Register<ISkinComponent>((c, p) => new AGSSkinComponent(c.Resolve<IGameSettings>())).ExternallyOwned();
+            Builder.Register<IHasRoomComponent>((c, p) => new HasRoomComponent(c.Resolve<IGameState>(), c.Resolve<IAGSRoomTransitions>())).ExternallyOwned();
+            Builder.Register<IAnimationComponent>((c, p) => new AGSAnimationComponent()).ExternallyOwned();
+            Builder.Register<IInObjectTreeComponent>((c, p) => new InObjectTreeComponent()).ExternallyOwned();
+            Builder.Register<IColliderComponent>((c, p) => new AGSCollider(c.Resolve<IGameState>())).ExternallyOwned();
+            Builder.Register<IVisibleComponent>((c, p) => new VisibleProperty()).ExternallyOwned();
+            Builder.Register<IEnabledComponent>((c, p) => new EnabledProperty()).ExternallyOwned();
+            Builder.Register<ICustomPropertiesComponent>((c, p) => new AGSCustomPropertiesComponent(c.Resolve<ICustomProperties>())).ExternallyOwned();
+            Builder.Register<IShaderComponent>((c, p) => new AGSShaderComponent()).ExternallyOwned();
+            Builder.Register<IBorderComponent>((c, p) => new AGSBorderComponent(c.Resolve<IRenderPipeline>())).ExternallyOwned();
+            Builder.Register<IPixelPerfectComponent>((c, p) => new AGSPixelPerfectComponent()).ExternallyOwned();
+            Builder.Register<IModelMatrixComponent>((c, p) => new AGSModelMatrixComponent(c.Resolve<IRuntimeSettings>())).ExternallyOwned();
+            Builder.Register<IWorldPositionComponent>((c, p) => new AGSWorldPositionComponent()).ExternallyOwned();
 
 			RegisterType<AGSSprite, ISprite>();
             RegisterType<AGSBoundingBoxesBuilder, IBoundingBoxBuilder>();
-            RegisterType<AGSTranslate, ITranslate>();
-            RegisterType<AGSScale, IScale>();
-            RegisterType<AGSRotate, IRotate>();
             RegisterType<AGSHasImage, IHasImage>();
             RegisterType<AGSEvent, IEvent>();
             RegisterType<AGSEvent, IBlockingEvent>();
@@ -74,6 +105,7 @@ namespace AGS.Engine
 
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
+            Builder.RegisterInstance(settings).As<IGameSettings>();
 
             Builder.RegisterSource(new ResolveAnythingSource());
 
@@ -106,6 +138,7 @@ namespace AGS.Engine
             Builder.RegisterInstance(device.Assemblies).As<IAssemblies>();
             Builder.RegisterInstance(device.BitmapLoader).As<IBitmapLoader>();
             Builder.RegisterInstance(device.BrushLoader).As<IBrushLoader>();
+            Builder.RegisterInstance(device.FontLoader).As<IFontLoader>();
             Builder.RegisterInstance(device.ConfigFile).As<IEngineConfigFile>();
             Builder.RegisterInstance(device.FileSystem).As<IFileSystem>();
             Builder.RegisterInstance(device.GraphicsBackend).As<IGraphicsBackend>();
@@ -139,4 +172,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

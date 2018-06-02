@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using AGS.API;
+using AGS.Engine;
 
-namespace AGS.Engine
+namespace AGS.Editor
 {
     public class AGSSplitPanelComponent : AGSComponent, ISplitPanelComponent
     {
@@ -68,6 +69,7 @@ namespace AGS.Engine
                 {
                     translate.PropertyChanged -= onSplitLineMoved;
                 }
+                existing.Dispose();
             }
         }
 
@@ -78,7 +80,8 @@ namespace AGS.Engine
 			if (topPanel == null) return;
 
             const float lineWidth = 5f;
-            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine");
+            string suffix = IsHorizontal ? "Horiz" : "Vert";
+            var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine_{suffix}");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
             splitLine.RenderLayer = topPanel.RenderLayer;
 			var crop = topPanel.GetComponent<ICropChildrenComponent>();

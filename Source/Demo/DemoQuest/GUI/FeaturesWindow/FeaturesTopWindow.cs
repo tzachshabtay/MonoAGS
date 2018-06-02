@@ -110,7 +110,7 @@ namespace DemoGame
 
         private ITreeStringNode createFeaturesLabel(string text, ITreeStringNode parent, Func<IFeaturesPanel> panel = null)
         {
-            var node = new AGSTreeStringNode { Text = text };
+            var node = new AGSTreeStringNode(text, null);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             _panels[text] = panel == null ? null : new Lazy<IFeaturesPanel>(panel);
             return node;

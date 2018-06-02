@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using AGS.API;
+
+namespace AGS.Editor
 {
     /// <summary>
     /// Adds the ability to place 2 panels adjacent to each other (either vertically or horizontally),

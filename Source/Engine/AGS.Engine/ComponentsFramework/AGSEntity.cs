@@ -7,6 +7,7 @@ using Autofac;
 using System.Linq;
 using System.ComponentModel;
 using PropertyChanged;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -18,18 +19,28 @@ namespace AGS.Engine
         private AGSConcurrentHashSet<API.IComponentBinding> _bindings;
         private Resolver _resolver;
         private string _displayName;
+        private IBlockingEvent _onDisposed;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private static AGSConcurrentHashSet<string> _ids = new AGSConcurrentHashSet<string>(1000, false);
 
         public AGSEntity(string id, Resolver resolver)
         {
             ID = id;
+            if (!_ids.Add(id))
+            {
+                throw new ArgumentException($"Duplicate entity: {id}");
+            }
             _resolver = resolver;
             _components = new ConcurrentDictionary<Type, Lazy<API.IComponent>>();
-            _bindings = new AGSConcurrentHashSet<API.IComponentBinding>();
+            _bindings = new AGSConcurrentHashSet<API.IComponentBinding>(200, false);
             OnComponentsInitialized = new AGSEvent();
             OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<API.IComponent>>();
+            _onDisposed = new AGSEvent();
         }
+
+        public static void ClearIDs() => _ids.Clear();
 
         ~AGSEntity()
         {
@@ -110,8 +121,7 @@ namespace AGS.Engine
 			var components = _components;
             if (components == null) return false;
             int count = Count;
-            Lazy<API.IComponent> component;
-            if (!components.TryRemove(componentType, out component)) return false;
+            if (!components.TryRemove(componentType, out var component)) return false;
 
             component.Value.Dispose();
 			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
@@ -126,6 +136,21 @@ namespace AGS.Engine
 			if (components == null) return false;
             if (!components.TryGetValue(component.GetType(), out var existing) || existing.Value != component) return false;
             return RemoveComponent(component.GetType());
+        }
+
+        public TComponent PopComponent<TComponent>() where TComponent : API.IComponent
+        {
+            var components = _components;
+            if (components == null)
+                return default;
+            int count = Count;
+            if (!components.TryRemove(typeof(TComponent), out var component))
+                return default;
+
+            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
+                                                                  new AGSListItem<API.IComponent>(component.Value, count--)));
+
+            return (TComponent)component.Value;
         }
 
         public bool HasComponent<TComponent>() where TComponent : API.IComponent
@@ -192,8 +217,18 @@ namespace AGS.Engine
         public IEnumerator<API.IComponent> GetEnumerator()
         {
 			var components = _components;
-			if (components == null) return new List<API.IComponent>().GetEnumerator();
-            return components.Values.Select(c => c.Value).GetEnumerator();
+            if (components == null)
+                yield break;
+            foreach (var component in components.Values)
+            {
+                yield return component.Value;
+            }
+        }
+
+        public void OnDisposed(Action action)
+        {
+            _onDisposed?.Subscribe(action);
+            if (_onDisposed == null) action?.Invoke();
         }
 
         #endregion
@@ -226,21 +261,32 @@ namespace AGS.Engine
 
         private void dispose(bool disposing)
         {
-            var components = _components;
-            if (components == null) return;
-            foreach (var component in components.Values)
-            {
-                component.Value.Dispose();
-            }
-            _components = null;
-
+            _ids.Remove(ID);
             var bindings = _bindings;
-            if (bindings == null) return;
-            foreach (var binding in bindings)
+            if (bindings != null)
             {
-                binding.Unbind();
+                foreach (var binding in bindings)
+                {
+                    binding.Unbind();
+                }
             }
+
+            _onDisposed?.Invoke();
+            _onDisposed?.Dispose();
+            _onDisposed = null;
+
+            var components = _components;
+            if (components != null)
+            {
+                foreach (var component in components.Values)
+                {
+                    component.Value.Dispose();
+                }
+            }
+
+            _components = null;
             _bindings = null;
+            PropertyChanged = null;
         }
     }
 }

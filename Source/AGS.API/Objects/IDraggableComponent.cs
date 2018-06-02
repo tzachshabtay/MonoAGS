@@ -3,9 +3,9 @@
     /// <summary>
     /// Adds the ability for an entity to be dragged on the screen with the mouse/touch.
     /// </summary>
-    [RequiredComponent(typeof(IUIEvents))]
     [RequiredComponent(typeof(ITranslateComponent))]
     [RequiredComponent(typeof(IDrawableInfoComponent), false)]
+    [RequiredComponent(typeof(IUIEvents))]
     public interface IDraggableComponent : IComponent
     {
         /// <summary>
@@ -43,5 +43,19 @@
         /// </summary>
         /// <value>The drag maximum y.</value>
         float? DragMaxY { get; set; }
+
+        /// <summary>
+        /// An event that fires when dragging the entity starts. The x & y properties
+        /// of the entity are sent as the event arguments.
+        /// </summary>
+        /// <value>The event.</value>
+        IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
+
+        /// <summary>
+        /// Simulates a mouse down event. This can be useful if you add the draggable component after the
+        /// mouse was already pressed down.
+        /// </summary>
+        /// <param name="args">Arguments.</param>
+        void SimulateMouseDown(MouseButtonEventArgs args);
     }
 }

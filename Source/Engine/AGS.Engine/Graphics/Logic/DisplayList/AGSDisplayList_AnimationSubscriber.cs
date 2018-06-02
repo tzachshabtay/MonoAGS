@@ -31,6 +31,8 @@ namespace AGS.Engine
                 {
                     _binding?.Unbind();
                     _unsubscribe();
+                    _binding = null;
+                    _unsubscribe = null;
                 }
             }
 
@@ -83,6 +85,7 @@ namespace AGS.Engine
                 {
                     state.PropertyChanged -= onAnimationStatePropertyChanged;
                 }
+                _lastAnimation = null;
             }
 
             private void onAnimationStatePropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -129,6 +132,7 @@ namespace AGS.Engine
             {
                 var lastSprite = _lastSprite;
                 if (lastSprite != null) lastSprite.PropertyChanged -= onSpritePropertyChanged;
+                _lastSprite = null;
             }
         }
     }

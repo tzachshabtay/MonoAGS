@@ -1,4 +1,7 @@
-﻿namespace AGS.Engine.Desktop
+﻿using AGS.API;
+using OpenTK;
+
+namespace AGS.Engine.Desktop
 {
     public class DesktopGameWindowSize : IGameWindowSize
     {
@@ -8,5 +11,7 @@
         {
             gameWindow.Size = new System.Drawing.Size(size.Width, size.Height);
         }
+
+        public Rectangle GetWindow(INativeWindow gameWindow) => new Rectangle(0, 0, GetWidth(gameWindow), GetHeight(gameWindow));
     }
 }

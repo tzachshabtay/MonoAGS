@@ -30,9 +30,9 @@ namespace AGS.Engine.Android
         private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements =
             new ConcurrentDictionary<TextMeasureKey, SizeF>();
         
-		public static AndroidFont FromFamilyName(string familyName, FontStyle style, float sizeInPoints)
+        public static AndroidFont FromFamilyName(string familyName, FontStyle style, float sizeInPoints, IFontLoader fontLoader)
 		{
-            AndroidFont font = new AndroidFont ();
+            AndroidFont font = new AndroidFont(fontLoader);
             Typeface innerFont = null;
             if (familyName != null) _fontsFromFiles.TryGetValue(familyName, out innerFont);
             if (innerFont != null) innerFont = Typeface.Create(innerFont, style.Convert());
@@ -43,11 +43,11 @@ namespace AGS.Engine.Android
 			return font;
 		}
 
-		public static AndroidFont FromPath(string path, FontStyle style, float sizeInPoints)
+        public static AndroidFont FromPath(string path, FontStyle style, float sizeInPoints, IFontLoader fontLoader)
 		{
             try
             {
-                AndroidFont font = new AndroidFont();
+                AndroidFont font = new AndroidFont(fontLoader);
                 font.InnerFont = Typeface.Create(Typeface.CreateFromFile(path), style.Convert());
                 _fontsFromFiles[path] = font.InnerFont;
                 font.FontFamily = path;
@@ -59,9 +59,16 @@ namespace AGS.Engine.Android
             {
                 Debug.WriteLine($"Failed to load font from path: {path}, will resort to default font");
                 Debug.WriteLine(e.ToString());
-                return FromFamilyName("sans-serif", style, sizeInPoints);
+                return FromFamilyName("sans-serif", style, sizeInPoints, fontLoader);
             }
 		}
+
+        private readonly IFontLoader _fontLoader;
+
+        private AndroidFont(IFontLoader fontLoader)
+        {
+            _fontLoader = fontLoader;
+        }
 
 		public Typeface InnerFont { get; private set; }
 
@@ -82,6 +89,11 @@ namespace AGS.Engine.Android
             });
 		}
 
+        public IFont Resize(float sizeInPoints)
+        {
+            return _fontLoader.LoadFont(FontFamily, sizeInPoints, Style);
+        }
+
         public string FontFamily { get; private set; }
 
         public FontStyle Style { get; private set; }
@@ -91,4 +103,3 @@ namespace AGS.Engine.Android
         #endregion
         }
     }
-

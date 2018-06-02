@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using AGS.API;
 using Android.Content.Res;
 using Android.Views;
@@ -7,7 +8,7 @@ using OpenTK;
 
 namespace AGS.Engine.Android
 {
-    public class AndroidGameWindow : IGameWindow
+    public class AndroidGameWindow : IGameWindow, IWindowInfo
     {
         private GestureDetector _gestures;
         private bool _started;
@@ -21,7 +22,7 @@ namespace AGS.Engine.Android
             AndroidSimpleGestures simpleGestures = new AndroidSimpleGestures();
             _gestures = new GestureDetector(simpleGestures);
 
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
             Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
@@ -48,6 +49,7 @@ namespace AGS.Engine.Android
                 return convertPixelsToDp(metrics.WidthPixels);
             }
         }
+
         public int ClientHeight
         {
             get
@@ -67,10 +69,19 @@ namespace AGS.Engine.Android
         public string Title { get => ""; set { } } //todo
         public bool IsExiting => false;  //todo
 
+        public float AppWindowHeight => Height;
+
+        public float AppWindowWidth => Width;
+
+        public Rectangle GameSubWindow => new Rectangle(0, 0, Width, Height);
+
         public event EventHandler<EventArgs> Load;
         public event EventHandler<FrameEventArgs> RenderFrame;
         public event EventHandler<EventArgs> Resize;
         public event EventHandler<FrameEventArgs> UpdateFrame;
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public void OnLoad(EventArgs args)
         {

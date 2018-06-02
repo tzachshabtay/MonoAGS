@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
+using Autofac;
 
 namespace AGS.Editor
 {
@@ -11,27 +15,41 @@ namespace AGS.Editor
         private readonly IRenderLayer _layer;
         private string _panelId;
         private ITreeViewComponent _treeView;
-        private readonly IGame _game;
+        private readonly AGSEditor _editor;
         private readonly IConcurrentHashSet<string> _addedObjects;
+        private readonly List<RoomSubscriber> _roomSubscribers;
         private readonly InspectorPanel _inspector;
+        private readonly ConcurrentDictionary<string, ITreeStringNode> _entitiesToNodes;
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
-        private IBorderComponent _lastSelectedBorder;
+        private IEnabledComponent _lastSelectedEnabled;
         private IVisibleComponent _lastSelectedMaskVisible;
         private IImageComponent _lastSelectedMaskImage;
-        private IBorderStyle _lastObjectBorder;
+        private IEntity _lastSelectedEntity;
+        private ITreeStringNode _lastSelectedNode;
+        private ITreeStringNode _moreRoomsNode;
         private bool _lastMaskVisible;
         private byte _lastOpacity;
+        private bool _lastEnabled;
+        private bool _lastClickThrough;
 
         const float _padding = 42f;
         const float _gutterSize = 15f;
 
-        public GameDebugTree(IGame game, IRenderLayer layer, InspectorPanel inspector)
+        const string _moreRoomsPrefix = "More Rooms";
+        const string _roomPrefix = "Room: ";
+        const string _objectsPrefix = "Objects";
+        const string _areasPrefix = "Areas";
+        const string _uiPrefix = "UI";
+
+        public GameDebugTree(AGSEditor editor, IRenderLayer layer, InspectorPanel inspector)
         {
-            _game = game;
+            _editor = editor;
             _inspector = inspector;
+            _entitiesToNodes = new ConcurrentDictionary<string, ITreeStringNode>();
             _addedObjects = new AGSConcurrentHashSet<string>(100, false);
+            _roomSubscribers = new List<RoomSubscriber>(20);
             _layer = layer;
         }
 
@@ -41,7 +59,7 @@ namespace AGS.Editor
         {
             _parent = parent;
             _panelId = parent.TreeNode.GetRoot().ID;
-            var factory = _game.Factory;
+            var factory = _editor.Editor.Factory;
 
             _searchBox = factory.UI.GetTextBox("GameDebugTreeSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
@@ -71,17 +89,27 @@ namespace AGS.Editor
             };
         }
 
-        public async Task Show()
+        public Task Show()
         {
-            await Task.Run(() => refresh());
+            refresh();
             _scrollingPanel.Visible = true;
             _searchBox.Visible = true;
+            _editor.Game.State.UI.OnListChanged.Subscribe(onGuiChanged);
+            _editor.Game.State.Rooms.OnListChanged.Subscribe(onRoomsChanged);
+            _editor.Game.Events.OnRoomChanging.Subscribe(onRoomChanged);
+            subscribeRooms(_editor.Game.State.Rooms);
+            _treeView.Expand(_treeView.Tree);
+            return Task.CompletedTask;
         }
 
         public void Hide()
         {
 	        _scrollingPanel.Visible = false;
             _searchBox.Visible = false;
+            _editor.Game.State.UI.OnListChanged.Unsubscribe(onGuiChanged);
+            _editor.Game.State.Rooms.OnListChanged.Unsubscribe(onRoomsChanged);
+            _editor.Game.Events.OnRoomChanging.Unsubscribe(onRoomChanged);
+            unsubscribeRooms(_editor.Game.State.Rooms);
             _treeView.Tree = null;
         }
 
@@ -92,6 +120,129 @@ namespace AGS.Editor
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
         }
 
+        public void Select(IEntity entity)
+        {
+            if (!_entitiesToNodes.TryGetValue(entity.ID, out var node)) return;
+            /* todo: expand and scroll to node in debug tree
+            var parent = node.TreeNode.Parent;
+            while (parent != null)
+            {
+                _treeView.Expand(parent);
+                parent = parent.TreeNode.Parent;
+            }*/
+            _treeView.Select(node);
+        }
+
+        public void Unselect()
+        {
+            if (_lastSelectedNode == null) return;
+            _lastSelectedNode = null;
+            _lastSelectedEntity?.GetComponent<EntityDesigner>()?.Dispose();
+            _lastSelectedEntity?.RemoveComponent<EntityDesigner>();
+            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
+            var lastSelectedMaskImage = _lastSelectedMaskImage;
+            var lastEnabled = _lastEnabled;
+            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
+            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
+            if (_lastSelectedEnabled != null)
+            {
+                _lastSelectedEnabled.Enabled = lastEnabled;
+                _lastSelectedEnabled.ClickThrough = _lastClickThrough;
+            }
+            _lastSelectedEnabled = null;
+            _lastMaskVisible = false;
+            _lastOpacity = 0;
+        }
+
+        private void onRoomChanged()
+        {
+            var children = _treeView.Tree.TreeNode.Children;
+            var prevRoom = children.FirstOrDefault(c => c.Text.StartsWith(_roomPrefix, StringComparison.InvariantCulture));
+            var room = _editor.Game.State.Room?.ID;
+            var newRoom = room == null ? null : _moreRoomsNode.TreeNode.Children.FirstOrDefault(c => c.Text.EndsWith(room, StringComparison.InvariantCulture));
+            var expander = new NodesExpander(_treeView);
+            prevRoom?.TreeNode.SetParent(_moreRoomsNode.TreeNode);
+            newRoom?.TreeNode.SetParent(_treeView.Tree.TreeNode);
+
+            //removing and re-adding "more rooms" so that it would be after the current room in the tree view
+            _moreRoomsNode.TreeNode.SetParent(null);
+            _moreRoomsNode.TreeNode.SetParent(_treeView.Tree.TreeNode);
+
+            expander.Expand();
+        }
+
+        private void subscribeRooms(IEnumerable<IRoom> rooms)
+        {
+            foreach (var room in rooms)
+            {
+                var subscriber = new RoomSubscriber(room, _treeView, findRoom, addObjectToTree, addAreaToTree, removeFromTree);
+                _roomSubscribers.Add(subscriber);
+            }
+        }
+
+        private void unsubscribeRooms(IEnumerable<IRoom> rooms)
+        {
+            foreach (var room in rooms)
+            {
+                var subscriber = _roomSubscribers.FirstOrDefault(c => c.Room == room);
+                if (subscriber != null)
+                {
+                    subscriber.Unsubscribe();
+                    _roomSubscribers.Remove(subscriber);
+                }
+            }
+        }
+
+        private ITreeStringNode findRoom(IRoom room)
+        {
+            return _moreRoomsNode.TreeNode.Children.FirstOrDefault(c => c.Text.EndsWith(room.ID, StringComparison.InvariantCulture))
+                ?? _treeView.Tree.TreeNode.Children.FirstOrDefault(c => c.Text.EndsWith(room.ID, StringComparison.InvariantCulture));
+        }
+
+        private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
+        {
+            var expander = new NodesExpander(_treeView);
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                subscribeRooms(args.Items.Select(i => i.Item));
+                foreach (var room in args.Items)
+                {
+                    addRoomToTree(room.Item, _moreRoomsNode);
+                }
+            }
+            else
+            {
+                unsubscribeRooms(args.Items.Select(i => i.Item));
+                foreach (var room in args.Items)
+                {
+                    var roomNode = findRoom(room.Item);
+                    roomNode?.TreeNode.SetParent(null);
+                }
+            }
+            expander.Expand();
+        }
+
+        private void onGuiChanged(AGSHashSetChangedEventArgs<IObject> args)
+        {
+            var uiNode = _treeView.Tree.TreeNode.Children.First(c => c.Text == _uiPrefix);
+            var expander = new NodesExpander(_treeView);
+            if (args.ChangeType == ListChangeType.Add)
+            {
+                foreach (var item in args.Items)
+                {
+                    addObjectToTree(item, uiNode);
+                }
+            }
+            else
+            {
+                foreach (var item in args.Items)
+                {
+                    removeFromTree(item.ID, uiNode);
+                }
+            }
+            expander.Expand();
+        }
+
         private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(ITextComponent.Text)) return;
@@ -100,7 +251,9 @@ namespace AGS.Editor
 
         private void onTreeNodeSelected(NodeEventArgs args)
         {
-            unselect();
+            if (args.Node == _lastSelectedNode) return;
+            Unselect();
+            _lastSelectedNode = args.Node;
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)
@@ -117,21 +270,29 @@ namespace AGS.Editor
         private void selectObject(ITreeStringNode node)
         {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
-            _inspector.Inspector.Show(obj);
+            _inspector.Show(obj);
+            _lastSelectedEntity = obj;
+            var host = new AGSComponentHost(_editor.EditorResolver);
+            host.Init(obj);
+            TypedParameter uiEventsAggParam = new TypedParameter(typeof(UIEventsAggregator), _editor.UIEventsAggregator);
+            var uiEvents = _editor.EditorResolver.Container.Resolve<EditorUIEvents>(uiEventsAggParam);
+            obj.AddComponent<EditorUIEvents>(uiEvents);
+            host.AddComponent<EntityDesigner>();
+
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
             var borderComponent = obj.GetComponent<IBorderComponent>();
-            if (image != null && borderComponent != null)
+            var enabledComponent = obj.GetComponent<IEnabledComponent>();
+            if (enabledComponent != null)
             {
-                _lastSelectedBorder = borderComponent;
-                IBorderStyle border = null;
-                border = borderComponent.Border;
-                _lastObjectBorder = border;
-                IBorderStyle hoverBorder = AGSBorders.Gradient(new FourCorners<Color>(Colors.Yellow, Colors.Yellow.WithAlpha(150),
-                                                                                      Colors.Yellow.WithAlpha(150), Colors.Yellow), 1, true);
-                if (border == null) borderComponent.Border = hoverBorder;
-                else borderComponent.Border = AGSBorders.Multiple(border, hoverBorder);
-
+                _lastSelectedEnabled = enabledComponent;
+                _lastEnabled = enabledComponent.Enabled;
+                _lastClickThrough = enabledComponent.ClickThrough;
+                enabledComponent.Enabled = true;
+                enabledComponent.ClickThrough = false;
+            }
+            if (image != null)
+            {
                 if (image.Opacity == 0)
                 {
                     _lastOpacity = image.Opacity;
@@ -150,7 +311,7 @@ namespace AGS.Editor
         private void selectArea(ITreeStringNode node)
         {
             var obj = node.Properties.Entities.GetValue(Fields.Entity);
-            _inspector.Inspector.Show(obj);
+            _inspector.Show(obj);
             var area = obj.GetComponent<IAreaComponent>();
             var debugMask = area.Mask.DebugDraw;
             if (debugMask != null)
@@ -161,37 +322,24 @@ namespace AGS.Editor
             }
         }
 
-        private void unselect()
-        {
-            var lastSelectedBorder = _lastSelectedBorder;
-            var lastSelectedMaskVisible = _lastSelectedMaskVisible;
-            var lastSelectedMaskImage = _lastSelectedMaskImage;
-            if (lastSelectedBorder != null) lastSelectedBorder.Border = _lastObjectBorder;
-            if (lastSelectedMaskVisible != null) lastSelectedMaskVisible.Visible = _lastMaskVisible;
-            if (lastSelectedMaskImage != null) lastSelectedMaskImage.Opacity = _lastOpacity;
-            _lastSelectedBorder = null;
-            _lastObjectBorder = null;
-            _lastMaskVisible = false;
-            _lastOpacity = 0;
-        }
-
         private void refresh()
         {
             _addedObjects.Clear();
             var root = addToTree("Game", null);
-            var ui = addToTree("UI", root);
+            var ui = addToTree(_uiPrefix, root);
 
-            foreach (var obj in _game.State.UI)
+            var state = _editor.Game.State;
+            foreach (var obj in state.UI)
             {
                 addObjectToTree(getRoot(obj), ui);
             }
-            addRoomToTree(_game.State.Room, root);
+            addRoomToTree(state.Room, root);
 
-            var rooms = addToTree("More Rooms", root);
-            foreach (var room in _game.State.Rooms)
+            _moreRoomsNode = addToTree(_moreRoomsPrefix, root);
+            foreach (var room in state.Rooms)
             {
-                if (room == _game.State.Room) continue;
-                addRoomToTree(room, rooms);
+                if (room == state.Room) continue;
+                addRoomToTree(room, _moreRoomsNode);
             }
 
             _treeView.Tree = root;
@@ -199,9 +347,10 @@ namespace AGS.Editor
 
         private void addRoomToTree(IRoom room, ITreeStringNode parent)
         {
-            var roomNode = addToTree($"Room: {room.ID}", parent);
-            var objects = addToTree("Objects", roomNode);
-            var areas = addToTree("Areas", roomNode);
+            if (room == null) return;
+            var roomNode = addToTree($"{_roomPrefix}{room.ID}", parent);
+            var objects = addToTree(_objectsPrefix, roomNode);
+            var areas = addToTree(_areasPrefix, roomNode);
 
             addObjectToTree(getRoot(room.Background), objects);
             foreach (var obj in room.Objects)
@@ -210,10 +359,16 @@ namespace AGS.Editor
             }
             foreach (var area in room.Areas)
             {
-                var node = addToTree(area.ID, areas);
-                node.Properties.Strings.SetValue(Fields.Type, NodeType.Area);
-                node.Properties.Entities.SetValue(Fields.Entity, area);
+                addAreaToTree(area, areas);
             }
+        }
+
+        private void addAreaToTree(IArea area, ITreeStringNode parent)
+        {
+            var node = addToTree(area.ID, parent);
+            node.Properties.Strings.SetValue(Fields.Type, NodeType.Area);
+            node.Properties.Entities.SetValue(Fields.Entity, area);
+            _entitiesToNodes[area.ID] = node;
         }
 
         private IObject getRoot(IObject obj)
@@ -230,6 +385,7 @@ namespace AGS.Editor
             var node = addToTree(obj.ID, parent);
             node.Properties.Strings.SetValue(Fields.Type, NodeType.Object);
             node.Properties.Entities.SetValue(Fields.Entity, obj);
+            _entitiesToNodes[obj.ID] = node;
             foreach (var child in obj.TreeNode.Children)
             {
                 addObjectToTree(child, node);
@@ -238,9 +394,16 @@ namespace AGS.Editor
 
         private ITreeStringNode addToTree(string text, ITreeStringNode parent)
         {
-            var node = new AGSTreeStringNode { Text = text };
+            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.TextFont);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             return node;
+        }
+
+        private void removeFromTree(string id, ITreeStringNode parent)
+        {
+            _addedObjects.Remove(id);
+            var node = parent.TreeNode.Children.FirstOrDefault(c => c.Text == id);
+            node?.TreeNode.SetParent(null);
         }
 
         private static class Fields
@@ -253,6 +416,102 @@ namespace AGS.Editor
         {
             public const string Object = "Object";
             public const string Area = "Area";
+        }
+
+        private class NodesExpander
+        {
+            private readonly List<ITreeStringNode> _shouldExpand;
+            private readonly ITreeViewComponent _treeView;
+
+            public NodesExpander(ITreeViewComponent treeView)
+            {
+                _treeView = treeView;
+                _shouldExpand = new List<ITreeStringNode>();
+                treeView.Tree.TreeNode.RunOnTree(0, (node, _) => { if (!(treeView.IsCollapsed(node) ?? true)) _shouldExpand.Add(node); });
+            }
+
+            public void Expand()
+            {
+                foreach (var node in _shouldExpand)
+                {
+                    _treeView.Expand(node);
+                }
+            }
+        }
+
+        private class RoomSubscriber
+        {
+            private readonly Func<IRoom, ITreeStringNode> _findRoom;
+            private readonly Action<IObject, ITreeStringNode> _addObjToTree;
+            private readonly Action<IArea, ITreeStringNode> _addAreaToTree;
+            private readonly Action<string, ITreeStringNode> _removeFromTree;
+            private readonly ITreeViewComponent _treeView;
+
+            public RoomSubscriber(IRoom room, ITreeViewComponent treeView, Func<IRoom, ITreeStringNode> findRoom, 
+                                  Action<IObject, ITreeStringNode> addObjToTree, Action<IArea, ITreeStringNode> addAreaToTree,
+                                  Action<string, ITreeStringNode> removeFromTree)
+            {
+                Room = room;
+                _treeView = treeView;
+                _findRoom = findRoom;
+                _addObjToTree = addObjToTree;
+                _removeFromTree = removeFromTree;
+                _addAreaToTree = addAreaToTree;
+                room.Areas.OnListChanged.Subscribe(onRoomAreasChanged);
+                room.Objects.OnListChanged.Subscribe(onRoomObjectsChanged);
+            }
+
+            public IRoom Room { get; }
+
+            public void Unsubscribe()
+            {
+                Room.Areas.OnListChanged.Unsubscribe(onRoomAreasChanged);
+                Room.Objects.OnListChanged.Unsubscribe(onRoomObjectsChanged);
+            }
+
+            private void onRoomObjectsChanged(AGSHashSetChangedEventArgs<IObject> args)
+            {
+                var roomNode = _findRoom(Room);
+                var expander = new NodesExpander(_treeView);
+                var objects = roomNode.TreeNode.Children.First(c => c.Text == _objectsPrefix);
+                if (args.ChangeType == ListChangeType.Add)
+                {
+                    foreach (var obj in args.Items)
+                    {
+                        _addObjToTree(obj, objects);
+                    }
+                }
+                else
+                {
+                    foreach (var obj in args.Items)
+                    {
+                        _removeFromTree(obj.ID, objects);
+                    }
+                }
+                expander.Expand();
+            }
+
+            private void onRoomAreasChanged(AGSListChangedEventArgs<IArea> args)
+            {
+                var roomNode = _findRoom(Room);
+                var expander = new NodesExpander(_treeView);
+                var areas = roomNode.TreeNode.Children.First(c => c.Text == _areasPrefix);
+                if (args.ChangeType == ListChangeType.Add)
+                {
+                    foreach (var area in args.Items)
+                    {
+                        _addAreaToTree(area.Item, areas);
+                    }
+                }
+                else
+                {
+                    foreach (var area in args.Items)
+                    {
+                        _removeFromTree(area.Item.ID, areas);
+                    }
+                }
+                expander.Expand();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace DemoQuest.iOS
 		static void Main(string[] args)
 		{
             Debug.WriteLine("Main started");
-            ResourceLoader.CustomAssemblyName = "DemoQuest.iOS";
+            DemoStarter.CustomAssemblyName = "DemoQuest.iOS";
             IOSGameWindow.Instance.StartGame = DemoStarter.Run;
             AGSEngineIOS.SetAssembly();
 			// if you want to use a different Application Delegate class from "AppDelegate"

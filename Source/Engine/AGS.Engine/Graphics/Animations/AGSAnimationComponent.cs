@@ -27,6 +27,12 @@ namespace AGS.Engine
                 c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _image = null; } );
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            stopAnimation();
+        }
+
         public void StartAnimation(IAnimation animation)
 		{
             var scale = _scale;

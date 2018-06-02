@@ -84,6 +84,13 @@ namespace AGS.Engine
             entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            var tree = Tree;
+            if (tree != null) unsubscribeTree(tree);
+        }
+
         public void RebuildTree()
         {
             var tree = Tree;
@@ -115,6 +122,12 @@ namespace AGS.Engine
             return nodeView.IsCollapsed;
         }
 
+        public void Select(ITreeStringNode node)
+        {
+            var nodeView = findNodeView(node);
+            nodeView?.Select();
+        }
+
         private async void applySearchOnIdle()
         {
             _currentSearchToken?.TrySetResult(null);
@@ -132,13 +145,22 @@ namespace AGS.Engine
 
         private Node findNodeView(Node nodeView, ITreeStringNode node)
 		{
-            if (nodeView.Item == node) return nodeView;
-            foreach (var child in nodeView.Children)
+            try
             {
-                var result = findNodeView(child, node);
-                if (result != null) return result;
+                if (nodeView.Item == node)
+                    return nodeView;
+                foreach (var child in nodeView.Children)
+                {
+                    var result = findNodeView(child, node);
+                    if (result != null)
+                        return result;
+                }
+                return null;
             }
-            return null;
+            catch
+            {
+                return null;
+            }
 		}
 
         private void refreshTree()
@@ -286,8 +308,7 @@ namespace AGS.Engine
 
         private void removeFromUI(IObject obj)
         {
-            if (obj == null) return;
-            _state.UI.Remove(obj);
+            obj.DestroyWithChildren(_state);
         }
 
         private class Node : IDisposable
@@ -462,6 +483,15 @@ namespace AGS.Engine
                                                   IsCollapsed, IsHovered, IsSelected);
             }
 
+            public void Select()
+            {
+                getRoot().ResetSelection();
+                if (_tree.AllowSelection == SelectionType.None) return;
+                IsSelected = true;
+                _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
+                RefreshDisplay();
+            }
+
             private void updateVisibilityWithChildren()
             {
                 updateVisibility();
@@ -583,11 +613,7 @@ namespace AGS.Engine
 
             private void onItemSelected(MouseButtonEventArgs args)
             {
-                getRoot().ResetSelection();
-                if (_tree.AllowSelection == SelectionType.None) return;
-                IsSelected = true;
-                _tree.OnNodeSelected.Invoke(new NodeEventArgs(Item));
-                RefreshDisplay();
+                Select();
             }
         }
     }

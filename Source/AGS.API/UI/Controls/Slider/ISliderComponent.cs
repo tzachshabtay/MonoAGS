@@ -93,6 +93,15 @@
         bool AllowKeyboardControl { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ISliderComponent"/> should clamp the slider value
+        /// to the minimum and/or maximum when those change. This is enabled by default.
+        /// For example, if the slider value is 100 and I updated the maximum from 200 to 50, if this property is enabled,
+        /// the value will automatically change to 50. If the property is disabled, the value will stay at 100.
+        /// </summary>
+        /// <value><c>true</c> if should clamp values when changing minimum max; otherwise, <c>false</c>.</value>
+        bool ShouldClampValuesWhenChangingMinMax { get; set; }
+
+        /// <summary>
         /// Gets or sets the direction of the slider. If, for example, the slider's direction is bottom-to-top then the minimum value will correspond with the bottom most location on the slider
         /// and the maximum value will correspond with the top most location on the slider.
         /// </summary>

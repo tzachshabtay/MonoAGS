@@ -36,7 +36,7 @@ namespace AGS.Engine
         private IBoundingBoxComponent _boundingBoxComponent;
         private IWorldPositionComponent _worldPositionComponent;
 
-        public AGSSlider(string id, Resolver resolver, IImage image) : base(id, resolver)
+        public AGSSlider(string id, Resolver resolver) : base(id, resolver)
         {
             _sliderComponent = AddComponent<ISliderComponent>();
             Bind<ISliderComponent>(c => _sliderComponent = c, _ => {});
@@ -80,9 +80,9 @@ namespace AGS.Engine
             Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});
             _worldPositionComponent = AddComponent<IWorldPositionComponent>();
             Bind<IWorldPositionComponent>(c => _worldPositionComponent = c, _ => {});
-			beforeInitComponents(resolver, image);
+			beforeInitComponents(resolver);
             InitComponents();
-            afterInitComponents(resolver, image);
+            afterInitComponents(resolver);
             }
 
         public string Name { get { return ID; } }
@@ -94,8 +94,8 @@ namespace AGS.Engine
             return string.Format("{0} ({1})", ID ?? "", GetType().Name);
         }
 
-        partial void beforeInitComponents(Resolver resolver, IImage image);
-		partial void afterInitComponents(Resolver resolver, IImage image);
+        partial void beforeInitComponents(Resolver resolver);
+		partial void afterInitComponents(Resolver resolver);
 
         #region ISliderComponent implementation
 
@@ -153,6 +153,12 @@ namespace AGS.Engine
             set { _sliderComponent.AllowKeyboardControl = value; } 
         }
 
+        public bool ShouldClampValuesWhenChangingMinMax
+        {
+            get { return _sliderComponent.ShouldClampValuesWhenChangingMinMax; } 
+            set { _sliderComponent.ShouldClampValuesWhenChangingMinMax = value; }
+        }
+
         public SliderDirection Direction 
         {  
             get { return _sliderComponent.Direction; }  
@@ -192,12 +198,12 @@ namespace AGS.Engine
             get { return _uIEvents.MouseMove; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseClicked 
+        public IEvent<MouseClickEventArgs> MouseClicked 
         {  
             get { return _uIEvents.MouseClicked; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseDoubleClicked 
+        public IEvent<MouseClickEventArgs> MouseDoubleClicked 
         {  
             get { return _uIEvents.MouseDoubleClicked; } 
         }

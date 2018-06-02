@@ -11,9 +11,9 @@ namespace AGS.Engine
 
         private readonly IConcurrentHashSet<Callback> _list;
 
-        public EventCallbacksSingleList()
+        public EventCallbacksSingleList(int capacity)
         {
-            _list = new AGSConcurrentHashSet<Callback>(fireListChangedEvent: false); 
+            _list = new AGSConcurrentHashSet<Callback>(capacity, fireListChangedEvent: false);
         }
 
         public int Count { get; private set; }
@@ -32,6 +32,12 @@ namespace AGS.Engine
         {
             if (!_list.Remove(callback)) return;
             Count--;
+        }
+
+        public void Clear()
+        {
+            _list.Clear();
+            Count = 0;
         }
 
         public IEnumerator<Callback> GetEnumerator()

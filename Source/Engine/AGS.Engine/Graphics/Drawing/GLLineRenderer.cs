@@ -30,6 +30,7 @@ namespace AGS.Engine
             var entity = _entity;
             if (entity == null) return;
             _pipeline.Unsubscribe(entity.ID, this);
+            _entity = null;
 		}
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)
@@ -38,6 +39,7 @@ namespace AGS.Engine
             float x1 = ignoreViewport ? X1 : X1 - viewport.X;
             float x2 = ignoreViewport ? X2 : X2 - viewport.X;
             var instruction = _pool.Acquire();
+            if (instruction == null) return null;
             instruction.Setup(x1, Y1, x2, Y2);
             return instruction;
         }

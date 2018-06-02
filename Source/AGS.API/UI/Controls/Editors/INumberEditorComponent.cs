@@ -12,6 +12,12 @@
         float Value { get; set; }
 
         /// <summary>
+        /// Sets the value and have it marked as changed by the user.
+        /// </summary>
+        /// <param name="value">Value.</param>
+        void SetUserInitiatedValue(float value);
+
+        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:AGS.API.INumberEditorComponent"/> edits whole
         /// numbers only (ints), or numbers with decimal digits (floats).
         /// </summary>
@@ -75,6 +81,6 @@
         /// An event which fires whenever the value is changed.
         /// </summary>
         /// <value>The event.</value>
-        IBlockingEvent OnValueChanged { get; }
+        IBlockingEvent<NumberValueChangedArgs> OnValueChanged { get; }
     }
 }

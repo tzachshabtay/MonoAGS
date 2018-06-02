@@ -23,14 +23,16 @@ namespace AGS.Engine
             _scaleY = 1;
         }
 
-        public static void BindSizeToImage(IHasImage image, IScale scale)
+        public static Action BindSizeToImage(IHasImage image, IScale scale)
         {
-            image.PropertyChanged += ((_, args) =>
+            PropertyChangedEventHandler onPropertyChanged = ((_, args) =>
             {
                 if (args.PropertyName != nameof(IHasImage.Image)) return;
                 if (MathUtils.FloatEquals(scale.BaseSize.Width, 0f) && image.Image != null) 
                     scale.BaseSize = new SizeF(image.Image.Width, image.Image.Height);
             });
+            image.PropertyChanged += onPropertyChanged;
+            return () => image.PropertyChanged -= onPropertyChanged;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -69,6 +69,12 @@ namespace AGS.Engine
             entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
+        }
+
         private void onSizeChanged()
         {
             refreshSliderLimits();

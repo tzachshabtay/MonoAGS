@@ -1,7 +1,6 @@
 ﻿using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
-using AGS.Editor;
 using System.Diagnostics;
 using DemoQuest;
 using System;
@@ -10,8 +9,11 @@ namespace DemoGame
 {
     public class DemoStarter : IGameStarter
 	{
-        private static Lazy<GameDebugView> _gameDebugView;
+        public IGameSettings Settings => new AGSGameSettings("Demo Game", new Size(320, 200),
+                windowSize: new Size(640, 400), windowState: WindowState.Normal);
 
+        public static string CustomAssemblyName;
+        
         public void StartGame(IGame game)
         {
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -21,11 +23,11 @@ namespace DemoGame
             game.Events.OnLoad.Subscribe(async () =>
             {
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
-                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly, CustomAssemblyName), 1));
                 game.Factory.Fonts.InstallFonts("Fonts/pf_ronda_seven.ttf", "Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-                AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-                AGSGameSettings.DefaultTextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
-                AGSGameSettings.CurrentSkin = null;
+                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
+                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+                game.Settings.Defaults.Skin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
                 Shaders.SetStandardShader();
@@ -42,24 +44,16 @@ namespace DemoGame
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
-            var game = AGSGame.CreateEmpty();
-
-            _gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input));
-                gameDebugView.Load();
-                return gameDebugView;
-            });
+            var game = AGSGame.Create(starter.Settings);
 
             starter.StartGame(game);
-            game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
-				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
+            game.Start();
 		}
 
         private void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.SubscribeToAsync(async args =>
+            game.Input.KeyDown.Subscribe(args =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
@@ -79,12 +73,6 @@ namespace DemoGame
                 {
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
-                }
-                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)) && _gameDebugView != null)
-                {
-                    var gameDebug = _gameDebugView.Value;
-                    if (gameDebug.Visible) gameDebug.Hide();
-                    else await gameDebug.Show();
                 }
             });
         }

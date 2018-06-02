@@ -84,6 +84,8 @@ namespace AGS.Engine
             await ev.InvokeAsync(args);
         }
 
+        public void Dispose() => _ev?.Dispose();
+
         #endregion
 
         private IEvent<TEventArgs> getEvent() => _events.FirstOrDefault(ev => ev.SubscribersCount > 0);
@@ -98,7 +100,6 @@ namespace AGS.Engine
                 return true;
             }
             return await approach.ApproachAsync(_verb, _obj);
-		}
-	}
+        }
+    }
 }
-

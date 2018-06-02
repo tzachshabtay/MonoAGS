@@ -7,6 +7,7 @@ namespace AGS.Engine
 {
     public class TreeTableLayout : ITreeTableLayout
     {
+        private readonly IGameEvents _events;
         private float _columnPadding;
         private float _startX;
 
@@ -15,6 +16,7 @@ namespace AGS.Engine
 
         public TreeTableLayout(IGameEvents gameEvents)
         {
+            _events = gameEvents;
             ColumnSizes = new AGSBindingList<float>(10);
             Rows = new AGSBindingList<ITreeTableRowLayoutComponent>(10);
             OnRefreshLayoutNeeded = new AGSEvent();
@@ -50,6 +52,12 @@ namespace AGS.Engine
         public IBlockingEvent OnRefreshLayoutNeeded { get; private set; }
 
         public IBlockingEvent<QueryLayoutEventArgs> OnQueryLayout { get; private set; }
+
+        public void Dispose()
+        {
+            Rows?.OnListChanged?.Unsubscribe(onRowsChanged);
+            _events?.OnRepeatedlyExecute?.Unsubscribe(onRepeatedlyExecute);
+        }
 
         public void PerformLayout()
         {

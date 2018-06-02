@@ -61,6 +61,7 @@ namespace AGS.Editor
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });
+                view.ParentPanel.OnDisposed(() => tableLayout.Dispose());
                 view.HorizontalPanel.RemoveComponent<IStackLayoutComponent>();
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
                 rowLayout.Table = tableLayout;
@@ -72,15 +73,16 @@ namespace AGS.Editor
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
             node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
 
-            var propertyChanged = node.Property.Object as INotifyPropertyChanged;
-            if (propertyChanged != null)
+            if (node.Property.Object is INotifyPropertyChanged propertyChanged)
             {
-                propertyChanged.PropertyChanged += (sender, e) =>
+                PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != node.Property.Name) return;
                     node.Property.Refresh();
                     node.Editor.RefreshUI();
                 };
+                propertyChanged.PropertyChanged += onPropertyChanged;
+                view.ParentPanel.OnDisposed(() => propertyChanged.PropertyChanged -= onPropertyChanged);
             }
 
             return view;
@@ -90,11 +92,21 @@ namespace AGS.Editor
         {
             var inspectorJump = _inspectorPanel.AddComponent<IJumpOffsetComponent>();
             var rowJump = view.HorizontalPanel.AddComponent<IJumpOffsetComponent>();
-            inspectorJump.PropertyChanged += (sender, args) =>
+            PropertyChangedEventHandler onPropertyChanged = (sender, args) =>
             {
                 if (args.PropertyName != nameof(IJumpOffsetComponent.JumpOffset)) return;
                 rowJump.JumpOffset = new PointF(-inspectorJump.JumpOffset.X, 0f);
             };
+            inspectorJump.PropertyChanged += onPropertyChanged;
+            view.ParentPanel.OnDisposed(() =>
+            {
+                inspectorJump.PropertyChanged -= onPropertyChanged;
+                if (_resizeSubscribers.TryGetValue(view, out var subscriber))
+                {
+                    subscriber.Unsubscribe(_onResize);
+                    _resizeSubscribers.Remove(view);
+                }
+            });
         }
 
         private void displayCategoryRow(ITreeNodeView nodeView, bool isSelected)
@@ -119,6 +131,11 @@ namespace AGS.Editor
             {
                 resizeEvent.Unsubscribe(Resize);
                 resizeEvent.Subscribe(Resize);
+            }
+
+            public void Unsubscribe(IBlockingEvent<float> resizeEvent)
+            {
+                resizeEvent.Unsubscribe(Resize);
             }
 
             public void Resize(float rowWidth)

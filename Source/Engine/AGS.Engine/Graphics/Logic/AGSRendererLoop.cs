@@ -3,36 +3,39 @@ using AGS.API;
 using System.Collections.Generic;
 using Autofac;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
 	public class AGSRendererLoop : IRendererLoop
 	{
-		private readonly IGameState _gameState;
+        private readonly IGameState _gameState;
         private readonly IGame _game;
 		private readonly Resolver _resolver;
 		private readonly IAGSRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
-        private readonly IGameWindow _gameWindow;
+        private readonly IWindowInfo _window;
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
         private readonly IGameSettings _noAspectRatioSettings;
         private readonly IAGSRenderPipeline _pipeline;
+        private readonly DummyWindow _dummyWindow;
         private IGLUtils _glUtils;
         private IShader _lastShaderUsed;
 		
         private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
 
 		public AGSRendererLoop (Resolver resolver, IGame game,
-            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IGameWindow gameWindow,
+            IAGSRoomTransitions roomTransitions, IGLUtils glUtils, IWindowInfo window,
             IAGSRenderPipeline pipeline, IDisplayList displayList, 
             IInput input, IMatrixUpdater matrixUpdater)
 		{
+            _dummyWindow = new DummyWindow();
             _pipeline = pipeline;
             _input = input;
             _displayList = displayList;
             _glUtils = glUtils;
-            _gameWindow = gameWindow;
+            _window = window;
 			_resolver = resolver;
             _game = game;
 			_gameState = game.State;
@@ -46,7 +49,7 @@ namespace AGS.Engine
 
         public bool Tick()
         {
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, _gameState.Viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, _gameState.Viewport, true);
             _glUtils.AdjustResolution(_game.Settings.VirtualResolution.Width, _game.Settings.VirtualResolution.Height);
 
 			var transitionState = _roomTransitions.State;
@@ -88,7 +91,8 @@ namespace AGS.Engine
                         return false;
                     }
 					if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
-                    _glUtils.RefreshViewport(_noAspectRatioSettings, _gameWindow, _gameState.Viewport);
+                    _dummyWindow.GameSubWindow = new Rectangle(0, 0, (int)_window.AppWindowWidth, (int)_window.AppWindowHeight);
+                    _glUtils.RefreshViewport(_noAspectRatioSettings, _dummyWindow, _gameState.Viewport, false);
                     if (!_roomTransitions.Transition.RenderTransition(_fromTransitionBuffer, _toTransitionBuffer))
 					{
 						_fromTransitionBuffer = null;
@@ -116,7 +120,8 @@ namespace AGS.Engine
 
         private IFrameBuffer renderToBuffer()
 		{
-            TypedParameter sizeParam = new TypedParameter(typeof(Size), _game.Settings.WindowSize);
+            TypedParameter sizeParam = new TypedParameter(typeof(Size), new Size(
+                (int)_window.AppWindowWidth, (int)_window.AppWindowHeight));
             IFrameBuffer frameBuffer = _resolver.Container.Resolve<IFrameBuffer>(sizeParam);
 			frameBuffer.Begin();
 			renderAllViewports();
@@ -137,7 +142,7 @@ namespace AGS.Engine
 
         private void renderViewport(IViewport viewport, List<IRenderBatch> instructions)
         {
-            _glUtils.RefreshViewport(_game.Settings, _gameWindow, viewport);
+            _glUtils.RefreshViewport(_game.Settings, _window, viewport, true);
 
             foreach (var batch in instructions)
             {
@@ -187,5 +192,16 @@ namespace AGS.Engine
 			_lastShaderUsed = shader;
 			shader.Bind();
 		}
+
+        private class DummyWindow : IWindowInfo
+        {
+            public float AppWindowHeight => throw new NotImplementedException();
+            public float AppWindowWidth => throw new NotImplementedException();
+            public Rectangle GameSubWindow { get; set; }
+            public Rectangle ScreenViewport { get; set; }
+            #pragma warning disable CS0067
+            public event PropertyChangedEventHandler PropertyChanged;
+            #pragma warning restore CS0067
+        }
 	}
 }

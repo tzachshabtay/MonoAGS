@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -11,14 +12,17 @@ namespace AGS.Engine
         private ITranslate _translate;
         private IDrawableInfoComponent _drawable;
 
-        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings)
+        public AGSDraggableComponent(IInput input, IGameEvents gameEvents, IRuntimeSettings settings,
+                                     IBlockingEvent<(float dragStartX, float dragStartY)> onDragStart)
         {
             _input = input;
             _settings = settings;
             _gameEvents = gameEvents;
-            _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            OnDragStart = onDragStart;
             IsDragEnabled = true;
         }
+
+        public static float ClampingToWhenAlt = 5f;
 
         public float? DragMaxX { get; set; }
 
@@ -32,13 +36,19 @@ namespace AGS.Engine
 
         public bool IsCurrentlyDragged { get; private set; }
 
+        public IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
+
         public override void Init(IEntity entity)
         {
             base.Init(entity);
             entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
             entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
             entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+
+            _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
+
+        public void SimulateMouseDown(MouseButtonEventArgs args) => onMouseDown(args);
 
         public override void Dispose()
         {
@@ -52,9 +62,8 @@ namespace AGS.Engine
             IsCurrentlyDragged = true;
             _dragObjectStartX = _translate.X;
             _dragObjectStartY = _translate.Y;
-            var mousePos = getMousePosition();
-            _dragMouseStartX = mousePos.X;
-            _dragMouseStartY = mousePos.Y;
+            (_dragMouseStartX, _dragMouseStartY) = getMousePosition();
+            OnDragStart.Invoke((_dragObjectStartX, _dragObjectStartY));
         }
 
         private void onRepeatedlyExecute()
@@ -68,11 +77,28 @@ namespace AGS.Engine
 
             var mousePos = getMousePosition();
 
-			var translate = _translate;
-			if (translate == null) return;
+            var translate = _translate;
+            if (translate == null) return;
 
-            var translateX = _dragObjectStartX + (mousePos.X - _dragMouseStartX);
-            var translateY = _dragObjectStartY + (mousePos.Y - _dragMouseStartY);
+            var diffX = mousePos.x - _dragMouseStartX;
+            var diffY = mousePos.y - _dragMouseStartY;
+            var translateX = _dragObjectStartX + diffX;
+            var translateY = _dragObjectStartY + diffY;
+
+            if (_input.IsKeyDown(Key.AltLeft) || _input.IsKeyDown(Key.AltRight))
+            {
+                translateX = (float)Math.Round(translateX / ClampingToWhenAlt) * ClampingToWhenAlt;
+                translateY = (float)Math.Round(translateY / ClampingToWhenAlt) * ClampingToWhenAlt;
+            }
+            if (_input.IsKeyDown(Key.ControlLeft) || _input.IsKeyDown(Key.ControlRight))
+            {
+                if (Math.Abs(diffX) > Math.Abs(diffY))
+                {
+                    translateY = translate.Y;
+                }
+                else translateX = translate.X;
+            }
+
             bool canDragX = true;
             bool canDragY = true;
             if (DragMinX != null && translateX < DragMinX.Value) canDragX = false;
@@ -84,20 +110,19 @@ namespace AGS.Engine
             if (canDragY) translate.Y = translateY;
         }
 
-        private Vector2 getMousePosition()
+        private (float x, float y) getMousePosition()
         {
-			float mouseX = _input.MousePosition.XMainViewport;
-			float mouseY = _input.MousePosition.YMainViewport;
+            float mouseX = _input.MousePosition.XMainViewport;
+            float mouseY = _input.MousePosition.YMainViewport;
 
             var resolution = _drawable?.RenderLayer?.IndependentResolution;
-			if (resolution != null)
-			{
-				mouseX *= (resolution.Value.Width / _settings.VirtualResolution.Width);
-				mouseY *= (resolution.Value.Height / _settings.VirtualResolution.Height);
-			}
-			
-            return new Vector2(mouseX, mouseY);
-		}
+            if (resolution != null)
+            {
+                mouseX *= ((float)resolution.Value.Width / _settings.VirtualResolution.Width);
+                mouseY *= ((float)resolution.Value.Height / _settings.VirtualResolution.Height);
+            }
 
+            return (mouseX, mouseY);
+        }
     }
 }

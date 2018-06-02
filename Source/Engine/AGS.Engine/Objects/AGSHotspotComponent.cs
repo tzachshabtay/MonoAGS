@@ -24,6 +24,12 @@ namespace AGS.Engine
             DisplayHotspot = true;
 		}
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            Interactions = null;
+        }
+
         [Property(Browsable = false)]
 		public IInteractions Interactions { get; private set; }
 

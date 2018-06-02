@@ -4,12 +4,6 @@ namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-        public static IFont DefaultSpeechFont = AGSGame.Device.FontLoader.LoadFont(null, 10f); 
-		
-		public static IFont DefaultTextFont = AGSGame.Device.FontLoader.LoadFont(null, 14f);
-
-        public static ISkin CurrentSkin;
-
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
                AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.Adaptive, bool preserveAspectRatio = true,
                                WindowBorder windowBorder = WindowBorder.Resizable)
@@ -21,6 +15,7 @@ namespace AGS.Engine
             Vsync = vsync;
             PreserveAspectRatio = preserveAspectRatio;
             WindowBorder = windowBorder;
+            Defaults = new AGSDefaultsSettings();
 		}
 
         public string Title { get; private set; }
@@ -36,6 +31,7 @@ namespace AGS.Engine
         public WindowState WindowState { get; private set; }
 
         public WindowBorder WindowBorder { get; private set; }
+
+        public IDefaultsSettings Defaults { get; }
     }
 }
-

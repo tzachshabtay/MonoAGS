@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
     public class InspectorPanel
     {
 		private readonly IRenderLayer _layer;
-		private readonly IGame _game;
+		private readonly IGame _game, _editor;
+        private readonly ActionManager _actions;
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
@@ -15,8 +17,10 @@ namespace AGS.Editor
         const float _padding = 42f;
         const float _gutterSize = 15f;
 
-        public InspectorPanel(IGame game, IRenderLayer layer)
+        public InspectorPanel(IGame editor, IGame game, IRenderLayer layer, ActionManager actions)
         {
+            _editor = editor;
+            _actions = actions;
             _game = game;
             _layer = layer;
         }
@@ -28,7 +32,7 @@ namespace AGS.Editor
         public void Load(IPanel parent)
         {
             _parent = parent;
-			var factory = _game.Factory;
+            var factory = _editor.Factory;
 
             _searchBox = factory.UI.GetTextBox("GameDebugInspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
@@ -52,11 +56,11 @@ namespace AGS.Editor
 			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
-            Inspector = new AGSInspector(_game.Factory, _game.Settings, _game.State);
+            Inspector = new AGSInspector(_editor.Factory, _game.Settings, _editor.Settings, _editor.State, _actions);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
-            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _game.Factory,
-                                                               _game.Events, _treePanel);
+            _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _editor.Factory,
+                                                               _editor.Events, _treePanel);
             _inspectorNodeView.Resize(_contentsPanel.Width);
             treeView.NodeViewProvider = _inspectorNodeView;
 
@@ -71,6 +75,14 @@ namespace AGS.Editor
             _searchBox.Watermark.LabelRenderSize = new SizeF(_parent.Width, _searchBox.Height);
             _inspectorNodeView.Resize(_contentsPanel.Width);
 		}
+
+        public void Show(object obj)
+        {
+            var cropChildren = _contentsPanel.GetComponent<ICropChildrenComponent>();
+            cropChildren.CropChildrenEnabled = false;
+            Inspector.Show(obj);
+            cropChildren.CropChildrenEnabled = true;
+        }
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)
         {

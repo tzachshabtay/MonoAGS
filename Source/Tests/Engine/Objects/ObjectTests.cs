@@ -209,8 +209,9 @@ namespace Tests
 
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
             Mock<IEvent<MouseButtonEventArgs>> buttonEvent = new Mock<IEvent<MouseButtonEventArgs>>();
+            Mock<IEvent<MouseClickEventArgs>> buttonClickEvent = new Mock<IEvent<MouseClickEventArgs>>();
             Mock<IEvent<MousePositionEventArgs>> mouseEvent = new Mock<IEvent<MousePositionEventArgs>>();
-            uiEvents.Setup(u => u.MouseClicked).Returns(buttonEvent.Object);
+            uiEvents.Setup(u => u.MouseClicked).Returns(buttonClickEvent.Object);
             uiEvents.Setup(u => u.MouseDown).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.MouseUp).Returns(buttonEvent.Object);
             uiEvents.Setup(u => u.LostFocus).Returns(buttonEvent.Object);
@@ -255,28 +256,28 @@ namespace Tests
             resolver.Builder.RegisterInstance(mocks.Game().Object);
             resolver.Build();
 
-            Func<IObject> baseObj = () => new AGSObject("Test", resolver);
+            Func<IObject> baseObj = () => new AGSObject("Test" + Guid.NewGuid(), resolver);
             mocks.Game().Setup(g => g.Events).Returns(resolver.Container.Resolve<IGameEvents>());
             mocks.Game().Setup(g => g.Factory).Returns(resolver.Container.Resolve<IGameFactory>());
 
             Mock<IOutfit> outfit = new Mock<IOutfit>();
 
-            Func<IPanel> basePanel = () => new AGSPanel("Panel", resolver, image.Object);
-            Func<ILabel> baseLabel = () => new AGSLabel("Label", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
-            var button = new AGSButton("Button", resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
+            Func<IPanel> basePanel = () => new AGSPanel("Panel" + Guid.NewGuid(), resolver) { Image = image.Object};
+            Func<ILabel> baseLabel = () => new AGSLabel("Label" + Guid.NewGuid(), resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
+            var button = new AGSButton("Button" + Guid.NewGuid().ToString(), resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
 
             List<IObject> implmentors = new List<IObject>
             {
                 baseObj().Hotspot("Object"),
-                new AGSCharacter("Character", resolver, outfit.Object).Hotspot("Character"),
+                new AGSCharacter("Character" + Guid.NewGuid(), resolver, outfit.Object).Hotspot("Character"),
                 basePanel().Hotspot("Panel"),
                 baseLabel().Hotspot("Label"),
                 button.Hotspot("Button"),
-				new AGSInventoryWindow("Inventory", resolver, image.Object).Hotspot("Inventory"),
-				new AGSSlider("Slider", resolver, image.Object).Hotspot("Slider"),
-                new AGSCheckBox("Checkbox", resolver),
-                new AGSTextbox("Textbox", resolver),
-                new AGSComboBox("Combobox", resolver),
+                new AGSInventoryWindow("Inventory" + Guid.NewGuid(), resolver, image.Object).Hotspot("Inventory"),
+                (new AGSSlider("Slider" + Guid.NewGuid(), resolver) { Image = image.Object}).Hotspot("Slider"),
+                new AGSCheckBox("Checkbox" + Guid.NewGuid(), resolver),
+                new AGSTextbox("Textbox" + Guid.NewGuid(), resolver),
+                new AGSComboBox("Combobox" + Guid.NewGuid(), resolver),
 			};
 
 			return implmentors;
@@ -292,4 +293,3 @@ namespace Tests
 		}
 	}
 }
-

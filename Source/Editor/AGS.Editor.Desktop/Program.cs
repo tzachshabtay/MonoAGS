@@ -10,8 +10,9 @@ namespace AGS.Editor.Desktop
 	{
 		public static void Main(string[] args)
 		{
+            AGSEditor.SetupResolver();
             AGSEngineDesktop.Init();
-            GameLoader.Platform = new DesktopEditorPlatform();
+            AGSEditor.Platform = new DesktopEditorPlatform();
             Program.Run();
 		}
 	}

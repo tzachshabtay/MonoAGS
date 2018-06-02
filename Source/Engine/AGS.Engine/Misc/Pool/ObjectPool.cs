@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 
 namespace AGS.Engine
 {
-	public class ObjectPool<TPoolItem>
+	public class ObjectPool<TPoolItem> : IDisposable
 	{
-		private readonly ConcurrentQueue<TPoolItem> _queue;
-		private readonly Func<ObjectPool<TPoolItem>, TPoolItem> _factory;
+		private ConcurrentQueue<TPoolItem> _queue;
+		private Func<ObjectPool<TPoolItem>, TPoolItem> _factory;
 		private readonly Action<TPoolItem> _release;
 
         public ObjectPool(Func<ObjectPool<TPoolItem>, TPoolItem> factory, int initialCount, Action<TPoolItem> release = null)
@@ -19,16 +19,24 @@ namespace AGS.Engine
 
 		public TPoolItem Acquire()
 		{
+            var queue = _queue;
+            if (queue == null) return default;
 			TPoolItem item;
 			if (_queue.TryDequeue(out item)) return item;
 			return _factory(this);
 		}
 
-		public void Release(TPoolItem item)
+        public void Release(TPoolItem item)
 		{
             _release?.Invoke(item);
-            _queue.Enqueue(item);
+            _queue?.Enqueue(item);
 		}
-	}
+
+        public void Dispose()
+        {
+            _queue = null;
+            _factory = null;
+        }
+    }
 }
 

@@ -74,6 +74,13 @@ namespace AGS.API
 		bool RemoveComponent(IComponent component);
 
         /// <summary>
+        /// Removes the component with the specified type and returns it (if it exists).
+        /// </summary>
+        /// <returns>The component if it was found and removed, <c>null</c> otherwise.</returns>
+        /// <typeparam name="TComponent">The component type.</typeparam>
+		TComponent PopComponent<TComponent>() where TComponent : IComponent;
+
+        /// <summary>
         /// Is there a component of the specified type in the collection?
         /// </summary>
         /// <returns><c>true</c>, if component exists, <c>false</c> otherwise.</returns>
@@ -140,6 +147,13 @@ namespace AGS.API
         /// </summary>
         /// <value>The event.</value>
         IBlockingEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; }
+
+        /// <summary>
+        /// Subscribe to actions that will happen once the entity is disposed.
+        /// If then entity was already disposed when calling this, the action will be executed immediately.
+        /// </summary>
+        /// <param name="onDisposed">The action to perform on entity disposal.</param>
+        void OnDisposed(Action onDisposed);
 	}
 }
 

@@ -21,6 +21,7 @@ namespace AGS.Engine
             PreserveAspectRatio = settings.PreserveAspectRatio;
             WindowState = settings.WindowState;
             WindowBorder = settings.WindowBorder;
+            Defaults = settings.Defaults;
         }
 
         public string Title 
@@ -60,5 +61,7 @@ namespace AGS.Engine
             get => (AGS.API.WindowBorder)_gameWindow.WindowBorder;
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
+
+        public IDefaultsSettings Defaults { get; }
     }
 }

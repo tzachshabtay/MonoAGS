@@ -14,6 +14,7 @@ namespace AGS.Engine
     {
         private bool _isHitTestBoxDirty, _isCropDirty, _areViewportsDirty;
         private int _shouldFireOnUnlock, _pendingLocks;
+        private ViewportBoundingBoxes _mainViewportBoundingBoxes;
         private ConcurrentDictionary<IViewport, ViewportBoundingBoxes> _boundingBoxes;
         private AGSBoundingBox _hitTestBox, _intermediateBox;
         private IModelMatrixComponent _matrix;
@@ -25,16 +26,20 @@ namespace AGS.Engine
         private IGameSettings _settings;
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
+        private readonly IGameEvents _events;
         private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
+        private readonly Func<IViewport, ViewportBoundingBoxes> _createNewViewportBoundingBoxes;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
                                        IBlockingEvent onBoundingBoxChanged)
         {
+            _createNewViewportBoundingBoxes = viewport => new ViewportBoundingBoxes(viewport);
             _boundingBoxes = new ConcurrentDictionary<IViewport, ViewportBoundingBoxes>(new IdentityEqualityComparer<IViewport>());
-            _boundingBoxes.TryAdd(state.Viewport, new ViewportBoundingBoxes(state.Viewport));
+            _mainViewportBoundingBoxes = new ViewportBoundingBoxes(state.Viewport);
             _settings = settings;
+            _events = events;
             _state = state;
             OnBoundingBoxesChanged = onBoundingBoxChanged;
             _boundingBoxBuilder = boundingBoxBuilder;
@@ -69,19 +74,38 @@ namespace AGS.Engine
 
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _mainViewportBoundingBoxes?.Dispose();
+            foreach (var viewportBox in _boundingBoxes?.Values ?? new List<ViewportBoundingBoxes>())
+            {
+                viewportBox?.Dispose();
+            }
+            _boundingBoxBuilder?.OnNewBoxBuildRequired?.Unsubscribe(onHitTextBoxShouldChange);
+            _events?.OnRoomChanging?.Unsubscribe(onHitTextBoxShouldChange);
+            _entity = null;
+        }
+
         public void Lock()
         {
+            lockBoxes(_mainViewportBoundingBoxes);
             foreach (var boxes in _boundingBoxes.Values)
             {
-                boxes.PreLockBoundingBoxes = new AGSBoundingBoxes
-                {
-                    WorldBox = boxes.BoundingBoxes.WorldBox,
-                    PreCropViewportBox = boxes.BoundingBoxes.PreCropViewportBox,
-                    ViewportBox = boxes.BoundingBoxes.ViewportBox,
-                    TextureBox = boxes.BoundingBoxes.TextureBox
-                };
+                lockBoxes(boxes);
             }
             Interlocked.Increment(ref _pendingLocks);
+        }
+
+        private void lockBoxes(ViewportBoundingBoxes boxes)
+        {
+            boxes.PreLockBoundingBoxes = new AGSBoundingBoxes
+            {
+                WorldBox = boxes.BoundingBoxes.WorldBox,
+                PreCropViewportBox = boxes.BoundingBoxes.PreCropViewportBox,
+                ViewportBox = boxes.BoundingBoxes.ViewportBox,
+                TextureBox = boxes.BoundingBoxes.TextureBox
+            };
         }
 
         public void PrepareForUnlock()
@@ -89,6 +113,7 @@ namespace AGS.Engine
             bool isDirty = anyChangesForLock();
             _shouldFireOnUnlock += (isDirty ? 1 : 0);
             if (!isDirty) return;
+            recalculate(_state.Viewport, _mainViewportBoundingBoxes);
             foreach (var viewportBoxes in _boundingBoxes)
             {
                 recalculate(viewportBoxes.Key, viewportBoxes.Value);
@@ -107,12 +132,21 @@ namespace AGS.Engine
         private bool anyChangesForLock()
         {
             return (_isHitTestBoxDirty || _isCropDirty || _areViewportsDirty ||
-                    (!(_drawable?.IgnoreViewport ?? false) && _boundingBoxes.Values.Any(v => v.IsDirty)));
+                    (!(_drawable?.IgnoreViewport ?? false) && (_mainViewportBoundingBoxes.IsDirty || _boundingBoxes.Values.Any(v => v.IsDirty))));
+        }
+
+        private ViewportBoundingBoxes getViewportBoundingBoxes(IViewport viewport)
+        {
+            if (viewport == _state.Viewport)
+            {
+                return _mainViewportBoundingBoxes;
+            }
+            return _boundingBoxes.GetOrAdd(viewport, _createNewViewportBoundingBoxes);
         }
 
         public AGSBoundingBoxes GetBoundingBoxes(IViewport viewport)
         {
-            var viewportBoxes = _boundingBoxes.GetOrAdd(viewport, _ => new ViewportBoundingBoxes(viewport));
+            var viewportBoxes = getViewportBoundingBoxes(viewport);
             if (_pendingLocks > 0)
             {
                 return viewportBoxes.PreLockBoundingBoxes;
@@ -316,6 +350,11 @@ namespace AGS.Engine
             private void onViewportChanged(object sender, PropertyChangedEventArgs args)
             {
                 IsDirty = true;
+            }
+
+            public void Dispose()
+            {
+                _viewport.PropertyChanged -= onViewportChanged;
             }
         }
 	}

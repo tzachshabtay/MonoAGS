@@ -17,20 +17,26 @@ namespace AGS.Editor
         private ITreeViewComponent _treeView;
         private readonly IGameFactory _factory;
         private readonly IGameSettings _settings;
+        private readonly IFont _font;
         private readonly IGameState _state;
         private IEntity _currentEntity;
         private readonly ActionManager _actions;
+        private List<Action> _cleanup;
 
-        public AGSInspector(IGameFactory factory, IGameSettings settings, IGameState state)
+        public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, ActionManager actions)
         {
-            _actions = new ActionManager();
+            _cleanup = new List<Action>(50);
+            _actions = actions;
             _state = state;
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;
-            _settings = settings;
+            _settings = gameSettings;
+            _font = editorSettings.Defaults.TextFont;
         }
 
         public ITreeViewComponent Tree => _treeView;
+
+        public object SelectedObject { get; private set; }
 
         public override void Init(IEntity entity)
         {
@@ -40,7 +46,10 @@ namespace AGS.Editor
 
         public void Show(object obj)
         {
+            cleanup();
+            SelectedObject = obj;
             _props.Clear();
+            GC.Collect(2, GCCollectionMode.Forced);
             var entity = obj as IEntity;
             _currentEntity = entity;
             if (entity == null)
@@ -141,7 +150,7 @@ namespace AGS.Editor
         {
             var treeView = _treeView;
             if (treeView == null) return;
-            var root = new AGSTreeStringNode { Text = ""};
+            var root = new AGSTreeStringNode("", _font);
             List<ITreeStringNode> toExpand = new List<ITreeStringNode>();
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
@@ -179,19 +188,18 @@ namespace AGS.Editor
 
 		private ITreeStringNode addToTree(string text, ITreeStringNode parent)
 		{
-            ITreeStringNode node = (ITreeStringNode)new AGSTreeStringNode { Text = text };
+            ITreeStringNode node = new AGSTreeStringNode(text, _font);
             return addToTree(node, parent);
 		}
 
         private ITreeStringNode addReadonlyNodeToTree(InspectorProperty property, ITreeStringNode parent)
         {
             IInspectorPropertyEditor editor = new StringPropertyEditor(_factory, false, _actions);
-            ITreeStringNode node = new InspectorTreeNode(property, editor);
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
             addToTree(node, parent);
-            var propertyChanged = property.Object as INotifyPropertyChanged;
-            if (propertyChanged != null)
+            if (property.Object is INotifyPropertyChanged propertyChanged)
             {
-                propertyChanged.PropertyChanged += (sender, e) =>
+                PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != property.Name) return;
                     bool isExpanded = _treeView.IsCollapsed(node) == false;
@@ -206,8 +214,16 @@ namespace AGS.Editor
                     //if (isExpanded)
                       //  _treeView.Expand(node);
                 };
+                propertyChanged.PropertyChanged += onPropertyChanged;
+                _cleanup.Add(() => propertyChanged.PropertyChanged -= onPropertyChanged);
             }
             return node;
+        }
+
+        private void cleanup()
+        {
+            foreach (var clean in _cleanup) clean();
+            _cleanup.Clear();
         }
 
         private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
@@ -257,7 +273,7 @@ namespace AGS.Editor
                 else editor = new StringPropertyEditor(_factory, propType == typeof(string), _actions);
             }
 
-            ITreeStringNode node = new InspectorTreeNode(property, editor);
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
             return addToTree(node, parent);
 		}
 

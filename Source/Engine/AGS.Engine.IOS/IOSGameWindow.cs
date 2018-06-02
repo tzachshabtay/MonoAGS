@@ -9,10 +9,11 @@ using OpenTK.Graphics;
 using IOS::UIKit;
 using IOS::CoreGraphics;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSGameWindow : IGameWindow
+    public class IOSGameWindow : IGameWindow, IWindowInfo
     {
         private IOSGameView _view;
         private bool _started;
@@ -24,7 +25,7 @@ namespace AGS.Engine.IOS
         private IOSGameWindow()
         {
             Debug.WriteLine("IOS Game Window Constructor");
-            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>());
+            Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSGestures>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<IOSInput>().SingleInstance().As<IInput>().As<IAGSInput>());
         }
@@ -53,6 +54,24 @@ namespace AGS.Engine.IOS
 
         public int Width => _size.Value.Width;
 
+        public float AppWindowHeight => Height;
+
+        public float AppWindowWidth => Width;
+
+        public Rectangle GameSubWindow 
+        {
+            get
+            {
+                //we have to statically evaluate the window size, because Width & Height must be called from the UI thread.
+                float density = (float)UIScreen.MainScreen.Scale;
+                int windowWidth = Width;
+                int windowHeight = Height;
+
+                return new Rectangle(0, 0, (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density),
+                                           (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density));
+            }
+        }
+
         public double TargetUpdateFrequency { get => 60f; set { } } //todo
         public VsyncMode Vsync { get => VsyncMode.Off; set { } } //todo
         public string Title { get => ""; set { } } //todo
@@ -65,6 +84,9 @@ namespace AGS.Engine.IOS
         public event EventHandler<FrameEventArgs> RenderFrame;
         public event EventHandler<EventArgs> Resize;
         public event EventHandler<FrameEventArgs> UpdateFrame;
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public void OnLoad(EventArgs args)
         {

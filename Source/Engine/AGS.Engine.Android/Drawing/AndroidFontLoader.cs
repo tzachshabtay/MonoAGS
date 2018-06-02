@@ -17,15 +17,14 @@ namespace AGS.Engine.Android
 			
 		public IFont LoadFont(string fontFamily, float sizeInPoints, FontStyle style)
 		{
-			return AndroidFont.FromFamilyName(fontFamily, style, sizeInPoints);
+			return AndroidFont.FromFamilyName(fontFamily, style, sizeInPoints, this);
 		}
 			
 		public IFont LoadFontFromPath(string path, float sizeInPoints, FontStyle style)
 		{
-			return AndroidFont.FromPath(path, style, sizeInPoints);
+			return AndroidFont.FromPath(path, style, sizeInPoints, this);
 		}
 
 		#endregion
 	}
 }
-

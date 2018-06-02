@@ -120,6 +120,19 @@ namespace AGS.API
         /// <returns>The matrix.</returns>
         /// <param name="layer">Layer.</param>
         Matrix4 GetMatrix(IRenderLayer layer);
+
+        /// <summary>
+        /// Gets the area (in window co-ordinates) used by the viewport.
+        /// </summary>
+        /// <value>The screen area.</value>
+        Rectangle ScreenArea { get; }
+
+        /// <summary>
+        /// Refreshs the screen area for the viewport (this is called by the engine).
+        /// </summary>
+        /// <param name="settings">Settings.</param>
+        /// <param name="window">Window.</param>
+        /// <param name="updateArea">Should we update the screen area internally? This is not always desired, like if we're setting a viewport for a frame buffer and not the screen.</param>
+        Rectangle GetScreenArea(IGameSettings settings, IWindowInfo window, bool updateArea);
 	}
 }
-

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -10,7 +11,7 @@ namespace AGS.Engine
         private IInObjectTreeComponent _tree;
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
-        private bool _isDirty;
+        private bool _isDirty, _isCropEnabled;
         private readonly IGameState _state;
         private readonly ConcurrentDictionary<string, IComponentBinding[]> _bindings;
 
@@ -18,11 +19,25 @@ namespace AGS.Engine
         {
             _state = state;
             _bindings = new ConcurrentDictionary<string, IComponentBinding[]>();
+            _isCropEnabled = true;
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
-            EntitiesToSkipCrop.OnListChanged.Subscribe(_ => rebuildEntireTree());
+            EntitiesToSkipCrop.OnListChanged.Subscribe(onEntitiesToSkipCropChanged);
         }
 
-        public bool CropChildrenEnabled { get; set; }
+        public bool CropChildrenEnabled
+        {
+            get => _isCropEnabled;
+            set
+            {
+                if (_isCropEnabled == value) return;
+                _isCropEnabled = value;
+                if (value)
+                {
+                    rebuildJump(_tree);
+                    rebuildEntireTree();
+                }
+            }
+        }
 
         public PointF StartPoint { get => _startPoint; set { _startPoint = value; rebuildJump(_tree); rebuildEntireTree(); } }
 
@@ -35,6 +50,16 @@ namespace AGS.Engine
             entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
             rebuildEntireTree();
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            var tree = _tree;
+            if (tree != null) unsubscribeTree(tree);
+            EntitiesToSkipCrop?.OnListChanged?.Unsubscribe(onEntitiesToSkipCropChanged);
+        }
+
+        private void onEntitiesToSkipCropChanged(AGSHashSetChangedEventArgs<string> _) => rebuildEntireTree();
 
         private void subscribeTree(IInObjectTreeComponent node)
         {
@@ -64,6 +89,7 @@ namespace AGS.Engine
             bindings[0] = obj.Bind<ITranslateComponent>(c => c.PropertyChanged += onLocationChanged, c => c.PropertyChanged -= onLocationChanged);
             bindings[1] = obj.Bind<IVisibleComponent>(c => c.PropertyChanged += onVisibleChanged, c => c.PropertyChanged -= onVisibleChanged);
             _bindings[obj.ID] = bindings;
+            obj.OnDisposed(() => unsubscribeObject(obj));
         }
 
         private void unsubscribeObject(IObject obj)
@@ -122,19 +148,28 @@ namespace AGS.Engine
             rebuildTree(_tree);
         }
 
-        private void rebuildTree(IInObjectTreeComponent tree)
+        private void rebuildTree(IInObjectTreeComponent tree, int retries = 3)
         {
-            if (tree == null) return;
-            foreach (var child in tree.TreeNode.Children)
+            try
             {
-                if (!child.Visible) continue;
-                if (EntitiesToSkipCrop.Contains(child.ID))
+                if (tree == null || !_isCropEnabled) return;
+                foreach (var child in tree.TreeNode.Children)
                 {
-                    if (child.HasComponent<ICropSelfComponent>()) removeCrop(child);
-                    continue;
+                    if (!child.Visible) continue;
+                    if (EntitiesToSkipCrop.Contains(child.ID))
+                    {
+                        if (child.HasComponent<ICropSelfComponent>()) removeCrop(child);
+                        continue;
+                    }
+                    prepareCrop(child);
+                    rebuildTree(child);
                 }
-                prepareCrop(child);
-                rebuildTree(child);
+            }
+            catch (InvalidOperationException e)
+            {
+                Debug.WriteLine($"CropChildrenComponent: Exception when iterating children. retries = {retries}, error: {e.Message}");
+                if (retries <= 0) throw;
+                rebuildTree(tree, retries - 1);
             }
         }
 
@@ -154,7 +189,10 @@ namespace AGS.Engine
 			{
                 if (!child.Visible || EntitiesToSkipCrop.Contains(child.ID)) continue;
 				var jump = child.AddComponent<IJumpOffsetComponent>();
-				jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
+                if (jump != null)
+                {
+                    jump.JumpOffset = new PointF(-StartPoint.X, -StartPoint.Y);
+                }
 			}
         }
 
@@ -177,6 +215,7 @@ namespace AGS.Engine
                     cropSelf.Init(obj);
                     cropSelf.AfterInit();
                     textComponent.CustomTextCrop = cropSelf;
+                    obj.OnDisposed(() => cropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
                 }
             }
             cropSelf = obj.GetComponent<ICropSelfComponent>();
@@ -186,7 +225,15 @@ namespace AGS.Engine
                 cropSelf.CropEnabled = false;
                 ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
-                obj.AddComponent<ICropSelfComponent>(cropSelf);
+                if (obj.AddComponent<ICropSelfComponent>(cropSelf))
+                {
+                    obj.OnDisposed(() => cropSelf.OnBeforeCrop.Unsubscribe(cropper.CropIfNeeded));
+                }
+                else
+                {
+                    cropSelf.OnBeforeCrop.Unsubscribe(cropper.CropIfNeeded);
+                    cropSelf.Dispose();
+                }
             }
         }
 
