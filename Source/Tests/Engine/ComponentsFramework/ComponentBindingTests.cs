@@ -18,7 +18,7 @@ namespace Tests
             {
                 Assert.AreSame(crop, c);
                 bindingCalled = true;
-            }, _ => Assert.Fail("Component was somehow removed"));
+            }, _ => {});
             Assert.IsFalse(bindingCalled);
             entity.AddComponent<ICropSelfComponent>(crop);
             Assert.IsTrue(bindingCalled);
@@ -35,7 +35,7 @@ namespace Tests
             {
                 Assert.AreSame(crop, c);
                 bindingCalled = true;
-            }, _ => Assert.Fail("Component was somehow removed"));
+            }, _ => {});
             Assert.IsTrue(bindingCalled);
         }
     }
