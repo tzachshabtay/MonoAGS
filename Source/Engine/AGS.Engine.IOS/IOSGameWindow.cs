@@ -88,7 +88,6 @@ namespace AGS.Engine.IOS
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-
         public void OnLoad(EventArgs args)
         {
             if (!_started)

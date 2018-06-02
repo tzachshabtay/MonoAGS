@@ -143,4 +143,3 @@ namespace AGS.Engine
         public bool ClickThrough { get; set; }
 	}
 }
-

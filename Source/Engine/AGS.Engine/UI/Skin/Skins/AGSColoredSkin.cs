@@ -66,7 +66,7 @@ namespace AGS.Engine
             }, entity => 
             {
                 var textComponent = entity.GetComponent<ITextComponent>();
-                textComponent.Text = "\u25BE";//Unicode for down arrow. Another option is "\u25BC";
+                textComponent.Text = "\u25BE"; //Unicode for down arrow. Another option is "\u25BC";
             });
 
             skin.AddRule(entity =>

@@ -63,22 +63,22 @@ namespace AGS.Engine
             
             _entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged();});
+                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged(); });
             _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
+                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IWorldPositionComponent>(
                 c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
-                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged();}
+                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged(); }
             );
             _entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged();},
-                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
+                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged(); }
             );
 			_entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onImageChanged; onSomethingChanged(); },

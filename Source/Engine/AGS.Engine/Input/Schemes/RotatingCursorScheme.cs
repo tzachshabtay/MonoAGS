@@ -211,7 +211,7 @@ namespace AGS.Engine
 
 			public string Mode { get; private set; }
 			public IObject Animation { get; set; }
-			public bool Rotating { get; private set;}
+			public bool Rotating { get; private set; }
 		}
 	}
 }

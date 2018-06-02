@@ -378,4 +378,3 @@ namespace AGS.Engine
         }
 	}
 }
-

@@ -148,4 +148,3 @@ namespace AGS.Engine
 		private bool finishedAnimation;
 	}
 }
-

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using AGS.API;
 
-
 namespace AGS.Engine
 {
     [PropertyFolder]
