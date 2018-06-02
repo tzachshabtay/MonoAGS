@@ -435,6 +435,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>MonoAGS has the concept of a sound emitter which automatically pans the sound based on the location in the room, and can set the volume based on volume-changing areas, but nothing currently specifically exists for volume based on distance from a character.</td>
 </tr>
 <tr>
+<td>Speed</td>
+<td>Pitch</td>
+<td><code>channel.Speed = 2000;</code></td>
+<td><code>sound.Pitch = 2;</code></td>
+<td></td>
+</tr>
+<tr>
 <td>Stop</td>
 <td>Stop</td>
 <td><code>channel.Stop();</code></td>
@@ -492,7 +499,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 </tbody>
 </table>
-<p>Missing in AGS but exists in MonoAGS: Pitch, Asynchronous completion API, Pause/Resume, Rewind, IsPaused, IsLooping, IsValid.</p>
+<p>Missing in AGS but exists in MonoAGS: Asynchronous completion API, Pause/Resume, Rewind, IsPaused, IsLooping, IsValid.</p>
 <h2 id="audioclip">AudioClip</h2>
 <table>
 <thead>
@@ -613,21 +620,28 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>FaceCharacter</td>
-<td>FaceDirection</td>
+<td>FaceDirectionAsync</td>
 <td><code>cEgo.FaceCharacter(cSomeGirl, eBlock);</code></td>
 <td>Non-blocking: <code>cEgo.FaceDirectionAsync(cSomeGirl);</code>, blocking: <code>await cEgo.FaceDirectionAsync(cSomeGirl);</code></td>
 <td>Missing support for &quot;turning&quot; animation.</td>
 </tr>
 <tr>
-<td>FaceLocation</td>
 <td>FaceDirection</td>
+<td>FaceDirectionAsync</td>
+<td><code>cEgo.FaceDirection(eDirectionUpRight);</code></td>
+<td><code>await cEgo.FaceDirectionAsync(Direction.UpRight);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>FaceLocation</td>
+<td>FaceDirectionAsync</td>
 <td><code>cEgo.FaceLocation(50, 50, eBlock);</code></td>
 <td>Non-blocking: <code>cEgo.FaceDirectionAsync(50, 50);</code>, blocking: <code>await cEgo.FaceDirectionAsync(50, 50);</code></td>
 <td>Missing support for &quot;turning&quot; animation.</td>
 </tr>
 <tr>
 <td>FaceObject</td>
-<td>FaceDirection</td>
+<td>FaceDirectionAsync</td>
 <td><code>cEgo.FaceObject(oFridge, eBlock);</code></td>
 <td>Non-blocking: <code>cEgo.FaceDirectionAsync(oFridge);</code>, blocking: <code>await cEgo.FaceDirectionAsync(oFridge);</code></td>
 <td>Missing support for &quot;turning&quot; animation.</td>
@@ -661,6 +675,27 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>SetProperty</td>
+<td>Properties.Ints.SetValue</td>
+<td><code>cEgo.SetProperty(&quot;XPLevel&quot;, 10);</code></td>
+<td><code>cEgo.Properties.Ints.SetValue(&quot;XPLevel&quot;, 10);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetTextProperty</td>
+<td>Properties.Strings.SetValue</td>
+<td><code>cEgo.SetTextProperty(&quot;Description&quot;, &quot;I am handsome!&quot;);</code></td>
+<td><code>cEgo.Properties.Strings.SetValue(&quot;Description&quot;, &quot;I am handsome!&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HasExplicitLight</td>
+<td>?</td>
+<td><code>if (cEgo.HasExplicitLight) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
 <td>HasInventory</td>
 <td>Inventory.Items.Contains</td>
 <td><code>if (cEgo.HasInventory(iKnife)) {}</code></td>
@@ -680,6 +715,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td><code>if (cEgo.IsCollidingWithChar(oBottle) == 1) {}</code></td>
 <td><code>if (cEgo.CollidesWith(oBottle.X, oBottle.Y, state.Viewport)) {}</code></td>
 <td>Note that MonoAGS supports multiple viewports so we need to pass the viewport in which we&#39;d like to test for collisions.</td>
+</tr>
+<tr>
+<td>LightLevel</td>
+<td>Brightness</td>
+<td><code>cEgo.LightLevel</code></td>
+<td><code>cEgo.Brightness</code></td>
+<td>Note that unlike AGS, in MonoAGS the brightness does not override the tint, but is added on top of it.</td>
 </tr>
 <tr>
 <td>LockView</td>
@@ -738,6 +780,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>IsInteractionAvailable</td>
+<td>checking subscriber count on the interaction event</td>
+<td><code>if (cEgo.IsInteractionAvailable(eModeLookat) == 0) {}</code></td>
+<td><code>if (cEgo.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td></td>
+</tr>
+<tr>
 <td>RunInteraction</td>
 <td>Interactions.OnInteract(Verb).InvokeAsync</td>
 <td><code>cEgo.RunInteraction(eModeTalk);</code></td>
@@ -770,6 +819,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>IGameState.Player</td>
 <td><code>cEgo.SetAsPlayer();</code></td>
 <td><code>state.Player = cEgo;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetLightLevel</td>
+<td>Brightness</td>
+<td><code>cEgo.SetLightLevel(100);</code></td>
+<td><code>cEgo.Brightness = new Vector4(2,2,2,2);</code></td>
 <td></td>
 </tr>
 <tr>
@@ -808,6 +864,41 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>TintBlue</td>
+<td>Tint.B</td>
+<td><code>cEgo.TintBlue</code></td>
+<td><code>cEgo.Tint.B</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintGreen</td>
+<td>Tint.G</td>
+<td><code>cEgo.TintGreen</code></td>
+<td><code>cEgo.Tint.G</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintRed</td>
+<td>Tint.R</td>
+<td><code>cEgo.TintRed</code></td>
+<td><code>cEgo.Tint.R</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintSaturation</td>
+<td>Tint.GetSaturation</td>
+<td><code>cEgo.TintSaturation</code></td>
+<td><code>cEgo.Tint.GetSaturation()</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintLuminance</td>
+<td>Tint.GetLightness</td>
+<td><code>cEgo.TintLuminance</code></td>
+<td><code>cEgo.Tint.GetLightness()</code></td>
+<td></td>
+</tr>
+<tr>
 <td>UnlockView</td>
 <td>Outfit</td>
 <td><code>cEgo.UnlockView();</code></td>
@@ -823,7 +914,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>WalkStraight</td>
-<td>?</td>
+<td>WalkStraight</td>
 <td><code>cEgo.WalkStraight(100, 100);</code></td>
 <td><code>await cEgo.WalkStraight((100, 100));</code></td>
 <td></td>
@@ -899,8 +990,22 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>DestinationX</td>
+<td>WalkDestination.X</td>
+<td><code>cEgo.DestinationX</code></td>
+<td><code>cEgo.WalkDestination.X</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DestinationY</td>
+<td>WalkDestination.Y</td>
+<td><code>cEgo.DestinationY</code></td>
+<td><code>cEgo.WalkDestination.Y</code></td>
+<td></td>
+</tr>
+<tr>
 <td>DiagonalLoops</td>
-<td>Simply configure your directional animation either with or without diagonal directions</td>
+<td>Configure your directional animation either with or without diagonal directions</td>
 <td><code>cEgo.DiagonalLoops = true;</code></td>
 <td>Nothing special needed for this to work</td>
 <td></td>
@@ -1074,6 +1179,20 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>Thinking</td>
+<td>?</td>
+<td><code>if (cEgo.Thinking) {}</code></td>
+<td>?</td>
+<td>There&#39;s nothing particular about <code>Think</code> in MonoAGS currently, but using outfit you can assign and query specific animations, so you can create a &quot;think&quot; animation if it fits your game.</td>
+</tr>
+<tr>
+<td>ThinkingFrame</td>
+<td>Outfit[Animations.Think].Animation.State.CurrentFrame</td>
+<td><code>cEgo.ThinkingFrame</code></td>
+<td><code>cEgo.Outfit[Animations.Think].Animation.State.CurrentFrame</code></td>
+<td>There&#39;s nothing particular about <code>Think</code> in MonoAGS currently, but using outfit you can assign and query specific animations, so you can create a &quot;think&quot; animation if it fits your game.</td>
+</tr>
+<tr>
 <td>ThinkView</td>
 <td>Outfit[Animations.Think]</td>
 <td><code>cEgo.ThinkView</code></td>
@@ -1138,7 +1257,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 </tbody>
 </table>
-<p>Missing in AGS but exists in MonoAGS: asynchronous speech/walk, configuring speech background color/shadows + outlines/text brushes/borders/alignments/text skipping/portraits, hooking/customizing speech/walk/path finding, getting walk destination, face direction with left/right/etc, face direction based on where somebody else is looking, iterating/querying inventory items, subscribing/unsubscribing interaction events during the game, more configurations for following, follow objects which are not characters, query the current follow target, and as a character is an extension of object, see the list for object for more stuff.</p>
+<p>Missing in AGS but exists in MonoAGS: asynchronous speech/walk, configuring speech background color/shadows + outlines/text brushes/borders/alignments/text skipping/portraits, hooking/customizing speech/walk/path finding, face direction based on where somebody else is looking, iterating/querying inventory items, subscribing/unsubscribing interaction events during the game, more configurations for following, follow objects which are not characters, query the current follow target, and as a character is an extension of object, see the list for object for more stuff.</p>
 <h2 id="datetime">DateTime</h2>
 <table>
 <thead>
@@ -1266,6 +1385,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>SetHasOptionBeenChosen</td>
+<td>option.HasOptionBeenChosen</td>
+<td><code>dJoeExcited.SetHasOptionBeenChosen(3, false);</code></td>
+<td><code>dJoeExcited.Options[3].HasOptionBeenChosen = false;</code></td>
+<td></td>
+</tr>
+<tr>
 <td>SetOptionState</td>
 <td>Either set option.Label.Visible or option.ShowOnce</td>
 <td><code>dJoeExcited.SetOptionState(2, eOptionOff)</code></td>
@@ -1309,6 +1435,20 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </thead>
 <tbody>
 <tr>
+<td>RunActiveOption</td>
+<td>option.RunAsync</td>
+<td><code>info.RunActiveOption();</code></td>
+<td><code>await option.RunAsync();</code></td>
+<td>There&#39;s no support in MonoAGS for having an &quot;active option&quot;, you just select the option you want to run.</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>Not Needed</td>
+<td><code>info.Update();</code></td>
+<td>N/A</td>
+<td>No need for this in MonoAGS currently, dialog is continously rendered.</td>
+</tr>
+<tr>
 <td>ActiveOptionID</td>
 <td>Not Needed</td>
 <td><code>info.ActiveOptionID = 1</code></td>
@@ -1321,6 +1461,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td><code>info.DialogToRender</code></td>
 <td>?</td>
 <td>The way to do custom rendering is a bit different in MonoAGS. There&#39;s no one single hook to customize the dialogs, but you can choose on which layer you want to provide your own different implementation. So you can provide a different implementation for <code>IDialogLayout</code> (which gets the dialog graphics and options graphics and chooses how to place them), or you can provide a different implementation for each (or for specific) <code>IDialogOption</code> to change how they are rendered/behave, or you can provide a different implementation for <code>IDialog</code> to completely rewrite the dialog mechanism (but still be able to hook it up to existing dialog code). Each of those custom implementations can be either changed for all dialogs or for specific dialogs.</td>
+</tr>
+<tr>
+<td>HasAlphaChannel</td>
+<td>?</td>
+<td><code>info.HasAlphaChannel = true;</code></td>
+<td>All graphics always have an alpha channel</td>
+<td></td>
 </tr>
 <tr>
 <td>Height</td>
@@ -1621,6 +1768,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td></td>
 </tr>
 <tr>
+<td>Seek</td>
+<td>BaseStream.Seek</td>
+<td><code>input.Seek(256);</code></td>
+<td><code>using (var reader = new BinaryReader(File.OpenRead(&quot;file.txt&quot;)) ) { reader.BaseStream.Seek(256, SeekOrigin.Begin);</code></td>
+<td></td>
+</tr>
+<tr>
 <td>WriteInt</td>
 <td>BinaryWriter.Write</td>
 <td><code>output.WriteInt(6);</code></td>
@@ -1650,7 +1804,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>EOF</td>
-<td>BinaryReader.BaseStream.Position</td>
+<td>BaseStream.Position</td>
 <td><code>while (!output.EOF) {}</code></td>
 <td><code>while (reader.BaseStream.Position != reader.BaseStream.Length)</code></td>
 <td></td>
@@ -1662,6 +1816,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td><code>try { writer.Write(51); } catch (Exception e) { AGSMessageBox.DisplayAsync($&quot;Error while writing the data. The error message is: {e.Message}&quot;); }</code></td>
 <td></td>
 </tr>
+<tr>
+<td>Position</td>
+<td>BaseStream.Position</td>
+<td><code>input.Position</code></td>
+<td><code>reader.BaseStream.Position</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p>Missing in AGS but exists in MonoAGS: well, nothing here is MonoAGS specific, this is all c#. You can see all available functions here:
@@ -1669,7 +1830,8 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <a href="https://msdn.microsoft.com/en-us/library/system.io.binaryreader(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.binaryreader(v=vs.110).aspx</a>
 <a href="https://msdn.microsoft.com/en-us/library/system.io.binarywriter(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.binarywriter(v=vs.110).aspx</a>
 <a href="https://msdn.microsoft.com/en-us/library/system.io.streamreader(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.streamreader(v=vs.110).aspx</a>
-<a href="https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx</a></p>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.streamwriter(v=vs.110).aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/system.io.filestream(v=vs.110).aspx">https://msdn.microsoft.com/en-us/library/system.io.filestream(v=vs.110).aspx</a></p>
 <h2 id="game--global-functions">Game / Global functions</h2>
 <table>
 <thead>
@@ -1705,9 +1867,9 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>ClaimEvent</td>
-<td>?</td>
+<td>event.Claimed</td>
 <td><code>ClaimEvent();</code></td>
-<td>?</td>
+<td><code>someEvent.Subscribe(onMyEvent); ... void onMyEvent(ref ClaimEventToken token) { token.Claimed = true; }</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1851,6 +2013,20 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>Nothing specific in MonoAGS for this, but this could be easily implemented in just a few lines: <code>public static class Score { public static int Score { get; private set; } public static void GiveScore(int score) { Score += score; Sounds.Score.Play();}}</code></td>
 </tr>
 <tr>
+<td>GetFontHeight</td>
+<td>Font.SizeInPoints</td>
+<td><code>GetFontHeight(eFontSpeech)</code></td>
+<td><code>myFont.SizeInPoints</code></td>
+<td></td>
+</tr>
+<tr>
+<td>GetFontLineSpacing</td>
+<td>?</td>
+<td><code>GetFontLineSpacing(eFontSpeech)</code></td>
+<td>?</td>
+<td>Note that you can use <code>MeasureString</code> to get accurate measurements of texts: <code>myFont.MeasureString(&quot;Hello world&quot;);</code></td>
+</tr>
+<tr>
 <td>InputBox</td>
 <td>?</td>
 <td><code>String name = Game.InputBox(&quot;!What is your name?&quot;);</code></td>
@@ -1904,13 +2080,6 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>state.Paused</td>
 <td><code>PauseGame();</code></td>
 <td><code>game.State.Paused = true;</code></td>
-<td></td>
-</tr>
-<tr>
-<td>ProcessClick</td>
-<td>invoke the interaction event</td>
-<td><code>ProcessClick(100, 50, eModeLookAt);</code></td>
-<td><code>cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1973,6 +2142,13 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>SaveScreenShot</td>
 <td>?</td>
 <td><code>SaveScreenshot(&quot;pic.pcx&quot;);</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>SetAmbientLightLevel</td>
+<td>?</td>
+<td><code>SetAmbientLightLevel(50);</code></td>
 <td>?</td>
 <td></td>
 </tr>
@@ -2079,6 +2255,20 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>?</td>
 <td><code>WaitMouseKey(200);</code></td>
 <td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>AudioClipCount</td>
+<td>AudioSystem.AudioClips.Count</td>
+<td><code>Game.AudioClipCount</code></td>
+<td><code>game.Audio.AudioClips.Count</code></td>
+<td></td>
+</tr>
+<tr>
+<td>AudioClips</td>
+<td>AudioSystem.AudioClips</td>
+<td><code>Game.AudioClips</code></td>
+<td><code>game.Audio.AudioClips</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2259,6 +2449,13 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td>Missing support for specific location checks.</td>
 </tr>
 <tr>
+<td>ProcessClick</td>
+<td>invoke the interaction event</td>
+<td><code>GUI.ProcessClick(100, 50, eModeLookAt);</code></td>
+<td><code>myButton.Interactions.OnInteract(Verbs.Look).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
 <td>SetPosition</td>
 <td>Position</td>
 <td><code>gPanel.SetPosition(50, 50);</code></td>
@@ -2383,7 +2580,7 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td>as</td>
 <td><code>gIconbar.Controls[2].AsButton</code></td>
 <td><code>gIconBar.TreeNode.Children[2] as IButton</code></td>
-<td></td>
+<td>You can also use <code>is</code>: <code>if (child is IButton button) { button.X = 500; }</code></td>
 </tr>
 <tr>
 <td>BringToFront</td>
@@ -2476,6 +2673,13 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td><code>btnConfirm.Y = 20;</code></td>
 <td></td>
 </tr>
+<tr>
+<td>ZOrder</td>
+<td>Z</td>
+<td><code>btnConfirm.ZOrder = 20;</code></td>
+<td><code>btnConfirm.Z = 20;</code></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p>Missing in AGS but exists in MonoAGS: scaling and rotating controls, nesting controls (or any other object) within controls (or any other object), placing GUI controls as part of the world (behind non-GUIs), different resolution from the game, custom rendering (including shaders), mouse events (enter, leave, move, click, double-click, down, up, lost focus), sub-pixel positioning, skinning, and also, as the controls extend objects, see objects for more stuff.</p>
@@ -2492,10 +2696,45 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 </thead>
 <tbody>
 <tr>
+<td>Click</td>
+<td>MouseClicked.InvokeAsync</td>
+<td><code>button.Click()</code></td>
+<td><code>button.MouseClicked.InvokeAsync()</code></td>
+<td></td>
+</tr>
+<tr>
 <td>Animate</td>
 <td>AnimateAsync</td>
 <td><code>btnDeathAnim.Animate(6, 2, 4, eRepeat);</code></td>
 <td><code>btnDeathAnim.AnimateAsync(deathAnimation); //The delay &amp; repeat for the animation is configured in the animation configuration</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Animating</td>
+<td>Animation.State.IsPaused</td>
+<td><code>if (button.Animating) {}</code></td>
+<td><code>if (!button.Animation.State.IsPaused) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Frame</td>
+<td>Animation.State.CurrentFrame</td>
+<td><code>button.Frame</code></td>
+<td><code>button.Animation.State.CurrentFrame</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Loop</td>
+<td>Animation.State.CurrentLoop</td>
+<td><code>button.Loop</code></td>
+<td><code>button.Animation.State.CurrentLoop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>View</td>
+<td>Animation</td>
+<td><code>button.View</code></td>
+<td><code>button.Animation</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2816,6 +3055,13 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td>?</td>
 <td></td>
 </tr>
+<tr>
+<td>Translated</td>
+<td>?</td>
+<td><code>if (lstOptions.Translated) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <p>Missing in AGS but exists in MonoAGS: smooth scrolling for the listbox, SelectedItem, control individual appearances of rows/scrollbars/panel, allow automatic resizing of the box with minimum and maximum height, change events, search filter, see GUI controls for more.</p>
@@ -2946,6 +3192,27 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td></td>
 </tr>
 <tr>
+<td>SetProperty</td>
+<td>Properties.Ints.SetValue</td>
+<td><code>hDoor.SetProperty(&quot;Value&quot;, 200);</code></td>
+<td><code>hDoor.Properties.Ints.SetValue(&quot;Value&quot;, 200);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetTextProperty</td>
+<td>Properties.Strings.SetValue</td>
+<td><code>hDoor.SetTextProperty(&quot;Description&quot;, &quot;Nice door&quot;);</code></td>
+<td><code>hDoor.Properties.Strings.SetValue(&quot;Description&quot;, &quot;Nice door&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>IsInteractionAvailable</td>
+<td>checking subscriber count on the interaction event</td>
+<td><code>if (hTable.IsInteractionAvailable(eModeLookat) == 0) {}</code></td>
+<td><code>if (hTable.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td></td>
+</tr>
+<tr>
 <td>RunInteraction</td>
 <td>Interactions.OnInteract(Verb).InvokeAsync</td>
 <td><code>hDoor.RunInteraction(eModeLookat);</code></td>
@@ -3021,6 +3288,20 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <td>Properties.Strings.GetValue</td>
 <td><code>iKnife.GetTextProperty(&quot;Description&quot;);</code></td>
 <td><code>iKnife.Graphics.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetProperty</td>
+<td>Properties.Ints.SetValue</td>
+<td><code>iKnife.SetProperty(&quot;Value&quot;, 200);</code></td>
+<td><code>hDoor.Properties.Ints.SetValue(&quot;Value&quot;, 200);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetTextProperty</td>
+<td>Properties.Strings.SetValue</td>
+<td><code>iKnife.SetTextProperty(&quot;Description&quot;, &quot;Nice knife&quot;);</code></td>
+<td><code>iKnife.Properties.Strings.SetValue(&quot;Description&quot;, &quot;Nice knife&quot;);</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3258,6 +3539,20 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>See notes on ChangeModeGraphic</td>
 </tr>
 <tr>
+<td>Click</td>
+<td>input.MouseDown.InvokeAsync and input.MouseUp.InvokeAsync</td>
+<td><code>Mouse.Click(eMouseLeft);</code></td>
+<td><code>input.MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, input.MousePosition));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ControlEnabled</td>
+<td>?</td>
+<td><code>if (Mouse.ControlEnabled) {}</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
 <td>DisableMode</td>
 <td>?</td>
 <td><code>mouse.DisableMode(eModeWalkto);</code></td>
@@ -3300,6 +3595,13 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td></td>
 </tr>
 <tr>
+<td>SelectPreviousMode</td>
+<td>?</td>
+<td><code>Mouse.SelectPreviousMode();</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
 <td>SetBounds</td>
 <td>Subscribe to mouse move event and change the position of the mouse accordingly</td>
 <td><code>mouse.SetBounds(160, 100, 320, 200);</code></td>
@@ -3311,6 +3613,13 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>OpenTK.Mouse.SetPosition</td>
 <td><code>mouse.SetPosition(160, 100);</code></td>
 <td><code>OpenTK.Mouse.SetPosition(160, 100);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>?</td>
+<td><code>Mouse.Speed = 1.5;</code></td>
+<td>?</td>
 <td></td>
 </tr>
 <tr>
@@ -3394,6 +3703,20 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td></td>
 </tr>
 <tr>
+<td>SetProperty</td>
+<td>Properties.Ints.SetValue</td>
+<td><code>oRope.SetProperty(&quot;Value&quot;, 200);</code></td>
+<td><code>oRope.Properties.Ints.SetValue(&quot;Value&quot;, 200);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetTextProperty</td>
+<td>Properties.Strings.SetValue</td>
+<td><code>oRope.SetTextProperty(&quot;Description&quot;, &quot;Nice rope&quot;);</code></td>
+<td><code>oRope.Properties.Strings.SetValue(&quot;Description&quot;, &quot;Nice rope&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
 <td>IsCollidingWithObject (character)</td>
 <td>CollidesWith</td>
 <td><code>if (oRope.IsCollidingWithChar(oBottle) == 1) {}</code></td>
@@ -3422,10 +3745,24 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td></td>
 </tr>
 <tr>
+<td>IsInteractionAvailable</td>
+<td>checking subscriber count on the interaction event</td>
+<td><code>if (oRope.IsInteractionAvailable(eModeLookat) == 0) {}</code></td>
+<td><code>if (oRope.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td></td>
+</tr>
+<tr>
 <td>RunInteraction</td>
 <td>Interactions.OnInteract(Verb).InvokeAsync</td>
 <td><code>oRope.RunInteraction(eModeTalk);</code></td>
 <td><code>oRope.Interactions.OnInteract(Verbs.Talk).InvokeAsync();</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetLightLevel</td>
+<td>Brightness</td>
+<td><code>oRope.SetLightLevel(100);</code></td>
+<td><code>oRope.Brightness = new Vector4(2,2,2,2);</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3513,6 +3850,20 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td></td>
 </tr>
 <tr>
+<td>HasExplicitLight</td>
+<td>compare Brightness</td>
+<td><code>if (oRope.HasExplicitLight) {}</code></td>
+<td><code>if (!oRope.Brightness.Equals(new Vector4(1,1,1,1))) {}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>HasExplicitTint</td>
+<td>compare Tint</td>
+<td><code>if (oRope.HasExplicitTint) {}</code></td>
+<td><code>if (oRope.Tint != Colors.White) {}</code></td>
+<td></td>
+</tr>
+<tr>
 <td>ID</td>
 <td>ID</td>
 <td><code>oRope.ID</code></td>
@@ -3532,6 +3883,13 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td><code>oRope.IgnoreWalkbehinds = true;</code></td>
 <td>?</td>
 <td>Probably not really needed in MonoAGS- with the combination of render layers, Z and parent-child relationships you have the ability control rendering order more easily</td>
+</tr>
+<tr>
+<td>LightLevel</td>
+<td>Brightness</td>
+<td><code>oRope.LightLevel</code></td>
+<td><code>oRope.Brightness</code></td>
+<td></td>
 </tr>
 <tr>
 <td>Loop</td>
@@ -3559,6 +3917,41 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>?</td>
 <td><code>oRope.Solid = true;</code></td>
 <td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>TintBlue</td>
+<td>Tint.B</td>
+<td><code>oRope.TintBlue</code></td>
+<td><code>oRope.Tint.B</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintGreen</td>
+<td>Tint.G</td>
+<td><code>oRope.TintGreen</code></td>
+<td><code>oRope.Tint.G</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintRed</td>
+<td>Tint.R</td>
+<td><code>oRope.TintRed</code></td>
+<td><code>oRope.Tint.R</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintSaturation</td>
+<td>Tint.GetSaturation</td>
+<td><code>oRope.TintSaturation</code></td>
+<td><code>oRope.Tint.GetSaturation()</code></td>
+<td></td>
+</tr>
+<tr>
+<td>TintLuminance</td>
+<td>Tint.GetLightness</td>
+<td><code>oRope.TintLuminance</code></td>
+<td><code>oRope.Tint.GetLightness()</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3718,9 +4111,9 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>No built-in way, but you can implement a custom renderer for the background and draw whatever you want.</td>
 </tr>
 <tr>
-<td>GetRoomProperty</td>
+<td>GetProperty</td>
 <td>Properties.Bools/Ints/etc</td>
-<td><code>if (GetRoomProperty(&quot;CanBeAttackedHere&quot;)) {}</code></td>
+<td><code>if (Room.GetProperty(&quot;CanBeAttackedHere&quot;)) {}</code></td>
 <td><code>if (myRoom.Properties.Bools.GetValue(&quot;CanBeAttackedHere&quot;)) {}</code></td>
 <td></td>
 </tr>
@@ -3729,6 +4122,20 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>Properties.Strings</td>
 <td><code>Room.GetTextProperty(&quot;Description&quot;);</code></td>
 <td><code>myRoom.Properties.Strings.GetValue(&quot;Description&quot;);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetProperty</td>
+<td>Properties.Ints.SetValue</td>
+<td><code>Room.SetProperty(&quot;XPLevel&quot;, 10);</code></td>
+<td><code>myRoom.Properties.Ints.SetValue(&quot;XPLevel&quot;, 10);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SetTextProperty</td>
+<td>Properties.Strings.SetValue</td>
+<td><code>Room.SetTextProperty(&quot;Description&quot;, &quot;I am handsome!&quot;);</code></td>
+<td><code>myRoom.Properties.Strings.SetValue(&quot;Description&quot;, &quot;I am handsome!&quot;);</code></td>
 <td></td>
 </tr>
 <tr>
@@ -3765,6 +4172,13 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td><code>if (HasPlayerBeenInRoom(14)) {}</code></td>
 <td>?</td>
 <td>Note that while this is not built-in, it can be programmed easily if needed: when entering the room you&#39;re interested in tracking, you can run <code>Repeat.Do(&quot;playerInMySpecialRoom&quot;);</code>,  and then, for testing &quot;HasPlayerBeenInRoom&quot;, you can run <code>if (Repeat.Current(&quot;playerInMySpecialRoom&quot;) &gt;= 1) {}</code></td>
+</tr>
+<tr>
+<td>ProcessClick</td>
+<td>invoke the interaction event</td>
+<td><code>Room.ProcessClick(100, 50, eModeLookAt);</code></td>
+<td><code>cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));</code></td>
+<td></td>
 </tr>
 <tr>
 <td>ReleaseViewport</td>
@@ -3973,6 +4387,105 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </tbody>
 </table>
 <p>Missing in AGS but exists in MonoAGS: Customize time and easing for built in room transitions, code your own custom room transitions, shake can be applied to individual objects (not just the screen), custom shaders to generate all sorts of effects.</p>
+<h2 id="speech">Speech</h2>
+<table>
+<thead>
+<tr>
+<th>AGS</th>
+<th>MonoAGS</th>
+<th>AGS Example</th>
+<th>MonoAGS Example</th>
+<th>Further notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AnimationStopTimeMargin</td>
+<td>?</td>
+<td><code>Speech.AnimationStopTimeMargin = 40;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>CustomPortraitPlacement</td>
+<td>PortraitConfig.Positioning</td>
+<td><code>Speech.CustomPortraitPlacement = true;</code></td>
+<td><code>cEgo.SayConfig.PortraitConfig.Positioning = PortraitPositioning.Custom;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>DisplayPostTimeMs</td>
+<td>?</td>
+<td><code>Speech.DisplayPostTimeMs = 40;</code></td>
+<td>?</td>
+<td>This is currently hard-coded as 40 milliseconds</td>
+</tr>
+<tr>
+<td>GlobalSpeechAnimationDelay</td>
+<td>?</td>
+<td><code>Speech.GlobalSpeechAnimationDelay = 5;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>PortraitXOffset</td>
+<td>PortraitConfig.PortraitOffset</td>
+<td><code>Speech.PortraitXOffset = 5;</code></td>
+<td><code>cEgo.SayConfig.PortraitConfig.PortraitOffset = (5, 0);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>PortraitY</td>
+<td>PortraitConfig.PortraitOffset</td>
+<td><code>Speech.PortraitY = 5;</code></td>
+<td><code>cEgo.SayConfig.PortraitConfig.PortraitOffset = (0, 5);</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SkipKey</td>
+<td>Use custom skipping and skip on key press</td>
+<td><code>Speech.SkipKey = eKeySpace;</code></td>
+<td><code>cEgo.OnBeforeSay.Subscribe(args =&gt; input.OnKeyDown.Subscribe(keyArgs =&gt; if (keyArgs.Key == Key.Space) { args.SkipText();}););</code></td>
+<td></td>
+</tr>
+<tr>
+<td>SkipStyle</td>
+<td>SpeechConfig.SkipText</td>
+<td><code>Speech.SkipStyle = eSkipTime;</code></td>
+<td><code>player.SpeechConfig.SkipText = SkipText.ByTime;</code></td>
+<td>Note that the example given in MonoAGS is for setting the skip style for a specific character, not a global change like in AGS. Also you can do custom skipping by subscribing to <code>OnBeforeSay</code>, see the example on <code>SkipKey</code>.</td>
+</tr>
+<tr>
+<td>Style</td>
+<td>customize to your liking</td>
+<td><code>Speech.Style = eSpeechSierra;</code></td>
+<td>N/A</td>
+<td>For the &quot;lucas arts&quot; style (text over character&#39;s head), do nothing, that&#39;s the default. For the &quot;sierra&quot; style, set a portrait in the charater&#39;s speech config: <code>cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;</code>. For the &quot;sierra with background&quot; style, set a portrait as before, and also set BackgroundColor in the character&#39;s speech config: <code>cGraham.SpeechConfig.BackgroundColor = Colors.Pink;</code>. For &quot;QFG4-style full screen&quot;, set the portrait object to be a full-screen size object, and for customizing where the speech text and portrait will be located, you need to provide your custom implementation for <code>ISayLocationProvider</code> and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: <code>public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}</code>, then to use this implementation instead of the default engine&#39;s implementation, write (before the game loads): <code>Resolver.Override(resolver =&gt; resolver.Builder.RegisterType&lt;Qfg4StyleSayLocationProvider&gt;().As&lt;ISayLocationProvider&gt;());</code>.</td>
+</tr>
+<tr>
+<td>TextAlignment</td>
+<td>SayConfig.TextConfig.Alignment</td>
+<td><code>Speech.TextAlignment = eAlignRight;</code></td>
+<td><code>cEgo.SayConfig.TextConfig.Alignment = Alignment.MiddleRight;</code></td>
+<td></td>
+</tr>
+<tr>
+<td>UseGlobalSpeechAnimationDelay</td>
+<td>?</td>
+<td><code>Speech.UseGlobalSpeechAnimationDelay = true;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
+<td>VoiceMode</td>
+<td>?</td>
+<td><code>Speech.VoiceMode = eSpeechVoiceAndText;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Missing in AGS but exists in MonoAGS: Setting &quot;skip text&quot; styles for specific characters, more customizations to speech style, including creating custom say functions completely.</p>
 <h2 id="string">String</h2>
 <table>
 <thead>
@@ -4135,16 +4648,16 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <tbody>
 <tr>
 <td>AudioChannelCount</td>
-<td>?</td>
+<td>AudioSystem.CurrentlyPlayingSounds.Count</td>
 <td><code>System.AudioChannelCount</code></td>
-<td>?</td>
+<td><code>game.Audio.CurrentlyPlayingSounds.Count</code></td>
 <td></td>
 </tr>
 <tr>
 <td>AudioChannels</td>
-<td>?</td>
+<td>AudioSystem.CurrentlyPlayingSounds</td>
 <td><code>AudioChannel *channel = System.AudioChannels[2];</code></td>
-<td>?</td>
+<td><code>var sound = game.Audio.CurrentlyPlayingSounds[2];</code></td>
 <td></td>
 </tr>
 <tr>
@@ -4176,6 +4689,13 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td></td>
 </tr>
 <tr>
+<td>HasInputFocus</td>
+<td>?</td>
+<td><code>if (!System.HasInputFocus) return;</code></td>
+<td>?</td>
+<td></td>
+</tr>
+<tr>
 <td>NumLock</td>
 <td>?</td>
 <td><code>if (System.NunLock) {}</code></td>
@@ -4184,8 +4704,22 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </tr>
 <tr>
 <td>OperatingSystem</td>
-<td>?</td>
+<td>RuntimeInformation.IsOSPlatform</td>
 <td><code>if (System.OperatingSystem == eOSWindows) {}</code></td>
+<td><code>if (RuntimeInformation.IsOSPlatform(OSPlayform.Windows)) {}</code></td>
+<td>No current support for checking platforms other than windows, mac or linux</td>
+</tr>
+<tr>
+<td>RenderAtScreenResolution</td>
+<td>RenderLayer.IndependentResolution</td>
+<td><code>System.RenderAtScreenResolution = true;</code></td>
+<td><code>myObj.RenderLayer = new AGSRenderLayer(z, independentResolution: new Size(1200, 800));</code></td>
+<td></td>
+</tr>
+<tr>
+<td>RuntimeInfo</td>
+<td>?</td>
+<td><code>System.RuntimeInfo</code></td>
 <td>?</td>
 <td></td>
 </tr>
@@ -4316,23 +4850,9 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>?</td>
 <td></td>
 </tr>
-<tr>
-<td>SetSkipSpeech</td>
-<td>SpeechConfig.SkipText</td>
-<td><code>SetSkipSpeech(2);</code></td>
-<td><code>player.SpeechConfig.SkipText = SkipText.ByTime;</code></td>
-<td>Note that the example given in MonoAGS is for setting the skip style for a specific character, not a global change like in AGS.</td>
-</tr>
-<tr>
-<td>SetSpeechStyle</td>
-<td>customize to your liking</td>
-<td><code>SetSpeechStyle(eSpeechSierra);</code></td>
-<td>N/A</td>
-<td>For the &quot;lucas arts&quot; style (text over character&#39;s head), do nothing, that&#39;s the default. For the &quot;sierra&quot; style, set a portrait in the charater&#39;s speech config: <code>cGraham.SpeechConfig.PortraitConfig.Portrait = grahamPortrait;</code>. For the &quot;sierra with background&quot; style, set a portrait as before, and also set BackgroundColor in the character&#39;s speech config: <code>cGraham.SpeechConfig.BackgroundColor = Colors.Pink;</code>. For &quot;QFG4-style full screen&quot;, set the portrait object to be a full-screen size object, and for customizing where the speech text and portrait will be located, you need to provide your custom implementation for <code>ISayLocationProvider</code> and then replace the default implementation. For example, this custom implementation will place both text and portrait in the bottom-left of the screen: <code>public class Qfg4StyleSayLocationProvider : ISayLocationProvider { public ISayLocation GetLocation(string text, ISayConfig config) { var textLocation = new PointF(0f, 0f); var portraitLocation = new PointF(0f, 0f); return new AGSSayLocation(textLocation, portraitLocation); }}</code>, then to use this implementation instead of the default engine&#39;s implementation, write (before the game loads): <code>Resolver.Override(resolver =&gt; resolver.Builder.RegisterType&lt;Qfg4StyleSayLocationProvider&gt;().As&lt;ISayLocationProvider&gt;());</code>.</td>
-</tr>
 </tbody>
 </table>
-<p>Missing in AGS but exists in MonoAGS: Setting &quot;skip text&quot; styles for specific characters, show yes/no or ok/cancel dialogs (or any dialog with a custom number of buttons), more customizations to speech style, including creating custom say functions completely.</p>
+<p>Missing in AGS but exists in MonoAGS: show yes/no or ok/cancel dialogs (or any dialog with a custom number of buttons).</p>
 <h2 id="viewframe">ViewFrame</h2>
 <table>
 <thead>
@@ -4836,7 +5356,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/DesignerObject/Docs/articles/ags-cheat-sheet.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Docs/articles/ags-cheat-sheet.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
