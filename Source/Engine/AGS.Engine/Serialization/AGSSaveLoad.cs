@@ -84,6 +84,7 @@ namespace AGS.Engine
 				firstTimeSetup();
 
 				_state.Clean();
+                AGSEntity.ClearIDs();
 				var context = getContext();
 				ContractGameState state;
 				using (var file = _fileSystem.Open(saveName)) 

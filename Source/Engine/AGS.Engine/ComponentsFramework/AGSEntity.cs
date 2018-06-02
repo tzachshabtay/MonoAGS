@@ -40,6 +40,8 @@ namespace AGS.Engine
             _onDisposed = new AGSEvent();
         }
 
+        public static void ClearIDs() => _ids.Clear();
+
         ~AGSEntity()
         {
             dispose(false);
