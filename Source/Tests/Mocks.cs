@@ -224,7 +224,7 @@ namespace Tests
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
 				_room.Setup(m => m.Areas).Returns(areas);
-                _room.Setup(m => m.ID).Returns(new Guid().ToString());
+                _room.Setup(m => m.ID).Returns(Guid.NewGuid().ToString());
 			}
 			return _room;
 		}
@@ -253,7 +253,7 @@ namespace Tests
             if (_obj == null || newInstance)
 			{
 				_obj = new Mock<IObject> ();
-                _obj.Setup(m => m.ID).Returns(new Guid().ToString());
+                _obj.Setup(m => m.ID).Returns(Guid.NewGuid().ToString());
 				_obj.Setup(m => m.Animation).Returns(Animation().Object);
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
