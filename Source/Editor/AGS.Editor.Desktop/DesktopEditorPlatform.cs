@@ -25,7 +25,7 @@ namespace AGS.Editor.Desktop
             HostingGameDesktopWindow hostedGame = new HostingGameDesktopWindow(_windowSize, nativeWindw);
             gameResolver.Builder.RegisterInstance(_windowSize).As<IGameWindowSize>();
             gameResolver.Builder.RegisterInstance(hostedGame).As<IWindowInfo>();
-            gameResolver.Builder.RegisterType<AGSInput>().SingleInstance().As<IInput>().As<AGSInput>().As<IAGSInput>().OnActivated(e => e.Instance.Init(hostedGame));
+            gameResolver.Builder.RegisterType<AGSCoordinates>().SingleInstance().As<ICoordinates>().OnActivated(e => e.Instance.Window = hostedGame);
         }
 
         public void SetHostedGameWindow(Rectangle windowSize)

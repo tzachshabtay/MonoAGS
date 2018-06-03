@@ -8,18 +8,17 @@ using OpenTK.Graphics;
 namespace AGS.Engine.Desktop
 {
     public class AGSGameWindow : IGameWindow, IWindowInfo
-	{
+    {
         private static GameWindow _gameWindow;
         private IGameWindowSize _windowSize;
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
 
-        public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize, AGSInput input)
+        public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize)
         {
             _windowSize = windowSize;
             _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height,
                                          GraphicsMode.Default, settings.Title);
-            input.Init(this);
-            input.Init(_gameWindow);
+            OnInit?.Invoke();
 
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
@@ -28,6 +27,8 @@ namespace AGS.Engine.Desktop
         }
 
         public static GameWindow GameWindow => _gameWindow;
+
+        public static Action OnInit { get; set; }
 
         public event EventHandler<EventArgs> Load
         {

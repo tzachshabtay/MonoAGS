@@ -7,21 +7,18 @@ using Android.Views;
 
 namespace AGS.Engine.Android
 {
-    public class AndroidInput : IAGSInput
+    public class AndroidInput : IInput
     {
-        private IWindowInfo _window;
-        private IGameState _state;
-        private IShouldBlockInput _shouldBlockInput;
+        private readonly IShouldBlockInput _shouldBlockInput;
+        private readonly ICoordinates _coordinates;
         private DateTime _lastDrag;
         private AGSGameView _view;
-        private Size _virtualResolution;
 
-        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IWindowInfo window)
+        public AndroidInput(AndroidSimpleGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), window);
+            _coordinates = coordinates;
+            MousePosition = new MousePosition(0f, 0f, coordinates);
             _shouldBlockInput = shouldBlockInput;
-            _window = window;
-            _state = state;
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
@@ -51,11 +48,6 @@ namespace AGS.Engine.Android
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
             onViewChanged(null, AndroidGameWindow.Instance.View);
-        }
-
-        public void Init(AGS.API.Size virtualResolution)
-        {
-            _virtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -121,7 +113,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _window);
+            MousePosition = new MousePosition(x, y, _coordinates);
         }
 
         private float convertX(float x)

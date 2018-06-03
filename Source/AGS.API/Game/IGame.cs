@@ -75,6 +75,12 @@
         IHitTest HitTest { get; }
 
         /// <summary>
+        /// Utility methods to help convert between different coordinate systems.
+        /// </summary>
+        /// <value>The coordinates.</value>
+        ICoordinates Coordinates { get; }
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
 		void Start();

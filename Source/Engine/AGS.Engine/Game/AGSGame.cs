@@ -95,6 +95,8 @@ namespace AGS.Engine
 
         public IHitTest HitTest { get; private set; }
 
+        public ICoordinates Coordinates { get; private set; }
+
         public Resolver GetResolver() => _resolver;
 
         public void Start()
@@ -253,8 +255,7 @@ namespace AGS.Engine
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
 
-            IAGSInput input = _resolver.Container.Resolve<IAGSInput>();
-            input.Init(settings.VirtualResolution);
+            var input = _resolver.Container.Resolve<IInput>();
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
             TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
@@ -266,6 +267,7 @@ namespace AGS.Engine
             HitTest = _resolver.Container.Resolve<IHitTest>();
             Audio = _resolver.Container.Resolve<IAudioSystem>();
             SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
+            Coordinates = _resolver.Container.Resolve<ICoordinates>();
 
             _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 

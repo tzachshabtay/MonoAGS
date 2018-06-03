@@ -32,6 +32,8 @@ namespace Tests
 			updater.RegisterInstance(new Mock<IRenderMessagePump>().Object);
             updater.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             updater.RegisterInstance(new Mock<IRuntimeSettings>().Object);
+            updater.RegisterInstance(new Mock<IWindowInfo>().Object);
+            updater.RegisterInstance(new Mock<IGameWindow>().Object);
             Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
             Mock<IUpdateThread> updateThread = new Mock<IUpdateThread>();
             renderThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());

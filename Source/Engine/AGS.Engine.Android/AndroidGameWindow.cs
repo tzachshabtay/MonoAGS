@@ -24,7 +24,7 @@ namespace AGS.Engine.Android
 
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
-            Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>().As<IAGSInput>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<AndroidInput>().SingleInstance().As<IInput>());
         }
 
         public AGSGameView View 

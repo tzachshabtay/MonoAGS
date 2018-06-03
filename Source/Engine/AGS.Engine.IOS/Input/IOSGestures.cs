@@ -9,13 +9,11 @@ namespace AGS.Engine.IOS
     public class IOSGestures
     {
         private readonly IOSGameView _view;
-        private readonly IGameState _state;
-        private Size _virtualResolution;
-        private IWindowInfo _window;
+        private readonly ICoordinates _coordinates;
 
-        public IOSGestures(IOSGameView view, IGameState state)
+        public IOSGestures(IOSGameView view, ICoordinates coordinates)
         {
-            _state = state;
+            _coordinates = coordinates;
             _view = view;
 
             UIPanGestureRecognizer dragGesture = new UIPanGestureRecognizer(onDrag);
@@ -34,12 +32,6 @@ namespace AGS.Engine.IOS
             addGesture(longPressGesture);
 
             singleTapGesture.RequireGestureRecognizerToFail(doubleTapGesture);
-        }
-
-        public void Init(Size virtualResolution, IWindowInfo window)
-        {
-            _virtualResolution = virtualResolution;
-            _window = window;
         }
 
         public event EventHandler<MousePositionEventArgs> OnUserSingleTap;
@@ -87,7 +79,7 @@ namespace AGS.Engine.IOS
         private void fireEvent(EventHandler<MousePositionEventArgs> ev, UIGestureRecognizer gesture)
         {
             var point = gesture.LocationInView(_view);
-            ev?.Invoke(this, new MousePositionEventArgs(new MousePosition((float)point.X, (float)point.Y, _state.Viewport, _virtualResolution, _window)));
+            ev?.Invoke(this, new MousePositionEventArgs(new MousePosition((float)point.X, (float)point.Y, _coordinates)));
         }
     }
 }

@@ -7,22 +7,19 @@ using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSInput : IAGSInput
+    public class IOSInput : IInput
     {
-        private IWindowInfo _gameWindow;
-        private IGameState _state;
-        private IShouldBlockInput _shouldBlockInput;
+        private readonly IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
-        private Size _virtualResolution;
-        private IOSGestures _gestures;
+        private readonly IOSGestures _gestures;
+        private readonly ICoordinates _coordinates;
 
-        public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IWindowInfo gameWindow)
+        public IOSInput(IOSGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
         {
             _gestures = gestures;
-            MousePosition = new MousePosition(0f, 0f, state.Viewport, new Size(0, 0), gameWindow);
+            _coordinates = coordinates;
+            MousePosition = new MousePosition(0f, 0f, _coordinates);
             _shouldBlockInput = shouldBlockInput;
-            _gameWindow = gameWindow;
-            _state = state;
 
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
@@ -54,12 +51,6 @@ namespace AGS.Engine.IOS
                 await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
-        }
-
-        public void Init(AGS.API.Size virtualResolution)
-        {
-            _virtualResolution = virtualResolution;
-            _gestures.Init(virtualResolution, _gameWindow);
         }
 
         public IObject Cursor { get; set; }
@@ -96,7 +87,7 @@ namespace AGS.Engine.IOS
         {
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
-            MousePosition = new MousePosition(x, y, _state.Viewport, _virtualResolution, _gameWindow);
+            MousePosition = new MousePosition(x, y, _coordinates);
         }
 
         private float convertX(float x)
