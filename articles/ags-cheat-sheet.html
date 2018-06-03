@@ -655,10 +655,10 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>GetAtScreenXY</td>
-<td>IHitTest.ObjectAtMousePosition</td>
+<td>IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt</td>
 <td><code>if (Character.GetAtScreenXY(mouse.x, mouse.y) == cEgo){}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition == cEgo) {}</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>if (hitTest.ObjectAtMousePosition == cEgo) {}</code> or <code>if (hitTest.GetObjectAt(200, 100)) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetProperty</td>
@@ -1944,17 +1944,17 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 </tr>
 <tr>
 <td>GetLocationName</td>
-<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td><code>hitTest.ObjectAtMousePosition</code> or <code>hitTest.GetObjectAt</code></td>
 <td><code>if (GetLocationName(mouse.x, mouse.y) == &quot;Hero&quot;) {}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition.DisplayName == &quot;Hero&quot;) {}</code></td>
-<td>Currently, there&#39;s no support for getting at specific (x,y) position, but just for where the mouse is at.</td>
+<td><code>if (hitTest.ObjectAtMousePosition?.DisplayName == &quot;Hero&quot;) {}</code> or <code>if (hitTest.GetObjectAt(200, 100)?.DisplayName == &quot;Hero&quot;) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetLocationType</td>
-<td><code>hitTest.ObjectAtMousePosition</code></td>
+<td><code>hitTest.ObjectAtMousePosition</code>  or <code>hitTest.GetObjectAt</code></td>
 <td><code>if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition is ICharacter) {}</code></td>
-<td>Currently, there&#39;s no support for getting at specific (x,y) position, but just for where the mouse is at.</td>
+<td><code>if (hitTest.ObjectAtMousePosition is ICharacter) {}</code> or <code>if (hitTest.GetObjectAt(200, 100) is ICharacter) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetLoopCountForView</td>
@@ -2051,7 +2051,7 @@ As it&#39;s an important part of programming your game, there&#39;s a specific a
 <td>IsInteractionAvailable</td>
 <td>checking subscriber count on the interaction event</td>
 <td><code>if (IsInteractionAvailable(mouse.x,mouse.y, eModeLookat) == 0) {}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
+<td><code>if (hitTest.ObjectAtMousePosition != null &amp;&amp; hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2443,16 +2443,16 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 </tr>
 <tr>
 <td>GetAtScreenXY</td>
-<td>hitTest.ObjectAtMousePosition</td>
+<td>hitTest.ObjectAtMousePosition or hitTest.GetObjectAt</td>
 <td><code>GUI.GetAtScreenXY(mouse.x, mouse.y)</code></td>
-<td><code>hitTest.ObjectAtMousePosition</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>hitTest.ObjectAtMousePosition</code> or <code>hitTest.GetObjectAt(200, 100)</code></td>
+<td></td>
 </tr>
 <tr>
 <td>ProcessClick</td>
-<td>invoke the interaction event</td>
+<td>use hit testing and invoke the interaction event</td>
 <td><code>GUI.ProcessClick(100, 50, eModeLookAt);</code></td>
-<td><code>myButton.Interactions.OnInteract(Verbs.Look).InvokeAsync();</code></td>
+<td><code>var myGui = hitTest.GetObjectAt(100, 50, obj =&gt; obj is IUIControl); myButton?.Interactions.OnInteract(Verbs.Look).InvokeAsync();</code></td>
 <td></td>
 </tr>
 <tr>
@@ -2570,10 +2570,10 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <tbody>
 <tr>
 <td>GetAtScreenXY</td>
-<td>hitTest.ObjectAtMousePosition</td>
+<td>hitTest.ObjectAtMousePosition or hitTest.GetObjectAt</td>
 <td><code>GUIControl.GetAtScreenXY(mouse.x, mouse.y)</code></td>
-<td><code>hitTest.ObjectAtMousePosition</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>hitTest.ObjectAtMousePosition</code> or <code>hitTest.GetObjectAt(200, 100)</code></td>
+<td></td>
 </tr>
 <tr>
 <td>AsType</td>
@@ -2959,10 +2959,10 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 </tr>
 <tr>
 <td>GetItemAtLocation</td>
-<td>hitTest.ObjectAtMousePosition</td>
+<td>hitTest.ObjectAtMousePosition or hitTest.GetObjectAt</td>
 <td><code>lstOptions.GetItemAtLocation(mouse.x, mouse.y)</code></td>
-<td><code>hitTest.ObjectAtMousePosition</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>hitTest.ObjectAtMousePosition</code> or <code>hitTest.GetObjectAt(200, 100)</code></td>
+<td></td>
 </tr>
 <tr>
 <td>InsertItemAt</td>
@@ -3172,10 +3172,10 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <tbody>
 <tr>
 <td>GetAtScreenXY</td>
-<td>IHitTest.ObjectAtMousePosition</td>
+<td>IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt</td>
 <td><code>if (Hotspot.GetAtScreenXY(mouse.x, mouse.y) == hDoor){}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition == hDoor) {}</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>if (hitTest.ObjectAtMousePosition == hDoor) {}</code> or <code>if (hitTest.GetObjectAt(200, 100) == hDoor) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetProperty</td>
@@ -3271,10 +3271,10 @@ In MonoAGS there&#39;s no distinction like this, as every control can contain ot
 <tbody>
 <tr>
 <td>GetAtScreenXY</td>
-<td>IHitTest.ObjectAtMousePosition</td>
+<td>IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt</td>
 <td><code>if (InventoryItem.GetAtScreenXY(mouse.x, mouse.y) == iKnife){}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}</code> or <code>if (hitTest.GetObjectAt(200, 100) == iKnife.Graphics) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetProperty</td>
@@ -3683,10 +3683,10 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </tr>
 <tr>
 <td>GetAtScreenXY</td>
-<td>IHitTest.ObjectAtMousePosition</td>
+<td>IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt</td>
 <td><code>if (Object.GetAtScreenXY(mouse.x, mouse.y) == oRope){}</code></td>
-<td><code>if (hitTest.ObjectAtMousePosition == oRope) {}</code></td>
-<td>Missing support for specific location checks.</td>
+<td><code>if (hitTest.ObjectAtMousePosition == oRope) {}</code> or <code>if (hitTest.GetObjectAt(200, 100) == oRope) {}</code></td>
+<td></td>
 </tr>
 <tr>
 <td>GetProperty</td>
@@ -4175,9 +4175,9 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 </tr>
 <tr>
 <td>ProcessClick</td>
-<td>invoke the interaction event</td>
+<td>Use hit testing and invoke the interaction event</td>
 <td><code>Room.ProcessClick(100, 50, eModeLookAt);</code></td>
-<td><code>cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));</code></td>
+<td><code>var obj = hitTest.GetObjectAt(100, 50); obj?.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));</code></td>
 <td></td>
 </tr>
 <tr>

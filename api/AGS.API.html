@@ -432,6 +432,15 @@ if the <a class="xref" href="AGS.API.IPixelPerfectComponent.html">IPixelPerfectC
       <h4><a class="xref" href="AGS.API.IConcurrentHashSet-1.html">IConcurrentHashSet&lt;TItem&gt;</a></h4>
       <section><p>A hashed set which can be write/read concurrently.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ICoordinates.html">ICoordinates</a></h4>
+      <section><p>Utility methods to help convert between different coordinate systems:</p>
+<ol>
+<li>Window coordinates: those are the coordinates of the window which hosts the game (the units are based on the number of pixels the window has on your screen- determined from your screen resolution and display size).</li>
+<li>World coordinates: those are the coordinates of your game world (the units are based on your virtual resolution).</li>
+<li>Viewport coordinates: the game might have multiple viewports on the screen (for example, in a split-screen game). Each viewport can have its own coordinates. The world coordinates are actually the main viewport coordinates.</li>
+<li>Object coordinates: each object in the game can have its own coordinates. First, it can be using a <a class="xref" href="AGS.API.IRenderLayer.html">IRenderLayer</a> which has a different resolution than your world&apos;s resolution. Secondly, if the object is a child of another object, then the coordinate system is relative to the parent.</li>
+</ol>
+</section>
       <h4><a class="xref" href="AGS.API.ICropChildrenComponent.html">ICropChildrenComponent</a></h4>
       <section><p>This component allows cropping all children to the parent&apos;s size.
 For example, you can have an object to represent a TV, then crop all of its children entities,

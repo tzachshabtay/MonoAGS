@@ -99,11 +99,12 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/HitTest/apiSpec/new?filename=AGS_API_IHitTest_ObjectAtMousePosition.md&amp;value=---%0Auid%3A%20AGS.API.IHitTest.ObjectAtMousePosition%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/HitTest/Source/AGS.API/Rooms/IHitTest.cs/#L12">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/HitTest/Source/AGS.API/Rooms/IHitTest.cs/#L15">View Source</a>
   </span>
   <a id="AGS_API_IHitTest_ObjectAtMousePosition_" data-uid="AGS.API.IHitTest.ObjectAtMousePosition*"></a>
   <h4 id="AGS_API_IHitTest_ObjectAtMousePosition" data-uid="AGS.API.IHitTest.ObjectAtMousePosition">ObjectAtMousePosition</h4>
-  <div class="markdown level1 summary"><p>Gets the object at the mouse position (this ignores objects that are not visible or enabled).</p>
+  <div class="markdown level1 summary"><p>Gets the object at the mouse position (this ignores objects that are not visible or enabled).
+If there is more than one object in that position it returns the one in front.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -126,6 +127,79 @@
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/HitTest/apiSpec/new?filename=AGS_API_IHitTest_GetObjectAt_System_Single_System_Single_Predicate_AGS_API_IObject__.md&amp;value=---%0Auid%3A%20AGS.API.IHitTest.GetObjectAt(System.Single%2CSystem.Single%2CPredicate%7BAGS.API.IObject%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/HitTest/Source/AGS.API/Rooms/IHitTest.cs/#L36">View Source</a>
+  </span>
+  <a id="AGS_API_IHitTest_GetObjectAt_" data-uid="AGS.API.IHitTest.GetObjectAt*"></a>
+  <h4 id="AGS_API_IHitTest_GetObjectAt_System_Single_System_Single_Predicate_AGS_API_IObject__" data-uid="AGS.API.IHitTest.GetObjectAt(System.Single,System.Single,Predicate{AGS.API.IObject})">GetObjectAt(Single, Single, Predicate&lt;IObject&gt;)</h4>
+  <div class="markdown level1 summary"><p>Gets the object at the (x,y) world position. If there is more than one object in that position it returns the
+one in front.
+You can also optionally pass a filter which allows to ignore specific objects from the hit tests.</p>
+<p>Note that if you just need the object at the mouse position, you should use <a class="xref" href="AGS.API.IHitTest.html#AGS_API_IHitTest_ObjectAtMousePosition">ObjectAtMousePosition</a>, this is cached every tick and will be faster.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IObject GetObjectAt(float x, float y, Predicate&lt;IObject&gt; filter = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The x coordinate (in world co-ordinates).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td><p>The y coordinate (in world co-ordinates).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Predicate</span>&lt;<a class="xref" href="AGS.API.IObject.html">IObject</a>&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>An optional filter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
+        <td><p>The <a class="xref" href="AGS.API.IObject.html">IObject</a> at that world position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="AGS_API_IHitTest_GetObjectAt_System_Single_System_Single_Predicate_AGS_API_IObject___examples">Examples</h5>
+  <p>To get GUIs only you can do something like:</p>
+<pre><code class="lang-csharp">var gui = hitTest.GetObjectAt(200, 100, obj => obj is IUIControl);
+if (gui == null) await cHero.SayAsync(&quot;There&apos;s no GUI at (200,100)&quot;);
+else await cHero.SayAsync($&quot;I see at {gui.DisplayName} at (200,100)!&quot;);</code></pre>
+
 </article>
           </div>
           
@@ -137,7 +211,7 @@
                     <a href="https://github.com/tzachshabtay/MonoAGS/new/HitTest/apiSpec/new?filename=AGS_API_IHitTest.md&amp;value=---%0Auid%3A%20AGS.API.IHitTest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/HitTest/Source/AGS.API/Rooms/IHitTest.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/HitTest/Source/AGS.API/Rooms/IHitTest.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

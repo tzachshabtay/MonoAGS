@@ -5488,6 +5488,194 @@ references:
   fullName.vb: AGS.API.IConcurrentHashSet(Of TItem).RemoveAll
   nameWithType: IConcurrentHashSet<TItem>.RemoveAll
   nameWithType.vb: IConcurrentHashSet(Of TItem).RemoveAll
+- uid: AGS.API.ICoordinates
+  name: ICoordinates
+  href: api/AGS.API.ICoordinates.html
+  commentId: T:AGS.API.ICoordinates
+  fullName: AGS.API.ICoordinates
+  nameWithType: ICoordinates
+- uid: AGS.API.ICoordinates.IsWorldInWindow(AGS.API.PointF)
+  name: IsWorldInWindow(PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_IsWorldInWindow_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.IsWorldInWindow(AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.IsWorldInWindow(AGS.API.PointF)
+  nameWithType: ICoordinates.IsWorldInWindow(PointF)
+- uid: AGS.API.ICoordinates.IsWorldInWindow*
+  name: IsWorldInWindow
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_IsWorldInWindow_
+  commentId: Overload:AGS.API.ICoordinates.IsWorldInWindow
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.IsWorldInWindow
+  nameWithType: ICoordinates.IsWorldInWindow
+- uid: AGS.API.ICoordinates.ViewportToWindow(AGS.API.IViewport,AGS.API.PointF)
+  name: ViewportToWindow(IViewport, PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportToWindow_AGS_API_IViewport_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.ViewportToWindow(AGS.API.IViewport,AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.ViewportToWindow(AGS.API.IViewport, AGS.API.PointF)
+  nameWithType: ICoordinates.ViewportToWindow(IViewport, PointF)
+- uid: AGS.API.ICoordinates.ViewportToWindow*
+  name: ViewportToWindow
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportToWindow_
+  commentId: Overload:AGS.API.ICoordinates.ViewportToWindow
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.ViewportToWindow
+  nameWithType: ICoordinates.ViewportToWindow
+- uid: AGS.API.ICoordinates.ViewportXToWindowX(AGS.API.IViewport,System.Single)
+  name: ViewportXToWindowX(IViewport, Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportXToWindowX_AGS_API_IViewport_System_Single_
+  commentId: M:AGS.API.ICoordinates.ViewportXToWindowX(AGS.API.IViewport,System.Single)
+  fullName: AGS.API.ICoordinates.ViewportXToWindowX(AGS.API.IViewport, System.Single)
+  nameWithType: ICoordinates.ViewportXToWindowX(IViewport, Single)
+- uid: AGS.API.ICoordinates.ViewportXToWindowX*
+  name: ViewportXToWindowX
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportXToWindowX_
+  commentId: Overload:AGS.API.ICoordinates.ViewportXToWindowX
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.ViewportXToWindowX
+  nameWithType: ICoordinates.ViewportXToWindowX
+- uid: AGS.API.ICoordinates.ViewportYToWindowY(AGS.API.IViewport,System.Single)
+  name: ViewportYToWindowY(IViewport, Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportYToWindowY_AGS_API_IViewport_System_Single_
+  commentId: M:AGS.API.ICoordinates.ViewportYToWindowY(AGS.API.IViewport,System.Single)
+  fullName: AGS.API.ICoordinates.ViewportYToWindowY(AGS.API.IViewport, System.Single)
+  nameWithType: ICoordinates.ViewportYToWindowY(IViewport, Single)
+- uid: AGS.API.ICoordinates.ViewportYToWindowY*
+  name: ViewportYToWindowY
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_ViewportYToWindowY_
+  commentId: Overload:AGS.API.ICoordinates.ViewportYToWindowY
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.ViewportYToWindowY
+  nameWithType: ICoordinates.ViewportYToWindowY
+- uid: AGS.API.ICoordinates.WindowToObject(AGS.API.IViewport,AGS.API.IObject,AGS.API.PointF)
+  name: WindowToObject(IViewport, IObject, PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToObject_AGS_API_IViewport_AGS_API_IObject_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.WindowToObject(AGS.API.IViewport,AGS.API.IObject,AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.WindowToObject(AGS.API.IViewport, AGS.API.IObject, AGS.API.PointF)
+  nameWithType: ICoordinates.WindowToObject(IViewport, IObject, PointF)
+- uid: AGS.API.ICoordinates.WindowToObject*
+  name: WindowToObject
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToObject_
+  commentId: Overload:AGS.API.ICoordinates.WindowToObject
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowToObject
+  nameWithType: ICoordinates.WindowToObject
+- uid: AGS.API.ICoordinates.WindowToViewport(AGS.API.IViewport,AGS.API.PointF)
+  name: WindowToViewport(IViewport, PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToViewport_AGS_API_IViewport_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.WindowToViewport(AGS.API.IViewport,AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.WindowToViewport(AGS.API.IViewport, AGS.API.PointF)
+  nameWithType: ICoordinates.WindowToViewport(IViewport, PointF)
+- uid: AGS.API.ICoordinates.WindowToViewport*
+  name: WindowToViewport
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToViewport_
+  commentId: Overload:AGS.API.ICoordinates.WindowToViewport
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowToViewport
+  nameWithType: ICoordinates.WindowToViewport
+- uid: AGS.API.ICoordinates.WindowToWorld(AGS.API.PointF)
+  name: WindowToWorld(PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToWorld_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.WindowToWorld(AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.WindowToWorld(AGS.API.PointF)
+  nameWithType: ICoordinates.WindowToWorld(PointF)
+- uid: AGS.API.ICoordinates.WindowToWorld*
+  name: WindowToWorld
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowToWorld_
+  commentId: Overload:AGS.API.ICoordinates.WindowToWorld
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowToWorld
+  nameWithType: ICoordinates.WindowToWorld
+- uid: AGS.API.ICoordinates.WindowXToViewportX(AGS.API.IViewport,System.Single)
+  name: WindowXToViewportX(IViewport, Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowXToViewportX_AGS_API_IViewport_System_Single_
+  commentId: M:AGS.API.ICoordinates.WindowXToViewportX(AGS.API.IViewport,System.Single)
+  fullName: AGS.API.ICoordinates.WindowXToViewportX(AGS.API.IViewport, System.Single)
+  nameWithType: ICoordinates.WindowXToViewportX(IViewport, Single)
+- uid: AGS.API.ICoordinates.WindowXToViewportX*
+  name: WindowXToViewportX
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowXToViewportX_
+  commentId: Overload:AGS.API.ICoordinates.WindowXToViewportX
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowXToViewportX
+  nameWithType: ICoordinates.WindowXToViewportX
+- uid: AGS.API.ICoordinates.WindowXToWorldX(System.Single)
+  name: WindowXToWorldX(Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowXToWorldX_System_Single_
+  commentId: M:AGS.API.ICoordinates.WindowXToWorldX(System.Single)
+  fullName: AGS.API.ICoordinates.WindowXToWorldX(System.Single)
+  nameWithType: ICoordinates.WindowXToWorldX(Single)
+- uid: AGS.API.ICoordinates.WindowXToWorldX*
+  name: WindowXToWorldX
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowXToWorldX_
+  commentId: Overload:AGS.API.ICoordinates.WindowXToWorldX
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowXToWorldX
+  nameWithType: ICoordinates.WindowXToWorldX
+- uid: AGS.API.ICoordinates.WindowYToViewportY(AGS.API.IViewport,System.Single)
+  name: WindowYToViewportY(IViewport, Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowYToViewportY_AGS_API_IViewport_System_Single_
+  commentId: M:AGS.API.ICoordinates.WindowYToViewportY(AGS.API.IViewport,System.Single)
+  fullName: AGS.API.ICoordinates.WindowYToViewportY(AGS.API.IViewport, System.Single)
+  nameWithType: ICoordinates.WindowYToViewportY(IViewport, Single)
+- uid: AGS.API.ICoordinates.WindowYToViewportY*
+  name: WindowYToViewportY
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowYToViewportY_
+  commentId: Overload:AGS.API.ICoordinates.WindowYToViewportY
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowYToViewportY
+  nameWithType: ICoordinates.WindowYToViewportY
+- uid: AGS.API.ICoordinates.WindowYToWorldY(System.Single)
+  name: WindowYToWorldY(Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowYToWorldY_System_Single_
+  commentId: M:AGS.API.ICoordinates.WindowYToWorldY(System.Single)
+  fullName: AGS.API.ICoordinates.WindowYToWorldY(System.Single)
+  nameWithType: ICoordinates.WindowYToWorldY(Single)
+- uid: AGS.API.ICoordinates.WindowYToWorldY*
+  name: WindowYToWorldY
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WindowYToWorldY_
+  commentId: Overload:AGS.API.ICoordinates.WindowYToWorldY
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WindowYToWorldY
+  nameWithType: ICoordinates.WindowYToWorldY
+- uid: AGS.API.ICoordinates.WorldToWindow(AGS.API.PointF)
+  name: WorldToWindow(PointF)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldToWindow_AGS_API_PointF_
+  commentId: M:AGS.API.ICoordinates.WorldToWindow(AGS.API.PointF)
+  fullName: AGS.API.ICoordinates.WorldToWindow(AGS.API.PointF)
+  nameWithType: ICoordinates.WorldToWindow(PointF)
+- uid: AGS.API.ICoordinates.WorldToWindow*
+  name: WorldToWindow
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldToWindow_
+  commentId: Overload:AGS.API.ICoordinates.WorldToWindow
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WorldToWindow
+  nameWithType: ICoordinates.WorldToWindow
+- uid: AGS.API.ICoordinates.WorldXToWindowX(System.Single)
+  name: WorldXToWindowX(Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldXToWindowX_System_Single_
+  commentId: M:AGS.API.ICoordinates.WorldXToWindowX(System.Single)
+  fullName: AGS.API.ICoordinates.WorldXToWindowX(System.Single)
+  nameWithType: ICoordinates.WorldXToWindowX(Single)
+- uid: AGS.API.ICoordinates.WorldXToWindowX*
+  name: WorldXToWindowX
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldXToWindowX_
+  commentId: Overload:AGS.API.ICoordinates.WorldXToWindowX
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WorldXToWindowX
+  nameWithType: ICoordinates.WorldXToWindowX
+- uid: AGS.API.ICoordinates.WorldYToWindowY(System.Single)
+  name: WorldYToWindowY(Single)
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldYToWindowY_System_Single_
+  commentId: M:AGS.API.ICoordinates.WorldYToWindowY(System.Single)
+  fullName: AGS.API.ICoordinates.WorldYToWindowY(System.Single)
+  nameWithType: ICoordinates.WorldYToWindowY(Single)
+- uid: AGS.API.ICoordinates.WorldYToWindowY*
+  name: WorldYToWindowY
+  href: api/AGS.API.ICoordinates.html#AGS_API_ICoordinates_WorldYToWindowY_
+  commentId: Overload:AGS.API.ICoordinates.WorldYToWindowY
+  isSpec: "True"
+  fullName: AGS.API.ICoordinates.WorldYToWindowY
+  nameWithType: ICoordinates.WorldYToWindowY
 - uid: AGS.API.ICropChildrenComponent
   name: ICropChildrenComponent
   href: api/AGS.API.ICropChildrenComponent.html
@@ -7895,6 +8083,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGame.Audio
   nameWithType: IGame.Audio
+- uid: AGS.API.IGame.Coordinates
+  name: Coordinates
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Coordinates
+  commentId: P:AGS.API.IGame.Coordinates
+  fullName: AGS.API.IGame.Coordinates
+  nameWithType: IGame.Coordinates
+- uid: AGS.API.IGame.Coordinates*
+  name: Coordinates
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Coordinates_
+  commentId: Overload:AGS.API.IGame.Coordinates
+  isSpec: "True"
+  fullName: AGS.API.IGame.Coordinates
+  nameWithType: IGame.Coordinates
 - uid: AGS.API.IGame.Events
   name: Events
   href: api/AGS.API.IGame.html#AGS_API_IGame_Events
@@ -9138,6 +9339,22 @@ references:
   commentId: T:AGS.API.IHitTest
   fullName: AGS.API.IHitTest
   nameWithType: IHitTest
+- uid: AGS.API.IHitTest.GetObjectAt(System.Single,System.Single,Predicate{AGS.API.IObject})
+  name: GetObjectAt(Single, Single, Predicate<IObject>)
+  href: api/AGS.API.IHitTest.html#AGS_API_IHitTest_GetObjectAt_System_Single_System_Single_Predicate_AGS_API_IObject__
+  commentId: M:AGS.API.IHitTest.GetObjectAt(System.Single,System.Single,Predicate{AGS.API.IObject})
+  name.vb: GetObjectAt(Single, Single, Predicate(Of IObject))
+  fullName: AGS.API.IHitTest.GetObjectAt(System.Single, System.Single, Predicate<AGS.API.IObject>)
+  fullName.vb: AGS.API.IHitTest.GetObjectAt(System.Single, System.Single, Predicate(Of AGS.API.IObject))
+  nameWithType: IHitTest.GetObjectAt(Single, Single, Predicate<IObject>)
+  nameWithType.vb: IHitTest.GetObjectAt(Single, Single, Predicate(Of IObject))
+- uid: AGS.API.IHitTest.GetObjectAt*
+  name: GetObjectAt
+  href: api/AGS.API.IHitTest.html#AGS_API_IHitTest_GetObjectAt_
+  commentId: Overload:AGS.API.IHitTest.GetObjectAt
+  isSpec: "True"
+  fullName: AGS.API.IHitTest.GetObjectAt
+  nameWithType: IHitTest.GetObjectAt
 - uid: AGS.API.IHitTest.ObjectAtMousePosition
   name: ObjectAtMousePosition
   href: api/AGS.API.IHitTest.html#AGS_API_IHitTest_ObjectAtMousePosition
@@ -19601,12 +19818,12 @@ references:
   commentId: T:AGS.API.MousePosition
   fullName: AGS.API.MousePosition
   nameWithType: MousePosition
-- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
-  name: MousePosition(Single, Single, IViewport, Size, IWindowInfo)
-  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_IViewport_AGS_API_Size_AGS_API_IWindowInfo_
-  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.IViewport,AGS.API.Size,AGS.API.IWindowInfo)
-  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.IViewport, AGS.API.Size, AGS.API.IWindowInfo)
-  nameWithType: MousePosition.MousePosition(Single, Single, IViewport, Size, IWindowInfo)
+- uid: AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.ICoordinates)
+  name: MousePosition(Single, Single, ICoordinates)
+  href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_System_Single_System_Single_AGS_API_ICoordinates_
+  commentId: M:AGS.API.MousePosition.#ctor(System.Single,System.Single,AGS.API.ICoordinates)
+  fullName: AGS.API.MousePosition.MousePosition(System.Single, System.Single, AGS.API.ICoordinates)
+  nameWithType: MousePosition.MousePosition(Single, Single, ICoordinates)
 - uid: AGS.API.MousePosition.#ctor*
   name: MousePosition
   href: api/AGS.API.MousePosition.html#AGS_API_MousePosition__ctor_
