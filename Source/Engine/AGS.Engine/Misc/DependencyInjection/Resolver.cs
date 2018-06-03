@@ -59,6 +59,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSMaskLoader>().SingleInstance().As<IMaskLoader>();
             Builder.RegisterType<AGSGameFactory>().SingleInstance().As<IGameFactory>();
             Builder.RegisterType<ALAudioFactory>().SingleInstance().As<IAudioFactory>();
+            Builder.RegisterType<AGSCoordinates>().SingleInstance().As<ICoordinates>();
 
             registerComponents();
 

@@ -8,31 +8,29 @@ using OpenTK.Input;
 
 namespace AGS.Engine.Desktop
 {
-    public class AGSInput : IAGSInput
+    public class AGSInput : IInput
     {
         private GameWindow _game;
-        private IWindowInfo _window;
-        private Size _virtualResolution;
         private float _mouseX, _mouseY;
-        private readonly IGameState _state;
         private readonly IShouldBlockInput _shouldBlockInput;
         private readonly IConcurrentHashSet<API.Key> _keysDown;
         private readonly IGameEvents _events;
+        private readonly ICoordinates _coordinates;
 
         private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
-        public AGSInput(IGameState state, IGameEvents events, IShouldBlockInput shouldBlockInput, 
+        public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, 
                         IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
                         IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
-                        IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp)
+                        IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
             _events = events;
             _actions = new ConcurrentQueue<Func<Task>>();
+            _coordinates = coordinates;
             this._shouldBlockInput = shouldBlockInput;
-            this._state = state;
             this._keysDown = new AGSConcurrentHashSet<API.Key>();
 
             MouseDown = mouseDown;
@@ -41,26 +39,14 @@ namespace AGS.Engine.Desktop
             KeyDown = keyDown;
             KeyUp = keyUp;
 
-            if (AGSGameWindow.GameWindow != null) Init(AGSGameWindow.GameWindow);
-        }
-
-        public void Init(API.Size virtualResolution) => _virtualResolution = virtualResolution;
-
-        public void Init(IWindowInfo window)
-        {
-            _window = window;
-            if (_game != null) init(_game);
-        }
-
-        public void Init(GameWindow game)
-        {
-            if (_game != null) return;
-            _game = game;
-            if (_window != null) init(game);
+            if (AGSGameWindow.GameWindow != null) init(AGSGameWindow.GameWindow);
+            else AGSGameWindow.OnInit = () => init(AGSGameWindow.GameWindow);
         }
 
         private void init(GameWindow game)
         {
+            if (_game != null) return;
+            _game = game;
             this._originalOSCursor = game.Cursor;
 
             game.MouseDown += (sender, e) =>
@@ -115,7 +101,7 @@ namespace AGS.Engine.Desktop
 
         public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
 
-        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _state.Viewport, _virtualResolution, _window);
+        public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _coordinates);
 
         public bool LeftMouseButtonDown { get; private set; }
         public bool RightMouseButtonDown { get; private set; }

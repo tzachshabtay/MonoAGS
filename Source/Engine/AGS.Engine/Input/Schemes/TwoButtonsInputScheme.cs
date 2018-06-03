@@ -31,7 +31,7 @@ namespace AGS.Engine
 				if (state.Player.Inventory == null || 
 					state.Player.Inventory.ActiveItem == null)
 				{
-                    Vector2 xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
+                    var xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
                     Position position = new Position(xy.X, xy.Y, state.Player.Z);
 					await state.Player.WalkAsync(position).ConfigureAwait(true);
 				}
