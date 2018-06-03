@@ -557,7 +557,7 @@ Missing in AGS but exists in MonoAGS: ID, CurrentlyPlayingSounds, Volume/Pitch/P
 | FaceLocation | FaceDirectionAsync | `cEgo.FaceLocation(50, 50, eBlock);` | Non-blocking: `cEgo.FaceDirectionAsync(50, 50);`, blocking: `await cEgo.FaceDirectionAsync(50, 50);` | Missing support for "turning" animation.
 | FaceObject | FaceDirectionAsync | `cEgo.FaceObject(oFridge, eBlock);` | Non-blocking: `cEgo.FaceDirectionAsync(oFridge);`, blocking: `await cEgo.FaceDirectionAsync(oFridge);` | Missing support for "turning" animation.
 | FollowCharacter | Follow | `cBadGuy.FollowCharacter(cEgo);` | `cBadGuy.Follow(cEgo);` | Note that in MonoAGS you can follow more than just characters, including objects and even GUIs.
-| GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (Character.GetAtScreenXY(mouse.x, mouse.y) == cEgo){}` | `if (hitTest.ObjectAtMousePosition == cEgo) {}` | Missing support for specific location checks.
+| GetAtScreenXY | IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt | `if (Character.GetAtScreenXY(mouse.x, mouse.y) == cEgo){}` | `if (hitTest.ObjectAtMousePosition == cEgo) {}` or `if (hitTest.GetObjectAt(200, 100)) {}` |
 | GetProperty | Properties.Ints.GetValue | `if (cEgo.GetProperty("Value") > 200) {}` | `if (cEgo.Properties.Ints.GetValue("Value") > 200) {}` |
 | GetTextProperty | Properties.Strings.GetValue | `cEgo.GetTextProperty("Description");` | `cEgo.Properties.Strings.GetValue("Description");` |
 | SetProperty | Properties.Ints.SetValue | `cEgo.SetProperty("XPLevel", 10);` | `cEgo.Properties.Ints.SetValue("XPLevel", 10);`
@@ -781,8 +781,8 @@ https://msdn.microsoft.com/en-us/library/system.io.filestream(v=vs.110).aspx
 | GetFrameCountForLoop | animation.Frames.Count | `Game.GetFrameCountForLoop(SWIMMING, 2);` | `cEgo.Outfit[Animations.Swim].Left.Frames.Count` |
 | GetGameOption | ? | `GetGameOption(OPT_WALKONLOOK)` | ? | There's a lot of unrelated very specific configurations for AGS here, some of them have equivalents in MonoAGS, see `SetGameOption` for more details.
 | GetGameSpeed | `state.Speed` | `GetGameSpeed();` | `game.State.Speed` |
-| GetLocationName | `hitTest.ObjectAtMousePosition` | `if (GetLocationName(mouse.x, mouse.y) == "Hero") {}` | `if (hitTest.ObjectAtMousePosition.DisplayName == "Hero") {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
-| GetLocationType | `hitTest.ObjectAtMousePosition` | `if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}` | `if (hitTest.ObjectAtMousePosition is ICharacter) {}` | Currently, there's no support for getting at specific (x,y) position, but just for where the mouse is at.
+| GetLocationName | `hitTest.ObjectAtMousePosition` or `hitTest.GetObjectAt` | `if (GetLocationName(mouse.x, mouse.y) == "Hero") {}` | `if (hitTest.ObjectAtMousePosition?.DisplayName == "Hero") {}` or `if (hitTest.GetObjectAt(200, 100)?.DisplayName == "Hero") {}`|
+| GetLocationType | `hitTest.ObjectAtMousePosition`  or `hitTest.GetObjectAt`| `if (GetLocationType(mouse.x, mouse.y) == eLocationCharacter) {}` | `if (hitTest.ObjectAtMousePosition is ICharacter) {}` or `if (hitTest.GetObjectAt(200, 100) is ICharacter) {}` |
 | GetLoopCountForView | GetAllDirections | `Game.GetLoopCountForView(SWIMMING)` | `cEgo.Outfit[Animation.Swim].GetAllDirections().Count()` |
 | GetRunNextSettingForLoop | ? | `Game.GetRunNextSettingForLoop(SWIMMING, 5)` | ? |
 | GetSaveSlotDescription | ? | `Game.GetSaveSlotDescription(10)` | ? |
@@ -796,7 +796,7 @@ https://msdn.microsoft.com/en-us/library/system.io.filestream(v=vs.110).aspx
 | InputBox | ? | `String name = Game.InputBox("!What is your name?");` | ? |
 | IsGamePaused | state.Paused | `if (IsGamePaused()) {}` | `if (game.State.Paused) {}` |
 | IsInterfaceEnabled | ? | `if (IsInterfaceEnabled()) {}` | ? | There's nothing specific for this in `MonoAGS`, but you can query (and set) enabled/disabled for individual GUI components.
-| IsInteractionAvailable | checking subscriber count on the interaction event | `if (IsInteractionAvailable(mouse.x,mouse.y, eModeLookat) == 0) {}` | `if (hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}` |
+| IsInteractionAvailable | checking subscriber count on the interaction event | `if (IsInteractionAvailable(mouse.x,mouse.y, eModeLookat) == 0) {}` | `if (hitTest.ObjectAtMousePosition != null && hitTest.ObjectAtMousePosition.Interactions.OnInteract(Verbs.Look).SubscribersCount == 0) {}` |
 | IsKeyPressed | input.IsKeyDown | `if (IsKeyPressed(eKeyUpArrow)) {}` | `if (game.Input.IsKeyDown(Key.Up)) {}` |
 | IsTimerExpired | Stopwatch.Elapsed | `SetTimer(1, 3000); ... if (IsTimerExpired(1)) {}` | `Stopwatch myTimer = new Stopwatch(); myTimer.Start(); ... if (myTimer.Elapsed.Seconds > 3) {}` |
 | IsTranslationAvailable | ? | `if (IsTranslationAvailable() == 1) {}` | ? |
@@ -858,8 +858,8 @@ In MonoAGS there's no distinction like this, as every control can contain other 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
 | Centre | Position yourself | `gPanel.Centre();` | `gPanel.Pivot = new PointF(0.5f, 0.5f); gPanel.X = game.Settings.VirtualResolution.Width / 2; gPanel.Y = game.Settings.VirtualResolution.Height / 2;` | The example assumes that the panel has no parent and using the default game's resolution.
-| GetAtScreenXY | hitTest.ObjectAtMousePosition | `GUI.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
-| ProcessClick | invoke the interaction event | `GUI.ProcessClick(100, 50, eModeLookAt);` | `myButton.Interactions.OnInteract(Verbs.Look).InvokeAsync();` |
+| GetAtScreenXY | hitTest.ObjectAtMousePosition or hitTest.GetObjectAt | `GUI.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` or `hitTest.GetObjectAt(200, 100)` |
+| ProcessClick | use hit testing and invoke the interaction event | `GUI.ProcessClick(100, 50, eModeLookAt);` | `var myGui = hitTest.GetObjectAt(100, 50, obj => obj is IUIControl); myButton?.Interactions.OnInteract(Verbs.Look).InvokeAsync();` |
 | SetPosition | Position | `gPanel.SetPosition(50, 50);` | `gPanel.Position = (50, 50);` |
 | SetSize | BaseSize | `gPanel.setSize(100, 100);` | `gPanel.BaseSize = new SizeF(100, 100);` |
 | BackgroundGraphic | Image | `gPanel.BackgroundGraphic = 5;` | `gPanel.Image = myBackgroundImage;` |
@@ -881,7 +881,7 @@ Missing in AGS but exists in MonoAGS: scaling and rotating panels, scrolling pan
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
-| GetAtScreenXY | hitTest.ObjectAtMousePosition | `GUIControl.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
+| GetAtScreenXY | hitTest.ObjectAtMousePosition or hitTest.GetObjectAt | `GUIControl.GetAtScreenXY(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` or `hitTest.GetObjectAt(200, 100)` |
 | AsType | as | `gIconbar.Controls[2].AsButton` | `gIconBar.TreeNode.Children[2] as IButton` | You can also use `is`: `if (child is IButton button) { button.X = 500; }`
 | BringToFront | Z | `btnBigButton.BringToFront()` | `btnBigButton.Z = btnBigButton.TreeNode.Parent.TreeNode.Children.Max(c => c.Z) + 1;` |
 | Clickable | ClickThrough | `btnSaveGame.Clickable = false;` | `btnSaveGame.ClickThrough = true;` |
@@ -956,7 +956,7 @@ Missing in AGS but exists in MonoAGS: shadows + outlines/text brushes/alignments
 | Clear | Items.Clear | `lstChoices.Clear();` | `lstChoices.Items.Clear();` |
 | FillDirList | ? | `lstSaveGames.FillDirList("agssave.*");` | ? |
 | FillSaveGameList | ? | `lstSaveGames.FillSaveGameList();` | ? |
-| GetItemAtLocation | hitTest.ObjectAtMousePosition | `lstOptions.GetItemAtLocation(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` | Missing support for specific location checks.
+| GetItemAtLocation | hitTest.ObjectAtMousePosition or hitTest.GetObjectAt | `lstOptions.GetItemAtLocation(mouse.x, mouse.y)` | `hitTest.ObjectAtMousePosition` or `hitTest.GetObjectAt(200, 100)` |
 | InsertItemAt | Items.Insert | `lstChoices.InsertItemAt(1, "Third item");` | `lstChoices.Items.Insert(1, new AGSStringItem("Third item"));` |
 | RemoveItem | Items.RemoveAt | `lstChoices.RemoveItem(0);` | `lstChoices.Items.RemoveAt(0);` |
 | ScrollDown | ? | `lstTest.ScrollDown();` |
@@ -1001,7 +1001,7 @@ Missing in AGS but exists in MonoAGS: configuring background color/shadows + out
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
-| GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (Hotspot.GetAtScreenXY(mouse.x, mouse.y) == hDoor){}` | `if (hitTest.ObjectAtMousePosition == hDoor) {}` | Missing support for specific location checks.
+| GetAtScreenXY | IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt | `if (Hotspot.GetAtScreenXY(mouse.x, mouse.y) == hDoor){}` | `if (hitTest.ObjectAtMousePosition == hDoor) {}` or `if (hitTest.GetObjectAt(200, 100) == hDoor) {}` |
 | GetProperty | Properties.Ints.GetValue | `if (hDoor.GetProperty("Value") > 200) {}` | `if (hDoor.Properties.Ints.GetValue("Value") > 200) {}` |
 | GetTextProperty | Properties.Strings.GetValue | `hDoor.GetTextProperty("Description");` | `hDoor.Properties.Strings.GetValue("Description");` |
 | SetProperty | Properties.Ints.SetValue | `hDoor.SetProperty("Value", 200);` | `hDoor.Properties.Ints.SetValue("Value", 200);` |
@@ -1020,7 +1020,7 @@ Missing in AGS but exists in MonoAGS: Change hotspot name at run-time, change ho
 
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
-| GetAtScreenXY | IHitTest.ObjectAtMousePosition | `if (InventoryItem.GetAtScreenXY(mouse.x, mouse.y) == iKnife){}` | `if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}` | Missing support for specific location checks.
+| GetAtScreenXY | IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt | `if (InventoryItem.GetAtScreenXY(mouse.x, mouse.y) == iKnife){}` | `if (hitTest.ObjectAtMousePosition == iKnife.Graphics) {}` or `if (hitTest.GetObjectAt(200, 100) == iKnife.Graphics) {}` |
 | GetProperty | Properties.Ints.GetValue | `if (iKnife.GetProperty("Value") > 200) {}` | `if (iKnife.Graphics.Properties.Ints.GetValue("Value") > 200) {}` |
 | GetTextProperty | Properties.Strings.GetValue | `iKnife.GetTextProperty("Description");` | `iKnife.Graphics.Properties.Strings.GetValue("Description");` |
 | SetProperty | Properties.Ints.SetValue | `iKnife.SetProperty("Value", 200);` | `hDoor.Properties.Ints.SetValue("Value", 200);` |
@@ -1098,7 +1098,7 @@ Currently there are no equivalents to any of the multimedia functions in MonoAGS
 | AGS | MonoAGS | AGS Example | MonoAGS Example | Further notes
 |-----|---------|-------------|-----------------|-----------------------------------
 | Animate  | AnimateAsync | `oRope.Animate(3, 1, 0, eBlock, eBackwards);` | For blocking: `await oRope.AnimateAsync(jumpUpAnimation);`. For non-blocking, do the same just without awaiting it: `oRope.AnimateAsync(jumpUpAnimation);`. As for delay, repeat style and direction, those are configured as part of the animation ("jumpUpAnimation" in this scenario). It can be changed at run-time before animating, if you want. For example: `jumpUpAnimation.Looping = LoopingStyle.BackwardsForwards; jumpUpAnimation.Loops = 15; jumpUpAnimation.DelayBetweenFrames = 3;` | Note that `MonoAGS` doesn't have the concepts of view and loop, just individual animations for manual animations, and directional animations for automatic animations like walk and idle.
-| GetAtScreenXY  | IHitTest.ObjectAtMousePosition | `if (Object.GetAtScreenXY(mouse.x, mouse.y) == oRope){}` | `if (hitTest.ObjectAtMousePosition == oRope) {}` | Missing support for specific location checks.
+| GetAtScreenXY  | IHitTest.ObjectAtMousePosition or IHitTest.GetObjectAt | `if (Object.GetAtScreenXY(mouse.x, mouse.y) == oRope){}` | `if (hitTest.ObjectAtMousePosition == oRope) {}` or `if (hitTest.GetObjectAt(200, 100) == oRope) {}` |
 | GetProperty | Properties.Ints.GetValue | `if (oRope.GetProperty("Value") > 200) {}` | `if (oRope.Properties.Ints.GetValue("Value") > 200) {}` |
 | GetTextProperty | Properties.Strings.GetValue | `oRope.GetTextProperty("Description");` | `oRope.Properties.Strings.GetValue("Description");` |
 | SetProperty | Properties.Ints.SetValue | `oRope.SetProperty("Value", 200);` | `oRope.Properties.Ints.SetValue("Value", 200);` |
@@ -1191,7 +1191,7 @@ Currently there are no equivalents to regions in MonoAGS.
 | GetViewportY | viewport.Y | ``if (GetViewportY() > 100) {}` | `if (state.Viewport.Y > 100) {}` | Note that in MonoAGS you can have multiple viewports, which you can access using the "SecondaryViewports" property: `if (state.SecondaryViewports[0].Y > 100) {}`
 | GetWalkableAreaAt | GetMatchingAreas and then calculate it yourself | `if (GetWalkableAreaAt(mouse.x,mouse.y) == 0) {}` | `private IArea getWalkableAreaAt(IRoom room, IObject obj) { return room.GetMatchingAreas(obj.Position.XY, obj.ID).FirstOrDefault(area => area.GetComponent<IWalkableArea>()?.IsWalkable ?? false); } ... if (getWalkableAreaAt(myRoom, myObj) == null) {}` | Note that it's not enough to just pass x,y to get the walkable area, we also need to pass the actual object- that's because in MonoAGS areas might be configured to include/exclude specific objects.
 | HasPlayerBeenInRoom | ? | `if (HasPlayerBeenInRoom(14)) {}` | ? | Note that while this is not built-in, it can be programmed easily if needed: when entering the room you're interested in tracking, you can run `Repeat.Do("playerInMySpecialRoom");`,  and then, for testing "HasPlayerBeenInRoom", you can run `if (Repeat.Current("playerInMySpecialRoom") >= 1) {}`
-| ProcessClick | invoke the interaction event | `Room.ProcessClick(100, 50, eModeLookAt);` | `cEgo.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));` |
+| ProcessClick | Use hit testing and invoke the interaction event | `Room.ProcessClick(100, 50, eModeLookAt);` | `var obj = hitTest.GetObjectAt(100, 50); obj?.Interactions.OnInteract(Verbs.Look).InvokeAsync(new ObjectEventArgs(oKnife));` |
 | ReleaseViewport | viewport.Camera.Enabled | `ReleaseViewport();` | `state.Viewport.Camera.Enabled = true;` | Note that in MonoAGS you can have multiple viewports, which you can access using the "SecondaryViewports" property: `state.SecondaryViewports[0].Camera.Enabled = true;`
 | RemoveWalkableArea | area.Enabled | `RemoveWalkableArea(5);` | `myArea.Enabled = false;` | Note, that unlike AGS, the change is permanent, it does not reset when you switch rooms
 | ResetRoom | ? | `ResetRoom(0);` | ? |
