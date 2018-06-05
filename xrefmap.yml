@@ -6927,12 +6927,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDisplayList.GetDisplayList
   nameWithType: IDisplayList.GetDisplayList
-- uid: AGS.API.IDisplayList.Update
-  name: Update()
-  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_Update
-  commentId: M:AGS.API.IDisplayList.Update
-  fullName: AGS.API.IDisplayList.Update()
-  nameWithType: IDisplayList.Update()
+- uid: AGS.API.IDisplayList.Update(System.Boolean)
+  name: Update(Boolean)
+  href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_Update_System_Boolean_
+  commentId: M:AGS.API.IDisplayList.Update(System.Boolean)
+  fullName: AGS.API.IDisplayList.Update(System.Boolean)
+  nameWithType: IDisplayList.Update(Boolean)
 - uid: AGS.API.IDisplayList.Update*
   name: Update
   href: api/AGS.API.IDisplayList.html#AGS_API_IDisplayList_Update_
@@ -8546,12 +8546,12 @@ references:
   commentId: T:AGS.API.IGameLoop
   fullName: AGS.API.IGameLoop
   nameWithType: IGameLoop
-- uid: AGS.API.IGameLoop.Update
-  name: Update()
-  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_Update
-  commentId: M:AGS.API.IGameLoop.Update
-  fullName: AGS.API.IGameLoop.Update()
-  nameWithType: IGameLoop.Update()
+- uid: AGS.API.IGameLoop.Update(System.Boolean)
+  name: Update(Boolean)
+  href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_Update_System_Boolean_
+  commentId: M:AGS.API.IGameLoop.Update(System.Boolean)
+  fullName: AGS.API.IGameLoop.Update(System.Boolean)
+  nameWithType: IGameLoop.Update(Boolean)
 - uid: AGS.API.IGameLoop.Update*
   name: Update
   href: api/AGS.API.IGameLoop.html#AGS_API_IGameLoop_Update_
@@ -8759,6 +8759,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGameState.Cutscene
   nameWithType: IGameState.Cutscene
+- uid: AGS.API.IGameState.DuringRoomTransition
+  name: DuringRoomTransition
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_DuringRoomTransition
+  commentId: P:AGS.API.IGameState.DuringRoomTransition
+  fullName: AGS.API.IGameState.DuringRoomTransition
+  nameWithType: IGameState.DuringRoomTransition
+- uid: AGS.API.IGameState.DuringRoomTransition*
+  name: DuringRoomTransition
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_DuringRoomTransition_
+  commentId: Overload:AGS.API.IGameState.DuringRoomTransition
+  isSpec: "True"
+  fullName: AGS.API.IGameState.DuringRoomTransition
+  nameWithType: IGameState.DuringRoomTransition
 - uid: AGS.API.IGameState.Find*
   name: Find
   href: api/AGS.API.IGameState.html#AGS_API_IGameState_Find_
@@ -12034,19 +12047,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRoomTransitions.SetOneTimeNextTransition
   nameWithType: IRoomTransitions.SetOneTimeNextTransition
-- uid: AGS.API.IRoomTransitions.State
-  name: State
-  href: api/AGS.API.IRoomTransitions.html#AGS_API_IRoomTransitions_State
-  commentId: P:AGS.API.IRoomTransitions.State
-  fullName: AGS.API.IRoomTransitions.State
-  nameWithType: IRoomTransitions.State
-- uid: AGS.API.IRoomTransitions.State*
-  name: State
-  href: api/AGS.API.IRoomTransitions.html#AGS_API_IRoomTransitions_State_
-  commentId: Overload:AGS.API.IRoomTransitions.State
-  isSpec: "True"
-  fullName: AGS.API.IRoomTransitions.State
-  nameWithType: IRoomTransitions.State
 - uid: AGS.API.IRoomTransitions.Transition
   name: Transition
   href: api/AGS.API.IRoomTransitions.html#AGS_API_IRoomTransitions_Transition
@@ -21763,48 +21763,6 @@ references:
   commentId: F:AGS.API.RestrictionListType.WhiteList
   fullName: AGS.API.RestrictionListType.WhiteList
   nameWithType: RestrictionListType.WhiteList
-- uid: AGS.API.RoomTransitionState
-  name: RoomTransitionState
-  href: api/AGS.API.RoomTransitionState.html
-  commentId: T:AGS.API.RoomTransitionState
-  fullName: AGS.API.RoomTransitionState
-  nameWithType: RoomTransitionState
-- uid: AGS.API.RoomTransitionState.AfterEnteringRoom
-  name: AfterEnteringRoom
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_AfterEnteringRoom
-  commentId: F:AGS.API.RoomTransitionState.AfterEnteringRoom
-  fullName: AGS.API.RoomTransitionState.AfterEnteringRoom
-  nameWithType: RoomTransitionState.AfterEnteringRoom
-- uid: AGS.API.RoomTransitionState.BeforeLeavingRoom
-  name: BeforeLeavingRoom
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_BeforeLeavingRoom
-  commentId: F:AGS.API.RoomTransitionState.BeforeLeavingRoom
-  fullName: AGS.API.RoomTransitionState.BeforeLeavingRoom
-  nameWithType: RoomTransitionState.BeforeLeavingRoom
-- uid: AGS.API.RoomTransitionState.InTransition
-  name: InTransition
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_InTransition
-  commentId: F:AGS.API.RoomTransitionState.InTransition
-  fullName: AGS.API.RoomTransitionState.InTransition
-  nameWithType: RoomTransitionState.InTransition
-- uid: AGS.API.RoomTransitionState.NotInTransition
-  name: NotInTransition
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_NotInTransition
-  commentId: F:AGS.API.RoomTransitionState.NotInTransition
-  fullName: AGS.API.RoomTransitionState.NotInTransition
-  nameWithType: RoomTransitionState.NotInTransition
-- uid: AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  name: PreparingNewRoomRendering
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingNewRoomRendering
-  commentId: F:AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  fullName: AGS.API.RoomTransitionState.PreparingNewRoomRendering
-  nameWithType: RoomTransitionState.PreparingNewRoomRendering
-- uid: AGS.API.RoomTransitionState.PreparingTransition
-  name: PreparingTransition
-  href: api/AGS.API.RoomTransitionState.html#AGS_API_RoomTransitionState_PreparingTransition
-  commentId: F:AGS.API.RoomTransitionState.PreparingTransition
-  fullName: AGS.API.RoomTransitionState.PreparingTransition
-  nameWithType: RoomTransitionState.PreparingTransition
 - uid: AGS.API.ScaleDownFilters
   name: ScaleDownFilters
   href: api/AGS.API.ScaleDownFilters.html
