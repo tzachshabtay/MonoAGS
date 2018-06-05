@@ -242,9 +242,9 @@ namespace Tests
 			return _roomEvents;
 		}
 
-		public Mock<IAGSRoomTransitions> RoomTransitions()
+		public Mock<IRoomTransitions> RoomTransitions()
 		{
-			var transitions = new Mock<IAGSRoomTransitions> ();
+			var transitions = new Mock<IRoomTransitions> ();
 			return transitions;
 		}
 
