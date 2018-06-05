@@ -10,61 +10,31 @@ namespace AGS.Engine
 	{
 		private readonly IGameState _gameState;
 		private readonly AGS.API.Size _virtualResolution;
-		private IRoom _lastRoom;
-		private readonly IAGSRoomTransitions _roomTransitions;
-        private readonly IGameEvents _events;
         private int _inUpdate; //For preventing re-entrancy
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
 
 		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
-                            IAGSRoomTransitions roomTransitions, IGameEvents events, 
                             IDisplayList displayList, IInput input)
 		{
             _displayList = displayList;
 			_gameState = gameState;
-            _events = events;
 			_virtualResolution = virtualResolution;
-			_roomTransitions = roomTransitions;
             _input = input;
 		}
 
 		#region IGameLoop implementation
 
-		public void Update()
+		public void Update(bool resetCamera)
 		{
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
             {
                 if (_gameState.Room == null) return;
                 IRoom room = _gameState.Room;
-                bool changedRoom = _lastRoom != room;
-                if (_roomTransitions.State != RoomTransitionState.NotInTransition)
-                {
-                    if (_roomTransitions.State == RoomTransitionState.PreparingTransition)
-                    {
-                        if (changedRoom)
-                        {
-                            _lastRoom?.Events.OnAfterFadeOut.Invoke();
-                            room.Events.OnBeforeFadeIn.Invoke();
-                            updateViewports(changedRoom);
-                            _events.OnRoomChanging.Invoke();
-                            if (_lastRoom == null) _roomTransitions.State = RoomTransitionState.NotInTransition;
-                            else
-                            {
-                                _displayList.Update();
-                                updateViewports(changedRoom);
-                                _roomTransitions.State = RoomTransitionState.PreparingNewRoomRendering;
-                            }
-                        }
-                    }
-                    return;
-                }
-
-                updateViewports(changedRoom);
-                _displayList.Update();
+                updateViewports(resetCamera);
+                _displayList.Update(resetCamera);
                 updateCursor();
-                updateRoom(room);
             }
             finally
             {
@@ -74,23 +44,23 @@ namespace AGS.Engine
 
 		#endregion
 
-        private void updateViewports(bool playerChangedRoom)
+        private void updateViewports(bool resetCamera)
         {
-            updateViewport(_gameState.Viewport, playerChangedRoom);
+            updateViewport(_gameState.Viewport, resetCamera);
             try
             {
                 foreach (var viewport in _gameState.SecondaryViewports)
                 {
-                    updateViewport(viewport, playerChangedRoom);
+                    updateViewport(viewport, resetCamera);
                 }
             }
             catch (InvalidOperationException) { } //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
 		}
 
-        private void updateViewport (IViewport viewport, bool playerChangedRoom)
+        private void updateViewport (IViewport viewport, bool resetCamera)
 		{
             runAnimations(viewport.RoomProvider.Room);
-            viewport.Camera?.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, playerChangedRoom);
+            viewport.Camera?.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, resetCamera);
 		}
 
 		private void runAnimations(IRoom room)
@@ -117,13 +87,6 @@ namespace AGS.Engine
             cursor.GetModelMatrices();
             cursor.GetBoundingBoxes(viewport);
         }
-
-		private void updateRoom(IRoom room)
-		{
-			if (_lastRoom == room) return;
-            _lastRoom = room;
-            room.Events.OnAfterFadeIn.InvokeAsync();
-		}
 
 		private void runAnimation(IAnimation animation)
 		{

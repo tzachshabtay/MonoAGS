@@ -23,6 +23,7 @@ namespace AGS.API
         /// <summary>
         /// Update the display list (this is called every tick by the game engine itself).
         /// </summary>
-        void Update();
+        /// <param name="forceUpdate">Should we force an update of the display list?</param>
+        void Update(bool forceUpdate);
     }
 }

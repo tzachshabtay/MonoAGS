@@ -20,6 +20,7 @@ namespace AGS.Engine
         private bool _shouldSetRestart = true;
         private int _gameIndex;
         private IAGSRenderPipeline _pipeline;
+        private IRoomTransitionWorkflow _roomTransitionWorkflow;
 
         private static int _gameCount;
         private static bool _shouldSwapBuffers = true;
@@ -181,7 +182,7 @@ namespace AGS.Engine
                 await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
                 if (State.Paused) return;
                 adjustSpeed();
-                GameLoop.Update();
+                GameLoop.Update(false);
 
                 //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
                 //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
@@ -213,7 +214,7 @@ namespace AGS.Engine
                 }
                 Events.OnBeforeRender.Invoke();
 
-                if (RenderLoop.Tick())
+                if (render())
                 {
                     if (_gameIndex == 1) //if we have 2 games (editor + game) editor is game index 1 and should be drawn last, so only the editor should swap buffers
                     {
@@ -243,6 +244,13 @@ namespace AGS.Engine
             }
         }
 
+        private bool render()
+        {
+            if (State.DuringRoomTransition) return _roomTransitionWorkflow.Render();
+            RenderLoop.Tick();
+            return true;
+        }
+
         private void onGameWindowLoaded(TypedParameter settingsParameter, IGameSettings settings)
         {
             TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
@@ -268,10 +276,11 @@ namespace AGS.Engine
             Audio = _resolver.Container.Resolve<IAudioSystem>();
             SaveLoad = _resolver.Container.Resolve<ISaveLoad>();
             Coordinates = _resolver.Container.Resolve<ICoordinates>();
+            _roomTransitionWorkflow = _resolver.Container.Resolve<IRoomTransitionWorkflow>();
 
             _glUtils.AdjustResolution(settings.VirtualResolution.Width, settings.VirtualResolution.Height);
 
-            Events.OnLoad.Invoke();
+            _updateMessagePump.Post(_ => Events.OnLoad.Invoke(), null);
         }
 
         private void updateResolver()

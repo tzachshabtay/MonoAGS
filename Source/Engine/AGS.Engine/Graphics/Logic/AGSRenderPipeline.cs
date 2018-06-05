@@ -11,14 +11,11 @@ namespace AGS.Engine
         private readonly IDisplayList _displayList;
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly IGame _game;
-        private readonly IAGSRoomTransitions _roomTransitions;
         private readonly RendererComparer _comparer = new RendererComparer();
 
         public AGSRenderPipeline(IGameState state, IDisplayList displayList, IGame game,
-                                 IBlockingEvent<DisplayListEventArgs> onBeforeProcessingDisplayList,
-                                 IAGSRoomTransitions roomTransitions)
+                                 IBlockingEvent<DisplayListEventArgs> onBeforeProcessingDisplayList)
         {
-            _roomTransitions = roomTransitions;
             _state = state;
             _game = game;
             _displayList = displayList;
@@ -53,7 +50,6 @@ namespace AGS.Engine
         {
             if (_game.Settings == null) return;
             var instructions = new List<(IViewport, List<IRenderBatch>)>();
-            bool preparingTransition = _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
 
             var viewports = _state.GetSortedViewports();
             try
@@ -67,10 +63,6 @@ namespace AGS.Engine
                 }
                 addCursor(instructions);
                 InstructionSet = instructions;
-                if (preparingTransition)
-                {
-                    _roomTransitions.State = RoomTransitionState.InTransition;
-                }
             }
             catch (IndexOutOfRangeException) { } //can be triggered if a viewport was added/removed while enumerating- this should be resolved on next tick
         }

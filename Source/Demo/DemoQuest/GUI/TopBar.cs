@@ -20,6 +20,8 @@ namespace DemoGame
 
         public static IButton InventoryButton { get; private set; }
 
+        public static IPanel TopPanel { get; private set; }
+
         public TopBar(RotatingCursorScheme scheme, InventoryPanel invPanel, OptionsPanel optionsPanel,
                       FeaturesTopWindow featuresPanel)
         {
@@ -29,7 +31,7 @@ namespace DemoGame
             _featuresPanel = featuresPanel;
         }
 
-        public async Task<IPanel> LoadAsync(IGame game)
+        public async Task LoadAsync(IGame game)
         {
             _game = game;
             _game.Events.OnSavedGameLoad.Subscribe(onSaveGameLoaded);
@@ -70,7 +72,7 @@ namespace DemoGame
             VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
             hotspotLabel.Start();
 
-            return _panel;
+            TopPanel = _panel;
         }
 
         private void onSaveGameLoaded()

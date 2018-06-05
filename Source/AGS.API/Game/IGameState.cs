@@ -82,6 +82,12 @@ namespace AGS.API
 		bool Paused { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether there is an on-going room transition.
+        /// </summary>
+        /// <value><c>true</c> if during room transition; otherwise, <c>false</c>.</value>
+        bool DuringRoomTransition { get; }
+
+        /// <summary>
         /// The speed of the game's updates. This is listed in percentage from 60 FPS. By default,
         /// this is 100, so 100% of 60 FPS which is 60 FPS. For 30 FPS, put 50 as your speed. Note
         /// that this is the target FPS, the target which the engine will attempt to accomplish, 

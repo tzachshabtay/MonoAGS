@@ -30,13 +30,13 @@ namespace AGS.Engine
             RegisterType<AGSSayLocationProvider, ISayLocationProvider>();
             RegisterType<AGSTreeNodeViewProvider, ITreeNodeViewProvider>();
 
-			Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>();
+            Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>().As<IAGSGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
 			Builder.RegisterType<AGSGameEvents>().SingleInstance().As<IGameEvents>();
 			Builder.RegisterType<BitmapPool>().SingleInstance();
 			Builder.RegisterType<ResourceLoader>().SingleInstance().As<IResourceLoader>();
 			Builder.RegisterType<AGSCutscene>().SingleInstance().As<ICutscene>();
-			Builder.RegisterType<AGSRoomTransitions>().SingleInstance().As<IAGSRoomTransitions>();
+			Builder.RegisterType<AGSRoomTransitions>().SingleInstance().As<IRoomTransitions>();
             Builder.RegisterType<ALAudioSystem>().SingleInstance().As<IALAudioSystem>();
             Builder.RegisterType<AGSAudioSystem>().SingleInstance().As<IAudioSystem>();
 			Builder.RegisterType<RoomMusicCrossFading>().SingleInstance().As<ICrossFading>();
@@ -60,6 +60,8 @@ namespace AGS.Engine
             Builder.RegisterType<AGSGameFactory>().SingleInstance().As<IGameFactory>();
             Builder.RegisterType<ALAudioFactory>().SingleInstance().As<IAudioFactory>();
             Builder.RegisterType<AGSCoordinates>().SingleInstance().As<ICoordinates>();
+            Builder.RegisterType<RoomTransitionWorkflow>().SingleInstance().As<IRoomTransitionWorkflow>();
+            Builder.RegisterType<AGSGameLoop>().SingleInstance().As<IGameLoop>();
 
             registerComponents();
 
@@ -81,7 +83,7 @@ namespace AGS.Engine
             Builder.Register<IDrawableInfoComponent>((c, p) => new AGSDrawableInfoComponent()).ExternallyOwned();
             Builder.Register<IUIEvents>((c, p) => new AGSUIEvents(c.Resolve<UIEventsAggregator>())).ExternallyOwned();
             Builder.Register<ISkinComponent>((c, p) => new AGSSkinComponent(c.Resolve<IGameSettings>())).ExternallyOwned();
-            Builder.Register<IHasRoomComponent>((c, p) => new HasRoomComponent(c.Resolve<IGameState>(), c.Resolve<IAGSRoomTransitions>())).ExternallyOwned();
+            Builder.Register<IHasRoomComponent>((c, p) => new HasRoomComponent(c.Resolve<IGameState>())).ExternallyOwned();
             Builder.Register<IAnimationComponent>((c, p) => new AGSAnimationComponent()).ExternallyOwned();
             Builder.Register<IInObjectTreeComponent>((c, p) => new InObjectTreeComponent()).ExternallyOwned();
             Builder.Register<IColliderComponent>((c, p) => new AGSCollider(c.Resolve<IGameState>())).ExternallyOwned();

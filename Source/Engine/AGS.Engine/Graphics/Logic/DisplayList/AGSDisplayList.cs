@@ -16,7 +16,7 @@ namespace AGS.Engine
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
-        private readonly IAGSRoomTransitions _roomTransitions;
+        private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
         private readonly ConcurrentDictionary<IViewport, ViewportDisplayList> _cache;
@@ -29,7 +29,7 @@ namespace AGS.Engine
         private IObject _cursor;
 
         public AGSDisplayList(IGameState gameState, IInput input, 
-                              IMatrixUpdater matrixUpdater, IAGSRoomTransitions roomTransitions)
+                              IMatrixUpdater matrixUpdater, IRoomTransitions roomTransitions)
         {
             _matrixUpdater = matrixUpdater;
             _roomTransitions = roomTransitions;
@@ -61,11 +61,12 @@ namespace AGS.Engine
 
         public IObject GetCursor() => _cursor;
 
-        public void Update()
+        public void Update(bool forceUpdate)
         {
             _cursor = _input.Cursor;
             _alreadyPrepared.Clear();
-            bool isDirty = _isDirty || _roomTransitions.State == RoomTransitionState.PreparingNewRoomRendering;
+            if (forceUpdate) onEverythingChanged();
+            bool isDirty = _isDirty;
             _isDirty = false;
 
             _matrixUpdater.ClearCache();
@@ -111,8 +112,7 @@ namespace AGS.Engine
 
             if (settings.DisplayRoom && room != null)
             {
-                if (room.Background != null)
-                    addToDisplayList(displayList, room.Background, viewport);
+                if (room.Background != null) addToDisplayList(displayList, room.Background, viewport);
 
                 foreach (IObject obj in room.Objects)
                 {
