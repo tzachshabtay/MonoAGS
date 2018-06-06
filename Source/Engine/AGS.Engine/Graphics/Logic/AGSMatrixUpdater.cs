@@ -38,6 +38,7 @@ namespace AGS.Engine
                 parent = _parentStack.Pop();
                 _alreadyRefreshedIdsCache.Add(parent.ID);
                 parent.GetModelMatrices();
+                parent.GetComponent<ITextComponent>()?.PrepareTextBoundingBoxes();
                 parent.GetBoundingBoxes(_state.Viewport);
             }
         }

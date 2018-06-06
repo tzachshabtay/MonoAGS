@@ -3,17 +3,9 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSRoomTransitions : IAGSRoomTransitions
+	public class AGSRoomTransitions : IRoomTransitions
 	{
 		private IRoomTransition _transition, _oneTimeTransition;
-		private RoomTransitionState _state;
-
-        public AGSRoomTransitions(IBlockingEvent onStateChanged)
-		{
-			OnStateChanged = onStateChanged;
-			//starting with preparing transition so that the before fade in event will be called for the first room in the game
-			_state = RoomTransitionState.PreparingTransition; 
-		}
 
 		#region IRoomTransitions implementation
 
@@ -27,19 +19,6 @@ namespace AGS.Engine
 		{
 			_oneTimeTransition = transition;
 		}
-
-		public RoomTransitionState State 
-		{
-            get => _state;
-            set 
-			{
-				if (value == _state) return;
-				_state = value;
-				OnStateChanged.Invoke();
-			}
-		}
-
-        public IBlockingEvent OnStateChanged { get; }
 
         #endregion
 
@@ -74,4 +53,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

@@ -77,7 +77,7 @@ namespace DemoGame
             });
         }
 
-		private async Task<IPanel> loadUi(IGame game)
+		private async Task loadUi(IGame game)
 		{
 			MouseCursors cursors = new MouseCursors();
 			await cursors.LoadAsync(game);
@@ -96,10 +96,8 @@ namespace DemoGame
             Debug.WriteLine("Startup: Loaded Features Panel");
 
             TopBar topBar = new TopBar(cursors.Scheme, inventory, options, features);
-			var topPanel = await topBar.LoadAsync(game);
+			await topBar.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Top Bar");
-
-			return topPanel;
 		}
 
         private async Task loadPlayerCharacter(IGame game)
@@ -138,14 +136,13 @@ namespace DemoGame
                 await loadRooms(game);
                 Debug.WriteLine("Startup: Loaded Rooms");
                 Task charactersLoaded = loadCharacters(game);
-                var topPanel = await loadUi(game);
+                await loadUi(game);
                 Debug.WriteLine("Startup: Loaded UI");
                 DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
                 defaults.Load();
                 await charactersLoaded;
                 Debug.WriteLine("Startup: Loaded Characters");
                 await game.State.Player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 50, 30);
-                topPanel.Visible = true;
             });
             await game.State.ChangeRoomAsync(Rooms.SplashScreen);
             Debug.WriteLine("Startup: Loaded splash screen");

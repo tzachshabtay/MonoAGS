@@ -12,8 +12,6 @@
         /// Calls the next tick, which triggers the next render.
         /// This is called from within the engine.
         /// </summary>
-        /// <returns>True if a render is performed (can return false if we're in the midst of a room transition)</returns>
-        bool Tick();
+        void Tick();
 	}
 }
-

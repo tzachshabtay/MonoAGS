@@ -31,7 +31,7 @@ namespace Tests
 			room.Setup(r => r.Background).Returns((IObject)null);
 			var loop = getGameLoop();
 
-			loop.Update();
+			loop.Update(false);
 		}
 
 		[Test]
@@ -42,7 +42,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -59,7 +59,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+			loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -76,7 +76,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -94,7 +94,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+			loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -112,7 +112,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -130,7 +130,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 
 			var loop = getGameLoop();
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = 4, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -149,7 +149,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -169,7 +169,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -188,7 +188,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Never());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Never());
@@ -207,7 +207,7 @@ namespace Tests
 			var animation = _mocks.Animation();
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			animationState.VerifySet(a => a.TimeToNextFrame = -1, Times.Once());
 			animationState.VerifySet(a => a.TimeToNextFrame = It.IsAny<int>(), Times.Once());
@@ -220,7 +220,7 @@ namespace Tests
 			_mocks.Viewport().Setup(v => v.Camera).Returns((ICamera)null);
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			_mocks.Viewport().VerifySet(v => v.X = It.IsAny<float>(), Times.Never());
 			_mocks.Viewport().VerifySet(v => v.Y = It.IsAny<float>(), Times.Never());
@@ -240,7 +240,7 @@ namespace Tests
 			_mocks.Viewport().Setup(v => v.Camera).Returns(camera.Object);
 			var loop = getGameLoop();
 
-			loop.Update();
+            loop.Update(false);
 
 			_mocks.Viewport().VerifySet(v => v.X = It.IsAny<float>(), Times.Once());
 			_mocks.Viewport().VerifySet(v => v.Y = It.IsAny<float>(), Times.Once());

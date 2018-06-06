@@ -96,13 +96,17 @@ namespace DemoGame
 		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
+            if (Repeat.OnceOnly("EmptyStreet_BeforeFadeIn"))
+            {
+                TopBar.TopPanel.Visible = true;
+            }
 		}
 
 		private void onAfterFadeIn ()
 		{
-            if (Repeat.OnceOnly("EmptyStreet_FadeIn")) 
+            if (Repeat.OnceOnly("EmptyStreet_AfterFadeIn")) 
 			{
-                _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
+                _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve();
 			}
 		}
 	}
