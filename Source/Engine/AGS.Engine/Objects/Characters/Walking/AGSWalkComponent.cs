@@ -332,13 +332,13 @@ namespace AGS.Engine
             Point offset;
             bool[][] mask = getWalkableMask(out offset);
             var from = _translate.Position;
-            from = new Position(from.X - offset.X, from.Y - offset.Y, from.Z);
+            from = new Position(from.X - offset.X, from.Y - offset.Y);
             _pathFinder.Init(mask);
             foreach (var closest in closestPoints)
             {
-                destination = new Position(closest.X - offset.X, closest.Y - offset.Y, destination.Z);
+                destination = new Position(closest.X - offset.X, closest.Y - offset.Y);
                 var walkPoints = _pathFinder.GetWalkPoints(from, destination);
-                if (walkPoints.Any()) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y, w.Z));
+                if (walkPoints.Any()) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y));
             }
             return new List<Position>();
         }
