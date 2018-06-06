@@ -15,7 +15,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
         public const double UPDATE_RATE = 60.0;
-        private int _updateFrameRetries = 0, _renderFrameRetries = 0;
+        private int _renderFrameRetries = 0;
         private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
@@ -174,7 +174,6 @@ namespace AGS.Engine
 
         private async void onUpdateFrame(object sender, FrameEventArgs e)
         {
-            if (_updateFrameRetries > 3) return;
             try
             {
                 _updateMessagePump.PumpMessages();
@@ -195,9 +194,8 @@ namespace AGS.Engine
             }
             catch (Exception ex)
             {
-                _updateFrameRetries++;
                 Debug.WriteLine(ex.ToString());
-                throw ex;
+                _renderMessagePump.Post(_ => throw ex, null); //throwing on render thread to ensure proper application crash.
             }
         }
 
