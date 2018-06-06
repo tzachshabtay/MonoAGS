@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
@@ -35,6 +36,7 @@ namespace AGS.Engine
 
         public void StartAnimation(IAnimation animation)
 		{
+            if (animation == null) throw new NullReferenceException("Animation is null");
             var scale = _scale;
             if (scale?.Width == 0f && animation.Frames.Count > 0) 
 			{
