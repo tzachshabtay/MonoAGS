@@ -72,6 +72,7 @@ namespace AGS.Editor
 
             ExpandAroundGameObject(_editor, obj.GetComponent<IBoundingBoxComponent>(), obj.GetComponent<IDrawableInfoComponent>(),
                                    obj.GetComponent<IImageComponent>(), _selectionMarker, true);
+            _selectionMarker.Z = 10000f; //Ensuring the selection marker is behind the designer handles (resize/rotate/pivot handles)
             _selectionMarker.Visible = true;
         }
 
