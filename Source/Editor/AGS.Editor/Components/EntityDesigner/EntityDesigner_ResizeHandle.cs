@@ -20,6 +20,7 @@ namespace AGS.Editor
             private readonly ITextConfig _hoverConfig;
 
             private IScaleComponent _scale;
+            private IDrawableInfoComponent _drawable;
             private float _widthOnDown, _heightOnDown;
             private float _xOnDown, _yOnDown;
             private bool _isDown;
@@ -61,6 +62,8 @@ namespace AGS.Editor
                 if (handle == null) return;
                 handle.Visible = visible && _scale != null;
             }
+
+            public void SetDrawable(IDrawableInfoComponent drawable) => _drawable = drawable;
 
             public void Dispose()
             {
@@ -218,7 +221,7 @@ namespace AGS.Editor
             {
                 var handle = _handle;
                 if (handle == null) return;
-                (x, y) = _editor.ToEditorResolution(x, y);
+                (x, y) = _editor.ToEditorResolution(x, y, _drawable);
                 handle.Position = new Position(x, y);
             }
 

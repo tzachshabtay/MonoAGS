@@ -26,7 +26,7 @@ namespace AGS.Editor
             UIEventsAggregator = new UIEventsAggregator(Editor.Input, Game.HitTest, Editor.Events, Editor.State.FocusedUI);
         }
 
-        public (float, float) ToGameResolution(float x, float y)
+        public (float, float) ToGameResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
             x = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Width, Game.Settings.WindowSize.Width, x);
@@ -35,12 +35,26 @@ namespace AGS.Editor
             y -= viewport.ScreenArea.Y;
             x = MathUtils.Lerp(0f, 0f, viewport.ScreenArea.Width, Game.Settings.VirtualResolution.Width, x);
             y = MathUtils.Lerp(0f, 0f, viewport.ScreenArea.Height, Game.Settings.VirtualResolution.Height, y);
+            if (drawable != null && !drawable.IgnoreViewport)
+            {
+                var matrix = viewport.GetMatrix(drawable.RenderLayer).Inverted();
+                var vec = Vector3.Transform(new Vector3(x, y, 0f), matrix);
+                x = vec.X;
+                y = vec.Y;
+            }
             return (x, y);
         }
 
-        public (float, float) ToEditorResolution(float x, float y)
+        public (float, float) ToEditorResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
+            if (drawable != null && !drawable.IgnoreViewport)
+            {
+                var matrix = viewport.GetMatrix(drawable.RenderLayer);
+                var vec = Vector3.Transform(new Vector3(x, y, 0f), matrix);
+                x = vec.X;
+                y = vec.Y;
+            }
             x = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Width, viewport.ScreenArea.Width, x);
             y = MathUtils.Lerp(0f, 0f, Game.Settings.VirtualResolution.Height, viewport.ScreenArea.Height, y);
             x += viewport.ScreenArea.X;

@@ -21,6 +21,7 @@ namespace AGS.Editor
             private readonly ITextConfig _hoverConfig;
 
             private IRotateComponent _rotate;
+            private IDrawableInfoComponent _drawable;
             private float _angleOnDown;
             private float _xOnDown, _yOnDown;
             private bool _isDown;
@@ -53,6 +54,8 @@ namespace AGS.Editor
                 _rotate = rotate;
                 SetVisible(_isVisible);
             }
+
+            public void SetDrawable(IDrawableInfoComponent drawable) => _drawable = drawable;
 
             public void SetVisible(bool visible)
             {
@@ -165,7 +168,7 @@ namespace AGS.Editor
             {
                 var handle = _handle;
                 if (handle == null) return;
-                (x, y) = _editor.ToEditorResolution(x, y);
+                (x, y) = _editor.ToEditorResolution(x, y, _drawable);
                 handle.Position = new Position(x, y);
             }
 

@@ -19,6 +19,7 @@ namespace AGS.Editor
         private IBoundingBoxComponent _boundingBox;
         private ITranslateComponent _translate;
         private IImageComponent _image;
+        private IDrawableInfoComponent _drawable;
 
         private float _offsetX, _offsetY;
 
@@ -75,6 +76,8 @@ namespace AGS.Editor
             setVisible();
         }
 
+        public void SetDrawable(IDrawableInfoComponent drawable) => _drawable = drawable;
+
         public void Dispose()
         {
             _moveCursor?.Dispose();
@@ -93,7 +96,7 @@ namespace AGS.Editor
         {
             var handle = _handle;
             if (handle == null) return;
-            GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _image, handle, !_draggable.IsCurrentlyDragged);
+            GameCanvas.ExpandAroundGameObject(_editor, _boundingBox, _drawable, _image, handle, !_draggable.IsCurrentlyDragged);
         }
 
         private void setVisible()
@@ -105,7 +108,7 @@ namespace AGS.Editor
 
         private void onDragStart((float dragStartX, float dragStartY) args)
         {
-            var (dragStartX, dragStartY) = _editor.ToGameResolution(args.dragStartX, args.dragStartY);
+            var (dragStartX, dragStartY) = _editor.ToGameResolution(args.dragStartX, args.dragStartY, _drawable);
             (_offsetX, _offsetY) = (_translate.X - dragStartX, _translate.Y - dragStartY);
         }
 
@@ -122,9 +125,9 @@ namespace AGS.Editor
             LastDragged = DateTime.Now;
 
             var handleBottomLeft = handle.WorldBoundingBox.BottomLeft;
-            var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y);
+            var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y, _drawable);
 
-            var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y);
+            var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y, _drawable);
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
             InspectorProperty property = new InspectorProperty(_translate, "Position", _translate.GetType().GetProperty(nameof(ITranslate.Position)));

@@ -34,7 +34,7 @@ namespace AGS.Editor
             _editor.Editor.Input.MouseUp.Subscribe(onMouseUp);
         }
 
-        public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, 
+        public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, IDrawableInfoComponent drawable,
                                                   IImageComponent image, IObject objToExpand, bool updatePosition)
         {
             if (boxComponent == null || image == null) return;
@@ -44,10 +44,10 @@ namespace AGS.Editor
             var x = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, image.Pivot.X);
             var y = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, image.Pivot.Y);
 
-            (x, y) = editor.ToEditorResolution(x, y);
+            (x, y) = editor.ToEditorResolution(x, y, drawable);
 
-            (var minX, var minY) = editor.ToEditorResolution(box.MinX, box.MinY);
-            (var maxX, var maxY) = editor.ToEditorResolution(box.MaxX, box.MaxY);
+            (var minX, var minY) = editor.ToEditorResolution(box.MinX, box.MinY, drawable);
+            (var maxX, var maxY) = editor.ToEditorResolution(box.MaxX, box.MaxY, drawable);
 
             if (updatePosition)
             {
@@ -70,7 +70,7 @@ namespace AGS.Editor
                 return;
             }
 
-            ExpandAroundGameObject(_editor, obj.GetComponent<IBoundingBoxComponent>(), 
+            ExpandAroundGameObject(_editor, obj.GetComponent<IBoundingBoxComponent>(), obj.GetComponent<IDrawableInfoComponent>(),
                                    obj.GetComponent<IImageComponent>(), _selectionMarker, true);
             _selectionMarker.Visible = true;
         }
