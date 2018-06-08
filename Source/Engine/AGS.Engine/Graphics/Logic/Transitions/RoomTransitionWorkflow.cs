@@ -19,7 +19,7 @@ namespace AGS.Engine
         private readonly IAGSRenderPipeline _pipeline;
         private readonly IGLUtils _glUtils;
         private readonly DummyWindow _dummyWindow;
-        private readonly IGameSettings _noAspectRatioSettings;
+        private readonly IGameSettings _noAspectRatioSettings, _settings;
         private readonly IAGSGameState _state;
         private readonly IDisplayList _displayList;
 
@@ -41,6 +41,7 @@ namespace AGS.Engine
             _pipeline = pipeline;
             _state = state;
             _displayList = displayList;
+            _settings = settings;
             _noAspectRatioSettings = new AGSGameSettings(settings.Title, settings.VirtualResolution, preserveAspectRatio: false);
             state.OnRoomChangeRequired.SubscribeToAsync(onRoomChangeRequired);
         }
@@ -84,6 +85,7 @@ namespace AGS.Engine
             await waitForRender(() => 
             {
                 if (transition == null || from == null || to == null || _state.Cutscene.IsSkipping) return false;
+                _glUtils.AdjustResolution(_settings.VirtualResolution.Width, _settings.VirtualResolution.Height);
                 if (_toTransitionBuffer == null) _toTransitionBuffer = renderToBuffer();
                 _dummyWindow.GameSubWindow = new Rectangle(0, 0, (int)_window.AppWindowWidth, (int)_window.AppWindowHeight);
                 _glUtils.RefreshViewport(_noAspectRatioSettings, _dummyWindow, _state.Viewport, false);
