@@ -27,6 +27,7 @@ namespace AGS.Engine
         private IObject _fileGraphics, _folderGraphics;
         const float FILE_TEXT_HEIGHT = 10f;
         static float ITEM_WIDTH = 20f;
+        static int _runningIndex;
         const string PATH_PROPERTY = "FilePath";
 
         private TaskCompletionSource<bool> _tcs;
@@ -138,11 +139,15 @@ namespace AGS.Engine
             _fileTextBox.OnPressingKey.Subscribe(onTextBoxKeyPressed);
 
             bool okGiven = await _tcs.Task;
-            _inventory.Items.Clear();
-            removeAllUI(panel);
+            clearInventory();
             panel.GetComponent<IModalWindowComponent>().LoseFocus();
+            destroy(panel);
+            destroy(_fileGraphics);
+            destroy(_folderGraphics);
+            destroy(_fileTextBox);
+            var result = _fileTextBox.Text;
             if (!okGiven) return null;
-            return _fileTextBox.Text;
+            return result;
         }
 
         private IObject getIcon(string id, IGameFactory factory, float width, float height, IBorderStyle icon, IRenderLayer renderLayer)
@@ -158,13 +163,9 @@ namespace AGS.Engine
             return obj;
         }
 
-        private void removeAllUI(IObject obj)
+        private void destroy(IObject obj)
         {
-            _game.State.UI.Remove(obj);
-            foreach (var child in obj.TreeNode.Children)
-            {
-                removeAllUI(child);
-            }
+            obj.DestroyWithChildren(_game.State);
         }
 
         private void onCancelClicked(MouseButtonEventArgs args)
@@ -215,10 +216,31 @@ namespace AGS.Engine
             _tcs.TrySetResult(true);
         }
 
+        private void subscribeClicks(IObject fileObj, Action<MouseButtonEventArgs> onClick, Action<MouseButtonEventArgs> onDoubleClick)
+        {
+            IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
+            uiEvents.MouseClicked.Subscribe(onClick);
+            uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);
+            fileObj.OnDisposed(() =>
+            {
+                uiEvents.MouseClicked.Unsubscribe(onClick);
+                uiEvents.MouseDoubleClicked.Unsubscribe(onDoubleClick);
+            });
+        }
+
+        private void clearInventory()
+        {
+            foreach (var item in _inventory.Items)
+            {
+                destroy(item.Graphics);
+            }
+            _inventory.Items.Clear();
+        }
+
         private void fillAllFiles(string folder)
         {
             _selectedItem = null;
-            _inventory.Items.Clear();
+            clearInventory();
             var allFiles = _device.FileSystem.GetFiles(folder).Where(f => _fileFilter == null || _fileFilter(f)).ToList();
             var allDirs = folder == "" ? _device.FileSystem.GetLogicalDrives().ToList() : _device.FileSystem.GetDirectories(folder).ToList();
             const string back = "..";
@@ -244,9 +266,7 @@ namespace AGS.Engine
                     _selectedItem = fileObj.Properties.Strings.GetValue(PATH_PROPERTY);
                     fileObj.Border = _folderIconSelected;
                 };
-                IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
-                uiEvents.MouseClicked.Subscribe(onClick);
-                uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);
+                subscribeClicks(fileObj, onClick, onDoubleClick);
             }
             foreach (var file in allFiles)
             {
@@ -262,15 +282,13 @@ namespace AGS.Engine
                     foreach (var dirItem in dirItems) dirItem.Border = _folderIcon;
                     fileObj.Border = _fileIconSelected;
                 };
-                IUIEvents uiEvents = fileObj.AddComponent<IUIEvents>();
-                uiEvents.MouseClicked.Subscribe(onClick);
-                uiEvents.MouseDoubleClicked.Subscribe(onDoubleClick);
+                subscribeClicks(fileObj, onClick, onDoubleClick);
             }
         }        
 
         private IObject addFileItem(string file, IObject graphics)
         {
-            graphics = clone("FileItem_" + file, _game.Factory, graphics);
+            graphics = clone($"FileItem_{file}_{_runningIndex++}", _game.Factory, graphics);
             graphics.Properties.Strings.SetValue(PATH_PROPERTY, file);
             ILabel fileLabel = _game.Factory.UI.GetLabel("FileItemLabel_" + file, getLastName(file), 
                 ITEM_WIDTH, FILE_TEXT_HEIGHT, 0f, -10f, graphics, _filesTextConfig);
@@ -319,7 +337,7 @@ namespace AGS.Engine
         {
             IObject newObj = factory.Object.GetObject(id);
             newObj.Pivot = obj.Pivot;
-            newObj.Location = obj.Location;
+            newObj.Position = obj.Position;
             newObj.Tint = obj.Tint;
             newObj.Image = obj.Image;
             newObj.DisplayName = obj.DisplayName;

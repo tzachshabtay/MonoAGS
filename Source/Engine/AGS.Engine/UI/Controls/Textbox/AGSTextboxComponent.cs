@@ -20,6 +20,7 @@ namespace AGS.Engine
         private readonly IKeyboardState _keyboardState;
         private readonly IGame _game;
         private readonly IFocusedUI _focusedUi;
+        private readonly IInput _input;
         private int _caretFlashCounter;
 
         private int _endOfLine => _textComponent.Text.Length;
@@ -33,13 +34,14 @@ namespace AGS.Engine
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
         {
             CaretFlashDelay = 10;
+            _input = input;
             _keyboardState = keyboardState;
             _focusedUi = focusedUi;
             OnPressingKey = onPressingKey;
             _game = game;
             
             input.KeyDown.Subscribe(onKeyDown);
-            input.KeyUp.Subscribe(onKeyUp);                        
+            input.KeyUp.Subscribe(onKeyUp);
         }
 
         public override void Init(IEntity entity)
@@ -139,8 +141,11 @@ namespace AGS.Engine
         public override void Dispose()
         {
             base.Dispose();
-            _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+            _game?.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            _game?.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
+            _input?.KeyDown.Unsubscribe(onKeyDown);
+            _input?.KeyUp.Unsubscribe(onKeyUp);
+            _entity = null;
         }
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
@@ -162,6 +167,7 @@ namespace AGS.Engine
         {
             var visible = _visibleComponent;
             if (visible == null || !visible.Visible) IsFocused = false;
+            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
         }
 
         private void onSoftKeyboardHidden()
@@ -190,8 +196,7 @@ namespace AGS.Engine
         private void onBeforeRender()
         {
             if (_textComponent == null) return;
-            if (_room.Room != null && _room.Room != _game.State.Room) return;
-            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
+            if (_room?.Room != null && _room?.Room != _game?.State?.Room) return;
             bool isVisible = IsFocused;
             if (isVisible)
             {

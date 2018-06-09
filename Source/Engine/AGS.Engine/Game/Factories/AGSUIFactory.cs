@@ -10,13 +10,15 @@ namespace AGS.Engine
 {
     public class AGSUIFactory : IUIFactory
     {
-        private Resolver _resolver;
-        private IGameState _gameState;
-        private IGraphicsFactory _graphics;
-        private IObjectFactory _object;
+        private readonly Resolver _resolver;
+        private readonly IGameState _gameState;
+        private readonly IGraphicsFactory _graphics;
+        private readonly IObjectFactory _object;
+        private readonly IGameSettings _settings;
 
-        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj)
+        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj, IGameSettings settings)
         {
+            _settings = settings;
             _resolver = resolver;
             _gameState = gameState;
             _graphics = graphics;
@@ -26,8 +28,8 @@ namespace AGS.Engine
         public IPanel GetPanel(string id, IImage image, float x, float y, IObject parent = null, bool addToUi = true)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            TypedParameter imageParameter = new TypedParameter(typeof(IImage), image);
-            IPanel panel = _resolver.Container.Resolve<IPanel>(idParam, imageParameter);
+            IPanel panel = _resolver.Container.Resolve<IPanel>(idParam);
+            panel.Image = image;
             panel.X = x;
             panel.Y = y;
             panel.ClickThrough = true;
@@ -140,7 +142,7 @@ namespace AGS.Engine
             label.X = x;
             label.Y = y;
             label.Tint = Colors.Transparent;
-            label.TextConfig = config ?? new AGSTextConfig();
+            label.TextConfig = config ?? new AGSTextConfig(font: _settings.Defaults.TextFont);
             setParent(label, parent);
             if (addToUi)
                 _gameState.UI.Add(label);
@@ -151,16 +153,16 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            bool pixelArtButton = idle?.Animation != null && idle.Animation.Frames.Count > 0;
+            bool pixelArtButton = idle?.Image != null || (idle?.Animation != null && idle.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
             {
-                width = idle.Animation.Frames[0].Sprite.Width;
+                width = idle.Image?.Width ?? idle.Animation.Frames[0].Sprite.Width;
             }
             if (height == -1f && pixelArtButton)
             {
-                height = idle.Animation.Frames[0].Sprite.Height;
+                height = idle.Image?.Height ?? idle.Animation.Frames[0].Sprite.Height;
             }
-            Func<ButtonAnimation> defaultAnimation = () => new ButtonAnimation(null);
+            Func<ButtonAnimation> defaultAnimation = () => new ButtonAnimation((IImage)null);
             idle = validateAnimation(id, idle, defaultAnimation, width, height);
             hovered = validateAnimation(id, hovered, defaultAnimation, width, height);
             pushed = validateAnimation(id, pushed, defaultAnimation, width, height);
@@ -175,7 +177,7 @@ namespace AGS.Engine
             button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
-            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter);
+            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter, font: _settings.Defaults.TextFont);
             button.Text = text;
             setParent(button, parent);
 
@@ -200,9 +202,9 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            IAnimation idle = _graphics.LoadAnimationFromFiles(files: new[] { idleImagePath });
-            IAnimation hovered = _graphics.LoadAnimationFromFiles(files: new[] { hoveredImagePath });
-            IAnimation pushed = _graphics.LoadAnimationFromFiles(files: new[] { pushedImagePath });
+            ButtonAnimation idle = new ButtonAnimation(_graphics.LoadImage(idleImagePath));
+            ButtonAnimation hovered = new ButtonAnimation(_graphics.LoadImage(hoveredImagePath));
+            ButtonAnimation pushed = new ButtonAnimation(_graphics.LoadImage(pushedImagePath));
 
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
@@ -211,9 +213,9 @@ namespace AGS.Engine
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
             float width = -1f, float height = -1f)
         {
-            IAnimation idle = await _graphics.LoadAnimationFromFilesAsync(files: new[] { idleImagePath });
-            IAnimation hovered = await _graphics.LoadAnimationFromFilesAsync(files: new[] { hoveredImagePath });
-            IAnimation pushed = await _graphics.LoadAnimationFromFilesAsync(files: new[] { pushedImagePath });
+            ButtonAnimation idle = new ButtonAnimation(await _graphics.LoadImageAsync(idleImagePath));
+            ButtonAnimation hovered = new ButtonAnimation(await _graphics.LoadImageAsync(hoveredImagePath));
+            ButtonAnimation pushed = new ButtonAnimation(await _graphics.LoadImageAsync(pushedImagePath));
 
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
@@ -228,7 +230,7 @@ namespace AGS.Engine
             textbox.Y = y;
             if (config == null)
             {
-                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop);
+                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, font: _settings.Defaults.TextFont);
             }
             textbox.TextConfig = config;
             textbox.Text = "";
@@ -251,14 +253,14 @@ namespace AGS.Engine
         public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
         {
-            bool pixelArtButton = notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0;
+            bool pixelArtButton = notChecked?.Image != null || (notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
             {
-                width = notChecked.Animation.Frames[0].Sprite.Width;
+                width = notChecked.Image?.Width ?? notChecked.Animation.Frames[0].Sprite.Width;
             }
             if (height == -1f && pixelArtButton)
             {
-                height = notChecked.Animation.Frames[0].Sprite.Height;
+                height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
             }
 
             var idleColor = Colors.White;
@@ -353,7 +355,7 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, font: _settings.Defaults.TextFont),
                                      false, itemWidth, defaultHeight);
 				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
@@ -382,9 +384,9 @@ namespace AGS.Engine
 				itemButtonFactory = text =>
 				{
 					var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null),
-													  new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
                                                       0f, 0f, width: itemWidth, height: defaultHeight);
                     button.Pivot = new PointF(0f, 1f);
 					button.RenderLayer = dropDownPanelLayer;
@@ -408,7 +410,7 @@ namespace AGS.Engine
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                dropDownPanel.Location = new AGSLocation(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                dropDownPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
@@ -468,7 +470,7 @@ namespace AGS.Engine
             handle.IgnoreViewport = true;
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
-            ISlider slider = _resolver.Container.Resolve<ISlider>(idParam, idParam);
+            ISlider slider = _resolver.Container.Resolve<ISlider>(idParam);
             setParent(slider, parent);
             setParent(handle, slider);
             setParent(graphics, slider);
@@ -506,12 +508,12 @@ namespace AGS.Engine
         private ButtonAnimation validateAnimation(string id, ButtonAnimation button, Func<ButtonAnimation> defaultAnimation, float width, float height)
         {
             button = button ?? defaultAnimation();
-            if (button.Animation != null) return button;
+            if (button.Animation != null || button.Image != null) return button;
             if (width == -1f || height == -1)
             {
                 throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
             }
-            button.Animation = new AGSSingleFrameAnimation(new EmptyImage(width, height), _graphics);
+            button.Image = new EmptyImage(width, height);
             return button;
         }
 
@@ -523,4 +525,3 @@ namespace AGS.Engine
         }
     }
 }
-

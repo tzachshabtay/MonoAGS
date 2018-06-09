@@ -32,6 +32,8 @@ namespace Tests
 			updater.RegisterInstance(new Mock<IRenderMessagePump>().Object);
             updater.RegisterInstance(new Mock<IUpdateMessagePump>().Object);
             updater.RegisterInstance(new Mock<IRuntimeSettings>().Object);
+            updater.RegisterInstance(new Mock<IWindowInfo>().Object);
+            updater.RegisterInstance(new Mock<IGameWindow>().Object);
             Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
             Mock<IUpdateThread> updateThread = new Mock<IUpdateThread>();
             renderThread.Setup(u => u.RunBlocking(It.IsAny<Action>())).Callback<Action>(a => a());
@@ -112,7 +114,7 @@ namespace Tests
 		private void setupObject(IObject obj)
 		{
 			obj.Pivot = new AGS.API.PointF (0.1f, 0.2f);
-			obj.Location = new AGSLocation (0.5f, 0.6f, 0.7f);
+            obj.Position = (0.5f, 0.6f, 0.7f);
 			obj.Angle = 0.8f;
 			obj.Image = new EmptyImage (100f, 50f);
             obj.Scale = new PointF(2f, 2.5f);

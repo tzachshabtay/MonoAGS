@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
     public class AGSShouldBlockInput : IShouldBlockInput
     {
-        private IGameState _state;
+        private readonly IGameState _state;
 
         public AGSShouldBlockInput(IGameState state)
         {
@@ -13,7 +13,7 @@ namespace AGS.Engine
 
         public bool ShouldBlockInput()
         {
-            if (_state.Room == null || _state.RoomTransitions.State != RoomTransitionState.NotInTransition) return true;
+            if (_state.Room == null || _state.DuringRoomTransition) return true;
             return false;
         }
     }

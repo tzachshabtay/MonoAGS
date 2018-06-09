@@ -21,7 +21,7 @@ namespace AGS.API
         /// <returns>The walk points.</returns>
         /// <param name="from">From.</param>
         /// <param name="to">To.</param>
-		IEnumerable<ILocation> GetWalkPoints(ILocation from, ILocation to);
+        IEnumerable<Position> GetWalkPoints(Position from, Position to);
 	}
 }
 

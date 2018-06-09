@@ -25,7 +25,7 @@ namespace AGS.Editor
         public class InternalNumberEditor
         {
             public InternalNumberEditor(string text, Func<InspectorProperty, string> getValueString,
-                                        Action<InspectorProperty, float> setValue,
+                                        Action<InspectorProperty, float, bool> setValue,
                                         Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor)
             {
                 Text = text;
@@ -45,7 +45,7 @@ namespace AGS.Editor
             }
 
             public Func<InspectorProperty, string> GetValueString { get; private set; }
-            public Action<InspectorProperty, float> SetValue { get; private set; }
+            public Action<InspectorProperty, float, bool> SetValue { get; private set; }
             public Action<InspectorProperty, INumberEditorComponent> ConfigureNumberEditor { get; private set; }
             public string Text { get; private set; }
         }
@@ -59,11 +59,11 @@ namespace AGS.Editor
             _nullable = nullable;
             _internalEditors = internalEditors ?? new List<InternalNumberEditor>
             {
-                new InternalNumberEditor(null, prop => prop.Value, (prop, value) =>
+                new InternalNumberEditor(null, prop => prop.Value, (prop, value, userInitiated) =>
                 {
                     if (_actions.ActionIsExecuting) return;
-                    if (wholeNumbers) _actions.RecordAction(new PropertyAction(prop, (int)Math.Round(value)));
-                    else _actions.RecordAction(new PropertyAction(prop, value));
+                    if (wholeNumbers) setValue(prop, (int)Math.Round(value), userInitiated);
+                    else setValue(prop, value, userInitiated);
                 }, null)
             };
             _panels = new List<(IObject, INumberEditorComponent)>(_internalEditors.Count);
@@ -101,7 +101,7 @@ namespace AGS.Editor
                     if (args.Checked)
                     {
                         float val = default;
-                        panel.editor.Value = val;
+                        panel.editor.SetUserInitiatedValue(val);
                     }
                 }
             });
@@ -127,6 +127,18 @@ namespace AGS.Editor
                 }
                 else panel.control.Visible = false;
             }
+        }
+
+        private void setValue(InspectorProperty property, float value, bool userInitiated)
+        {
+            object val = value;
+            if (_wholeNumbers)
+            {
+                int valInt = (int)value;
+                val = valInt;
+            }
+            if (!userInitiated) property.Prop.SetValue(property.Object, val);
+            else _actions.RecordAction(new PropertyAction(property, val));
         }
 
         private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)
@@ -160,10 +172,12 @@ namespace AGS.Editor
             {
                 numberEditor.Value = float.Parse(text);
             }
-            numberEditor.OnValueChanged.Subscribe(() =>
+            Action<NumberValueChangedArgs> onValueChanged = (args =>
             {
-                editor.SetValue(property, numberEditor.Value);
+                editor.SetValue(property, numberEditor.Value, args.UserInitiated);
             });
+            numberEditor.OnValueChanged.Subscribe(onValueChanged);
+            panel.OnDisposed(() => numberEditor.OnValueChanged.Unsubscribe(onValueChanged));
             x += textbox.Width;
             addArrowButtons(id, panel, numberEditor, x);
             editor.ConfigureNumberEditor(property, numberEditor);
@@ -258,12 +272,13 @@ namespace AGS.Editor
         base(actions, state, factory, wholeNumbers, nullable, creators.Select((creator, index) =>
             new InternalNumberEditor(creator.text, prop => prop.Value == InspectorProperty.NullValue ?
                                      InspectorProperty.NullValue : prop.Value.Replace("(", "").Replace(")", "").Split(',')[index],
-                                     (prop, value) =>
+                                     (prop, value, userInitiated) =>
             {
                 if (actions.ActionIsExecuting) return;
                 object objVal = prop.Prop.GetValue(prop.Object);
                 T val = objVal == null ? default : (T)objVal;
-                actions.RecordAction(new PropertyAction(prop, creator.getValue(value, val)));
+                if (userInitiated) actions.RecordAction(new PropertyAction(prop, creator.getValue(value, val)));
+                else prop.Prop.SetValue(prop.Object, creator.getValue(value, val));
             }, configureNumberEditor)
         ).ToList()){}
     }
@@ -332,7 +347,7 @@ namespace AGS.Editor
         { }
     }
 
-    public class LocationPropertyEditor : MultipleNumbersPropertyEditor<ILocation>
+    public class LocationPropertyEditor : MultipleNumbersPropertyEditor<Position>
     {
         public LocationPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) 
             : base(actions, state, factory, false, nullable,
@@ -349,9 +364,9 @@ namespace AGS.Editor
                                     editor.SuggestedMaxValue = drawable == null || drawable.RenderLayer == null || drawable.RenderLayer.IndependentResolution == null ? settings.VirtualResolution.Height : drawable.RenderLayer.IndependentResolution.Value.Height;
                                 }
                             },
-                           ("X", (x, vector) => new AGSLocation(x, vector.Y, vector.Z)),
-                           ("Y", (y, vector) => new AGSLocation(vector.X, y, vector.Z)),
-                           ("Z", (z, vector) => new AGSLocation(vector.X, vector.Y, z)))
+                           ("X", (x, vector) => new Position(x, vector.Y, vector.Z)),
+                           ("Y", (y, vector) => new Position(vector.X, y, vector.Z)),
+                           ("Z", (z, vector) => new Position(vector.X, vector.Y, z)))
         { }
     }
 

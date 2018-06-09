@@ -35,7 +35,7 @@ namespace AGS.Engine
         private IBoundingBoxComponent _boundingBoxComponent;
         private IWorldPositionComponent _worldPositionComponent;
 
-        public AGSPanel(string id, Resolver resolver, IImage image) : base(id, resolver)
+        public AGSPanel(string id, Resolver resolver) : base(id, resolver)
         {
             _uIEvents = AddComponent<IUIEvents>();
             Bind<IUIEvents>(c => _uIEvents = c, _ => {});
@@ -77,9 +77,9 @@ namespace AGS.Engine
             Bind<IBoundingBoxComponent>(c => _boundingBoxComponent = c, _ => {});
             _worldPositionComponent = AddComponent<IWorldPositionComponent>();
             Bind<IWorldPositionComponent>(c => _worldPositionComponent = c, _ => {});
-			beforeInitComponents(resolver, image);
+			beforeInitComponents(resolver);
             InitComponents();
-            afterInitComponents(resolver, image);
+            afterInitComponents(resolver);
             }
 
         public string Name { get { return ID; } }
@@ -91,8 +91,8 @@ namespace AGS.Engine
             return string.Format("{0} ({1})", ID ?? "", GetType().Name);
         }
 
-        partial void beforeInitComponents(Resolver resolver, IImage image);
-		partial void afterInitComponents(Resolver resolver, IImage image);
+        partial void beforeInitComponents(Resolver resolver);
+		partial void afterInitComponents(Resolver resolver);
 
         #region IUIEvents implementation
 
@@ -111,12 +111,12 @@ namespace AGS.Engine
             get { return _uIEvents.MouseMove; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseClicked 
+        public IEvent<MouseClickEventArgs> MouseClicked 
         {  
             get { return _uIEvents.MouseClicked; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseDoubleClicked 
+        public IEvent<MouseClickEventArgs> MouseDoubleClicked 
         {  
             get { return _uIEvents.MouseDoubleClicked; } 
         }
@@ -325,10 +325,10 @@ namespace AGS.Engine
 
         #region ITranslate implementation
 
-        public ILocation Location 
+        public Position Position 
         {  
-            get { return _translateComponent.Location; }  
-            set { _translateComponent.Location = value; } 
+            get { return _translateComponent.Position; }  
+            set { _translateComponent.Position = value; } 
         }
 
         public Single X 

@@ -53,6 +53,10 @@ Used to support playing FLAC files (audio file format).
 
 Framework for supporting undo/redo operations.
 
+### [Font Awesome](https://fontawesome.com)
+
+Font used to display icons in the editor.
+
 ## Development only dependencies
 
 ### [NUnit](http://nunit.org/)
@@ -82,6 +86,10 @@ Automated CI build for Windows & Android, also used to build the documentation w
 ### [DocFX](https://dotnet.github.io/docfx/)
 
 Used to generate the documentation website.
+
+### [Nerdbank.GitVersioning](https://github.com/AArnott/Nerdbank.GitVersioning)
+
+Used to auto-generate a version number.
 
 ### [Travis Matrix Badges](https://github.com/bjfish/travis-matrix-badges)
 

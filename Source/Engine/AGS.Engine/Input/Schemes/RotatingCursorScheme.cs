@@ -102,6 +102,7 @@ namespace AGS.Engine
 
         private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state, IHitTest hitTest)
 		{
+            if (!e.MousePosition.InWindow) return;
 			string mode = CurrentMode;
             IObject hotspot = hitTest.ObjectAtMousePosition;
             IHotspotComponent hotComp = hotspot?.GetComponent<IHotspotComponent>();
@@ -130,9 +131,9 @@ namespace AGS.Engine
 
 				if (mode == WALK_MODE)
 				{
-                    Vector2 xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
-                    AGSLocation location = new AGSLocation (xy.X, xy.Y, state.Player.Z);
-					await state.Player.WalkAsync(location).ConfigureAwait(true);
+                    var xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
+                    Position position = new Position(xy.X, xy.Y, state.Player.Z);
+					await state.Player.WalkAsync(position).ConfigureAwait(true);
 				}
 				else if (mode != WAIT_MODE)
 				{
@@ -210,8 +211,7 @@ namespace AGS.Engine
 
 			public string Mode { get; private set; }
 			public IObject Animation { get; set; }
-			public bool Rotating { get; private set;}
+			public bool Rotating { get; private set; }
 		}
 	}
 }
-

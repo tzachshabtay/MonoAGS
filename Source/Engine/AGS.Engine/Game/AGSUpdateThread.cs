@@ -153,11 +153,13 @@ namespace AGS.Engine
             {
                 TargetUpdateFrequency = updates_per_second;
             }
+            if (_thread != null) return;
             _thread = Task.Factory.StartNew(threadLoop, TaskCreationOptions.LongRunning);
         }
 
         private void threadLoop()
         {
+            AGSGame.UpdateThreadID = Environment.CurrentManagedThreadId;
             OnThreadStarted(this, null);
             watch.Start();
             while (!_isExiting)

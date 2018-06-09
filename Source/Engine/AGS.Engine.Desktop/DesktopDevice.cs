@@ -11,7 +11,7 @@ namespace AGS.Engine.Desktop
             GraphicsBackend = new OpenGLBackend();
             BitmapLoader = new ImageSharpBitmapLoader(GraphicsBackend);
             BrushLoader = new ImageSharpBrushLoader();
-            FontLoader = new ImageSharpFontLoader(getResourceLoader());
+            FontLoader = new ImageSharpFontLoader();
             ConfigFile = new DesktopEngineConfigFile();
             KeyboardState = new DesktopKeyboardState();
         }
@@ -33,15 +33,5 @@ namespace AGS.Engine.Desktop
         public IGraphicsBackend GraphicsBackend { get; }
 
         public IKeyboardState KeyboardState { get; }
-
-        private IResourceLoader getResourceLoader()
-        {
-            ResourceLoader resourceLoader = new ResourceLoader();
-            FileSystemResourcePack fileResourcePack = new FileSystemResourcePack(FileSystem, Assemblies.EntryAssembly);
-            EmbeddedResourcesPack embeddedResourcePack = new EmbeddedResourcesPack(Assemblies.EntryAssembly);
-            resourceLoader.ResourcePacks.Add(new ResourcePack(fileResourcePack, 0));
-            resourceLoader.ResourcePacks.Add(new ResourcePack(embeddedResourcePack, 1));
-            return resourceLoader;
-        }
     }
 }

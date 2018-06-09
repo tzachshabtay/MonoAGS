@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace AGS.API
 {
     /// <summary>
     /// Allows changing the position of entities/sprites.
     /// </summary>
-    public interface ITranslate : INotifyPropertyChanged
+    public interface ITranslate : INotifyPropertyChanged, IDisposable
     {
         /// <summary>
         /// Gets or sets the location.
@@ -20,7 +21,7 @@ namespace AGS.API
         /// </summary>
         /// <seealso cref="IWorldPositionComponent"/>
         /// <value>The location.</value>
-        ILocation Location { get; set; }
+        Position Position { get; set; }
 
         /// <summary>
         /// Gets or sets the x coordinate (in local coordinates).

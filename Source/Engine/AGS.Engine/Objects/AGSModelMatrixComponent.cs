@@ -63,22 +63,22 @@ namespace AGS.Engine
             
             _entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged();});
+                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged(); });
             _entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged();}
+                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IWorldPositionComponent>(
                 c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
             );
             _entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged();},
-                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged();}
+                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged(); }
             );
             _entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged();},
-                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged();}
+                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged(); },
+                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged(); }
             );
 			_entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onImageChanged; onSomethingChanged(); },
@@ -118,6 +118,14 @@ namespace AGS.Engine
 				_parent = null;
 				onSomethingChanged();
 			});
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            unsubscribeSprite(_sprite);
+            unsubscribeRoomAreas();
+            _entity = null;
         }
 
         public ref ModelMatrices GetModelMatrices() 
@@ -515,7 +523,7 @@ namespace AGS.Engine
             //So at best this will always be in one frame delay, and at worst can cause real scaling jittering issues.
             //So this is why we're checking and in cases the entity doesn't have a parent (which is the vast majority of scenarios)
             //we'll continue using the local coordinates, at least until a better solution is found.
-            var position = _tree.TreeNode.Parent == null ? _translate.Location.XY : _worldPosition.WorldXY;
+            var position = _tree.TreeNode.Parent == null ? _translate.Position.XY : _worldPosition.WorldXY;
 
             foreach (IArea area in room.GetMatchingAreas(position, _entity.ID))
             {

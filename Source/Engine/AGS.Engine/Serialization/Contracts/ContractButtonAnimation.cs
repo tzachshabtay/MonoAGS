@@ -20,12 +20,16 @@ namespace AGS.Engine
         [ProtoMember(4)]
         public uint? Tint { get; set; }
 
+        [ProtoMember(5)]
+        public IContract<IImage> Image { get; set; }
+
         public void FromItem(AGSSerializationContext context, ButtonAnimation item)
         {
             Animation = context.GetContract(item.Animation);
             Border = context.GetContract(item.Border);
             TextConfig = context.GetContract(item.TextConfig);
             Tint = item.Tint == null ? (uint?)null : item.Tint.Value.Value;
+            Image = context.GetContract(item.Image);
         }
 
         public ButtonAnimation ToItem(AGSSerializationContext context)
@@ -33,6 +37,7 @@ namespace AGS.Engine
             var button = new ButtonAnimation(Border.ToItem(context), TextConfig.ToItem(context),
                                              Tint == null ? (Color?)null : Color.FromHexa(Tint.Value));
             button.Animation = Animation.ToItem(context);
+            button.Image = Image.ToItem(context);
             return button;
         }
     }

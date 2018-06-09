@@ -10,12 +10,10 @@ namespace AGS.Engine
 		private IObject _obj;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
-		private IAGSRoomTransitions _roomTransitions;
 
-		public HasRoomComponent(IGameState state, IAGSRoomTransitions roomTransitions)
+		public HasRoomComponent(IGameState state)
 		{
 			_state = state;
-			_roomTransitions = roomTransitions;
             OnRoomChanged = new AGSEvent();
 			refreshRoom();
             state.Rooms?.OnListChanged?.Subscribe(onRoomsChanged);
@@ -27,7 +25,15 @@ namespace AGS.Engine
 			_obj = (IObject)entity;
 		}
 
-        public IRoom Room => _cachedRoom.Value;
+        public override void Dispose()
+        {
+            base.Dispose();
+            _state?.Rooms?.OnListChanged?.Unsubscribe(onRoomsChanged);
+            _cachedRoom = null;
+            _obj = null;
+        }
+
+        public IRoom Room => _cachedRoom?.Value ?? null;
 
         public IRoom PreviousRoom { get; private set; }
 
@@ -35,7 +41,7 @@ namespace AGS.Engine
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
-            bool firstRoom = PreviousRoom == null;
+            bool firstRoom = _state.Room == null;
             Action changeRoom = () => 
             {
                 Room?.Objects.Remove(_obj);
@@ -47,16 +53,7 @@ namespace AGS.Engine
             };
             if (_state.Player == _obj) await _state.ChangeRoomAsync(newRoom, changeRoom);
             else changeRoom();
-			
-            //Waiting for a transition state change to ensure the before fade in event of the new room occurs before the next action after the ChangeRoom was called
-            if (_state.Player == _obj && !firstRoom && _roomTransitions.Transition != null)
-                await _roomTransitions.OnStateChanged.WaitUntilAsync(canCompleteRoomTransition);
 		}
-
-        private bool canCompleteRoomTransition()
-        {
-            return _roomTransitions.State == RoomTransitionState.NotInTransition;
-        }
 
         private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
         {

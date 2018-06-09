@@ -39,9 +39,13 @@ namespace AGS.Editor.Desktop
             XmlNode firstOutputType = doc.SelectSingleNode("//foo:OutputType", mgr);
             XmlNode firstOutputPath = doc.SelectSingleNode("//foo:OutputPath", mgr);
             XmlNode firstAssemblyName = doc.SelectSingleNode("//foo:AssemblyName", mgr);
+            XmlNode firstTargetFramework = doc.SelectSingleNode("//foo:TargetFramework", mgr);
+
+            string outputPath = firstOutputPath == null ? $"bin{Path.DirectorySeparatorChar}Debug{Path.DirectorySeparatorChar}{firstTargetFramework.InnerText}" :
+                firstOutputPath.InnerText.Replace("\\", Path.DirectorySeparatorChar.ToString());
 
             string fileExtension = firstOutputType.InnerText == "Exe" ? "exe" : "dll";
-            string folder = Path.Combine(Directory.GetCurrentDirectory(), firstOutputPath.InnerText.Replace("\\", Path.DirectorySeparatorChar.ToString()));
+            string folder = Path.Combine(Directory.GetCurrentDirectory(), outputPath);
             OutputFilePath = Path.Combine(folder, $"{firstAssemblyName.InnerText}.{fileExtension}");
         }
 

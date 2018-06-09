@@ -7,23 +7,18 @@ using Android.Views;
 
 namespace AGS.Engine.Android
 {
-    public class AndroidInput : IAGSInput
+    public class AndroidInput : IInput
     {
-        private IGameWindowSize _windowSize;
-        private IGameState _state;
-        private IShouldBlockInput _shouldBlockInput;
+        private readonly IShouldBlockInput _shouldBlockInput;
+        private readonly ICoordinates _coordinates;
         private DateTime _lastDrag;
         private AGSGameView _view;
 
-        public AndroidInput(AndroidSimpleGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindowSize windowSize)
+        public AndroidInput(AndroidSimpleGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport);
+            _coordinates = coordinates;
+            MousePosition = new MousePosition(0f, 0f, coordinates);
             _shouldBlockInput = shouldBlockInput;
-            _windowSize = windowSize;
-            _state = state;
-            float density = Resources.System.DisplayMetrics.Density;
-            API.MousePosition.GetWindowWidth = () => (int)(_windowSize.GetWidth(null) - ((GLUtils.ScreenViewport.X * 2) / density));
-            API.MousePosition.GetWindowHeight = () => (int)(_windowSize.GetHeight(null) - ((GLUtils.ScreenViewport.Y * 2) / density));
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseMove = new AGSEvent<MousePositionEventArgs>();
@@ -53,11 +48,6 @@ namespace AGS.Engine.Android
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
             onViewChanged(null, AndroidGameWindow.Instance.View);
-        }
-
-        public void Init(AGS.API.Size virtualResolution)
-        {
-            API.MousePosition.VirtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -123,7 +113,7 @@ namespace AGS.Engine.Android
         { 
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
-            MousePosition = new MousePosition(x, y, _state.Viewport);
+            MousePosition = new MousePosition(x, y, _coordinates);
         }
 
         private float convertX(float x)

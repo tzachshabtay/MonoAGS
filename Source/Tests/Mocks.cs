@@ -96,7 +96,10 @@ namespace Tests
             Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
             device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
 
-            var resolver = new Resolver(device.Object);
+            Mock<IGameSettings> settings = new Mock<IGameSettings>();
+            settings.Setup(s => s.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
+
+            var resolver = new Resolver(device.Object, settings.Object);
 
             Mock<IAudioBackend> audio = new Mock<IAudioBackend>();
             resolver.Builder.RegisterInstance(audio.Object);
@@ -168,6 +171,7 @@ namespace Tests
             {
                 _settings = new Mock<IRuntimeSettings>();
                 _settings.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+                _settings.Setup(g => g.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
             }
             return _settings;
         }
@@ -220,7 +224,7 @@ namespace Tests
 				_room.Setup(m => m.ShowPlayer).Returns(true);
 				_room.Setup(m => m.Events).Returns(RoomEvents().Object);
 				_room.Setup(m => m.Areas).Returns(areas);
-                _room.Setup(m => m.ID).Returns(new Guid().ToString());
+                _room.Setup(m => m.ID).Returns(Guid.NewGuid().ToString());
 			}
 			return _room;
 		}
@@ -238,9 +242,9 @@ namespace Tests
 			return _roomEvents;
 		}
 
-		public Mock<IAGSRoomTransitions> RoomTransitions()
+		public Mock<IRoomTransitions> RoomTransitions()
 		{
-			var transitions = new Mock<IAGSRoomTransitions> ();
+			var transitions = new Mock<IRoomTransitions> ();
 			return transitions;
 		}
 
@@ -249,14 +253,14 @@ namespace Tests
             if (_obj == null || newInstance)
 			{
 				_obj = new Mock<IObject> ();
-                _obj.Setup(m => m.ID).Returns(new Guid().ToString());
+                _obj.Setup(m => m.ID).Returns(Guid.NewGuid().ToString());
 				_obj.Setup(m => m.Animation).Returns(Animation().Object);
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
 				_obj.Setup(m => m.Pivot).Returns(new AGS.API.PointF ());
                 _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
-                _obj.Setup(m => m.Location).Returns(new AGSLocation(0f, 0f));
+                _obj.Setup(m => m.Position).Returns((0f, 0f));
                 _obj.Setup(m => m.Properties).Returns(new AGSCustomProperties());
 			}
 			return _obj;
@@ -322,4 +326,3 @@ namespace Tests
 		}
 	}
 }
-

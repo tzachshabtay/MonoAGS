@@ -117,7 +117,7 @@ namespace AGS.API
         /// <returns><c>true</c>, if equals was floated, <c>false</c> otherwise.</returns>
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
-        public static bool FloatEquals(float x, float y)
+        public static unsafe bool FloatEquals(float x, float y)
         {
             return Math.Abs(x - y) < 0.0001f;
         }

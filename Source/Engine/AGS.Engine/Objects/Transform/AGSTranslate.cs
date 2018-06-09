@@ -6,16 +6,16 @@ namespace AGS.Engine
 {
     public class AGSTranslate : ITranslate
     {
-        private ILocation _location;
+        private Position _position;
         private PropertyChangedEventArgs _argsX, _argsY, _argsZ, _argsLocation;
 
         public AGSTranslate()
         {
-            _location = AGSLocation.Empty();
+            _position = Position.Empty;
             _argsX = new PropertyChangedEventArgs(nameof(X));
             _argsY = new PropertyChangedEventArgs(nameof(Y));
             _argsZ = new PropertyChangedEventArgs(nameof(Z));
-            _argsLocation = new PropertyChangedEventArgs(nameof(Location));
+            _argsLocation = new PropertyChangedEventArgs(nameof(Position));
         }
 
 #pragma warning disable CS0067
@@ -24,53 +24,58 @@ namespace AGS.Engine
 
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
         [DoNotNotify]
-        public ILocation Location 
-        { 
-            get => _location; 
+        public Position Position
+        {
+            get => _position;
             set
             {
-                float prevX = _location.X;
-                float prevY = _location.Y;
-                float prevZ = _location.Z;
+                float prevX = _position.X;
+                float prevY = _position.Y;
+                float prevZ = _position.Z;
 
-                _location = value;
+                _position = value;
 
-                bool hasChanged = false;
-                if (prevX != value.X)
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged != null)
                 {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsX);
-                }
-                if (prevY != value.Y)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsY);
-                }
-                if (prevZ != value.Z)
-                {
-                    hasChanged = true;
-                    PropertyChanged(this, _argsZ);
-                }
-                if (hasChanged)
-                {
-                    PropertyChanged(this, _argsLocation);
+                    bool hasChanged = false;
+                    if (prevX != value.X)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsX);
+                    }
+                    if (prevY != value.Y)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsY);
+                    }
+                    if (prevZ != value.Z)
+                    {
+                        hasChanged = true;
+                        propertyChanged(this, _argsZ);
+                    }
+                    if (hasChanged)
+                    {
+                        propertyChanged(this, _argsLocation);
+                    }
                 }
             }
         }
 
         [Property(Browsable = false)]
         [DoNotNotify]
-        public float X 
-        { 
-            get => Location.X; 
+        public float X
+        {
+            get => _position.X;
             set
             {
-                var prevX = _location.X;
-                _location = new AGSLocation(value, Y, Z);
-                if (prevX != value)
+                var prevX = _position.X;
+                _position = new Position(value, Y, Z == Y ? (float?)null : Z);
+                var propertyChanged = PropertyChanged;
+                if (prevX != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsX);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsX);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -79,20 +84,22 @@ namespace AGS.Engine
         [DoNotNotify]
         public float Y
         {
-            get => Location.Y;
+            get => _position.Y;
             set
             {
-                float prevY = _location.Y;
-                float prevZ = _location.Z;
-                _location = new AGSLocation(X, value, Z == Y ? value : Z);
-                if (prevZ != _location.Z)
+                float prevY = _position.Y;
+                float prevZ = _position.Z;
+                _position = new Position(X, value, Z == Y ? value : Z);
+                var propertyChanged = PropertyChanged;
+                if (propertyChanged == null) return;
+                if (prevZ != _position.Z)
                 {
-                    PropertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsZ);
                 }
                 if (prevY != value)
                 {
-                    PropertyChanged(this, _argsY);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsY);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
@@ -101,19 +108,29 @@ namespace AGS.Engine
         [DoNotNotify]
         public float Z
         {
-            get => Location.Z;
-            set 
+            get => _position.Z;
+            set
             {
-                float prevZ = _location.Z;
-                _location = new AGSLocation(X, Y, value);
-                if (prevZ != value)
+                float prevZ = _position.Z;
+                _position = new Position(X, Y, value);
+                var propertyChanged = PropertyChanged;
+                if (prevZ != value && propertyChanged != null)
                 {
-                    PropertyChanged(this, _argsZ);
-                    PropertyChanged(this, _argsLocation);
+                    propertyChanged(this, _argsZ);
+                    propertyChanged(this, _argsLocation);
                 }
             }
         }
 
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
+
+        public void Dispose()
+        {
+            PropertyChanged = null;
+            _argsLocation = null;
+            _argsX = null;
+            _argsY = null;
+            _argsZ = null;
+        }
     }
 }

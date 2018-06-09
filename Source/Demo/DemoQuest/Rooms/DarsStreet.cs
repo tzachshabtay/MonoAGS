@@ -49,10 +49,12 @@ namespace DemoGame
             await factory.Object.GetHotspotAsync(_baseFolder + "carHotspot.png", "Car", _room);
             await factory.Object.GetHotspotAsync(_baseFolder + "fencesHotspot.png", "Fences", _room);
             await factory.Object.GetHotspotAsync(_baseFolder + "neonSignHotspot.png", "Neon Sign", _room);
-            await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road", _room);
-            await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk", _room);
             await factory.Object.GetHotspotAsync(_baseFolder + "skylineHotspot.png", "Skyline", _room);
             await factory.Object.GetHotspotAsync(_baseFolder + "trashcansHotspot.png", "Trashcans", _room);
+            var sidewalkHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk", _room);
+            var roadHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road", _room);
+            roadHotspot.Z = 100f;
+            sidewalkHotspot.Z = 320f;
 			await addLampPosts(factory);
 
 			subscribeEvents();
@@ -85,7 +87,7 @@ namespace DemoGame
 
 		private async Task addLampPosts(IGameFactory factory)
 		{
-			PointF parallaxSpeed = new PointF (1.4f, 1f);
+			PointF parallaxSpeed = (1.4f, 1f);
 			AGSRenderLayer parallaxLayer = new AGSRenderLayer (-50, parallaxSpeed);
 			var image = await factory.Graphics.LoadImageAsync(_baseFolder + "lampPost.png");
 			const int numLampPosts = 3;

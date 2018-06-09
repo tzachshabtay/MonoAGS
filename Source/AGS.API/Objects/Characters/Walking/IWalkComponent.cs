@@ -68,7 +68,7 @@ namespace AGS.API
         /// or the last destination the character was walking to (if currently not walking).
         /// </summary>
         /// <value>The walk destination.</value>
-        ILocation WalkDestination { get; }
+        Position WalkDestination { get; }
 
         /// <summary>
         /// If set to true, lines will be drawn to mark the selected paths to walk by the path finder.
@@ -87,19 +87,28 @@ namespace AGS.API
         /// await cHero.SayAsync("I'm walking to the chair!");
         /// if (await walkSuccessful)
         /// {
-        ///     cHero.Say("And now I'm sitting!");
+        ///     await cHero.SayAsync("And now I'm sitting!");
         ///     sitOnChair();
         /// }
         /// else
         /// {
-        ///     cHero.Say("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
+        ///     await cHero.SayAsync("You know what, that the chair doesn't look too comfortable, I think I'll pass.");
         /// }
         /// </code>
         /// </example>
         /// </summary>
-        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else).</returns>
-        /// <param name="location">The location.</param>
-		Task<bool> WalkAsync(ILocation location);
+        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else) or the character failed to reach the destination.</returns>
+        /// <param name="position">The position.</param>
+        /// <param name="walkAnywhere">If set to true, the character will simply walk directly to the destination, ignoring walkable areas and treat the entire room as walkable.</param>
+		Task<bool> WalkAsync(Position position, bool walkAnywhere = false);
+
+        /// <summary>
+        /// Walk asynchronously to the specified position in a straight line as far as is possible before hitting a non-walkable area. 
+        /// This is useful for use with the arrow keys for character movement, since it guarantees that the character will move in a straight line in the direction specified.
+        /// </summary>
+        /// <returns>Returns true if the walk was completed successfully, or false if the walk was cancelled (if the user clicked on something else) or the character failed to reach the destination.</returns>
+        /// <param name="position">Position.</param>
+        Task<bool> WalkStraightAsync(Position position);
 
         /// <summary>
         /// Asynchronosly stops the current walk (if there is a walk to stop).
@@ -114,4 +123,3 @@ namespace AGS.API
 		void PlaceOnWalkableArea();
 	}
 }
-

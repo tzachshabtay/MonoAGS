@@ -7,9 +7,12 @@ namespace AGS.Engine.Desktop
     [PropertyFolder]
 	public class DesktopFont : IFont
 	{
-		public DesktopFont(Font font)
+        private readonly IFontLoader _fontLoader;
+
+        public DesktopFont(Font font, IFontLoader fontLoader)
 		{
 			InnerFont = font;
+            _fontLoader = fontLoader;
 		}
 
 		public Font InnerFont { get; }
@@ -28,7 +31,16 @@ namespace AGS.Engine.Desktop
 			return new AGS.API.SizeF (size.Width, size.Height);
 		}
 
+        public IFont Resize(float sizeInPoints)
+        {
+            return _fontLoader.LoadFont(FontFamily, sizeInPoints, Style);
+        }
+
+		public override string ToString()
+		{
+            return $"{FontFamily}: {SizeInPoints} ({Style})";
+		}
+
 		#endregion
 	}
 }
-

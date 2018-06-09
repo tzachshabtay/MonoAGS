@@ -12,11 +12,11 @@ namespace AGS.API
     /// the other without).
     /// </example>
     /// <code language="lang-csharp">
-    /// private void onJacketClicked()
+    /// private async void onJacketClicked()
     /// {
-    ///     cPlayer.Say("Let's wear the jacket!"); //The character speaks with the "no jacket" outfit
+    ///     await cEgo.SayAsync("Let's wear the jacket!"); //The character speaks with the "no jacket" outfit
     ///     cPlayer.Outfit = oJacket;
-    ///     cPlayer.Say("How does it look?"); //The character now speaks with the jacket outfit
+    ///     await cEgo.SayAsync("How does it look?"); //The character now speaks with the jacket outfit
     /// }
     /// </code>    
     public interface IOutfit
@@ -32,9 +32,9 @@ namespace AGS.API
         /// cPlayer.Outfit[AGSOutfit.Speak] = aScaryAnimation;
         /// cPlayer.Outfit["Jump"] = aJumpAnimation;
         /// 
-        /// cPlayer.Walk(100, 200); //The crazy walk animation will now be used for walking to (100,200).
+        /// await cPlayer.WalkAsync(100, 200); //The crazy walk animation will now be used for walking to (100,200).
         /// Thread.Sleep(5000); //The player has finished walking, and sitting idle for 5 seconds during which the playing yoyo animation is playing
-        /// cPlayer.Say("Do I scare you?"); //The character will speak with the scary animation
+        /// await cPlayer.SayAsync("Do I scare you?"); //The character will speak with the scary animation
         /// cPlayer.StartAnimation(cPlayer.Outfit["Jump"].Left); //The character will do a jump left animation.
         /// </code>
         /// </example>

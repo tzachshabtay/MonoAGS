@@ -29,7 +29,6 @@ namespace AGS.Engine
         {
             _entity = entity;
             base.Init(entity);
-
         }
 
         public override void AfterInit()
@@ -37,6 +36,15 @@ namespace AGS.Engine
             base.AfterInit();
             _entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
                                        c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _lastParentBinding?.Unbind();
+            _lastParentBinding = null;
+            _lastParentComponent = null;
+            _entity = null;
         }
 
         [Property(Browsable = false)]
@@ -135,4 +143,3 @@ namespace AGS.Engine
         public bool ClickThrough { get; set; }
 	}
 }
-

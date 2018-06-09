@@ -8,10 +8,10 @@ namespace AGS.Editor
     {
 		private readonly IStringItem _item;
 
-		public InspectorTreeNode(InspectorProperty property, IInspectorPropertyEditor editor)
+		public InspectorTreeNode(InspectorProperty property, IInspectorPropertyEditor editor, IFont font)
 		{
 			TreeNode = new AGSTreeNode<ITreeStringNode>(this);
-			_item = new AGSStringItem();
+			_item = new AGSStringItem(font);
             Text = property.Name;
             Property = property;
             Editor = editor;

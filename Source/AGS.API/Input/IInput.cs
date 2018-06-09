@@ -44,4 +44,3 @@
         bool IsKeyDown(Key key);
 	}
 }
-

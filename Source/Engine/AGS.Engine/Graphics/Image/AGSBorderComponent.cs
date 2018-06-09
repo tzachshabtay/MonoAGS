@@ -9,8 +9,8 @@ namespace AGS.Engine
         private IBoundingBoxComponent _box;
         private IEntity _entity;
         private readonly IRenderPipeline _pipeline;
-        private readonly BorderBack _back;
-        private readonly BorderFront _front;
+        private BorderBack _back;
+        private BorderFront _front;
 
         public AGSBorderComponent(IRenderPipeline pipeline)
         {
@@ -36,9 +36,16 @@ namespace AGS.Engine
 		{
             base.Dispose();
             var entity = _entity;
-            if (entity == null) return;
-            _pipeline.Unsubscribe(entity.ID, _back);
-            _pipeline.Unsubscribe(entity.ID, _front);
+            if (entity != null)
+            {
+                _pipeline.Unsubscribe(entity.ID, _back);
+                _pipeline.Unsubscribe(entity.ID, _front);
+            }
+            _back?.Dispose();
+            _front?.Dispose();
+            _back = null;
+            _front = null;
+            _entity = null;
 		}
 
 		private class BorderBack : IRenderer
@@ -62,8 +69,14 @@ namespace AGS.Engine
                 if (!box.IsValid) return null;
                 if (box.BottomLeft.X > box.BottomRight.X) box = box.FlipHorizontal();
                 var instruction = _pool.Acquire();
+                if (instruction == null) return null;
                 instruction.Setup(border, box);
                 return instruction;
+            }
+
+            public void Dispose()
+            {
+                _pool?.Dispose();
             }
         }
 
@@ -88,8 +101,14 @@ namespace AGS.Engine
                 if (!box.IsValid) return null;
                 if (box.BottomLeft.X > box.BottomRight.X) box = box.FlipHorizontal();
                 var instruction = _pool.Acquire();
+                if (instruction == null) return null;
                 instruction.Setup(border, box);
                 return instruction;
+            }
+
+            public void Dispose()
+            {
+                _pool?.Dispose();
             }
         }
 

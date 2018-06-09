@@ -1,7 +1,6 @@
 ﻿using AGS.Engine;
 using System.Threading.Tasks;
 using AGS.API;
-using AGS.Editor;
 using System.Diagnostics;
 using DemoQuest;
 using System;
@@ -10,8 +9,11 @@ namespace DemoGame
 {
     public class DemoStarter : IGameStarter
 	{
-        private static Lazy<GameDebugView> _gameDebugView;
+        public IGameSettings Settings => new AGSGameSettings("Demo Game", new Size(320, 200),
+                windowSize: new Size(640, 400), windowState: WindowState.Normal);
 
+        public static string CustomAssemblyName;
+        
         public void StartGame(IGame game)
         {
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -21,11 +23,11 @@ namespace DemoGame
             game.Events.OnLoad.Subscribe(async () =>
             {
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
-                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
+                game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly, CustomAssemblyName), 1));
                 game.Factory.Fonts.InstallFonts("Fonts/pf_ronda_seven.ttf", "Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-                AGSGameSettings.DefaultSpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-                AGSGameSettings.DefaultTextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
-                AGSGameSettings.CurrentSkin = null;
+                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
+                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+                game.Settings.Defaults.Skin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
                 Shaders.SetStandardShader();
@@ -42,24 +44,16 @@ namespace DemoGame
 		public static void Run()
 		{
             DemoStarter starter = new DemoStarter();
-            var game = AGSGame.CreateEmpty();
-
-            _gameDebugView = new Lazy<GameDebugView>(() =>
-            {
-                var gameDebugView = new GameDebugView(game, new KeyboardBindings(game.Input));
-                gameDebugView.Load();
-                return gameDebugView;
-            });
+            var game = AGSGame.Create(starter.Settings);
 
             starter.StartGame(game);
-            game.Start(new AGSGameSettings("Demo Game", new AGS.API.Size(320, 200), 
-				windowSize: new AGS.API.Size(640, 400), windowState: WindowState.Normal));
+            game.Start();
 		}
 
         private void setKeyboardEvents(IGame game)
         {
             game.State.Cutscene.SkipTrigger = SkipCutsceneTrigger.AnyKey;
-            game.Input.KeyDown.SubscribeToAsync(async args =>
+            game.Input.KeyDown.Subscribe(args =>
             {
                 if (args.Key == Key.Enter && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)))
                 {
@@ -80,16 +74,10 @@ namespace DemoGame
                     if (game.State.Cutscene.IsRunning) return;
                     game.Quit();
                 }
-                else if (args.Key == Key.G && (game.Input.IsKeyDown(Key.AltLeft) || game.Input.IsKeyDown(Key.AltRight)) && _gameDebugView != null)
-                {
-                    var gameDebug = _gameDebugView.Value;
-                    if (gameDebug.Visible) gameDebug.Hide();
-                    else await gameDebug.Show();
-                }
             });
         }
 
-		private async Task<IPanel> loadUi(IGame game)
+		private async Task loadUi(IGame game)
 		{
 			MouseCursors cursors = new MouseCursors();
 			await cursors.LoadAsync(game);
@@ -108,10 +96,8 @@ namespace DemoGame
             Debug.WriteLine("Startup: Loaded Features Panel");
 
             TopBar topBar = new TopBar(cursors.Scheme, inventory, options, features);
-			var topPanel = await topBar.LoadAsync(game);
+			await topBar.LoadAsync(game);
             Debug.WriteLine("Startup: Loaded Top Bar");
-
-			return topPanel;
 		}
 
         private async Task loadPlayerCharacter(IGame game)
@@ -124,17 +110,11 @@ namespace DemoGame
 
 		private async Task loadCharacters(IGame game)
 		{
-            ICharacter character = game.State.Player;
-			KeyboardMovement movement = new KeyboardMovement (character, game.Input, 
-                                                              game.State.FocusedUI, KeyboardMovementMode.Pressing);
-			movement.AddArrows();
-			movement.AddWASD();
-
             InventoryItems items = new InventoryItems();
             await items.LoadAsync(game.Factory);
 
             Beman beman = new Beman ();
-			character = await beman.LoadAsync(game);
+			var character = await beman.LoadAsync(game);
 			var room = await Rooms.BrokenCurbStreet;
 			await character.ChangeRoomAsync(room, 100, 110);
 
@@ -156,14 +136,13 @@ namespace DemoGame
                 await loadRooms(game);
                 Debug.WriteLine("Startup: Loaded Rooms");
                 Task charactersLoaded = loadCharacters(game);
-                var topPanel = await loadUi(game);
+                await loadUi(game);
                 Debug.WriteLine("Startup: Loaded UI");
                 DefaultInteractions defaults = new DefaultInteractions(game, game.Events);
                 defaults.Load();
                 await charactersLoaded;
                 Debug.WriteLine("Startup: Loaded Characters");
                 await game.State.Player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 50, 30);
-                topPanel.Visible = true;
             });
             await game.State.ChangeRoomAsync(Rooms.SplashScreen);
             Debug.WriteLine("Startup: Loaded splash screen");
@@ -219,7 +198,7 @@ namespace DemoGame
             var resolution = new Size(1200, 800);
             ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
-			fpsLabel.Pivot = new PointF (1f, 0f);
+			fpsLabel.Pivot = (1f, 0f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999, independentResolution: resolution);
             fpsLabel.Enabled = true;
             fpsLabel.MouseEnter.Subscribe(_ => fpsLabel.Tint = Colors.Indigo);
@@ -231,7 +210,7 @@ namespace DemoGame
             ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: new AGSTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
             label.Tint = Colors.SlateBlue.WithAlpha(125);
-			label.Pivot = new PointF (1f, 0f);
+			label.Pivot = (1f, 0f);
             label.RenderLayer = fpsLabel.RenderLayer;
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
@@ -239,7 +218,7 @@ namespace DemoGame
             ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: new AGSTextConfig(alignment: Alignment.TopRight,
               autoFit: AutoFit.LabelShouldFitText));
             debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
-            debugHotspotLabel.Pivot = new PointF(1f, 0f);
+            debugHotspotLabel.Pivot = (1f, 0f);
             debugHotspotLabel.RenderLayer = fpsLabel.RenderLayer;
             HotspotLabel hotspot = new HotspotLabel(game, debugHotspotLabel) { DebugMode = true };
             hotspot.Start();

@@ -56,7 +56,7 @@ namespace AGS.Engine
         public float InitialHeight { get; set; }
 
         [ProtoMember(13)]
-        public Tuple<float, float, float> Location { get; set; }
+        public Tuple<float, float, float> Position { get; set; }
 
         [ProtoMember(14)]
         public bool IsPixelPerfect { get; set; }
@@ -102,7 +102,7 @@ namespace AGS.Engine
                 obj.Image = image;
                 obj.Scale = new PointF(ScaleX, ScaleY);
             }
-            obj.Location = new AGSLocation(Location.Item1, Location.Item2, Location.Item3);
+            obj.Position = new Position(Position.Item1, Position.Item2, Position.Item3);
             obj.Pivot = new PointF(Pivot.Item1, Pivot.Item2);
             obj.Angle = Angle;
             obj.Tint = Color.FromHexa(Tint);
@@ -160,7 +160,7 @@ namespace AGS.Engine
             ScaleX = item.ScaleX;
             ScaleY = item.ScaleY;
             IsPixelPerfect = item.IsPixelPerfect;
-            Location = new Tuple<float, float, float>(item.X, item.Y, item.Z);
+            Position = new Tuple<float, float, float>(item.X, item.Y, item.Z);
         }
 
 		#endregion

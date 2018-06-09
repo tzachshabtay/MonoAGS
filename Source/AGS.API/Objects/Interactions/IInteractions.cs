@@ -31,14 +31,14 @@
         ///     oTeapot.Interactions.OnInteract(AGSInteractions.Default).Subscribe(onTeapotDefault);
         /// }
         /// 
-        /// private void onDefaultTalk(ObjectEventArgs args)
+        /// private async void onDefaultTalk(ObjectEventArgs args)
         /// {
-        ///     cEgo.Say(string.Format("{0}? No, I don't think it's going to talk back.", args.Object.Hotspot));
+        ///     await cEgo.SayAsync(string.Format("{0}? No, I don't think it's going to talk back.", args.Object.Hotspot));
         /// }
         /// 
-        /// private void onTeapotLook(ObjectEventArgs args)
+        /// private async void onTeapotLook(ObjectEventArgs args)
         /// {
-        ///     cEgo.Say("What a lovely looking teapot!");
+        ///     await cEgo.SayAsync("What a lovely looking teapot!");
         /// }
         /// 
         /// private async Task onTeapotInteract(ObjectEventArgs args)
@@ -47,14 +47,14 @@
         ///     oTeapot.StartAnimation(aPourTea);
         /// }
         /// 
-        /// private void onTeapotThrow(ObjectEventArgs args)
+        /// private async void onTeapotThrow(ObjectEventArgs args)
         /// {
-        ///     cEgo.Say("No way, I'm not throwing the teapot.");
+        ///     await cEgo.SayAsync("No way, I'm not throwing the teapot.");
         /// }
         /// 
-        /// private void onTeapotDefault(ObjectEventArgs args)
+        /// private async void onTeapotDefault(ObjectEventArgs args)
         /// {
-        ///     cEgo.Say("I'm not doing anything like that to the teapot.");
+        ///     await cEgo.SayAsync("I'm not doing anything like that to the teapot.");
         /// }
         /// </code>
         /// </example>
@@ -83,27 +83,28 @@
         ///     game.Events.DefaultInteractions.OnInventoryInteract(AGSInteractions.Interact).Subscribe(onDefaultInventoryInteract);
         /// }
         /// 
-        /// private void onTeapotInventoryInteract(InventoryInteractEventArgs args)
+        /// private async void onTeapotInventoryInteract(InventoryInteractEventArgs args)
         /// {
         ///     if (args.Item == iCup)
         ///     {
-        ///         cEgo.Say("Ok, I'm going to pour tea in the cup");
+        ///         await cEgo.SayAsync("Ok, I'm going to pour tea in the cup");
         ///         oTeapot.StartAnimation(aPourTea);
         ///         cEgo.Inventory.Items.Remove(iCup);
         ///         cEgo.Inventory.Items.Add(iFullCup);
         ///     }
         ///     else if (args.Item == iFullCup)
         ///     {
-        ///         cEgo.Say("The cup is already full.");
+        ///         await cEgo.SayAsync("The cup is already full.");
         ///     }
         ///     else
         ///     {
-        ///         cEgo.Say("This is not what you'd usually use on a teapot...");
+        ///         await cEgo.SayAsync("This is not what you'd usually use on a teapot...");
         ///     }
         /// }
-        /// private void onDefaultInventoryInteract(InventoryInteractEventArgs args)
+        /// 
+        /// private async void onDefaultInventoryInteract(InventoryInteractEventArgs args)
         /// {
-        ///     cEgo.Say(string.Format("Using {0} on {1}? No, I don't think so.", args.Item.Graphics.Hotspot, args.Object.Hotspot));
+        ///     await cEgo.SayAsync(string.Format("Using {0} on {1}? No, I don't think so.", args.Item.Graphics.Hotspot, args.Object.Hotspot));
         /// }
         /// </code>
         /// </example>

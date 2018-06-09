@@ -205,12 +205,12 @@ namespace AGS.Engine
             get { return _uIEvents.MouseMove; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseClicked 
+        public IEvent<MouseClickEventArgs> MouseClicked 
         {  
             get { return _uIEvents.MouseClicked; } 
         }
 
-        public IEvent<MouseButtonEventArgs> MouseDoubleClicked 
+        public IEvent<MouseClickEventArgs> MouseDoubleClicked 
         {  
             get { return _uIEvents.MouseDoubleClicked; } 
         }
@@ -415,10 +415,10 @@ namespace AGS.Engine
 
         #region ITranslate implementation
 
-        public ILocation Location 
+        public Position Position 
         {  
-            get { return _translateComponent.Location; }  
-            set { _translateComponent.Location = value; } 
+            get { return _translateComponent.Position; }  
+            set { _translateComponent.Position = value; } 
         }
 
         public Single X 

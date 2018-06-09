@@ -12,7 +12,7 @@ namespace Tests
     public class RendererLoopTests
     {
         private Mocks _mocks;
-        private Mock<IAGSRoomTransitions> _transitions;
+        private Mock<IRoomTransitions> _transitions;
         private AGSBindingList<IArea> _areas;
         private AGSConcurrentHashSet<IObject> _roomObjects, _uiObjects;
         private Resolver _resolver;
@@ -21,7 +21,7 @@ namespace Tests
         public void Init()
         {
             _mocks = Mocks.Init();
-            _transitions = new Mock<IAGSRoomTransitions>();
+            _transitions = new Mock<IRoomTransitions>();
             _resolver = Mocks.GetResolver();
             _resolver.Build();
 
@@ -52,7 +52,7 @@ namespace Tests
             _uiObjects.Clear();
 
             IRendererLoop loop = getLoop();
-            Assert.IsTrue(loop.Tick());
+            loop.Tick();
         }
 
         [Test]
@@ -88,11 +88,11 @@ namespace Tests
                 pipeline.Subscribe("uiObj", uiRenderer.Object);
 
                 IRendererLoop loop = getLoop(displayList, pipeline);
-                Assert.IsTrue(loop.Tick()); //First tick just to tell the display list about our viewport, the second tick will have the objects to render
+                loop.Tick(); //First tick just to tell the display list about our viewport, the second tick will have the objects to render
                 displayList.GetDisplayList(_mocks.GameState().Object.Viewport);
-                displayList.Update();
+                displayList.Update(false);
                 pipeline.Update();
-                Assert.IsTrue(loop.Tick());
+                loop.Tick();
                 roomInsturction.Verify(r => r.Render(), Times.Once);
                 uiInstruction.Verify(r => r.Render(), Times.Once);
             }
@@ -105,22 +105,22 @@ namespace Tests
         private IDisplayList getDisplayList()
         {
             return new AGSDisplayList(_mocks.GameState().Object, _mocks.Input().Object,
-                new Mock<IMatrixUpdater>().Object, new Mock<IAGSRoomTransitions>().Object);
+                new Mock<IMatrixUpdater>().Object, new Mock<IRoomTransitions>().Object);
         }
 
         private IAGSRenderPipeline getPipeline(IDisplayList displayList)
         {
             return new AGSRenderPipeline(_mocks.GameState().Object, displayList, _mocks.Game().Object,
-                                           new AGSEvent<DisplayListEventArgs>(), _mocks.RoomTransitions().Object);
+                                           new AGSEvent<DisplayListEventArgs>());
         }
 
         private IRendererLoop getLoop(IDisplayList displayList = null, IAGSRenderPipeline pipeline = null)
         { 
             displayList = displayList ?? getDisplayList();
             pipeline = pipeline ?? getPipeline(displayList);
-            return new AGSRendererLoop(_resolver, _mocks.Game().Object,
-                                       _transitions.Object, new Mock<IGLUtils>().Object, new Mock<IGameWindow>().Object, pipeline,
-                                       displayList, new Mock<IInput>().Object, new Mock<IMatrixUpdater>().Object);
+            return new AGSRendererLoop(_mocks.Settings().Object, _mocks.GameState().Object,
+                                       new Mock<IGLUtils>().Object, new Mock<IWindowInfo>().Object, pipeline,
+                                       new Mock<IMatrixUpdater>().Object);
         }
 
         private IArea getArea()

@@ -8,7 +8,7 @@ namespace AGS.API
     /// An event is a notification for something that has happened.
     /// Interested parties can subscribe to the event and be notified when it triggers (https://en.wikipedia.org/wiki/Event-driven_programming).
     /// </summary>
-	public interface IEvent<TEventArgs>
+	public interface IEvent<TEventArgs> : IDisposable
 	{
         /// <summary>
         /// Gets the number of subscribers to the event.
@@ -102,7 +102,7 @@ namespace AGS.API
     /// An event is a notification for something that has happened.
     /// Interested parties can subscribe to the event and be notified when it triggers (https://en.wikipedia.org/wiki/Event-driven_programming).
     /// </summary>
-    public interface IEvent
+    public interface IEvent : IDisposable
     {
         /// <summary>
         /// Gets the number of subscribers to the event.

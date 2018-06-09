@@ -64,13 +64,13 @@ namespace AGS.Engine
 		public static async Task<bool> YesNoAsync(string text, string yes = "Yes", string no = "No")
 		{
 			var factory = AGSGame.Game.Factory;
-			IAnimation idle = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			idle.Sprite.Tint = Colors.Black;
-			IAnimation hovered = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			hovered.Sprite.Tint = Colors.Yellow;
-			IAnimation pushed = new AGSSingleFrameAnimation (new EmptyImage (ButtonWidth, ButtonHeight), factory.Graphics);
-			pushed.Sprite.Tint = Colors.DarkSlateBlue;
-            var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
+			var idle = new ButtonAnimation (new EmptyImage (ButtonWidth, ButtonHeight));
+			idle.Tint = Colors.Black;
+			var hovered = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+			hovered.Tint = Colors.Yellow;
+			var pushed = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+			pushed.Tint = Colors.DarkSlateBlue;
+            var border = AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(),  AGSGame.Game.Settings, new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			
 			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, null, yes, ButtonConfig, false);
@@ -99,7 +99,7 @@ namespace AGS.Engine
 		private static ISayConfig getDefaultConfig()
 		{
 			AGSSayConfig config = new AGSSayConfig ();
-			config.Border =  AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), new FourCorners<Color>(Colors.DarkOliveGreen,
+			config.Border =  AGSBorders.Gradient(AGSGame.Resolver.Container.Resolve<IGLUtils>(), AGSGame.Game.Settings, new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
             config.TextConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.TopCenter
                                                    , paddingLeft: 30, paddingTop: 30, paddingBottom: 30, paddingRight: 30);
@@ -152,4 +152,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

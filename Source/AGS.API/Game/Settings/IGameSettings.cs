@@ -120,5 +120,10 @@
         /// </summary>
         /// <value>The vsync.</value>
 		VsyncMode Vsync { get; }
+        /// <summary>
+        /// The settings for various defaults.
+        /// </summary>
+        /// <value>The defaults.</value>
+        IDefaultsSettings Defaults { get; }
 	}
 }

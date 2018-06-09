@@ -44,15 +44,14 @@ namespace DemoGame
             factory.Room.CreateScaleArea(_room.Areas[1], 0.75f, 0.90f);
 
             IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle", _room);
-			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = new PointF (140f, 50f);
+			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = (140f, 50f);
 			await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room);
 			await factory.Object.GetHotspotAsync(_baseFolder + "GapHotspot.png", "Gap", _room, new[]{"It's a gap!", "I wonder what's in there!"});
 
 			_bottle = factory.Object.GetAdventureObject(_bottleId, _room);
 			_bottle.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bottle.bmp", loadConfig: loadConfig);
 			_bottle.GetComponent<IHotspotComponent>().WalkPoint = bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint;
-			_bottle.X = 185f;
-			_bottle.Y = 85f;
+            _bottle.Position = (185f, 85f);
 			_bottle.DisplayName = "Bottle";
 
 			subscribeEvents();
@@ -97,13 +96,17 @@ namespace DemoGame
 		private void onBeforeFadeIn()
 		{
 			_player.PlaceOnWalkableArea();
+            if (Repeat.OnceOnly("EmptyStreet_BeforeFadeIn"))
+            {
+                TopBar.TopPanel.Visible = true;
+            }
 		}
 
 		private void onAfterFadeIn ()
 		{
-            if (Repeat.OnceOnly("EmptyStreet_FadeIn")) 
+            if (Repeat.OnceOnly("EmptyStreet_AfterFadeIn")) 
 			{
-                _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve ();
+                _game.State.RoomTransitions.Transition = AGSRoomTransitions.Dissolve();
 			}
 		}
 	}

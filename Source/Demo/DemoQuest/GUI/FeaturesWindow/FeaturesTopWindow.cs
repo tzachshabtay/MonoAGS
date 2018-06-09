@@ -20,7 +20,7 @@ namespace DemoGame
 		public FeaturesTopWindow(RotatingCursorScheme scheme)
 		{
 			_scheme = scheme;
-            _layer = new AGSRenderLayer(AGSLayers.UI.Z, independentResolution: new Size(1200, 800));
+            _layer = new AGSRenderLayer(AGSLayers.UI.Z, independentResolution: (1200, 800));
             _panels = new Dictionary<string, Lazy<IFeaturesPanel>>();
 		}
 
@@ -32,7 +32,7 @@ namespace DemoGame
             IGameFactory factory = game.Factory;
             _panel = factory.UI.GetPanel(_panelId, 800, 600, 
                  _layer.IndependentResolution.Value.Width / 2f, _layer.IndependentResolution.Value.Height / 2f);
-			_panel.Pivot = new PointF(0.5f, 0.5f);
+			_panel.Pivot = (0.5f, 0.5f);
 			_panel.Visible = false;
             _panel.Tint = Colors.Black;
             _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
@@ -49,7 +49,7 @@ namespace DemoGame
                                                new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter), 
                                                                  width: 40f, height: 40f);
-            xButton.Pivot = new PointF();
+            xButton.Pivot = (0f, 0f);
             xButton.RenderLayer = _layer;
             xButton.Tint = Colors.Transparent;
             xButton.MouseEnter.Subscribe(_ => xButton.TextConfig = AGSTextConfig.ChangeColor(xButton.TextConfig, Colors.Yellow, Colors.White, 0.3f));
@@ -110,7 +110,7 @@ namespace DemoGame
 
         private ITreeStringNode createFeaturesLabel(string text, ITreeStringNode parent, Func<IFeaturesPanel> panel = null)
         {
-            var node = new AGSTreeStringNode { Text = text };
+            var node = new AGSTreeStringNode(text, null);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             _panels[text] = panel == null ? null : new Lazy<IFeaturesPanel>(panel);
             return node;

@@ -7,20 +7,19 @@ using IOS::UIKit;
 
 namespace AGS.Engine.IOS
 {
-    public class IOSInput : IAGSInput
+    public class IOSInput : IInput
     {
-        private IGameWindow _gameWindow;
-        private IGameState _state;
-        private IShouldBlockInput _shouldBlockInput;
+        private readonly IShouldBlockInput _shouldBlockInput;
         private DateTime _lastDrag;
+        private readonly IOSGestures _gestures;
+        private readonly ICoordinates _coordinates;
 
-        public IOSInput(IOSGestures gestures, IGameState state, IShouldBlockInput shouldBlockInput, IGameWindow gameWindow)
+        public IOSInput(IOSGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
         {
-            MousePosition = new MousePosition(0f, 0f, state.Viewport);
+            _gestures = gestures;
+            _coordinates = coordinates;
+            MousePosition = new MousePosition(0f, 0f, _coordinates);
             _shouldBlockInput = shouldBlockInput;
-            _gameWindow = gameWindow;
-            _state = state;
-            updateWindowSizeFunctions();
 
 			MouseDown = new AGSEvent<AGS.API.MouseButtonEventArgs>();
             MouseUp = new AGSEvent<AGS.API.MouseButtonEventArgs>();
@@ -52,11 +51,6 @@ namespace AGS.Engine.IOS
                 await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
-        }
-
-        public void Init(AGS.API.Size virtualResolution)
-        {
-            API.MousePosition.VirtualResolution = virtualResolution;
         }
 
         public IObject Cursor { get; set; }
@@ -93,19 +87,7 @@ namespace AGS.Engine.IOS
         {
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
-            updateWindowSizeFunctions();
-            MousePosition = new MousePosition(x, y, _state.Viewport);
-        }
-
-        private void updateWindowSizeFunctions()
-        {
-			//we have to statically evaluate the window size, because _gameWindow.Width & Height must be called from the UI thread.
-            float density = (float)UIScreen.MainScreen.Scale;
-			int windowWidth = _gameWindow.Width;
-            int windowHeight = _gameWindow.Height;
-
-            API.MousePosition.GetWindowWidth = () => (int)((windowWidth - (GLUtils.ScreenViewport.X * 2)) / density);
-            API.MousePosition.GetWindowHeight = () => (int)((windowHeight - (GLUtils.ScreenViewport.Y * 2)) / density);
+            MousePosition = new MousePosition(x, y, _coordinates);
         }
 
         private float convertX(float x)

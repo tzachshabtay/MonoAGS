@@ -29,5 +29,7 @@ namespace AGS.Engine
             var rendererOptions = maxWidth == int.MaxValue ? _noMaxRenderOptions : new RendererOptions(InnerFont) { WrappingWidth = maxWidth };
             return TextMeasurer.Measure(text, rendererOptions).Convert();
         }
+
+        public IFont Resize(float sizeInPoints) => new ImageSharpFont(InnerFont.Family, sizeInPoints, Style);
     }
 }

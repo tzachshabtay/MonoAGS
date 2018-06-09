@@ -6,9 +6,9 @@ namespace AGS.Engine
     {
         private IEntity _entity;
 
-        public AGSSkinComponent()
+        public AGSSkinComponent(IGameSettings settings)
         {
-            Skin = AGSGameSettings.CurrentSkin;
+            Skin = settings.Defaults.Skin;
             SkinTags = new AGSConcurrentHashSet<string>();
         }
 
@@ -21,6 +21,12 @@ namespace AGS.Engine
             base.Init(entity);
             _entity = entity;
             entity.OnComponentsInitialized.Subscribe(onComponentsInitialized);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
         }
 
         private void onComponentsInitialized()

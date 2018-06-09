@@ -142,18 +142,18 @@ namespace DemoGame
 			ICharacter player = _game.State.Player;
 			_game.State.Cutscene.Start();
 
-            player.Say("Scene is now in session.");
+            await player.SayAsync("Scene is now in session.");
             var leftEdge = player.Room.Edges.Left;
             leftEdge.Enabled = false;
-			await player.WalkAsync(new AGSLocation (0f, player.Y));
+			await player.WalkAsync((0f, player.Y));
             leftEdge.Enabled = true;
 			await player.ChangeRoomAsync(Rooms.EmptyStreet.Result, 400f);
             await player.SayAsync("This scene involves switching rooms!");
-			await player.WalkAsync(new AGSLocation (70f, player.Y));
+			await player.WalkAsync((70f, player.Y));
 
 			_game.State.Cutscene.End();
 
-			player.Say("End scene.");
+			await player.SayAsync("End scene.");
 			return true;
 		}
 	}

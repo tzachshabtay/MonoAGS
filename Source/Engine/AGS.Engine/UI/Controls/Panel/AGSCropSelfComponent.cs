@@ -5,31 +5,18 @@ namespace AGS.Engine
 { 
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
-        private bool _cropEnabled;
         private IImageComponent _image;
         private IEntity _entity;
 
         public AGSCropSelfComponent()
         {
-            OnCropAreaChanged = new AGSEvent();
             OnBeforeCrop = new AGSEvent<BeforeCropEventArgs>();
-            _cropEnabled = true;
+            CropEnabled = true;
         }
 
-        public bool CropEnabled 
-        { 
-            get { return _cropEnabled; }
-            set 
-            {
-                if (_cropEnabled == value) return;
-                _cropEnabled = value;
-                OnCropAreaChanged.Invoke();
-            }
-        }
+        public bool CropEnabled { get; set; }
 
         public RectangleF CropArea { get; set; }
-
-        public IBlockingEvent OnCropAreaChanged { get; private set; }
 
         public IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
 
@@ -40,11 +27,19 @@ namespace AGS.Engine
             entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            OnBeforeCrop?.Dispose();
+            OnBeforeCrop = null;
+            _entity = null;
+        }
+
         public FourCorners<Vector2> GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height)
         {
             width = spriteWidth;
             height = spriteHeight;
-            OnBeforeCrop.Invoke(eventArgs);
+            OnBeforeCrop?.Invoke(eventArgs);
             if (!CropEnabled) return null;
             float cropX = CropArea.X;
             float cropY = CropArea.Y;

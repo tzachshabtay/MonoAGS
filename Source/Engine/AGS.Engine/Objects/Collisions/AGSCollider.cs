@@ -29,6 +29,12 @@ namespace AGS.Engine
             entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 		}
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
+        }
+
         [Property(Browsable = false)]
 		public PointF? CenterPoint
 		{

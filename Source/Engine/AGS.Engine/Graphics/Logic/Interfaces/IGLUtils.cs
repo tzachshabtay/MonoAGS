@@ -6,7 +6,7 @@ namespace AGS.Engine
     {
         SizeF CurrentResolution { get; }
         void AdjustResolution(int width, int height);
-        void RefreshViewport(IGameSettings settings, IGameWindow gameWindow, IViewport viewport);
+        void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport, bool updateViewportScreenArea);
         void GenBuffers();
         void DrawQuad(int texture, AGSBoundingBox box, float r, float g, float b, float a);
         void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight,
@@ -15,7 +15,7 @@ namespace AGS.Engine
         void DrawQuad(int texture, AGSBoundingBox box, IGLColor color, FourCorners<Vector2> texturePos);
         void DrawQuad(int texture, GLVertex[] vertices);
         bool DrawQuad(IFrameBuffer frameBuffer, AGSBoundingBox square, GLVertex[] vertices);
-        IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IRuntimeSettings settings);
+        IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IGameSettings settings);
         void DrawTriangleFan(int texture, GLVertex[] vertices);
         void DrawTriangle(int texture, GLVertex[] vertices);
         void DrawCross(float x, float y, float width, float height,

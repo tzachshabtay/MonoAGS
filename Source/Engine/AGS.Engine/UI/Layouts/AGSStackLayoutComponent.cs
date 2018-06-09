@@ -60,8 +60,10 @@ namespace AGS.Engine
         {
             base.Dispose();
             StopLayout();
+            EntitiesToIgnore?.OnListChanged?.Unsubscribe(onEntitiesToIgnoreChanged);
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             unsubscribeChildren();
+            _entity = null;
         }
 
         private void onRepeatedlyExecute()
@@ -145,12 +147,12 @@ namespace AGS.Engine
                     if (Direction == LayoutDirection.Vertical)
                     {
                         child.Y = location;
-                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Height;
+                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Height ?? 0f;
                     }
                     else
                     {
                         child.X = location;
-                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>().PreCropBoundingBoxWithChildren.Width;
+                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f;
                     }
                     location += step * RelativeSpacing + AbsoluteSpacing;
                 }

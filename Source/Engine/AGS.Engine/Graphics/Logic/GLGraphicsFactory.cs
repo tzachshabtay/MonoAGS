@@ -18,7 +18,8 @@ namespace AGS.Engine
 
         public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
-                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, IRenderMessagePump messagePump)
+                                  IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, 
+                                  IRenderMessagePump messagePump, IGameSettings settings)
 		{
             Icons = icons;
             Brushes = brushes;
@@ -29,7 +30,7 @@ namespace AGS.Engine
 			_bitmapLoader = bitmapLoader;
             _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
-            AGSGameSettings.CurrentSkin = new AGSBlueSkin(this, glUtils).CreateSkin();
+            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils, settings).CreateSkin();
 		}
 
         public IIconFactory Icons { get; private set; }
@@ -41,6 +42,30 @@ namespace AGS.Engine
 			ISprite sprite = _resolver.Container.Resolve<ISprite>();
 			return sprite;
 		}
+
+        public ISprite LoadSprite(string path, ILoadImageConfig loadConfig = null)
+        {
+            var sprite = GetSprite();
+            var image = LoadImage(path, loadConfig);
+            sprite.Image = image;
+            return sprite;
+        }
+
+        public async Task<ISprite> LoadSpriteAsync(string path, ILoadImageConfig loadConfig = null)
+        {
+            var sprite = GetSprite();
+            var image = await LoadImageAsync(path, loadConfig);
+            sprite.Image = image;
+            return sprite;
+        }
+
+        public ISprite LoadSprite(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null)
+        {
+            var sprite = GetSprite();
+            var image = LoadImage(bitmap, loadConfig, id);
+            sprite.Image = image;
+            return sprite;
+        }
 
 		public IDirectionalAnimation LoadDirectionalAnimationFromFolders(string baseFolder, string leftFolder = null,
 			string rightFolder = null, string downFolder = null, string upFolder = null,
@@ -267,6 +292,10 @@ namespace AGS.Engine
 
         private IImage loadImage(IResource resource, ILoadImageConfig config = null)
 		{
+            if (resource == null)
+            {
+                return null;
+            }
             IImage image = null;
             _renderThread.RunBlocking(() =>
             {
@@ -337,4 +366,3 @@ namespace AGS.Engine
         }
 	}
 }
-

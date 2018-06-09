@@ -31,11 +31,6 @@ namespace AGS.Engine
 
 		#region IDialogOption implementation
 
-		public void Run()
-		{
-			Task.Run(async() => await RunAsync()).Wait();
-		}
-
 		public async Task<bool> RunAsync()
 		{
 			if (SpeakOption)

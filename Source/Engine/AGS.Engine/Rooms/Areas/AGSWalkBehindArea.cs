@@ -40,6 +40,12 @@ namespace AGS.Engine
             _state.Rooms?.OnListChanged?.Subscribe(onRoomsChanged);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            _entity = null;
+        }
+
         private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
         {
             if (_room == null && args.ChangeType == ListChangeType.Add) refreshRoom();

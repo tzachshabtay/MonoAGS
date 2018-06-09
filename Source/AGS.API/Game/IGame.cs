@@ -75,10 +75,15 @@
         IHitTest HitTest { get; }
 
         /// <summary>
+        /// Utility methods to help convert between different coordinate systems.
+        /// </summary>
+        /// <value>The coordinates.</value>
+        ICoordinates Coordinates { get; }
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
-        /// <param name="settings">Settings.</param>
-		void Start(IGameSettings settings);
+		void Start();
 
         /// <summary>
         /// Quits the game. Note that this should not be used on IOS as IOS guidelines do not allow a button for quitting the game.
@@ -94,4 +99,3 @@
 		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
 	}
 }
-

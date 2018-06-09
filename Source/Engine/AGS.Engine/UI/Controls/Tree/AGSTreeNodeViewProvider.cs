@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using AGS.API;
 
@@ -40,12 +41,12 @@ namespace AGS.Engine
         {
             var buttonWidth = 20f;
             var buttonHeight = 60f;
-            IAnimation idle = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);
-            idle.Sprite.Tint = Colors.Black;
-            IAnimation hovered = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);
-            hovered.Sprite.Tint = Colors.Yellow;
-            IAnimation pushed = new AGSSingleFrameAnimation(new EmptyImage(buttonWidth, buttonHeight), _factory.Graphics);
-            pushed.Sprite.Tint = Colors.DarkSlateBlue;
+            var idle = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
+            idle.Tint = Colors.Black;
+            var hovered = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
+            hovered.Tint = Colors.Yellow;
+            var pushed = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
+            pushed.Tint = Colors.DarkSlateBlue;
             int nodeId = Interlocked.Increment(ref _nextNodeId);
             var itemTextId = (item.Text ?? "") + "_" + nodeId;
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, addToUi: false);
@@ -75,11 +76,14 @@ namespace AGS.Engine
             layout.Direction = LayoutDirection.Horizontal;
             layout.StartLayout();
 
-            item.PropertyChanged += (sender, e) =>
+            PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
             {
-                if (e.PropertyName != nameof(ITreeStringNode.Text)) return;
+                if (e.PropertyName != nameof(ITreeStringNode.Text))
+                    return;
                 label.Text = item.Text;
             };
+            item.PropertyChanged += onPropertyChanged;
+            label.OnDisposed(() => item.PropertyChanged -= onPropertyChanged);
 
             var nodeView = new AGSTreeNodeView(label, expandButton, parentPanel, verticalPanel, horizontalPanel);
             return nodeView;

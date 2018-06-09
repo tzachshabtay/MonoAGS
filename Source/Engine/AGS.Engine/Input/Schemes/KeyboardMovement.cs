@@ -16,18 +16,19 @@ namespace AGS.Engine
 		Tapping,
 	}
 
-	public class KeyboardMovement
+    [RequiredComponent(typeof(IWalkComponent))]
+    [RequiredComponent(typeof(ITranslateComponent))]
+    public class KeyboardMovement : AGSComponent
 	{
 		private IConcurrentHashSet<Key> _up, _down, _left, _right, _keysDown;
-		private ICharacter _character;
         private readonly IFocusedUI _focusedUi;
+        private IWalkComponent _walk;
+        private ITranslateComponent _translate;
 
-		public KeyboardMovement(ICharacter character, IInput input, IFocusedUI focusedUi, KeyboardMovementMode mode)
+		public KeyboardMovement(IInput input, IFocusedUI focusedUi)
 		{
-			_character = character;
             _focusedUi = focusedUi;
 			Enabled = true;
-			Mode = mode;
 			_up = new AGSConcurrentHashSet<Key> ();
 			_down = new AGSConcurrentHashSet<Key> ();
 			_left = new AGSConcurrentHashSet<Key> ();
@@ -38,7 +39,14 @@ namespace AGS.Engine
 			input.KeyUp.SubscribeToAsync(onKeyUp);
 		}
 
-		public void AddArrows()
+        public override void Init(IEntity entity)
+        {
+            base.Init(entity);
+            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+        }
+
+        public void AddArrows()
 		{
 			_up.Add(Key.Up);
 			_down.Add(Key.Down);
@@ -65,7 +73,9 @@ namespace AGS.Engine
 
 		private async Task onKeyDown(KeyboardEventArgs args)
 		{
-            if (!Enabled || _focusedUi.HasKeyboardFocus != null) return;
+            var walk = _walk;
+            var translate = _translate;
+            if (!Enabled || _focusedUi.HasKeyboardFocus != null || walk == null || translate == null) return;
 			_keysDown.Add(args.Key);
 			Direction? direction = getDirection();
 			if (Mode == KeyboardMovementMode.Pressing)
@@ -78,18 +88,20 @@ namespace AGS.Engine
 				{
 					if (direction == null) return;
 					CurrentDirection = null;
-					await _character.StopWalkingAsync();
+                    await walk.StopWalkingAsync();
 					return;
 				}
 			}
 			CurrentDirection = direction;
 			if (direction == null) return;
-			await _character.WalkAsync(getTarget(direction.Value));
+            await walk.WalkStraightAsync(getTarget(direction.Value, translate));
 		}
 
 		private async Task onKeyUp(KeyboardEventArgs args)
 		{
-            if (!Enabled || _focusedUi.HasKeyboardFocus != null) return;
+            var walk = _walk;
+            var translate = _translate;
+            if (!Enabled || _focusedUi.HasKeyboardFocus != null || walk == null || translate == null) return;
 			_keysDown.Remove(args.Key);
 			if (Mode == KeyboardMovementMode.Tapping) return;
 			Direction? direction = getDirection();
@@ -97,10 +109,10 @@ namespace AGS.Engine
 			CurrentDirection = direction;
 			if (direction == null)
 			{
-				await _character.StopWalkingAsync();
+                await walk.StopWalkingAsync();
 				return;
 			}
-			await _character.WalkAsync(getTarget(direction.Value));
+            await walk.WalkStraightAsync(getTarget(direction.Value, translate));
 		}
 
 		private Direction? getDirection()
@@ -122,61 +134,33 @@ namespace AGS.Engine
 			return null;
 		}
 
-		private ILocation getTarget(Direction direction)
+        private Position getTarget(Direction direction, ITranslateComponent translate)
 		{
-			const float offset = 10f;
-			float xOffset = 0, yOffset = 0;
+            (var x, var y, _) = translate.Position;
 			switch (direction)
 			{
 				case Direction.Down: case Direction.DownLeft: case Direction.DownRight:
-					yOffset = -offset;
+                    y = float.MinValue;
 					break;
 				case Direction.Up: case Direction.UpLeft: case Direction.UpRight:
-					yOffset = offset;
+                    y = float.MaxValue;
 					break;
 			}
 			switch (direction)
 			{
 				case Direction.Left: case Direction.DownLeft: case Direction.UpLeft:
-					xOffset = -offset;
+                    x = float.MinValue;
 					break;
 				case Direction.Right: case Direction.DownRight: case Direction.UpRight:
-					xOffset = offset;
+                    x = float.MaxValue;
 					break;
 			}
-			return findFarWalkable(xOffset, yOffset);
+			return (x, y);
 		}
 
-		private ILocation findFarWalkable(float xOffset, float yOffset)
-		{
-            float x = _character.WorldX;
-            float y = _character.WorldY;
-			bool walkable = true;
-			while (walkable)
-			{
-				x += xOffset;
-				y += yOffset;
-				if (!isWalkable(x, y)) return new AGSLocation (x - xOffset, y - yOffset);
-			}
-			return new AGSLocation (_character.X, _character.Y); 
-		}
-
-		private bool isWalkable(float x, float y)
-		{
-			PointF point = new PointF (x, y);
-            foreach (var area in _character.Room.GetMatchingAreas(point, _character.ID))
-			{
-                var walkableArea = area.GetComponent<IWalkableArea>();
-                if (walkableArea == null || !walkableArea.IsWalkable) continue;
-                return true;
-			}
-			return false;
-		}
-
-        private bool isUp() => _keysDown.Any(k => _up.Contains(k));
-        private bool isDown() => _keysDown.Any(k => _down.Contains(k));
-        private bool isLeft() => _keysDown.Any(k => _left.Contains(k));
-        private bool isRight() => _keysDown.Any(k => _right.Contains(k));
+        private bool isUp() => _keysDown.Any(_up.Contains);
+        private bool isDown() => _keysDown.Any(_down.Contains);
+        private bool isLeft() => _keysDown.Any(_left.Contains);
+        private bool isRight() => _keysDown.Any(_right.Contains);
     }
 }
-

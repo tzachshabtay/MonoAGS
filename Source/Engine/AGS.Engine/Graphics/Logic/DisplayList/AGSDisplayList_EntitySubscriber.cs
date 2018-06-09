@@ -37,6 +37,7 @@ namespace AGS.Engine
             {
                 _tree?.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged);
                 foreach (var binding in _bindings) binding?.Unbind();
+                _entity = null;
             }
 
             private void onObjVisibleChanged(object sender, PropertyChangedEventArgs args)

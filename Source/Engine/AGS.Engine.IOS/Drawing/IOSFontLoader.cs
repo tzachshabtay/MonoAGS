@@ -7,6 +7,7 @@ using IOS::UIKit;
 using IOS::Foundation;
 using IOS::CoreGraphics;
 using IOS::CoreText;
+using System;
 
 namespace AGS.Engine.IOS
 {
@@ -34,27 +35,35 @@ namespace AGS.Engine.IOS
             CTFont font = new CTFont(postScriptName, sizeInPoints);
             _postScriptNames[fontFamily ?? ""] = font.PostScriptName;
             font = setFontStyle(font, sizeInPoints, style);
-            return new IOSFont(font, style);
+            return new IOSFont(font, style, this);
         }
 
         public IFont LoadFontFromPath(string path, float sizeInPoints, FontStyle style = FontStyle.Regular)
         {
             CGFont cgFont = _installedFonts.GetOrAdd(path, _ =>
             {
-                CGFont createdFont = CGFont.CreateFromProvider(new CGDataProvider(path));
-                NSError error;
-                if (!CTFontManager.RegisterGraphicsFont(createdFont, out error))
+                try
                 {
-                    Debug.WriteLine("Failed to load font from {0} (loading default font instead), error: {1}", path, error.ToString());
+                    CGFont createdFont = CGFont.CreateFromProvider(new CGDataProvider(path));
+                    NSError error;
+                    if (!CTFontManager.RegisterGraphicsFont(createdFont, out error))
+                    {
+                        Debug.WriteLine($"Failed to load font from {path} (loading default font instead), error: {error.ToString()}");
+                        return null;
+                    }
+                    return createdFont;
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.WriteLine($"Failed to load font from {path} (loading default font instead), exception: {e.ToString()}");
                     return null;
                 }
-                return createdFont;
             });
             if (cgFont == null) return LoadFont("Helvetica", sizeInPoints, style);
 
             CTFont font = new CTFont(cgFont, sizeInPoints, CGAffineTransform.MakeIdentity());
             font = setFontStyle(font, sizeInPoints, style);
-            return new IOSFont(font, style);
+            return new IOSFont(font, style, this);
         }
 
         private CTFont setFontStyle(CTFont font, float sizeInPoints, FontStyle style)

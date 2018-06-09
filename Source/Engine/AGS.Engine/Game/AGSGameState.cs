@@ -7,30 +7,32 @@ using System.Collections.Generic;
 
 namespace AGS.Engine
 {
-	public class AGSGameState : IGameState
+	public class AGSGameState : IAGSGameState
 	{
 		private Lazy<ICutscene> _cutscene;
-        private IAGSRoomTransitions _roomTransitions;
         private readonly ViewportCollection _viewports;
 
-        public AGSGameState (ICustomProperties globalVariables, IAGSRoomTransitions roomTransitions, 
-                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport)
+        public AGSGameState (ICustomProperties globalVariables, IRoomTransitions roomTransitions,
+                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport, IEvent<RoomTransitionEventArgs> onRoomChangeRequired)
 		{
 			Speed = 100;
 			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
             SecondaryViewports = new AGSBindingList<IViewport>(5);
+            RoomTransitions = roomTransitions;
             viewport.RoomProvider = this;
             viewport.Camera.Target = () => Player;
             Viewport = viewport;
 			GlobalVariables = globalVariables;
             FocusedUI = focusedUi;
 			_cutscene = new Lazy<ICutscene> (() => resolver.Container.Resolve<ICutscene>());
-			_roomTransitions = roomTransitions;
+            OnRoomChangeRequired = onRoomChangeRequired;
             _viewports = new ViewportCollection(this);
 		}
 
 		#region IGameState implementation
+
+        public IEvent<RoomTransitionEventArgs> OnRoomChangeRequired { get; private set; }
 
         public ICharacter Player { get; set; }
 
@@ -52,9 +54,11 @@ namespace AGS.Engine
 
         public ICutscene Cutscene => _cutscene.Value;
 
-        public IRoomTransitions RoomTransitions => _roomTransitions;
+        public IRoomTransitions RoomTransitions { get; }
 
         public bool Paused { get; set; }
+
+        public bool DuringRoomTransition { get; private set; }
 
 		public int Speed { get; set; }
 
@@ -62,23 +66,14 @@ namespace AGS.Engine
 
         public async Task ChangeRoomAsync(IRoom newRoom, Action afterTransitionFadeOut = null)
         {
-            if (Room != null)
+            DuringRoomTransition = true;
+            await OnRoomChangeRequired.InvokeAsync(new RoomTransitionEventArgs(Room, newRoom, () =>
             {
-                if (_roomTransitions.State != RoomTransitionState.NotInTransition) //Room is already changing, need to wait for previous transition to complete before starting a new transition!
-                {
-                    while (_roomTransitions.State != RoomTransitionState.NotInTransition)
-                    {
-                        await Task.Delay(10); //Busy waiting, agghh!
-                    }
-                    if (Room == newRoom) return; //somebody already changed to this room, no need to change again.
-                }
-                Room.Events.OnBeforeFadeOut.Invoke();
-                _roomTransitions.State = RoomTransitionState.BeforeLeavingRoom;
-                if (_roomTransitions.Transition != null)
-                    await _roomTransitions.OnStateChanged.WaitUntilAsync(canContinueRoomTransition);
-            }
-            afterTransitionFadeOut?.Invoke();
-            Room = newRoom;
+                afterTransitionFadeOut?.Invoke();
+                Room = newRoom;
+            }));
+            DuringRoomTransition = false;
+            await newRoom?.Events.OnAfterFadeIn.InvokeAsync();
         }
 
 		public void CopyFrom(IGameState state)
@@ -124,12 +119,5 @@ namespace AGS.Engine
 		{
 			return (Rooms.SelectMany(r => r.Objects).FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
-
-        private bool canContinueRoomTransition()
-        {
-            return _roomTransitions.State == RoomTransitionState.PreparingTransition ||
-                   _roomTransitions.State == RoomTransitionState.NotInTransition;
-        }
     }
 }
-

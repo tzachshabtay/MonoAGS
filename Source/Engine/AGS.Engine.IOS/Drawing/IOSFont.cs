@@ -12,6 +12,7 @@ namespace AGS.Engine.IOS
     public class IOSFont : IFont
     {
         private readonly FontStyle _style;
+        private readonly IFontLoader _fontLoader;
 
         private struct TextMeasureKey
         {
@@ -29,10 +30,11 @@ namespace AGS.Engine.IOS
         private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements =
             new ConcurrentDictionary<TextMeasureKey, SizeF>();
         
-        public IOSFont(CTFont font, FontStyle style)
+        public IOSFont(CTFont font, FontStyle style, IFontLoader fontLoader)
         {
             InnerFont = font;
             _style = style;
+            _fontLoader = fontLoader;
         }
 
         public CTFont InnerFont { get; }
@@ -65,6 +67,11 @@ namespace AGS.Engine.IOS
                     }
                 }
             });
+        }
+
+        public IFont Resize(float sizeInPoints)
+        {
+            return _fontLoader.LoadFont(FontFamily, sizeInPoints, Style);
         }
     }
 }

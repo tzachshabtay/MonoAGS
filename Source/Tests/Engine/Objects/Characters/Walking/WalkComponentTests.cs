@@ -86,7 +86,8 @@ namespace Tests
             hasRoom.Setup(o => o.Room).Returns(room.Object);
 			translate.Setup(o => o.X).Returns(() => x);
 			translate.Setup(o => o.Y).Returns(() => y);
-			translate.Setup(o => o.Location).Returns(() => new AGSLocation (x, y));
+            translate.Setup(o => o.Position).Returns(() => (x, y));
+            translate.SetupSet(o => o.Position = It.IsAny<Position>()).Callback<Position>(f => (x, y, _) = f);
 			translate.SetupSet(o => o.X = It.IsAny<float>()).Callback<float>(f => x = f);
 			translate.SetupSet(o => o.Y = It.IsAny<float>()).Callback<float>(f => y = f);
 
@@ -96,14 +97,14 @@ namespace Tests
             Mocks.Bind(entity, outfitHolder);
             Mocks.Bind(entity, drawable);
 
-			ILocation toLocation = new AGSLocation (toX, toY);
-			ILocation closeLocation = new AGSLocation (closeToX, closeToY);
+            Position toLocation = (toX, toY);
+            Position closeLocation = (closeToX, closeToY);
 
-			pathFinder.Setup(p => p.GetWalkPoints(It.Is<ILocation>(l => l.X == fromX && l.Y == fromY),
-				It.Is<ILocation>(l => l.X == toX && l.Y == toY))).Returns(toWalkable ? new List<ILocation> {toLocation} : new List<ILocation>());
+            pathFinder.Setup(p => p.GetWalkPoints(It.Is<Position>(l => l.X == fromX && l.Y == fromY),
+				It.Is<Position>(l => l.X == toX && l.Y == toY))).Returns(toWalkable ? new List<Position> {toLocation} : new List<Position>());
 
-			pathFinder.Setup(p => p.GetWalkPoints(It.Is<ILocation>(l => l.X == fromX && l.Y == fromY),
-				It.Is<ILocation>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<ILocation> {closeLocation} : new List<ILocation>());
+            pathFinder.Setup(p => p.GetWalkPoints(It.Is<Position>(l => l.X == fromX && l.Y == fromY),
+				It.Is<Position>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<Position> {closeLocation} : new List<Position>());
 			
 			AGSWalkComponent walk = new AGSWalkComponent (pathFinder.Object, objFactory.Object, game.Object, 
                                                         glUtils.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
@@ -140,4 +141,3 @@ namespace Tests
 		}
 	}
 }
-

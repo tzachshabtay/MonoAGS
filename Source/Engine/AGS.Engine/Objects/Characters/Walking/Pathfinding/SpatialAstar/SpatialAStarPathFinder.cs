@@ -31,7 +31,7 @@ namespace AGS.Engine
 			}
 		}
 
-		public IEnumerable<ILocation> GetWalkPoints (ILocation from, ILocation to)
+        public IEnumerable<Position> GetWalkPoints (Position from, Position to)
 		{
 			if (_pathMask == null) yield break;
 
@@ -48,7 +48,7 @@ namespace AGS.Engine
 			{
 				foreach (var node in paths) 
 				{
-					yield return new AGSLocation (node.X, node.Y, to.Z);
+                    yield return new Position(node.X, node.Y, to.Z);
 				}
 			}
 			int currentDirX = paths.First.Value.X - fromX;
@@ -70,7 +70,7 @@ namespace AGS.Engine
 						currentDirX = dirX;
 						currentDirY = dirY;
 						prevAcceptedNode = node;
-						yield return new AGSLocation (node.X, node.Y, to.Z);
+                        yield return new Position(node.X, node.Y, to.Z);
 					}
 				}
 				prevNode = node;

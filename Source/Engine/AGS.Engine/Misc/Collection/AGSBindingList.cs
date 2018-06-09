@@ -9,18 +9,22 @@ namespace AGS.Engine
 	public class AGSBindingList<TItem> : IAGSBindingList<TItem>
 	{
 		private List<TItem> _list;
-        private ObjectPool<ListEnumerator> _enumerators;
 
-		public AGSBindingList(int capacity)
+        public AGSBindingList(int capacity)
 		{
 			_list = new List<TItem>(capacity);
-            _enumerators = new ObjectPool<ListEnumerator>(pool => new ListEnumerator(_list, pool), 10, null);
-			OnListChanged = new AGSEvent<AGSListChangedEventArgs<TItem>> ();
+            OnListChanged = new AGSEvent<AGSListChangedEventArgs<TItem>> ();
 		}
 
         public AGSBindingList(IEnumerable<TItem> collection) => _list = new List<TItem>(collection);
 
         public IBlockingEvent<AGSListChangedEventArgs<TItem>> OnListChanged { get; }
+
+        public void Dispose()
+        {
+            Clear();
+            OnListChanged?.Dispose();
+        }
 
 		private void onListChanged(TItem item, int index, ListChangeType changeType)
 		{
@@ -127,9 +131,7 @@ namespace AGS.Engine
 
         public IEnumerator<TItem> GetEnumerator()
 		{
-            var e = _enumerators.Acquire();
-            e.Reset();
-            return e;
+            return _list.GetEnumerator();
 		}
 
 		#endregion
@@ -138,61 +140,9 @@ namespace AGS.Engine
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			var e = _enumerators.Acquire();
-            e.Reset();
-            return e;
+            return _list.GetEnumerator();
 		}
 
         #endregion
-
-        private class ListEnumerator : IEnumerator<TItem>, IEnumerator
-        {
-            private readonly List<TItem> _list;
-            private int _index;
-            private ObjectPool<ListEnumerator> _pool;
-
-            public ListEnumerator(List<TItem> list, ObjectPool<ListEnumerator> pool)
-            {
-                _pool = pool;
-                _list = list;
-                Current = default;
-            }
-
-            public TItem Current { get; private set; }
-
-            object IEnumerator.Current => Current;
-
-            public bool MoveNext()
-            {
-                int count = _list.Count;
-                _index++;
-                if (_index >= count)
-                {
-                    Current = default;
-                    _pool.Release(this);
-                    return false;
-                }
-                try
-                {
-                    Current = _list[_index];
-                    return true;
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    Current = default;
-                    _pool.Release(this);
-                    return false;
-                }
-            }
-
-            public void Reset()
-            {
-                _index = -1;
-                Current = default;
-            }
-
-            public void Dispose(){}
-        }
     }
 }
-

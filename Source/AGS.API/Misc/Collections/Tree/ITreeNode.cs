@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AGS.API
 {
@@ -7,7 +8,7 @@ namespace AGS.API
     /// A tree is a structure in which every node can have one parent (or no parent if it's the root)
     /// and several children (or no children, which will make it a leaf in the tree).
     /// </summary>
-    public interface ITreeNode<TItem> where TItem : class, IInTree<TItem>
+    public interface ITreeNode<TItem> : IDisposable where TItem : class, IInTree<TItem>
 	{
         /// <summary>
         /// Gets the item contained in the node.

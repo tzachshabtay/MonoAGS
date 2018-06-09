@@ -9,12 +9,11 @@ namespace AGS.Engine
     public class ImageSharpFontLoader : IFontLoader
     {
         private readonly FontCollection _collection;
-        private readonly IResourceLoader _resources;
+        private IResourceLoader _resources => AGSGame.Game.Factory.Resources; //todo: get resource factory as a parameter
         private readonly FontFamily _defaultFamily;
 
-        public ImageSharpFontLoader(IResourceLoader resources)
+        public ImageSharpFontLoader()
         {
-            _resources = resources;
             _collection = new FontCollection();
 
             _defaultFamily = SystemFonts.Collection.Families.First();

@@ -34,6 +34,7 @@ namespace AGS.Engine
             var entity = _entity;
             if (entity == null) return;
             _pipeline.Unsubscribe(entity.ID, this);
+            _entity = null;
 		}
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)
@@ -47,6 +48,7 @@ namespace AGS.Engine
             var viewX = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);
             var viewY = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, pivot.Y);
             var instruction = _pool.Acquire();
+            if (instruction == null) return null;
             instruction.Setup(viewX, viewY);
             return instruction;
         }

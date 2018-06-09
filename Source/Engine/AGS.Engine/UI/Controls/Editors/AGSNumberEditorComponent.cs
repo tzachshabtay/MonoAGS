@@ -15,7 +15,7 @@ namespace AGS.Engine
         private ITextBoxComponent _textBox;
         private ITextComponent _text;
 
-        public AGSNumberEditorComponent(IBlockingEvent onValueChanged)
+        public AGSNumberEditorComponent(IBlockingEvent<NumberValueChangedArgs> onValueChanged)
         {
             OnValueChanged = onValueChanged;
             Step = 1f;
@@ -26,11 +26,12 @@ namespace AGS.Engine
             get => _value;
             set
             {
-                if (MathUtils.FloatEquals(_value, value) || !validateValue(value)) return;
-                _value = value;
-                refreshValue();
+                setValue(value, false);
             }
         }
+
+        public void SetUserInitiatedValue(float value) => setValue(value, true);
+
         public bool EditWholeNumbersOnly { get => _editWholeNumbers; set { _editWholeNumbers = value; setText(); } }
         public float Step { get; set; }
         public float? MinValue { get => _minValue; set { _minValue = value; refreshSliderLimits(); } }
@@ -70,14 +71,22 @@ namespace AGS.Engine
             }
         }
 
-        public IBlockingEvent OnValueChanged { get; }
+        public IBlockingEvent<NumberValueChangedArgs> OnValueChanged { get; }
 
         public override void Init(IEntity entity)
         {
             base.Init(entity);
-            entity.Bind<ITextBoxComponent>(c => { _textBox = c; refreshValue(); c.OnPressingKey.Subscribe(onPressingKey); },
+            entity.Bind<ITextBoxComponent>(c => { _textBox = c; refreshValue(false); c.OnPressingKey.Subscribe(onPressingKey); },
                                            c => { c.OnPressingKey.Unsubscribe(onPressingKey); });
             entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _slider?.OnValueChanging?.Unsubscribe(onSliderValueChanged);
+            _upButton?.MouseClicked?.Unsubscribe(onUpButtonClicked);
+            _downButton?.MouseClicked?.Unsubscribe(onDownButtonClicked);
         }
 
         private string valueToString()
@@ -87,11 +96,18 @@ namespace AGS.Engine
             return valStr;
         }
 
-        private void refreshValue()
+        private void setValue(float value, bool userInitiated)
+        {
+            if (MathUtils.FloatEquals(_value, value) || !validateValue(value)) return;
+            _value = value;
+            refreshValue(userInitiated);
+        }
+
+        private void refreshValue(bool userInitiated)
         {
             setText();
             refreshSlider();
-            OnValueChanged.Invoke();
+            OnValueChanged.Invoke(new NumberValueChangedArgs(userInitiated));
         }
 
         private void setText()
@@ -120,6 +136,7 @@ namespace AGS.Engine
             if (slider == null) return;
             float suggestedMinValue = SuggestedMinValue.HasValue ? SuggestedMinValue.Value : minValue;
             float suggestedMaxValue = SuggestedMaxValue.HasValue ? SuggestedMaxValue.Value : maxValue;
+            slider.ShouldClampValuesWhenChangingMinMax = false;
             slider.MinValue = suggestedMinValue;
             slider.MaxValue = suggestedMaxValue;
         }
@@ -168,17 +185,17 @@ namespace AGS.Engine
                 case Key.PageUp:
                     if (!MaxValue.HasValue) break;
                     float maxValue = getMaxValue();
-                    Value = maxValue;
+                    setValue(maxValue, true);
                     args.IntendedState.Text = valueToString();
                     break;
                 case Key.PageDown:
                     if (!MinValue.HasValue) break;
                     float minValue = getMinValue();
-                    Value = minValue;
+                    setValue(minValue, true);
                     args.IntendedState.Text = valueToString();
                     break;
                 default:
-                    Value = val;
+                    setValue(val, true);
                     args.IntendedState.Text = valueToString();
                     break;
             }
@@ -193,7 +210,7 @@ namespace AGS.Engine
 
         private void onSliderValueChanged(SliderValueEventArgs args)
         {
-            Value = args.Value;
+            setValue(args.Value, true);
         }
 
         private void onUpButtonClicked(MouseButtonEventArgs args)
@@ -209,15 +226,15 @@ namespace AGS.Engine
         private void stepUp()
         {
             float valUp = Value + Step;
-            if (!validateValue(valUp)) Value = getMaxValue();
-            else Value = valUp;
+            if (!validateValue(valUp)) setValue(getMaxValue(), true);
+            else setValue(valUp, true);
         }
 
         private void stepDown()
         {
             float valDown = Value - Step;
-            if (!validateValue(valDown)) Value = getMinValue();
-            else Value = valDown;
+            if (!validateValue(valDown)) setValue(getMinValue(), true);
+            else setValue(valDown, true);
         }
 
         private float getMinValue() => MinValue ?? (EditWholeNumbersOnly ? int.MinValue : float.MinValue);
