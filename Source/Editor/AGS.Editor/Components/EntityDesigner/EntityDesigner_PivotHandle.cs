@@ -22,6 +22,7 @@ namespace AGS.Editor
             private IImageComponent _image;
             private IBoundingBoxComponent _boundingBox;
             private ITranslateComponent _translate;
+            private IDrawableInfoComponent _drawable;
             private PointF _pivotOnDown;
             private float _xOnDown, _yOnDown, _translateXOnDown, _translateYOnDown;
             private bool _isDown;
@@ -75,6 +76,8 @@ namespace AGS.Editor
                 setVisible();
             }
 
+            public void SetDrawable(IDrawableInfoComponent drawable) => _drawable = drawable;
+
             public void Dispose()
             {
                 var handle = _handle;
@@ -97,7 +100,7 @@ namespace AGS.Editor
                 var x = MathUtils.Lerp(0f, box.MinX, 1f, box.MaxX, pivot.X);
                 var y = MathUtils.Lerp(0f, box.MinY, 1f, box.MaxY, pivot.Y);
 
-                (x, y) = _editor.ToEditorResolution(x, y);
+                (x, y) = _editor.ToEditorResolution(x, y, _drawable);
 
                 handle.Position = new Position(x, y);
             }

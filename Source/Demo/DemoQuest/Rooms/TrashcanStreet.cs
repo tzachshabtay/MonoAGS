@@ -28,10 +28,11 @@ namespace DemoGame
             factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.90f);
 
 			await factory.Object.GetHotspotAsync(_baseFolder + "HoleHotspot.png", "Hole", _room);
-			await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road", _room);
 			await factory.Object.GetHotspotAsync(_baseFolder + "sidewalkHotspot.png", "Sidewalk", _room);
 			await factory.Object.GetHotspotAsync(_baseFolder + "SignHotspot.png", "Sign", _room);
 			await factory.Object.GetHotspotAsync(_baseFolder + "trashCansHotspot.png", "Trashcans", _room);
+            var roadHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "roadHotspot.png", "Road", _room);
+            roadHotspot.Z = 100f;
 
 			subscribeEvents();
 			return _room;

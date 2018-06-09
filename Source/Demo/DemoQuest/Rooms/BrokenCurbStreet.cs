@@ -48,6 +48,7 @@ namespace DemoGame
 
             IObject manholeHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "manholeHotspot.png", "Manhole", _room);
             IObject roadHotspot = await factory.Object.GetHotspotAsync (_baseFolder + "roadHotspot.png", "Road", _room);
+            roadHotspot.Z = 100f;
 			manholeHotspot.Z = roadHotspot.Z - 1;
 
 			await factory.Object.GetHotspotAsync(_baseFolder + "barrierHotspot.png", "Barrier", _room);

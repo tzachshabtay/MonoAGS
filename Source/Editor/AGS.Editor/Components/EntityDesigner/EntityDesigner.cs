@@ -58,6 +58,7 @@ namespace AGS.Editor
             entity.Bind<IRotateComponent>(setRotate, _ => setRotate(null));
             entity.Bind<IImageComponent>(setImage, _ => setImage(null));
             entity.Bind<ITranslateComponent>(setTranslate, _ => setTranslate(null));
+            entity.Bind<IDrawableInfoComponent>(setDrawable, _ => setDrawable(null));
 
             entity.Bind<IBoundingBoxComponent>(
                 c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle?.SetBox(c); _dragHandle?.SetBox(c); updatePositions(); },
@@ -123,6 +124,14 @@ namespace AGS.Editor
         private void setRotate(IRotateComponent rotate)
         {
             foreach (var handle in _rotateHandles) handle.SetRotate(rotate);
+        }
+
+        private void setDrawable(IDrawableInfoComponent drawable)
+        {
+            foreach (var handle in _resizeHandles) handle.SetDrawable(drawable);
+            foreach (var handle in _rotateHandles) handle.SetDrawable(drawable);
+            _pivotHandle?.SetDrawable(drawable);
+            _dragHandle?.SetDrawable(drawable);
         }
 
         private void addResizeHandles(IEntity entity, params Direction[] directions)
