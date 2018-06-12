@@ -13,9 +13,11 @@ namespace AGS.Editor
         [DataMember]
         public string DotnetProjectPath { get; set; }
 
-        public string AGSProjectPath { get; set; }
+        public string AGSProjectPath { get; private set; }
 
-        public static AGSProject Load(string path)
+        public StateModel Model { get; private set; }
+
+        public static T LoadJson<T>(string path)
         {
             var stream = File.OpenRead(path);
             string json;
@@ -24,8 +26,16 @@ namespace AGS.Editor
             {
                 json = reader.ReadToEnd();
             }
-            AGSProject proj = JsonConvert.DeserializeObject<AGSProject>(json);
+            T obj = JsonConvert.DeserializeObject<T>(json);
+            return obj;
+        }
+
+        public static AGSProject Load(string path)
+        {
+            var proj = LoadJson<AGSProject>(path);
             proj.AGSProjectPath = path;
+            proj.Model = new StateModel();
+            proj.Model.Load(Path.GetDirectoryName(path));
             return proj;
         }
     }
