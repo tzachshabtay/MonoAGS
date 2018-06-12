@@ -30,13 +30,13 @@ namespace AGS.Engine
             Enabled = true;
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITranslateComponent>(
+            base.Init();
+            Entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onLocationChanged; },
                 c => { _translate = null; c.PropertyChanged -= onLocationChanged; });
-            entity.Bind<IRotateComponent>(
+            Entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.PropertyChanged += onAngleChanged; },
                 c => { _rotate = null; c.PropertyChanged -= onAngleChanged; });
         }

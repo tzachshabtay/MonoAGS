@@ -14,7 +14,7 @@ namespace AGS.Engine
 		private int _counter = -1;
 		private IFollowSettings _followSettings;
 		private float? _newRoomX, _newRoomY;
-        private IEntity _follower;
+        private IEntity _follower => Entity;
 
 		public AGSFollowComponent(IGame game)
 		{
@@ -22,13 +22,12 @@ namespace AGS.Engine
             game.Events.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
 		}
 
-		public override void Init (IEntity entity)
+		public override void Init ()
 		{
-			base.Init (entity);
-            _follower = entity;
-            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
-            entity.Bind<IHasRoomComponent>(c => _hasRoom = c, _ => _hasRoom = null);
-            entity.Bind<ITranslateComponent>(c => _obj = c, _ => _obj = null);
+			base.Init ();
+            Entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            Entity.Bind<IHasRoomComponent>(c => _hasRoom = c, _ => _hasRoom = null);
+            Entity.Bind<ITranslateComponent>(c => _obj = c, _ => _obj = null);
 		}
 
 		public void Follow (IObject obj, IFollowSettings settings)

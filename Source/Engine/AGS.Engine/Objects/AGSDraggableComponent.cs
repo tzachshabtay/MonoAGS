@@ -38,12 +38,12 @@ namespace AGS.Engine
 
         public IBlockingEvent<(float dragStartX, float dragStartY)> OnDragStart { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
-            entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
-            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            base.Init();
+            Entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            Entity.Bind<IUIEvents>(c => c.MouseDown.Subscribe(onMouseDown), c => c.MouseDown.Unsubscribe(onMouseDown));
+            Entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
 
             _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }

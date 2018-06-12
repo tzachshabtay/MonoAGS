@@ -43,11 +43,11 @@ namespace AGS.Engine
 
         public IConcurrentHashSet<string> EntitiesToSkipCrop { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
-            entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
+            base.Init();
+            Entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
+            Entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
             rebuildEntireTree();
         }
 
@@ -212,7 +212,7 @@ namespace AGS.Engine
                     cropSelf = new AGSCropSelfComponent();
                     ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
-                    cropSelf.Init(obj);
+                    cropSelf.Init(obj, typeof(ICropSelfComponent));
                     cropSelf.AfterInit();
                     textComponent.CustomTextCrop = cropSelf;
                     obj.OnDisposed(() => cropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));

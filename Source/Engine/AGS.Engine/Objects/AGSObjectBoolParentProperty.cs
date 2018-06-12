@@ -14,7 +14,6 @@ namespace AGS.Engine
         private bool _underlyingValue, _lastValue, _initializedValue;
         private API.IComponent _lastParentComponent;
         private API.IComponentBinding _lastParentBinding;
-        private IEntity _entity;
 
         public AGSObjectBoolParentProperty(Predicate<IObject> getProperty,
                                            string valuePropertyName, string underlyingPropertyName)
@@ -25,16 +24,10 @@ namespace AGS.Engine
             UnderlyingValue = true;
         }
 
-        public override void Init(IEntity entity)
-        {
-            _entity = entity;
-            base.Init(entity);
-        }
-
         public override void AfterInit()
         {
             base.AfterInit();
-            _entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
+            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
                                        c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
         }
 
@@ -44,7 +37,6 @@ namespace AGS.Engine
             _lastParentBinding?.Unbind();
             _lastParentBinding = null;
             _lastParentComponent = null;
-            _entity = null;
         }
 
         [Property(Browsable = false)]

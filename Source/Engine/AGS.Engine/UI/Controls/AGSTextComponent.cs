@@ -14,7 +14,6 @@ namespace AGS.Engine
         private IScaleComponent _scale;
         private IModelMatrixComponent _matrix;
         private IVisibleComponent _visible;
-        private IEntity _entity;
         private readonly IGameEvents _events;
         private readonly IRenderPipeline _pipeline;
         private SizeF _baseSize;
@@ -77,18 +76,17 @@ namespace AGS.Engine
             _shouldUpdateBoundingBoxes = true;
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            entity.Bind<IScaleComponent>(c => { _scale = c; c.PropertyChanged += onScalePropertyChanged; }, c => { _scale = null; c.PropertyChanged -= onScalePropertyChanged; });
-            entity.Bind<IDrawableInfoComponent>(c => { _drawable = c; c.PropertyChanged += onDrawablePropertyChanged; }, c => { _drawable = null; c.PropertyChanged -= onDrawablePropertyChanged; });
-            entity.Bind<ICropSelfComponent>(c => _cropSelf = c, _ => _cropSelf = null);
-            entity.Bind<IModelMatrixComponent>(c => { _matrix = c; c.OnMatrixChanged.Subscribe(onMatrixChanged); }, c => { _matrix = null; c.OnMatrixChanged.Unsubscribe(onMatrixChanged); });
-            entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
+            base.Init();
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            Entity.Bind<IScaleComponent>(c => { _scale = c; c.PropertyChanged += onScalePropertyChanged; }, c => { _scale = null; c.PropertyChanged -= onScalePropertyChanged; });
+            Entity.Bind<IDrawableInfoComponent>(c => { _drawable = c; c.PropertyChanged += onDrawablePropertyChanged; }, c => { _drawable = null; c.PropertyChanged -= onDrawablePropertyChanged; });
+            Entity.Bind<ICropSelfComponent>(c => _cropSelf = c, _ => _cropSelf = null);
+            Entity.Bind<IModelMatrixComponent>(c => { _matrix = c; c.OnMatrixChanged.Subscribe(onMatrixChanged); }, c => { _matrix = null; c.OnMatrixChanged.Unsubscribe(onMatrixChanged); });
+            Entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
             _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-            _pipeline.Subscribe(entity.ID, this, -10);
+            _pipeline.Subscribe(Entity.ID, this, -10);
         }
 
 		public override void AfterInit()
@@ -99,11 +97,11 @@ namespace AGS.Engine
 
 		private void replaceBoundingBox()
         {
-            IBlockingEvent boxChangeEvent = _entity.GetComponent<IBoundingBoxComponent>()?.OnBoundingBoxesChanged ?? new AGSEvent();
+            IBlockingEvent boxChangeEvent = Entity.GetComponent<IBoundingBoxComponent>()?.OnBoundingBoxesChanged ?? new AGSEvent();
             AGSBoundingBoxComponent box = new AGSBoundingBoxComponent(_settings, _labelBoundingBoxFakeBuilder, _state, _events, boxChangeEvent);
-            _entity.RemoveComponent<IBoundingBoxComponent>();
-            _entity.AddComponent<IBoundingBoxComponent>(box);
-            box.Init(_entity);
+            Entity.RemoveComponent<IBoundingBoxComponent>();
+            Entity.AddComponent<IBoundingBoxComponent>(box);
+            box.Init(Entity, typeof(IBoundingBoxComponent));
             onBoundingBoxShouldChange();
         }
 
@@ -113,14 +111,13 @@ namespace AGS.Engine
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             PropertyChanged -= onPropertyChanged;
             unsubscribeTextConfigChanges();
-            var entity = _entity;
+            var entity = Entity;
             if (entity != null)
             {
                 _pipeline.Unsubscribe(entity.ID, this);
             }
             CustomTextCrop = null;
             _instructionPool?.Dispose();
-            _entity = null;
         }
 
         public ITextConfig TextConfig { get; set; }

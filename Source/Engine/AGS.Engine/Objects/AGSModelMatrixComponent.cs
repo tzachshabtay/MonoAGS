@@ -22,7 +22,6 @@ namespace AGS.Engine
         private IHasRoomComponent _room;
         private IDrawableInfoComponent _drawable;
         private ITextComponent _text;
-        private IEntity _entity;
         private IObject _parent;
         private ISprite _sprite;
         private IJumpOffsetComponent _jump;
@@ -49,47 +48,41 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ILockStep ModelMatrixLockStep { get { return this; } }
 
-        public override void Init(IEntity entity)
-        {
-            base.Init(entity);
-            _entity = entity;
-        }
-
         public override void AfterInit()
         {
-            _entity.Bind<IHasRoomComponent>(
+            Entity.Bind<IHasRoomComponent>(
                 c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
                 c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
             
-            _entity.Bind<IScaleComponent>(
+            Entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged(); });
-            _entity.Bind<ITranslateComponent>(
+            Entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged(); }
             );
-            _entity.Bind<IWorldPositionComponent>(
+            Entity.Bind<IWorldPositionComponent>(
                 c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
             );
-            _entity.Bind<IJumpOffsetComponent>(
+            Entity.Bind<IJumpOffsetComponent>(
                 c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged(); }
             );
-            _entity.Bind<IRotateComponent>(
+            Entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged(); }
             );
-			_entity.Bind<IImageComponent>(
+            Entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onImageChanged; onSomethingChanged(); },
                 c => { c.PropertyChanged -= onImageChanged; _image = null; onSomethingChanged(); }
 			);
-            _entity.Bind<ITextComponent>(
+            Entity.Bind<ITextComponent>(
                 c => { _text = c; subscribeTextComponent(); },
                 c => { unsubscribeTextComponent(c); _text = null; }
             );
 
-            _entity.Bind<IDrawableInfoComponent>(
+            Entity.Bind<IDrawableInfoComponent>(
                 c => 
             {
                 _drawable = c;
@@ -102,7 +95,7 @@ namespace AGS.Engine
 				onSomethingChanged();
             });
 
-			_entity.Bind<IInObjectTreeComponent>(
+            Entity.Bind<IInObjectTreeComponent>(
 				c =>
 			{
 				_tree = c;
@@ -125,7 +118,6 @@ namespace AGS.Engine
             base.Dispose();
             unsubscribeSprite(_sprite);
             unsubscribeRoomAreas();
-            _entity = null;
         }
 
         public ref ModelMatrices GetModelMatrices() 
@@ -525,7 +517,7 @@ namespace AGS.Engine
             //we'll continue using the local coordinates, at least until a better solution is found.
             var position = _tree.TreeNode.Parent == null ? _translate.Position.XY : _worldPosition.WorldXY;
 
-            foreach (IArea area in room.GetMatchingAreas(position, _entity.ID))
+            foreach (IArea area in room.GetMatchingAreas(position, Entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
                 if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;

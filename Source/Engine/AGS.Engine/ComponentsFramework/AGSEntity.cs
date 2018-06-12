@@ -72,7 +72,9 @@ namespace AGS.Engine
 
         protected void InitComponents()
         {
-            foreach (var component in this) component.Init(this);
+            var components = _components;
+            if (components == null) return;
+            foreach (var componentPair in components) componentPair.Value.Value.Init(this, componentPair.Key);
             foreach (var component in this) component.AfterInit();
             ComponentsInitialized = true;
             OnComponentsInitialized.Invoke();
@@ -92,7 +94,7 @@ namespace AGS.Engine
             return components.GetOrAdd(componentType, _ => new Lazy<API.IComponent>(() =>
             {
                 API.IComponent component = (API.IComponent)_resolver.Container.Resolve(componentType);
-                initComponentIfNeeded(component);
+                initComponentIfNeeded(component, componentType);
                 return component;
             })).Value;
         }
@@ -102,10 +104,11 @@ namespace AGS.Engine
 			var components = _components;
             if (components == null) return false;
             bool addedComponent = false;
-            var _ = components.GetOrAdd(typeof(TComponent), __ => new Lazy<API.IComponent>(() =>
+            Type componentType = typeof(TComponent);
+            var _ = components.GetOrAdd(componentType, __ => new Lazy<API.IComponent>(() =>
             {
                 addedComponent = true;
-                initComponentIfNeeded(component);
+                initComponentIfNeeded(component, componentType);
                 return component;
             })).Value;
             return addedComponent;
@@ -250,10 +253,10 @@ namespace AGS.Engine
 
         #endregion
 
-        private void initComponentIfNeeded(API.IComponent component)
+        private void initComponentIfNeeded(API.IComponent component, Type componentType)
         {
             if (!ComponentsInitialized) return;
-            component.Init(this);
+            component.Init(this, componentType);
             component.AfterInit();
             OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Add,
                                                           new AGSListItem<API.IComponent>(component, Count)));

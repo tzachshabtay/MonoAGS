@@ -16,7 +16,6 @@ namespace AGS.Engine
         private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
-        private IEntity _entity;
         private readonly IKeyboardState _keyboardState;
         private readonly IGame _game;
         private readonly IFocusedUI _focusedUi;
@@ -44,11 +43,10 @@ namespace AGS.Engine
             input.KeyUp.Subscribe(onKeyUp);
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<ITextComponent>(c =>
+            base.Init();
+            Entity.Bind<ITextComponent>(c =>
             {
                 _textComponent = c;
                 c.PropertyChanged += onTextPropertyChanged;
@@ -57,7 +55,7 @@ namespace AGS.Engine
                 _textComponent = null;
                 c.PropertyChanged -= onTextPropertyChanged;
             });
-            entity.Bind<IUIEvents>(c =>
+            Entity.Bind<IUIEvents>(c =>
             {
                 _uiEvents = c;
                 c.MouseDown.Subscribe(onMouseDown);
@@ -68,20 +66,20 @@ namespace AGS.Engine
                 c.MouseDown.Unsubscribe(onMouseDown);
                 c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
-            entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
-            entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+            Entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
+            Entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
 
             _caretFlashCounter = (int)CaretFlashDelay;
-            _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+            _withCaret = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
             _withCaret.Pivot = new PointF(0f, 0f);
             _withCaret.TextBackgroundVisible = false;
 
-            entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
+            Entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
 
-            entity.Bind<IBorderComponent>(c => _borderComponent = c, _ => _borderComponent = null);
+            Entity.Bind<IBorderComponent>(c => _borderComponent = c, _ => _borderComponent = null);
 
-            entity.Bind<IDrawableInfoComponent>(c =>
+            Entity.Bind<IDrawableInfoComponent>(c =>
             {
                 _drawableComponent = c;
                 c.PropertyChanged += onDrawableChanged;
@@ -119,12 +117,12 @@ namespace AGS.Engine
                     _keyboardState.ShowSoftKeyboard();
                     var textComponent = _textComponent;
                     CaretPosition = textComponent == null ? 0 : textComponent.Text.Length;
-                    _focusedUi.HasKeyboardFocus = _entity;
+                    _focusedUi.HasKeyboardFocus = Entity;
                 }
                 else
                 {
                     _keyboardState.HideSoftKeyboard();
-                    if (_focusedUi.HasKeyboardFocus == _entity)
+                    if (_focusedUi.HasKeyboardFocus == Entity)
                         _focusedUi.HasKeyboardFocus = null;
                 }
                 updateWatermark();
@@ -145,7 +143,6 @@ namespace AGS.Engine
             _game?.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
             _input?.KeyDown.Unsubscribe(onKeyDown);
             _input?.KeyUp.Unsubscribe(onKeyUp);
-            _entity = null;
         }
 
         private void onDrawableChanged(object sender, PropertyChangedEventArgs args)

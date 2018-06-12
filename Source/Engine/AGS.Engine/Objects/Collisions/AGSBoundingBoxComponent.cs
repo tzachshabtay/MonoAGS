@@ -27,7 +27,6 @@ namespace AGS.Engine
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
         private readonly IGameEvents _events;
-        private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
         private readonly Func<IViewport, ViewportBoundingBoxes> _createNewViewportBoundingBoxes;
 
@@ -55,23 +54,21 @@ namespace AGS.Engine
 
         public AGSBoundingBox WorldBoundingBox => _pendingLocks > 0 ? GetBoundingBoxes(_state.Viewport).WorldBox : _hitTestBox; 
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            _entity = entity;
-            base.Init(entity);
+            base.Init();
 
-            entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
+            Entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
                                                c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
-            entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
+            Entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
                                             c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
-            entity.Bind<IImageComponent>(c => { _image = c; c.PropertyChanged += onImageChanged; },
+            Entity.Bind<IImageComponent>(c => { _image = c; c.PropertyChanged += onImageChanged; },
                                          c => { _image = null; c.PropertyChanged -= onImageChanged; });
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
                                        c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
-            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); },
+            Entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); },
                                                  c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
-
         }
 
         public override void Dispose()
@@ -84,7 +81,6 @@ namespace AGS.Engine
             }
             _boundingBoxBuilder?.OnNewBoxBuildRequired?.Unsubscribe(onHitTextBoxShouldChange);
             _events?.OnRoomChanging?.Unsubscribe(onHitTextBoxShouldChange);
-            _entity = null;
         }
 
         public void Lock()

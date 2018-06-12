@@ -21,7 +21,6 @@ namespace AGS.Engine
         private IDrawableInfoComponent _drawable;
         private IObjectFactory _objFactory;
         private ITranslate _translate;
-        private IEntity _entity;
         private ICutscene _cutscene;
         private IGameState _state;
         private IGameEvents _events;
@@ -52,7 +51,6 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _entity = null;
             var instructions = _incomingInstructions;
             if (instructions != null)
             {
@@ -63,16 +61,15 @@ namespace AGS.Engine
             }
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
-            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
-            entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
-            entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
-            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
-            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            base.Init();
+            Entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
+            Entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            Entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
+            Entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
+            Entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            Entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
         }
 
         #region IWalkBehavior implementation
@@ -381,7 +378,7 @@ namespace AGS.Engine
                 var walkable = area.GetComponent<IWalkableArea>();
                 if (walkable == null || !walkable.IsWalkable) return false;
                 var restrictionArea = area.GetComponent<IAreaRestriction>();
-                return (restrictionArea == null || !restrictionArea.IsRestricted(_entity.ID));
+                return (restrictionArea == null || !restrictionArea.IsRestricted(Entity.ID));
             });
         }
 

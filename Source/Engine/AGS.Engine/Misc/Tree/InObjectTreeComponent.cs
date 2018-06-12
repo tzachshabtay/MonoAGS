@@ -4,10 +4,10 @@ namespace AGS.Engine
 {
 	public class InObjectTreeComponent : AGSComponent, IInObjectTreeComponent
     {
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            TreeNode = new AGSTreeNode<IObject>((IObject)entity);
+            base.Init();
+            TreeNode = new AGSTreeNode<IObject>((IObject)Entity);
         }
 
         public ITreeNode<IObject> TreeNode { get; set; }

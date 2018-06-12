@@ -13,30 +13,17 @@ namespace AGS.Editor
     public class AGSComponentHost : AGSComponent
     {
         private readonly Resolver _resolver;
-        private IEntity _entity;
 
         public AGSComponentHost(Resolver resolver)
         {
             _resolver = resolver;
         }
 
-		public override void Init(IEntity entity)
-		{
-            base.Init(entity);
-            _entity = entity;
-		}
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
-        }
-
         public TComponent AddComponent<TComponent>() where TComponent : IComponent
         {
-            if (_entity.HasComponent<TComponent>()) return _entity.GetComponent<TComponent>();
+            if (Entity.HasComponent<TComponent>()) return Entity.GetComponent<TComponent>();
             TComponent component = (TComponent)_resolver.Container.Resolve(typeof(TComponent));
-            _entity.AddComponent<TComponent>(component);
+            Entity.AddComponent<TComponent>(component);
             return component;
         }
 	}

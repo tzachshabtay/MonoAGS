@@ -33,13 +33,13 @@ namespace AGS.Engine
             OnSelectedItemChanged = new AGSEvent<ListboxItemArgs>();
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
-            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            entity.Bind<IStackLayoutComponent>(c => 
+            base.Init();
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            Entity.Bind<IStackLayoutComponent>(c => 
             { 
                 c.RelativeSpacing = -1f; 
                 c.OnLayoutChanged.Subscribe(onLayoutChanged); 

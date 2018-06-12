@@ -15,11 +15,11 @@ namespace AGS.Engine
 			_gameEvents = gameEvents;
 		}
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
+			base.Init();
 			TypedParameter defaults = new TypedParameter (typeof(IInteractions), _gameEvents.DefaultInteractions);
-			TypedParameter objParam = new TypedParameter (typeof(IObject), entity as IObject);
+            TypedParameter objParam = new TypedParameter (typeof(IObject), Entity as IObject);
 			Interactions = _resolver.Container.Resolve<IInteractions>(defaults, objParam);
             DisplayHotspot = true;
 		}

@@ -37,16 +37,15 @@ namespace AGS.Engine
             input.KeyUp.Subscribe(onKeyUp);
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
+            base.Init();
             bindGraphics(Graphics);
-            entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
-            entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
-            entity.Bind<IEnabledComponent>(c => _enabled = c, _ => _enabled = null);
-            entity.Bind<IUIEvents>(c => c.LostFocus.Subscribe(onLostFocus), c => c.LostFocus.Unsubscribe(onLostFocus));
+            Entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+            Entity.Bind<IVisibleComponent>(c => _visible = c, _ => _visible = null);
+            Entity.Bind<IEnabledComponent>(c => _enabled = c, _ => _enabled = null);
+            Entity.Bind<IUIEvents>(c => c.LostFocus.Subscribe(onLostFocus), c => c.LostFocus.Unsubscribe(onLostFocus));
             _gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 

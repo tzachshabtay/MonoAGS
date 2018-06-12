@@ -73,12 +73,12 @@ namespace AGS.Engine
 
         public IBlockingEvent<NumberValueChangedArgs> OnValueChanged { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITextBoxComponent>(c => { _textBox = c; refreshValue(false); c.OnPressingKey.Subscribe(onPressingKey); },
+            base.Init();
+            Entity.Bind<ITextBoxComponent>(c => { _textBox = c; refreshValue(false); c.OnPressingKey.Subscribe(onPressingKey); },
                                            c => { c.OnPressingKey.Unsubscribe(onPressingKey); });
-            entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
+            Entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
         }
 
         public override void Dispose()

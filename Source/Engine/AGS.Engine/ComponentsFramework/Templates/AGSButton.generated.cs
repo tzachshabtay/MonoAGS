@@ -86,11 +86,13 @@ namespace AGS.Engine
 			beforeInitComponents(resolver);
             InitComponents();
             afterInitComponents(resolver);
-            }
+        }
 
         public string Name { get { return ID; } }
         public bool AllowMultiple { get { return false; } }
-        public void Init(IEntity entity) {}
+        public IEntity Entity { get => this; }
+        public Type RegistrationType { get => typeof(IEntity); }
+        public void Init(IEntity entity, Type registrationType) {}
 
         public override string ToString()
         {

@@ -36,14 +36,14 @@ namespace AGS.Engine
 		public ISayConfig SpeechConfig { get; private set; }
 		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; private set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _characterName = entity.ID;
-            entity.Bind<IWorldPositionComponent>(c => _emitter.WorldPosition = c, _ => _emitter.WorldPosition = null);
-            entity.Bind<IHasRoomComponent>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
-            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
-            entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
+            base.Init();
+            _characterName = Entity.ID;
+            Entity.Bind<IWorldPositionComponent>(c => _emitter.WorldPosition = c, _ => _emitter.WorldPosition = null);
+            Entity.Bind<IHasRoomComponent>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
+            Entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            Entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
         }
 
         public async Task SayAsync(string text, PointF? textPosition = null, PointF? portraitPosition = null)

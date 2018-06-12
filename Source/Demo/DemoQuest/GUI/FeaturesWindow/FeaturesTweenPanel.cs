@@ -108,7 +108,7 @@ namespace DemoGame
                         ( "Saturation", () => //maybe we should a "Screen" target and put the saturation tween there
                             {
                                 SaturationEffectComponent effect = new SaturationEffectComponent(game.Factory.Shaders, game.Events);
-                                effect.Init(null);
+                                effect.Init(null, typeof(SaturationEffectComponent));
                                 return effect.TweenSaturation(0f, time, ease());
                         })
                     }

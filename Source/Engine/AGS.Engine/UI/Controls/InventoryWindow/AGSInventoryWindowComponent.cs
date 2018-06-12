@@ -25,11 +25,11 @@ namespace AGS.Engine
 			_gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+			base.Init();
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
 		}
 
 		public override void Dispose()

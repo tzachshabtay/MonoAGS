@@ -6,7 +6,6 @@ namespace AGS.Engine
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
         private IImageComponent _image;
-        private IEntity _entity;
 
         public AGSCropSelfComponent()
         {
@@ -20,11 +19,10 @@ namespace AGS.Engine
 
         public IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            base.Init();
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
         }
 
         public override void Dispose()
@@ -32,7 +30,6 @@ namespace AGS.Engine
             base.Dispose();
             OnBeforeCrop?.Dispose();
             OnBeforeCrop = null;
-            _entity = null;
         }
 
         public FourCorners<Vector2> GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height)

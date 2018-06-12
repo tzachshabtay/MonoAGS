@@ -38,10 +38,10 @@ namespace AGS.Editor
 
         public object SelectedObject { get; private set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree(); }, _ => _treeView = null);
+            base.Init();
+            Entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree(); }, _ => _treeView = null);
         }
 
         public void Show(object obj)

@@ -77,11 +77,11 @@ namespace AGS.Engine
 
         public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
-            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            base.Init();
+            Entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
+            Entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
         }
 
         public override void Dispose()

@@ -11,7 +11,6 @@ namespace AGS.Engine
         private ITreeTableLayout _table;
         private IInObjectTreeComponent _tree;
         private IVisibleComponent _visible;
-        private IEntity _entity;
         private EntityListSubscriptions<IObject> _subscriptions;
         private List<float> _columnSizes;
 
@@ -37,11 +36,10 @@ namespace AGS.Engine
 
         public IRestrictionList RestrictionList { get; private set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            _entity.Bind<IVisibleComponent>(c => 
+            base.Init();
+            Entity.Bind<IVisibleComponent>(c => 
             { 
                 _visible = c; 
                 c.PropertyChanged += onVisiblePropertyChanged;
@@ -53,7 +51,7 @@ namespace AGS.Engine
                 _table?.PerformLayout();
             });
 
-            _entity.Bind<IInObjectTreeComponent>(c => 
+            Entity.Bind<IInObjectTreeComponent>(c => 
             {
                 _tree = c;
                 calculateColumns();
@@ -74,7 +72,6 @@ namespace AGS.Engine
                 restrictionList.PropertyChanged -= onRestrictionListChanged;
                 RestrictionList = null;
             }
-            _entity = null;
         }
 
         private void subscribeChildren()
