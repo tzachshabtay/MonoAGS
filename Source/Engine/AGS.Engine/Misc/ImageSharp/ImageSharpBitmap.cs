@@ -6,6 +6,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Drawing.Brushes;
 using SixLabors.ImageSharp.Processing.Transforms;
 
 namespace AGS.Engine
@@ -14,6 +15,7 @@ namespace AGS.Engine
     {
         private Image<Rgba32> _image;
         private readonly IGraphicsBackend _graphics;
+        private static SolidBrush<Rgba32> _whiteBrush = Brushes.Solid(Rgba32.White);
 
         public ImageSharpBitmap(Image<Rgba32> image, IGraphicsBackend graphics)
         {
@@ -50,7 +52,7 @@ namespace AGS.Engine
 
         public void Clear()
         {
-            _image.Clear(Rgba32.White);
+            _image.Clear(_whiteBrush);
         }
 
         public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)

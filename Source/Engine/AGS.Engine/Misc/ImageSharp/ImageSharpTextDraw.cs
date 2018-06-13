@@ -14,6 +14,7 @@ namespace AGS.Engine
         private Image<Rgba32> _bitmap;
         private int _maxWidth, _height;
         private string _text;
+        private static SolidBrush<Rgba32> _transparentBrush = Brushes.Solid(Rgba32.Transparent);
 
         private class DummyDisposable : IDisposable
         {
@@ -29,7 +30,7 @@ namespace AGS.Engine
 
         public IDisposable CreateContext()
         {
-            _bitmap.Clear(Rgba32.Transparent);
+            _bitmap.Clear(_transparentBrush);
             return _dummy;
         }
 

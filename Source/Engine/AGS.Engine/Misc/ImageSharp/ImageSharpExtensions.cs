@@ -2,20 +2,19 @@
 using AGS.API;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Drawing;
+using SixLabors.ImageSharp.Processing.Drawing.Brushes;
 
 namespace AGS.Engine
 {
     public static class ImageSharpExtensions
     {
-        public static void Clear(this Image<Rgba32> image, Rgba32 color)
+        private static GraphicsOptions _clearOptions = new GraphicsOptions { BlenderMode = PixelBlenderMode.Src };
+
+        public static void Clear(this Image<Rgba32> image, SolidBrush<Rgba32> color)
         {
-            for (int x = 0; x < image.Width; x++)
-            {
-                for (int y = 0; y < image.Height; y++)
-                {
-                    image[x, y] = color;
-                }
-            }
+            image.Mutate(x => x.Fill(_clearOptions, color));
         }
 
         public static Rgba32 Convert(this Color color) => new Rgba32(color.Value);
