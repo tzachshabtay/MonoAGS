@@ -8,13 +8,15 @@ namespace AGS.Editor
     public class StringPropertyEditor : IInspectorPropertyEditor
     {
         private readonly IGameFactory _factory;
+        private readonly StateModel _model;
         private InspectorProperty _property;
         private readonly bool _enabled;
         private ITextComponent _textbox;
         private readonly ActionManager _actions;
 
-        public StringPropertyEditor(IGameFactory factory, bool enabled, ActionManager actions)
+        public StringPropertyEditor(IGameFactory factory, bool enabled, ActionManager actions, StateModel model)
         {
+            _model = model;
             _factory = factory;
             _enabled = enabled;
             _actions = actions;
@@ -63,7 +65,7 @@ namespace AGS.Editor
         private void setString()
         {
             if (_actions.ActionIsExecuting) return;
-            _actions.RecordAction(new PropertyAction(_property, _textbox.Text));
+            _actions.RecordAction(new PropertyAction(_property, _textbox.Text, _model));
         }
     }
 }

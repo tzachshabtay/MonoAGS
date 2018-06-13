@@ -12,7 +12,7 @@ namespace AGS.Editor
         private readonly StateModel _model;
         private Action _undoModel;
 
-        public PropertyAction(InspectorProperty property, object value, StateModel model = null)
+        public PropertyAction(InspectorProperty property, object value, StateModel model)
         {
             _model = model;
             _timestamp = DateTime.Now;

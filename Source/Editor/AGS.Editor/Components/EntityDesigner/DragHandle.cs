@@ -131,7 +131,7 @@ namespace AGS.Editor
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
             InspectorProperty property = new InspectorProperty(_translate, "Position", _translate.GetType().GetProperty(nameof(ITranslate.Position)));
-            PropertyAction action = new PropertyAction(property, new Position(translateX, translateY));
+            PropertyAction action = new PropertyAction(property, new Position(translateX, translateY), _editor.Project.Model);
             _actions.RecordAction(action);
         }
     }
