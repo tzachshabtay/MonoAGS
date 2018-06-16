@@ -5,7 +5,7 @@ namespace AGS.Engine
 {
     public class GLTextureFactory : ITextureFactory
     {
-        private static Lazy<ITexture> _emptyTexture;
+        private static ITexture _emptyTexture;
         private readonly IGraphicsFactory _graphicsFactory;
         private readonly IBitmapLoader _bitmapLoader;
 
@@ -13,14 +13,14 @@ namespace AGS.Engine
         {
             _graphicsFactory = graphicsFactory;
             _bitmapLoader = bitmapLoader;
-            _emptyTexture = new Lazy<ITexture>(() => initEmptyTexture());
+            _emptyTexture = initEmptyTexture();
         }
 
-        public static ITexture EmptyTexture => _emptyTexture.Value;
+        public static ITexture EmptyTexture => _emptyTexture;
 
         public ITexture CreateTexture(string path)
         {
-            if (string.IsNullOrEmpty(path)) return _emptyTexture.Value;
+            if (string.IsNullOrEmpty(path)) return _emptyTexture;
             return _graphicsFactory.LoadImage(path).Texture;
         }
 
