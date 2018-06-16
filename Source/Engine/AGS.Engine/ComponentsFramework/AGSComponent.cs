@@ -22,7 +22,10 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public virtual string Name => friendlyName();
 
+        [Property(Browsable = false)]
         public IEntity Entity { get; private set; }
+
+        [Property(Browsable = false)]
         public Type RegistrationType { get; private set; }
 
         public void Init(IEntity entity, Type registrationType) 
