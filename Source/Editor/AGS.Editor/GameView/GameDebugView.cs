@@ -180,7 +180,8 @@ namespace AGS.Editor
             }
             else if (action == KeyboardBindings.Save)
             {
-                _editor.Project.Model.GenerateCode(_editor.Project.DotnetProjectPath);
+                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor();
+                _editor.Project.Model.GenerateCode(_editor.Project.DotnetProjectPath, codeGeneartor);
             }
         }
 

@@ -27,34 +27,34 @@ namespace AGS.Editor
             loadRooms(basePath);
         }
 
-        public void GenerateCode(string basePath)
+        public void GenerateCode(string basePath, ICodeGenerator codeGenerator)
         {
-            generateGuiCode(Path.Combine(basePath, "GUIs"));
-            generateRoomsCode(Path.Combine(basePath, "Rooms"));
+            generateGuiCode(Path.Combine(basePath, "GUIs"), codeGenerator);
+            generateRoomsCode(Path.Combine(basePath, "Rooms"), codeGenerator);
         }
 
-        private void generateGuiCode(string basePath)
+        private void generateGuiCode(string basePath, ICodeGenerator codeGenerator)
         {
             foreach (var guiId in Guis)
             {
-                generateEntityCode(guiId, basePath);
+                generateEntityCode(guiId, basePath, codeGenerator);
             }
         }
 
-        private void generateRoomsCode(string basePath)
+        private void generateRoomsCode(string basePath, ICodeGenerator codeGenerator)
         {
             foreach (var room in Rooms)
             {
                 string path = Path.Combine(basePath, room.ID);
-                generateEntityCode(room.BackgroundEntity, path);
+                generateEntityCode(room.BackgroundEntity, path, codeGenerator);
                 foreach (var id in room.Entities)
                 {
-                    generateEntityCode(id, path);
+                    generateEntityCode(id, path, codeGenerator);
                 }
             }
         }
 
-        private void generateEntityCode(string id, string path)
+        private void generateEntityCode(string id, string path, ICodeGenerator codeGenerator)
         {
             path = Path.Combine(path, id);
             if (!Entities.TryGetValue(id, out var entity))
@@ -63,7 +63,7 @@ namespace AGS.Editor
                 return;
             }
             StringBuilder code = new StringBuilder();
-            entity.GenerateCode($"_{id}", code);
+            codeGenerator.GenerateCode(entity, code);
             Debug.WriteLine($"Code for {id}:");
             Debug.WriteLine(code.ToString());
             Debug.WriteLine("----------");
