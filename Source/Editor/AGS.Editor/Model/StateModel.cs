@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace AGS.Editor
 {
@@ -24,6 +25,48 @@ namespace AGS.Editor
         {
             loadGuis(basePath);
             loadRooms(basePath);
+        }
+
+        public void GenerateCode(string basePath)
+        {
+            generateGuiCode(Path.Combine(basePath, "GUIs"));
+            generateRoomsCode(Path.Combine(basePath, "Rooms"));
+        }
+
+        private void generateGuiCode(string basePath)
+        {
+            foreach (var guiId in Guis)
+            {
+                generateEntityCode(guiId, basePath);
+            }
+        }
+
+        private void generateRoomsCode(string basePath)
+        {
+            foreach (var room in Rooms)
+            {
+                string path = Path.Combine(basePath, room.ID);
+                generateEntityCode(room.BackgroundEntity, path);
+                foreach (var id in room.Entities)
+                {
+                    generateEntityCode(id, path);
+                }
+            }
+        }
+
+        private void generateEntityCode(string id, string path)
+        {
+            path = Path.Combine(path, id);
+            if (!Entities.TryGetValue(id, out var entity))
+            {
+                Debug.WriteLine($"Didn't find entity id {id}, can't generate code for it (class at {path}).");
+                return;
+            }
+            StringBuilder code = new StringBuilder();
+            entity.GenerateCode($"_{id}", code);
+            Debug.WriteLine($"Code for {id}:");
+            Debug.WriteLine(code.ToString());
+            Debug.WriteLine("----------");
         }
 
         private void loadGuis(string basePath)

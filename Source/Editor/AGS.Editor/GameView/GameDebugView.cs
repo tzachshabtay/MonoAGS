@@ -178,6 +178,10 @@ namespace AGS.Editor
             {
                 _inspector?.Inspector?.Redo();
             }
+            else if (action == KeyboardBindings.Save)
+            {
+                _editor.Project.Model.GenerateCode(_editor.Project.DotnetProjectPath);
+            }
         }
 
         private void moveEntity(IEntity entity, float xOffset, float yOffset)
