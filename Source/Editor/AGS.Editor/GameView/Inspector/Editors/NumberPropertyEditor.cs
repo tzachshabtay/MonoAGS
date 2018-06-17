@@ -94,18 +94,14 @@ namespace AGS.Editor
 
             nullBox?.OnCheckChanged.Subscribe(args =>
             {
-                if (!args.Checked)
-                {
-                    _actions.RecordAction(new PropertyAction(property, null, _model));
-                }
+                object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.Prop.PropertyType)) : null;
+                    
+                if (args.UserInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
+                else property.Prop.SetValue(property.Object, val);
+
                 foreach (var panel in panels)
                 {
                     panel.control.Visible = nullBox.Checked;
-                    if (args.Checked)
-                    {
-                        float val = default;
-                        panel.editor.SetUserInitiatedValue(val);
-                    }
                 }
             });
         }
@@ -140,8 +136,8 @@ namespace AGS.Editor
                 int valInt = (int)value;
                 val = valInt;
             }
-            if (!userInitiated) property.Prop.SetValue(property.Object, val);
-            else _actions.RecordAction(new PropertyAction(property, val, _model));
+            if (userInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
+            else property.Prop.SetValue(property.Object, val);
         }
 
         private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)

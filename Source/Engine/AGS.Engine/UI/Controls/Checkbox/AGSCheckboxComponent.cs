@@ -44,7 +44,7 @@ namespace AGS.Engine.UI.Controls
             set
             {
                 _checked = value;
-                onCheckChange();
+                onCheckChange(false);
             }
         }
 
@@ -76,17 +76,17 @@ namespace AGS.Engine.UI.Controls
             if (events?.IsMouseIn ?? false)
             {
                 _checked = !_checked;
-                onCheckChange();
+                onCheckChange(true);
             }
         }
 
-        private void onCheckChange()
+        private void onCheckChange(bool userInitiated)
         {
             var events = _events;
             startAnimation(events != null && events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
                                                           HoverNotCheckedAnimation ?? NotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
-            OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked));
+            OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked, userInitiated));
         }
 
         private void startAnimation(ButtonAnimation button)
