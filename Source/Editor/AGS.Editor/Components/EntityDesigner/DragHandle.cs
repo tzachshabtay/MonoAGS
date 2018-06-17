@@ -41,11 +41,12 @@ namespace AGS.Editor
 
             if (needMoveCursor)
             {
-                _moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
-                _moveCursor.Pivot = new PointF(0.5f, 0.5f);
-                _moveCursor.Text = FontIcons.Move;
+                var moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+                _moveCursor = moveCursor;
+                moveCursor.Pivot = new PointF(0.5f, 0.5f);
+                moveCursor.Text = FontIcons.Move;
 
-                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = _moveCursor;
+                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = moveCursor;
             }
 
             state.UI.Add(_handle);
