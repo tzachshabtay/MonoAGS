@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using AGS.API;
 
@@ -31,7 +32,7 @@ namespace AGS.Editor
 
         private string getComponentName(string interfaceName)
         {
-            if (interfaceName.StartsWith("I")) interfaceName = interfaceName.Substring(1);
+            if (interfaceName.StartsWith("I", false, CultureInfo.InvariantCulture)) interfaceName = interfaceName.Substring(1);
             interfaceName = $"{char.ToLower(interfaceName[0])}{interfaceName.Substring(1)}";
             return getVariableName(interfaceName);
         }
