@@ -18,6 +18,12 @@ namespace AGS.Editor
             foreach (var pair in model.Components)
             {
                 string componentName = getComponentName(pair.Key.Name);
+                if (!pair.Key.IsAssignableFrom(model.EntityConcreteType))
+                {
+                    bool needVar = pair.Value.Properties.Count > 0;
+                    if (needVar) code.Append($"var {componentName} = ");
+                    code.AppendLine($"{name}.AddComponent<{pair.Key.Name}>();");
+                }
                 generateCode(pair.Value, componentName, code);
             }
         }
