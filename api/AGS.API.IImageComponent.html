@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IImageComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.36.1.0">
+    <meta name="generator" content="docfx 2.36.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -107,26 +107,40 @@
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Entity">IComponent.Entity</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_RegistrationType">IComponent.RegistrationType</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_System_Type_">IComponent.Init(IEntity, Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_IImageComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IImageComponent : IHasImage, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof(IScaleComponent), true)]
+[RequiredComponent(typeof(IBoundingBoxComponent), true)]
+public interface IImageComponent : IHasImage, IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IImageComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_IImageComponent_CurrentSprite.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.CurrentSprite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/Graphics/IImageComponent.cs/#L84">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/Graphics/IImageComponent.cs/#L84">View Source</a>
   </span>
   <a id="AGS_API_IImageComponent_CurrentSprite_" data-uid="AGS.API.IImageComponent.CurrentSprite*"></a>
   <h4 id="AGS_API_IImageComponent_CurrentSprite" data-uid="AGS.API.IImageComponent.CurrentSprite">CurrentSprite</h4>
@@ -155,10 +169,10 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IImageComponent_IsImageVisible.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.IsImageVisible%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_IImageComponent_IsImageVisible.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.IsImageVisible%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/Graphics/IImageComponent.cs/#L78">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/Graphics/IImageComponent.cs/#L78">View Source</a>
   </span>
   <a id="AGS_API_IImageComponent_IsImageVisible_" data-uid="AGS.API.IImageComponent.IsImageVisible*"></a>
   <h4 id="AGS_API_IImageComponent_IsImageVisible" data-uid="AGS.API.IImageComponent.IsImageVisible">IsImageVisible</h4>
@@ -190,10 +204,10 @@ controls all renderers for the entity.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IImageComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_IImageComponent_SpriteProvider.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent.SpriteProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/Graphics/IImageComponent.cs/#L90">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/Graphics/IImageComponent.cs/#L90">View Source</a>
   </span>
   <a id="AGS_API_IImageComponent_SpriteProvider_" data-uid="AGS.API.IImageComponent.SpriteProvider*"></a>
   <h4 id="AGS_API_IImageComponent_SpriteProvider" data-uid="AGS.API.IImageComponent.SpriteProvider">SpriteProvider</h4>
@@ -228,10 +242,10 @@ controls all renderers for the entity.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_IImageComponent.md&amp;value=---%0Auid%3A%20AGS.API.IImageComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/Graphics/IImageComponent.cs/#L67" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/Graphics/IImageComponent.cs/#L67" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

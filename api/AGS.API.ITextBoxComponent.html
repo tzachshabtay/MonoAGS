@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ITextBoxComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.36.1.0">
+    <meta name="generator" content="docfx 2.36.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -92,26 +92,48 @@
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Name">IComponent.Name</a>
     </div>
     <div>
-      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_">IComponent.Init(IEntity)</a>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Entity">IComponent.Entity</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_RegistrationType">IComponent.RegistrationType</a>
+    </div>
+    <div>
+      <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_Init_AGS_API_IEntity_System_Type_">IComponent.Init(IEntity, Type)</a>
     </div>
     <div>
       <a class="xref" href="AGS.API.IComponent.html#AGS_API_IComponent_AfterInit">IComponent.AfterInit()</a>
+    </div>
+    <div>
+      <span class="xref">System.IDisposable.Dispose()</span>
+    </div>
+    <div>
+      <span class="xref">System.ComponentModel.INotifyPropertyChanged.PropertyChanged</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
   <h5 id="AGS_API_ITextBoxComponent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ITextBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
+    <pre><code class="lang-csharp hljs">[RequiredComponent(typeof(ITextComponent), true)]
+[RequiredComponent(typeof(IUIEvents), true)]
+[RequiredComponent(typeof(ITranslateComponent), true)]
+[RequiredComponent(typeof(IDrawableInfoComponent), true)]
+[RequiredComponent(typeof(IInObjectTreeComponent), true)]
+[RequiredComponent(typeof(IHasRoomComponent), true)]
+[RequiredComponent(typeof(IImageComponent), true)]
+[RequiredComponent(typeof(IVisibleComponent), true)]
+[RequiredComponent(typeof(IAnimationComponent), false)]
+[RequiredComponent(typeof(IBorderComponent), false)]
+public interface ITextBoxComponent : IComponent, IDisposable, INotifyPropertyChanged</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretFlashDelay.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretFlashDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_ITextBoxComponent_CaretFlashDelay.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.CaretFlashDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L61">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L61">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_CaretFlashDelay_" data-uid="AGS.API.ITextBoxComponent.CaretFlashDelay*"></a>
   <h4 id="AGS_API_ITextBoxComponent_CaretFlashDelay" data-uid="AGS.API.ITextBoxComponent.CaretFlashDelay">CaretFlashDelay</h4>
@@ -140,10 +162,10 @@ The default is 10, meaning the caret will be shown for 10 frames, hidden for 10 
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_ITextBoxComponent_IsFocused.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.IsFocused%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_ITextBoxComponent_IsFocused.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.IsFocused%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L55">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L55">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_IsFocused_" data-uid="AGS.API.ITextBoxComponent.IsFocused*"></a>
   <h4 id="AGS_API_ITextBoxComponent_IsFocused" data-uid="AGS.API.ITextBoxComponent.IsFocused">IsFocused</h4>
@@ -173,10 +195,10 @@ The textbox automatically gets focus when clicked, and loses focus when the user
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_ITextBoxComponent_OnPressingKey.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.OnPressingKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_ITextBoxComponent_OnPressingKey.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.OnPressingKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L48">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L48">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_OnPressingKey_" data-uid="AGS.API.ITextBoxComponent.OnPressingKey*"></a>
   <h4 id="AGS_API_ITextBoxComponent_OnPressingKey" data-uid="AGS.API.ITextBoxComponent.OnPressingKey">OnPressingKey</h4>
@@ -229,10 +251,10 @@ private void onPressingKey(TextboxKeyPressingEventArgs args)
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_ITextBoxComponent_Watermark.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.Watermark%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_ITextBoxComponent_Watermark.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent.Watermark%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L69">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L69">View Source</a>
   </span>
   <a id="AGS_API_ITextBoxComponent_Watermark_" data-uid="AGS.API.ITextBoxComponent.Watermark*"></a>
   <h4 id="AGS_API_ITextBoxComponent_Watermark" data-uid="AGS.API.ITextBoxComponent.Watermark">Watermark</h4>
@@ -269,10 +291,10 @@ An example of a watermark can be seen here: <a href="https://marketplace.visuals
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ImageSharp/apiSpec/new?filename=AGS_API_ITextBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/GenerateCode/apiSpec/new?filename=AGS_API_ITextBoxComponent.md&amp;value=---%0Auid%3A%20AGS.API.ITextBoxComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ImageSharp/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/GenerateCode/Source/AGS.API/UI/Controls/Textbox/ITextboxComponent.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
