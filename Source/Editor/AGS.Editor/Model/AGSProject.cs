@@ -30,6 +30,31 @@ namespace AGS.Editor
             return obj;
         }
 
+        public static void SaveJson(string path, object model)
+        {
+            string json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            File.WriteAllText(path, json);
+        }
+
+        public static string GetPath(string folder, string id, string fileExtension)
+        {
+            id = getSafeFilename(id);
+            string path = null;
+            int uid = 0;
+            do
+            {
+                string suffix = uid == 0 ? "" : $"_{uid.ToString()}";
+                string name = $"{id}{suffix}{fileExtension}";
+                path = Path.Combine(folder, name);
+                uid++;
+            }
+            while (File.Exists(path));
+            return path;
+        }
+
+        //https://stackoverflow.com/questions/146134/how-to-remove-illegal-characters-from-path-and-filenames
+        private static string getSafeFilename(string filename) => string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
+
         public static AGSProject Load(string path)
         {
             var proj = LoadJson<AGSProject>(path);

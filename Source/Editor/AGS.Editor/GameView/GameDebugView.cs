@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using AGS.API;
@@ -180,8 +181,10 @@ namespace AGS.Editor
             }
             else if (action == KeyboardBindings.Save)
             {
+                string baseFolder = Path.GetDirectoryName(_editor.Project.AGSProjectPath);
                 CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor();
-                _editor.Project.Model.GenerateCode(_editor.Project.DotnetProjectPath, codeGeneartor);
+                _editor.Project.Model.GenerateCode(baseFolder, codeGeneartor);
+                _editor.Project.Model.Save(baseFolder);
             }
         }
 

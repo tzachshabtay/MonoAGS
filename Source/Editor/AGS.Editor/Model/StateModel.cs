@@ -23,15 +23,24 @@ namespace AGS.Editor
 
         public void Load(string basePath)
         {
-            loadGuis(basePath);
-            loadRooms(basePath);
+            loadGuis(getGuisFolder(basePath));
+            loadRooms(getRoomsFolder(basePath));
         }
 
         public void GenerateCode(string basePath, ICodeGenerator codeGenerator)
         {
-            generateGuiCode(Path.Combine(basePath, "GUIs"), codeGenerator);
-            generateRoomsCode(Path.Combine(basePath, "Rooms"), codeGenerator);
+            generateGuiCode(getGuisFolder(basePath), codeGenerator);
+            generateRoomsCode(getRoomsFolder(basePath), codeGenerator);
         }
+
+        public void Save(string basePath)
+        {
+            saveGuis(getGuisFolder(basePath));
+            saveRooms(getRoomsFolder(basePath));
+        }
+
+        private string getGuisFolder(string basePath) => Path.Combine(basePath, "GUIs");
+        private string getRoomsFolder(string basePath) => Path.Combine(basePath, "Rooms");
 
         private void generateGuiCode(string basePath, ICodeGenerator codeGenerator)
         {
@@ -69,13 +78,32 @@ namespace AGS.Editor
             Debug.WriteLine("----------");
         }
 
+        private void saveEntity(string folder, string id)
+        {
+            if (id == null) return;
+            if (!Entities.TryGetValue(id, out var entity))
+            {
+                Debug.WriteLine($"Missing entity {id}, cannot save it in {folder}.");
+                return;
+            }
+            entity.Save(folder);
+        }
+
+        private void saveGuis(string basePath)
+        {
+            Directory.CreateDirectory(basePath);
+
+            foreach (var id in Guis)
+            {
+                saveEntity(basePath, id);
+            }
+        }
+
         private void loadGuis(string basePath)
         {
-            string guisPath = Path.Combine(basePath, "Guis");
+            if (!Directory.Exists(basePath)) return;
 
-            if (!Directory.Exists(guisPath)) return;
-
-            var guiFiles = Directory.GetFiles(guisPath);
+            var guiFiles = Directory.GetFiles(basePath);
             foreach (var guiFile in guiFiles)
             {
                 var gui = EntityModel.Load(guiFile);
@@ -86,14 +114,29 @@ namespace AGS.Editor
             }
         }
 
+        private void saveRooms(string basePath)
+        {
+            Directory.CreateDirectory(basePath);
+
+            foreach (var room in Rooms)
+            {
+                room.Save(basePath);
+
+                string roomFolder = Path.Combine(basePath, room.Folder);
+                saveEntity(roomFolder, room.BackgroundEntity);
+                foreach (var id in room.Entities)
+                {
+                    saveEntity(roomFolder, id);
+                }
+            }
+        }
+
         private void loadRooms(string basePath)
         {
-            string roomsParentPath = Path.Combine(basePath, "Rooms");
+            if (!Directory.Exists(basePath)) return;
 
-            if (!Directory.Exists(roomsParentPath)) return;
-
-            var roomFolders = Directory.GetDirectories(roomsParentPath);
-            const string roomFilename = "room.json";
+            var roomFolders = Directory.GetDirectories(basePath);
+            const string roomFilename = RoomModel.Filename;
             foreach (var roomFolder in roomFolders)
             {
                 var roomJsonPath = Path.Combine(roomFolder, roomFilename);

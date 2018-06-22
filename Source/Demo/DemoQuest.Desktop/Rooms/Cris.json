@@ -1,0 +1,23 @@
+{
+  "ID": "Cris",
+  "DisplayName": "Cris",
+  "EntityConcreteType": "AGS.Engine.AGSCharacter, AGS.Engine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Components": {
+    "AGS.API.ITranslateComponent, AGS.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": {
+      "ComponentConcreteType": "AGS.Engine.AGSTranslateComponent, AGS.Engine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Properties": {
+        "Position": {
+          "X": 87.99999,
+          "Y": 31.0000019,
+          "Z": 31.0000019,
+          "XY": {
+            "X": 87.99999,
+            "Y": 31.0000019
+          }
+        }
+      }
+    }
+  },
+  "Filename": "Cris.json",
+  "IsDirty": true
+}
