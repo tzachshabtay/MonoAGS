@@ -93,7 +93,7 @@ namespace Tests
 
             AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                                                   input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
-            textbox.Init(entity.Object);
+            textbox.Init(entity.Object, typeof(ITextBoxComponent));
             textbox.IsFocused = true;
             bool isShiftDown = false;
 
