@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using AGS.API;
-using AGS.Engine;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -72,67 +68,10 @@ namespace AGS.Editor
         private void execute()
         {
             Property.SetValue(ParentObject, Value, null);
-
-            if (ParentObject is API.IComponent component && component.Entity != null)
+            if (ParentObject is API.IComponent component)
             {
-                var entityModel = _model.Entities.GetOrAdd(component.Entity.ID, id =>
-                {
-                    var e = new EntityModel
-                    {
-                        ID = id,
-                        DisplayName = component.Entity.DisplayName,
-                        EntityConcreteType = component.Entity.GetType(),
-                        Components = new Dictionary<Type, ComponentModel>()
-                    };
-                    var room = component.Entity.GetComponent<IHasRoomComponent>()?.Room;
-                    if (room != null)
-                    {
-                        var roomModel = getRoom(room);
-                        if (roomModel.BackgroundEntity != component.Entity.ID)
-                            roomModel.Entities.Add(component.Entity.ID);
-                    }
-                    else
-                    {
-                        _model.Guis.Add(component.Entity.ID);
-                    }
-                    return e;
-                });
-
-                var componentModel = entityModel.Components.GetOrAdd(component.RegistrationType, _ => new ComponentModel
-                    { ComponentConcreteType = component.GetType(), Properties = new Dictionary<string, object>() });
-
-                bool wasDirty = entityModel.IsDirty;
-
-                if (componentModel.Properties.TryGetValue(Property.Name, out object oldValue))
-                {
-                    _undoModel = () =>
-                    {
-                        componentModel.Properties[Property.Name] = oldValue;
-                        if (!wasDirty) entityModel.IsDirty = false;
-                    };
-                }
-                else
-                {
-                    _undoModel = () =>
-                    {
-                        componentModel.Properties.Remove(Property.Name);
-                        if (!wasDirty) entityModel.IsDirty = false;
-                    };
-                }
-                componentModel.Properties[Property.Name] = Value;
-                entityModel.IsDirty = true;
+                _undoModel = ModelAction.Execute(_model, (component, Property.Name, Value));
             }
-        }
-
-        private RoomModel getRoom(IRoom room)
-        {
-            var roomModel = _model.Rooms.FirstOrDefault(r => r.ID == room.ID);
-            if (roomModel == null)
-            {
-                roomModel = new RoomModel { ID = room.ID, BackgroundEntity = room.Background?.Entity?.ID, Entities = new HashSet<string>() };
-                _model.Rooms.Add(roomModel);
-            }
-            return roomModel;
         }
 	}
 }
