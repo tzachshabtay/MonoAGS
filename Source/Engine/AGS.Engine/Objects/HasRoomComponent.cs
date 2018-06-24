@@ -19,10 +19,10 @@ namespace AGS.Engine
             state.Rooms?.OnListChanged?.Subscribe(onRoomsChanged);
 		}
 
-        public override void Init(IEntity entity)
+        public override void Init()
 		{
-			base.Init(entity);
-			_obj = (IObject)entity;
+			base.Init();
+			_obj = (IObject)Entity;
 		}
 
         public override void Dispose()

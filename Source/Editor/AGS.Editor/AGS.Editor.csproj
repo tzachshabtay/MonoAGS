@@ -30,5 +30,7 @@
     <Folder Include="Components\" />
     <Folder Include="Components\EntityDesigner\" />
     <Folder Include="Components\SplitPanel\" />
+    <Folder Include="CodeGen\" />
+    <Folder Include="CodeGen\CSharp\" />
   </ItemGroup>
 </Project>

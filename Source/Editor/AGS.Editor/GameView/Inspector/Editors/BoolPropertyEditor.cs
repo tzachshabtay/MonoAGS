@@ -7,13 +7,15 @@ namespace AGS.Editor
     {
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
+        private readonly StateModel _model;
         private InspectorProperty _property;
         private ICheckboxComponent _checkbox;
 
-        public BoolPropertyEditor(IGameFactory factory, ActionManager actions)
+        public BoolPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
             _actions = actions;
+            _model = model;
         }
 
         public static ICheckBox CreateCheckbox(IUIControl label, IGameFactory factory, string id)
@@ -36,7 +38,7 @@ namespace AGS.Editor
             checkbox.OnCheckChanged.Subscribe(args => 
             {
                 if (_actions.ActionIsExecuting) return;
-                _actions.RecordAction(new PropertyAction(property, args.Checked));
+                _actions.RecordAction(new PropertyAction(property, args.Checked, _model));
             });
         }
 

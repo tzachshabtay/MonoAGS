@@ -11,7 +11,6 @@ namespace AGS.Engine
         private float _absoluteSpacing, _relativeSpacing, _startLocation;
         private LayoutDirection _direction;
         private bool _isPaused;
-        private IEntity _entity;
         private int _pendingLayouts;
         private EntityListSubscriptions<IObject> _subscriptions;
         private IGameEvents _gameEvents;
@@ -37,11 +36,10 @@ namespace AGS.Engine
         public IBlockingEvent OnLayoutChanged { get; }
         public IConcurrentHashSet<string> EntitiesToIgnore { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            _entity = entity;
-            base.Init(entity);
-            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeChildren(); adjustLayout(); },
+            base.Init();
+            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeChildren(); adjustLayout(); },
                                                 c => { _tree = null; unsubscribeChildren(); });
             EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
@@ -63,7 +61,6 @@ namespace AGS.Engine
             EntitiesToIgnore?.OnListChanged?.Unsubscribe(onEntitiesToIgnoreChanged);
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
             unsubscribeChildren();
-            _entity = null;
         }
 
         private void onRepeatedlyExecute()

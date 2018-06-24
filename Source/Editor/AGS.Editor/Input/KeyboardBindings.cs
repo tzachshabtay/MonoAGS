@@ -25,6 +25,7 @@ namespace AGS.Editor
         public const string Undo = "Undo";
         public const string Redo = "Redo";
         public const string GameView = "Game View";
+        public const string Save = "Save";
 
         public IBlockingEvent<string> OnKeyboardShortcutPressed { get; private set; }
 
@@ -46,6 +47,9 @@ namespace AGS.Editor
 
             Bind(new KeyboardShortcut(Key.ControlLeft, Key.Y), Redo);
             Bind(new KeyboardShortcut(Key.ControlRight, Key.Y), Redo);
+
+            Bind(new KeyboardShortcut(Key.ControlLeft, Key.S), Save);
+            Bind(new KeyboardShortcut(Key.ControlRight, Key.S), Save);
         }
 
         private void removeBinding(KeyboardShortcut keyboardShortcut)

@@ -22,7 +22,21 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public virtual string Name => friendlyName();
 
-        public virtual void Init(IEntity entity) {}
+        [Property(Browsable = false)]
+        public IEntity Entity { get; private set; }
+
+        [Property(Browsable = false)]
+        public Type RegistrationType { get; private set; }
+
+        public void Init(IEntity entity, Type registrationType) 
+        { 
+            Entity = entity;
+            RegistrationType = registrationType;
+            Init();
+        }
+
+        public virtual void Init() {}
+        
         public virtual void AfterInit() { }
 
         #endregion
@@ -42,6 +56,7 @@ namespace AGS.Engine
         public virtual void Dispose()
 		{
             PropertyChanged = null;
+            Entity = null;
 		}
 
 		#endregion
@@ -55,4 +70,3 @@ namespace AGS.Engine
         }
 	}
 }
-

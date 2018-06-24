@@ -10,7 +10,6 @@ namespace AGS.Engine
 		private IImageComponent _obj;
         private IScale _scale;
         private IPixelPerfectComponent _pixelPerfect;
-        private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
 
         public AGSCollider(IGameState state)
@@ -18,22 +17,15 @@ namespace AGS.Engine
 			_state = state;
 		}
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            _entity = entity;
-            entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<IImageComponent>(c => _obj = c, _ => _obj = null);
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
-            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+			base.Init();
+            Entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            Entity.Bind<IImageComponent>(c => _obj = c, _ => _obj = null);
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
+            Entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
 		}
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
-        }
 
         [Property(Browsable = false)]
 		public PointF? CenterPoint

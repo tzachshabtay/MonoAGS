@@ -10,14 +10,14 @@ namespace AGS.Engine
         private IImageComponent _image;
         private IBorderComponent _border;
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
-            entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
-            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            entity.Bind<IBorderComponent>(c => _border = c, _ => _border = null);
-            entity.Bind<IUIEvents>(c =>
+			base.Init();
+            Entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
+            Entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            Entity.Bind<IBorderComponent>(c => _border = c, _ => _border = null);
+            Entity.Bind<IUIEvents>(c =>
             {
                 _events = c;
                 c.MouseEnter.Subscribe(onMouseEnter);

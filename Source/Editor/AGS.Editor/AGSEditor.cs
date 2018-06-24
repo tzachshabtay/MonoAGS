@@ -21,6 +21,8 @@ namespace AGS.Editor
 
         public UIEventsAggregator UIEventsAggregator { get; private set; }
 
+        public AGSProject Project { get; set; }
+
         public void Init()
         {
             UIEventsAggregator = new UIEventsAggregator(Editor.Input, Game.HitTest, Editor.Events, Editor.State.FocusedUI);

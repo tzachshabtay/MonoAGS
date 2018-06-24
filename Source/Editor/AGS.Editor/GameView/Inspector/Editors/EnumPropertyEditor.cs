@@ -10,13 +10,15 @@ namespace AGS.Editor
     {
         private readonly IUIFactory _factory;
         private readonly ActionManager _actions;
+        private readonly StateModel _model;
         private InspectorProperty _property;
         private ITextComponent _text;
 
-        public EnumPropertyEditor(IUIFactory factory, ActionManager actions)
+        public EnumPropertyEditor(IUIFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
             _actions = actions;
+            _model = model;
         }
 
         public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
@@ -43,7 +45,7 @@ namespace AGS.Editor
             combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args => 
             {
                 if (_actions.ActionIsExecuting) return;
-                _actions.RecordAction(new PropertyAction(property, Enum.Parse(enumType, args.Item.Text)));
+                _actions.RecordAction(new PropertyAction(property, Enum.Parse(enumType, args.Item.Text), _model));
             });
         }
 

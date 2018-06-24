@@ -6,11 +6,11 @@ namespace AGS.Engine
     {
         private IImageComponent _image;
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
+            base.Init();
 
-            entity.Bind<IImageComponent>(c => { _image = c; }, _ => { _image = null; });
+            Entity.Bind<IImageComponent>(c => { _image = c; }, _ => { _image = null; });
         }
 
         [Property(Category = "Collider")]

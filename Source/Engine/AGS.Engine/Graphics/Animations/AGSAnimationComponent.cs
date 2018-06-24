@@ -19,11 +19,11 @@ namespace AGS.Engine
 
         public IBlockingEvent OnAnimationStarted { get; private set; }
 
-		public override void Init(IEntity entity)
+		public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
-            entity.Bind<IImageComponent>(
+            base.Init();
+            Entity.Bind<IScaleComponent>(c => _scale = c, c => _scale = null);
+            Entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onSpriteRenderPropertyChanged; },
                 c => { c.PropertyChanged -= onSpriteRenderPropertyChanged; _image = null; } );
         }

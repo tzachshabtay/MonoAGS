@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -249,7 +250,10 @@ namespace AGS.Editor
                     }
                     else h = heightCandidate;
                 }
-                ScaleAction action = new ScaleAction(handle.GetFriendlyName(), _scale, w, h);
+
+                PropertyInfo prop = _scale.GetType().GetProperty(nameof(IScaleComponent.Scale));
+                PointF toScale = (w / _scale.BaseSize.Width, h / _scale.BaseSize.Height);
+                PropertyAction action = new PropertyAction(new InspectorProperty(_scale, "Scale", prop), toScale, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
 

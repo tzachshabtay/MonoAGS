@@ -9,11 +9,11 @@ namespace AGS.Engine
 		private IAnimationComponent _obj;
         private ITranslate _translate;
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
-            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+			base.Init();
+            Entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
+            Entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
 		}
 
 		#region IFaceDirectionBehavior implementation

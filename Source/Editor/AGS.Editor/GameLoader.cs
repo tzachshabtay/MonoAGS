@@ -63,6 +63,7 @@ namespace AGS.Editor
 
         public static void Load(IRenderMessagePump messagePump, AGSProject agsProj, AGSEditor editor)
         {
+            editor.Project = agsProj;
             messagePump.Post(async _ => await load(agsProj, editor), null);
         }
 

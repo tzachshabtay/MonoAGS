@@ -11,7 +11,6 @@ namespace AGS.Engine
         private AGSBoundingBox _preUnlockBoundingBox, _preUnlockPreCropBoundingBox, _boundingBoxWithChildren, _preCropBoundingBoxWithChildren;
         private int _shouldFireOnUnlock, _pendingLocks;
         private IInObjectTreeComponent _tree;
-        private IEntity _entity;
         private readonly IGameState _state;
         private readonly IGameEvents _events;
         private bool _isDirty;
@@ -41,17 +40,16 @@ namespace AGS.Engine
 
         public bool DebugPrintouts { get; set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            _entity = entity;
-            base.Init(entity);
-            entity.Bind<IBoundingBoxComponent>(c =>
+            base.Init();
+            Entity.Bind<IBoundingBoxComponent>(c =>
             {
                 _boundingBox = c;
                 c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged);
                 onSomethingChanged();
             }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _boundingBox = null; });
-            entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); onSomethingChanged(); },
+            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); onSomethingChanged(); },
                                        c => { unsubscribeTree(c.TreeNode); _tree = null; });
         }
 
@@ -59,7 +57,6 @@ namespace AGS.Engine
         {
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _entity = null;
         }
 
         public void Lock()
@@ -151,11 +148,11 @@ namespace AGS.Engine
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
             _isDirty = false;
-            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box ({_entity.ID})" : null);
-            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop ({_entity.ID})" : null);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box ({Entity.ID})" : null);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop ({Entity.ID})" : null);
             if (DebugPrintouts)
             {
-                Debug.WriteLine($"Pre crop for {_entity.ID}: {_preCropBoundingBoxWithChildren.ToString()}");
+                Debug.WriteLine($"Pre crop for {Entity.ID}: {_preCropBoundingBoxWithChildren.ToString()}");
             }
             return (!lastBox.Equals(BoundingBoxWithChildren) || !lastPreBox.Equals(PreCropBoundingBoxWithChildren));
         }
@@ -164,11 +161,11 @@ namespace AGS.Engine
         {
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box before unlock ({_entity.ID})" : null);
-            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop before unlock ({_entity.ID})" : null);
+            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box before unlock ({Entity.ID})" : null);
+            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop before unlock ({Entity.ID})" : null);
             if (DebugPrintouts)
             {
-                Debug.WriteLine($"Pre crop (before unlock) for ${_entity.ID}: {_preUnlockBoundingBox.ToString()}");
+                Debug.WriteLine($"Pre crop (before unlock) for ${Entity.ID}: {_preUnlockBoundingBox.ToString()}");
             }
             _isDirty = false;
             return (!lastBox.Equals(_preUnlockBoundingBox) || !lastPreBox.Equals(_preUnlockPreCropBoundingBox));

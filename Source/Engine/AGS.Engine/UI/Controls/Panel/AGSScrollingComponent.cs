@@ -11,7 +11,6 @@ namespace AGS.Engine
         private IStackLayoutComponent _layout;
         private readonly IGameState _state;
         private IInObjectTreeComponent _tree;
-        private IEntity _entity;
         private bool _inEvent;
 
         public AGSScrollingComponent(IGameState state)
@@ -49,30 +48,23 @@ namespace AGS.Engine
 			}
 		}
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<ICropChildrenComponent>(c => _crop = c, _ => _crop = null);
+            base.Init();
+            Entity.Bind<ICropChildrenComponent>(c => _crop = c, _ => _crop = null);
 
             //Note: we're subscribing both to the bounding box changed and bounding box with children events.
             //The bounding box event is for the scrolling container, and the box with children is for the scrolling content.
             //One might wonder why do we need to subscribe to the bounding box change, won't the box with children cover that?
             //The answer is: not necessarily. It might happen that the container changes size but still completely contained in the bounding box with all the children.
-            entity.Bind<IBoundingBoxWithChildrenComponent>(
+            Entity.Bind<IBoundingBoxWithChildrenComponent>(
                 c => { _boundingBoxWithChildren = c; c.OnBoundingBoxWithChildrenChanged.Subscribe(onSizeChanged); refreshSliderLimits(); }, 
                 c => { c.OnBoundingBoxWithChildrenChanged.Unsubscribe(onSizeChanged); _boundingBoxWithChildren = null; });
-            entity.Bind<IBoundingBoxComponent>(
+            Entity.Bind<IBoundingBoxComponent>(
                 c => { _boundingBox = c; c.OnBoundingBoxesChanged.Subscribe(onSizeChanged); refreshSliderLimits(); },
                 c => { c.OnBoundingBoxesChanged.Unsubscribe(onSizeChanged); _boundingBox = null; });
-            entity.Bind<IStackLayoutComponent>(c => _layout = c, _ => _layout = null);
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
+            Entity.Bind<IStackLayoutComponent>(c => _layout = c, _ => _layout = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
         }
 
         private void onSizeChanged()

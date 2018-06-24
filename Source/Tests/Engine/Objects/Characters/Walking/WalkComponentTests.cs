@@ -111,7 +111,7 @@ namespace Tests
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
-            walk.Init(entity.Object);
+            walk.Init(entity.Object, typeof(IWalkComponent));
             walk.AfterInit();
 
 			//Act:

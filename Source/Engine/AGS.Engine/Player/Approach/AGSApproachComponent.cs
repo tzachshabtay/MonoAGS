@@ -16,11 +16,11 @@ namespace AGS.Engine
 
         public IApproachStyle ApproachStyle { get; set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
-            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            base.Init();
+            Entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            Entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
         }
 
         public async Task<bool> ApproachAsync(string verb, IObject obj)

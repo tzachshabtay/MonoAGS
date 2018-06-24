@@ -273,7 +273,7 @@ namespace AGS.Editor
             _inspector.Show(obj);
             _lastSelectedEntity = obj;
             var host = new AGSComponentHost(_editor.EditorResolver);
-            host.Init(obj);
+            host.Init(obj, typeof(AGSComponentHost));
             TypedParameter uiEventsAggParam = new TypedParameter(typeof(UIEventsAggregator), _editor.UIEventsAggregator);
             var uiEvents = _editor.EditorResolver.Container.Resolve<EditorUIEvents>(uiEventsAggParam);
             obj.AddComponent<EditorUIEvents>(uiEvents);

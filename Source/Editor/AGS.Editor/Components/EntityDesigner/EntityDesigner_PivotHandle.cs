@@ -153,7 +153,7 @@ namespace AGS.Editor
                 float toX = _translateXOnDown + xDiff;
                 float toY = _translateYOnDown + yDiff;
                 MovePivotAction action = new MovePivotAction(handle.GetFriendlyName(), _image, _translate,
-                                                             toPivotX, toPivotY, toX, toY);
+                                                             toPivotX, toPivotY, toX, toY, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
 

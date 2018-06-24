@@ -12,6 +12,7 @@ namespace AGS.Editor
     {
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
+        private readonly StateModel _model;
         private InspectorProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
@@ -19,10 +20,11 @@ namespace AGS.Editor
         private Dictionary<string, uint> _namedColors;
         private Dictionary<uint, string> _namedColorsReversed;
 
-        public ColorPropertyEditor(IGameFactory factory, ActionManager actions)
+        public ColorPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
             _actions = actions;
+            _model = model;
             _namedColors = new Dictionary<string, uint>();
             _namedColorsReversed = new Dictionary<uint, string>();
         }
@@ -192,7 +194,7 @@ namespace AGS.Editor
         private void setColor(Color color)
         {
             if (_actions.ActionIsExecuting) return;
-            _actions.RecordAction(new PropertyAction(_property, color));
+            _actions.RecordAction(new PropertyAction(_property, color, _model));
         }
     }
 }

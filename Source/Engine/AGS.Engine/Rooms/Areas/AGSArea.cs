@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using System;
 
 namespace AGS.Engine
 {
@@ -17,7 +18,9 @@ namespace AGS.Engine
 
         public string Name => ID;
         public bool AllowMultiple => false;
-        public void Init(IEntity entity) { }
+        public IEntity Entity => this;
+        public Type RegistrationType => typeof(IArea);
+        public void Init(IEntity entity, Type registrationType) { }
 
         public override string ToString() => $"{ID ?? ""} ({GetType().Name})";
 

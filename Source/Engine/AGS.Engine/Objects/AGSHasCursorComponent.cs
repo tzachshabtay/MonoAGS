@@ -6,11 +6,13 @@ namespace AGS.Engine
     {
         private bool _showingObjectSpecificCursor;
         private IObject _lastCursor;
-        private bool _cursotWasSaved;
+        private bool _cursorWasSaved;
 
         private readonly IGameEvents _events;
         private readonly IHitTest _hitTest;
         private readonly IInput _input;
+
+        private const string SPECIAL_CURSOR_TAG = "SpecialCursor";
 
         public AGSHasCursorComponent(IGameEvents events, IHitTest hitTest, IInput input)
         {
@@ -26,6 +28,7 @@ namespace AGS.Engine
 		{
             base.Dispose();
             _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            turnOffObjectSpecificCursor();
 		}
 
 		private void onRepeatedlyExecute()
@@ -42,10 +45,13 @@ namespace AGS.Engine
                 turnOffObjectSpecificCursor();
                 return;
             }
-            if (_input.Cursor != specialCursor.SpecialCursor)
+            var currentCursor = _input.Cursor;
+            bool isCurrentSpecialCursor = currentCursor?.Properties.Bools.GetValue(SPECIAL_CURSOR_TAG, false) ?? false;
+            if (!isCurrentSpecialCursor)
             {
-                _lastCursor = _input.Cursor;
-                _cursotWasSaved = true;
+                _lastCursor = currentCursor;
+                _cursorWasSaved = true;
+                specialCursor.SpecialCursor.Properties.Bools.SetValue(SPECIAL_CURSOR_TAG, true);
                 _input.Cursor = specialCursor.SpecialCursor;
             }
             _showingObjectSpecificCursor = true;
@@ -56,7 +62,7 @@ namespace AGS.Engine
             if (!_showingObjectSpecificCursor) return;
             _showingObjectSpecificCursor = false;
             var lastCursor = _lastCursor;
-            if (_cursotWasSaved)
+            if (_cursorWasSaved)
             {
                 _input.Cursor = _lastCursor;
             }

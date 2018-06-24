@@ -18,10 +18,10 @@ namespace AGS.Engine
             _scale = scale;
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IImageComponent>(c =>
+            base.Init();
+            Entity.Bind<IImageComponent>(c =>
             {
                 _image = c;
                 _unsubscribeBindSizeToImage = AGSScale.BindSizeToImage(c, _scale);

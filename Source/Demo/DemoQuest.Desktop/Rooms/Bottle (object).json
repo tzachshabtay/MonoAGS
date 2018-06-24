@@ -1,0 +1,23 @@
+{
+  "ID": "Bottle (object)",
+  "DisplayName": "Bottle",
+  "EntityConcreteType": "AGS.Engine.AGSObject, AGS.Engine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "Components": {
+    "AGS.API.ITranslateComponent, AGS.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": {
+      "ComponentConcreteType": "AGS.Engine.AGSTranslateComponent, AGS.Engine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "Properties": {
+        "Position": {
+          "X": 166.666656,
+          "Y": 110.166664,
+          "Z": 110.166664,
+          "XY": {
+            "X": 166.666656,
+            "Y": 110.166664
+          }
+        }
+      }
+    }
+  },
+  "Filename": "Bottle (object).json",
+  "IsDirty": true
+}

@@ -14,7 +14,6 @@ namespace AGS.Engine
         private IScaleComponent _scale;
         private ISpriteProvider _provider;
         private readonly IRenderPipeline _pipeline;
-        private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
         private readonly Func<string, ITexture> _getTextureFunc;
         private readonly ITextureCache _textures;
@@ -102,18 +101,16 @@ namespace AGS.Engine
             }
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
-            _pipeline.Subscribe(entity.ID, this);
+            base.Init();
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            _pipeline.Subscribe(Entity.ID, this);
         }
 
 		public override void Dispose()
 		{
-            base.Dispose();
             _sprite?.Dispose();
             var image = _image;
             if (image != null)
@@ -125,7 +122,7 @@ namespace AGS.Engine
             {
                 provider.PropertyChanged -= OnProviderPropertyChanged;
             }
-            var entity = _entity;
+            var entity = Entity;
             if (entity != null)
             {
                 _pipeline.Unsubscribe(entity.ID, this);
@@ -134,7 +131,7 @@ namespace AGS.Engine
             _colorAdjusters[1] = null;
             _instructionPool?.Dispose();
             _boxesPool?.Dispose();
-            _entity = null;
+            base.Dispose();
         }
 
 		private void OnProviderPropertyChanged(object sender, PropertyChangedEventArgs args)

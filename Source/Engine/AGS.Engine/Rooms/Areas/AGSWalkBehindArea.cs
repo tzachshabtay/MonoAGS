@@ -13,7 +13,6 @@ namespace AGS.Engine
         private readonly Func<IBitmap, IImage> _createImageFunc;
         private readonly IGameFactory _factory;
         private IRoom _room;
-        private IEntity _entity;
         private IAreaComponent _area;
         private IObject _drawable;
 
@@ -31,19 +30,12 @@ namespace AGS.Engine
 
 		#endregion
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IAreaComponent>(c => _area = c, _ => _area = null);
-            _entity = entity;
+            base.Init();
+            Entity.Bind<IAreaComponent>(c => _area = c, _ => _area = null);
             refreshRoom();
             _state.Rooms?.OnListChanged?.Subscribe(onRoomsChanged);
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
         }
 
         private void onRoomsChanged(AGSListChangedEventArgs<IRoom> args)
@@ -54,7 +46,7 @@ namespace AGS.Engine
         private void refreshRoom()
         {
             unsubscribeRoom();
-            _room = _state?.Rooms?.FirstOrDefault(r => r.Areas.Contains(_entity));
+            _room = _state?.Rooms?.FirstOrDefault(r => r.Areas.Contains(Entity));
             subscribeRoom();
         }
 
@@ -98,7 +90,7 @@ namespace AGS.Engine
 
         private IObject createObject()
         {
-            var obj = _factory.Object.GetObject($"Walk-Behind Drawable: {_entity.ID}");
+            var obj = _factory.Object.GetObject($"Walk-Behind Drawable: {Entity.ID}");
             obj.Pivot = new PointF();
             obj.Z = Baseline == null ? _area.Mask.MinY : Baseline.Value;
             obj.Enabled = false;

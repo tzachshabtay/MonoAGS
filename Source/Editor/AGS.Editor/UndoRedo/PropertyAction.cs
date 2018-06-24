@@ -7,10 +7,13 @@ namespace AGS.Editor
     public class PropertyAction : AbstractAction
     {
         private string _actionDisplayName;
-        private DateTime _timestamp;
+        private readonly DateTime _timestamp;
+        private readonly StateModel _model;
+        private Action _undoModel;
 
-        public PropertyAction(InspectorProperty property, object value)
+        public PropertyAction(InspectorProperty property, object value, StateModel model)
         {
+            _model = model;
             _timestamp = DateTime.Now;
             ParentObject = property.Object;
             Property = property.Prop;
@@ -28,12 +31,13 @@ namespace AGS.Editor
         protected override void ExecuteCore()
         {
             OldValue = Property.GetValue(ParentObject, null);
-            Property.SetValue(ParentObject, Value, null);
+            execute();
         }
 
         protected override void UnExecuteCore()
         {
             Property.SetValue(ParentObject, OldValue, null);
+            _undoModel?.Invoke();
         }
 
         /// <summary>
@@ -49,7 +53,7 @@ namespace AGS.Editor
             {
                 Value = next.Value;
                 _actionDisplayName = next._actionDisplayName;
-                Property.SetValue(ParentObject, Value, null);
+                execute();
                 return true;
             }
             return false;
@@ -59,6 +63,15 @@ namespace AGS.Editor
         {
             var timeDelta = followingAction._timestamp.Subtract(_timestamp);
             return timeDelta.Seconds < 2;
+        }
+
+        private void execute()
+        {
+            Property.SetValue(ParentObject, Value, null);
+            if (ParentObject is API.IComponent component)
+            {
+                _undoModel = ModelAction.Execute(_model, (component, Property.Name, Value));
+            }
         }
 	}
 }

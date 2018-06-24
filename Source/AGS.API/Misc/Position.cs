@@ -1,8 +1,11 @@
-﻿namespace AGS.API
+﻿using System.Runtime.Serialization;
+
+namespace AGS.API
 {
     /// <summary>
     /// A 3D location in the world.
     /// </summary>
+    [DataContract]
     public struct Position
     {
         private readonly float? _z;
@@ -23,12 +26,14 @@
         /// Gets the x coordinate.
         /// </summary>
         /// <value>The x.</value>
+        [DataMember(Name = "X")]
         public float X => XY.X;
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>The y.</value>
+        [DataMember(Name = "Y")]
         public float Y => XY.Y;
 
         /// <summary>
@@ -40,6 +45,7 @@
         /// be reverted again by explicitly setting Z to be Y).
         /// </summary>
         /// <value>The z.</value>
+        [DataMember(Name = "Z")]
         public float Z => _z.HasValue ? _z.Value : Y;
 
         /// <summary>
