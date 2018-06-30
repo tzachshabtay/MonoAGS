@@ -226,6 +226,17 @@ namespace AGS.API
             return MathUtils.FloatEquals(Width, box.Width) && MathUtils.FloatEquals(Height, box.Height);
         }
 
+        /// <summary>
+        /// Multiply the box limits with the specified factorX and factorY.
+        /// </summary>
+        /// <returns>The new multiplied box.</returns>
+        /// <param name="factorX">Factor x.</param>
+        /// <param name="factorY">Factor y.</param>
+        public AGSBoundingBox Multiply(float factorX, float factorY)
+        {
+            return new AGSBoundingBox(MinX * factorX, MaxX * factorX, MinY * factorY, MaxY * factorY);
+        }
+
 		#endregion
 
 		private float distance(Vector3 a, Vector3 b)

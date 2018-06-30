@@ -11,13 +11,16 @@ namespace AGS.Engine
         private IInObjectTreeComponent _tree;
         private PointF _startPoint;
         private IBoundingBoxComponent _boundingBox;
+        private IDrawableInfoComponent _drawable;
         private bool _isDirty, _isCropEnabled;
         private readonly IGameState _state;
+        private readonly IGameSettings _settings;
         private readonly ConcurrentDictionary<string, IComponentBinding[]> _bindings;
 
-        public AGSCropChildrenComponent(IGameState state)
+        public AGSCropChildrenComponent(IGameState state, IGameSettings settings)
         {
             _state = state;
+            _settings = settings;
             _bindings = new ConcurrentDictionary<string, IComponentBinding[]>();
             _isCropEnabled = true;
             EntitiesToSkipCrop = new AGSConcurrentHashSet<string>();
@@ -48,6 +51,7 @@ namespace AGS.Engine
             base.Init();
             Entity.Bind<IBoundingBoxComponent>(c => { _boundingBox = c; }, _ => { _boundingBox = null; });
             Entity.Bind<IInObjectTreeComponent>(c => { subscribeTree(c); _tree = c; }, c => { unsubscribeTree(c); _tree = null; });
+            Entity.Bind<IDrawableInfoComponent>(c => { _drawable = c; }, _ => { _drawable = null; });
             rebuildEntireTree();
         }
 
@@ -196,6 +200,24 @@ namespace AGS.Engine
 			}
         }
 
+        private AGSBoundingBox getBoundingBox(AGSBoundingBoxes boundingBoxes, IObject obj, ITextComponent textComponent)
+        {
+            //If a text object does not use an independent resolution, it might be scaled up (using CustomImageResolutionFactor) and the 
+            //bounding box for cropping might then be in a different resolution than the parent so we need to compensate, by resizing
+            //the parent box to match the child box.
+            //todo: this currently probably doesn't cover the case when the child and parent has different independent resolutions from each other.
+            if (obj.RenderLayer?.IndependentResolution != null)
+                return boundingBoxes.ViewportBox;
+
+            float factorX = (textComponent?.CustomImageResolutionFactor?.X ?? 1f);
+            factorX /= ((_drawable?.RenderLayer?.IndependentResolution?.Width ?? _settings.VirtualResolution.Width) / _settings.VirtualResolution.Width);
+
+            float factorY = (textComponent?.CustomImageResolutionFactor?.Y ?? 1f);
+            factorY /= ((_drawable?.RenderLayer?.IndependentResolution?.Height ?? _settings.VirtualResolution.Height) / _settings.VirtualResolution.Height);
+
+            return boundingBoxes.ViewportBox.Multiply(factorX, factorY);
+        }
+
         private void prepareCrop(IObject obj)
         {
             var boundingBox = _boundingBox;
@@ -210,7 +232,8 @@ namespace AGS.Engine
                 if (cropSelf == null)
                 {
                     cropSelf = new AGSCropSelfComponent();
-                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
+                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf,
+                                                            () => getBoundingBox(boundingBoxes, obj, textComponent));
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                     cropSelf.Init(obj, typeof(ICropSelfComponent));
                     cropSelf.AfterInit();
@@ -223,7 +246,8 @@ namespace AGS.Engine
             {
                 cropSelf = new AGSCropSelfComponent();
                 cropSelf.CropEnabled = false;
-                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, () => boundingBoxes.ViewportBox);
+                ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, 
+                                                        () => getBoundingBox(boundingBoxes, obj, textComponent));
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                 if (obj.AddComponent<ICropSelfComponent>(cropSelf))
                 {
