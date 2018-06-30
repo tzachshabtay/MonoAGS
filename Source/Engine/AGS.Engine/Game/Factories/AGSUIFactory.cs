@@ -343,6 +343,47 @@ namespace AGS.Engine
             return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
+        public IListbox GetListBox(string id, IRenderLayer layer, Func<string, IButton> itemButtonFactory = null,
+                                   float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true)
+        {
+            if (itemButtonFactory == null)
+            {
+                var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
+                var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
+                itemButtonFactory = text =>
+                {
+                    var button = GetButton(id + "_" + text,
+                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           0f, 0f, width: defaultWidth, height: defaultHeight);
+                    button.Pivot = new PointF(0f, 1f);
+                    button.RenderLayer = layer;
+                    return button;
+                };
+            }
+
+            var scrollingPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
+            scrollingPanel.Visible = isVisible;
+            scrollingPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
+            scrollingPanel.Tint = Colors.Black;
+            scrollingPanel.RenderLayer = layer;
+            var contentsPanel = CreateScrollingPanel(scrollingPanel);
+            var listBox = contentsPanel.AddComponent<IListboxComponent>();
+            listBox.ItemButtonFactory = itemButtonFactory;
+            listBox.MaxHeight = 300f;
+
+            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            contentsPanel.AddComponent<IStackLayoutComponent>();
+
+            if (addToUi)
+            {
+                _gameState.UI.Add(scrollingPanel);
+            }
+
+            return new AGSListbox(scrollingPanel, contentsPanel, listBox);
+        }
+
         public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
             Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, 
             float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
@@ -377,51 +418,22 @@ namespace AGS.Engine
 			dropDownButton.Skin?.Apply(dropDownButton);
 
             var dropDownPanelLayer = new AGSRenderLayer(comboBox.RenderLayer.Z - 1, comboBox.RenderLayer.ParallaxSpeed, comboBox.RenderLayer.IndependentResolution); //Making sure that the drop-down layer is rendered before the combobox layer, so that it will appear in front of other ui elements that may be below.
-			if (itemButtonFactory == null)
-            {
-                var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-				var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
-				itemButtonFactory = text =>
-				{
-					var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                                      0f, 0f, width: itemWidth, height: defaultHeight);
-                    button.Pivot = new PointF(0f, 1f);
-					button.RenderLayer = dropDownPanelLayer;
-					return button;
-				};
-            }
-
-            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
-            dropDownPanel.Visible = false;
-            _gameState.UI.Add(dropDownPanel);
-            dropDownPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
-            dropDownPanel.Tint = Colors.Black;
-            dropDownPanel.RenderLayer = dropDownPanelLayer;
-            _gameState.FocusedUI.CannotLoseFocus.Add(dropDownPanel.ID);
-            var contentsPanel = CreateScrollingPanel(dropDownPanel);
-            var listBox = contentsPanel.AddComponent<IListboxComponent>();
-            listBox.ItemButtonFactory = itemButtonFactory;
-            listBox.MaxHeight = 300f;
+            var listbox = GetListBox(id, dropDownPanelLayer, itemButtonFactory, itemWidth, defaultHeight, isVisible: false);
+            _gameState.FocusedUI.CannotLoseFocus.Add(listbox.ScrollingPanel.ID);
 
             Action placePanel = () =>
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                dropDownPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
             placePanel();
 
-            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            contentsPanel.AddComponent<IStackLayoutComponent>();
-
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.DropDownPanel = contentsPanel;
+            comboBox.DropDownPanel = listbox.ContentsPanel;
 
             setParent(comboBox, parent);
 

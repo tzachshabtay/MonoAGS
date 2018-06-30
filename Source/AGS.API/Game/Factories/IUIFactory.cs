@@ -256,6 +256,20 @@ namespace AGS.API
         Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
+        /// <summary>
+        /// Creates a listbox (a list of items bound in a box).
+        /// </summary>
+        /// <returns>The list box.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <param name="layer">Layer.</param>
+        /// <param name="itemButtonFactory">A function for creating an item in the list. If not provided a default one will be created.</param>
+        /// <param name="defaultWidth">The default width for a list item.</param>
+        /// <param name="defaultHeight">The default height for a list item.</param>
+        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+        /// <param name="isVisible">If set to <c>true</c> set the listbox to be visible.</param>
+        IListbox GetListBox(string id, IRenderLayer layer, Func<string, IButton> itemButtonFactory = null,
+                            float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true);
+        
 		/// <summary>
 		/// Creates a combo box (drop down).
 		/// </summary>
@@ -263,7 +277,7 @@ namespace AGS.API
 		/// <param name="id">A unique identifer for the combo box (it has to be globally unique across all entities).</param>
 		/// <param name="dropDownButton">Drop down button. If not provided the a default one will be created.</param>
 		/// <param name="textBox">The text box for showing the selected choice. If not provided the a default one will be created.</param>
-		/// <param name="itemButtonFactory">A function for creating a button for the drop down list. If not provided the a default one will be created.</param>
+		/// <param name="itemButtonFactory">A function for creating a button for the drop down list. If not provided a default one will be created.</param>
 		/// <param name="parent">The UI control's parent.</param>
 		/// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
