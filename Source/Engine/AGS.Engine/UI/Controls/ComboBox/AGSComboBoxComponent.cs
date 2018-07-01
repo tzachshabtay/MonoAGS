@@ -107,7 +107,7 @@ namespace AGS.Engine
 
             _currentlyUsingTextbox = true;
             panelVisible.Visible = true;
-            var buttons = dropDownPanel.ItemButtons.ToList();
+            var buttons = dropDownPanel.ListItemUIControls.Cast<IButton>().ToList();
             _dropDownPanelList.SearchFilter = args.IntendedState.Text;
             switch (args.PressedKey)
             {
@@ -252,7 +252,7 @@ namespace AGS.Engine
         {
             if (!_currentlyUsingTextbox || _currentSuggestion < 0) return;
             await Task.Delay(500); //waiting for buttons on drop-down to change visibility based on the filter -> todo: find a better way
-            List<IButton> buttons = _dropDownPanelList.ItemButtons.ToList();
+            List<IButton> buttons = _dropDownPanelList.ListItemUIControls.Cast<IButton>().ToList();
             if (_currentSuggestion >= buttons.Count) return;
             var button = buttons[_currentSuggestion];
             var crop = button.GetComponent<ICropSelfComponent>();
@@ -281,7 +281,7 @@ namespace AGS.Engine
             if (_dropDownPanelVisible != null) _dropDownPanelVisible.Visible = false;
             if (_currentlyUsingTextbox)
             {
-                var buttons = _dropDownPanelList.ItemButtons.ToList();
+                var buttons = _dropDownPanelList.ListItemUIControls.Cast<IButton>().ToList();
                 onTextboxTypingCompleted(buttons);
             }
         }
@@ -311,7 +311,7 @@ namespace AGS.Engine
             }
             if (_currentlyUsingTextbox)
             {
-                var buttons = _dropDownPanelList.ItemButtons.ToList();
+                var buttons = _dropDownPanelList.ListItemUIControls.Cast<IButton>().ToList();
                 onTextboxTypingCompleted(buttons);
             }
         }

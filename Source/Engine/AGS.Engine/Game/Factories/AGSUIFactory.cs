@@ -343,14 +343,14 @@ namespace AGS.Engine
             return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
-        public IListbox GetListBox(string id, IRenderLayer layer, Func<string, IButton> itemButtonFactory = null,
+        public IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
                                    float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true)
         {
-            if (itemButtonFactory == null)
+            if (listItemFactory == null)
             {
                 var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
                 var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
-                itemButtonFactory = text =>
+                listItemFactory = text =>
                 {
                     var button = GetButton(id + "_" + text,
                                            new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
@@ -359,6 +359,7 @@ namespace AGS.Engine
                                            0f, 0f, width: defaultWidth, height: defaultHeight);
                     button.Pivot = new PointF(0f, 1f);
                     button.RenderLayer = layer;
+                    button.Text = text;
                     return button;
                 };
             }
@@ -370,7 +371,7 @@ namespace AGS.Engine
             scrollingPanel.RenderLayer = layer;
             var contentsPanel = CreateScrollingPanel(scrollingPanel);
             var listBox = contentsPanel.AddComponent<IListboxComponent>();
-            listBox.ItemButtonFactory = itemButtonFactory;
+            listBox.ListItemFactory = listItemFactory;
             listBox.MaxHeight = 300f;
 
             contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
@@ -385,7 +386,7 @@ namespace AGS.Engine
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
-            Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, 
+            Func<string, IUIControl> listItemFactory = null, IObject parent = null, bool addToUi = true, 
             float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -418,7 +419,7 @@ namespace AGS.Engine
 			dropDownButton.Skin?.Apply(dropDownButton);
 
             var dropDownPanelLayer = new AGSRenderLayer(comboBox.RenderLayer.Z - 1, comboBox.RenderLayer.ParallaxSpeed, comboBox.RenderLayer.IndependentResolution); //Making sure that the drop-down layer is rendered before the combobox layer, so that it will appear in front of other ui elements that may be below.
-            var listbox = GetListBox(id, dropDownPanelLayer, itemButtonFactory, itemWidth, defaultHeight, isVisible: false);
+            var listbox = GetListBox(id, dropDownPanelLayer, listItemFactory, itemWidth, defaultHeight, isVisible: false);
             _gameState.FocusedUI.CannotLoseFocus.Add(listbox.ScrollingPanel.ID);
 
             Action placePanel = () =>

@@ -31,17 +31,17 @@ namespace AGS.API
         IAGSBindingList<IStringItem> Items { get; }
 
         /// <summary>
-        /// Gets or sets the factory function for creating buttons which will be displayed for each item
-        /// in the dropdown list. The function gets the text of the button (useful for giving a button id) and should return a button.
+        /// Gets or sets the factory function for creating the UI controls which will be displayed for each item
+        /// in the list. The function gets the text of the item and should return a UI control.
         /// </summary>
-        /// <value>The item button factory.</value>
-        Func<string, IButton> ItemButtonFactory { get; set; }
+        /// <value>The list item factory.</value>
+        Func<string, IUIControl> ListItemFactory { get; set; }
 
         /// <summary>
-        /// Gets the dropdown list item buttons.
+        /// Gets the list item UI controls.
         /// </summary>
-        /// <value>The item buttons.</value>
-        IEnumerable<IButton> ItemButtons { get; }
+        /// <value>The item UI controls.</value>
+        IEnumerable<IUIControl> ListItemUIControls { get; }
 
         /// <summary>
         /// An event which fires whenever the selected item in the dropdown was changed

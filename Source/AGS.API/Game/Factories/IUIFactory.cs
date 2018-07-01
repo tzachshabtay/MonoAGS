@@ -262,12 +262,12 @@ namespace AGS.API
         /// <returns>The list box.</returns>
         /// <param name="id">Identifier.</param>
         /// <param name="layer">Layer.</param>
-        /// <param name="itemButtonFactory">A function for creating an item in the list. If not provided a default one will be created.</param>
+        /// <param name="listItemFactory">A function for creating an item in the list. If not provided a default one will be created.</param>
         /// <param name="defaultWidth">The default width for a list item.</param>
         /// <param name="defaultHeight">The default height for a list item.</param>
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
         /// <param name="isVisible">If set to <c>true</c> set the listbox to be visible.</param>
-        IListbox GetListBox(string id, IRenderLayer layer, Func<string, IButton> itemButtonFactory = null,
+        IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
                             float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true);
         
 		/// <summary>
@@ -277,13 +277,13 @@ namespace AGS.API
 		/// <param name="id">A unique identifer for the combo box (it has to be globally unique across all entities).</param>
 		/// <param name="dropDownButton">Drop down button. If not provided the a default one will be created.</param>
 		/// <param name="textBox">The text box for showing the selected choice. If not provided the a default one will be created.</param>
-		/// <param name="itemButtonFactory">A function for creating a button for the drop down list. If not provided a default one will be created.</param>
+        /// <param name="listItemFactory">A function for creating a button for the drop down list. If not provided a default one will be created.</param>
 		/// <param name="parent">The UI control's parent.</param>
 		/// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
 		/// <param name="defaultHeight">If no textbox or dropdown button was provided, this will be the height of the combobox.</param>
         /// <param name="watermark">An optional watermark text to show when there's no text and the textbox is out of focus (i.e explanation text, see example here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl).</param>
-		IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IButton> itemButtonFactory = null,
+        IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IUIControl> listItemFactory = null,
                               IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "");
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace AGS.Engine
     public class AGSListboxComponent : AGSComponent, IListboxComponent
     {
         private AGSBindingList<IStringItem> _items;
-        private List<(IButton button, IStringItem item)> _itemButtons;
+        private List<(IUIControl control, IStringItem item)> _itemControls;
         private IUIFactory _uiFactory;
         private int _selectedIndex;
         private float _minHeight, _maxHeight;
@@ -25,7 +25,7 @@ namespace AGS.Engine
         {
             _state = state;
             _uiFactory = factory;
-            _itemButtons = new List<(IButton, IStringItem)>();
+            _itemControls = new List<(IUIControl, IStringItem)>();
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);
             _selectedIndex = -1;
@@ -53,9 +53,9 @@ namespace AGS.Engine
             });
         }
 
-        public Func<string, IButton> ItemButtonFactory { get; set; }
+        public Func<string, IUIControl> ListItemFactory { get; set; }
 
-        public IEnumerable<IButton> ItemButtons => _itemButtons.Select(c => c.button);
+        public IEnumerable<IUIControl> ListItemUIControls => _itemControls.Select(c => c.control);
 
         public IAGSBindingList<IStringItem> Items => _items;
 
@@ -133,14 +133,14 @@ namespace AGS.Engine
         private void applySearch(string filter)
         {
             _layout?.StopLayout();
-            foreach (var (button, item) in _itemButtons)
+            foreach (var (control, item) in _itemControls)
             {
                 var customSearch = item as ICustomSearchItem;
                 if (customSearch != null)
                 {
-                    button.Visible = customSearch.Contains(filter);
+                    control.Visible = customSearch.Contains(filter);
                 }
-                else button.Visible = (item.Text?.ToLowerInvariant() ?? "").Contains(filter);
+                else control.Visible = (item.Text?.ToLowerInvariant() ?? "").Contains(filter);
             }
             _layout?.StartLayout();
         }
@@ -152,33 +152,31 @@ namespace AGS.Engine
             if (args.ChangeType == ListChangeType.Remove)
             {
                 var items = args.Items.OrderByDescending(i => i.Index);
-                var buttons = new List<(IButton, IStringItem)>(_itemButtons);
+                var controls = new List<(IUIControl, IStringItem)>(_itemControls);
                 foreach (var item in items)
                 {
-                    var button = _itemButtons[item.Index].button;
-                    button.MouseClicked.Unsubscribe(onItemClicked);
-                    tree?.TreeNode.RemoveChild(button);
-                    _state.UI.Remove(button);
-                    buttons.RemoveAt(item.Index);
+                    var control = _itemControls[item.Index].control;
+                    control.MouseClicked.Unsubscribe(onItemClicked);
+                    tree?.TreeNode.RemoveChild(control);
+                    _state.UI.Remove(control);
+                    controls.RemoveAt(item.Index);
                 }
-                _itemButtons = buttons;
+                _itemControls = controls;
             }
             else
             {
                 var items = args.Items.OrderBy(i => i.Index);
-                var newButtons = new List<IObject>(10);
-                var buttons = new List<(IButton, IStringItem)>(_itemButtons);
+                var newControls = new List<IObject>(10);
+                var controls = new List<(IUIControl, IStringItem)>(_itemControls);
                 foreach (var item in items)
                 {
-                    string buttonText = item.Item.Text;
-                    var newButton = ItemButtonFactory(buttonText);
-                    newButton.Text = buttonText;
-                    newButton.MouseClicked.Subscribe(onItemClicked);
-                    buttons.Insert(item.Index, (newButton, item.Item));
-                    newButtons.Add(newButton);
+                    var newControl = ListItemFactory(item.Item.Text);
+                    newControl.MouseClicked.Subscribe(onItemClicked);
+                    controls.Insert(item.Index, (newControl, item.Item));
+                    newControls.Add(newControl);
                 }
-                _itemButtons = buttons;
-                tree?.TreeNode.AddChildren(newButtons);
+                _itemControls = controls;
+                tree?.TreeNode.AddChildren(newControls);
             }
             refreshItemsLayout();
             _layout?.StartLayout();
@@ -191,13 +189,13 @@ namespace AGS.Engine
 
         private void refreshItemsLayout()
         {
-            if (_itemButtons.Count == 0) return;
+            if (_itemControls.Count == 0) return;
             var scale = _scale;
             if (scale == null) return;
-            var visibleButtons = _itemButtons.Where(i => i.button.Visible).ToList();
-            if (visibleButtons.Count == 0) return;
-            scale.BaseSize = new SizeF(visibleButtons.Max(i => Math.Max(i.button.Width, i.button.TextWidth)),
-                                       MathUtils.Clamp(visibleButtons.Sum(i => Math.Max(i.button.Height, i.button.TextHeight)), _minHeight, _maxHeight));
+            var visibleControls = _itemControls.Where(i => i.control.Visible).ToList();
+            if (visibleControls.Count == 0) return;
+            scale.BaseSize = new SizeF(visibleControls.Max(i => Math.Max(i.control.Width, i.control.GetComponent<ITextComponent>()?.TextWidth ?? 0f)),
+                                       MathUtils.Clamp(visibleControls.Sum(i => Math.Max(i.control.Height, i.control.GetComponent<ITextComponent>()?.TextHeight ?? 0f)), _minHeight, _maxHeight));
             _layout.StartLocation = scale.Height;
             var image = _image;
             if (image == null) return;
@@ -210,10 +208,10 @@ namespace AGS.Engine
 
         private void onItemClicked(MouseButtonEventArgs args)
         {
-            var button = (IButton)args.ClickedEntity;
-            for (int index = _itemButtons.Count - 1; index >= 0; index--)
+            var control = args.ClickedEntity;
+            for (int index = _itemControls.Count - 1; index >= 0; index--)
             {
-                if (_itemButtons[index].button == button)
+                if (_itemControls[index].control == control)
                 {
                     SelectedIndex = index;
                     return;
