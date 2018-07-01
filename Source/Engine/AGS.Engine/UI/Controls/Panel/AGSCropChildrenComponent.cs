@@ -247,7 +247,7 @@ namespace AGS.Engine
                 cropSelf = new AGSCropSelfComponent();
                 cropSelf.CropEnabled = false;
                 ChildCropper cropper = new ChildCropper(obj.ID, () => _isDirty, cropSelf, 
-                                                        () => getBoundingBox(boundingBoxes, obj, textComponent));
+                                                        () => boundingBoxes.ViewportBox);
                 cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
                 if (obj.AddComponent<ICropSelfComponent>(cropSelf))
                 {
