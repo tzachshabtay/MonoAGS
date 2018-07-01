@@ -267,8 +267,10 @@ namespace AGS.API
         /// <param name="defaultHeight">The default height for a list item.</param>
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
         /// <param name="isVisible">If set to <c>true</c> set the listbox to be visible.</param>
+        /// <param name="withScrollBars">If set to <c>true</c> the listbox will have horizontal and vertical scrollbars to scroll the contents inside.</param>
         IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
-                            float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true);
+                            float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true,
+                            bool withScrollBars = true);
         
 		/// <summary>
 		/// Creates a combo box (drop down).

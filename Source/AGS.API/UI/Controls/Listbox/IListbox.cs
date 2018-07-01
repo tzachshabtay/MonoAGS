@@ -6,7 +6,7 @@
     public interface IListbox
     {
         /// <summary>
-        /// The containing panel which carries the scroll bars.
+        /// The containing panel which carries the scroll bars, if the listbox is configured to have scrollbars (otherwise, this will be null).
         /// </summary>
         /// <value>The scrolling panel.</value>
         IPanel ScrollingPanel { get; }

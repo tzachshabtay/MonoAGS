@@ -344,7 +344,8 @@ namespace AGS.Engine
         }
 
         public IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
-                                   float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true)
+                                   float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, 
+                                   bool isVisible = true, bool withScrollBars = true)
         {
             if (listItemFactory == null)
             {
@@ -369,7 +370,7 @@ namespace AGS.Engine
             scrollingPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
             scrollingPanel.Tint = Colors.Black;
             scrollingPanel.RenderLayer = layer;
-            var contentsPanel = CreateScrollingPanel(scrollingPanel);
+            var contentsPanel = withScrollBars ? CreateScrollingPanel(scrollingPanel) : scrollingPanel;
             var listBox = contentsPanel.AddComponent<IListboxComponent>();
             listBox.ListItemFactory = listItemFactory;
             listBox.MaxHeight = 300f;
@@ -382,7 +383,7 @@ namespace AGS.Engine
                 _gameState.UI.Add(scrollingPanel);
             }
 
-            return new AGSListbox(scrollingPanel, contentsPanel, listBox);
+            return new AGSListbox(withScrollBars ? scrollingPanel : null, contentsPanel, listBox);
         }
 
         public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
