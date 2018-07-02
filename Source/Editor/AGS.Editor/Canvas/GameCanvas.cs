@@ -12,6 +12,7 @@ namespace AGS.Editor
         private readonly IObject _selectionMarker;
         private readonly GameToolbar _toolbar;
         private readonly GameDebugTree _tree;
+        private readonly CanvasMenu _menu;
         private DragHandle _dragHandle;
 
         public GameCanvas(AGSEditor editor, GameToolbar toolbar, GameDebugTree tree)
@@ -19,6 +20,7 @@ namespace AGS.Editor
             _toolbar = toolbar;
             _tree = tree;
             _editor = editor;
+            _menu = new CanvasMenu(editor.Editor.Factory, editor.Editor.Input);
             _selectionMarker = editor.Editor.Factory.Object.GetObject("SelectionMarker");
             _selectionMarker.Visible = false;
             _selectionMarker.Border = AGSBorders.SolidColor(GameViewColors.HoveredText, 2f);
@@ -32,6 +34,7 @@ namespace AGS.Editor
             _editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             _editor.Editor.Input.MouseDown.Subscribe(onMouseDown);
             _editor.Editor.Input.MouseUp.Subscribe(onMouseUp);
+            _menu.Load();
         }
 
         public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, IDrawableInfoComponent drawable,

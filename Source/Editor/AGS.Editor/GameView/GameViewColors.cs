@@ -16,6 +16,8 @@ namespace AGS.Editor
         public static Color PushedButton = Colors.DarkGray;
         public static Color SubPanel = Border;
         public static Color Textbox = Border;
+        public static Color Menu = Border;
+        public static Color HoveredMenuItem = Colors.DarkBlue;
 
         public static IBrush TextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Text);
         public static IBrush HoveredTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);
