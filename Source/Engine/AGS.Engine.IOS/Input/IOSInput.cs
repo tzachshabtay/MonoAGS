@@ -13,10 +13,12 @@ namespace AGS.Engine.IOS
         private DateTime _lastDrag;
         private readonly IOSGestures _gestures;
         private readonly ICoordinates _coordinates;
+        private readonly IAGSHitTest _hitTest;
 
-        public IOSInput(IOSGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
+        public IOSInput(IOSGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates, IAGSHitTest hitTest)
         {
             _gestures = gestures;
+            _hitTest = hitTest;
             _coordinates = coordinates;
             MousePosition = new MousePosition(0f, 0f, _coordinates);
             _shouldBlockInput = shouldBlockInput;
@@ -46,9 +48,9 @@ namespace AGS.Engine.IOS
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, MouseButton.Left, MousePosition));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
         }
@@ -86,6 +88,7 @@ namespace AGS.Engine.IOS
             float x = convertX(e.MousePosition.XWindow);
             float y = convertY(e.MousePosition.YWindow);
             MousePosition = new MousePosition(x, y, _coordinates);
+            _hitTest.Refresh(MousePosition);
         }
 
         private float convertX(float x)
