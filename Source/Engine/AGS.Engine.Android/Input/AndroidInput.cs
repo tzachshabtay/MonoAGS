@@ -50,8 +50,6 @@ namespace AGS.Engine.Android
             onViewChanged(null, AndroidGameWindow.Instance.View);
         }
 
-        public IObject Cursor { get; set; }
-
         public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
 
         public IEvent<KeyboardEventArgs> KeyUp { get; private set; }

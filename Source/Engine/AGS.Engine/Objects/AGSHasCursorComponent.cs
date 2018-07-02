@@ -10,15 +10,15 @@ namespace AGS.Engine
 
         private readonly IGameEvents _events;
         private readonly IHitTest _hitTest;
-        private readonly IInput _input;
+        private readonly IGameState _state;
 
         private const string SPECIAL_CURSOR_TAG = "SpecialCursor";
 
-        public AGSHasCursorComponent(IGameEvents events, IHitTest hitTest, IInput input)
+        public AGSHasCursorComponent(IGameEvents events, IHitTest hitTest, IGameState state)
         {
             _events = events;
             _hitTest = hitTest;
-            _input = input;
+            _state = state;
             events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
@@ -45,14 +45,14 @@ namespace AGS.Engine
                 turnOffObjectSpecificCursor();
                 return;
             }
-            var currentCursor = _input.Cursor;
+            var currentCursor = _state.Cursor;
             bool isCurrentSpecialCursor = currentCursor?.Properties.Bools.GetValue(SPECIAL_CURSOR_TAG, false) ?? false;
             if (!isCurrentSpecialCursor)
             {
                 _lastCursor = currentCursor;
                 _cursorWasSaved = true;
                 specialCursor.SpecialCursor.Properties.Bools.SetValue(SPECIAL_CURSOR_TAG, true);
-                _input.Cursor = specialCursor.SpecialCursor;
+                _state.Cursor = specialCursor.SpecialCursor;
             }
             _showingObjectSpecificCursor = true;
         }
@@ -64,7 +64,7 @@ namespace AGS.Engine
             var lastCursor = _lastCursor;
             if (_cursorWasSaved)
             {
-                _input.Cursor = _lastCursor;
+                _state.Cursor = _lastCursor;
             }
         }
     }

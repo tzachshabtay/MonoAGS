@@ -16,17 +16,18 @@ namespace AGS.Engine.Desktop
         private readonly IConcurrentHashSet<API.Key> _keysDown;
         private readonly IGameEvents _events;
         private readonly ICoordinates _coordinates;
+        private readonly IAGSCursor _cursor;
 
-        private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
-        public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, 
+        public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, IAGSCursor cursor,
                         IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
                         IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
+            _cursor = cursor;
             _events = events;
             _actions = new ConcurrentQueue<Func<Task>>();
             _coordinates = coordinates;
@@ -49,6 +50,10 @@ namespace AGS.Engine.Desktop
             _game = game;
             this._originalOSCursor = game.Cursor;
 
+            _cursor.PropertyChanged += (sender, e) =>
+            {
+                if (_cursor.Cursor != null) _game.Cursor = MouseCursor.Empty;
+            };
             game.MouseDown += (sender, e) =>
             {
                 if (isInputBlocked()) return;
@@ -106,19 +111,6 @@ namespace AGS.Engine.Desktop
         public bool LeftMouseButtonDown { get; private set; }
         public bool RightMouseButtonDown { get; private set; }
         public bool IsTouchDrag => false;  //todo: support touch screens on desktops
-
-        public IObject Cursor
-        {
-            get => _mouseCursor;
-            set
-            {
-                _mouseCursor = value;
-                if (value != null)
-                {
-                    _game.Cursor = MouseCursor.Empty;
-                }
-            }
-        }
 
         public bool ShowHardwareCursor
         {

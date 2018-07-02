@@ -52,6 +52,7 @@ namespace AGS.Engine
             Builder.RegisterType<UIEventsAggregator>().SingleInstance();
             Builder.RegisterType<AGSDisplayList>().SingleInstance().As<IDisplayList>();
             Builder.RegisterType<AGSHitTest>().SingleInstance().As<IHitTest>();
+            Builder.RegisterType<AGSCursor>().SingleInstance().As<IAGSCursor>();
             Builder.RegisterType<GLTextureCache>().SingleInstance().As<ITextureCache>();
             Builder.RegisterType<AGSDefaultInteractions>().SingleInstance().As<IDefaultInteractions>();
             Builder.RegisterType<InventorySubscriptions>().SingleInstance();

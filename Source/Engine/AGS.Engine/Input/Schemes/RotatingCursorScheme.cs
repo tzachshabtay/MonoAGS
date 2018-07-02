@@ -73,7 +73,7 @@ namespace AGS.Engine
 
 		private void setCursor()
 		{
-			_game.Input.Cursor = _cursors[_currentMode].Animation;
+			_game.State.Cursor = _cursors[_currentMode].Animation;
 		}
 
 		private void onSavedGameLoad()
@@ -107,7 +107,7 @@ namespace AGS.Engine
             IObject hotspot = hitTest.ObjectAtMousePosition;
             IHotspotComponent hotComp = hotspot?.GetComponent<IHotspotComponent>();
 
-            if (_game.Input.Cursor != _inventoryCursor.Animation)
+            if (_game.State.Cursor != _inventoryCursor.Animation)
 			{
 				if (hotspot != null && hotspot.Room == null) 
 				{

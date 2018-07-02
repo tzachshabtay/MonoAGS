@@ -11,11 +11,14 @@ namespace AGS.Engine
 	{
 		private Lazy<ICutscene> _cutscene;
         private readonly ViewportCollection _viewports;
+        private readonly IAGSCursor _cursor;
 
         public AGSGameState (ICustomProperties globalVariables, IRoomTransitions roomTransitions,
-                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport, IEvent<RoomTransitionEventArgs> onRoomChangeRequired)
+                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport, 
+                             IEvent<RoomTransitionEventArgs> onRoomChangeRequired, IAGSCursor cursor)
 		{
 			Speed = 100;
+            _cursor = cursor;
 			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
             SecondaryViewports = new AGSBindingList<IViewport>(5);
@@ -45,6 +48,8 @@ namespace AGS.Engine
         public IAGSBindingList<IViewport> SecondaryViewports { get; }
 
         public List<IViewport> GetSortedViewports() => _viewports.SortedViewports;
+
+        public IObject Cursor { get => _cursor.Cursor; set => _cursor.Cursor = value; }
 
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 

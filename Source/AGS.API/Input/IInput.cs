@@ -31,12 +31,6 @@
         bool IsTouchDrag { get; }
 
         /// <summary>
-        /// Gets or sets the mouse cursor.
-        /// </summary>
-        /// <value>The cursor.</value>
-		IObject Cursor { get; set; }
-
-        /// <summary>
         /// Is the specified key on the keyboard currently pressed down?
         /// </summary>
         /// <returns><c>true</c>, if key down was ised, <c>false</c> otherwise.</returns>

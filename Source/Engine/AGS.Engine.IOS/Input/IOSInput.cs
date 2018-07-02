@@ -53,8 +53,6 @@ namespace AGS.Engine.IOS
             };
         }
 
-        public IObject Cursor { get; set; }
-
         public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
 
         public IEvent<KeyboardEventArgs> KeyUp { get; private set; }
