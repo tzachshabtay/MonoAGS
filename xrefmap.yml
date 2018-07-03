@@ -213,6 +213,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSBoundingBox.MinY
   nameWithType: AGSBoundingBox.MinY
+- uid: AGS.API.AGSBoundingBox.Multiply(System.Single,System.Single)
+  name: Multiply(Single, Single)
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Multiply_System_Single_System_Single_
+  commentId: M:AGS.API.AGSBoundingBox.Multiply(System.Single,System.Single)
+  fullName: AGS.API.AGSBoundingBox.Multiply(System.Single, System.Single)
+  nameWithType: AGSBoundingBox.Multiply(Single, Single)
+- uid: AGS.API.AGSBoundingBox.Multiply*
+  name: Multiply
+  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_Multiply_
+  commentId: Overload:AGS.API.AGSBoundingBox.Multiply
+  isSpec: "True"
+  fullName: AGS.API.AGSBoundingBox.Multiply
+  nameWithType: AGSBoundingBox.Multiply
 - uid: AGS.API.AGSBoundingBox.SameSize(AGS.API.AGSBoundingBox)
   name: SameSize(AGSBoundingBox)
   href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_SameSize_AGS_API_AGSBoundingBox_
@@ -8785,6 +8798,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGameState.CopyFrom
   nameWithType: IGameState.CopyFrom
+- uid: AGS.API.IGameState.Cursor
+  name: Cursor
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Cursor
+  commentId: P:AGS.API.IGameState.Cursor
+  fullName: AGS.API.IGameState.Cursor
+  nameWithType: IGameState.Cursor
+- uid: AGS.API.IGameState.Cursor*
+  name: Cursor
+  href: api/AGS.API.IGameState.html#AGS_API_IGameState_Cursor_
+  commentId: Overload:AGS.API.IGameState.Cursor
+  isSpec: "True"
+  fullName: AGS.API.IGameState.Cursor
+  nameWithType: IGameState.Cursor
 - uid: AGS.API.IGameState.Cutscene
   name: Cutscene
   href: api/AGS.API.IGameState.html#AGS_API_IGameState_Cutscene
@@ -9689,19 +9715,6 @@ references:
   commentId: T:AGS.API.IInput
   fullName: AGS.API.IInput
   nameWithType: IInput
-- uid: AGS.API.IInput.Cursor
-  name: Cursor
-  href: api/AGS.API.IInput.html#AGS_API_IInput_Cursor
-  commentId: P:AGS.API.IInput.Cursor
-  fullName: AGS.API.IInput.Cursor
-  nameWithType: IInput.Cursor
-- uid: AGS.API.IInput.Cursor*
-  name: Cursor
-  href: api/AGS.API.IInput.html#AGS_API_IInput_Cursor_
-  commentId: Overload:AGS.API.IInput.Cursor
-  isSpec: "True"
-  fullName: AGS.API.IInput.Cursor
-  nameWithType: IInput.Cursor
 - uid: AGS.API.IInput.IsKeyDown(AGS.API.Key)
   name: IsKeyDown(Key)
   href: api/AGS.API.IInput.html#AGS_API_IInput_IsKeyDown_AGS_API_Key_
@@ -10203,38 +10216,57 @@ references:
   commentId: T:AGS.API.ILabel
   fullName: AGS.API.ILabel
   nameWithType: ILabel
+- uid: AGS.API.IListbox
+  name: IListbox
+  href: api/AGS.API.IListbox.html
+  commentId: T:AGS.API.IListbox
+  fullName: AGS.API.IListbox
+  nameWithType: IListbox
+- uid: AGS.API.IListbox.ContentsPanel
+  name: ContentsPanel
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ContentsPanel
+  commentId: P:AGS.API.IListbox.ContentsPanel
+  fullName: AGS.API.IListbox.ContentsPanel
+  nameWithType: IListbox.ContentsPanel
+- uid: AGS.API.IListbox.ContentsPanel*
+  name: ContentsPanel
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ContentsPanel_
+  commentId: Overload:AGS.API.IListbox.ContentsPanel
+  isSpec: "True"
+  fullName: AGS.API.IListbox.ContentsPanel
+  nameWithType: IListbox.ContentsPanel
+- uid: AGS.API.IListbox.ListboxComponent
+  name: ListboxComponent
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ListboxComponent
+  commentId: P:AGS.API.IListbox.ListboxComponent
+  fullName: AGS.API.IListbox.ListboxComponent
+  nameWithType: IListbox.ListboxComponent
+- uid: AGS.API.IListbox.ListboxComponent*
+  name: ListboxComponent
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ListboxComponent_
+  commentId: Overload:AGS.API.IListbox.ListboxComponent
+  isSpec: "True"
+  fullName: AGS.API.IListbox.ListboxComponent
+  nameWithType: IListbox.ListboxComponent
+- uid: AGS.API.IListbox.ScrollingPanel
+  name: ScrollingPanel
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ScrollingPanel
+  commentId: P:AGS.API.IListbox.ScrollingPanel
+  fullName: AGS.API.IListbox.ScrollingPanel
+  nameWithType: IListbox.ScrollingPanel
+- uid: AGS.API.IListbox.ScrollingPanel*
+  name: ScrollingPanel
+  href: api/AGS.API.IListbox.html#AGS_API_IListbox_ScrollingPanel_
+  commentId: Overload:AGS.API.IListbox.ScrollingPanel
+  isSpec: "True"
+  fullName: AGS.API.IListbox.ScrollingPanel
+  nameWithType: IListbox.ScrollingPanel
 - uid: AGS.API.IListboxComponent
   name: IListboxComponent
   href: api/AGS.API.IListboxComponent.html
   commentId: T:AGS.API.IListboxComponent
   fullName: AGS.API.IListboxComponent
   nameWithType: IListboxComponent
-- uid: AGS.API.IListboxComponent.ItemButtonFactory
-  name: ItemButtonFactory
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtonFactory
-  commentId: P:AGS.API.IListboxComponent.ItemButtonFactory
-  fullName: AGS.API.IListboxComponent.ItemButtonFactory
-  nameWithType: IListboxComponent.ItemButtonFactory
-- uid: AGS.API.IListboxComponent.ItemButtonFactory*
-  name: ItemButtonFactory
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtonFactory_
-  commentId: Overload:AGS.API.IListboxComponent.ItemButtonFactory
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.ItemButtonFactory
-  nameWithType: IListboxComponent.ItemButtonFactory
-- uid: AGS.API.IListboxComponent.ItemButtons
-  name: ItemButtons
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtons
-  commentId: P:AGS.API.IListboxComponent.ItemButtons
-  fullName: AGS.API.IListboxComponent.ItemButtons
-  nameWithType: IListboxComponent.ItemButtons
-- uid: AGS.API.IListboxComponent.ItemButtons*
-  name: ItemButtons
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ItemButtons_
-  commentId: Overload:AGS.API.IListboxComponent.ItemButtons
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.ItemButtons
-  nameWithType: IListboxComponent.ItemButtons
 - uid: AGS.API.IListboxComponent.Items
   name: Items
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Items
@@ -10248,6 +10280,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.Items
   nameWithType: IListboxComponent.Items
+- uid: AGS.API.IListboxComponent.ListItemFactory
+  name: ListItemFactory
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ListItemFactory
+  commentId: P:AGS.API.IListboxComponent.ListItemFactory
+  fullName: AGS.API.IListboxComponent.ListItemFactory
+  nameWithType: IListboxComponent.ListItemFactory
+- uid: AGS.API.IListboxComponent.ListItemFactory*
+  name: ListItemFactory
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ListItemFactory_
+  commentId: Overload:AGS.API.IListboxComponent.ListItemFactory
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.ListItemFactory
+  nameWithType: IListboxComponent.ListItemFactory
+- uid: AGS.API.IListboxComponent.ListItemUIControls
+  name: ListItemUIControls
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ListItemUIControls
+  commentId: P:AGS.API.IListboxComponent.ListItemUIControls
+  fullName: AGS.API.IListboxComponent.ListItemUIControls
+  nameWithType: IListboxComponent.ListItemUIControls
+- uid: AGS.API.IListboxComponent.ListItemUIControls*
+  name: ListItemUIControls
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_ListItemUIControls_
+  commentId: Overload:AGS.API.IListboxComponent.ListItemUIControls
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.ListItemUIControls
+  nameWithType: IListboxComponent.ListItemUIControls
 - uid: AGS.API.IListboxComponent.MaxHeight
   name: MaxHeight
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MaxHeight
@@ -15705,15 +15763,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
-  name: GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IButton>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IButton), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IButton>, IObject, Boolean, Single, Single, String)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IButton), IObject, Boolean, Single, Single, String)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name: GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IUIControl__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IUIControl>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IUIControl), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
@@ -15734,6 +15792,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetLabel
   nameWithType: IUIFactory.GetLabel
+- uid: AGS.API.IUIFactory.GetListBox(System.String,AGS.API.IRenderLayer,System.Func{System.String,AGS.API.IUIControl},System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)
+  name: GetListBox(String, IRenderLayer, Func<String, IUIControl>, Single, Single, Boolean, Boolean, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetListBox_System_String_AGS_API_IRenderLayer_System_Func_System_String_AGS_API_IUIControl__System_Single_System_Single_System_Boolean_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetListBox(System.String,AGS.API.IRenderLayer,System.Func{System.String,AGS.API.IUIControl},System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)
+  name.vb: GetListBox(String, IRenderLayer, Func(Of String, IUIControl), Single, Single, Boolean, Boolean, Boolean)
+  fullName: AGS.API.IUIFactory.GetListBox(System.String, AGS.API.IRenderLayer, System.Func<System.String, AGS.API.IUIControl>, System.Single, System.Single, System.Boolean, System.Boolean, System.Boolean)
+  fullName.vb: AGS.API.IUIFactory.GetListBox(System.String, AGS.API.IRenderLayer, System.Func(Of System.String, AGS.API.IUIControl), System.Single, System.Single, System.Boolean, System.Boolean, System.Boolean)
+  nameWithType: IUIFactory.GetListBox(String, IRenderLayer, Func<String, IUIControl>, Single, Single, Boolean, Boolean, Boolean)
+  nameWithType.vb: IUIFactory.GetListBox(String, IRenderLayer, Func(Of String, IUIControl), Single, Single, Boolean, Boolean, Boolean)
+- uid: AGS.API.IUIFactory.GetListBox*
+  name: GetListBox
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetListBox_
+  commentId: Overload:AGS.API.IUIFactory.GetListBox
+  isSpec: "True"
+  fullName: AGS.API.IUIFactory.GetListBox
+  nameWithType: IUIFactory.GetListBox
 - uid: AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,AGS.API.IObject,System.Boolean)
   name: GetPanel(String, IImage, Single, Single, IObject, Boolean)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IObject_System_Boolean_
