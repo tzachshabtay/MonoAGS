@@ -16,13 +16,13 @@ namespace AGS.Editor
         private readonly Dictionary<Category, List<InspectorProperty>> _props;
         private ITreeViewComponent _treeView;
         private readonly IGameFactory _factory;
-        private readonly IGameSettings _settings;
         private readonly IFont _font;
         private readonly IGameState _state;
         private readonly StateModel _model;
         private IEntity _currentEntity;
         private readonly ActionManager _actions;
         private List<Action> _cleanup;
+        private readonly EditorProvider _editorProvider;
 
         public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, 
                             ActionManager actions, StateModel model)
@@ -33,8 +33,8 @@ namespace AGS.Editor
             _state = state;
             _props = new Dictionary<Category, List<InspectorProperty>>();
             _factory = factory;
-            _settings = gameSettings;
             _font = editorSettings.Defaults.TextFont;
+            _editorProvider = new EditorProvider(factory, actions, model, state, gameSettings);
         }
 
         public ITreeViewComponent Tree => _treeView;
@@ -235,46 +235,9 @@ namespace AGS.Editor
             {
                 return addReadonlyNodeToTree(property, parent);
             }
-            IInspectorPropertyEditor editor;
 
             var propType = property.Prop.PropertyType;
-            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _actions, _model);
-            else if (propType == typeof(Color)) editor = new ColorPropertyEditor(_factory, _actions, _model);
-            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, true, false);
-            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, false, false);
-            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector3)) editor = new Vector3PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector4)) editor = new Vector4PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Position))
-            {
-                var entity = _currentEntity;
-                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfoComponent>();
-                editor = new LocationPropertyEditor(_actions, _state, _factory, _model, false, _settings, drawable);
-            }
-            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(int?)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, true, true);
-            else if (propType == typeof(float?)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, false, true);
-            else if (propType == typeof(SizeF?)) editor = new SizeFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Size?)) editor = new SizePropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(PointF?)) editor = new PointFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Point?)) editor = new PointPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector2?)) editor = new Vector2PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector3?)) editor = new Vector3PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector4?)) editor = new Vector4PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_actions, _state, _factory, _model, true);
-            else
-            {
-                var typeInfo = propType.GetTypeInfo();
-                if (typeInfo.IsEnum)
-                    editor = new EnumPropertyEditor(_factory.UI, _actions, _model);
-                else editor = new StringPropertyEditor(_factory, propType == typeof(string), _actions, _model);
-            }
+            var editor = _editorProvider.GetEditor(propType, _currentEntity);
 
             ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
             return addToTree(node, parent);
