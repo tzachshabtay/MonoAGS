@@ -81,7 +81,7 @@ namespace AGS.Editor
             var position = new Position(_toX, _toY);
             _image.Pivot = pivot;
             _translate.Position = position;
-            ModelAction.Execute(_model, 
+            _undoModel = ModelAction.Execute(_model, 
                 (_image, nameof(IImageComponent.Pivot), pivot), 
                 (_translate, nameof(ITranslateComponent.Position), position));
         }
