@@ -6,7 +6,7 @@ using AGS.Engine;
 
 namespace AGS.Editor
 {
-    public class InspectorProperty
+    public class InspectorProperty : IProperty
     {
         private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
             new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
@@ -22,20 +22,31 @@ namespace AGS.Editor
 		}
 
 		public string Name { get; private set; }
-		public string Value { get; private set; }
+		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
 		public object Object { get; private set; }
 		public List<InspectorProperty> Children { get; private set; }
         public bool IsReadonly { get; private set; }
 
+        public Type PropertyType => Prop.PropertyType;
+
         public const string NullValue = "(null)";
+
+        public void SetValue(object value) => Prop.SetValue(Object, value, null);
+
+        public object GetValue() => Prop.GetValue(Object, null);
+
+        public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
+        {
+            return Prop.GetCustomAttribute<TAttribute>();
+        }
 
 		public void Refresh()
 		{
             try
             {
                 object val = Prop.GetValue(Object);
-                if (val == null) Value = NullValue;
+                if (val == null) ValueString = NullValue;
                 else
                 {
                     var provider = _customValueProviders.GetOrAdd(Prop.PropertyType, () =>
@@ -49,7 +60,7 @@ namespace AGS.Editor
                         return default;
                     });
                     MethodInfo method = getCustomStringMethod(provider);
-                    Value = method == null ? val.ToString() : method.Invoke(val, null).ToString();
+                    ValueString = method == null ? val.ToString() : method.Invoke(val, null).ToString();
                 }
             }
             catch (Exception e)

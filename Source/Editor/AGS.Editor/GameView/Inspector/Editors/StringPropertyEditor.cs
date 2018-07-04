@@ -9,7 +9,7 @@ namespace AGS.Editor
     {
         private readonly IGameFactory _factory;
         private readonly StateModel _model;
-        private InspectorProperty _property;
+        private IProperty _property;
         private readonly bool _enabled;
         private ITextComponent _textbox;
         private readonly ActionManager _actions;
@@ -22,7 +22,7 @@ namespace AGS.Editor
             _actions = actions;
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
             var label = view.TreeItem;
@@ -31,7 +31,7 @@ namespace AGS.Editor
             var textbox = _factory.UI.GetTextBox(id,
                                                  label.X, label.Y, label.TreeNode.Parent,
                                                  "", config, width: 100f, height: 20f);
-            textbox.Text = property.Value;
+            textbox.Text = property.ValueString;
             textbox.TextBackgroundVisible = false;
             textbox.Enabled = _enabled;
             if (_enabled)
@@ -59,7 +59,7 @@ namespace AGS.Editor
         public void RefreshUI()
         {
             if (_textbox == null) return;
-            _textbox.Text = _property.Value;
+            _textbox.Text = _property.ValueString;
         }
 
         private void setString()

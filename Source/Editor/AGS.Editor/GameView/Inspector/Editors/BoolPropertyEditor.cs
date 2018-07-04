@@ -8,7 +8,7 @@ namespace AGS.Editor
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
         private readonly StateModel _model;
-        private InspectorProperty _property;
+        private IProperty _property;
         private ICheckboxComponent _checkbox;
 
         public BoolPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
@@ -28,13 +28,13 @@ namespace AGS.Editor
             return checkbox;
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
 			var label = view.TreeItem;
             var checkbox = CreateCheckbox(label, _factory, id);
             _checkbox = checkbox;
-            checkbox.Checked = bool.Parse(property.Value);
+            checkbox.Checked = bool.Parse(property.ValueString);
             checkbox.OnCheckChanged.Subscribe(args => 
             {
                 if (_actions.ActionIsExecuting) return;
@@ -45,7 +45,7 @@ namespace AGS.Editor
         public void RefreshUI()
         {
             if (_checkbox == null) return;
-            _checkbox.Checked = bool.Parse(_property.Value);
+            _checkbox.Checked = bool.Parse(_property.ValueString);
         }
     }
 }

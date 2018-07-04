@@ -13,7 +13,7 @@ namespace AGS.Editor
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
         private readonly StateModel _model;
-        private InspectorProperty _property;
+        private IProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
         private IButton _dropDownButton;
@@ -29,7 +29,7 @@ namespace AGS.Editor
             _namedColorsReversed = new Dictionary<uint, string>();
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
             var label = view.TreeItem;
@@ -72,7 +72,7 @@ namespace AGS.Editor
 
         public void RefreshUI()
         {
-            var color = (Color)_property.Prop.GetValue(_property.Object);
+            var color = (Color)_property.GetValue();
             if (_namedColorsReversed.ContainsKey(color.Value))
             {
                 _text.Text = _namedColorsReversed[color.Value];

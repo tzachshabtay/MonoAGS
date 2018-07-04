@@ -35,7 +35,7 @@ namespace AGS.Editor
         {
             string text = Text?.ToLowerInvariant() ?? "";
             if (text.Contains(searchText)) return true;
-            text = Property.Value?.ToLowerInvariant() ?? "";
+            text = Property.ValueString?.ToLowerInvariant() ?? "";
             return text.Contains(searchText);
         }
     }
