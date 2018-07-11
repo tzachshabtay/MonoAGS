@@ -57,6 +57,13 @@
         void StopLayout();
 
         /// <summary>
+        /// Performs the calculation of the layout without actually changing anything, and returns the width/height (depending if this is a horizontal/vertical layout)
+        /// of the potential layout.
+        /// </summary>
+        /// <returns>The width/height of the potential layout.</returns>
+        float DryRun();
+
+        /// <summary>
         /// An event which fires whenever the layout changes.
         /// </summary>
         /// <value>The on layout changed event.</value>

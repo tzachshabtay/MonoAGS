@@ -26,20 +26,27 @@ namespace AGS.Engine
             EntitiesToIgnore = new AGSConcurrentHashSet<string>();
             _direction = LayoutDirection.Vertical;
             _relativeSpacing = -1f; //a simple vertical layout top to bottom by default.
-            gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+
+            //Using low callback priority to make sure we only adjust the layout after all bounding box calculations has already happened.
+            //Otherwise, this scenario can happen: the entity with the stack layout can subscribe to the bounding box with children event,
+            //and adjust the starting point of the layout to start from the new top of the bounding box whenever the size changes.
+            //If the stack layout updates in the middle of all the child bounding box calculations, it can trigger an endless loop:
+            //layout update -> bounding box with children update -> layout update -> etc, 
+            //because the box in the bottom of the layout might remain below the bottom of the parent box border and increase the size of the parent each time.
+            gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute, CallbackPriority.Low);
         }
 
-        public LayoutDirection Direction { get => _direction; set { _direction = value; adjustLayout(); } }
-        public float AbsoluteSpacing { get => _absoluteSpacing; set { _absoluteSpacing = value; adjustLayout(); } }
-        public float RelativeSpacing { get => _relativeSpacing; set { _relativeSpacing = value; adjustLayout(); } }
-        public float StartLocation { get { return _startLocation; } set { _startLocation = value; adjustLayout(); } }
+        public LayoutDirection Direction { get => _direction; set { _direction = value; onSomethingChanged(); } }
+        public float AbsoluteSpacing { get => _absoluteSpacing; set { _absoluteSpacing = value; onSomethingChanged(); } }
+        public float RelativeSpacing { get => _relativeSpacing; set { _relativeSpacing = value; onSomethingChanged(); } }
+        public float StartLocation { get { return _startLocation; } set { _startLocation = value; onSomethingChanged(); } }
         public IBlockingEvent OnLayoutChanged { get; }
         public IConcurrentHashSet<string> EntitiesToIgnore { get; }
 
         public override void Init()
         {
             base.Init();
-            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeChildren(); adjustLayout(); },
+            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeChildren(); onSomethingChanged(); },
                                                 c => { _tree = null; unsubscribeChildren(); });
             EntitiesToIgnore.OnListChanged.Subscribe(onEntitiesToIgnoreChanged);
         }
@@ -52,6 +59,13 @@ namespace AGS.Engine
         public void StopLayout()
         {
             _isPaused = true;
+        }
+
+        public float DryRun()
+        {
+            var tree = _tree;
+            if (tree == null) throw new NullReferenceException("tree");
+            return Math.Abs(adjustLayout(tree, true));
         }
 
         public override void Dispose()
@@ -85,7 +99,7 @@ namespace AGS.Engine
 
             var visibleSubscription = new EntitySubscription<IVisibleComponent>(onVisibleChanged, propertyNames: nameof(IVisibleComponent.Visible));
 
-            _subscriptions = new EntityListSubscriptions<IObject>(_tree.TreeNode.Children, false, adjustLayout, boundingBoxSubscription, visibleSubscription);
+            _subscriptions = new EntityListSubscriptions<IObject>(_tree.TreeNode.Children, false, onSomethingChanged, boundingBoxSubscription, visibleSubscription);
         }
 
         private void unsubscribeChildren()
@@ -126,46 +140,56 @@ namespace AGS.Engine
                 return;
             }
 
-            adjustLayout(tree);
+            adjustLayout(tree, false);
         }
 
-        private void adjustLayout(IInObjectTreeComponent tree)
+        private float adjustLayout(IInObjectTreeComponent tree, bool isDryRun)
         {
+            float location = isDryRun ? 0f : StartLocation;
             try
             {
                 _isDirty = false;
-                float location = StartLocation;
-                var lockStep = new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
-                lockStep.Lock();
+                var lockStep = isDryRun ? null : new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
+                lockStep?.Lock();
                 foreach (var child in tree.TreeNode.Children)
                 {
                     if (!child.UnderlyingVisible || EntitiesToIgnore.Contains(child.ID)) continue;
                     float step;
                     if (Direction == LayoutDirection.Vertical)
                     {
-                        child.Y = location;
+                        if (!isDryRun)
+                        {
+                            child.Y = location;
+                        }
                         step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Height ?? 0f;
                     }
                     else
                     {
-                        child.X = location;
+                        if (!isDryRun)
+                        {
+                            child.X = location;
+                        }
                         step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f;
                     }
                     location += step * RelativeSpacing + AbsoluteSpacing;
                 }
-                lockStep.Unlock();
+                lockStep?.Unlock();
             }
             finally
             {
-                if (Interlocked.Exchange(ref _pendingLayouts, 0) <= 1)
+                if (!isDryRun)
                 {
-                    OnLayoutChanged.Invoke();
-                }
-                else
-                {
-                    adjustLayout(tree);
+                    if (Interlocked.Exchange(ref _pendingLayouts, 0) <= 1)
+                    {
+                        OnLayoutChanged.Invoke();
+                    }
+                    else
+                    {
+                        location = adjustLayout(tree, false);
+                    }
                 }
             }
+            return location;
         }
 	}
 }
