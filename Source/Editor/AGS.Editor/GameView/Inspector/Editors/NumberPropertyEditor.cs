@@ -185,7 +185,7 @@ namespace AGS.Editor
 
         private ITextBox addTextBox(string id, IUIControl panel, string text)
         {
-            var config = GameViewColors.TextConfig;
+            var config = GameViewColors.TextboxTextConfig;
             var textbox = _factory.UI.GetTextBox(id + "_Textbox",
                                               0f, SLIDER_HEIGHT + 1f, panel,
                                               "", config, width: 100f, height: ROW_HEIGHT);

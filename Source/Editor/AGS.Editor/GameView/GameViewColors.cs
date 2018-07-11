@@ -23,17 +23,18 @@ namespace AGS.Editor
         public static IBrush HoveredTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);
         public static IBrush ReadonlyTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(ReadonlyText);
 
-        public static ITextConfig TextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
+        public static ITextConfig ButtonTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
+        public static ITextConfig TextboxTextConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, brush: TextBrush);
         public static ITextConfig ReadonlyTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush, 
              font: AGSGame.Device.FontLoader.LoadFont(AGSGame.Game.Settings.Defaults.TextFont.FontFamily, 12f));
-        public static ITextConfig HoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
-
+        public static ITextConfig ButtonHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
+        public static ITextConfig TextboxHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, brush: HoveredTextBrush);
 
         public static void AddHoverEffect(ITextBox textbox)
         {
             var uiEvents = textbox.GetComponent<IUIEvents>();
-            uiEvents.MouseEnter.Subscribe(_ => textbox.TextConfig = HoverTextConfig);
-            uiEvents.MouseLeave.Subscribe(_ => textbox.TextConfig = TextConfig);
+            uiEvents.MouseEnter.Subscribe(_ => textbox.TextConfig = TextboxHoverTextConfig);
+            uiEvents.MouseLeave.Subscribe(_ => textbox.TextConfig = TextboxTextConfig);
         }
     }
 }
