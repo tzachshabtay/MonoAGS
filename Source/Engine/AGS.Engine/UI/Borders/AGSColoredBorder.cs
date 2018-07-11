@@ -43,6 +43,12 @@ namespace AGS.Engine
 
         #endregion
 
+        public override string ToString()
+        {
+            if (Color.IsOneValue) return $"Solid {Color.TopLeft.ToString()}";
+            return "Multiple Colors";
+        }
+
         private void drawBorders(AGSBoundingBox square)
         {
             FourCorners<IGLColor> colors = Color.Convert(c => c.ToGLColor());

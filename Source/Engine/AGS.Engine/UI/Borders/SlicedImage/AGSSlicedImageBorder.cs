@@ -79,9 +79,11 @@ namespace AGS.Engine
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
-		#endregion
+        #endregion
 
-		private void drawBorders(AGSBoundingBox square)
+        public override string ToString() => "Sliced Image";
+
+        private void drawBorders(AGSBoundingBox square)
 		{
 			var slice = Slice.ToPercentage(_width, _height);
 			var width = Width.ToPixels(_width, _height);
@@ -312,4 +314,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

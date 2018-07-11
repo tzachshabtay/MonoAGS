@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows changing properties of the button to "animate" it as it moves between states (idle, hover, pushed).
@@ -66,5 +68,17 @@
         /// </summary>
         /// <value>The tint.</value>
         public Color? Tint { get; set; }
+
+        public override string ToString()
+        {
+            List<string> builder = new List<string>();
+            if (Animation != null) builder.Add($"Animation: {Animation.Frames.Count} frames");
+            if (Image != null) builder.Add($"Image: {Image.ID}");
+            if (Border != null) builder.Add($"Border: {Border.ToString()}");
+            if (TextConfig != null) builder.Add($"Text: {TextConfig.Font.FontFamily}; {TextConfig.Brush.Color}");
+            if (Tint != null) builder.Add($"Tint: {Tint.ToString()}");
+
+            return string.Join(", ", builder);
+        }
     }
 }

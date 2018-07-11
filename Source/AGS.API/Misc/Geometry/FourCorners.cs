@@ -13,6 +13,7 @@ namespace AGS.API
         /// <param name="value">Value.</param>
 		public FourCorners(TValue value) : this(value,value,value,value)
 		{
+            IsOneValue = true;
 		}
 
         /// <summary>
@@ -53,6 +54,12 @@ namespace AGS.API
         /// </summary>
         /// <value>The top right value.</value>
 		public TValue TopRight { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:AGS.API.FourCorners`1"/> was initialized with a single value.
+        /// </summary>
+        /// <value><c>true</c> if is one value; otherwise, <c>false</c>.</value>
+        public bool IsOneValue { get; }
 
         /// <summary>
         /// Converts the four corners with a new value.
