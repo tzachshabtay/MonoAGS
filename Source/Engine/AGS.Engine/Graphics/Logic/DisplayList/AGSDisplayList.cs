@@ -14,7 +14,6 @@ namespace AGS.Engine
         private readonly IGameState _gameState;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
-        private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
         private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
@@ -61,7 +60,6 @@ namespace AGS.Engine
         public void Update(bool forceUpdate)
         {
             _cursor = _gameState.Cursor;
-            _alreadyPrepared.Clear();
             if (forceUpdate) onEverythingChanged();
             bool isDirty = _isDirty;
             _isDirty = false;
@@ -82,10 +80,7 @@ namespace AGS.Engine
                 }
                 foreach (var item in list.DisplayList)
                 {
-                    if (_alreadyPrepared.Add(item.ID))
-                    {
-                        _matrixUpdater.RefreshMatrix(item);
-                    }
+                    _matrixUpdater.RefreshMatrix(item);
                 }
             }
         }
