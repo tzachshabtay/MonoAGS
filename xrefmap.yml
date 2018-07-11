@@ -1053,6 +1053,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ButtonAnimation.Tint
   nameWithType: ButtonAnimation.Tint
+- uid: AGS.API.ButtonAnimation.ToString
+  name: ToString()
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_ToString
+  commentId: M:AGS.API.ButtonAnimation.ToString
+  fullName: AGS.API.ButtonAnimation.ToString()
+  nameWithType: ButtonAnimation.ToString()
+- uid: AGS.API.ButtonAnimation.ToString*
+  name: ToString
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation_ToString_
+  commentId: Overload:AGS.API.ButtonAnimation.ToString
+  isSpec: "True"
+  fullName: AGS.API.ButtonAnimation.ToString
+  nameWithType: ButtonAnimation.ToString
 - uid: AGS.API.CallbackPriority
   name: CallbackPriority
   href: api/AGS.API.CallbackPriority.html
@@ -2505,6 +2518,23 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).Equals
   nameWithType: FourCorners<TValue>.Equals
   nameWithType.vb: FourCorners(Of TValue).Equals
+- uid: AGS.API.FourCorners`1.IsOneValue
+  name: IsOneValue
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_IsOneValue
+  commentId: P:AGS.API.FourCorners`1.IsOneValue
+  fullName: AGS.API.FourCorners<TValue>.IsOneValue
+  fullName.vb: AGS.API.FourCorners(Of TValue).IsOneValue
+  nameWithType: FourCorners<TValue>.IsOneValue
+  nameWithType.vb: FourCorners(Of TValue).IsOneValue
+- uid: AGS.API.FourCorners`1.IsOneValue*
+  name: IsOneValue
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_IsOneValue_
+  commentId: Overload:AGS.API.FourCorners`1.IsOneValue
+  isSpec: "True"
+  fullName: AGS.API.FourCorners<TValue>.IsOneValue
+  fullName.vb: AGS.API.FourCorners(Of TValue).IsOneValue
+  nameWithType: FourCorners<TValue>.IsOneValue
+  nameWithType.vb: FourCorners(Of TValue).IsOneValue
 - uid: AGS.API.FourCorners`1.TopLeft
   name: TopLeft
   href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_TopLeft
@@ -4349,6 +4379,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBoundingBoxWithChildrenComponent.EntitiesToSkip
   nameWithType: IBoundingBoxWithChildrenComponent.EntitiesToSkip
+- uid: AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf
+  name: IncludeSelf
+  href: api/AGS.API.IBoundingBoxWithChildrenComponent.html#AGS_API_IBoundingBoxWithChildrenComponent_IncludeSelf
+  commentId: P:AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf
+  fullName: AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf
+  nameWithType: IBoundingBoxWithChildrenComponent.IncludeSelf
+- uid: AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf*
+  name: IncludeSelf
+  href: api/AGS.API.IBoundingBoxWithChildrenComponent.html#AGS_API_IBoundingBoxWithChildrenComponent_IncludeSelf_
+  commentId: Overload:AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf
+  isSpec: "True"
+  fullName: AGS.API.IBoundingBoxWithChildrenComponent.IncludeSelf
+  nameWithType: IBoundingBoxWithChildrenComponent.IncludeSelf
 - uid: AGS.API.IBoundingBoxWithChildrenComponent.LockStep
   name: LockStep
   href: api/AGS.API.IBoundingBoxWithChildrenComponent.html#AGS_API_IBoundingBoxWithChildrenComponent_LockStep
@@ -14046,6 +14089,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IStackLayoutComponent.Direction
   nameWithType: IStackLayoutComponent.Direction
+- uid: AGS.API.IStackLayoutComponent.DryRun
+  name: DryRun()
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_DryRun
+  commentId: M:AGS.API.IStackLayoutComponent.DryRun
+  fullName: AGS.API.IStackLayoutComponent.DryRun()
+  nameWithType: IStackLayoutComponent.DryRun()
+- uid: AGS.API.IStackLayoutComponent.DryRun*
+  name: DryRun
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_DryRun_
+  commentId: Overload:AGS.API.IStackLayoutComponent.DryRun
+  isSpec: "True"
+  fullName: AGS.API.IStackLayoutComponent.DryRun
+  nameWithType: IStackLayoutComponent.DryRun
 - uid: AGS.API.IStackLayoutComponent.EntitiesToIgnore
   name: EntitiesToIgnore
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_EntitiesToIgnore
