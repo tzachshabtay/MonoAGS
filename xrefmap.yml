@@ -4864,6 +4864,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICheckboxComponent.OnCheckChanged
   nameWithType: ICheckboxComponent.OnCheckChanged
+- uid: AGS.API.ICheckboxComponent.RadioGroup
+  name: RadioGroup
+  href: api/AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_RadioGroup
+  commentId: P:AGS.API.ICheckboxComponent.RadioGroup
+  fullName: AGS.API.ICheckboxComponent.RadioGroup
+  nameWithType: ICheckboxComponent.RadioGroup
+- uid: AGS.API.ICheckboxComponent.RadioGroup*
+  name: RadioGroup
+  href: api/AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_RadioGroup_
+  commentId: Overload:AGS.API.ICheckboxComponent.RadioGroup
+  isSpec: "True"
+  fullName: AGS.API.ICheckboxComponent.RadioGroup
+  nameWithType: ICheckboxComponent.RadioGroup
 - uid: AGS.API.ICheckboxComponent.TextLabel
   name: TextLabel
   href: api/AGS.API.ICheckboxComponent.html#AGS_API_ICheckboxComponent_TextLabel
@@ -11417,6 +11430,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.IPortraitConfig.TextOffset
   nameWithType: IPortraitConfig.TextOffset
+- uid: AGS.API.IRadioGroup
+  name: IRadioGroup
+  href: api/AGS.API.IRadioGroup.html
+  commentId: T:AGS.API.IRadioGroup
+  fullName: AGS.API.IRadioGroup
+  nameWithType: IRadioGroup
+- uid: AGS.API.IRadioGroup.SelectedButton
+  name: SelectedButton
+  href: api/AGS.API.IRadioGroup.html#AGS_API_IRadioGroup_SelectedButton
+  commentId: P:AGS.API.IRadioGroup.SelectedButton
+  fullName: AGS.API.IRadioGroup.SelectedButton
+  nameWithType: IRadioGroup.SelectedButton
+- uid: AGS.API.IRadioGroup.SelectedButton*
+  name: SelectedButton
+  href: api/AGS.API.IRadioGroup.html#AGS_API_IRadioGroup_SelectedButton_
+  commentId: Overload:AGS.API.IRadioGroup.SelectedButton
+  isSpec: "True"
+  fullName: AGS.API.IRadioGroup.SelectedButton
+  nameWithType: IRadioGroup.SelectedButton
 - uid: AGS.API.IRenderer
   name: IRenderer
   href: api/AGS.API.IRenderer.html
