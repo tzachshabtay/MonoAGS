@@ -86,8 +86,9 @@ namespace AGS.Engine.UI.Controls
             if (args.PropertyName != nameof(IRadioGroup.SelectedButton)) return;
             var radioGroup = _radioGroup;
             if (radioGroup == null) return;
-            if (radioGroup.SelectedButton == this && !_checked) Checked = true;
-            else if (radioGroup.SelectedButton != this && _checked) Checked = false;
+            bool isMe = radioGroup.SelectedButton == this || radioGroup.SelectedButton == Entity;
+            if (isMe && !_checked) Checked = true;
+            else if (!isMe && _checked) Checked = false;
         }
 
         private void onMouseEnter(MousePositionEventArgs e)

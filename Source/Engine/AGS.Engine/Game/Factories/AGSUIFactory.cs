@@ -525,7 +525,7 @@ namespace AGS.Engine
             if (button.Animation != null || button.Image != null) return button;
             if (width == -1f || height == -1)
             {
-                throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
+                throw new InvalidOperationException("No animation/image and no size was supplied for GUI control " + id);
             }
             button.Image = new EmptyImage(width, height);
             return button;

@@ -28,7 +28,7 @@ namespace AGS.Editor
             UIEventsAggregator = new UIEventsAggregator(Editor.Input, Game.HitTest, Editor.Events, Editor.State.FocusedUI);
         }
 
-        public (float, float) ToGameResolution(float x, float y, IDrawableInfoComponent drawable)
+        public (float x, float y) ToGameResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
             x = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Width, Game.Settings.WindowSize.Width, x);
@@ -47,7 +47,7 @@ namespace AGS.Editor
             return (x, y);
         }
 
-        public (float, float) ToEditorResolution(float x, float y, IDrawableInfoComponent drawable)
+        public (float x, float y) ToEditorResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
             if (drawable != null && !drawable.IgnoreViewport)

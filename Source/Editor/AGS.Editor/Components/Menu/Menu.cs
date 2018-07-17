@@ -12,6 +12,7 @@ namespace AGS.Editor
         private IListbox _menu;
         private readonly float _width;
         private const float _height = 25f;
+        private (float x, float y) _position;
 
         public Menu(string id, float width, params MenuItem[] menuItems)
         {
@@ -43,8 +44,10 @@ namespace AGS.Editor
 
         public (float x, float y) Position
         {
+            get => _position;
             set
             {
+                _position = value;
                 float minY = _height * _menuItems.Length;
                 _menu.ContentsPanel.Position = (value.x, Math.Max(minY, value.y));
                 (float x, float y) = value;
@@ -56,7 +59,7 @@ namespace AGS.Editor
             }
         }
 
-        public void Load(IGameFactory factory)
+        public void Load(IGameFactory factory, IDefaultsSettings settings)
         {
             var layer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             _menu = factory.UI.GetListBox(_id, layer, isVisible: false, withScrollBars: false);
@@ -64,7 +67,7 @@ namespace AGS.Editor
             _menu.ContentsPanel.Tint = GameViewColors.Menu;
 
             var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
-            var textConfig = new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldFitLabel);
+            var textConfig = new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldFitLabel, font: settings.TextFont);
             var idle = new ButtonAnimation(null, textConfig, Colors.Transparent);
             var hovered = new ButtonAnimation(null, textConfig, GameViewColors.HoveredMenuItem);
 
@@ -79,7 +82,7 @@ namespace AGS.Editor
 
             foreach (var item in _menuItems)
             {
-                if (item.SubMenu != null) item.SubMenu.Load(factory);
+                if (item.SubMenu != null) item.SubMenu.Load(factory, settings);
             }
         }
     }
