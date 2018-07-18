@@ -149,9 +149,34 @@ namespace AGS.Engine
             return label;
         }
 
-        public IButton GetButton(string id, ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed,
-            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
-            float width = -1f, float height = -1f)
+        public static ButtonAnimation GetDefaultIdleAnimation(Resolver resolver) 
+            => new ButtonAnimation(getDefaultBorder(resolver), 
+                               new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, 
+                                                 brush: AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.WhiteSmoke)), 
+                               Color.FromRgba(44, 51, 61, 255));
+
+        public static ButtonAnimation GetDefaultHoverAnimation(Resolver resolver)
+            => new ButtonAnimation(null, null, Colors.Gray);
+
+        public static ButtonAnimation GetDefaultPushedAnimation(Resolver resolver)
+            => new ButtonAnimation(null, null, Colors.DarkGray);
+
+        private static IBorderStyle getDefaultBorder(Resolver resolver)
+        {
+            return AGSBorders.SolidColor(resolver.Container.Resolve<IGLUtils>(),
+                                         resolver.Container.Resolve<IGameSettings>(), Colors.Black, 1f);
+        }
+
+        [MethodWizard]
+        public IButton GetButton(string id, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultIdleAnimation))] ButtonAnimation idle, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultHoverAnimation))] ButtonAnimation hovered, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultPushedAnimation))] ButtonAnimation pushed,
+             float x, float y, [MethodParam(Browsable = false)] IObject parent = null, string text = "", 
+             [MethodParam(Browsable = false)] ITextConfig config = null, 
+             [MethodParam(Browsable = false, Default = false)] bool addToUi = true,
+             [MethodParam(Browsable = false, Default = 25f)] float width = -1f,
+             [MethodParam(Browsable = false, Default = 25f)] float height = -1f)
         {
             bool pixelArtButton = idle?.Image != null || (idle?.Animation != null && idle.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)

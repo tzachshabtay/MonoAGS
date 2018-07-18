@@ -63,38 +63,35 @@ namespace AGS.Editor
             });
         }
 
-        private void showButtonWizard()
-        {
-            var method = typeof(IUIFactory).GetMethods().First(m => m.Name == nameof(IUIFactory.GetButton));
-            Action<Dictionary<string, object>> setParameters = parameters =>
-            {
-                parameters["width"] = 25f;
-                parameters["height"] = 25f;
-                parameters["addToUi"] = false;
-                parameters["hovered"] = get("hovered", parameters) ?? getDefaultHovered();
-                parameters["idle"] = get("idle", parameters) ?? getDefaultIdle();
-                parameters["pushed"] = get("pushed", parameters) ?? getDefaultPushed();
-            };
-            showWizard("button", true, _editor.Game.Factory.UI, method, setParameters, "parent", "addToUi", "config", "width", "height");
-        }
-
-        private ButtonAnimation getDefaultHovered() => new ButtonAnimation(getButtonBorder(), null, GameViewColors.HoveredButton);
-        private ButtonAnimation getDefaultIdle() => new ButtonAnimation(getButtonBorder(), GameViewColors.ButtonTextConfig, GameViewColors.Button);
-        private ButtonAnimation getDefaultPushed() => new ButtonAnimation(getButtonBorder(), null, GameViewColors.PushedButton);
-
-        private IBorderStyle getButtonBorder()
-        {
-            return AGSBorders.SolidColor(_editor.GameResolver.Container.Resolve<IGLUtils>(),
-                                         _editor.Game.Settings, Colors.Black, 1f);
-        }
+        private void showButtonWizard() => showWizard("button", true, _editor.Game.Factory.UI, nameof(IUIFactory.GetButton));
 
         private object get(string key, Dictionary<string, object> parameters) => parameters.TryGetValue(key, out var val) ? val : null;
 
-        private async void showWizard(string name, bool isUi, object factory, MethodInfo method, Action<Dictionary<string, object>> setParameters, params string[] propertiesToHide)
+        private async void showWizard(string name, bool isUi, object factory, string methodName)
         {
-            _topMenu.Visible = false;
-            HashSet<string> hideProperties = new HashSet<string>(propertiesToHide);
+            var method = getMethod(factory, methodName);
+            HashSet<string> hideProperties = new HashSet<string>();
             Dictionary<string, object> overrideDefaults = new Dictionary<string, object>();
+            foreach (var param in method.GetParameters())
+            {
+                var attr = param.GetCustomAttribute<MethodParamAttribute>();
+                if (attr == null) continue;
+                if (!attr.Browsable) hideProperties.Add(param.Name);
+                if (attr.DefaultProvider != null)
+                {
+                    var resolver = _editor.GameResolver;
+                    var provider = factory.GetType().GetMethod(attr.DefaultProvider);
+                    if (provider == null)
+                    {
+                        throw new NullReferenceException($"Failed to find method with name: {attr.DefaultProvider ?? "null"}");
+                    }
+                    overrideDefaults[param.Name] = provider.Invoke(null, new[] { resolver });
+                }
+                else if (attr.Default != null) overrideDefaults[param.Name] = attr.Default;
+            }
+
+            _topMenu.Visible = false;
+
             var (x, y) = _editor.ToGameResolution(_topMenu.Position.x, _topMenu.Position.y, null);
             overrideDefaults["x"] = x;
             overrideDefaults["y"] = y;
@@ -104,9 +101,18 @@ namespace AGS.Editor
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return;
-            setParameters(parameters);
+            foreach (var param in overrideDefaults.Keys)
+            {
+                parameters[param] = get(param, parameters) ?? overrideDefaults[param];
+            }
             object entity = runMethod(method, factory, parameters);
             addNewEntity(entity, isUi);
+        }
+
+        private MethodInfo getMethod(object factory, string methodName)
+        {
+            return factory.GetType().GetMethods().First(m => m.Name == methodName &&
+                        m.GetCustomAttribute(typeof(MethodWizardAttribute)) != null);
         }
 
         private void addNewEntity(object entity, bool isUi)
