@@ -20,7 +20,7 @@ namespace AGS.Editor
             _toolbar = toolbar;
             _tree = tree;
             _editor = editor;
-            _menu = new CanvasMenu(editor);
+            _menu = new CanvasMenu(editor, toolbar);
             _selectionMarker = editor.Editor.Factory.Object.GetObject("SelectionMarker");
             _selectionMarker.Visible = false;
             _selectionMarker.Border = AGSBorders.SolidColor(GameViewColors.HoveredText, 2f);

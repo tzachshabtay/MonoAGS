@@ -80,6 +80,14 @@ namespace AGS.Editor
             return (width, height);
         }
 
+        public bool IsEditorPositionInGameWindow(float x, float y)
+        {
+            (x, y) = ToGameResolution(x, y, null);
+            if (x < 0 || x > Game.Settings.VirtualResolution.Width) return false;
+            if (y < 0 || y > Game.Settings.VirtualResolution.Height) return false;
+            return true;
+        }
+
         public static void SetupResolver()
         {
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());

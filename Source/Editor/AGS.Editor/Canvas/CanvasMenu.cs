@@ -12,6 +12,7 @@ namespace AGS.Editor
     public class CanvasMenu
     {
         private readonly AGSEditor _editor;
+        private readonly GameToolbar _toolbar;
         private Menu _topMenu;
         private static int _lastId;
         private ICheckboxComponent _guiButton;
@@ -24,9 +25,10 @@ namespace AGS.Editor
             Area
         }
 
-        public CanvasMenu(AGSEditor editor)
+        public CanvasMenu(AGSEditor editor, GameToolbar toolbar)
         {
             _editor = editor;
+            _toolbar = toolbar;
         }
 
         public void Load()
@@ -54,6 +56,11 @@ namespace AGS.Editor
             {
                 if (args.Button == MouseButton.Right)
                 {
+                    if (!_toolbar.IsPaused) return;
+                    if (!_editor.IsEditorPositionInGameWindow(args.MousePosition.XMainViewport, args.MousePosition.YMainViewport))
+                    {
+                        return;
+                    }
                     _topMenu.Position = (args.MousePosition.XMainViewport, args.MousePosition.YMainViewport);
                     _topMenu.Visible = true;
                 }
