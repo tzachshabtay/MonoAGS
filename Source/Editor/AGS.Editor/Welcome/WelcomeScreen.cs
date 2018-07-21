@@ -28,9 +28,9 @@ namespace AGS.Editor
 
             var border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
 
-            var idle = new ButtonAnimation(border, GameViewColors.TextConfig, GameViewColors.Button);
-            var hovered = new ButtonAnimation(border, GameViewColors.HoverTextConfig, GameViewColors.Button);
-            var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), GameViewColors.TextConfig, GameViewColors.Button);
+            var idle = new ButtonAnimation(border, GameViewColors.ButtonTextConfig, GameViewColors.Button);
+            var hovered = new ButtonAnimation(border, GameViewColors.ButtonHoverTextConfig, GameViewColors.Button);
+            var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), GameViewColors.ButtonTextConfig, GameViewColors.Button);
             var loadButton = _editor.Editor.Factory.UI.GetButton("LoadGameButton", idle, hovered, pushed, 200f, 700f, _panel, 
                     "Load Game...", new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText), width: 100f, height: 100f);
             loadButton.Pivot = new PointF(0f, 1f);
