@@ -7,5 +7,12 @@ namespace AGS.API
     [AttributeUsage(AttributeTargets.Method)]
 	public class MethodWizardAttribute : Attribute
     {
+        /// <summary>
+        /// For a method returning multiple entities to be added to the scene, this should be a name of a public static method
+        /// in the class which transforms the result of the method to a list of entities. The method should get an object (result) and return 
+        /// a list of objects (the list of entities).
+        /// </summary>
+        /// <value>The entities provider.</value>
+        public string EntitiesProvider { get; set; }
     }
 }

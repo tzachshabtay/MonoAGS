@@ -7,15 +7,18 @@ namespace AGS.Editor
 {
     public class Menu
     {
+        private readonly Resolver _gameResolver;
         private MenuItem[] _menuItems;
         private readonly string _id;
         private IListbox _menu;
         private readonly float _width;
         private const float _height = 25f;
         private (float x, float y) _position;
+        private IModalWindowComponent _modal;
 
-        public Menu(string id, float width, params MenuItem[] menuItems)
+        public Menu(Resolver gameResolver, string id, float width, params MenuItem[] menuItems)
         {
+            _gameResolver = gameResolver;
             _width = width;
             _menuItems = menuItems;
             foreach (var item in menuItems) item.ParentMenu = this;
@@ -32,13 +35,19 @@ namespace AGS.Editor
             set
             {
                 _menu.ContentsPanel.Visible = value;
-                if (!value)
+                if (value)
                 {
+                    _modal?.GrabFocus();
+                }
+                else
+                {
+                    _modal?.LoseFocus();
                     foreach (var item in _menuItems)
                     {
                         if (item.SubMenu != null) item.SubMenu.Visible = false;
                     }
                 }
+
             }
         }
 
@@ -63,6 +72,12 @@ namespace AGS.Editor
         {
             var layer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             _menu = factory.UI.GetListBox(_id, layer, isVisible: false, withScrollBars: false);
+            if (ParentMenuItem == null)
+            {
+                var host = new AGSComponentHost(_gameResolver);
+                host.Init(_menu.ContentsPanel, typeof(AGSComponentHost));
+                _modal = host.AddComponent<IModalWindowComponent>();
+            }
 
             _menu.ContentsPanel.Tint = GameViewColors.Menu;
 

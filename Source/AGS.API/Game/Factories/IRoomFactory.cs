@@ -55,6 +55,30 @@ namespace AGS.API
 		IArea GetArea(string id, IMask mask, IRoom room = null, bool isWalkable = false, bool isWalkBehind = false);
 
         /// <summary>
+        /// Creates an area from a mask, which can be made walkable, walk-behind, scaling or zoom area (and any combination of the above).
+        /// A walkable area is an area in which characters can walk.
+        /// A walk-behind area is an area which puts the characters behind the room's background, if their Y property
+        /// is under the walk-behind area's baseline (usually the bottom of the mask). This is useful if part of your
+        /// background image contains spots which should actually be in the front.
+        /// A scaling area is an area which scales the entities that are in it based on where they are in that area.
+        /// A zoom area is an area that zooms the camera if the camera's target is in that area, based on where the target is exactly inside the area.
+        /// </summary>
+        /// <returns>The area.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <param name="mask">Mask.</param>
+        /// <param name="isWalkable">If set to <c>true</c> is walkable.</param>
+        /// <param name="isWalkbehind">If set to <c>true</c> is walkbehind.</param>
+        /// <param name="isScaling">If set to <c>true</c> is scaling.</param>
+        /// <param name="minScaling">Minimum scaling.</param>
+        /// <param name="maxScaling">Max scaling.</param>
+        /// <param name="isZoom">If set to <c>true</c> is zoom.</param>
+        /// <param name="minZoom">Minimum zoom.</param>
+        /// <param name="maxZoom">Max zoom.</param>
+        /// <param name="room">Room.</param>
+        IArea GetArea(string id, IMask mask, bool isWalkable, bool isWalkbehind, bool isScaling, float minScaling, float maxScaling,
+                      bool isZoom, float minZoom, float maxZoom, IRoom room = null);
+        
+        /// <summary>
         /// Creates an area asynchronously, which can be made walkable and/or walk-behind (or none of the above).
         /// A walkable area is an area in which characters can walk.
         /// A walk-behind area is an area which puts the characters behind the room's background, if their Y property

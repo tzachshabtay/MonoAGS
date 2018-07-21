@@ -14,8 +14,15 @@ namespace AGS.Editor
         private readonly AGSEditor _editor;
         private Menu _topMenu;
         private static int _lastId;
-        private ICheckboxComponent _roomButton, _guiButton;
+        private ICheckboxComponent _guiButton;
         private IRadioGroup _targetRadioGroup;
+
+        private enum Target 
+        {
+            Room,
+            UI,
+            Area
+        }
 
         public CanvasMenu(AGSEditor editor)
         {
@@ -25,28 +32,22 @@ namespace AGS.Editor
         public void Load()
         {
             Action noop = () => {};
-            Menu guisMenu = new Menu("GuisMenu", 180f,
+            Menu guisMenu = new Menu(_editor.GameResolver, "GuisMenu", 180f,
                                      new MenuItem("Button", showButtonWizard),
-                                     new MenuItem("Label", noop),
-                                     new MenuItem("ComboBox", noop),
-                                     new MenuItem("TextBox", noop),
-                                     new MenuItem("Inventory Window", noop),
-                                     new MenuItem("Checkbox", noop),
-                                     new MenuItem("Listbox", noop),
-                                     new MenuItem("Panel", noop),
-                                     new MenuItem("Slider", noop));
-            Menu areasMenu = new Menu("AreasMenu", 150f,
-                                      new MenuItem("Walkable Area", noop),
-                                      new MenuItem("Walk-Behind", noop),
-                                      new MenuItem("Scaling Area", noop),
-                                      new MenuItem("Zoom Area", noop),
-                                      new MenuItem("Empty Area", noop));
-            Menu presetsMenu = new Menu("PresetsMenu", 100f,
-                                        new MenuItem("Object", noop), 
-                                        new MenuItem("Character", noop),
-                                        new MenuItem("GUIs", guisMenu),
-                                        new MenuItem("Areas", areasMenu));
-            _topMenu = new Menu("CanvasMenu", 100f, new MenuItem("Create", presetsMenu));
+                                     new MenuItem("Label", showLabelWizard),
+                                     new MenuItem("ComboBox", showComboboxWizard),
+                                     new MenuItem("TextBox", showTextboxWizard),
+                                     new MenuItem("Inventory Window", showInventoryWindowWizard),
+                                     new MenuItem("Checkbox", showCheckboxWizard),
+                                     new MenuItem("Listbox", showListboxWizard),
+                                     new MenuItem("Panel", showPanelWizard),
+                                     new MenuItem("Slider", showSliderWizard));
+            Menu presetsMenu = new Menu(_editor.GameResolver, "PresetsMenu", 100f,
+                                        new MenuItem("Object", showObjectWizard),
+                                        new MenuItem("Character", showCharacterWizard),
+                                        new MenuItem("Area", showAreaWizard),
+                                        new MenuItem("GUIs", guisMenu));
+            _topMenu = new Menu(_editor.GameResolver, "CanvasMenu", 100f, new MenuItem("Create", presetsMenu));
             _topMenu.Load(_editor.Editor.Factory, _editor.Editor.Settings.Defaults);
 
             _editor.Editor.Input.MouseUp.Subscribe((MouseButtonEventArgs args) => 
@@ -63,13 +64,24 @@ namespace AGS.Editor
             });
         }
 
-        private void showButtonWizard() => showWizard("button", true, _editor.Game.Factory.UI, nameof(IUIFactory.GetButton));
+        private void showButtonWizard() => showWizard("button", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetButton));
+        private void showLabelWizard() => showWizard("label", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetLabel));
+        private void showCheckboxWizard() => showWizard("checkbox", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetCheckBox));
+        private void showComboboxWizard() => showWizard("combobox", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetComboBox));
+        private void showPanelWizard() => showWizard("panel", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetPanel));
+        private void showSliderWizard() => showWizard("slider", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetSlider));
+        private void showTextboxWizard() => showWizard("textbox", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetTextBox));
+        private void showInventoryWindowWizard() => showWizard("invWindow", Target.UI, _editor.Game.Factory.Inventory, nameof(IInventoryFactory.GetInventoryWindow));
+        private void showListboxWizard() => showWizard("listbox", Target.UI, _editor.Game.Factory.UI, nameof(IUIFactory.GetListBox));
+        private void showObjectWizard() => showWizard("object", Target.Room, _editor.Game.Factory.Object, nameof(IObjectFactory.GetAdventureObject));
+        private void showCharacterWizard() => showWizard("character", Target.Room, _editor.Game.Factory.Object, nameof(IObjectFactory.GetCharacter));
+        private void showAreaWizard() => showWizard("area", Target.Area, _editor.Game.Factory.Room, nameof(IRoomFactory.GetArea));
 
         private object get(string key, Dictionary<string, object> parameters) => parameters.TryGetValue(key, out var val) ? val : null;
 
-        private async void showWizard(string name, bool isUi, object factory, string methodName)
+        private async void showWizard(string name, Target target, object factory, string methodName)
         {
-            var method = getMethod(factory, methodName);
+            var (method, methodAttribute) = getMethod(factory, methodName);
             HashSet<string> hideProperties = new HashSet<string>();
             Dictionary<string, object> overrideDefaults = new Dictionary<string, object>();
             foreach (var param in method.GetParameters())
@@ -97,7 +109,7 @@ namespace AGS.Editor
             overrideDefaults["y"] = y;
             overrideDefaults["id"] = $"{name}{++_lastId}";
             var editorProvider = new EditorProvider(_editor.Editor.Factory, new ActionManager(), new StateModel(), _editor.Editor.State, _editor.Editor.Settings);
-            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetForCreateUI(panel, isUi), editorProvider, _editor);
+            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetForCreateUI(panel, target), editorProvider, _editor);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return;
@@ -105,28 +117,51 @@ namespace AGS.Editor
             {
                 parameters[param] = get(param, parameters) ?? overrideDefaults[param];
             }
-            object entity = runMethod(method, factory, parameters);
-            addNewEntity(entity, isUi);
+            object result = runMethod(method, factory, parameters);
+            List<object> entities = getEntities(factory, result, methodAttribute);
+            addNewEntities(entities);
         }
 
-        private MethodInfo getMethod(object factory, string methodName)
+        private (MethodInfo, MethodWizardAttribute) getMethod(object factory, string methodName)
         {
-            return factory.GetType().GetMethods().First(m => m.Name == methodName &&
-                        m.GetCustomAttribute(typeof(MethodWizardAttribute)) != null);
-        }
-
-        private void addNewEntity(object entity, bool isUi)
-        {
-            if (isUi)
+            foreach (var method in factory.GetType().GetMethods())
             {
-                if (entity is IObject obj) _editor.Game.State.UI.Add(obj);
-                else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                if (method.Name != methodName) continue;
+                var attr = method.GetCustomAttribute<MethodWizardAttribute>();
+                if (attr == null) continue;
+                return (method, attr);
             }
-            else
+            throw new InvalidOperationException($"Failed to find method name {methodName} in {factory.GetType()}");
+        }
+
+        private List<object> getEntities(object factory, object result, MethodWizardAttribute attr)
+        {
+            if (attr.EntitiesProvider == null) return new List<object>{result};
+
+            var provider = factory.GetType().GetMethod(attr.EntitiesProvider);
+            if (provider == null)
             {
-                if (entity is IObject obj) _editor.Game.State.Room.Objects.Add(obj);
-                else if (entity is IArea area) _editor.Game.State.Room.Areas.Add(area);
-                else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                throw new NullReferenceException($"Failed to find entity provider method with name: {attr.EntitiesProvider ?? "null"}");
+            }
+            return (List<object>)provider.Invoke(null, new[] { result });
+        }
+
+        private void addNewEntities(List<object> entities)
+        {
+            bool isUi = _targetRadioGroup?.SelectedButton == _guiButton;
+            foreach (var entity in entities)
+            {
+                if (isUi)
+                {
+                    if (entity is IObject obj) _editor.Game.State.UI.Add(obj);
+                    else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                }
+                else
+                {
+                    if (entity is IObject obj) _editor.Game.State.Room.Objects.Add(obj);
+                    else if (entity is IArea area) _editor.Game.State.Room.Areas.Add(area);
+                    else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                }
             }
         }
 
@@ -138,8 +173,10 @@ namespace AGS.Editor
             return method.Invoke(factory, values);
         }
 
-        private void addTargetForCreateUI(IPanel panel, bool isUi)
+        private void addTargetForCreateUI(IPanel panel, Target target)
         {
+            if (target == Target.Area) return;
+
             var factory = _editor.Editor.Factory;
             var buttonsPanel = factory.UI.GetPanel("MethodWizardTargetPanel", 300f, 45f, 0f, 50f, panel);
             buttonsPanel.Tint = Colors.Transparent;
@@ -148,12 +185,13 @@ namespace AGS.Editor
             var labelConfig = new AGSTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
             factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 50f, 0f, buttonsPanel, labelConfig);
 
-            _roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 60f, -40f, buttonsPanel, "Room", width: 20f, height: 25f);
-            _guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 180f, -40f, buttonsPanel, "GUI", width: 20f, height: 25f);
+            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 60f, -40f, buttonsPanel, "Room", width: 20f, height: 25f);
+            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 180f, -40f, buttonsPanel, "GUI", width: 20f, height: 25f);
+            _guiButton = guiButton.GetComponent<ICheckboxComponent>();
             _targetRadioGroup = new AGSRadioGroup();
-            _roomButton.RadioGroup = _targetRadioGroup;
-            _guiButton.RadioGroup = _targetRadioGroup;
-            _targetRadioGroup.SelectedButton = isUi ? _guiButton : _roomButton;
+            roomButton.RadioGroup = _targetRadioGroup;
+            guiButton.RadioGroup = _targetRadioGroup;
+            _targetRadioGroup.SelectedButton = target == Target.UI ? _guiButton : roomButton;
         }
     }
 }

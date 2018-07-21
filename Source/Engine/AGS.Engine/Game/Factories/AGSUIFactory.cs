@@ -39,7 +39,10 @@ namespace AGS.Engine
             return panel;
         }
 
-        public IPanel GetPanel(string id, float width, float height, float x, float y, IObject parent = null, bool addToUi = true)
+        [MethodWizard]
+        public IPanel GetPanel(string id, float width, float height, float x, float y, 
+                               [MethodParam(Browsable = false)]IObject parent = null, 
+                               [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             EmptyImage image = new EmptyImage(width, height);
             return GetPanel(id, image, x, y, parent, addToUi);
@@ -132,7 +135,10 @@ namespace AGS.Engine
             return contentsPanel;
         }
 
-        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)
+        [MethodWizard]
+        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, 
+                               [MethodParam(Browsable = false)]IObject parent = null, ITextConfig config = null, 
+                               [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             SizeF baseSize = new SizeF(width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -165,6 +171,22 @@ namespace AGS.Engine
         {
             return AGSBorders.SolidColor(resolver.Container.Resolve<IGLUtils>(),
                                          resolver.Container.Resolve<IGameSettings>(), Colors.Black, 1f);
+        }
+
+        public static List<object> ConvertListboxToEntities(IListbox listbox)
+        {
+            List<object> entities = new List<object>();
+            entities.Add(listbox.ContentsPanel);
+            if (listbox.ScrollingPanel != null) entities.Add(listbox.ScrollingPanel);
+            return entities;
+        }
+
+        public static List<object> ConvertCheckboxToEntities(ICheckBox checkbox)
+        {
+            List<object> entities = new List<object>();
+            entities.Add(checkbox);
+            if (checkbox.TextLabel != null) entities.Add(checkbox.TextLabel);
+            return entities;
         }
 
         [MethodWizard]
@@ -245,8 +267,12 @@ namespace AGS.Engine
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
 
-        public ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = "", ITextConfig config = null,
-            bool addToUi = true, float width = -1F, float height = -1F)
+        [MethodWizard]
+        public ITextBox GetTextBox(string id, float x, float y, 
+            [MethodParam(Browsable = false)]IObject parent = null, string watermark = "", ITextConfig config = null,
+            [MethodParam(Browsable = false, Default = false)] bool addToUi = true, 
+            [MethodParam(Browsable = false, Default = 80f)]float width = -1F, 
+            [MethodParam(Browsable = false, Default = 25f)]float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ITextBox textbox = _resolver.Container.Resolve<ITextBox>(idParam);
@@ -275,8 +301,13 @@ namespace AGS.Engine
             return textbox;
         }
 
-        public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
-            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+        [MethodWizard(EntitiesProvider = nameof(ConvertCheckboxToEntities))]
+        public ICheckBox GetCheckBox(string id, 
+            ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
+            float x, float y, [MethodParam(Browsable = false)]IObject parent = null, string text = "", ITextConfig config = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
+            [MethodParam(Browsable = false, Default = 25f)] float width = -1f,
+            [MethodParam(Browsable = false, Default = 25f)] float height = -1f, bool isCheckButton = false)
         {
             bool pixelArtButton = notChecked?.Image != null || (notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
@@ -368,10 +399,14 @@ namespace AGS.Engine
             return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
-        public IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
-                                   float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, 
-                                   bool isVisible = true, bool withScrollBars = true)
+        [MethodWizard(EntitiesProvider = nameof(ConvertListboxToEntities))]
+        public IListbox GetListBox(string id, [MethodParam(Browsable = false)]IRenderLayer layer, 
+           [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null,
+           float defaultWidth = 500f, float defaultHeight = 40f, 
+           [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
+           bool isVisible = true, bool withScrollBars = true)
         {
+            layer = layer ?? AGSLayers.UI;
             if (listItemFactory == null)
             {
                 var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
@@ -411,8 +446,12 @@ namespace AGS.Engine
             return new AGSListbox(withScrollBars ? scrollingPanel : null, contentsPanel, listBox);
         }
 
-        public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
-            Func<string, IUIControl> listItemFactory = null, IObject parent = null, bool addToUi = true, 
+        [MethodWizard]
+        public IComboBox GetComboBox(string id, [MethodParam(Browsable = false)]IButton dropDownButton = null, 
+            [MethodParam(Browsable = false)]ITextBox textBox = null,
+            [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null, 
+            [MethodParam(Browsable = false)]IObject parent = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
             float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -474,8 +513,13 @@ namespace AGS.Engine
             return comboBox;
         }
 
-        public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max,
-            IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+        [MethodWizard]
+        public ISlider GetSlider(string id, 
+            [MethodParam(Browsable = false)]string imagePath, 
+            [MethodParam(Browsable = false)]string handleImagePath, float value, float min, float max,
+            [MethodParam(Browsable = false)]IObject parent = null, ITextConfig config = null, 
+            [MethodParam(Browsable = false)]ILoadImageConfig loadConfig = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             var image = imagePath == null ? null : _graphics.LoadImage(imagePath, loadConfig);
             var handleImage = handleImagePath == null ? null : _graphics.LoadImage(handleImagePath, loadConfig);
