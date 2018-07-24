@@ -12,13 +12,15 @@ namespace AGS.Editor
         private readonly string _id;
         private IListbox _menu;
         private readonly float _width;
+        private readonly IGameSettings _settings;
         private const float _height = 25f;
         private (float x, float y) _position;
         private IModalWindowComponent _modal;
 
-        public Menu(Resolver gameResolver, string id, float width, params MenuItem[] menuItems)
+        public Menu(Resolver gameResolver, IGameSettings settings, string id, float width, params MenuItem[] menuItems)
         {
             _gameResolver = gameResolver;
+            _settings = settings;
             _width = width;
             _menuItems = menuItems;
             foreach (var item in menuItems) item.ParentMenu = this;
@@ -51,15 +53,24 @@ namespace AGS.Editor
             }
         }
 
+        public (float x, float y) OriginalPosition { get; private set; }
+
         public (float x, float y) Position
         {
             get => _position;
             set
             {
-                _position = value;
+                OriginalPosition = value;
                 float minY = _height * _menuItems.Length;
-                _menu.ContentsPanel.Position = (value.x, Math.Max(minY, value.y));
-                (float x, float y) = value;
+                float maxX = (_menu?.ContentsPanel?.RenderLayer?.IndependentResolution?.Width ?? _settings.VirtualResolution.Width) - _width;
+                float x = value.x;
+                if (value.x > maxX)
+                {
+                    x = ParentMenuItem == null ? maxX : ParentMenuItem.ParentMenu.Position.x - _width - 3f;
+                }
+                float y = Math.Max(minY, value.y);
+                _position = (x, y);
+                _menu.ContentsPanel.Position = _position;
                 for (int index = 0; index < _menuItems.Length; index++)
                 {
                     var item = _menuItems[index];

@@ -34,7 +34,7 @@ namespace AGS.Editor
         public void Load()
         {
             Action noop = () => {};
-            Menu guisMenu = new Menu(_editor.GameResolver, "GuisMenu", 180f,
+            Menu guisMenu = new Menu(_editor.GameResolver, _editor.Editor.Settings, "GuisMenu", 180f,
                                      new MenuItem("Button", showButtonWizard),
                                      new MenuItem("Label", showLabelWizard),
                                      new MenuItem("ComboBox", showComboboxWizard),
@@ -44,12 +44,12 @@ namespace AGS.Editor
                                      new MenuItem("Listbox", showListboxWizard),
                                      new MenuItem("Panel", showPanelWizard),
                                      new MenuItem("Slider", showSliderWizard));
-            Menu presetsMenu = new Menu(_editor.GameResolver, "PresetsMenu", 100f,
+            Menu presetsMenu = new Menu(_editor.GameResolver, _editor.Editor.Settings,"PresetsMenu", 100f,
                                         new MenuItem("Object", showObjectWizard),
                                         new MenuItem("Character", showCharacterWizard),
                                         new MenuItem("Area", showAreaWizard),
                                         new MenuItem("GUIs", guisMenu));
-            _topMenu = new Menu(_editor.GameResolver, "CanvasMenu", 100f, new MenuItem("Create", presetsMenu));
+            _topMenu = new Menu(_editor.GameResolver, _editor.Editor.Settings, "CanvasMenu", 100f, new MenuItem("Create", presetsMenu));
             _topMenu.Load(_editor.Editor.Factory, _editor.Editor.Settings.Defaults);
 
             _editor.Editor.Input.MouseUp.Subscribe((MouseButtonEventArgs args) => 
@@ -111,7 +111,7 @@ namespace AGS.Editor
 
             _topMenu.Visible = false;
 
-            var (x, y) = _editor.ToGameResolution(_topMenu.Position.x, _topMenu.Position.y, null);
+            var (x, y) = _editor.ToGameResolution(_topMenu.OriginalPosition.x, _topMenu.OriginalPosition.y, null);
             overrideDefaults["x"] = x;
             overrideDefaults["y"] = y;
             overrideDefaults["id"] = $"{name}{++_lastId}";
