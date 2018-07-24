@@ -12059,6 +12059,12 @@ references:
   commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,AGS.API.IRoom,System.Boolean,System.Boolean)
   fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IMask, AGS.API.IRoom, System.Boolean, System.Boolean)
   nameWithType: IRoomFactory.GetArea(String, IMask, IRoom, Boolean, Boolean)
+- uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean,System.Boolean,System.Single,System.Single,System.Boolean,System.Single,System.Single,AGS.API.IRoom)
+  name: GetArea(String, IMask, Boolean, Boolean, Boolean, Single, Single, Boolean, Single, Single, IRoom)
+  href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IMask_System_Boolean_System_Boolean_System_Boolean_System_Single_System_Single_System_Boolean_System_Single_System_Single_AGS_API_IRoom_
+  commentId: M:AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IMask,System.Boolean,System.Boolean,System.Boolean,System.Single,System.Single,System.Boolean,System.Single,System.Single,AGS.API.IRoom)
+  fullName: AGS.API.IRoomFactory.GetArea(System.String, AGS.API.IMask, System.Boolean, System.Boolean, System.Boolean, System.Single, System.Single, System.Boolean, System.Single, System.Single, AGS.API.IRoom)
+  nameWithType: IRoomFactory.GetArea(String, IMask, Boolean, Boolean, Boolean, Single, Single, Boolean, Single, Single, IRoom)
 - uid: AGS.API.IRoomFactory.GetArea(System.String,AGS.API.IRoom,System.Boolean,System.Boolean)
   name: GetArea(String, IRoom, Boolean, Boolean)
   href: api/AGS.API.IRoomFactory.html#AGS_API_IRoomFactory_GetArea_System_String_AGS_API_IRoom_System_Boolean_System_Boolean_
@@ -19865,6 +19871,83 @@ references:
   commentId: F:AGS.API.Matrix4.Zero
   fullName: AGS.API.Matrix4.Zero
   nameWithType: Matrix4.Zero
+- uid: AGS.API.MethodParamAttribute
+  name: MethodParamAttribute
+  href: api/AGS.API.MethodParamAttribute.html
+  commentId: T:AGS.API.MethodParamAttribute
+  fullName: AGS.API.MethodParamAttribute
+  nameWithType: MethodParamAttribute
+- uid: AGS.API.MethodParamAttribute.#ctor
+  name: MethodParamAttribute()
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute__ctor
+  commentId: M:AGS.API.MethodParamAttribute.#ctor
+  fullName: AGS.API.MethodParamAttribute.MethodParamAttribute()
+  nameWithType: MethodParamAttribute.MethodParamAttribute()
+- uid: AGS.API.MethodParamAttribute.#ctor*
+  name: MethodParamAttribute
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute__ctor_
+  commentId: Overload:AGS.API.MethodParamAttribute.#ctor
+  isSpec: "True"
+  fullName: AGS.API.MethodParamAttribute.MethodParamAttribute
+  nameWithType: MethodParamAttribute.MethodParamAttribute
+- uid: AGS.API.MethodParamAttribute.Browsable
+  name: Browsable
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_Browsable
+  commentId: P:AGS.API.MethodParamAttribute.Browsable
+  fullName: AGS.API.MethodParamAttribute.Browsable
+  nameWithType: MethodParamAttribute.Browsable
+- uid: AGS.API.MethodParamAttribute.Browsable*
+  name: Browsable
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_Browsable_
+  commentId: Overload:AGS.API.MethodParamAttribute.Browsable
+  isSpec: "True"
+  fullName: AGS.API.MethodParamAttribute.Browsable
+  nameWithType: MethodParamAttribute.Browsable
+- uid: AGS.API.MethodParamAttribute.Default
+  name: Default
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_Default
+  commentId: P:AGS.API.MethodParamAttribute.Default
+  fullName: AGS.API.MethodParamAttribute.Default
+  nameWithType: MethodParamAttribute.Default
+- uid: AGS.API.MethodParamAttribute.Default*
+  name: Default
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_Default_
+  commentId: Overload:AGS.API.MethodParamAttribute.Default
+  isSpec: "True"
+  fullName: AGS.API.MethodParamAttribute.Default
+  nameWithType: MethodParamAttribute.Default
+- uid: AGS.API.MethodParamAttribute.DefaultProvider
+  name: DefaultProvider
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_DefaultProvider
+  commentId: P:AGS.API.MethodParamAttribute.DefaultProvider
+  fullName: AGS.API.MethodParamAttribute.DefaultProvider
+  nameWithType: MethodParamAttribute.DefaultProvider
+- uid: AGS.API.MethodParamAttribute.DefaultProvider*
+  name: DefaultProvider
+  href: api/AGS.API.MethodParamAttribute.html#AGS_API_MethodParamAttribute_DefaultProvider_
+  commentId: Overload:AGS.API.MethodParamAttribute.DefaultProvider
+  isSpec: "True"
+  fullName: AGS.API.MethodParamAttribute.DefaultProvider
+  nameWithType: MethodParamAttribute.DefaultProvider
+- uid: AGS.API.MethodWizardAttribute
+  name: MethodWizardAttribute
+  href: api/AGS.API.MethodWizardAttribute.html
+  commentId: T:AGS.API.MethodWizardAttribute
+  fullName: AGS.API.MethodWizardAttribute
+  nameWithType: MethodWizardAttribute
+- uid: AGS.API.MethodWizardAttribute.EntitiesProvider
+  name: EntitiesProvider
+  href: api/AGS.API.MethodWizardAttribute.html#AGS_API_MethodWizardAttribute_EntitiesProvider
+  commentId: P:AGS.API.MethodWizardAttribute.EntitiesProvider
+  fullName: AGS.API.MethodWizardAttribute.EntitiesProvider
+  nameWithType: MethodWizardAttribute.EntitiesProvider
+- uid: AGS.API.MethodWizardAttribute.EntitiesProvider*
+  name: EntitiesProvider
+  href: api/AGS.API.MethodWizardAttribute.html#AGS_API_MethodWizardAttribute_EntitiesProvider_
+  commentId: Overload:AGS.API.MethodWizardAttribute.EntitiesProvider
+  isSpec: "True"
+  fullName: AGS.API.MethodWizardAttribute.EntitiesProvider
+  nameWithType: MethodWizardAttribute.EntitiesProvider
 - uid: AGS.API.ModelMatrices
   name: ModelMatrices
   href: api/AGS.API.ModelMatrices.html
