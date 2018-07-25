@@ -318,6 +318,7 @@ namespace AGS.Engine
             {
                 height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
             }
+            config = config ?? new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont);
 
             var idleColor = Colors.White;
             var hoverColor = Colors.Yellow;

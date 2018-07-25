@@ -22,6 +22,8 @@ namespace AGS.Editor
         private TreeTableLayout _layout;
         private IPanel _parent;
         private IModalWindowComponent _modal;
+        public const float MARGIN_HORIZONTAL = 30f;
+        private const float MARGIN_VERTICAL = 20f;
 
         public MethodWizard(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
                             Action<IPanel> addUiExternal, EditorProvider editorProvider, AGSEditor editor)
@@ -76,8 +78,8 @@ namespace AGS.Editor
 
             box.OnBoundingBoxWithChildrenChanged.Subscribe(() =>
             {
-                layout.StartLocation = box.BoundingBoxWithChildren.Height - 20f;
-                _parent.BaseSize = (box.BoundingBoxWithChildren.Width  + 10f, box.BoundingBoxWithChildren.Height + 10f);
+                layout.StartLocation = box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL - 20f;
+                _parent.BaseSize = (box.BoundingBoxWithChildren.Width + MARGIN_HORIZONTAL * 2f, box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL * 2f);
                 _parent.X = center - _parent.BaseSize.Width / 2f;
             });
 
@@ -101,7 +103,7 @@ namespace AGS.Editor
         {
             const float labelWidth = 20f;
             var factory = _editor.Editor.Factory;
-            var horizontalPanel = factory.UI.GetPanel($"MethodParamPanel_{param.Name}", 50f, 30f, 50f, 0f, _parent);
+            var horizontalPanel = factory.UI.GetPanel($"MethodParamPanel_{param.Name}", 50f, 30f, MARGIN_HORIZONTAL, 0f, _parent);
             var font = _editor.Editor.Settings.Defaults.TextFont;
             var label = factory.UI.GetLabel($"MethodParamLabel_{param.Name}", param.Name, 0f, 0f, labelWidth, 1f, horizontalPanel,
                                             new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText, font: font));
@@ -131,10 +133,10 @@ namespace AGS.Editor
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
 
-            var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", 300f, 20f, 0f, 50f, _parent);
+            var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", 100f, 20f, MARGIN_HORIZONTAL, 50f, _parent);
             buttonsPanel.Tint = Colors.Transparent;
 
-            var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 50f, 0f, buttonsPanel, "OK", width: 80f, height: 20f);
+            var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: 80f, height: 20f);
             okButton.MouseClicked.Subscribe(() =>
             {
                 _modal?.LoseFocus();
@@ -142,7 +144,7 @@ namespace AGS.Editor
                 _taskCompletionSource.TrySetResult(true);
             });
 
-            var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 170f, 0f, buttonsPanel, "Cancel", width: 80f, height: 20f);
+            var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 120f, 0f, buttonsPanel, "Cancel", width: 80f, height: 20f);
             cancelButton.MouseClicked.Subscribe(() =>
             {
                 _modal?.LoseFocus();

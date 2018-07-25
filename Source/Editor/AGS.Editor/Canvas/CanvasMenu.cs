@@ -15,7 +15,8 @@ namespace AGS.Editor
         private readonly GameToolbar _toolbar;
         private Menu _topMenu;
         private static int _lastId;
-        private ICheckboxComponent _guiButton;
+        private ICheckboxComponent _guiButton, _parentButton;
+        private IObject _potentialParent;
         private IRadioGroup _targetRadioGroup;
 
         private enum Target 
@@ -61,6 +62,7 @@ namespace AGS.Editor
                     {
                         return;
                     }
+                    _potentialParent = _editor.Game.HitTest.ObjectAtMousePosition;
                     _topMenu.Position = (args.MousePosition.XMainViewport, args.MousePosition.YMainViewport);
                     _topMenu.Visible = true;
                 }
@@ -116,7 +118,7 @@ namespace AGS.Editor
             overrideDefaults["y"] = y;
             overrideDefaults["id"] = $"{name}{++_lastId}";
             var editorProvider = new EditorProvider(_editor.Editor.Factory, new ActionManager(), new StateModel(), _editor.Editor.State, _editor.Editor.Settings);
-            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetForCreateUI(panel, target), editorProvider, _editor);
+            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetUIForCreate(panel, target), editorProvider, _editor);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return;
@@ -155,9 +157,15 @@ namespace AGS.Editor
 
         private void addNewEntities(List<object> entities)
         {
-            bool isUi = _targetRadioGroup?.SelectedButton == _guiButton;
+            bool isParent = _potentialParent != null && _targetRadioGroup?.SelectedButton == _parentButton;
+            bool isUi = _targetRadioGroup?.SelectedButton == _guiButton || (isParent && _editor.Game.State.UI.Contains(_potentialParent));
             foreach (var entity in entities)
             {
+                if (isParent)
+                {
+                    if (entity is IObject obj) _potentialParent.TreeNode.AddChild(obj);
+                    else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                }
                 if (isUi)
                 {
                     if (entity is IObject obj) _editor.Game.State.UI.Add(obj);
@@ -180,24 +188,31 @@ namespace AGS.Editor
             return method.Invoke(factory, values);
         }
 
-        private void addTargetForCreateUI(IPanel panel, Target target)
+        private void addTargetUIForCreate(IPanel panel, Target target)
         {
             if (target == Target.Area) return;
 
             var factory = _editor.Editor.Factory;
-            var buttonsPanel = factory.UI.GetPanel("MethodWizardTargetPanel", 300f, 45f, 0f, 50f, panel);
+            var buttonsPanel = factory.UI.GetPanel("MethodWizardTargetPanel", 100f, 45f, MethodWizard.MARGIN_HORIZONTAL, 50f, panel);
             buttonsPanel.Tint = Colors.Transparent;
 
             var font = _editor.Editor.Settings.Defaults.TextFont;
             var labelConfig = new AGSTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
-            factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 50f, 0f, buttonsPanel, labelConfig);
+            factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 0f, 0f, buttonsPanel, labelConfig);
 
-            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 60f, -40f, buttonsPanel, "Room", width: 20f, height: 25f);
-            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 180f, -40f, buttonsPanel, "GUI", width: 20f, height: 25f);
+            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 10f, -40f, buttonsPanel, "Room", width: 20f, height: 25f);
+            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 130f, -40f, buttonsPanel, "GUI", width: 20f, height: 25f);
+
             _guiButton = guiButton.GetComponent<ICheckboxComponent>();
             _targetRadioGroup = new AGSRadioGroup();
             roomButton.RadioGroup = _targetRadioGroup;
             guiButton.RadioGroup = _targetRadioGroup;
+            if (_potentialParent != null)
+            {
+                var parentButton = factory.UI.GetCheckBox("AddToParentRadioButton", (ButtonAnimation)null, null, null, null, 250f, -40f, buttonsPanel, _potentialParent.GetFriendlyName(), width: 20f, height: 25f);
+                parentButton.RadioGroup = _targetRadioGroup;
+                _parentButton = parentButton.GetComponent<ICheckboxComponent>();
+            }
             _targetRadioGroup.SelectedButton = target == Target.UI ? _guiButton : roomButton;
         }
     }
