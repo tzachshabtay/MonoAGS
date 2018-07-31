@@ -14114,6 +14114,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IStackLayoutComponent.AbsoluteSpacing
   nameWithType: IStackLayoutComponent.AbsoluteSpacing
+- uid: AGS.API.IStackLayoutComponent.CenterLayout
+  name: CenterLayout
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_CenterLayout
+  commentId: P:AGS.API.IStackLayoutComponent.CenterLayout
+  fullName: AGS.API.IStackLayoutComponent.CenterLayout
+  nameWithType: IStackLayoutComponent.CenterLayout
+- uid: AGS.API.IStackLayoutComponent.CenterLayout*
+  name: CenterLayout
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_CenterLayout_
+  commentId: Overload:AGS.API.IStackLayoutComponent.CenterLayout
+  isSpec: "True"
+  fullName: AGS.API.IStackLayoutComponent.CenterLayout
+  nameWithType: IStackLayoutComponent.CenterLayout
 - uid: AGS.API.IStackLayoutComponent.Direction
   name: Direction
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_Direction
@@ -14153,6 +14166,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IStackLayoutComponent.EntitiesToIgnore
   nameWithType: IStackLayoutComponent.EntitiesToIgnore
+- uid: AGS.API.IStackLayoutComponent.LayoutAfterCrop
+  name: LayoutAfterCrop
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_LayoutAfterCrop
+  commentId: P:AGS.API.IStackLayoutComponent.LayoutAfterCrop
+  fullName: AGS.API.IStackLayoutComponent.LayoutAfterCrop
+  nameWithType: IStackLayoutComponent.LayoutAfterCrop
+- uid: AGS.API.IStackLayoutComponent.LayoutAfterCrop*
+  name: LayoutAfterCrop
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_LayoutAfterCrop_
+  commentId: Overload:AGS.API.IStackLayoutComponent.LayoutAfterCrop
+  isSpec: "True"
+  fullName: AGS.API.IStackLayoutComponent.LayoutAfterCrop
+  nameWithType: IStackLayoutComponent.LayoutAfterCrop
 - uid: AGS.API.IStackLayoutComponent.OnLayoutChanged
   name: OnLayoutChanged
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_OnLayoutChanged
