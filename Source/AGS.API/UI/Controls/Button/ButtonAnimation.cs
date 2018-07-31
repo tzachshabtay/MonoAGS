@@ -7,6 +7,7 @@ namespace AGS.API
     /// Each <see cref="ButtonAnimation"/> represents one of this states, and can have a different animation (or image),
     /// border, background color (tint) or text rendering configuration (font, shadows, etc- <see cref="ITextConfig"/>).
     /// </summary>
+    [PropertyFolder]
     public class ButtonAnimation
     {
         /// <summary>
@@ -71,14 +72,18 @@ namespace AGS.API
 
         public override string ToString()
         {
+            if (Animation == null && Image == null && Border == null && TextConfig == null && Tint == null)
+            {
+                return "No Changes";
+            }
             List<string> builder = new List<string>();
-            if (Animation != null) builder.Add($"Animation: {Animation.Frames.Count} frames");
-            if (Image != null) builder.Add($"Image: {Image.ID}");
-            if (Border != null) builder.Add($"Border: {Border.ToString()}");
-            if (TextConfig != null) builder.Add($"Text: {TextConfig.Font.FontFamily}; {TextConfig.Brush.Color}");
-            if (Tint != null) builder.Add($"Tint: {Tint.ToString()}");
+            if (Animation != null) builder.Add($"Animation");
+            if (Image != null) builder.Add($"Image");
+            if (Border != null) builder.Add($"Border");
+            if (TextConfig != null) builder.Add($"Text");
+            if (Tint != null) builder.Add($"Tint");
 
-            return string.Join(", ", builder);
+            return $"Changing: {string.Join(", ", builder)}";
         }
     }
 }
