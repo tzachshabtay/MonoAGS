@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AGS.Editor
@@ -12,6 +13,7 @@ namespace AGS.Editor
         {
             _param = parameter;
             Object = obj;
+            Children = new List<IProperty>();
             _value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType));
         }
 
@@ -23,6 +25,10 @@ namespace AGS.Editor
 
         public Type PropertyType => _param.ParameterType;
 
+        public List<IProperty> Children { get; private set; }
+
+        public bool IsReadonly => false;
+
         public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
         {
             return _param.GetCustomAttribute<TAttribute>();
@@ -31,6 +37,8 @@ namespace AGS.Editor
         public object GetValue() => _value;
 
         public void SetValue(object value) => _value = value;
+
+        public void Refresh() {}
 
         public static object GetDefaultValue(Type type)
         {

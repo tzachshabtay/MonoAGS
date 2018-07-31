@@ -37,7 +37,7 @@ namespace AGS.Editor
         {
             _provider.BeforeDisplayingNode(item, nodeView, isCollapsed, isHovered, isSelected);
             var parent = item.TreeNode.Parent;
-            if (parent != null && parent.TreeNode.Parent == null)
+            if (parent != null && !(item is IInspectorTreeNode))
             {
                 displayCategoryRow(nodeView, isSelected);
             }
@@ -53,11 +53,12 @@ namespace AGS.Editor
         {
             var view = _provider.CreateNode(item, layer);
             var parent = item.TreeNode.Parent;
-            if (parent != null && parent.TreeNode.Parent == null)
+            var node = item as IInspectorTreeNode;
+            if (parent != null && node == null)
             {
                 setupCategoryRow(view);
             }
-            else if (parent != null && parent.TreeNode.Parent != null)
+            else if (parent != null && node != null)
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });
@@ -66,7 +67,6 @@ namespace AGS.Editor
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
                 rowLayout.Table = tableLayout;
             }
-            var node = item as IInspectorTreeNode;
             if (node == null) return view;
 
 			int nodeId = Interlocked.Increment(ref _nextNodeId);

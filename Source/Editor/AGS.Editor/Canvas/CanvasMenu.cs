@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
-using Autofac;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -200,8 +199,9 @@ namespace AGS.Editor
             var labelConfig = new AGSTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
             factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 0f, 0f, buttonsPanel, labelConfig);
 
-            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 10f, -40f, buttonsPanel, "Room", width: 20f, height: 25f);
-            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 130f, -40f, buttonsPanel, "GUI", width: 20f, height: 25f);
+            const float buttonY = -40f;
+            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 10f, buttonY, buttonsPanel, "Room", width: 20f, height: 25f);
+            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 130f, buttonY, buttonsPanel, "GUI", width: 20f, height: 25f);
 
             _guiButton = guiButton.GetComponent<ICheckboxComponent>();
             _targetRadioGroup = new AGSRadioGroup();
@@ -209,7 +209,7 @@ namespace AGS.Editor
             guiButton.RadioGroup = _targetRadioGroup;
             if (_potentialParent != null)
             {
-                var parentButton = factory.UI.GetCheckBox("AddToParentRadioButton", (ButtonAnimation)null, null, null, null, 250f, -40f, buttonsPanel, _potentialParent.GetFriendlyName(), width: 20f, height: 25f);
+                var parentButton = factory.UI.GetCheckBox("AddToParentRadioButton", (ButtonAnimation)null, null, null, null, 250f, buttonY, buttonsPanel, _potentialParent.GetFriendlyName(), width: 20f, height: 25f);
                 parentButton.RadioGroup = _targetRadioGroup;
                 _parentButton = parentButton.GetComponent<ICheckboxComponent>();
             }

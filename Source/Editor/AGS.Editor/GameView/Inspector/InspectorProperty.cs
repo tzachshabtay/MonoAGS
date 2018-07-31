@@ -16,7 +16,7 @@ namespace AGS.Editor
 			Prop = prop;
 			Name = name;
 			Object = obj;
-			Children = new List<InspectorProperty>();
+			Children = new List<IProperty>();
             IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
 		}
@@ -25,7 +25,7 @@ namespace AGS.Editor
 		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
 		public object Object { get; private set; }
-		public List<InspectorProperty> Children { get; private set; }
+		public List<IProperty> Children { get; private set; }
         public bool IsReadonly { get; private set; }
 
         public Type PropertyType => Prop.PropertyType;

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace AGS.Editor
 {
     public interface IProperty
@@ -10,5 +12,8 @@ namespace AGS.Editor
         string ValueString { get; }
         Type PropertyType { get; }
         TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute;
+        List<IProperty> Children { get; }
+        bool IsReadonly { get; }
+        void Refresh();
     }
 }

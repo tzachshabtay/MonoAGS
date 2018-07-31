@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
+using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
@@ -17,13 +19,13 @@ namespace AGS.Editor
         private readonly Dictionary<string, object> _overrideDefaults;
         private readonly TaskCompletionSource<bool> _taskCompletionSource;
         private readonly Action<IPanel> _addUiExternal;
-        private readonly List<MethodParam> _params;
         private readonly AGSEditor _editor;
-        private TreeTableLayout _layout;
         private IPanel _parent;
         private IModalWindowComponent _modal;
+        private InspectorPanel _inspector;
         public const float MARGIN_HORIZONTAL = 30f;
         private const float MARGIN_VERTICAL = 20f;
+        private const float WIDTH = 500f;
 
         public MethodWizard(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
                             Action<IPanel> addUiExternal, EditorProvider editorProvider, AGSEditor editor)
@@ -36,7 +38,6 @@ namespace AGS.Editor
             _overrideDefaults = overrideDefaults;
             _addUiExternal = addUiExternal;
             _taskCompletionSource = new TaskCompletionSource<bool>();
-            _params = new List<MethodParam>();
         }
 
         public void Load()
@@ -56,29 +57,27 @@ namespace AGS.Editor
             _parent.Visible = false;
             _editor.Editor.State.UI.Add(_parent);
 
-            _layout = new TreeTableLayout(_editor.Editor.Events);
-            _layout.ColumnPadding = 15f;
+            var inspectorParent = _editor.Editor.Factory.UI.GetPanel("WizardInspectorParentPanel", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _parent);
+            inspectorParent.Tint = Colors.Transparent;
+            inspectorParent.Pivot = (0f, 1f);
 
-            var parameters = _method.GetParameters();
-            foreach (var parameter in parameters)
-            {
-                if (_hideProperties.Contains(parameter.Name)) continue;
-                var editor = _editorProvider.GetEditor(parameter.ParameterType, null);
-                _overrideDefaults.TryGetValue(parameter.Name, out var overrideDefault);
-                var param = new MethodParam(parameter, null, overrideDefault);
-                _params.Add(param);
-                editor.AddEditorUI($"MethodParam_{parameter.Name}", getView(param), param);
-            }
+            _inspector = new InspectorPanel(_editor, _layer, new ActionManager(), "Wizard");
+            _inspector.Load(inspectorParent);
+            _inspector.Inspector.SortValues = false;
+
+            var methodDescriptor = new MethodTypeDescriptor(_method, _hideProperties, _overrideDefaults);
+            _inspector.Show(methodDescriptor);
 
             _addUiExternal?.Invoke(_parent);
             addButtons();
 
             var layout = _parent.AddComponent<IStackLayoutComponent>();
-            layout.AbsoluteSpacing = -10f;
+            layout.AbsoluteSpacing = -30f;
+            layout.LayoutAfterCrop = true;
 
             box.OnBoundingBoxWithChildrenChanged.Subscribe(() =>
             {
-                layout.StartLocation = box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL - 20f;
+                layout.StartLocation = box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL;
                 _parent.BaseSize = (box.BoundingBoxWithChildren.Width + MARGIN_HORIZONTAL * 2f, box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL * 2f);
                 _parent.X = center - _parent.BaseSize.Width / 2f;
             });
@@ -92,34 +91,11 @@ namespace AGS.Editor
             if (!await _taskCompletionSource.Task)
                 return null;
             Dictionary<string, object> map = new Dictionary<string, object>();
-            foreach (var param in _params)
+            foreach (var param in _inspector.Inspector.Properties.SelectMany(p => p.Value))
             {
                 map[param.Name] = param.GetValue();
             }
             return map;
-        }
-
-        private ITreeNodeView getView(MethodParam param)
-        {
-            const float labelWidth = 20f;
-            var factory = _editor.Editor.Factory;
-            var horizontalPanel = factory.UI.GetPanel($"MethodParamPanel_{param.Name}", 50f, 30f, MARGIN_HORIZONTAL, 0f, _parent);
-            var font = _editor.Editor.Settings.Defaults.TextFont;
-            var label = factory.UI.GetLabel($"MethodParamLabel_{param.Name}", param.Name, 0f, 0f, labelWidth, 1f, horizontalPanel,
-                                            new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText, font: font));
-            label.RenderLayer = _layer;
-            label.Tint = Colors.Transparent;
-            label.TextBackgroundVisible = false;
-            label.Enabled = true;
-
-            horizontalPanel.RenderLayer = _layer;
-            horizontalPanel.Tint = Colors.Transparent;
-            horizontalPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-
-            var layout = horizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
-            layout.Table = _layout;
-
-            return new AGSTreeNodeView(label, null, null, null, horizontalPanel);
         }
 
         private void addButtons()
@@ -133,10 +109,18 @@ namespace AGS.Editor
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
 
-            var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", 100f, 20f, MARGIN_HORIZONTAL, 50f, _parent);
+            var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, _parent);
             buttonsPanel.Tint = Colors.Transparent;
 
-            var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: 80f, height: 20f);
+            var layout = buttonsPanel.AddComponent<IStackLayoutComponent>();
+            layout.Direction = LayoutDirection.Horizontal;
+            layout.CenterLayout = true;
+            layout.RelativeSpacing = 1f;
+            layout.AbsoluteSpacing = 40f;
+            layout.StartLocation = WIDTH / 2f;
+
+            const float buttonWidth = 80f;
+            var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: buttonWidth, height: 20f);
             okButton.MouseClicked.Subscribe(() =>
             {
                 _modal?.LoseFocus();
@@ -144,13 +128,15 @@ namespace AGS.Editor
                 _taskCompletionSource.TrySetResult(true);
             });
 
-            var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 120f, 0f, buttonsPanel, "Cancel", width: 80f, height: 20f);
+            var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "Cancel", width: buttonWidth, height: 20f);
             cancelButton.MouseClicked.Subscribe(() =>
             {
                 _modal?.LoseFocus();
                 _parent.DestroyWithChildren(_editor.Editor.State);
                 _taskCompletionSource.TrySetResult(false);
             });
+
+            layout.StartLayout();
         }
     }
 }
