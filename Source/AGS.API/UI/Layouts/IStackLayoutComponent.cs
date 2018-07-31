@@ -41,10 +41,27 @@
         float RelativeSpacing { get; set; }
 
         /// <summary>
-        /// Gets or sets the start location (the first item in the layout will be placed in that location).
+        /// Gets or sets the start location, which is the first item in the layout will be placed in that location,
+        /// unless <see cref="CenterLayout"/> is enabled (in which case it represents the center point of the layout).
         /// </summary>
         /// <value>The start location.</value>
         float StartLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the layout should account for any cropping made to the inner children.
+        /// A use-case for this is when laying out a child which crops its children (i.e "your" grandchildren).
+        /// A use-case for not enabling this (the default) is when you're laying out children inside a scrollable (and cropping) panel.
+        /// </summary>
+        /// <value><c>true</c> if layout after crop; otherwise, <c>false</c>.</value>
+        bool LayoutAfterCrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IStackLayoutComponent"/> centers layout
+        /// around <see cref="StartLocation"/>.
+        /// The default is false, meaning that <see cref="StartLocation"/> will be used as the starting point and not as the center.
+        /// </summary>
+        /// <value><c>true</c> if center layout; otherwise, <c>false</c>.</value>
+        bool CenterLayout { get; set; }
 
         /// <summary>
         /// Starts applying the layout to its children (this needs to be called at least once).

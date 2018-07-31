@@ -14,7 +14,7 @@ namespace AGS.Engine
         private int _pendingLayouts;
         private EntityListSubscriptions<IObject> _subscriptions;
         private IGameEvents _gameEvents;
-        private bool _isDirty;
+        private bool _isDirty, _layoutAfterCrop, _centerLayout;
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSStackLayoutComponent(IGameEvents gameEvents)
@@ -39,7 +39,9 @@ namespace AGS.Engine
         public LayoutDirection Direction { get => _direction; set { _direction = value; onSomethingChanged(); } }
         public float AbsoluteSpacing { get => _absoluteSpacing; set { _absoluteSpacing = value; onSomethingChanged(); } }
         public float RelativeSpacing { get => _relativeSpacing; set { _relativeSpacing = value; onSomethingChanged(); } }
-        public float StartLocation { get { return _startLocation; } set { _startLocation = value; onSomethingChanged(); } }
+        public float StartLocation { get => _startLocation; set { _startLocation = value; onSomethingChanged(); } }
+        public bool LayoutAfterCrop { get => _layoutAfterCrop; set { _layoutAfterCrop = value; onSomethingChanged(); } }
+        public bool CenterLayout { get => _centerLayout; set { _centerLayout = value; onSomethingChanged(); } }
         public IBlockingEvent OnLayoutChanged { get; }
         public IConcurrentHashSet<string> EntitiesToIgnore { get; }
 
@@ -65,7 +67,7 @@ namespace AGS.Engine
         {
             var tree = _tree;
             if (tree == null) throw new NullReferenceException("tree");
-            return Math.Abs(adjustLayout(tree, true));
+            return Math.Abs(adjustLayout(tree, true, _centerLayout));
         }
 
         public override void Dispose()
@@ -140,12 +142,23 @@ namespace AGS.Engine
                 return;
             }
 
-            adjustLayout(tree, false);
+            adjustLayout(tree, false, _centerLayout);
         }
 
-        private float adjustLayout(IInObjectTreeComponent tree, bool isDryRun)
+        private AGSBoundingBox? getChildBox(IEntity child)
+        {
+            if (_layoutAfterCrop) return child.AddComponent<IBoundingBoxWithChildrenComponent>()?.BoundingBoxWithChildren;
+            return child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren;
+        }
+
+        private float adjustLayout(IInObjectTreeComponent tree, bool isDryRun, bool centerLayout)
         {
             float location = isDryRun ? 0f : StartLocation;
+            if (centerLayout && !isDryRun)
+            {
+                float size = adjustLayout(tree, true, false);
+                location = StartLocation - size / 2f;
+            }
             try
             {
                 _isDirty = false;
@@ -161,7 +174,7 @@ namespace AGS.Engine
                         {
                             child.Y = location;
                         }
-                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Height ?? 0f;
+                        step = getChildBox(child)?.Height ?? 0f;
                     }
                     else
                     {
@@ -169,7 +182,7 @@ namespace AGS.Engine
                         {
                             child.X = location;
                         }
-                        step = child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f;
+                        step = getChildBox(child)?.Width ?? 0f;
                     }
                     location += step * RelativeSpacing + AbsoluteSpacing;
                 }
@@ -185,11 +198,11 @@ namespace AGS.Engine
                     }
                     else
                     {
-                        location = adjustLayout(tree, false);
+                        location = adjustLayout(tree, false, centerLayout);
                     }
                 }
             }
-            return location;
+            return Math.Abs(location - AbsoluteSpacing);
         }
 	}
 }
