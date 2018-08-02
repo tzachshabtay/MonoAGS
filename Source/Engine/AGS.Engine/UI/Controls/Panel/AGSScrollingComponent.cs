@@ -83,32 +83,53 @@ namespace AGS.Engine
             if (verticalScrollBar != null)
             {
                 float maxValue = withChildren.Value.Height - container.Value.Height;
-                bool visible = !MathUtils.FloatEquals(verticalScrollBar.MinValue, maxValue);
-                verticalScrollBar.Visible = visible;
-                verticalScrollBar.MaxValue = maxValue;
+                refreshSliderLimits(verticalScrollBar, maxValue);
             }
             var horizontalScrollBar = _horizontalScrollBar;
             if (horizontalScrollBar != null)
             {
                 float maxValue = withChildren.Value.Width - container.Value.Width;
-                bool visible = !MathUtils.FloatEquals(horizontalScrollBar.MinValue, maxValue);
-                horizontalScrollBar.Visible = visible;
-                horizontalScrollBar.MaxValue = maxValue;
+                refreshSliderLimits(horizontalScrollBar, maxValue);
+            }
+        }
+
+        private void refreshSliderLimits(ISlider slider, float maxValue)
+        {
+            bool visible = !MathUtils.FloatEquals(slider.MinValue, maxValue);
+            slider.Visible = visible;
+            bool clampValueToMax = maxValue > slider.MaxValue && 
+                                   MathUtils.FloatEquals(slider.MaxValue, slider.Value) &&
+                                   !MathUtils.FloatEquals(slider.MinValue, slider.MaxValue);
+            slider.MaxValue = maxValue;
+            if (clampValueToMax)
+            {
+                slider.Value = maxValue;
             }
         }
 
         private void onVerticalSliderChanged(SliderValueEventArgs args)
         {
+            onSliderChanged(_verticalScrollBar);
+        }
+
+        private void onHorizontalSliderChanged(SliderValueEventArgs args)
+        {
+            onSliderChanged(_horizontalScrollBar);
+        }
+
+        private void onSliderChanged(ISlider slider)
+        {
+            if (slider == null) return;
             var crop = _crop;
             if (crop == null) return;
-            var slider = _verticalScrollBar;
-            if (slider == null) return;
             var layout = _layout;
             var locker = new TreeLockStep(_tree, o => o.Visible);
             layout?.StopLayout();
             locker.Lock();
             _inEvent = true;
-            crop.StartPoint = new PointF(crop.StartPoint.X, -slider.Value);
+            crop.StartPoint = slider == _verticalScrollBar ? 
+                new PointF(crop.StartPoint.X, -slider.Value):
+                new PointF(slider.Value, crop.StartPoint.Y);
             unlock(layout, locker);
         }
 
@@ -118,21 +139,6 @@ namespace AGS.Engine
             layout?.StartLayout();
             _inEvent = false;
             refreshSliderLimits();
-        }
-
-        private void onHorizontalSliderChanged(SliderValueEventArgs args)
-        {
-			var crop = _crop;
-			if (crop == null) return;
-            var slider = _horizontalScrollBar;
-			if (slider == null) return;
-            var layout = _layout;
-            var locker = new TreeLockStep(_tree, o => o.Visible);
-            layout?.StopLayout();
-            locker.Lock();
-            _inEvent = true;
-            crop.StartPoint = new PointF(slider.Value, crop.StartPoint.Y);
-            unlock(layout, locker);
         }
     }
 }

@@ -72,6 +72,7 @@ namespace AGS.Engine
             IScrollingComponent scroll = contentsPanel.AddComponent<IScrollingComponent>();
 
             var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
+            horizSlider.ShouldClampValuesWhenChangingMinMax = false;
 			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
             horizSlider.Direction = SliderDirection.LeftToRight;
 			horizSlider.Graphics.Pivot = new PointF(0f, 0f);
@@ -81,6 +82,7 @@ namespace AGS.Engine
 			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
             var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
+            verSlider.ShouldClampValuesWhenChangingMinMax = false;
 			verSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
             verSlider.Direction = SliderDirection.TopToBottom;
 			verSlider.Graphics.Pivot = new PointF(0f, 0f);
