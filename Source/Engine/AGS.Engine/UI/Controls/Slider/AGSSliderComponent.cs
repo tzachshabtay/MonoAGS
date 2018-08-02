@@ -352,8 +352,10 @@ namespace AGS.Engine
 
 		private bool setValue(float value)
 		{
-            if (MathUtils.FloatEquals(_value, value) || value < MinValue || value > MaxValue) return false;
-            _value = value;
+            if (MathUtils.FloatEquals(_value, value)) return false;
+            if (value < MinValue) _value = MinValue;
+            else if (value > MaxValue) _value = MaxValue;
+            else _value = value;
             OnValueChanging.Invoke(new SliderValueEventArgs(_value));
 			refresh();
             return true;

@@ -67,6 +67,7 @@
 
         /// <summary>
         /// Gets or sets the slider's value.
+        /// Note that the value will be clamped to <see cref="MinValue"/> and <see cref="MaxValue"/> (in other words, if you try to set a value above the maximum it will set it to the maximum, and the same for the minimum value).
         /// </summary>
         /// <value>The value.</value>
 		float Value { get; set; }
