@@ -45,7 +45,7 @@ namespace AGS.Engine
             if (cropX + width > spriteWidth) width = spriteWidth - cropX;
             height = Math.Min(height, CropArea.Height);
             if (height <= 0f) return null;
-            if (height - cropY <= 0f) return null;
+            if (cropY + height > spriteHeight) height = spriteHeight - cropY;
             float left = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, cropX);
             float right = MathUtils.Lerp(0f, 0f, spriteWidth, 1f, cropX + width);
 			float top = MathUtils.Lerp(0f, 1f, spriteHeight, 0f, cropY + height);
