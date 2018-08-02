@@ -15794,12 +15794,12 @@ references:
   commentId: T:AGS.API.IUIFactory
   fullName: AGS.API.IUIFactory
   nameWithType: IUIFactory
-- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  name: CreateScrollingPanel(IPanel, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_
-  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)
-  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel, System.Single)
-  nameWithType: IUIFactory.CreateScrollingPanel(IPanel, Single)
+- uid: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single,System.Single,System.Single)
+  name: CreateScrollingPanel(IPanel, Single, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel, System.Single, System.Single, System.Single)
+  nameWithType: IUIFactory.CreateScrollingPanel(IPanel, Single, Single, Single)
 - uid: AGS.API.IUIFactory.CreateScrollingPanel*
   name: CreateScrollingPanel
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_CreateScrollingPanel_
