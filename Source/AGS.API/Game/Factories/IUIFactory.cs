@@ -67,7 +67,7 @@ namespace AGS.API
         /// a contents panel with the original size, in which to put the scrolled contents.
         /// </summary>
         /// <param name="panel">Panel.</param>
-        IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f);
+        IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f, float stepHorizontal = 10f, float stepVertical = 10f);
 
         /// <summary>
         /// Creates a label.

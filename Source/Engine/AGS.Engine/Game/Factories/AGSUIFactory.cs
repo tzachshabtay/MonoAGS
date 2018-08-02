@@ -60,7 +60,7 @@ namespace AGS.Engine
             return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f)
+        public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f, float stepHorizontal = 10f, float stepVertical = 10f)
         {
             var contentsPanel = GetPanel($"{panel.ID}_Contents", panel.Width, panel.Height, 0f, 0f, panel);
             contentsPanel.Opacity = 0;
@@ -93,22 +93,22 @@ namespace AGS.Engine
             (var idle, var hovered, var pushed) = getArrowButtonAnimations(ArrowDirection.Up, 1f);
             var upButton = GetButton($"{panel.ID}_ScrollUpButton", idle, hovered, pushed, 0f, panel.Height - gutterSize * 2f, verSlider, width: gutterSize, height: gutterSize);
             upButton.Pivot = new PointF(0f, 1f);
-            upButton.MouseClicked.Subscribe(args => verSlider.Value--);
+            upButton.MouseClicked.Subscribe(args => verSlider.Value -= stepVertical);
 
             (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Down, 1f);
             var downButton = GetButton($"{panel.ID}_ScrollDownButton", idle, hovered, pushed, 0f, 0f, verSlider, width: gutterSize, height: gutterSize);
             downButton.Pivot = new PointF(0f, 1f);
-            downButton.MouseClicked.Subscribe(args => verSlider.Value++);
+            downButton.MouseClicked.Subscribe(args => verSlider.Value += stepVertical);
 
             (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Left, 1f);
             var leftButton = GetButton($"{panel.ID}_ScrollUpLeft", idle, hovered, pushed, 0f, 0f, horizSlider, width: gutterSize, height: gutterSize);
             leftButton.Pivot = new PointF(1f, 0f);
-            leftButton.MouseClicked.Subscribe(args => horizSlider.Value--);
+            leftButton.MouseClicked.Subscribe(args => horizSlider.Value -= stepHorizontal);
 
             (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Right, 1f);
             var rightButton = GetButton($"{panel.ID}_ScrollDownRight", idle, hovered, pushed, panel.Width - gutterSize * 2f, 0f, horizSlider, width: gutterSize, height: gutterSize);
             rightButton.Pivot = new PointF(0f, 0f);
-            rightButton.MouseClicked.Subscribe(args => horizSlider.Value++);
+            rightButton.MouseClicked.Subscribe(args => horizSlider.Value += stepHorizontal);
 
             PropertyChangedEventHandler resize = (_, args) =>
             {
