@@ -212,8 +212,8 @@ namespace AGS.API
 
         public bool Equals(AGSBoundingBox square)
 		{
-			return BottomLeft.Equals(square.BottomLeft) && BottomRight.Equals(square.BottomRight)
-				 && TopLeft.Equals(square.TopLeft) && TopRight.Equals(square.TopRight);
+            return equals(BottomLeft, square.BottomLeft) && equals(BottomRight, square.BottomRight)
+                && equals(TopLeft, square.TopLeft) && equals(TopRight, square.TopRight);
 		}
 
         /// <summary>
@@ -238,6 +238,11 @@ namespace AGS.API
         }
 
 		#endregion
+
+        private bool equals(Vector3 a, Vector3 b)
+        {
+            return MathUtils.FloatEquals(a.X, b.X) && MathUtils.FloatEquals(a.Y, b.Y) && MathUtils.FloatEquals(a.Z, b.Z);
+        }
 
 		private float distance(Vector3 a, Vector3 b)
 		{
