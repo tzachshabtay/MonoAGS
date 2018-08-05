@@ -176,7 +176,7 @@ namespace AGS.Engine
             _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, _includeSelf, DebugPrintouts ? $"Box Pre Crop before unlock ({Entity.ID})" : null);
             if (DebugPrintouts)
             {
-                Debug.WriteLine($"Pre crop (before unlock) for ${Entity.ID}: {_preUnlockBoundingBox.ToString()}");
+                Debug.WriteLine($"Pre crop (before unlock) for {Entity.ID}: {_preUnlockBoundingBox.ToString()}");
             }
             _isDirty = false;
             return (!lastBox.Equals(_preUnlockBoundingBox) || !lastPreBox.Equals(_preUnlockPreCropBoundingBox));
