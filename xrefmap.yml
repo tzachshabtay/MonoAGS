@@ -13209,6 +13209,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISliderComponent.AllowKeyboardControl
   nameWithType: ISliderComponent.AllowKeyboardControl
+- uid: AGS.API.ISliderComponent.Decrease(System.Single)
+  name: Decrease(Single)
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Decrease_System_Single_
+  commentId: M:AGS.API.ISliderComponent.Decrease(System.Single)
+  fullName: AGS.API.ISliderComponent.Decrease(System.Single)
+  nameWithType: ISliderComponent.Decrease(Single)
+- uid: AGS.API.ISliderComponent.Decrease*
+  name: Decrease
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Decrease_
+  commentId: Overload:AGS.API.ISliderComponent.Decrease
+  isSpec: "True"
+  fullName: AGS.API.ISliderComponent.Decrease
+  nameWithType: ISliderComponent.Decrease
 - uid: AGS.API.ISliderComponent.Direction
   name: Direction
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Direction
@@ -13248,6 +13261,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISliderComponent.HandleGraphics
   nameWithType: ISliderComponent.HandleGraphics
+- uid: AGS.API.ISliderComponent.Increase(System.Single)
+  name: Increase(Single)
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Increase_System_Single_
+  commentId: M:AGS.API.ISliderComponent.Increase(System.Single)
+  fullName: AGS.API.ISliderComponent.Increase(System.Single)
+  nameWithType: ISliderComponent.Increase(Single)
+- uid: AGS.API.ISliderComponent.Increase*
+  name: Increase
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Increase_
+  commentId: Overload:AGS.API.ISliderComponent.Increase
+  isSpec: "True"
+  fullName: AGS.API.ISliderComponent.Increase
+  nameWithType: ISliderComponent.Increase
 - uid: AGS.API.ISliderComponent.Label
   name: Label
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Label

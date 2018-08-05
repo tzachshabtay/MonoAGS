@@ -553,6 +553,80 @@ Note that the value will be clamped to <a class="xref" href="AGS.API.ISliderComp
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_ISliderComponent_Decrease_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Decrease(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L142">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_Decrease_" data-uid="AGS.API.ISliderComponent.Decrease*"></a>
+  <h4 id="AGS_API_ISliderComponent_Decrease_System_Single_" data-uid="AGS.API.ISliderComponent.Decrease(System.Single)">Decrease(Single)</h4>
+  <div class="markdown level1 summary"><p>Decrease the the slider by the specified amount.
+This checks for a case where the value is above the maximum (could happen when <a class="xref" href="AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_ShouldClampValuesWhenChangingMinMax">ShouldClampValuesWhenChangingMinMax</a> is false), and 
+if true it decreases the value from the maximum and not from the current value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Decrease(float step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>Step.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_ISliderComponent_Increase_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.ISliderComponent.Increase(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/UI/Controls/Slider/ISliderComponent.cs/#L134">View Source</a>
+  </span>
+  <a id="AGS_API_ISliderComponent_Increase_" data-uid="AGS.API.ISliderComponent.Increase*"></a>
+  <h4 id="AGS_API_ISliderComponent_Increase_System_Single_" data-uid="AGS.API.ISliderComponent.Increase(System.Single)">Increase(Single)</h4>
+  <div class="markdown level1 summary"><p>Increase the the slider by the specified amount.
+This checks for a case where the value is below the minimum (could happen when <a class="xref" href="AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_ShouldClampValuesWhenChangingMinMax">ShouldClampValuesWhenChangingMinMax</a> is false), and 
+if true it increases the value from the minimum and not from the current value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Increase(float step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>Step.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
