@@ -15,7 +15,7 @@ namespace AGS.Editor
         private InspectorTreeNodeProvider _inspectorNodeView;
         private string _idPrefix = "";
 
-        const float _padding = 42f;
+        const float _padding = 28f;
         const float _gutterSize = 15f;
 
         public InspectorPanel(AGSEditor editor, IRenderLayer layer, ActionManager actions, string idPrefix = "")

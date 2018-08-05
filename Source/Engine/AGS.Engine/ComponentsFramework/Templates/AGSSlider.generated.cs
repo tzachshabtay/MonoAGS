@@ -177,6 +177,16 @@ namespace AGS.Engine
             get { return _sliderComponent.OnValueChanging; } 
         }
 
+        public void Increase(float step)
+        {
+            _sliderComponent.Increase(step);
+        }
+
+        public void Decrease(float step)
+        {
+            _sliderComponent.Decrease(step);
+        }
+
         #endregion
 
         #region INotifyPropertyChanged implementation

@@ -124,6 +124,21 @@
         /// </summary>
         /// <value>The on value changed.</value>
         IBlockingEvent<SliderValueEventArgs> OnValueChanging { get; }
+
+        /// <summary>
+        /// Increase the the slider by the specified amount.
+        /// This checks for a case where the value is below the minimum (could happen when <see cref="ShouldClampValuesWhenChangingMinMax"/> is false), and 
+        /// if true it increases the value from the minimum and not from the current value.
+        /// </summary>
+        /// <param name="step">Step.</param>
+        void Increase(float step);
+
+        /// <summary>
+        /// Decrease the the slider by the specified amount.
+        /// This checks for a case where the value is above the maximum (could happen when <see cref="ShouldClampValuesWhenChangingMinMax"/> is false), and 
+        /// if true it decreases the value from the maximum and not from the current value.
+        /// </summary>
+        /// <param name="step">Step.</param>
+        void Decrease(float step);
 	}
 }
-

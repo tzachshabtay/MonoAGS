@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using AGS.API;
 
@@ -11,7 +12,6 @@ namespace AGS.Engine
         private ILabel _label;
         private float _minValue, _maxValue, _value, _minHandleOffset, _maxHandleOffset;
         private SliderDirection _direction;
-        private IEntity _entity;
 
         private readonly IFocusedUI _focus;
         private readonly IInput _input;
@@ -181,6 +181,10 @@ namespace AGS.Engine
 
         public IBlockingEvent<SliderValueEventArgs> OnValueChanging { get; private set; }
 
+        public void Increase(float step) => Value = Math.Max(Value, MinValue) + step;
+
+        public void Decrease(float step) => Value = Math.Min(Value, MaxValue) - step;
+
         public override void Dispose()
         {
             _gameEvents?.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
@@ -188,7 +192,6 @@ namespace AGS.Engine
             _graphics?.Dispose();
             _handleGraphics?.Dispose();
             _label?.Dispose();
-            _entity = null;
         }
 
         private void bindGraphics(IObject graphics)
@@ -211,43 +214,43 @@ namespace AGS.Engine
         {
             if (args.ClickedEntity != null && (args.ClickedEntity == Graphics || args.ClickedEntity == HandleGraphics
                                                || args.ClickedEntity == Label)) return;
-            if (_focus.HasKeyboardFocus == _entity) _focus.HasKeyboardFocus = null;
+            if (_focus.HasKeyboardFocus == Entity) _focus.HasKeyboardFocus = null;
         }
 
         private void onKeyUp(KeyboardEventArgs args)
         {
-            if (_focus.HasKeyboardFocus != _entity || !AllowKeyboardControl) return;
+            if (_focus.HasKeyboardFocus != Entity || !AllowKeyboardControl) return;
             float smallStep = (MaxValue - MinValue) / 100f;
             float bigStep = (MaxValue - MinValue) / 5f;
             switch (args.Key)
             {
                 case Key.Up:
                     if (isHorizontal()) return;
-                    if (Direction == SliderDirection.BottomToTop) Value += smallStep;
-                    else Value -= smallStep;
+                    if (Direction == SliderDirection.BottomToTop) Increase(smallStep);
+                    else Decrease(smallStep);
                     break;
                 case Key.Down:
 					if (isHorizontal()) return;
-                    if (Direction == SliderDirection.BottomToTop) Value -= smallStep;
-                    else Value += smallStep;
+                    if (Direction == SliderDirection.BottomToTop) Decrease(smallStep);
+                    else Increase(smallStep);
 					break;
                 case Key.Right:
 					if (!isHorizontal()) return;
-                    if (Direction == SliderDirection.LeftToRight) Value += smallStep;
-                    else Value -= smallStep;
+                    if (Direction == SliderDirection.LeftToRight) Increase(smallStep);
+                    else Decrease(smallStep);
 					break;
                 case Key.Left:
 					if (!isHorizontal()) return;
-                    if (Direction == SliderDirection.LeftToRight) Value -= smallStep;
-                    else Value += smallStep;
+                    if (Direction == SliderDirection.LeftToRight) Decrease(smallStep);
+                    else Increase(smallStep);
 					break;
                 case Key.PageUp:
-                    if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Value += bigStep;
-                    else Value -= bigStep;
+                    if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Increase(bigStep);
+                    else Decrease(bigStep);
                     break;
                 case Key.PageDown:
-					if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Value -= bigStep;
-					else Value += bigStep;
+                    if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Decrease(bigStep);
+                    else Increase(bigStep);
                     break;
                 case Key.Home:
                     if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Value = MinValue;
@@ -302,7 +305,7 @@ namespace AGS.Engine
             {
                 return;
             }
-            _focus.HasKeyboardFocus = _entity;
+            _focus.HasKeyboardFocus = Entity;
 			_isSliding = true;
             if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - hitTestBox.MinX, 
                                                                         0f, hitTestBox.Width), ref hitTestBox));

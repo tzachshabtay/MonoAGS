@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -76,16 +77,26 @@ namespace AGS.Engine
         {
             if (_inEvent) return;
             var container = _boundingBox?.GetBoundingBoxes(_state.Viewport)?.ViewportBox;
-            var withChildren = _boundingBoxWithChildren?.PreCropBoundingBoxWithChildren;
-            if (container == null || !container.Value.IsValid || withChildren == null || !withChildren.Value.IsValid) return;
 
-			var verticalScrollBar = _verticalScrollBar;
-            if (verticalScrollBar != null)
+            //Uncomment for debug:
+            //if (_boundingBoxWithChildren is AGSBoundingBoxWithChildrenComponent x)
+            //    x.DebugPrintouts = true;
+
+            var withChildren = _boundingBoxWithChildren?.PreCropBoundingBoxWithChildren;
+            var verticalScrollBar = _verticalScrollBar;
+            var horizontalScrollBar = _horizontalScrollBar;
+            if (container == null || !container.Value.IsValid || withChildren == null || !withChildren.Value.IsValid)
+            {
+                if (verticalScrollBar != null) verticalScrollBar.Visible = false;
+                if (horizontalScrollBar != null) horizontalScrollBar.Visible = false;
+                return;
+            }
+
+			if (verticalScrollBar != null)
             {
                 float maxValue = withChildren.Value.Height - container.Value.Height;
                 refreshSliderLimits(verticalScrollBar, maxValue);
             }
-            var horizontalScrollBar = _horizontalScrollBar;
             if (horizontalScrollBar != null)
             {
                 float maxValue = withChildren.Value.Width - container.Value.Width;
@@ -95,6 +106,7 @@ namespace AGS.Engine
 
         private void refreshSliderLimits(ISlider slider, float maxValue)
         {
+            maxValue = Math.Max(0f, maxValue);
             bool visible = !MathUtils.FloatEquals(slider.MinValue, maxValue);
             slider.Visible = visible;
             bool clampValueToMax = maxValue > slider.MaxValue && 
