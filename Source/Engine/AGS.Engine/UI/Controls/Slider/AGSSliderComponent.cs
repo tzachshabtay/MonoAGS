@@ -34,7 +34,7 @@ namespace AGS.Engine
             ShouldClampValuesWhenChangingMinMax = true;
             OnValueChanged = new AGSEvent<SliderValueEventArgs>();
             OnValueChanging = new AGSEvent<SliderValueEventArgs>();
-            input.KeyUp.Subscribe(onKeyUp);
+            input.KeyDown.Subscribe(onKeyDown);
         }
 
         public override void Init()
@@ -190,7 +190,7 @@ namespace AGS.Engine
         public override void Dispose()
         {
             _gameEvents?.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _input?.KeyUp.Unsubscribe(onKeyUp);
+            _input?.KeyDown.Unsubscribe(onKeyDown);
             _graphics?.Dispose();
             _handleGraphics?.Dispose();
             _label?.Dispose();
@@ -219,7 +219,7 @@ namespace AGS.Engine
             if (_focus.HasKeyboardFocus == Entity) _focus.HasKeyboardFocus = null;
         }
 
-        private void onKeyUp(KeyboardEventArgs args)
+        private void onKeyDown(KeyboardEventArgs args)
         {
             if (_focus.HasKeyboardFocus != Entity || !AllowKeyboardControl) return;
             float smallStep = (MaxValue - MinValue) / 100f;
