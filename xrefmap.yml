@@ -12904,6 +12904,64 @@ references:
   isSpec: "True"
   fullName: AGS.API.IScalingArea.ScaleVolume
   nameWithType: IScalingArea.ScaleVolume
+- uid: AGS.API.IScrollbar
+  name: IScrollbar
+  href: api/AGS.API.IScrollbar.html
+  commentId: T:AGS.API.IScrollbar
+  fullName: AGS.API.IScrollbar
+  nameWithType: IScrollbar
+- uid: AGS.API.IScrollbar.DownButton
+  name: DownButton
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_DownButton
+  commentId: P:AGS.API.IScrollbar.DownButton
+  fullName: AGS.API.IScrollbar.DownButton
+  nameWithType: IScrollbar.DownButton
+- uid: AGS.API.IScrollbar.DownButton*
+  name: DownButton
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_DownButton_
+  commentId: Overload:AGS.API.IScrollbar.DownButton
+  isSpec: "True"
+  fullName: AGS.API.IScrollbar.DownButton
+  nameWithType: IScrollbar.DownButton
+- uid: AGS.API.IScrollbar.Slider
+  name: Slider
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_Slider
+  commentId: P:AGS.API.IScrollbar.Slider
+  fullName: AGS.API.IScrollbar.Slider
+  nameWithType: IScrollbar.Slider
+- uid: AGS.API.IScrollbar.Slider*
+  name: Slider
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_Slider_
+  commentId: Overload:AGS.API.IScrollbar.Slider
+  isSpec: "True"
+  fullName: AGS.API.IScrollbar.Slider
+  nameWithType: IScrollbar.Slider
+- uid: AGS.API.IScrollbar.Step
+  name: Step
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_Step
+  commentId: P:AGS.API.IScrollbar.Step
+  fullName: AGS.API.IScrollbar.Step
+  nameWithType: IScrollbar.Step
+- uid: AGS.API.IScrollbar.Step*
+  name: Step
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_Step_
+  commentId: Overload:AGS.API.IScrollbar.Step
+  isSpec: "True"
+  fullName: AGS.API.IScrollbar.Step
+  nameWithType: IScrollbar.Step
+- uid: AGS.API.IScrollbar.UpButton
+  name: UpButton
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_UpButton
+  commentId: P:AGS.API.IScrollbar.UpButton
+  fullName: AGS.API.IScrollbar.UpButton
+  nameWithType: IScrollbar.UpButton
+- uid: AGS.API.IScrollbar.UpButton*
+  name: UpButton
+  href: api/AGS.API.IScrollbar.html#AGS_API_IScrollbar_UpButton_
+  commentId: Overload:AGS.API.IScrollbar.UpButton
+  isSpec: "True"
+  fullName: AGS.API.IScrollbar.UpButton
+  nameWithType: IScrollbar.UpButton
 - uid: AGS.API.IScrollingComponent
   name: IScrollingComponent
   href: api/AGS.API.IScrollingComponent.html
@@ -13274,6 +13332,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ISliderComponent.Increase
   nameWithType: ISliderComponent.Increase
+- uid: AGS.API.ISliderComponent.IsHorizontal
+  name: IsHorizontal()
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_IsHorizontal
+  commentId: M:AGS.API.ISliderComponent.IsHorizontal
+  fullName: AGS.API.ISliderComponent.IsHorizontal()
+  nameWithType: ISliderComponent.IsHorizontal()
+- uid: AGS.API.ISliderComponent.IsHorizontal*
+  name: IsHorizontal
+  href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_IsHorizontal_
+  commentId: Overload:AGS.API.ISliderComponent.IsHorizontal
+  isSpec: "True"
+  fullName: AGS.API.ISliderComponent.IsHorizontal
+  nameWithType: ISliderComponent.IsHorizontal
 - uid: AGS.API.ISliderComponent.Label
   name: Label
   href: api/AGS.API.ISliderComponent.html#AGS_API_ISliderComponent_Label
@@ -15992,6 +16063,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetPanelAsync
   nameWithType: IUIFactory.GetPanelAsync
+- uid: AGS.API.IUIFactory.GetScrollbar(System.String,AGS.API.SliderDirection,AGS.API.IObject,System.Single,System.Single,System.Single,System.Single)
+  name: GetScrollbar(String, SliderDirection, IObject, Single, Single, Single, Single)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetScrollbar_System_String_AGS_API_SliderDirection_AGS_API_IObject_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:AGS.API.IUIFactory.GetScrollbar(System.String,AGS.API.SliderDirection,AGS.API.IObject,System.Single,System.Single,System.Single,System.Single)
+  fullName: AGS.API.IUIFactory.GetScrollbar(System.String, AGS.API.SliderDirection, AGS.API.IObject, System.Single, System.Single, System.Single, System.Single)
+  nameWithType: IUIFactory.GetScrollbar(String, SliderDirection, IObject, Single, Single, Single, Single)
+- uid: AGS.API.IUIFactory.GetScrollbar*
+  name: GetScrollbar
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetScrollbar_
+  commentId: Overload:AGS.API.IUIFactory.GetScrollbar
+  isSpec: "True"
+  fullName: AGS.API.IUIFactory.GetScrollbar
+  nameWithType: IUIFactory.GetScrollbar
 - uid: AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)
   name: GetSlider(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_
