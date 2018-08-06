@@ -68,13 +68,12 @@ namespace AGS.Engine
         {
             var slider = GetSlider($"{idPrefix}_{direction}Slider", null, null, 0f, 0f, 0f, parent);
             slider.ShouldClampValuesWhenChangingMinMax = false;
-            slider.HandleGraphics.Pivot = new PointF(0f, 0f);
             slider.Direction = direction;
+            slider.HandleGraphics.Pivot = slider.IsHorizontal() ? new PointF(1f, 0f) : new PointF(0f, 1f);
             slider.Graphics.Pivot = new PointF(0f, 0f);
             slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
             slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
             float gutterSize = slider.IsHorizontal() ? height : width;
-            slider.MaxHandleOffset = gutterSize;
             HoverEffect.Add(slider.Graphics, Colors.Gray, Colors.LightGray);
             HoverEffect.Add(slider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
 
@@ -89,7 +88,7 @@ namespace AGS.Engine
                 if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)
                     slider.Decrease(step);
                 else slider.Increase(step);
-                _focus.HasKeyboardFocus = slider; 
+                _focus.HasKeyboardFocus = slider;
             });
 
             (var downX, var downY) = slider.IsHorizontal() ? (width - gutterSize * 2f, buttonBorderWidth / 2f) : (buttonBorderWidth / 2f, 0f);
@@ -101,7 +100,7 @@ namespace AGS.Engine
                 if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)   
                     slider.Increase(step);
                 else slider.Decrease(step);
-                _focus.HasKeyboardFocus = slider; 
+                _focus.HasKeyboardFocus = slider;
             });
 
             var scrollbar = new AGSScrollbar(upButton, downButton, slider);
@@ -132,9 +131,9 @@ namespace AGS.Engine
                 if (args.PropertyName != nameof(IScaleComponent.Width) && args.PropertyName != nameof(IScaleComponent.Height)) return;
                 panel.BaseSize = new SizeF(contentsPanel.Width + gutterSize, contentsPanel.Height + gutterSize);
                 horizScrollbar.Slider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 3f, gutterSize);
-                horizScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                horizScrollbar.Slider.HandleGraphics.Image = new EmptyImage(horizScrollbar.Slider.HandleGraphics.Image.Width, gutterSize);
                 verScrollbar.Slider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
-                verScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                verScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, verScrollbar.Slider.HandleGraphics.Image.Height);
                 horizScrollbar.Slider.X = -panel.Width * panel.Pivot.X + gutterSize;
                 verScrollbar.Slider.X = panel.Width - gutterSize + buttonBorderWidth;
                 verScrollbar.Slider.Y = gutterSize * 2f;

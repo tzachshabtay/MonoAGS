@@ -39,7 +39,7 @@ namespace AGS.Engine
             get => _horizontalScrollBar;
             set
 			{
-				_horizontalScrollBar?.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
+                _horizontalScrollBar?.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
                 if (value != null)
                 {
                     value.OnValueChanged.Subscribe(onHorizontalSliderChanged);
@@ -94,19 +94,17 @@ namespace AGS.Engine
 
 			if (verticalScrollBar != null)
             {
-                float maxValue = withChildren.Value.Height - container.Value.Height;
-                refreshSliderLimits(verticalScrollBar, maxValue);
+                refreshSliderLimits(verticalScrollBar, withChildren.Value.Height, container.Value.Height);
             }
             if (horizontalScrollBar != null)
             {
-                float maxValue = withChildren.Value.Width - container.Value.Width;
-                refreshSliderLimits(horizontalScrollBar, maxValue);
+                refreshSliderLimits(horizontalScrollBar, withChildren.Value.Width, container.Value.Width);
             }
         }
 
-        private void refreshSliderLimits(ISlider slider, float maxValue)
+        private void refreshSliderLimits(ISlider slider, float withChildrenSize, float containerSize)
         {
-            maxValue = Math.Max(0f, maxValue);
+            float maxValue = Math.Max(0f, withChildrenSize - containerSize);
             bool visible = !MathUtils.FloatEquals(slider.MinValue, maxValue);
             slider.Visible = visible;
             bool clampValueToMax = maxValue > slider.MaxValue && 
@@ -117,6 +115,10 @@ namespace AGS.Engine
             {
                 slider.Value = maxValue;
             }
+            float handleSize = (containerSize / withChildrenSize) * (slider.IsHorizontal() ? slider.Graphics.Image.Width : slider.Graphics.Image.Height);
+            slider.HandleGraphics.Image = new EmptyImage(slider.IsHorizontal() ? handleSize : slider.HandleGraphics.Image.Width,
+                                                         slider.IsHorizontal() ? slider.HandleGraphics.Image.Height : handleSize);
+            slider.MinHandleOffset = handleSize;
         }
 
         private void onVerticalSliderChanged(SliderValueEventArgs args)
