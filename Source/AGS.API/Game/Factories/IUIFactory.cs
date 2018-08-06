@@ -60,6 +60,20 @@ namespace AGS.API
 		Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 
         /// <summary>
+        /// Creates a scrollbar. A scrollbar is a <see cref="ISlider"/> with 2 buttons (left + right or up + down depending on which <see cref="SliderDirection"/> is used) that can
+        /// be clicked to modify the slider.
+        /// </summary>
+        /// <returns>The scrollbar.</returns>
+        /// <param name="idPrefix">Identifier prefix which will be used to generate ids for the slider and buttons.</param>
+        /// <param name="direction">Direction.</param>
+        /// <param name="parent">Parent for the slider.</param>
+        /// <param name="width">Width of the slider.</param>
+        /// <param name="height">Height of the slider.</param>
+        /// <param name="step">Step to move the slider when clicking the button.</param>
+        /// <param name="buttonBorderWidth">Border width for the buttons.</param>
+        IScrollbar GetScrollbar(string idPrefix, SliderDirection direction, IObject parent = null, float width = 15f, float height = 15f, float step = 10f, float buttonBorderWidth = 1f);
+
+        /// <summary>
         /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
         /// The scrollbars are only shown if the contents is bigger than panel.
         /// 

@@ -185,6 +185,8 @@ namespace AGS.Engine
 
         public void Decrease(float step) => Value = Math.Min(Value, MaxValue) - step;
 
+        public bool IsHorizontal() =>  _direction == SliderDirection.LeftToRight || _direction == SliderDirection.RightToLeft;
+
         public override void Dispose()
         {
             _gameEvents?.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
@@ -225,22 +227,22 @@ namespace AGS.Engine
             switch (args.Key)
             {
                 case Key.Up:
-                    if (isHorizontal()) return;
+                    if (IsHorizontal()) return;
                     if (Direction == SliderDirection.BottomToTop) Increase(smallStep);
                     else Decrease(smallStep);
                     break;
                 case Key.Down:
-					if (isHorizontal()) return;
+					if (IsHorizontal()) return;
                     if (Direction == SliderDirection.BottomToTop) Decrease(smallStep);
                     else Increase(smallStep);
 					break;
                 case Key.Right:
-					if (!isHorizontal()) return;
+					if (!IsHorizontal()) return;
                     if (Direction == SliderDirection.LeftToRight) Increase(smallStep);
                     else Decrease(smallStep);
 					break;
                 case Key.Left:
-					if (!isHorizontal()) return;
+					if (!IsHorizontal()) return;
                     if (Direction == SliderDirection.LeftToRight) Decrease(smallStep);
                     else Increase(smallStep);
 					break;
@@ -307,7 +309,7 @@ namespace AGS.Engine
             }
             _focus.HasKeyboardFocus = Entity;
 			_isSliding = true;
-            if (isHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - hitTestBox.MinX, 
+            if (IsHorizontal()) setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.XMainViewport - hitTestBox.MinX, 
                                                                         0f, hitTestBox.Width), ref hitTestBox));
             else setValue(getSliderValue(MathUtils.Clamp(_input.MousePosition.YMainViewport - hitTestBox.MinY
                                                          , 0f, hitTestBox.Height), ref hitTestBox));
@@ -324,7 +326,7 @@ namespace AGS.Engine
             if (MathUtils.FloatEquals(MinValue, MaxValue)) return;
 
             var handlePos = getHandlePos(Value, scale);
-            if (isHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.ViewportBox.Width);
+            if (IsHorizontal()) HandleGraphics.X = MathUtils.Clamp(handlePos, 0f, boundingBoxes.ViewportBox.Width);
             else HandleGraphics.Y = MathUtils.Clamp(handlePos, 0f, boundingBoxes.ViewportBox.Height);
 			setText();
 		}
@@ -333,16 +335,16 @@ namespace AGS.Engine
 		{
             float min = isReverse() ? MaxValue : MinValue;
             float max = isReverse() ? MinValue : MaxValue;
-            return MathUtils.Lerp(0f, min, isHorizontal() ? 
+            return MathUtils.Lerp(0f, min, IsHorizontal() ? 
                                   hitTestBox.Width : hitTestBox.Height, 
                                   max, handlePos);
 		}
 
 		private float getHandlePos(float value, IScale scale)
 		{
-			float min = isReverse() ? MaxValue : MinValue;
-			float max = isReverse() ? MinValue : MaxValue;
-            return MathUtils.Lerp(min, _minHandleOffset, max, isHorizontal() ? 
+            float min = isReverse() ? MaxValue : MinValue;
+            float max = isReverse() ? MinValue : MaxValue;
+            return MathUtils.Lerp(min, _minHandleOffset, max, IsHorizontal() ? 
                                   scale.Width - _maxHandleOffset : scale.Height - _maxHandleOffset, 
                                   value);
 		}
@@ -371,14 +373,6 @@ namespace AGS.Engine
 			OnValueChanged.Invoke(args);
 		}
 
-        private bool isHorizontal()
-        {
-            return _direction == SliderDirection.LeftToRight || _direction == SliderDirection.RightToLeft;
-        }
-
-        private bool isReverse()
-        {
-            return _direction == SliderDirection.RightToLeft || _direction == SliderDirection.TopToBottom;
-        }
+        private bool isReverse() => _direction == SliderDirection.RightToLeft || _direction == SliderDirection.TopToBottom;
 	}
 }

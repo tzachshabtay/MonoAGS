@@ -140,5 +140,11 @@
         /// </summary>
         /// <param name="step">Step.</param>
         void Decrease(float step);
+
+        /// <summary>
+        /// Is the slider horizontal (<see cref="SliderDirection.RightToLeft"/> or <see cref="SliderDirection.LeftToRight"/>) or vertical (<see cref="SliderDirection.TopToBottom"/> or <see cref="SliderDirection.BottomToTop"/>)?
+        /// </summary>
+        /// <returns><c>true</c>, if the slider is horizontal, <c>false</c> otherwise.</returns>
+        bool IsHorizontal();
 	}
 }

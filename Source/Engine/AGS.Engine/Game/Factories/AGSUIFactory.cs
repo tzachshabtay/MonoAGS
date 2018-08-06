@@ -63,6 +63,52 @@ namespace AGS.Engine
             return GetPanel(id, image, x, y, parent, addToUi);
         }
 
+        public IScrollbar GetScrollbar(string idPrefix, SliderDirection direction, 
+                                       IObject parent = null, float width = 15f, float height = 15f, float step = 10f, float buttonBorderWidth = 1f)
+        {
+            var slider = GetSlider($"{idPrefix}_{direction}Slider", null, null, 0f, 0f, 0f, parent);
+            slider.ShouldClampValuesWhenChangingMinMax = false;
+            slider.HandleGraphics.Pivot = new PointF(0f, 0f);
+            slider.Direction = direction;
+            slider.Graphics.Pivot = new PointF(0f, 0f);
+            slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
+            slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
+            float gutterSize = slider.IsHorizontal() ? height : width;
+            slider.MaxHandleOffset = gutterSize;
+            HoverEffect.Add(slider.Graphics, Colors.Gray, Colors.LightGray);
+            HoverEffect.Add(slider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+
+            (var up, var down) = slider.IsHorizontal() ? (ArrowDirection.Left, ArrowDirection.Right) : (ArrowDirection.Up, ArrowDirection.Down);
+            PointF pivot = slider.IsHorizontal() ? (1f, 0f) : (0f, 1f);
+            (var upX, var upY) = slider.IsHorizontal() ? (0f, buttonBorderWidth / 2f) : (buttonBorderWidth / 2f, height - gutterSize * 2f);
+            (var idle, var hovered, var pushed) = getArrowButtonAnimations(up, buttonBorderWidth);
+            var upButton = GetButton($"{idPrefix}_Scroll{up}Button", idle, hovered, pushed, upX, upY, slider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
+            upButton.Pivot = pivot;
+            upButton.MouseClicked.Subscribe(args => 
+            {
+                if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)
+                    slider.Decrease(step);
+                else slider.Increase(step);
+                _focus.HasKeyboardFocus = slider; 
+            });
+
+            (var downX, var downY) = slider.IsHorizontal() ? (width - gutterSize * 2f, buttonBorderWidth / 2f) : (buttonBorderWidth / 2f, 0f);
+            (idle, hovered, pushed) = getArrowButtonAnimations(down, buttonBorderWidth);
+            var downButton = GetButton($"{idPrefix}_Scroll{down}Button", idle, hovered, pushed, downX, downY, slider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
+            downButton.Pivot = pivot;
+            downButton.MouseClicked.Subscribe(args => 
+            {
+                if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)   
+                    slider.Increase(step);
+                else slider.Decrease(step);
+                _focus.HasKeyboardFocus = slider; 
+            });
+
+            var scrollbar = new AGSScrollbar(upButton, downButton, slider);
+            scrollbar.Step = step;
+            return scrollbar;
+        }
+
         public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f, float stepHorizontal = 10f, float stepVertical = 10f)
         {
             var contentsPanel = GetPanel($"{panel.ID}_Contents", panel.Width, panel.Height, 0f, 0f, panel);
@@ -77,68 +123,29 @@ namespace AGS.Engine
 
             const float buttonBorderWidth = 1f;
 
-            var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
-            horizSlider.ShouldClampValuesWhenChangingMinMax = false;
-			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
-            horizSlider.Direction = SliderDirection.LeftToRight;
-			horizSlider.Graphics.Pivot = new PointF(0f, 0f);
-			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
-            horizSlider.MaxHandleOffset = gutterSize;
-            HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
-			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-            horizSlider.Y = -buttonBorderWidth;
-
-            var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
-            verSlider.ShouldClampValuesWhenChangingMinMax = false;
-			verSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
-            verSlider.Direction = SliderDirection.TopToBottom;
-			verSlider.Graphics.Pivot = new PointF(0f, 0f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
-            verSlider.MaxHandleOffset = gutterSize;
-			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-            HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-
-            (var idle, var hovered, var pushed) = getArrowButtonAnimations(ArrowDirection.Up, buttonBorderWidth);
-            var upButton = GetButton($"{panel.ID}_ScrollUpButton", idle, hovered, pushed, buttonBorderWidth / 2f, panel.Height - gutterSize * 2f, verSlider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
-            upButton.Pivot = new PointF(0f, 1f);
-            upButton.MouseClicked.Subscribe(args => { verSlider.Decrease(stepVertical); _focus.HasKeyboardFocus = verSlider; });
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Down, buttonBorderWidth);
-            var downButton = GetButton($"{panel.ID}_ScrollDownButton", idle, hovered, pushed, buttonBorderWidth / 2f, 0f, verSlider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
-            downButton.Pivot = new PointF(0f, 1f);
-            downButton.MouseClicked.Subscribe(args => { verSlider.Increase(stepVertical); _focus.HasKeyboardFocus = verSlider; });
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Left, buttonBorderWidth);
-            var leftButton = GetButton($"{panel.ID}_ScrollUpLeft", idle, hovered, pushed, 0f, buttonBorderWidth / 2f, horizSlider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
-            leftButton.Pivot = new PointF(1f, 0f);
-            leftButton.MouseClicked.Subscribe(args => { horizSlider.Decrease(stepHorizontal); _focus.HasKeyboardFocus = horizSlider; });
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Right, buttonBorderWidth);
-            var rightButton = GetButton($"{panel.ID}_ScrollDownRight", idle, hovered, pushed, panel.Width - gutterSize * 2f, buttonBorderWidth / 2f, horizSlider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
-            rightButton.Pivot = new PointF(1f, 0f);
-            rightButton.MouseClicked.Subscribe(args => { horizSlider.Increase(stepHorizontal); _focus.HasKeyboardFocus = horizSlider; });
+            var horizScrollbar = GetScrollbar(panel.ID, SliderDirection.LeftToRight, panel, panel.Width, gutterSize, buttonBorderWidth: buttonBorderWidth);
+            var verScrollbar = GetScrollbar(panel.ID, SliderDirection.TopToBottom, panel, gutterSize, panel.Height, buttonBorderWidth: buttonBorderWidth);
+            horizScrollbar.Slider.Y = -buttonBorderWidth;
 
             PropertyChangedEventHandler resize = (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Width) && args.PropertyName != nameof(IScaleComponent.Height)) return;
                 panel.BaseSize = new SizeF(contentsPanel.Width + gutterSize, contentsPanel.Height + gutterSize);
-                horizSlider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 3f, gutterSize);
-                horizSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
-                verSlider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
-                verSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
-                horizSlider.X = -panel.Width * panel.Pivot.X + gutterSize;
-                verSlider.X = panel.Width - gutterSize + buttonBorderWidth;
-                verSlider.Y = gutterSize * 2f;
-                upButton.Y = panel.Height - gutterSize * 2f;
-                rightButton.X = panel.Width - gutterSize * 2f;
+                horizScrollbar.Slider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 3f, gutterSize);
+                horizScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                verScrollbar.Slider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
+                verScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
+                horizScrollbar.Slider.X = -panel.Width * panel.Pivot.X + gutterSize;
+                verScrollbar.Slider.X = panel.Width - gutterSize + buttonBorderWidth;
+                verScrollbar.Slider.Y = gutterSize * 2f;
+                verScrollbar.UpButton.Y = panel.Height - gutterSize * 2f;
+                horizScrollbar.DownButton.X = panel.Width - gutterSize * 2f;
                 contentsPanel.Y = gutterSize;
             };
 
             resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
-            scroll.HorizontalScrollBar = horizSlider;
-			scroll.VerticalScrollBar = verSlider;
+            scroll.HorizontalScrollBar = horizScrollbar.Slider;
+            scroll.VerticalScrollBar = verScrollbar.Slider;
 
             contentsPanel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
 

@@ -187,6 +187,11 @@ namespace AGS.Engine
             _sliderComponent.Decrease(step);
         }
 
+        public bool IsHorizontal()
+        {
+            return _sliderComponent.IsHorizontal();
+        }
+
         #endregion
 
         #region INotifyPropertyChanged implementation
