@@ -24,10 +24,10 @@ namespace AGS.Engine
             get => _verticalScrollBar;
             set 
             {
-                _verticalScrollBar?.OnValueChanged.Unsubscribe(onVerticalSliderChanged);
+                _verticalScrollBar?.OnValueChanging.Unsubscribe(onVerticalSliderChanged);
                 if (value != null)
                 {
-                    value.OnValueChanged.Subscribe(onVerticalSliderChanged);
+                    value.OnValueChanging.Subscribe(onVerticalSliderChanged);
                 }
                 _verticalScrollBar = value;
                 refreshSliderLimits();
@@ -39,10 +39,10 @@ namespace AGS.Engine
             get => _horizontalScrollBar;
             set
 			{
-                _horizontalScrollBar?.OnValueChanged.Unsubscribe(onHorizontalSliderChanged);
+                _horizontalScrollBar?.OnValueChanging.Unsubscribe(onHorizontalSliderChanged);
                 if (value != null)
                 {
-                    value.OnValueChanged.Subscribe(onHorizontalSliderChanged);
+                    value.OnValueChanging.Subscribe(onHorizontalSliderChanged);
                 }
 				_horizontalScrollBar = value;
                 refreshSliderLimits();
