@@ -240,6 +240,12 @@ namespace AGS.Editor
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
         {
+            respondToKeyboard();
+        }
+
+        private void respondToKeyboard()
+        {
+            if (_editor.Editor.State.FocusedUI.HasKeyboardFocus != null) return;
             var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;
 
