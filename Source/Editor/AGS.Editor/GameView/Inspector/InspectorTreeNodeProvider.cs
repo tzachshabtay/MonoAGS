@@ -65,6 +65,7 @@ namespace AGS.Editor
                 view.ParentPanel.OnDisposed(() => tableLayout.Dispose());
                 view.HorizontalPanel.RemoveComponent<IStackLayoutComponent>();
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
+                rowLayout.FixedWidthOverrides[0] = 15f; //fixed width for the expand button, as the column padding is too much for it
                 rowLayout.Table = tableLayout;
             }
             if (node == null) return view;

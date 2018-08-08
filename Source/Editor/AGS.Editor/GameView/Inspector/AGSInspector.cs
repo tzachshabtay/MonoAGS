@@ -82,7 +82,6 @@ namespace AGS.Editor
         {
 			var treeView = _treeView;
 			if (treeView == null) return;
-            treeView.HorizontalSpacing = 1f;
             treeView.VerticalSpacing = 40f;
         }
 
