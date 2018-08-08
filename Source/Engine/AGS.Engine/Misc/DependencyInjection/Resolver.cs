@@ -64,8 +64,6 @@ namespace AGS.Engine
             Builder.RegisterType<RoomTransitionWorkflow>().SingleInstance().As<IRoomTransitionWorkflow>();
             Builder.RegisterType<AGSGameLoop>().SingleInstance().As<IGameLoop>();
 
-            registerComponents();
-
             //Registering lambdas for increasing performance
             Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<IButton>((c, p) => new AGSButton(p.TypedAs<string>(), this)).ExternallyOwned();
@@ -75,6 +73,10 @@ namespace AGS.Engine
             Builder.Register<ITextBox>((c, p) => new AGSTextbox(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<ICheckBox>((c, p) => new AGSCheckBox(p.TypedAs<string>(), this)).ExternallyOwned();
             Builder.Register<IComboBox>((c, p) => new AGSComboBox(p.TypedAs<string>(), this)).ExternallyOwned();
+
+            registerComponents();
+
+            //Registering lambdas for increasing performance
             Builder.Register<ITranslateComponent>((c, p) => new AGSTranslateComponent(c.Resolve<ITranslate>())).ExternallyOwned();
             Builder.Register<ITranslate>((c, p) => new AGSTranslate()).ExternallyOwned();
             Builder.Register<IScaleComponent>((c, p) => new AGSScaleComponent(c.Resolve<IScale>())).ExternallyOwned();
@@ -152,26 +154,26 @@ namespace AGS.Engine
 		private void registerComponents()
 		{
 			var assembly = typeof(Resolver).GetTypeInfo().Assembly;
-			foreach (var type in assembly.DefinedTypes)
+            foreach (var type in assembly.GetTypes())
 			{
-				if (!isComponent(type)) continue;
-				registerComponent(type);
+                if (!isComponent(type)) continue;
+                registerComponent(type);
 			}
 			RegisterType<VisibleProperty, IVisibleComponent>();
 			RegisterType<EnabledProperty, IEnabledComponent>();
 		}
 
-		private bool isComponent(TypeInfo type)
+		private bool isComponent(Type type)
 		{
 			return (type.BaseType == typeof(AGSComponent));
 		}
 
-		private void registerComponent(TypeInfo type)
+		private void registerComponent(Type type)
 		{
-			foreach (var compInterface in type.ImplementedInterfaces)
+            foreach (var compInterface in type.GetInterfaces())
 			{
 				if (compInterface == typeof(IComponent) || compInterface == typeof(IDisposable)) continue;
-                Builder.RegisterType(type.AsType()).As(compInterface).ExternallyOwned();
+                Builder.RegisterType(type).As(compInterface).ExternallyOwned();
 			}
 		}
 	}
