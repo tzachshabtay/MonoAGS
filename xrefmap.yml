@@ -15529,6 +15529,19 @@ references:
   commentId: T:AGS.API.ITreeTableRowLayoutComponent
   fullName: AGS.API.ITreeTableRowLayoutComponent
   nameWithType: ITreeTableRowLayoutComponent
+- uid: AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides
+  name: FixedWidthOverrides
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_FixedWidthOverrides
+  commentId: P:AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides
+  fullName: AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides
+  nameWithType: ITreeTableRowLayoutComponent.FixedWidthOverrides
+- uid: AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides*
+  name: FixedWidthOverrides
+  href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_FixedWidthOverrides_
+  commentId: Overload:AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides
+  isSpec: "True"
+  fullName: AGS.API.ITreeTableRowLayoutComponent.FixedWidthOverrides
+  nameWithType: ITreeTableRowLayoutComponent.FixedWidthOverrides
 - uid: AGS.API.ITreeTableRowLayoutComponent.RestrictionList
   name: RestrictionList
   href: api/AGS.API.ITreeTableRowLayoutComponent.html#AGS_API_ITreeTableRowLayoutComponent_RestrictionList
