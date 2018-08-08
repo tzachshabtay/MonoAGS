@@ -136,7 +136,8 @@ namespace AGS.API
 			float scaleY = adjustedScale.Y;
             float spriteWidth = Width / scaleX;
             float spriteHeight = Height / scaleY;
-            FourCorners<Vector2> cropArea = crop.GetCropArea(new BeforeCropEventArgs(this, boundingBoxType), spriteWidth, spriteHeight, out float width, out float height);
+            var args = new BeforeCropEventArgs(this, boundingBoxType);
+            FourCorners<Vector2> cropArea = crop.GetCropArea(args, spriteWidth, spriteHeight, out float width, out float height);
             if (!crop.CropEnabled) return new AGSCropInfo(this, null);
             if (width <= 0f || height <= 0f) return default;
 			width *= scaleX;
