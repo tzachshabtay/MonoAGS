@@ -209,7 +209,7 @@ namespace AGS.Editor
             buttonsPanel.RenderLayer = panel.RenderLayer;
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
-            float buttonBottomPadding = 12f;
+            float buttonBottomPadding = 7f;
             float betweenButtonsPadding = 1f;
             float buttonHeight = halfRowHeight - betweenButtonsPadding * 2;
             var upButton = _factory.UI.GetButton(id + "_UpButton", new ButtonAnimation(arrowUpIdle, null, Colors.Purple),
