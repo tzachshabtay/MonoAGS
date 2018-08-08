@@ -226,7 +226,7 @@ namespace AGS.Engine
             if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
             ICropSelfComponent cropSelf;
             var textComponent = obj.GetComponent<ITextComponent>();
-            if (textComponent?.TextBoundingBoxes != null)
+            if (textComponent != null)
             {
                 cropSelf = textComponent.CustomTextCrop;
                 if (cropSelf == null)
