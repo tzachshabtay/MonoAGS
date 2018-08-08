@@ -39,16 +39,16 @@ namespace AGS.Editor
                                                  label.X, label.Y, label.TreeNode.Parent,
                                                  "", config, width: 100f, height: 20f);
             textbox.Text = property.ValueString;
-            textbox.TextBackgroundVisible = false;
+            textbox.TextBackgroundVisible = true;
             textbox.Enabled = _enabled;
             if (_enabled)
             {
                 GameViewColors.AddHoverEffect(textbox);
             }
+            else textbox.TextBackgroundVisible = false;
             _textbox = textbox;
             textbox.RenderLayer = label.RenderLayer;
             textbox.Z = label.Z;
-            HoverEffect.Add(textbox, Colors.Transparent, Colors.DarkSlateBlue);
             textbox.OnPressingKey.Subscribe(args =>
             {
                 if (args.PressedKey != Key.Enter) return;
