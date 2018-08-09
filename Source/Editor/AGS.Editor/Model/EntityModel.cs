@@ -24,6 +24,9 @@ namespace AGS.Editor
         [DataMember(Name = "Components")]
         public Dictionary<Type, ComponentModel> Components { get; set; }
 
+        [DataMember(Name = "Initializer")]
+        public MethodModel Initializer { get; set; }
+
         public string Filename { get; private set; }
 
         public bool IsDirty { get; set; }

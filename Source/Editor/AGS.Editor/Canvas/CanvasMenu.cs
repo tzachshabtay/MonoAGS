@@ -125,9 +125,9 @@ namespace AGS.Editor
             {
                 parameters[param] = get(param, parameters) ?? overrideDefaults[param];
             }
-            object result = runMethod(method, factory, parameters);
+            (object result, MethodModel model) = runMethod(method, factory, parameters);
             List<object> entities = getEntities(factory, result, methodAttribute);
-            addNewEntities(entities);
+            addNewEntities(entities, model);
         }
 
         private (MethodInfo, MethodWizardAttribute) getMethod(object factory, string methodName)
@@ -154,12 +154,30 @@ namespace AGS.Editor
             return (List<object>)provider.Invoke(null, new[] { result });
         }
 
-        private void addNewEntities(List<object> entities)
+        private void addNewEntities(List<object> entities, MethodModel methodModel)
         {
             bool isParent = _potentialParent != null && _targetRadioGroup?.SelectedButton == _parentButton;
             bool isUi = _targetRadioGroup?.SelectedButton == _guiButton || (isParent && _editor.Game.State.UI.Contains(_potentialParent));
-            foreach (var entity in entities)
+            bool isFirst = true;
+            foreach (var entityObj in entities)
             {
+                IEntity entity = (IEntity)entityObj;
+                MethodModel initializer = null;
+                if (isFirst)
+                {
+                    isFirst = false;
+                    initializer = methodModel;
+                }
+                var entityModel = new EntityModel
+                {
+                    ID = entity.ID,
+                    DisplayName = entity.DisplayName,
+                    Initializer = initializer,
+                    Components = new Dictionary<Type, ComponentModel>(),
+                    EntityConcreteType = entity.GetType(),
+                    IsDirty = true,
+                };
+                _editor.Project.Model.Entities.Add(entity.ID, entityModel);
                 if (isParent)
                 {
                     if (entity is IObject obj) _potentialParent.TreeNode.AddChild(obj);
@@ -167,11 +185,17 @@ namespace AGS.Editor
                 }
                 if (isUi)
                 {
-                    if (entity is IObject obj) _editor.Game.State.UI.Add(obj);
+                    if (entity is IObject obj)
+                    {
+                        _editor.Game.State.UI.Add(obj);
+                        _editor.Project.Model.Guis.Add(entity.ID);
+                    }
                     else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
                 }
                 else
                 {
+                    var roomModel = _editor.Project.Model.Rooms.First(r => r.ID == _editor.Game.State.Room.ID);
+                    roomModel.Entities.Add(entity.ID);
                     if (entity is IObject obj) _editor.Game.State.Room.Objects.Add(obj);
                     else if (entity is IArea area) _editor.Game.State.Room.Areas.Add(area);
                     else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
@@ -179,12 +203,21 @@ namespace AGS.Editor
             }
         }
 
-        private object runMethod(MethodInfo method, object factory, Dictionary<string, object> parameters)
+        private (object, MethodModel) runMethod(MethodInfo method, object factory, Dictionary<string, object> parameters)
         {
             var methodParams = method.GetParameters();
             object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
                                                   val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
-            return method.Invoke(factory, values);
+            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values };
+            return (method.Invoke(factory, values), model);
+        }
+
+        private string getFactoryName(object factory)
+        {
+            if (factory == _editor.Game.Factory.UI) return "_factory.UI";
+            if (factory == _editor.Game.Factory.Object) return "_factory.Object";
+            if (factory == _editor.Game.Factory.Room) return "_factory.Room";
+            throw new InvalidOperationException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
         }
 
         private void addTargetUIForCreate(IPanel panel, Target target)

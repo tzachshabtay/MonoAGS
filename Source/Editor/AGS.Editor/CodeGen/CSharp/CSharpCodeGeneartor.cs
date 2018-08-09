@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using AGS.API;
 
@@ -11,6 +12,11 @@ namespace AGS.Editor
         {
             if (!model.IsDirty) return;
             string name = getVariableName(model.ID);
+            if (model.Initializer != null)
+            {
+                code.Append($"{name} = ");
+                generateCode(model.Initializer, code);
+            }
             if (model.DisplayName != null)
             {
                 code.AppendLine($"{name}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};");
@@ -26,6 +32,17 @@ namespace AGS.Editor
                 }
                 generateCode(pair.Value, componentName, code);
             }
+        }
+
+        private void generateCode(MethodModel model, StringBuilder code)
+        {
+            var parameters = string.Join(", ", model.Parameters.Select(p => getValueString(p)));
+            if (string.IsNullOrEmpty(model.InstanceName))
+            {
+                code.AppendLine($"{model.Name}({parameters});");
+                return;
+            }
+            code.AppendLine($"{model.InstanceName}.{model.Name}({parameters});");
         }
 
         private void generateCode(ComponentModel model, string name, StringBuilder code)
