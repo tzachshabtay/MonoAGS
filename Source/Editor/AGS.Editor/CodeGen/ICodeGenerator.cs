@@ -5,6 +5,6 @@ namespace AGS.Editor
 {
     public interface ICodeGenerator
     {
-        void GenerateCode(EntityModel model, StringBuilder code);
+        void GenerateCode(string namespaceName, EntityModel model, StringBuilder code);
     }
 }

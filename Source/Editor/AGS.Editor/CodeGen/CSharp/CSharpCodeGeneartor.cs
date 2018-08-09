@@ -8,30 +8,74 @@ namespace AGS.Editor
 {
 	public class CSharpCodeGeneartor : ICodeGenerator
     {
-        public void GenerateCode(EntityModel model, StringBuilder code)
+        public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
         {
             if (!model.IsDirty) return;
-            string name = getVariableName(model.ID);
+            (string name, string className) = getNames(model.ID);
+            generateHeader(namespaceName, className, code);
             if (model.Initializer != null)
             {
-                code.Append($"{name} = ");
+                indent(code).Append($"{name} = ");
                 generateCode(model.Initializer, code);
             }
             if (model.DisplayName != null)
             {
-                code.AppendLine($"{name}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};");
+                indent(code).AppendLine($"{name}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};");
             }
             foreach (var pair in model.Components)
             {
                 string componentName = getComponentName(pair.Key.Name);
                 if (!pair.Key.IsAssignableFrom(model.EntityConcreteType))
                 {
+                    indent(code);
                     bool needVar = pair.Value.Properties.Count > 0;
                     if (needVar) code.Append($"var {componentName} = ");
                     code.AppendLine($"{name}.AddComponent<{pair.Key.Name}>();");
                 }
                 generateCode(pair.Value, componentName, code);
             }
+            generateFooter(code);
+        }
+
+        private void generateHeader(string namespaceName, string className, StringBuilder code)
+        {
+            code.AppendLine(
+$@"using AGS.API;
+using AGS.Engine;
+using System;
+using System.Linq;
+using System.Text;
+using using System.Collections.Generic;
+
+namespace {namespaceName}
+{{
+    public class {className}
+    {{
+        private IGameState _state;
+        private IGameFactory _factory;
+
+        public {className} (IGameState state, IGameFactory factory)
+        {{
+            _state = state;
+            _factory = factory;
+        }}
+
+        public void Load()
+        {{");
+        }
+
+        private void generateFooter(StringBuilder code)
+        {
+            code.AppendLine(
+$@"        }}
+    }}
+}}");
+        }
+
+        private StringBuilder indent(StringBuilder code)
+        {
+            code.Append("            ");
+            return code;
         }
 
         private void generateCode(MethodModel model, StringBuilder code)
@@ -49,7 +93,7 @@ namespace AGS.Editor
         {
             foreach (var pair in model.Properties)
             {
-                code.AppendLine($"{name}.{pair.Key} = {getValueString(pair.Value)};");
+                indent(code).AppendLine($"{name}.{pair.Key} = {getValueString(pair.Value)};");
             }
         }
 
@@ -57,19 +101,21 @@ namespace AGS.Editor
         {
             if (interfaceName.StartsWith("I", false, CultureInfo.InvariantCulture)) interfaceName = interfaceName.Substring(1);
             interfaceName = $"{char.ToLower(interfaceName[0])}{interfaceName.Substring(1)}";
-            return getVariableName(interfaceName);
+            return getNames(interfaceName).varName;
         }
 
-        private string getVariableName(string name)
+        private (string varName, string className) getNames(string name)
         {
-            StringBuilder varName = new StringBuilder(name.Length);
+            StringBuilder sb = new StringBuilder(name.Length);
             foreach (var c in name)
             {
                 if (!char.IsLetter(c) && !char.IsDigit(c) && c != '_') continue;
-                varName.Append(c);
+                sb.Append(c);
             }
-            if (varName.Length == 0) throw new ArgumentException($"{name} is not a legal name: it must have at least one letter or digit");
-            return varName[0] == '_' ? varName.ToString() : $"_{varName.ToString()}";
+            if (sb.Length == 0) throw new ArgumentException($"{name} is not a legal name: it must have at least one letter or digit");
+            string varName = sb[0] == '_' ? sb.ToString() : $"_{sb.ToString()}";
+            string className = varName.Substring(1, 1).ToUpperInvariant() + (varName.Length > 2 ? varName.Substring(2) : "");
+            return (varName, className);
         }
 
         private string getValueString(object val)
