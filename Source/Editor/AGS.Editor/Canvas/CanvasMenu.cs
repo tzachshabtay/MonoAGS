@@ -208,7 +208,7 @@ namespace AGS.Editor
             var methodParams = method.GetParameters();
             object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
                                                   val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
-            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values };
+            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values, ReturnType = method.ReturnType };
             return (method.Invoke(factory, values), model);
         }
 

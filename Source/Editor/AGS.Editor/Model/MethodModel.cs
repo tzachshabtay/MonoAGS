@@ -15,5 +15,8 @@ namespace AGS.Editor
 
         [DataMember(Name = "Parameters")]
         public object[] Parameters { get; set; }
+
+        [DataMember(Name = "ReturnType")]
+        public Type ReturnType { get; set; }
     }
 }

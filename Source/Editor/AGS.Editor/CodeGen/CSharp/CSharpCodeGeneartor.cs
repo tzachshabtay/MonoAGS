@@ -11,48 +11,65 @@ namespace AGS.Editor
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
         {
             if (!model.IsDirty) return;
-            (string name, string className) = getNames(model.ID);
-            generateHeader(namespaceName, className, code);
-            if (model.Initializer != null)
-            {
-                indent(code).Append($"{name} = ");
-                generateCode(model.Initializer, code);
-            }
-            if (model.DisplayName != null)
-            {
-                indent(code).AppendLine($"{name}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};");
-            }
+            model.ScriptName = getClassMemberName(model.ID);
+            code.AppendLine(generateClass(model, namespaceName));
+        }
+
+        private string generateDisplayName(EntityModel model)
+        {
+            if (model.DisplayName == null) return "";
+            return $"{model.ScriptName}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};";
+        }
+
+        private string generateEntityMember(EntityModel model)
+        {
+            if (model.Initializer == null) return "";
+            return $"private {model.Initializer.ReturnType.Name} {model.ScriptName}";
+        }
+
+        private string generateEntityFactory(EntityModel model)
+        {
+            if (model.Initializer == null) return "";
+            return $"{model.ScriptName} = {generateMethod(model.Initializer)}";
+        }
+
+        private string generateComponents(EntityModel model)
+        {
+            StringBuilder code = new StringBuilder();
             foreach (var pair in model.Components)
             {
-                string componentName = getComponentName(pair.Key.Name);
-                if (!pair.Key.IsAssignableFrom(model.EntityConcreteType))
+                bool isBuiltIn = pair.Key.IsAssignableFrom(model.EntityConcreteType);
+                string componentName = isBuiltIn ? model.ScriptName : getComponentName(pair.Key.Name);
+                if (!isBuiltIn)
                 {
                     indent(code);
                     bool needVar = pair.Value.Properties.Count > 0;
                     if (needVar) code.Append($"var {componentName} = ");
-                    code.AppendLine($"{name}.AddComponent<{pair.Key.Name}>();");
+                    code.AppendLine($"{model.ScriptName}.AddComponent<{pair.Key.Name}>();");
                 }
-                generateCode(pair.Value, componentName, code);
+                generateSetProperty(pair.Value, componentName, code);
             }
-            generateFooter(code);
+            return code.ToString();
         }
 
-        private void generateHeader(string namespaceName, string className, StringBuilder code)
+        private string generateClass(EntityModel model, string namespaceName)
         {
-            code.AppendLine(
+            string className = getClassName(model.ID);
+            return
 $@"using AGS.API;
 using AGS.Engine;
 using System;
 using System.Linq;
 using System.Text;
-using using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace {namespaceName}
 {{
     public class {className}
     {{
-        private IGameState _state;
-        private IGameFactory _factory;
+        private readonly IGameState _state;
+        private readonly IGameFactory _factory;
+        {generateEntityMember(model)}
 
         public {className} (IGameState state, IGameFactory factory)
         {{
@@ -61,15 +78,13 @@ namespace {namespaceName}
         }}
 
         public void Load()
-        {{");
-        }
-
-        private void generateFooter(StringBuilder code)
-        {
-            code.AppendLine(
-$@"        }}
+        {{
+            {generateEntityFactory(model)}
+            {generateDisplayName(model)}
+{generateComponents(model)}
+        }}
     }}
-}}");
+}}";
         }
 
         private StringBuilder indent(StringBuilder code)
@@ -78,18 +93,17 @@ $@"        }}
             return code;
         }
 
-        private void generateCode(MethodModel model, StringBuilder code)
+        private string generateMethod(MethodModel model)
         {
             var parameters = string.Join(", ", model.Parameters.Select(p => getValueString(p)));
             if (string.IsNullOrEmpty(model.InstanceName))
             {
-                code.AppendLine($"{model.Name}({parameters});");
-                return;
+                return $"{model.Name}({parameters});";
             }
-            code.AppendLine($"{model.InstanceName}.{model.Name}({parameters});");
+            return $"{model.InstanceName}.{model.Name}({parameters});";
         }
 
-        private void generateCode(ComponentModel model, string name, StringBuilder code)
+        private void generateSetProperty(ComponentModel model, string name, StringBuilder code)
         {
             foreach (var pair in model.Properties)
             {
@@ -101,10 +115,10 @@ $@"        }}
         {
             if (interfaceName.StartsWith("I", false, CultureInfo.InvariantCulture)) interfaceName = interfaceName.Substring(1);
             interfaceName = $"{char.ToLower(interfaceName[0])}{interfaceName.Substring(1)}";
-            return getNames(interfaceName).varName;
+            return getRawName(interfaceName);
         }
 
-        private (string varName, string className) getNames(string name)
+        private string getRawName(string name)
         {
             StringBuilder sb = new StringBuilder(name.Length);
             foreach (var c in name)
@@ -113,9 +127,20 @@ $@"        }}
                 sb.Append(c);
             }
             if (sb.Length == 0) throw new ArgumentException($"{name} is not a legal name: it must have at least one letter or digit");
-            string varName = sb[0] == '_' ? sb.ToString() : $"_{sb.ToString()}";
-            string className = varName.Substring(1, 1).ToUpperInvariant() + (varName.Length > 2 ? varName.Substring(2) : "");
-            return (varName, className);
+            return sb.ToString();
+        }
+
+        private string getClassMemberName(string name)
+        {
+            name = getRawName(name);
+            return name[0] == '_' ? name : $"_{name}";
+        }
+
+        private string getClassName(string name)
+        {
+            name = getRawName(name);
+            var suffix = name.Length > 1 ? name.Substring(1) : "";
+            return $"{char.ToUpperInvariant(name[0])}{suffix}";
         }
 
         private string getValueString(object val)
