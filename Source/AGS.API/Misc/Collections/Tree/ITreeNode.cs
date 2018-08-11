@@ -83,6 +83,13 @@ namespace AGS.API
         /// <returns><c>true</c>, if it is a child of the node, <c>false</c> otherwise.</returns>
         /// <param name="child">Child.</param>
 		bool HasChild(TItem child);
+
+        /// <summary>
+        /// Find a descendant with the specified id.
+        /// </summary>
+        /// <returns>The descendant, or null if not found.</returns>
+        /// <param name="id">Identifier.</param>
+        TItem FindDescendant(string id);
 	}
 
     /// <summary>

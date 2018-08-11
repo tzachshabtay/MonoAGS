@@ -168,15 +168,8 @@ namespace AGS.Editor
                     isFirst = false;
                     initializer = methodModel;
                 }
-                var entityModel = new EntityModel
-                {
-                    ID = entity.ID,
-                    DisplayName = entity.DisplayName,
-                    Initializer = initializer,
-                    Components = new Dictionary<Type, ComponentModel>(),
-                    EntityConcreteType = entity.GetType(),
-                    IsDirty = true,
-                };
+                var entityModel = EntityModel.FromEntity(entity);
+                entityModel.Initializer = initializer;
                 _editor.Project.Model.Entities.Add(entity.ID, entityModel);
                 if (isParent)
                 {

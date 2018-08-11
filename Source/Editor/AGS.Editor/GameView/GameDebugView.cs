@@ -182,7 +182,7 @@ namespace AGS.Editor
             else if (action == KeyboardBindings.Save)
             {
                 string baseFolder = Path.GetDirectoryName(_editor.Project.AGSProjectPath);
-                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor();
+                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor(_editor.Project.Model);
                 _editor.Project.Model.GenerateCode(baseFolder, codeGeneartor);
                 _editor.Project.Model.Save(baseFolder);
             }

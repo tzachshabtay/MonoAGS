@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,16 @@ namespace AGS.Editor
 {
 	public class CSharpCodeGeneartor : ICodeGenerator
     {
+        private StateModel _stateModel;
+
+        public CSharpCodeGeneartor(StateModel stateModel)
+        {
+            _stateModel = stateModel;    
+        }
+
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
         {
-            if (!model.IsDirty) return;
-            model.ScriptName = getClassMemberName(model.ID);
+            if (!model.IsDirty || model.Parent != null) return;
             code.AppendLine(generateClass(model, namespaceName));
         }
 
@@ -21,16 +28,59 @@ namespace AGS.Editor
             return $"{model.ScriptName}.{nameof(IEntity.DisplayName)} = {'"'}{model.DisplayName}{'"'};";
         }
 
+        private string generateModels(EntityModel model, Func<EntityModel, string> generateLine, int numIndents = 12)
+        {
+            StringBuilder code = new StringBuilder();
+            List<EntityModel> models = new List<EntityModel>();
+            getAllModels(model, models);
+            foreach (var entity in models)
+            {
+                string line = generateLine(entity);
+                if (!string.IsNullOrEmpty(line))
+                {
+                    indent(code, numIndents).AppendLine(line);
+                }
+            }
+            return code.ToString();
+        }
+
+        private void getAllModels(EntityModel model, List<EntityModel> models)
+        {
+            if (model == null) return;
+            models.Add(model);
+            foreach (var child in model.Children)
+            {
+                getAllModels(_stateModel.Entities[child], models);
+            }
+        }
+
         private string generateEntityMember(EntityModel model)
         {
-            if (model.Initializer == null) return "";
-            return $"private {model.Initializer.ReturnType.Name} {model.ScriptName}";
+            if (model.Initializer == null && !needEntity(model)) return "";
+            return $"private {getType(model)} {model.ScriptName};";
         }
 
         private string generateEntityFactory(EntityModel model)
         {
-            if (model.Initializer == null) return "";
+            if (model.Initializer == null)
+            {
+                if (!needEntity(model)) return "";
+                return $"{model.ScriptName} = ({getType(model)}){getRoot(model).ScriptName}.TreeNode.FindDescendant({'"'}{model.ID}{'"'});";
+            }
             return $"{model.ScriptName} = {generateMethod(model.Initializer)}";
+        }
+
+        private EntityModel getRoot(EntityModel model)
+        {
+            if (model.Parent == null) return model;
+            return getRoot(_stateModel.Entities[model.Parent]);
+        }
+
+        private bool needEntity(EntityModel model) => model.Components.Any(c => c.Value.Properties.Count > 0);
+
+        private string getType(EntityModel model)
+        {
+            return model.Initializer?.ReturnType.Name ?? model.EntityConcreteType.Name;
         }
 
         private string generateComponents(EntityModel model)
@@ -52,8 +102,19 @@ namespace AGS.Editor
             return code.ToString();
         }
 
+        private void generateScriptNames(EntityModel model)
+        {
+            List<EntityModel> models = new List<EntityModel>();
+            getAllModels(model, models);
+            foreach (var entity in models)
+            {
+                entity.ScriptName = getClassMemberName(entity.ID);
+            }
+        }
+
         private string generateClass(EntityModel model, string namespaceName)
         {
+            generateScriptNames(model);
             string className = getClassName(model.ID);
             return
 $@"using AGS.API;
@@ -69,9 +130,9 @@ namespace {namespaceName}
     {{
         private readonly IGameState _state;
         private readonly IGameFactory _factory;
-        {generateEntityMember(model)}
+{generateModels(model, generateEntityMember, 8)}
 
-        public {className} (IGameState state, IGameFactory factory)
+        public {className}(IGameState state, IGameFactory factory)
         {{
             _state = state;
             _factory = factory;
@@ -79,17 +140,17 @@ namespace {namespaceName}
 
         public void Load()
         {{
-            {generateEntityFactory(model)}
-            {generateDisplayName(model)}
-{generateComponents(model)}
+{generateModels(model, generateEntityFactory)}
+{generateModels(model, generateDisplayName)}
+{generateModels(model, generateComponents, 0)}
         }}
     }}
 }}";
         }
 
-        private StringBuilder indent(StringBuilder code)
+        private StringBuilder indent(StringBuilder code, int chars = 12)
         {
-            code.Append("            ");
+            for (int i = 0; i < chars; i++) code.Append(' ');
             return code;
         }
 
