@@ -154,6 +154,22 @@ namespace AGS.Editor
             return (List<object>)provider.Invoke(null, new[] { result });
         }
 
+        private void addToModel(IEntity entity, MethodModel initializer)
+        {
+            var entityModel = EntityModel.FromEntity(entity);
+            entityModel.Initializer = initializer;
+            if (_editor.Project.Model.Entities.ContainsKey(entity.ID)) return;
+
+            _editor.Project.Model.Entities.Add(entity.ID, entityModel);
+            var tree = entity.GetComponent<IInObjectTreeComponent>();
+            if (tree == null) return;
+
+            foreach (var child in tree.TreeNode.Children)
+            {
+                addToModel(child, null);
+            }
+        }
+
         private void addNewEntities(List<object> entities, MethodModel methodModel)
         {
             bool isParent = _potentialParent != null && _targetRadioGroup?.SelectedButton == _parentButton;
@@ -168,9 +184,7 @@ namespace AGS.Editor
                     isFirst = false;
                     initializer = methodModel;
                 }
-                var entityModel = EntityModel.FromEntity(entity);
-                entityModel.Initializer = initializer;
-                _editor.Project.Model.Entities.Add(entity.ID, entityModel);
+                addToModel(entity, initializer);
                 if (isParent)
                 {
                     if (entity is IObject obj) _potentialParent.TreeNode.AddChild(obj);
