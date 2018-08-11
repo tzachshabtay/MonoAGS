@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using AGS.API;
 
@@ -235,7 +236,7 @@ namespace {namespaceName}
                     return tupleToString(t.GetType().GetProperties().Select(p => p.GetValue(t)));
                 default:
                     Type type = val.GetType();
-                    return deconstructToString(val, type) ?? enumToString(val, type) ?? val.ToString();
+                    return deconstructToString(val, type) ?? enumToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
             }
         }
 
@@ -249,12 +250,65 @@ namespace {namespaceName}
             return tupleToString(parameters);
         }
 
+        private string ctorToString(object val, Type type)
+        {
+            var ctors = type.GetConstructors();
+            if (ctors.Length == 0) return null;
+            var props = type.GetProperties();
+            int bestMatchNumParams = -1;
+            List<object> bestMatchParams = null;
+            foreach (var ctor in ctors)
+            {
+                var pars = ctor.GetParameters();
+                List<object> currentMatchParams = new List<object>(pars.Length);
+                int currentNumMatchParams = 0;
+                foreach (var param in pars)
+                {
+                    var matchingProps = props.Where(p => p.PropertyType == param.ParameterType).ToList();
+                    if (matchingProps.Count == 1)
+                    {
+                        currentMatchParams.Add(matchingProps[0].GetValue(val));
+                        currentNumMatchParams++;
+                        continue;
+                    }
+                    if (matchingProps.Count > 1)
+                    {
+                        var matchingProp = matchingProps.FirstOrDefault(p => p.Name.ToLower() == param.Name.ToLower());
+                        if (matchingProp != null)
+                        {
+                            currentMatchParams.Add(matchingProp.GetValue(val));
+                            currentNumMatchParams++;
+                            continue;
+                        }
+                    }
+                    currentMatchParams.Add(getDefault(param.ParameterType));
+                }
+                if (currentNumMatchParams > bestMatchNumParams)
+                {
+                    bestMatchNumParams = currentNumMatchParams;
+                    bestMatchParams = currentMatchParams;
+                }
+            }
+            var values = bestMatchParams.Select(p => getValueString(p));
+            return $"new {typeNameToString(type)}({string.Join(", ", values)})";
+        }
+
+        private string typeNameToString(Type type)
+        {
+            if (!type.IsGenericType) return type.Name;
+            string prefix = type.Name.Substring(0, type.Name.Length - 2);
+            var args = type.GenericTypeArguments.Select(t => typeNameToString(t));
+            return $"{prefix}<{string.Join(", ", args)}>";
+        }
+
+        private object getDefault(Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
+
         private string enumToString(object val, Type type)
         {
             if (type.IsEnum)
             {
                 string valueString = val.ToString();
-                return $"{type.Name}.{valueString}";
+                return $"{typeNameToString(type)}.{valueString}";
             }
             return null;
         }
