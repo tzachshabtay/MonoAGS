@@ -231,19 +231,38 @@ namespace {namespaceName}
                     return $"{"'"}{c}{"'"}";
                 case bool b:
                     return b.ToString().ToLowerInvariant();
+                case ValueTuple t:
+                    return tupleToString(t.GetType().GetProperties().Select(p => p.GetValue(t)));
                 default:
-                    string valueString = val.ToString();
                     Type type = val.GetType();
-                    if (type.IsEnum)
-                    {
-                        return $"{type.Name}.{valueString}";
-                    }
-                    if (valueString.Contains(","))
-                    { //assuming tuple for now
-                        return $"({valueString})";
-                    }
-                    return valueString;
+                    return deconstructToString(val, type) ?? enumToString(val, type) ?? val.ToString();
             }
+        }
+
+        private string deconstructToString(object val, Type type)
+        {
+            var deconstructMethod = (type.GetMethod("Deconstruct")); //Special keyword which allows deconstructing to tuples
+            if (deconstructMethod == null) return null;
+
+            var parameters = new object[deconstructMethod.GetParameters().Length];
+            deconstructMethod.Invoke(val, parameters);
+            return tupleToString(parameters);
+        }
+
+        private string enumToString(object val, Type type)
+        {
+            if (type.IsEnum)
+            {
+                string valueString = val.ToString();
+                return $"{type.Name}.{valueString}";
+            }
+            return null;
+        }
+
+        private string tupleToString(IEnumerable<object> values)
+        {
+            var strings = values.Select(v => getValueString(v));
+            return $"({string.Join(", ", strings)})";
         }
     }
 }
