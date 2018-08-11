@@ -152,7 +152,9 @@ namespace AGS.Engine
         }
 
         [MethodWizard]
-        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, 
+        public ILabel GetLabel(string id, [MethodParam(Default = "")]string text, 
+                               [MethodParam(Default = 80f)]float width, [MethodParam(Default = 30f)]float height, 
+                               float x, float y, 
                                [MethodParam(Browsable = false)]IObject parent = null, ITextConfig config = null, 
                                [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
