@@ -359,10 +359,6 @@ namespace AGS.Engine
             checkedHovered = validateAnimation(id, checkedHovered, hoverCheckedDefault, width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ICheckBox checkbox = _resolver.Container.Resolve<ICheckBox>(idParam);
-            if (!string.IsNullOrEmpty(text))
-            {
-                checkbox.TextLabel = GetLabel($"{id}_Label", text, 100f, 20f, x + width + 5f, y, parent, config, addToUi);
-            }
             if (!isCheckButton)
             {
                 checkbox.SkinTags.Add(AGSSkin.CheckBoxTag);
@@ -376,6 +372,12 @@ namespace AGS.Engine
             checkbox.X = x;
             checkbox.Y = y;
             setParent(checkbox, parent);
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                checkbox.TextLabel = GetLabel($"{id}_Label", text, 100f, 20f, width + 5f, height / 2f, checkbox, config, addToUi);
+                checkbox.TextLabel.Pivot = (0f, 0.5f);
+            }
 
             checkbox.Skin?.Apply(checkbox);
             checkbox.NotCheckedAnimation.StartAnimation(checkbox, checkbox.TextLabel, checkbox, checkbox);
