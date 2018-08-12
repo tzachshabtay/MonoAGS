@@ -11,10 +11,12 @@ namespace AGS.Editor
 	public class CSharpCodeGeneartor : ICodeGenerator
     {
         private StateModel _stateModel;
+        private Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
 
         public CSharpCodeGeneartor(StateModel stateModel)
         {
-            _stateModel = stateModel;    
+            _stateModel = stateModel;
+            _factories = new Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>>(getFactories);
         }
 
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
@@ -236,7 +238,7 @@ namespace {namespaceName}
                     return tupleToString(t.GetType().GetProperties().Select(p => p.GetValue(t)));
                 default:
                     Type type = val.GetType();
-                    return deconstructToString(val, type) ?? enumToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
+                    return deconstructToString(val, type) ?? enumToString(val, type) ?? factoryToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
             }
         }
 
@@ -248,6 +250,30 @@ namespace {namespaceName}
             var parameters = new object[deconstructMethod.GetParameters().Length];
             deconstructMethod.Invoke(val, parameters);
             return tupleToString(parameters);
+        }
+
+        private List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)> getFactories(Type type, string typeString)
+        {
+            var methods = type.GetMethods();
+            Func<string> getFactoryPrefix(MethodInfo s) => () => $"{typeString}.{s.Name}";
+            var factories = methods.Select(m => (m.ReturnType, getFactoryPrefix(m), m.GetParameters())).ToList();
+            var props = type.GetProperties();
+            foreach (var prop in props)
+            {
+                factories.AddRange(getFactories(prop.PropertyType, $"{typeString}.{prop.Name}"));
+            }
+            return factories;
+        }
+
+        private List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)> getFactories()
+        {
+            return getFactories(typeof(IGameFactory), "_factory");
+        }
+
+        private string factoryToString(object val, Type type)
+        {
+            var factories = _factories.Value.Where(f => f.returnType.IsAssignableFrom(type)).Select(f => (f.getPrefix, f.pars)).ToList();
+            return bestParamsMatchToString(val, type, factories);
         }
 
         private string ctorToString(object val, Type type)
