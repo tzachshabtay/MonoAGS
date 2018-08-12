@@ -53,6 +53,16 @@ namespace AGS.API
         public override string ToString() => $"[Color: Value={Value}, R={R}, G={G}, B={B}, A={A}]";
 
         /// <summary>
+        /// Gets a color from RGBA elements (red, green, blue, alpha).
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="r">The red component.</param>
+        /// <param name="g">The green component.</param>
+        /// <param name="b">The blue component.</param>
+        /// <param name="a">The alpha component.</param>
+        public static Color FromRgba(byte r, byte g, byte b, byte a) => FromArgb(a, r, g, b);
+
+        /// <summary>
         /// Gets a color from ARGB elements (alpha, red, green, blue).
         /// </summary>
         /// <returns>The color.</returns>
@@ -67,16 +77,6 @@ namespace AGS.API
 									 b << SHIFT_B |
 									 a << SHIFT_A));
 		}
-
-        /// <summary>
-        /// Gets a color from RGBA elements (red, green, blue, alpha).
-        /// </summary>
-        /// <returns>The color.</returns>
-        /// <param name="r">The red component.</param>
-        /// <param name="g">The green component.</param>
-        /// <param name="b">The blue component.</param>
-        /// <param name="a">The alpha component.</param>
-		public static Color FromRgba(byte r, byte g, byte b, byte a) => FromArgb(a, r, g, b);
 
         /// <summary>
         /// Gets a color from a hexa value (in ARGB format).

@@ -253,13 +253,27 @@ namespace {namespaceName}
         private string ctorToString(object val, Type type)
         {
             var ctors = type.GetConstructors();
-            if (ctors.Length == 0) return null;
+            string typeString = typeNameToString(type);
+            Func<string> ctorPrefix = () => $"new {typeString}";
+            var factories = ctors.Select(c => (ctorPrefix, c.GetParameters())).ToList();
+
+            var staticFactories = type.GetMethods(BindingFlags.Public | BindingFlags.Static).Where(m => m.ReturnType.IsAssignableFrom(type));
+            Func<string> getStaticPrefix(MethodInfo s) => () => $"{typeString}.{s.Name}";
+            factories.AddRange(staticFactories.Select(s => (getStaticPrefix(s), s.GetParameters())));
+
+            return bestParamsMatchToString(val, type, factories);
+        }
+
+        private string bestParamsMatchToString(object val, Type type, List<(Func<string> getPrefix, ParameterInfo[] pars)> factories)
+        {
+            if (factories.Count == 0) return null;
             var props = type.GetProperties();
             int bestMatchNumParams = -1;
             List<object> bestMatchParams = null;
-            foreach (var ctor in ctors)
+            Func<string> bestMatchFactory = null;
+            foreach (var factory in factories)
             {
-                var pars = ctor.GetParameters();
+                var pars = factory.pars;
                 List<object> currentMatchParams = new List<object>(pars.Length);
                 int currentNumMatchParams = 0;
                 foreach (var param in pars)
@@ -287,10 +301,11 @@ namespace {namespaceName}
                 {
                     bestMatchNumParams = currentNumMatchParams;
                     bestMatchParams = currentMatchParams;
+                    bestMatchFactory = factory.getPrefix;
                 }
             }
             var values = bestMatchParams.Select(p => getValueString(p));
-            return $"new {typeNameToString(type)}({string.Join(", ", values)})";
+            return $"{bestMatchFactory()}({string.Join(", ", values)})";
         }
 
         private string typeNameToString(Type type)
