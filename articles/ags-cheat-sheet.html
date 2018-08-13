@@ -5159,7 +5159,7 @@ Also, MonoAGS has some additional useful math methods in <code>MathUtils</code> 
 <td>speech_text_gui</td>
 <td>Either set properties in <code>SpeechConfig</code> or subscribe to <code>OnBeforeSay</code> and manipulate the label</td>
 <td><code>game.speech_text_gui = 4;</code></td>
-<td>For basic changes: <code>player.SpeechConfig.BackgroundColor = Colors.Pink; player.SpeechConfig.Border = AGSBorders.Solid(Colors.Red, lineWidth: 5);</code>, for complete control: <code>player.OnBeforeSay.Subscribe(args =&gt; { args.Label.Opacity = 0; args.Label.TweenOpacity(255, 3f);});</code></td>
+<td>For basic changes: <code>player.SpeechConfig.BackgroundColor = Colors.Pink; player.SpeechConfig.Border = factory.Graphics.Borders.Solid(Colors.Red, lineWidth: 5);</code>, for complete control: <code>player.OnBeforeSay.Subscribe(args =&gt; { args.Label.Opacity = 0; args.Label.TweenOpacity(255, 3f);});</code></td>
 <td></td>
 </tr>
 <tr>

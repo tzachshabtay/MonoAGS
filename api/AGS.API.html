@@ -355,13 +355,16 @@ Interested parties can subscribe to the event and be notified when it triggers (
       <h4><a class="xref" href="AGS.API.IBorderComponent.html">IBorderComponent</a></h4>
       <section><p>Allows drawing a border around the entity.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IBorderFactory.html">IBorderFactory</a></h4>
+      <section><p>A factory for creating borders (<a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>).</p>
+</section>
       <h4><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></h4>
       <section><p>A border style will draw a border around an entity.
 It can draw both behind and in front of the entity.</p>
 <p>There are several borders that come built in:</p>
 <ol>
-<li>A solid color border (use AGSBorders.SolidColor): allows to set a color, line width and optional rounded corners.</li>
-<li>A gradient color border (use AGSBorders.Gradient): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.</li>
+<li>A solid color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_System_Nullable_AGS_API_Color__System_Single_System_Boolean_">SolidColor(Nullable&lt;Color&gt;, Single, Boolean)</a>): allows to set a color, line width and optional rounded corners.</li>
+<li>A gradient color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_">Gradient(FourCorners&lt;Color&gt;, Single, Boolean)</a>): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.</li>
 <li>A 9-slice image border (use AGSSlicedImageBorder): this allows you to use an image, slice it to 9 pieces, and spread it in various ways to create a border.
 The 9-slice image border is heavily inspired by the border image used by CSS, so you can look at an example in CSS, to
 see what can be done with a 9-slice image: <a href="https://css-tricks.com/almanac/properties/b/border-image/">https://css-tricks.com/almanac/properties/b/border-image/</a></li>

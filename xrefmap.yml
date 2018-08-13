@@ -4205,6 +4205,60 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBorderComponent.Border
   nameWithType: IBorderComponent.Border
+- uid: AGS.API.IBorderFactory
+  name: IBorderFactory
+  href: api/AGS.API.IBorderFactory.html
+  commentId: T:AGS.API.IBorderFactory
+  fullName: AGS.API.IBorderFactory
+  nameWithType: IBorderFactory
+- uid: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},System.Single,System.Boolean)
+  name: Gradient(FourCorners<Color>, Single, Boolean)
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_
+  commentId: M:AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},System.Single,System.Boolean)
+  name.vb: Gradient(FourCorners(Of Color), Single, Boolean)
+  fullName: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners<AGS.API.Color>, System.Single, System.Boolean)
+  fullName.vb: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners(Of AGS.API.Color), System.Single, System.Boolean)
+  nameWithType: IBorderFactory.Gradient(FourCorners<Color>, Single, Boolean)
+  nameWithType.vb: IBorderFactory.Gradient(FourCorners(Of Color), Single, Boolean)
+- uid: AGS.API.IBorderFactory.Gradient*
+  name: Gradient
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_
+  commentId: Overload:AGS.API.IBorderFactory.Gradient
+  isSpec: "True"
+  fullName: AGS.API.IBorderFactory.Gradient
+  nameWithType: IBorderFactory.Gradient
+- uid: AGS.API.IBorderFactory.Multiple(AGS.API.IBorderStyle[])
+  name: Multiple(IBorderStyle[])
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Multiple_AGS_API_IBorderStyle___
+  commentId: M:AGS.API.IBorderFactory.Multiple(AGS.API.IBorderStyle[])
+  name.vb: Multiple(IBorderStyle())
+  fullName: AGS.API.IBorderFactory.Multiple(AGS.API.IBorderStyle[])
+  fullName.vb: AGS.API.IBorderFactory.Multiple(AGS.API.IBorderStyle())
+  nameWithType: IBorderFactory.Multiple(IBorderStyle[])
+  nameWithType.vb: IBorderFactory.Multiple(IBorderStyle())
+- uid: AGS.API.IBorderFactory.Multiple*
+  name: Multiple
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Multiple_
+  commentId: Overload:AGS.API.IBorderFactory.Multiple
+  isSpec: "True"
+  fullName: AGS.API.IBorderFactory.Multiple
+  nameWithType: IBorderFactory.Multiple
+- uid: AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
+  name: SolidColor(Nullable<Color>, Single, Boolean)
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_System_Nullable_AGS_API_Color__System_Single_System_Boolean_
+  commentId: M:AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
+  name.vb: SolidColor(Nullable(Of Color), Single, Boolean)
+  fullName: AGS.API.IBorderFactory.SolidColor(System.Nullable<AGS.API.Color>, System.Single, System.Boolean)
+  fullName.vb: AGS.API.IBorderFactory.SolidColor(System.Nullable(Of AGS.API.Color), System.Single, System.Boolean)
+  nameWithType: IBorderFactory.SolidColor(Nullable<Color>, Single, Boolean)
+  nameWithType.vb: IBorderFactory.SolidColor(Nullable(Of Color), Single, Boolean)
+- uid: AGS.API.IBorderFactory.SolidColor*
+  name: SolidColor
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_
+  commentId: Overload:AGS.API.IBorderFactory.SolidColor
+  isSpec: "True"
+  fullName: AGS.API.IBorderFactory.SolidColor
+  nameWithType: IBorderFactory.SolidColor
 - uid: AGS.API.IBorderStyle
   name: IBorderStyle
   href: api/AGS.API.IBorderStyle.html
@@ -9058,6 +9112,19 @@ references:
   commentId: T:AGS.API.IGraphicsFactory
   fullName: AGS.API.IGraphicsFactory
   nameWithType: IGraphicsFactory
+- uid: AGS.API.IGraphicsFactory.Borders
+  name: Borders
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Borders
+  commentId: P:AGS.API.IGraphicsFactory.Borders
+  fullName: AGS.API.IGraphicsFactory.Borders
+  nameWithType: IGraphicsFactory.Borders
+- uid: AGS.API.IGraphicsFactory.Borders*
+  name: Borders
+  href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Borders_
+  commentId: Overload:AGS.API.IGraphicsFactory.Borders
+  isSpec: "True"
+  fullName: AGS.API.IGraphicsFactory.Borders
+  nameWithType: IGraphicsFactory.Borders
 - uid: AGS.API.IGraphicsFactory.Brushes
   name: Brushes
   href: api/AGS.API.IGraphicsFactory.html#AGS_API_IGraphicsFactory_Brushes
