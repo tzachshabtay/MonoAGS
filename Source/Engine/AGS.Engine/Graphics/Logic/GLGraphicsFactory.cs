@@ -16,13 +16,14 @@ namespace AGS.Engine
 		private readonly SpriteSheetLoader _spriteSheetLoader;
         private readonly IRenderThread _renderThread;
 
-        public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
+        public GLGraphicsFactory (ITextureCache textures, Resolver resolver,
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
                                   IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, 
-                                  IRenderMessagePump messagePump, IGameSettings settings)
+                                  IRenderMessagePump messagePump, IGameSettings settings, IBorderFactory borders)
 		{
             Icons = icons;
             Brushes = brushes;
+            Borders = borders;
             _renderThread = renderThread;
 			_textures = textures;
 			_resolver = resolver;
@@ -30,12 +31,14 @@ namespace AGS.Engine
 			_bitmapLoader = bitmapLoader;
             _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
-            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils, settings).CreateSkin();
+            settings.Defaults.Skin = new AGSBlueSkin(this).CreateSkin();
 		}
 
-        public IIconFactory Icons { get; private set; }
+        public IBorderFactory Borders { get; }
 
-        public IBrushLoader Brushes { get; private set; }
+        public IIconFactory Icons { get; }
+
+        public IBrushLoader Brushes { get; }
 
 		public ISprite GetSprite()
 		{

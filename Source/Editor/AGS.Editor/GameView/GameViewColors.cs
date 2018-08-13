@@ -20,8 +20,8 @@ namespace AGS.Editor
         public static Color HoveredMenuItem = Colors.DarkBlue;
         public static Color TextboxColor = Color.FromHexa(0x2d323a).WithAlpha(255);
         public static Color TextboxHoverColor = Color.FromHexa(0x505660).WithAlpha(255);
-        public static IBorderStyle TextboxBorder = AGSBorders.SolidColor(TextboxColor, 3f, true);
-        public static IBorderStyle TextboxHoverBorder = AGSBorders.SolidColor(TextboxHoverColor, 3f, true);
+        public static IBorderStyle TextboxBorder = AGSGame.Game.Factory.Graphics.Borders.SolidColor(TextboxColor, 3f, true);
+        public static IBorderStyle TextboxHoverBorder = AGSGame.Game.Factory.Graphics.Borders.SolidColor(TextboxHoverColor, 3f, true);
 
         public static IBrush TextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Text);
         public static IBrush HoveredTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);

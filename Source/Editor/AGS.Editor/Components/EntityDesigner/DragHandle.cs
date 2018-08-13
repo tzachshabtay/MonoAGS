@@ -32,7 +32,7 @@ namespace AGS.Editor
             _handle = handle;
             _handle.Visible = false;
             _handle.Enabled = true;
-            _handle.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 2f);
+            _handle.Border = editor.Editor.Factory.Graphics.Borders.SolidColor(Colors.WhiteSmoke, 2f);
             _handle.RenderLayer = AGSLayers.UI;
             _handle.IsPixelPerfect = false;
             _handle.AddComponent<IUIEvents>();

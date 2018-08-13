@@ -37,7 +37,7 @@ namespace AGS.Editor
 
             _searchBox = factory.UI.GetTextBox($"{_idPrefix}_InspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
@@ -47,7 +47,7 @@ namespace AGS.Editor
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 1f);
 			_scrollingPanel.Tint = Colors.Transparent;
-            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
 
             _treePanel = factory.UI.GetPanel($"{_idPrefix}_InspectorPanel", 0f, 0f, 0f, _contentsPanel.Height - _padding, _contentsPanel);

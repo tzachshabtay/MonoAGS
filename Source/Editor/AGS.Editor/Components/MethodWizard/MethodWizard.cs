@@ -43,10 +43,11 @@ namespace AGS.Editor
         public void Load()
         {
             float center = _editor.ToEditorResolution(_editor.Game.Settings.VirtualResolution.Width / 2f, 0f, null).x;
-            _parent = _editor.Editor.Factory.UI.GetPanel($"MethodWizardPanel_{_method.Name}", 600f, 400f, -1000f, 100f, addToUi: false);
+            var factory = _editor.Editor.Factory;
+            _parent = factory.UI.GetPanel($"MethodWizardPanel_{_method.Name}", 600f, 400f, -1000f, 100f, addToUi: false);
             _parent.RenderLayer = _layer;
             _parent.Tint = GameViewColors.Panel;
-            _parent.Border = AGSBorders.SolidColor(GameViewColors.Border, 3f);
+            _parent.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
             var host = new AGSComponentHost(_editor.GameResolver);
             host.Init(_parent, typeof(AGSComponentHost));
             _modal = host.AddComponent<IModalWindowComponent>();
@@ -57,7 +58,7 @@ namespace AGS.Editor
             _parent.Visible = false;
             _editor.Editor.State.UI.Add(_parent);
 
-            var inspectorParent = _editor.Editor.Factory.UI.GetPanel("WizardInspectorParentPanel", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _parent);
+            var inspectorParent = factory.UI.GetPanel("WizardInspectorParentPanel", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _parent);
             inspectorParent.Tint = Colors.Transparent;
             inspectorParent.Pivot = (0f, 1f);
 
@@ -102,12 +103,12 @@ namespace AGS.Editor
         {
             var factory = _editor.Editor.Factory;
             var font = _editor.Editor.Settings.Defaults.TextFont;
-            var border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            var border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             var idleConfig = new AGSTextConfig(GameViewColors.TextBrush, alignment: Alignment.MiddleCenter, font: font);
             var hoveredConfig = new AGSTextConfig(GameViewColors.HoveredTextBrush, alignment: Alignment.MiddleCenter, font: font);
             var idle = new ButtonAnimation(border, idleConfig, GameViewColors.Button);
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
-            var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
+            var pushed = new ButtonAnimation(factory.Graphics.Borders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
 
             var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, _parent);
             buttonsPanel.Tint = Colors.Transparent;

@@ -35,7 +35,7 @@ namespace DemoGame
             /*
             var portrait = game.Factory.Object.GetObject("BemanPortrait");
             portrait.StartAnimation(game.Factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Talk/down"));
-            portrait.Border = AGSBorders.SolidColor(Colors.AliceBlue, 3f, true);
+            portrait.Border = game.Factory.Graphics.Borders.SolidColor(Colors.AliceBlue, 3f, true);
             portrait.Visible = false;
             portrait.RenderLayer = AGSLayers.Speech;
             portrait.IgnoreViewport = true;

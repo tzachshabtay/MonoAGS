@@ -13,6 +13,7 @@ namespace AGS.Engine
         private readonly Resolver _resolver;
         private readonly IGameState _gameState;
         private readonly IGraphicsFactory _graphics;
+        private readonly IBorderFactory _borders;
         private readonly IObjectFactory _object;
         private readonly IGameSettings _settings;
         private readonly IFocusedUI _focus;
@@ -24,6 +25,7 @@ namespace AGS.Engine
             _resolver = resolver;
             _gameState = gameState;
             _graphics = graphics;
+            _borders = graphics.Borders;
             _object = obj;
             _focus = focusedUI;
         }
@@ -71,8 +73,8 @@ namespace AGS.Engine
             slider.Direction = direction;
             slider.HandleGraphics.Pivot = slider.IsHorizontal() ? new PointF(1f, 0f) : new PointF(0f, 1f);
             slider.Graphics.Pivot = new PointF(0f, 0f);
-            slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-            slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
+            slider.Graphics.Border = _borders.SolidColor(Colors.DarkGray, 0.5f, true);
+            slider.HandleGraphics.Border = _borders.SolidColor(Colors.White, 0.5f, true);
             float gutterSize = slider.IsHorizontal() ? height : width;
             HoverEffect.Add(slider.Graphics, Colors.Gray, Colors.LightGray);
             HoverEffect.Add(slider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
@@ -187,8 +189,8 @@ namespace AGS.Engine
 
         private static IBorderStyle getDefaultBorder(Resolver resolver)
         {
-            return AGSBorders.SolidColor(resolver.Container.Resolve<IGLUtils>(),
-                                         resolver.Container.Resolve<IGameSettings>(), Colors.Black, 1f);
+            var borders = resolver.Container.Resolve<IBorderFactory>();
+            return borders.SolidColor(Colors.Black, 1f);
         }
 
         public static List<object> ConvertListboxToEntities(IListbox listbox)
@@ -342,17 +344,17 @@ namespace AGS.Engine
             var hoverColor = Colors.Yellow;
             const float lineWidth = 1f;
             const float padding = 300f;
-            Func<ButtonAnimation> notCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(idleColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> notCheckedDefault = () => new ButtonAnimation(_borders.SolidColor(idleColor, lineWidth), null, Colors.Black);
             Func<ButtonAnimation> checkedDefault = () =>
             {
                 var checkIcon = _graphics.Icons.GetXIcon(color: idleColor, padding: padding);
-                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(idleColor, lineWidth), checkIcon), null, Colors.Black);
+                return new ButtonAnimation(_borders.Multiple(_borders.SolidColor(idleColor, lineWidth), checkIcon), null, Colors.Black);
             };
-            Func<ButtonAnimation> hoverNotCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(hoverColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> hoverNotCheckedDefault = () => new ButtonAnimation(_borders.SolidColor(hoverColor, lineWidth), null, Colors.Black);
             Func<ButtonAnimation> hoverCheckedDefault = () =>
             {
                 var checkHoverIcon = _graphics.Icons.GetXIcon(color: hoverColor, padding: padding);
-                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, Colors.Black);
+                return new ButtonAnimation(_borders.Multiple(_borders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, Colors.Black);
             }; 
 
             notChecked = validateAnimation(id, notChecked, notCheckedDefault, width, height);
@@ -448,7 +450,7 @@ namespace AGS.Engine
 
             var scrollingPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
             scrollingPanel.Visible = isVisible;
-            scrollingPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
+            scrollingPanel.Border = _borders.SolidColor(Colors.White, 3f);
             scrollingPanel.Tint = Colors.Black;
             scrollingPanel.RenderLayer = layer;
             var contentsPanel = withScrollBars ? CreateScrollingPanel(scrollingPanel) : scrollingPanel;
@@ -485,7 +487,7 @@ namespace AGS.Engine
             {
                 textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, font: _settings.Defaults.TextFont),
                                      false, itemWidth, defaultHeight);
-				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
+                textBox.Border = _borders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
             }
             else setParent(textBox, comboBox);
@@ -599,9 +601,9 @@ namespace AGS.Engine
 
         private (ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed) getArrowButtonAnimations(ArrowDirection direction, float lineWidth)
         {
-            var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, lineWidth),
+            var whiteArrow = _borders.Multiple(_borders.SolidColor(Colors.WhiteSmoke, lineWidth),
                                                  _graphics.Icons.GetArrowIcon(direction, Colors.WhiteSmoke));
-            var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, lineWidth),
+            var yellowArrow = _borders.Multiple(_borders.SolidColor(Colors.Yellow, lineWidth),
                                                   _graphics.Icons.GetArrowIcon(direction, Colors.Yellow));
 
             return (new ButtonAnimation(whiteArrow, null, Colors.Transparent),

@@ -61,7 +61,7 @@ namespace AGS.Editor
             _text.TextConfig.AutoFit = AutoFit.TextShouldFitLabel;
             _text.TextConfig.Alignment = Alignment.MiddleLeft;
             _text.TextBackgroundVisible = true;
-            _text.Border = AGSBorders.SolidColor(Colors.White, 2f);
+            _text.Border = _factory.Graphics.Borders.SolidColor(Colors.White, 2f);
             var whiteBrush = _text.TextConfig.Brush;
             var yellowBrush = _factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
             _text.MouseEnter.Subscribe(_ => { _text.TextConfig.Brush = yellowBrush; });
@@ -86,8 +86,8 @@ namespace AGS.Editor
                 _text.Text = $"{color.R},{color.G},{color.B},{color.A}";
             }
             _colorLabel.Tint = color;
-            _text.Border = AGSBorders.SolidColor(color, 2f);
-            var buttonBorder = AGSBorders.Multiple(AGSBorders.SolidColor(color, 1f),
+            _text.Border = _factory.Graphics.Borders.SolidColor(color, 2f);
+            var buttonBorder = _factory.Graphics.Borders.Multiple(_factory.Graphics.Borders.SolidColor(color, 1f),
                                _factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, color));
             _dropDownButton.IdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.Transparent);
             _dropDownButton.Border = buttonBorder;

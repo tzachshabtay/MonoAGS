@@ -35,7 +35,7 @@ namespace DemoGame
 			_panel.Pivot = (0.5f, 0.5f);
 			_panel.Visible = false;
             _panel.Tint = Colors.Black;
-            _panel.Border = AGSBorders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
+            _panel.Border = factory.Graphics.Borders.SolidColor(Colors.Green, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
 			_panel.AddComponent<IModalWindowComponent>();
 

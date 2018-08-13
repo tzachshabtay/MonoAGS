@@ -59,7 +59,7 @@ namespace AGS.Editor
             var factory = _editor.Editor.Factory;
             var panel = factory.UI.GetPanel("RecentGamesPanel", 800f, 600f, 0f, 0f, parent);
             panel.Tint = GameViewColors.SubPanel;
-            panel.Border = AGSBorders.SolidColor(GameViewColors.Border, 5f);
+            panel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 5f);
             var layout = panel.AddComponent<IStackLayoutComponent>();
             layout.StartLocation = panel.Height - 60f;
             layout.AbsoluteSpacing = -10f;
