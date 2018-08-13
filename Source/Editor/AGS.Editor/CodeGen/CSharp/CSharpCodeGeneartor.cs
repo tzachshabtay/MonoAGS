@@ -21,8 +21,14 @@ namespace AGS.Editor
 
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
         {
-            if (!model.IsDirty || model.Parent != null) return;
+            if (model.Parent != null || (!isDirty(model))) return;
             code.AppendLine(generateClass(model, namespaceName));
+        }
+
+        private bool isDirty(EntityModel model)
+        {
+            if (model.IsDirty) return true;
+            return model.Children.Any(c => _stateModel.Entities.TryGetValue(c, out var child) && isDirty(child));
         }
 
         private string generateDisplayName(EntityModel model)
@@ -105,6 +111,13 @@ namespace AGS.Editor
             return code.ToString();
         }
 
+        private string generateAddToParent(EntityModel model)
+        {
+            if (model.Initializer == null || model.Parent == null) return "";
+            var parent = _stateModel.Entities[model.Parent];
+            return $"{model.ScriptName}.TreeNode.SetParent({parent.ScriptName}.TreeNode);";
+        }
+
         private string generateAddToState(EntityModel model)
         {
             //todo: instead of generating add for each entity individually, we can use AddRange and batch all entities in this tree
@@ -172,6 +185,7 @@ namespace {namespaceName}
         public void Load()
         {{
 {generateModels(model, generateEntityFactory)}
+{generateModels(model, generateAddToParent)}
 {generateModels(model, generateDisplayName)}
 {generateModels(model, generateComponents, 0)}
 {generateModels(model, generateAddToState)}

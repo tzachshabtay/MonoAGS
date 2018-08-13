@@ -155,20 +155,29 @@ namespace AGS.Editor
             return (List<object>)provider.Invoke(null, new[] { result });
         }
 
-        private void addToModel(IEntity entity, MethodModel initializer)
+        private EntityModel addToModel(IEntity entity, MethodModel initializer)
         {
+            if (_editor.Project.Model.Entities.TryGetValue(entity.ID, out var existingModel)) return existingModel;
             var entityModel = EntityModel.FromEntity(entity);
             entityModel.Initializer = initializer;
-            if (_editor.Project.Model.Entities.ContainsKey(entity.ID)) return;
 
             _editor.Project.Model.Entities.Add(entity.ID, entityModel);
             var tree = entity.GetComponent<IInObjectTreeComponent>();
-            if (tree == null) return;
+            if (tree == null) return entityModel;
+
+            if (tree.TreeNode.Parent != null && 
+                _editor.Project.Model.Entities.TryGetValue(tree.TreeNode.Parent.ID, out var parent) &&
+                !parent.Children.Contains(entity.ID))
+            {
+                parent.Children.Add(entity.ID);
+            }
 
             foreach (var child in tree.TreeNode.Children)
             {
                 addToModel(child, null);
             }
+
+            return entityModel;
         }
 
         private void addNewEntities(List<object> entities, MethodModel methodModel)
@@ -185,12 +194,12 @@ namespace AGS.Editor
                     isFirst = false;
                     initializer = methodModel;
                 }
-                addToModel(entity, initializer);
                 if (isParent)
                 {
                     if (entity is IObject obj) _potentialParent.TreeNode.AddChild(obj);
                     else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
                 }
+                addToModel(entity, initializer);
                 if (isUi)
                 {
                     if (entity is IObject obj)
