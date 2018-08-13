@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using AGS.API;
@@ -201,7 +202,13 @@ namespace AGS.Editor
                 }
                 else
                 {
-                    var roomModel = _editor.Project.Model.Rooms.First(r => r.ID == _editor.Game.State.Room.ID);
+                    var roomModel = _editor.Project.Model.Rooms.FirstOrDefault(r => r.ID == _editor.Game.State.Room.ID);
+                    if (roomModel == null)
+                    {
+                        Debug.WriteLine($"Room {_editor.Game.State.Room.ID} encountered for the first time!");
+                        roomModel = new RoomModel { ID = _editor.Game.State.Room.ID, Entities = new HashSet<string>() };
+                        _editor.Project.Model.Rooms.Add(roomModel);
+                    }
                     roomModel.Entities.Add(entity.ID);
                     if (entity is IObject obj) _editor.Game.State.Room.Objects.Add(obj);
                     else if (entity is IArea area) _editor.Game.State.Room.Areas.Add(area);

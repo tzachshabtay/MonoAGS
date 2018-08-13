@@ -105,6 +105,34 @@ namespace AGS.Editor
             return code.ToString();
         }
 
+        private string generateAddToState(EntityModel model)
+        {
+            //todo: instead of generating add for each entity individually, we can use AddRange and batch all entities in this tree
+
+            if (model.Initializer == null && !needEntity(model)) return "";
+            if (_stateModel.Guis.Contains(model.ID))
+            {
+                return $"_state.UI.Add({model.ScriptName});";
+            }
+            foreach (var room in _stateModel.Rooms)
+            {
+                if (room.BackgroundEntity == model.ID)
+                {
+                    return $"{generateRoomCode(room.ID)}.Background = {model.ScriptName};";
+                }
+                if (!room.Entities.Contains(model.ID)) continue;
+                if (typeof(IArea).IsAssignableFrom(model.EntityConcreteType))
+                {
+                    return $"{generateRoomCode(room.ID)}.Areas.Add({model.ScriptName});";
+                }
+                return $"{generateRoomCode(room.ID)}.Objects.Add({model.ScriptName});";
+            }
+            throw new InvalidOperationException($"Didn't find entity {model.ID} in state, can't generate code.");
+        }
+
+        //todo: use a static class for all rooms and use that instead of searching the state
+        private string generateRoomCode(string roomId) =>  $"_state.Rooms.First(r => r.ID == {'"'}{roomId}{'"'})";
+
         private void generateScriptNames(EntityModel model)
         {
             List<EntityModel> models = new List<EntityModel>();
@@ -146,6 +174,7 @@ namespace {namespaceName}
 {generateModels(model, generateEntityFactory)}
 {generateModels(model, generateDisplayName)}
 {generateModels(model, generateComponents, 0)}
+{generateModels(model, generateAddToState)}
         }}
     }}
 }}";

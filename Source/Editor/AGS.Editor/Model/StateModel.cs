@@ -65,6 +65,7 @@ namespace AGS.Editor
 
         private void generateEntityCode(string id, string path, ICodeGenerator codeGenerator)
         {
+            if (id == null) return;
             path = Path.Combine(path, id);
             if (!Entities.TryGetValue(id, out var entity))
             {
