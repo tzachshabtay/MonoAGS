@@ -12,6 +12,7 @@ namespace AGS.Editor
     {
         private StateModel _stateModel;
         private Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
+        private const string REMOVE_LINE = "REMOVE_LINE";
 
         public CSharpCodeGeneartor(StateModel stateModel)
         {
@@ -22,7 +23,8 @@ namespace AGS.Editor
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
         {
             if (model.Parent != null || (!isDirty(model))) return;
-            code.AppendLine(generateClass(model, namespaceName));
+            string toRemove = $"{REMOVE_LINE}{Environment.NewLine}";
+            code.AppendLine(generateClass(model, namespaceName).Replace(toRemove, ""));
         }
 
         private bool isDirty(EntityModel model)
@@ -50,7 +52,11 @@ namespace AGS.Editor
                     indent(code, numIndents).AppendLine(line);
                 }
             }
-            return code.ToString();
+            if (code.Length == 0) return REMOVE_LINE;
+            var result = code.ToString();
+            if (result.EndsWith(Environment.NewLine, StringComparison.InvariantCulture)) 
+                return result.Substring(0, result.Length - Environment.NewLine.Length);
+            return result;
         }
 
         private void getAllModels(EntityModel model, List<EntityModel> models)
