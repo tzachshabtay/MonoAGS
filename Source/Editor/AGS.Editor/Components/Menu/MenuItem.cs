@@ -44,31 +44,28 @@ namespace AGS.Editor
             button.MouseEnter.Subscribe(() =>
             {
                 IsHovered = true;
+
+                hide(ParentMenu);
                 if (SubMenu != null) SubMenu.Visible = true;
             });
 
-            button.MouseLeave.Subscribe(async () =>
+            button.MouseLeave.Subscribe(() =>
             {
                 IsHovered = false;
-                await Task.Delay(100);
-                if (SubMenu != null && !SubMenu.IsHovered)
-                {
-                    SubMenu.Visible = false;
-                }
-                if (!ParentMenu.IsHovered && (SubMenu == null || !SubMenu.Visible))
-                {
-                    var menu = ParentMenu;
-                    while (!(menu?.IsHovered ?? true) && !(menu?.ParentMenuItem?.IsHovered ?? true))
-                    {
-                        menu.Visible = false;
-                        menu = menu?.ParentMenuItem?.ParentMenu;
-                    }
-                }
             });
 
             if (OnClick != null) button.MouseClicked.Subscribe(OnClick);
 
             return button;
+        }
+
+        private void hide(Menu menu)
+        {
+            foreach (var item in menu.Children)
+            {
+                if (item.SubMenu != null)
+                    item.SubMenu.Visible = false;
+            }
         }
     }
 }

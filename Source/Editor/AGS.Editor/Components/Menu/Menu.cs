@@ -31,6 +31,8 @@ namespace AGS.Editor
 
         public MenuItem ParentMenuItem { get; set; }
 
+        public MenuItem[] Children => _menuItems;
+
         public bool Visible 
         { 
             get => _menu.ContentsPanel.Visible; 
