@@ -15246,14 +15246,15 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).ChildrenCount
   nameWithType: ITreeNode<TItem>.ChildrenCount
   nameWithType.vb: ITreeNode(Of TItem).ChildrenCount
-- uid: AGS.API.ITreeNode`1.FindDescendant(System.String)
-  name: FindDescendant(String)
-  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindDescendant_System_String_
-  commentId: M:AGS.API.ITreeNode`1.FindDescendant(System.String)
-  fullName: AGS.API.ITreeNode<TItem>.FindDescendant(System.String)
-  fullName.vb: AGS.API.ITreeNode(Of TItem).FindDescendant(System.String)
-  nameWithType: ITreeNode<TItem>.FindDescendant(String)
-  nameWithType.vb: ITreeNode(Of TItem).FindDescendant(String)
+- uid: AGS.API.ITreeNode`1.FindDescendant(System.Predicate{`0})
+  name: FindDescendant(Predicate<TItem>)
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindDescendant_System_Predicate__0__
+  commentId: M:AGS.API.ITreeNode`1.FindDescendant(System.Predicate{`0})
+  name.vb: FindDescendant(Predicate(Of TItem))
+  fullName: AGS.API.ITreeNode<TItem>.FindDescendant(System.Predicate<TItem>)
+  fullName.vb: AGS.API.ITreeNode(Of TItem).FindDescendant(System.Predicate(Of TItem))
+  nameWithType: ITreeNode<TItem>.FindDescendant(Predicate<TItem>)
+  nameWithType.vb: ITreeNode(Of TItem).FindDescendant(Predicate(Of TItem))
 - uid: AGS.API.ITreeNode`1.FindDescendant*
   name: FindDescendant
   href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindDescendant_
