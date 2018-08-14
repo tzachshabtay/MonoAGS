@@ -13,7 +13,6 @@ namespace AGS.Editor
     public class MethodWizard
     {
         private readonly MethodInfo _method;
-        private readonly EditorProvider _editorProvider;
         private readonly IRenderLayer _layer;
         private readonly HashSet<string> _hideProperties;
         private readonly Dictionary<string, object> _overrideDefaults;
@@ -28,11 +27,10 @@ namespace AGS.Editor
         private const float WIDTH = 500f;
 
         public MethodWizard(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
-                            Action<IPanel> addUiExternal, EditorProvider editorProvider, AGSEditor editor)
+                            Action<IPanel> addUiExternal, AGSEditor editor)
         {
             _method = method;
             _editor = editor;
-            _editorProvider = editorProvider;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             _hideProperties = hideProperties;
             _overrideDefaults = overrideDefaults;

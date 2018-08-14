@@ -21,6 +21,8 @@ namespace AGS.Editor
 
         private static int _nextNodeId;
 
+        public const string EDITOR_PREFIX = "InspectorEditor_";
+
         public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameFactory factory,
                                          IGameEvents gameEvents, IObject inspectorPanel)
         {
@@ -72,7 +74,7 @@ namespace AGS.Editor
 
 			int nodeId = Interlocked.Increment(ref _nextNodeId);
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
-            node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
+            node.Editor.AddEditorUI($"{EDITOR_PREFIX}{itemTextId}", view, node.Property);
 
             if (node.Property.Object is INotifyPropertyChanged propertyChanged)
             {

@@ -117,8 +117,7 @@ namespace AGS.Editor
             overrideDefaults["x"] = x;
             overrideDefaults["y"] = y;
             overrideDefaults["id"] = $"{name}{++_lastId}";
-            var editorProvider = new EditorProvider(_editor.Editor.Factory, new ActionManager(), new StateModel(), _editor.Editor.State, _editor.Editor.Settings);
-            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetUIForCreate(panel, target), editorProvider, _editor);
+            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetUIForCreate(panel, target), _editor);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return;
@@ -268,8 +267,24 @@ namespace AGS.Editor
                 var parentButton = factory.UI.GetCheckBox("AddToParentRadioButton", (ButtonAnimation)null, null, null, null, 250f, buttonY, buttonsPanel, _potentialParent.GetFriendlyName(), width: 20f, height: 25f);
                 parentButton.RadioGroup = _targetRadioGroup;
                 _parentButton = parentButton.GetComponent<ICheckboxComponent>();
+                parentButton.MouseClicked.Subscribe(() => 
+                {
+                    resetNumberEditor(panel, "x");
+                    resetNumberEditor(panel, "y");
+                });
             }
             _targetRadioGroup.SelectedButton = target == Target.UI ? _guiButton : roomButton;
+        }
+
+        private void resetNumberEditor(IPanel panel, string idSuffix)
+        {
+            var numberEditor = panel.TreeNode.FindDescendant(obj =>
+                      obj.Entity.ID.StartsWith($"{InspectorTreeNodeProvider.EDITOR_PREFIX}{idSuffix}",
+                                               StringComparison.InvariantCulture) && obj.Entity.HasComponent<INumberEditorComponent>());
+            if (numberEditor != null)
+            {
+                numberEditor.GetComponent<INumberEditorComponent>().SetUserInitiatedValue(0f);
+            }
         }
     }
 }
