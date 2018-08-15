@@ -261,10 +261,12 @@ namespace AGS.Engine
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
 
+            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+            Settings.Defaults.MessageBox = _resolver.Container.Resolve<IMessageBoxSettings>(gameParameter);
+
             var input = _resolver.Container.Resolve<IInput>();
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
             TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
             RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter,

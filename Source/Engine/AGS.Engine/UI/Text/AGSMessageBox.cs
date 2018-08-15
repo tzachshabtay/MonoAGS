@@ -7,31 +7,34 @@ namespace AGS.Engine
 {
 	public static class AGSMessageBox
 	{
-        public static IRenderLayer RenderLayer = new AGSRenderLayer(AGSLayers.Speech.Z, independentResolution: new Size(1200, 800));
-		public static ISayConfig Config = getDefaultConfig();
-		public static ITextConfig ButtonConfig = getDefaultButtonConfig();
-		public static float ButtonXPadding = 10f;
-		public static float ButtonYPadding = 5f;
-		public static float ButtonWidth = 60f;
-		public static float ButtonHeight = 30f;
+        public static Task<IButton> DisplayAsync(string text, params IButton[] buttons)
+        {
+            return DisplayAsync(text, AGSGame.Game, null, buttons);
+        }
 
-		public static async Task<IButton> DisplayAsync(string text, params IButton[] buttons)
+        public static Task<IButton> DisplayAsync(string text, IMessageBoxSettings settings, params IButton[] buttons)
+        {
+            return DisplayAsync(text, AGSGame.Game, settings, buttons);
+        }
+
+        public static async Task<IButton> DisplayAsync(string text, IGame game, IMessageBoxSettings settings = null, params IButton[] buttons)
 		{
-			float maxHeight = buttons.Length > 0 ? buttons.Max(b => b.Height) + (ButtonYPadding * 2f) : 0f;
-            var sayComponent = getSayComponent(maxHeight);
+            settings = settings ?? game.Settings.Defaults.MessageBox;
+			float maxHeight = buttons.Length > 0 ? buttons.Max(b => b.Height) + (settings.ButtonYPadding * 2f) : 0f;
+            var sayComponent = getSayComponent(maxHeight, game, settings);
 			sayComponent.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
 			IButton selectedButton = null;
 			
 			sayComponent.OnBeforeSay.Subscribe(args =>
 			{
-                args.Label.RenderLayer = RenderLayer;
+                args.Label.RenderLayer = settings.RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
                 var textConfig = sayComponent.SpeechConfig.TextConfig;
 
                 float labelWidth = sayComponent.SpeechConfig.LabelSize.Width;
 
-                float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
+                float buttonsWidth = buttons.Sum(b => b.Width) + settings.ButtonXPadding * (buttons.Length - 1);
 				if (buttonsWidth > labelWidth)
 				{
 					//todo: alter label to have room for all buttons
@@ -41,92 +44,72 @@ namespace AGS.Engine
 				{
 					args.Label.TreeNode.AddChild(button);
 					button.X = buttonX;
-					button.Y = ButtonYPadding;
+                    button.Y = settings.ButtonYPadding;
 					button.RenderLayer = args.Label.RenderLayer;
-					buttonX += button.Width + ButtonXPadding;
+                    buttonX += button.Width + settings.ButtonXPadding;
 					button.MouseClicked.Subscribe(_ =>
 					{
 						selectedButton = button;
 						args.Skip();
 					});
-                    AGSGame.Game.State.UI.Add(button);
+                    game.State.UI.Add(button);
 				}
 			});
 			
 			await sayComponent.SayAsync(text);
 			foreach (var button in buttons)
 			{
-				AGSGame.Game.State.UI.Remove(button);
+				game.State.UI.Remove(button);
 			}
 			return selectedButton;
 		}
 
-		public static async Task<bool> YesNoAsync(string text, string yes = "Yes", string no = "No")
+        public static async Task<bool> YesNoAsync(string text, string yes = "Yes", string no = "No", IMessageBoxSettings settings = null, IGame game = null)
 		{
-			var factory = AGSGame.Game.Factory;
-			var idle = new ButtonAnimation (new EmptyImage (ButtonWidth, ButtonHeight));
+            game = game ?? AGSGame.Game;
+            var factory = game.Factory;
+            settings = settings ?? game.Settings.Defaults.MessageBox;
+            var idle = new ButtonAnimation (new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
 			idle.Tint = Colors.Black;
-			var hovered = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+            var hovered = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
 			hovered.Tint = Colors.Yellow;
-			var pushed = new ButtonAnimation(new EmptyImage (ButtonWidth, ButtonHeight));
+            var pushed = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
 			pushed.Tint = Colors.DarkSlateBlue;
-            var border = AGSGame.Game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
+            var border = game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			
-			IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, null, yes, ButtonConfig, false);
-			IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, null, no, ButtonConfig, false);
+            IButton yesButton = factory.UI.GetButton("Dialog Yes Button", idle, hovered, pushed, 0f, 0f, null, yes, settings.ButtonText, false);
+            IButton noButton = factory.UI.GetButton("Dialog No Button", idle, hovered, pushed, 0f, 0f, null, no, settings.ButtonText, false);
 			yesButton.Border = border;
 			noButton.Border = border;
 			return await DisplayAsync(text, yesButton, noButton) == yesButton;
 		}
 
-		public static Task<bool> OkCancelAsync(string text)
+        public static Task<bool> OkCancelAsync(string text, IMessageBoxSettings settings = null, IGame game = null)
 		{
-			return YesNoAsync(text, "OK", "Cancel");
+			return YesNoAsync(text, "OK", "Cancel", settings, game);
 		}
 
-        private static ISayComponent getSayComponent(float buttonHeight)
+        private static ISayComponent getSayComponent(float buttonHeight, IGame game, IMessageBoxSettings settings)
 		{
-			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitComponent), null);
-			ISayLocationProvider location = new MessageBoxLocation (AGSGame.Game);
-			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocationProvider), location);
-			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionComponent), null);
-			TypedParameter configParameter = new TypedParameter (typeof(ISayConfig), AGSSayConfig.FromConfig(Config, buttonHeight));
+			TypedParameter outfitParameter = new TypedParameter(typeof(IOutfitComponent), null);
+            ISayLocationProvider location = new MessageBoxLocation(game, settings);
+			TypedParameter locationParameter = new TypedParameter(typeof(ISayLocationProvider), location);
+			TypedParameter faceDirectionParameter = new TypedParameter(typeof(IFaceDirectionComponent), null);
+            TypedParameter configParameter = new TypedParameter(typeof(ISayConfig), AGSSayConfig.FromConfig(settings.DisplayConfig, buttonHeight));
 			return AGSGame.Resolver.Container.Resolve<ISayComponent>(locationParameter, outfitParameter, 
 				faceDirectionParameter, configParameter);
-		}
-
-		private static ISayConfig getDefaultConfig()
-		{
-			AGSSayConfig config = new AGSSayConfig ();
-            config.Border =  AGSGame.Game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
-				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
-            config.TextConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.TopCenter
-                                                   , paddingLeft: 30, paddingTop: 30, paddingBottom: 30, paddingRight: 30);
-            var screenWidth = AGSGame.Game.Settings.VirtualResolution.Width;
-            var screenHeight = AGSGame.Game.Settings.VirtualResolution.Height;
-            if (RenderLayer.IndependentResolution != null)
-            {
-                screenWidth = RenderLayer.IndependentResolution.Value.Width;
-                screenHeight = RenderLayer.IndependentResolution.Value.Height;
-            }
-            config.LabelSize = new SizeF (screenWidth*3/4f, screenHeight*3/4f);
-			config.BackgroundColor = Colors.Black;
-			return config;
-		}
-
-		private static ITextConfig getDefaultButtonConfig()
-		{
-			return new AGSTextConfig (autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter);
 		}
 
 		private class MessageBoxLocation : ISayLocationProvider
 		{
 			private readonly IGame _game;
+            private readonly IMessageBoxSettings _settings;
 
-			public MessageBoxLocation(IGame game)
+			public MessageBoxLocation(IGame game, IMessageBoxSettings settings)
 			{
 				_game = game;
+                _settings = settings;
 			}
 
 			#region ISayLocation implementation
@@ -137,13 +120,8 @@ namespace AGS.Engine
                 float labelHeight = config.GetTextSize(text, sayConfig.LabelSize).Height;
                 float height = labelHeight + config.PaddingTop + config.PaddingBottom;
                 float width = sayConfig.LabelSize.Width + config.PaddingLeft + config.PaddingRight;
-                var screenWidth = AGSGame.Game.Settings.VirtualResolution.Width;
-                var screenHeight = AGSGame.Game.Settings.VirtualResolution.Height;
-                if (RenderLayer.IndependentResolution != null)
-                {
-                    screenWidth = RenderLayer.IndependentResolution.Value.Width;
-                    screenHeight = RenderLayer.IndependentResolution.Value.Height;
-                }
+                var screenWidth = _settings.RenderLayer.IndependentResolution?.Width ?? _game.Settings.VirtualResolution.Width;
+                var screenHeight = _settings.RenderLayer.IndependentResolution?.Height ?? _game.Settings.VirtualResolution.Height;
                 return new AGSSayLocation(new PointF (screenWidth / 2f - width / 2f, 
                                                       screenHeight / 2f - height / 2f), null);
 			}
