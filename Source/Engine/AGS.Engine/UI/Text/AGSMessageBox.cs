@@ -97,7 +97,8 @@ namespace AGS.Engine
 			TypedParameter locationParameter = new TypedParameter(typeof(ISayLocationProvider), location);
 			TypedParameter faceDirectionParameter = new TypedParameter(typeof(IFaceDirectionComponent), null);
             TypedParameter configParameter = new TypedParameter(typeof(ISayConfig), AGSSayConfig.FromConfig(settings.DisplayConfig, buttonHeight));
-			return AGSGame.Resolver.Container.Resolve<ISayComponent>(locationParameter, outfitParameter, 
+            var resolver = (Resolver)game.Resolver;
+            return resolver.Resolve<ISayComponent>(locationParameter, outfitParameter, 
 				faceDirectionParameter, configParameter);
 		}
 

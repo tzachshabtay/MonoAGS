@@ -47,8 +47,6 @@ namespace AGS.Engine
 
         public static IShader Shader { get; set; }
 
-        public static Resolver Resolver => ((AGSGame)Game)._resolver;
-
         public static IGLUtils GLUtils { get; private set; }
 
         public static IGame Create(IGameSettings settings)
@@ -98,7 +96,7 @@ namespace AGS.Engine
 
         public ICoordinates Coordinates { get; private set; }
 
-        public Resolver GetResolver() => _resolver;
+        public IResolver Resolver => _resolver;
 
         public void Start()
         {
@@ -112,7 +110,7 @@ namespace AGS.Engine
             if (GameWindow == null)
             {
                 isNewWindow = true;
-                try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
+                try { GameWindow = _resolver.Container.Resolve<IGameWindow>(settingsParameter); }
                 catch (Exception ese)
                 {
                     Debug.WriteLine(ese.ToString());

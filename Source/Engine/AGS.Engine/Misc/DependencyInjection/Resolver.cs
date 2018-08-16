@@ -3,11 +3,11 @@ using Autofac;
 using System.Reflection;
 using AGS.API;
 using System.Collections.Generic;
-using Autofac.Features.ResolveAnything;
+using Autofac.Core;
 
 namespace AGS.Engine
 {
-	public class Resolver
+    public class Resolver : IResolver
 	{
         private static List<Action<Resolver>> _overrides = new List<Action<Resolver>>();
 
@@ -118,6 +118,10 @@ namespace AGS.Engine
             foreach (var action in _overrides) action(this);
 		}
 
+        public TService Resolve<TService>() => Container.Resolve<TService>();
+
+        public TService Resolve<TService>(params Parameter[] parameters) => Container.Resolve<TService>(parameters);
+
         public void RegisterType<TType, TInterface>()
         {
             Builder.RegisterType<TType>().As<TInterface>().ExternallyOwned();
@@ -134,7 +138,7 @@ namespace AGS.Engine
 
 		public void Build()
 		{
-			Builder.RegisterInstance(this);
+            Builder.RegisterInstance(this).As<IResolver>().As<Resolver>();
             Container = Builder.Build();
 		}
 
@@ -176,5 +180,5 @@ namespace AGS.Engine
                 Builder.RegisterType(type).As(compInterface).ExternallyOwned();
 			}
 		}
-	}
+    }
 }

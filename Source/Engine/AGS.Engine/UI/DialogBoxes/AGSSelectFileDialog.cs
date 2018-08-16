@@ -55,7 +55,8 @@ namespace AGS.Engine
 
         public static async Task<string> SelectFile(string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
-            var dialog = new AGSSelectFileDialog(AGSGame.Game, AGSGame.Resolver.Container.Resolve<IGLUtils>(), title, fileSelection, fileFilter, startPath);
+            var game = AGSGame.Game;
+            var dialog = new AGSSelectFileDialog(game, game.Resolver.Resolve<IGLUtils>(), title, fileSelection, fileFilter, startPath);
             return await dialog.Run();
         }
 
