@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -117,7 +118,7 @@ namespace AGS.Editor
             overrideDefaults["x"] = x;
             overrideDefaults["y"] = y;
             overrideDefaults["id"] = $"{name}{++_lastId}";
-            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetUIForCreate(panel, target), _editor);
+            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, panel => addTargetUIForCreate(panel, target), _editor, validate);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return;
@@ -285,6 +286,19 @@ namespace AGS.Editor
             {
                 numberEditor.GetComponent<INumberEditorComponent>().SetUserInitiatedValue(0f);
             }
+        }
+
+        private async Task<bool> validate(Dictionary<string, object> map)
+        {
+            var id = map["id"];
+            if (_editor.Project.Model.Entities.ContainsKey(id.ToString()))
+            {
+                var settings = new AGSMessageBoxSettings(_editor.Editor);
+                settings.RenderLayer = new AGSRenderLayer(settings.RenderLayer.Z - 1000, independentResolution: settings.RenderLayer.IndependentResolution);
+                await AGSMessageBox.DisplayAsync($"ID {id} is already taken, please select another ID.", _editor.Editor, settings);
+                return false;
+            }
+            return true;
         }
     }
 }

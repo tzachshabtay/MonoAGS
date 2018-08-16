@@ -16,7 +16,7 @@ namespace AGS.Editor
         private readonly IRenderLayer _layer;
         private readonly HashSet<string> _hideProperties;
         private readonly Dictionary<string, object> _overrideDefaults;
-        private readonly TaskCompletionSource<bool> _taskCompletionSource;
+        private readonly TaskCompletionSource<Dictionary<string, object>> _taskCompletionSource;
         private readonly Action<IPanel> _addUiExternal;
         private readonly AGSEditor _editor;
         private IPanel _parent;
@@ -25,17 +25,19 @@ namespace AGS.Editor
         public const float MARGIN_HORIZONTAL = 30f;
         private const float MARGIN_VERTICAL = 20f;
         private const float WIDTH = 500f;
+        private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
 
         public MethodWizard(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
-                            Action<IPanel> addUiExternal, AGSEditor editor)
+                            Action<IPanel> addUiExternal, AGSEditor editor, Func<Dictionary<string, object>, Task<bool>> validate)
         {
             _method = method;
             _editor = editor;
+            _validate = validate;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
             _hideProperties = hideProperties;
             _overrideDefaults = overrideDefaults;
             _addUiExternal = addUiExternal;
-            _taskCompletionSource = new TaskCompletionSource<bool>();
+            _taskCompletionSource = new TaskCompletionSource<Dictionary<string, object>>();
         }
 
         public void Load()
@@ -87,14 +89,7 @@ namespace AGS.Editor
         public async Task<Dictionary<string, object>> ShowAsync()
         {
             _parent.Visible = true;
-            if (!await _taskCompletionSource.Task)
-                return null;
-            Dictionary<string, object> map = new Dictionary<string, object>();
-            foreach (var param in _inspector.Inspector.Properties.SelectMany(p => p.Value))
-            {
-                map[param.Name] = param.GetValue();
-            }
-            return map;
+            return await _taskCompletionSource.Task;
         }
 
         private void addButtons()
@@ -120,11 +115,18 @@ namespace AGS.Editor
 
             const float buttonWidth = 80f;
             var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: buttonWidth, height: 20f);
-            okButton.MouseClicked.Subscribe(() =>
+            okButton.MouseClicked.Subscribe(async () =>
             {
+                Dictionary<string, object> map = new Dictionary<string, object>();
+                foreach (var param in _inspector.Inspector.Properties.SelectMany(p => p.Value))
+                {
+                    map[param.Name] = param.GetValue();
+                }
+                if (!await _validate(map)) return;
+
                 _modal?.LoseFocus();
                 _parent.DestroyWithChildren(_editor.Editor.State);
-                _taskCompletionSource.TrySetResult(true);
+                _taskCompletionSource.TrySetResult(map);
             });
 
             var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "Cancel", width: buttonWidth, height: 20f);
@@ -132,7 +134,7 @@ namespace AGS.Editor
             {
                 _modal?.LoseFocus();
                 _parent.DestroyWithChildren(_editor.Editor.State);
-                _taskCompletionSource.TrySetResult(false);
+                _taskCompletionSource.TrySetResult(null);
             });
 
             layout.StartLayout();
