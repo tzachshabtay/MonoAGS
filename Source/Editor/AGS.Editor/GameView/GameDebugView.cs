@@ -245,7 +245,7 @@ namespace AGS.Editor
 
         private void respondToKeyboard()
         {
-            if (_editor.Editor.State.FocusedUI.HasKeyboardFocus != null) return;
+            if (_editor.Editor.State.FocusedUI.HasKeyboardFocus != null || !_toolbar.IsPaused) return;
             var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;
 
