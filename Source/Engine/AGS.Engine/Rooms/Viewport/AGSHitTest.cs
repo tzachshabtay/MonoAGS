@@ -65,14 +65,16 @@ namespace AGS.Engine
             for (int i = objects.Count - 1; i >= 0; i--)
 			{
                 IObject obj = objects[i];
-                if (!obj.Enabled || obj.ClickThrough)
-					continue;
+                if (filter == null)
+                {
+                    if (!obj.Enabled || obj.ClickThrough)
+                        continue;
+                }
+                else if (!filter(obj)) continue;
 
                 if (!obj.CollidesWith(x, y, viewport)) continue;
 
                 if (!hasFocus(obj) && (viewport.Parent == null || !hasFocus(viewport.Parent))) continue;
-
-                if (filter != null && !filter(obj)) continue;
 
 				return obj;
 			}

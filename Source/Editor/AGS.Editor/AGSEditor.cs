@@ -23,6 +23,8 @@ namespace AGS.Editor
 
         public AGSProject Project { get; set; }
 
+        public CanvasHitTest CanvasHitTest { get; set; }
+
         public void Init()
         {
             UIEventsAggregator = new UIEventsAggregator(Editor.Input, Game.HitTest, Editor.Events, Editor.State.FocusedUI);

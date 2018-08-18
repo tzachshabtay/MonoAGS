@@ -63,7 +63,7 @@ namespace AGS.Editor
                     {
                         return;
                     }
-                    _potentialParent = _editor.Game.HitTest.ObjectAtMousePosition;
+                    _potentialParent = _editor.CanvasHitTest.ObjectAtMousePosition;
                     _topMenu.Position = (args.MousePosition.XMainViewport, args.MousePosition.YMainViewport);
                     _topMenu.Visible = true;
                 }

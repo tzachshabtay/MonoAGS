@@ -20,6 +20,8 @@ namespace AGS.Editor
             _toolbar = toolbar;
             _tree = tree;
             _editor = editor;
+            var canvasHitTest = new CanvasHitTest(editor);
+            editor.CanvasHitTest = canvasHitTest;
             _menu = new CanvasMenu(editor, toolbar);
             _selectionMarker = editor.Editor.Factory.Object.GetObject("SelectionMarker");
             _selectionMarker.Visible = false;
@@ -66,7 +68,8 @@ namespace AGS.Editor
                 _selectionMarker.Visible = false;
                 return;
             }
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            _editor.CanvasHitTest.Refresh();
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null || obj.HasComponent<EntityDesigner>())
             {
                 _selectionMarker.Visible = false;
@@ -83,7 +86,7 @@ namespace AGS.Editor
         {
             if (args.Button != MouseButton.Left) return;
             if (!_selectionMarker.Visible) return;
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null) return;
 
             _dragHandle?.Dispose();
@@ -100,7 +103,7 @@ namespace AGS.Editor
         {
             if (args.Button != MouseButton.Left) return;
             if (!_selectionMarker.Visible) return;
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null) return;
             var dragHandle = _dragHandle;
             _dragHandle?.Dispose();
