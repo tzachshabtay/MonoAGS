@@ -6427,6 +6427,19 @@ references:
   commentId: T:AGS.API.IDefaultsSettings
   fullName: AGS.API.IDefaultsSettings
   nameWithType: IDefaultsSettings
+- uid: AGS.API.IDefaultsSettings.MessageBox
+  name: MessageBox
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_MessageBox
+  commentId: P:AGS.API.IDefaultsSettings.MessageBox
+  fullName: AGS.API.IDefaultsSettings.MessageBox
+  nameWithType: IDefaultsSettings.MessageBox
+- uid: AGS.API.IDefaultsSettings.MessageBox*
+  name: MessageBox
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_MessageBox_
+  commentId: Overload:AGS.API.IDefaultsSettings.MessageBox
+  isSpec: "True"
+  fullName: AGS.API.IDefaultsSettings.MessageBox
+  nameWithType: IDefaultsSettings.MessageBox
 - uid: AGS.API.IDefaultsSettings.Skin
   name: Skin
   href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Skin
@@ -8378,6 +8391,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IGame.RenderPipeline
   nameWithType: IGame.RenderPipeline
+- uid: AGS.API.IGame.Resolver
+  name: Resolver
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Resolver
+  commentId: P:AGS.API.IGame.Resolver
+  fullName: AGS.API.IGame.Resolver
+  nameWithType: IGame.Resolver
+- uid: AGS.API.IGame.Resolver*
+  name: Resolver
+  href: api/AGS.API.IGame.html#AGS_API_IGame_Resolver_
+  commentId: Overload:AGS.API.IGame.Resolver
+  isSpec: "True"
+  fullName: AGS.API.IGame.Resolver
+  nameWithType: IGame.Resolver
 - uid: AGS.API.IGame.SaveLoad
   name: SaveLoad
   href: api/AGS.API.IGame.html#AGS_API_IGame_SaveLoad
@@ -10824,6 +10850,103 @@ references:
   isSpec: "True"
   fullName: AGS.API.IMaskLoader.LoadAsync
   nameWithType: IMaskLoader.LoadAsync
+- uid: AGS.API.IMessageBoxSettings
+  name: IMessageBoxSettings
+  href: api/AGS.API.IMessageBoxSettings.html
+  commentId: T:AGS.API.IMessageBoxSettings
+  fullName: AGS.API.IMessageBoxSettings
+  nameWithType: IMessageBoxSettings
+- uid: AGS.API.IMessageBoxSettings.ButtonHeight
+  name: ButtonHeight
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonHeight
+  commentId: P:AGS.API.IMessageBoxSettings.ButtonHeight
+  fullName: AGS.API.IMessageBoxSettings.ButtonHeight
+  nameWithType: IMessageBoxSettings.ButtonHeight
+- uid: AGS.API.IMessageBoxSettings.ButtonHeight*
+  name: ButtonHeight
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonHeight_
+  commentId: Overload:AGS.API.IMessageBoxSettings.ButtonHeight
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.ButtonHeight
+  nameWithType: IMessageBoxSettings.ButtonHeight
+- uid: AGS.API.IMessageBoxSettings.ButtonText
+  name: ButtonText
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonText
+  commentId: P:AGS.API.IMessageBoxSettings.ButtonText
+  fullName: AGS.API.IMessageBoxSettings.ButtonText
+  nameWithType: IMessageBoxSettings.ButtonText
+- uid: AGS.API.IMessageBoxSettings.ButtonText*
+  name: ButtonText
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonText_
+  commentId: Overload:AGS.API.IMessageBoxSettings.ButtonText
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.ButtonText
+  nameWithType: IMessageBoxSettings.ButtonText
+- uid: AGS.API.IMessageBoxSettings.ButtonWidth
+  name: ButtonWidth
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonWidth
+  commentId: P:AGS.API.IMessageBoxSettings.ButtonWidth
+  fullName: AGS.API.IMessageBoxSettings.ButtonWidth
+  nameWithType: IMessageBoxSettings.ButtonWidth
+- uid: AGS.API.IMessageBoxSettings.ButtonWidth*
+  name: ButtonWidth
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonWidth_
+  commentId: Overload:AGS.API.IMessageBoxSettings.ButtonWidth
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.ButtonWidth
+  nameWithType: IMessageBoxSettings.ButtonWidth
+- uid: AGS.API.IMessageBoxSettings.ButtonXPadding
+  name: ButtonXPadding
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonXPadding
+  commentId: P:AGS.API.IMessageBoxSettings.ButtonXPadding
+  fullName: AGS.API.IMessageBoxSettings.ButtonXPadding
+  nameWithType: IMessageBoxSettings.ButtonXPadding
+- uid: AGS.API.IMessageBoxSettings.ButtonXPadding*
+  name: ButtonXPadding
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonXPadding_
+  commentId: Overload:AGS.API.IMessageBoxSettings.ButtonXPadding
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.ButtonXPadding
+  nameWithType: IMessageBoxSettings.ButtonXPadding
+- uid: AGS.API.IMessageBoxSettings.ButtonYPadding
+  name: ButtonYPadding
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonYPadding
+  commentId: P:AGS.API.IMessageBoxSettings.ButtonYPadding
+  fullName: AGS.API.IMessageBoxSettings.ButtonYPadding
+  nameWithType: IMessageBoxSettings.ButtonYPadding
+- uid: AGS.API.IMessageBoxSettings.ButtonYPadding*
+  name: ButtonYPadding
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_ButtonYPadding_
+  commentId: Overload:AGS.API.IMessageBoxSettings.ButtonYPadding
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.ButtonYPadding
+  nameWithType: IMessageBoxSettings.ButtonYPadding
+- uid: AGS.API.IMessageBoxSettings.DisplayConfig
+  name: DisplayConfig
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_DisplayConfig
+  commentId: P:AGS.API.IMessageBoxSettings.DisplayConfig
+  fullName: AGS.API.IMessageBoxSettings.DisplayConfig
+  nameWithType: IMessageBoxSettings.DisplayConfig
+- uid: AGS.API.IMessageBoxSettings.DisplayConfig*
+  name: DisplayConfig
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_DisplayConfig_
+  commentId: Overload:AGS.API.IMessageBoxSettings.DisplayConfig
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.DisplayConfig
+  nameWithType: IMessageBoxSettings.DisplayConfig
+- uid: AGS.API.IMessageBoxSettings.RenderLayer
+  name: RenderLayer
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_RenderLayer
+  commentId: P:AGS.API.IMessageBoxSettings.RenderLayer
+  fullName: AGS.API.IMessageBoxSettings.RenderLayer
+  nameWithType: IMessageBoxSettings.RenderLayer
+- uid: AGS.API.IMessageBoxSettings.RenderLayer*
+  name: RenderLayer
+  href: api/AGS.API.IMessageBoxSettings.html#AGS_API_IMessageBoxSettings_RenderLayer_
+  commentId: Overload:AGS.API.IMessageBoxSettings.RenderLayer
+  isSpec: "True"
+  fullName: AGS.API.IMessageBoxSettings.RenderLayer
+  nameWithType: IMessageBoxSettings.RenderLayer
 - uid: AGS.API.IModalWindowComponent
   name: IModalWindowComponent
   href: api/AGS.API.IModalWindowComponent.html
@@ -11695,6 +11818,28 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRepeatedlyExecuteEventArgs.DeltaTime
   nameWithType: IRepeatedlyExecuteEventArgs.DeltaTime
+- uid: AGS.API.IResolver
+  name: IResolver
+  href: api/AGS.API.IResolver.html
+  commentId: T:AGS.API.IResolver
+  fullName: AGS.API.IResolver
+  nameWithType: IResolver
+- uid: AGS.API.IResolver.Resolve*
+  name: Resolve
+  href: api/AGS.API.IResolver.html#AGS_API_IResolver_Resolve_
+  commentId: Overload:AGS.API.IResolver.Resolve
+  isSpec: "True"
+  fullName: AGS.API.IResolver.Resolve
+  nameWithType: IResolver.Resolve
+- uid: AGS.API.IResolver.Resolve``1
+  name: Resolve<TService>()
+  href: api/AGS.API.IResolver.html#AGS_API_IResolver_Resolve__1
+  commentId: M:AGS.API.IResolver.Resolve``1
+  name.vb: Resolve(Of TService)()
+  fullName: AGS.API.IResolver.Resolve<TService>()
+  fullName.vb: AGS.API.IResolver.Resolve(Of TService)()
+  nameWithType: IResolver.Resolve<TService>()
+  nameWithType.vb: IResolver.Resolve(Of TService)()
 - uid: AGS.API.IResource
   name: IResource
   href: api/AGS.API.IResource.html

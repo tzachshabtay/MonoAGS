@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.38.0.0">
+    <meta name="generator" content="docfx 2.38.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -705,6 +705,9 @@ This is also used by the engine for scrolling contents inside a scrolling panel.
       <h4><a class="xref" href="AGS.API.IMaskLoader.html">IMaskLoader</a></h4>
       <section><p>Allows loading a mask from an image.</p>
 </section>
+      <h4><a class="xref" href="AGS.API.IMessageBoxSettings.html">IMessageBoxSettings</a></h4>
+      <section><p>Settings for creating message boxes. Those are created from the &quot;AGSMessageBox&quot; class.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IModalWindowComponent.html">IModalWindowComponent</a></h4>
       <section><p>Adds the ability for a window to be modal (blocks input from other windows).
 For example, if you create a &quot;Save Game&quot; dialog, you wouldn&apos;t want to be able to open the inventory
@@ -794,6 +797,12 @@ It allows entities to subscribe their own renderers and pass on custom drawing i
 </section>
       <h4><a class="xref" href="AGS.API.IRepeatedlyExecuteEventArgs.html">IRepeatedlyExecuteEventArgs</a></h4>
       <section><p>Event arguments for the <a class="xref" href="AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecute">OnRepeatedlyExecute</a> event.</p>
+</section>
+      <h4><a class="xref" href="AGS.API.IResolver.html">IResolver</a></h4>
+      <section><p>The resolver is an object that allows you to retrieve various systems from the engine.
+It uses an inversion of control container (<a href="https://en.wikipedia.org/wiki/Inversion_of_control">https://en.wikipedia.org/wiki/Inversion_of_control</a>) in order
+to allow you to replace the built-in engine system implementations with your own implementations.
+For more details, see: <a href="https://tzachshabtay.github.io/MonoAGS/articles/customizations.html">https://tzachshabtay.github.io/MonoAGS/articles/customizations.html</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.IResource.html">IResource</a></h4>
       <section><p>A resource is any asset which is loaded from a stream of data (could be from a file, or embedded in memory, or network stream,

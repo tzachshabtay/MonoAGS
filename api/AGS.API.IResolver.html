@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IPixelPerfectCollidable
+    <title>Interface IResolver
    | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IPixelPerfectCollidable
+    <meta name="title" content="Interface IResolver
    | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.38.1.0">
     
@@ -78,46 +78,42 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="AGS.API.IPixelPerfectCollidable">
+            <article class="content wrap" id="_content" data-uid="AGS.API.IResolver">
   
   
-  <h1 id="AGS_API_IPixelPerfectCollidable" data-uid="AGS.API.IPixelPerfectCollidable" class="text-break">Interface IPixelPerfectCollidable
+  <h1 id="AGS_API_IResolver" data-uid="AGS.API.IResolver" class="text-break">Interface IResolver
   </h1>
-  <div class="markdown level0 summary"><p>Adds the ability for pixel perfect collision checks (<a href="https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision">https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision</a>)</p>
+  <div class="markdown level0 summary"><p>The resolver is an object that allows you to retrieve various systems from the engine.
+It uses an inversion of control container (<a href="https://en.wikipedia.org/wiki/Inversion_of_control">https://en.wikipedia.org/wiki/Inversion_of_control</a>) in order
+to allow you to replace the built-in engine system implementations with your own implementations.
+For more details, see: <a href="https://tzachshabtay.github.io/MonoAGS/articles/customizations.html">https://tzachshabtay.github.io/MonoAGS/articles/customizations.html</a></p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.IDisposable.Dispose()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
   <h6><strong>Assembly</strong>: AGS.API.dll</h6>
-  <h5 id="AGS_API_IPixelPerfectCollidable_syntax">Syntax</h5>
+  <h5 id="AGS_API_IResolver_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IPixelPerfectCollidable : IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IResolver</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea.md&amp;value=---%0Auid%3A%20AGS.API.IPixelPerfectCollidable.PixelPerfectHitTestArea%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_IResolver_Resolve__1.md&amp;value=---%0Auid%3A%20AGS.API.IResolver.Resolve%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/Objects/Collisions/IPixelPerfectCollidable.cs/#L15">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/Game/Resolver/IResolver.cs/#L16">View Source</a>
   </span>
-  <a id="AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea_" data-uid="AGS.API.IPixelPerfectCollidable.PixelPerfectHitTestArea*"></a>
-  <h4 id="AGS_API_IPixelPerfectCollidable_PixelPerfectHitTestArea" data-uid="AGS.API.IPixelPerfectCollidable.PixelPerfectHitTestArea">PixelPerfectHitTestArea</h4>
-  <div class="markdown level1 summary"><p>Gets the pixel perfect hit test area.
-This is the area not projected on the screen(i.e not rotated and will start from 0,0)</p>
+  <a id="AGS_API_IResolver_Resolve_" data-uid="AGS.API.IResolver.Resolve*"></a>
+  <h4 id="AGS_API_IResolver_Resolve__1" data-uid="AGS.API.IResolver.Resolve``1">Resolve&lt;TService&gt;()</h4>
+  <div class="markdown level1 summary"><p>Resolves a service.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IArea PixelPerfectHitTestArea { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">TService Resolve&lt;TService&gt;()</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -127,8 +123,24 @@ This is the area not projected on the screen(i.e not rotated and will start from
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IArea.html">IArea</a></td>
-        <td><p>The pixel perfect hit test area.</p>
+        <td><span class="xref">TService</span></td>
+        <td><p>The requested service.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TService</span></td>
+        <td><p>The type of the service you request.</p>
 </td>
       </tr>
     </tbody>
@@ -141,10 +153,10 @@ This is the area not projected on the screen(i.e not rotated and will start from
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_IPixelPerfectCollidable.md&amp;value=---%0Auid%3A%20AGS.API.IPixelPerfectCollidable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/NewEntities/apiSpec/new?filename=AGS_API_IResolver.md&amp;value=---%0Auid%3A%20AGS.API.IResolver%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/Objects/Collisions/IPixelPerfectCollidable.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/NewEntities/Source/AGS.API/Game/Resolver/IResolver.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
