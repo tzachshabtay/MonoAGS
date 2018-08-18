@@ -45,7 +45,9 @@ namespace AGS.Engine
         }
 
         [MethodWizard]
-        public IPanel GetPanel(string id, float width, float height, float x, float y, 
+        public IPanel GetPanel(string id, 
+                               [MethodParam(Default = 100f)]float width, [MethodParam(Default = 50f)]float height, 
+                               float x, float y, 
                                [MethodParam(Browsable = false)]IObject parent = null, 
                                [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
