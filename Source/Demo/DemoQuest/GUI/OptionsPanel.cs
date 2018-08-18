@@ -129,7 +129,7 @@ namespace DemoGame
 
 		private async void save()
 		{
-            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils, _game.Settings).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
             _game.Settings.Defaults.Skin = null;
             if (file == null) return;
@@ -139,7 +139,7 @@ namespace DemoGame
 
 		private async void load()
 		{
-            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils, _game.Settings).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
             _game.Settings.Defaults.Skin = null;
             if (file == null) return;

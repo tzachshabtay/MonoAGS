@@ -36,7 +36,7 @@ namespace AGS.Editor
 
             _searchBox = factory.UI.GetTextBox("GameDebugDisplayListSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.Visible = false;
@@ -46,7 +46,7 @@ namespace AGS.Editor
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 0f);
 			_scrollingPanel.Tint = Colors.Transparent;
-            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _scrollingPanel.Visible = false;
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
 
@@ -59,7 +59,7 @@ namespace AGS.Editor
             _listBox = _listPanel.AddComponent<IListboxComponent>();
             var hoverBrush = factory.Graphics.Brushes.LoadSolidBrush(GameViewColors.HoveredText);
             var textBrush = factory.Graphics.Brushes.LoadSolidBrush(GameViewColors.Text);
-            _listBox.ItemButtonFactory = text =>
+            _listBox.ListItemFactory = text =>
             {
                 var button = factory.UI.GetButton("GameDebugDisplayListPanel_" + text,
                                                   new ButtonAnimation(null, new AGSTextConfig(textBrush, autoFit: AutoFit.LabelShouldFitText), null),
@@ -67,6 +67,7 @@ namespace AGS.Editor
                                                   new ButtonAnimation(null, new AGSTextConfig(hoverBrush, outlineBrush: textBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                   0f, 0f, width: 500f, height: 50f);
                 button.RenderLayer = parent.RenderLayer;
+                button.Text = text;
                 return button;
             };
             parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>

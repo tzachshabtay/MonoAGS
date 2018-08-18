@@ -41,7 +41,7 @@ namespace AGS.Engine
         private IDrawableInfoComponent _drawable;
         private ICropSelfComponent _cropSelf;
 
-        public AGSTextComponent(IRenderPipeline pipeline, IBoundingBoxBuilder boundingBoxBuilder, IGLColorBuilder colorBuilder,
+        public AGSTextComponent(IRenderPipeline pipeline, IBoundingBoxBuilder boundingBoxBuilder,
             IGLTextureRenderer textureRenderer, BitmapPool bitmapPool,
             AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes,
             IGLUtils glUtils, IGraphicsBackend graphics, IFontLoader fonts,
@@ -66,8 +66,7 @@ namespace AGS.Engine
             _settings = settings;
             _labelBoundingBoxFakeBuilder = new BoundingBoxesEmptyBuilder();
 
-            var white = colorBuilder.Build(Colors.White);
-            _instructionPool = new ObjectPool<Instruction>(pool => new Instruction(pool, white, glUtils, textureRenderer, _glTextHitTest), 0);
+            _instructionPool = new ObjectPool<Instruction>(pool => new Instruction(pool, glUtils, textureRenderer, _glTextHitTest), 0);
 
             TextVisible = true;
 
@@ -456,7 +455,7 @@ namespace AGS.Engine
 
         private class Instruction : IRenderInstruction
         {
-            private readonly IGLColor _white;
+            private static readonly GLColor _white = new GLColor().Build(Colors.White);
             private readonly ObjectPool<Instruction> _instructionPool;
             private readonly IGLUtils _utils;
             private readonly IGLTextureRenderer _renderer;
@@ -465,12 +464,11 @@ namespace AGS.Engine
             private Size _resolution;
             private AGSBoundingBoxes _afterCropBoxes;
 
-            public Instruction(ObjectPool<Instruction> instructionPool, IGLColor white, IGLUtils utils, 
+            public Instruction(ObjectPool<Instruction> instructionPool, IGLUtils utils, 
                                IGLTextureRenderer renderer, GLText text)
             {
                 _instructionPool = instructionPool;
                 _renderer = renderer;
-                _white = white;
                 _utils = utils;
                 _text = text;
             }

@@ -39,17 +39,17 @@ namespace AGS.Engine
                 if (propertyChanged != null)
                 {
                     bool hasChanged = false;
-                    if (prevX != value.X)
+                    if (!MathUtils.FloatEquals(prevX, value.X))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsX);
                     }
-                    if (prevY != value.Y)
+                    if (!MathUtils.FloatEquals(prevY, value.Y))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsY);
                     }
-                    if (prevZ != value.Z)
+                    if (!MathUtils.FloatEquals(prevZ, value.Z))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsZ);

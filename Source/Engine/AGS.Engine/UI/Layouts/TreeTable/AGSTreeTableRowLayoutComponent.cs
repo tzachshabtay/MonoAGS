@@ -36,6 +36,8 @@ namespace AGS.Engine
 
         public IRestrictionList RestrictionList { get; private set; }
 
+        public Dictionary<int, float> FixedWidthOverrides { get; } = new Dictionary<int, float>();
+
         public override void Init()
         {
             base.Init();
@@ -190,9 +192,16 @@ namespace AGS.Engine
             {
                 var child = tree.TreeNode.Children[index];
                 child.X = x;
-                var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f : 
-                                                table.ColumnSizes[index];
-                x += width + table.ColumnPadding;
+                if (FixedWidthOverrides.TryGetValue(index, out float fixedWidth))
+                {
+                    x += fixedWidth;
+                }
+                else
+                {
+                    var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f :
+                                                    table.ColumnSizes[index];
+                    x += (width + table.ColumnPadding);
+                }
             }
         }
     }

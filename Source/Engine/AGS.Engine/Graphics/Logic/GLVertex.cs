@@ -12,7 +12,7 @@ namespace AGS.Engine
 		{
 		}
 
-		public GLVertex(Vector2 position, Vector2 texCoord, IGLColor color)
+		public GLVertex(Vector2 position, Vector2 texCoord, GLColor color)
 			:   this(position, texCoord, color.R, color.G, color.B, color.A)
 		{
 		}

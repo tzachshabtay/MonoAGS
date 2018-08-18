@@ -446,7 +446,7 @@ namespace AGS.Engine
                     childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
                 }
 
-                if (view == null || !view.ParentPanel.Visible) return yOffset;
+                if (view == null || !view.ParentPanel.UnderlyingVisible) return yOffset;
                 return yOffset + childYOffset;
             }
 

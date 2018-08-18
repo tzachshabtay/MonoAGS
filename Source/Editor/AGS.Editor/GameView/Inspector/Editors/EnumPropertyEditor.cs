@@ -11,7 +11,7 @@ namespace AGS.Editor
         private readonly IUIFactory _factory;
         private readonly ActionManager _actions;
         private readonly StateModel _model;
-        private InspectorProperty _property;
+        private IProperty _property;
         private ITextComponent _text;
 
         public EnumPropertyEditor(IUIFactory factory, ActionManager actions, StateModel model)
@@ -21,7 +21,7 @@ namespace AGS.Editor
             _model = model;
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
             var label = view.TreeItem;
@@ -29,14 +29,14 @@ namespace AGS.Editor
             _text = combobox.TextBox;
             _text.TextBackgroundVisible = false;
             var list = new List<IStringItem>();
-            Type enumType = property.Prop.PropertyType;
+            Type enumType = property.PropertyType;
             foreach (var option in Enum.GetValues(enumType))
 			{
 				list.Add(new AGSStringItem { Text = option.ToString() });
 			}
             combobox.DropDownPanelList.Items.AddRange(list);
             combobox.Z = label.Z;
-            combobox.TextBox.Text = property.Value;
+            combobox.TextBox.Text = property.ValueString;
             combobox.TextBox.TextConfig.AutoFit = AutoFit.LabelShouldFitText;
             if (list.Count > 5) //If more than 5 items in the dropdown, let's have it with textbox suggestions as user might prefer to type for filtering the dropdown
             {
@@ -52,7 +52,7 @@ namespace AGS.Editor
         public void RefreshUI()
         {
             if (_text == null) return;
-            _text.Text = _property.Value;
+            _text.Text = _property.ValueString;
         }
     }
 }

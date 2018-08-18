@@ -12,10 +12,8 @@ namespace AGS.Engine
     public partial class AGSDisplayList : IDisplayList
     {
         private readonly IGameState _gameState;
-        private readonly IInput _input;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
-        private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
         private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
@@ -28,13 +26,11 @@ namespace AGS.Engine
         private bool _isDirty;
         private IObject _cursor;
 
-        public AGSDisplayList(IGameState gameState, IInput input, 
-                              IMatrixUpdater matrixUpdater, IRoomTransitions roomTransitions)
+        public AGSDisplayList(IGameState gameState, IMatrixUpdater matrixUpdater, IRoomTransitions roomTransitions)
         {
             _matrixUpdater = matrixUpdater;
             _roomTransitions = roomTransitions;
             _gameState = gameState;
-            _input = input;
             _cache = new ConcurrentDictionary<IViewport, ViewportDisplayList>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
             _entitySubscribers = new ConcurrentDictionary<string, EntitySubscriber>();
@@ -63,8 +59,7 @@ namespace AGS.Engine
 
         public void Update(bool forceUpdate)
         {
-            _cursor = _input.Cursor;
-            _alreadyPrepared.Clear();
+            _cursor = _gameState.Cursor;
             if (forceUpdate) onEverythingChanged();
             bool isDirty = _isDirty;
             _isDirty = false;
@@ -85,10 +80,7 @@ namespace AGS.Engine
                 }
                 foreach (var item in list.DisplayList)
                 {
-                    if (_alreadyPrepared.Add(item.ID))
-                    {
-                        _matrixUpdater.RefreshMatrix(item);
-                    }
+                    _matrixUpdater.RefreshMatrix(item);
                 }
             }
         }

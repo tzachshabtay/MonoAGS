@@ -250,9 +250,10 @@ namespace DemoGame
         {
             AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
             AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
-            var idle = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 5f), idleConfig, Colors.Transparent);
-            var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 5f), hoverConfig, Colors.Yellow);
-            var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 7f), idleConfig, Colors.Transparent);
+            var borders = _game.Factory.Graphics.Borders;
+            var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 5f), idleConfig, Colors.Transparent);
+            var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 5f), hoverConfig, Colors.Yellow);
+            var pushed = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 7f), idleConfig, Colors.Transparent);
             var button = _game.Factory.UI.GetButton(id, idle, hovered, pushed, x, y, _parent, text, null, false, 150f, 50f);
             button.MouseClicked.Subscribe(m => onClick());
             return button;
@@ -321,6 +322,7 @@ namespace DemoGame
                 _game = game;
                 _tween = tween;
                 var factory = game.Factory.UI;
+                var borders = game.Factory.Graphics.Borders;
                 var tweenId = ++id;
                 _panel = factory.GetPanel($"FeaturesTweenPanel_{tweenId}", 300f, 20f, 0f, 0f, null, false);
                 _panel.Visible = false;
@@ -334,8 +336,8 @@ namespace DemoGame
                 _slider.Direction = SliderDirection.LeftToRight;
                 _slider.Graphics.Pivot = (0f, 0.5f);
                 _slider.Graphics.Image = new EmptyImage(_panel.Width - 100f, 10f);
-                _slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-                _slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
+                _slider.Graphics.Border = borders.SolidColor(Colors.DarkGray, 0.5f, true);
+                _slider.HandleGraphics.Border = borders.SolidColor(Colors.White, 0.5f, true);
                 HoverEffect.Add(_slider.Graphics, Colors.Green, Colors.LightGray);
                 HoverEffect.Add(_slider.HandleGraphics, Colors.DarkGreen, Colors.WhiteSmoke);
 
@@ -347,9 +349,9 @@ namespace DemoGame
                 AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
                 AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
 
-                var idle = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 2f), idleConfig, Colors.Transparent);
-                var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
-                var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
+                var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 2f), idleConfig, Colors.Transparent);
+                var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
+                var pushed = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
 
                 _rewindButton = factory.GetButton($"FeaturesTweenRewindButton_{tweenId}", idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
                 _playPauseButton = factory.GetButton($"FeaturesTweenPlayPauseButton_{tweenId}", idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);

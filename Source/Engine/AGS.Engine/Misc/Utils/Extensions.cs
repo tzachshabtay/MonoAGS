@@ -99,7 +99,7 @@ namespace AGS.Engine
             return new Vector2(point.X, point.Y);
         }
 
-        public static IGLColor ToGLColor(this Color color)
+        public static GLColor ToGLColor(this Color color)
         {
             float r = color.R / 255f;
             float g = color.G / 255f;

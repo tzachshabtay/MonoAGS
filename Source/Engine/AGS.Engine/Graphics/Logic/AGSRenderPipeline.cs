@@ -12,6 +12,7 @@ namespace AGS.Engine
         private readonly DisplayListEventArgs _displayListEventArgs;
         private readonly IGame _game;
         private readonly RendererComparer _comparer = new RendererComparer();
+        private int _lastCapacity = 200;
 
         public AGSRenderPipeline(IGameState state, IDisplayList displayList, IGame game,
                                  IBlockingEvent<DisplayListEventArgs> onBeforeProcessingDisplayList)
@@ -40,10 +41,16 @@ namespace AGS.Engine
         {
             _renderers.TryGetValue(entityID, out List<(int, IRenderer other)> renderers);
             if (renderers == null) return;
-            int index = renderers.FindIndex(t => renderer == t.other);
-            if (index < 0) return;
-            renderers.RemoveAt(index);
-            if (renderers.Count == 0) _renderers.Remove(entityID);
+            for (int index = renderers.Count - 1; index >= 0; index--)
+            {
+                var other = renderers[index];
+                if (renderer == other.other)
+                {
+                    renderers.RemoveAt(index);
+                    if (renderers.Count == 0) _renderers.Remove(entityID);
+                    return;
+                }
+            }
         }
 
         public void Update()
@@ -92,7 +99,7 @@ namespace AGS.Engine
 
             Size resolution = new Size();
             IShader shader = null;
-            List<IRenderInstruction> batch = new List<IRenderInstruction>();
+            List<IRenderInstruction> batch = new List<IRenderInstruction>(_lastCapacity);
             foreach (IObject obj in displayList)
             {
                 Size objResolution = getResolution(obj);
@@ -107,7 +114,11 @@ namespace AGS.Engine
                     }
                     resolution = objResolution;
                     shader = obj.Shader;
-                    batch = new List<IRenderInstruction>();
+                    if (batch.Count > _lastCapacity)
+                    {
+                        _lastCapacity = batch.Count;
+                    }
+                    batch = new List<IRenderInstruction>(_lastCapacity);
                 }
                 
                 var entityInstructions = getInstructions(obj.ID, viewport);

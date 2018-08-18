@@ -15,6 +15,7 @@ namespace AGS.Engine
         private readonly IGameEvents _events;
         private bool _isDirty;
         private EntityListSubscriptions<IObject> _subscriptions;
+        private bool _includeSelf = true;
 
         public AGSBoundingBoxWithChildrenComponent(IGameState state, IGameEvents events)
         {
@@ -34,6 +35,16 @@ namespace AGS.Engine
         public IBlockingEvent OnBoundingBoxWithChildrenChanged { get; private set; }
 
         public IConcurrentHashSet<string> EntitiesToSkip { get; private set; }
+
+        public bool IncludeSelf 
+        { 
+            get => _includeSelf; 
+            set 
+            { 
+                _includeSelf = value;
+                onSomethingChanged();
+            }
+        }
 
         [Property(Browsable = false)]
         public ILockStep LockStep { get { return this;} }
@@ -148,8 +159,8 @@ namespace AGS.Engine
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
             _isDirty = false;
-            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box ({Entity.ID})" : null);
-            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop ({Entity.ID})" : null);
+            _boundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, _includeSelf, DebugPrintouts ? $"Box ({Entity.ID})" : null);
+            _preCropBoundingBoxWithChildren = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, _includeSelf, DebugPrintouts ? $"Box Pre Crop ({Entity.ID})" : null);
             if (DebugPrintouts)
             {
                 Debug.WriteLine($"Pre crop for {Entity.ID}: {_preCropBoundingBoxWithChildren.ToString()}");
@@ -161,18 +172,18 @@ namespace AGS.Engine
         {
             var lastBox = BoundingBoxWithChildren;
             var lastPreBox = PreCropBoundingBoxWithChildren;
-            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, DebugPrintouts ? $"Box before unlock ({Entity.ID})" : null);
-            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, DebugPrintouts ? $"Box Pre Crop before unlock ({Entity.ID})" : null);
+            _preUnlockBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.ViewportBox, _includeSelf, DebugPrintouts ? $"Box before unlock ({Entity.ID})" : null);
+            _preUnlockPreCropBoundingBox = getBoundingBox(_tree, _boundingBox, boxes => boxes.PreCropViewportBox, _includeSelf, DebugPrintouts ? $"Box Pre Crop before unlock ({Entity.ID})" : null);
             if (DebugPrintouts)
             {
-                Debug.WriteLine($"Pre crop (before unlock) for ${Entity.ID}: {_preUnlockBoundingBox.ToString()}");
+                Debug.WriteLine($"Pre crop (before unlock) for {Entity.ID}: {_preUnlockBoundingBox.ToString()}");
             }
             _isDirty = false;
             return (!lastBox.Equals(_preUnlockBoundingBox) || !lastPreBox.Equals(_preUnlockPreCropBoundingBox));
         }
 
         private AGSBoundingBox getBoundingBox(IInObjectTreeComponent tree, IBoundingBoxComponent box,
-                          Func<AGSBoundingBoxes, AGSBoundingBox> getBox, string printoutId, int retries = 3)
+                          Func<AGSBoundingBoxes, AGSBoundingBox> getBox, bool includeSelf, string printoutId, int retries = 3)
         {
             try
             {
@@ -181,22 +192,25 @@ namespace AGS.Engine
                 float minY = float.MaxValue;
                 float maxY = float.MinValue;
 
-                var boxes = box?.GetBoundingBoxes(_state.Viewport);
-                if (boxes != null)
+                if (includeSelf)
                 {
-                    var boundingBox = getBox(boxes);
-
-                    if (boundingBox.IsValid)
+                    var boxes = box?.GetBoundingBoxes(_state.Viewport);
+                    if (boxes != null)
                     {
-                        minX = boundingBox.MinX;
-                        maxX = boundingBox.MaxX;
-                        minY = boundingBox.MinY;
-                        maxY = boundingBox.MaxY;
-                    }
+                        var boundingBox = getBox(boxes);
 
-                    if (printoutId != null)
-                    {
-                        Debug.WriteLine($"{printoutId}: {minX}-{maxX}, {minY}-{maxY}");
+                        if (boundingBox.IsValid)
+                        {
+                            minX = boundingBox.MinX;
+                            maxX = boundingBox.MaxX;
+                            minY = boundingBox.MinY;
+                            maxY = boundingBox.MaxY;
+                        }
+
+                        if (printoutId != null)
+                        {
+                            Debug.WriteLine($"{printoutId}: {minX}-{maxX}, {minY}-{maxY}");
+                        }
                     }
                 }
 
@@ -212,7 +226,7 @@ namespace AGS.Engine
                         var textComponent = child.GetComponent<ITextComponent>();
                         if (textComponent != null && !textComponent.TextVisible && !child.IsImageVisible) continue;
 
-                        var childBox = getBoundingBox(child, child, getBox, printoutId == null ? null : child.ID);
+                        var childBox = getBoundingBox(child, child, getBox, true, printoutId == null ? null : child.ID);
                         if (!childBox.IsValid) continue;
                         if (minX > childBox.MinX) minX = childBox.MinX;
                         if (maxX < childBox.MaxX) maxX = childBox.MaxX;
@@ -227,7 +241,7 @@ namespace AGS.Engine
             {
                 Debug.WriteLine($"BoundingBoxWithChildren: Exception when iterating children. retries = {retries}, error: {e.Message}");
                 if (retries <= 0) throw;
-                return getBoundingBox(tree, box, getBox, printoutId, retries - 1);
+                return getBoundingBox(tree, box, getBox, includeSelf, printoutId, retries - 1);
             }
         }
     }

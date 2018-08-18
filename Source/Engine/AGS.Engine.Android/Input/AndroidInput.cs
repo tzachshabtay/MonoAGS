@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AGS.API;
-using AGS.Engine.Desktop;
 using Android.Content.Res;
 using Android.Views;
 
@@ -11,11 +10,14 @@ namespace AGS.Engine.Android
     {
         private readonly IShouldBlockInput _shouldBlockInput;
         private readonly ICoordinates _coordinates;
+        private readonly IAGSHitTest _hitTest;
         private DateTime _lastDrag;
         private AGSGameView _view;
 
-        public AndroidInput(AndroidSimpleGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates)
+        public AndroidInput(AndroidSimpleGestures gestures, IShouldBlockInput shouldBlockInput, ICoordinates coordinates, 
+                            IAGSHitTest hitTest)
         {
+            _hitTest = hitTest;
             _coordinates = coordinates;
             MousePosition = new MousePosition(0f, 0f, coordinates);
             _shouldBlockInput = shouldBlockInput;
@@ -41,16 +43,14 @@ namespace AGS.Engine.Android
                 if (isInputBlocked()) return;
                 setMousePosition(e);
                 LeftMouseButtonDown = true;
-                await MouseDown.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
+                await MouseDown.InvokeAsync(new MouseButtonEventArgs(hitTest.ObjectAtMousePosition, MouseButton.Left, MousePosition));
                 await Task.Delay(250);
-                await MouseUp.InvokeAsync(new MouseButtonEventArgs(null, MouseButton.Left, MousePosition));
+                await MouseUp.InvokeAsync(new MouseButtonEventArgs(hitTest.ObjectAtMousePosition, MouseButton.Left, MousePosition));
                 LeftMouseButtonDown = false;
             };
             AndroidGameWindow.Instance.OnNewView += onViewChanged;
             onViewChanged(null, AndroidGameWindow.Instance.View);
         }
-
-        public IObject Cursor { get; set; }
 
         public IEvent<KeyboardEventArgs> KeyDown { get; private set; }
 
@@ -114,6 +114,7 @@ namespace AGS.Engine.Android
             float x = convertX(e.GetX());
             float y = convertY(e.GetY());
             MousePosition = new MousePosition(x, y, _coordinates);
+            _hitTest.Refresh(MousePosition);
         }
 
         private float convertX(float x)

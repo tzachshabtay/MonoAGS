@@ -69,7 +69,7 @@ namespace AGS.Engine
 
 		private IRoom getRoom()
 		{
-            return _state?.Rooms?.FirstOrDefault(r => r.Objects.Contains(_obj));
+            return _state?.Rooms?.FirstOrDefault(r => r.Objects.Contains(_obj) || r.Background == _obj);
 		}
 	}
 }

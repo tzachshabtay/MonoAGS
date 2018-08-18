@@ -49,6 +49,17 @@ namespace AGS.Engine
 
         public bool HasChild(TItem child) => _children.Contains(child);
 
+        public TItem FindDescendant(Predicate<TItem> isMatch)
+        {
+            if (isMatch(Node)) return Node;
+            foreach (var child in Children)
+            {
+                var found = child.TreeNode.FindDescendant(isMatch);
+                if (found != null) return found;
+            }
+            return null;
+        }
+
         public void Dispose()
         {
             SetParent(null);

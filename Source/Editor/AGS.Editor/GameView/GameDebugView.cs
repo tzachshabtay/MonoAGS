@@ -54,7 +54,7 @@ namespace AGS.Editor
             _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = GameViewColors.Panel;
-            _panel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
+            _panel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
             _panel.ClickThrough = false;
             _editor.Editor.State.FocusedUI.CannotLoseFocus.Add(_panelId);
@@ -62,7 +62,7 @@ namespace AGS.Editor
             var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
                                       _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
-            headerLabel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
+            headerLabel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             headerLabel.RenderLayer = _layer;
 
             var xButton = factory.UI.GetButton("GameDebugTreeCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",
@@ -182,7 +182,7 @@ namespace AGS.Editor
             else if (action == KeyboardBindings.Save)
             {
                 string baseFolder = Path.GetDirectoryName(_editor.Project.AGSProjectPath);
-                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor();
+                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor(_editor.Project.Model);
                 _editor.Project.Model.GenerateCode(baseFolder, codeGeneartor);
                 _editor.Project.Model.Save(baseFolder);
             }
@@ -240,6 +240,12 @@ namespace AGS.Editor
 
         private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
         {
+            respondToKeyboard();
+        }
+
+        private void respondToKeyboard()
+        {
+            if (_editor.Editor.State.FocusedUI.HasKeyboardFocus != null || !_toolbar.IsPaused) return;
             var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;
 

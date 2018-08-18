@@ -19,14 +19,14 @@ namespace AGS.Editor
         private readonly StateModel _model; 
         private List<(IObject control, INumberEditorComponent editor)> _panels;
         private ICheckboxComponent _nullBox;
-        private InspectorProperty _property;
+        private IProperty _property;
         private const float SLIDER_HEIGHT = 5f;
         private const float ROW_HEIGHT = 20f;
 
         public class InternalNumberEditor
         {
-            public InternalNumberEditor(string text, Func<InspectorProperty, string> getValueString,
-                                        Action<InspectorProperty, float, bool> setValue,
+            public InternalNumberEditor(string text, Func<IProperty, string> getValueString,
+                                        Action<IProperty, float, bool> setValue,
                                         Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor)
             {
                 Text = text;
@@ -34,7 +34,7 @@ namespace AGS.Editor
                 SetValue = setValue;
                 ConfigureNumberEditor = (prop, editor) =>
                 {
-                    var slider = prop.Prop.GetCustomAttribute<NumberEditorSliderAttribute>();
+                    var slider = prop.GetAttribute<NumberEditorSliderAttribute>();
                     if (slider != null)
                     {
                         editor.SuggestedMinValue = slider.SliderMin;
@@ -45,9 +45,9 @@ namespace AGS.Editor
                 };
             }
 
-            public Func<InspectorProperty, string> GetValueString { get; private set; }
-            public Action<InspectorProperty, float, bool> SetValue { get; private set; }
-            public Action<InspectorProperty, INumberEditorComponent> ConfigureNumberEditor { get; private set; }
+            public Func<IProperty, string> GetValueString { get; private set; }
+            public Action<IProperty, float, bool> SetValue { get; private set; }
+            public Action<IProperty, INumberEditorComponent> ConfigureNumberEditor { get; private set; }
             public string Text { get; private set; }
         }
 
@@ -62,7 +62,7 @@ namespace AGS.Editor
             _model = model;
             _internalEditors = internalEditors ?? new List<InternalNumberEditor>
             {
-                new InternalNumberEditor(null, prop => prop.Value, (prop, value, userInitiated) =>
+                new InternalNumberEditor(null, prop => prop.ValueString, (prop, value, userInitiated) =>
                 {
                     if (_actions.ActionIsExecuting) return;
                     if (wholeNumbers) setValue(prop, (int)Math.Round(value), userInitiated);
@@ -72,7 +72,7 @@ namespace AGS.Editor
             _panels = new List<(IObject, INumberEditorComponent)>(_internalEditors.Count);
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
             ICheckBox nullBox = null;
@@ -80,7 +80,7 @@ namespace AGS.Editor
             {
                 nullBox = BoolPropertyEditor.CreateCheckbox(view.TreeItem, _factory, id + "_NullBox");
                 _nullBox = nullBox;
-                nullBox.Checked = (property.Value != InspectorProperty.NullValue);
+                nullBox.Checked = (property.ValueString != InspectorProperty.NullValue);
             }
             var panels = new List<(IObject control, INumberEditorComponent editor)>(_internalEditors.Count);
             for (int i = 0; i < _internalEditors.Count; i++)
@@ -94,10 +94,10 @@ namespace AGS.Editor
 
             nullBox?.OnCheckChanged.Subscribe(args =>
             {
-                object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.Prop.PropertyType)) : null;
+                object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.PropertyType)) : null;
                     
                 if (args.UserInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
-                else property.Prop.SetValue(property.Object, val);
+                else property.SetValue(val);
 
                 foreach (var panel in panels)
                 {
@@ -111,7 +111,7 @@ namespace AGS.Editor
             if (_property == null) return;
             if (_nullBox != null)
             {
-                _nullBox.Checked = (_property.Value != InspectorProperty.NullValue);
+                _nullBox.Checked = (_property.ValueString != InspectorProperty.NullValue);
             }
 
             for (int i = 0; i < _panels.Count(); i++)
@@ -128,7 +128,7 @@ namespace AGS.Editor
             }
         }
 
-        private void setValue(InspectorProperty property, float value, bool userInitiated)
+        private void setValue(IProperty property, float value, bool userInitiated)
         {
             object val = value;
             if (_wholeNumbers)
@@ -137,10 +137,10 @@ namespace AGS.Editor
                 val = valInt;
             }
             if (userInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
-            else property.Prop.SetValue(property.Object, val);
+            else property.SetValue(val);
         }
 
-        private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, InspectorProperty property, InternalNumberEditor editor)
+        private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, IProperty property, InternalNumberEditor editor)
         {
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id + "EditPanel", 100f, ROW_HEIGHT, label.X, label.Y, label.TreeNode.Parent);
@@ -185,7 +185,7 @@ namespace AGS.Editor
 
         private ITextBox addTextBox(string id, IUIControl panel, string text)
         {
-            var config = GameViewColors.TextConfig;
+            var config = GameViewColors.TextboxTextConfig;
             var textbox = _factory.UI.GetTextBox(id + "_Textbox",
                                               0f, SLIDER_HEIGHT + 1f, panel,
                                               "", config, width: 100f, height: ROW_HEIGHT);
@@ -209,7 +209,7 @@ namespace AGS.Editor
             buttonsPanel.RenderLayer = panel.RenderLayer;
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
-            float buttonBottomPadding = 12f;
+            float buttonBottomPadding = 7f;
             float betweenButtonsPadding = 1f;
             float buttonHeight = halfRowHeight - betweenButtonsPadding * 2;
             var upButton = _factory.UI.GetButton(id + "_UpButton", new ButtonAnimation(arrowUpIdle, null, Colors.Purple),
@@ -270,15 +270,15 @@ namespace AGS.Editor
                                              Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor,
                                              params (string text, Func<float, T, T> getValue)[] creators) :
         base(actions, state, factory, model, wholeNumbers, nullable, creators.Select((creator, index) =>
-            new InternalNumberEditor(creator.text, prop => prop.Value == InspectorProperty.NullValue ?
-                                     InspectorProperty.NullValue : prop.Value.Replace("(", "").Replace(")", "").Split(',')[index],
+            new InternalNumberEditor(creator.text, prop => prop.ValueString == InspectorProperty.NullValue ?
+                                     InspectorProperty.NullValue : prop.ValueString.Replace("(", "").Replace(")", "").Split(',')[index],
                                      (prop, value, userInitiated) =>
             {
                 if (actions.ActionIsExecuting) return;
-                object objVal = prop.Prop.GetValue(prop.Object);
+                object objVal = prop.GetValue();
                 T val = objVal == null ? default : (T)objVal;
                 if (userInitiated) actions.RecordAction(new PropertyAction(prop, creator.getValue(value, val), model));
-                else prop.Prop.SetValue(prop.Object, creator.getValue(value, val));
+                else prop.SetValue(creator.getValue(value, val));
             }, configureNumberEditor)
         ).ToList()){}
     }

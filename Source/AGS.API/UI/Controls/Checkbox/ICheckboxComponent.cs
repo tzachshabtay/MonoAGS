@@ -51,5 +51,12 @@
         /// </summary>
         /// <value>The text label.</value>
         ILabel TextLabel { get; set; }
+
+        /// <summary>
+        /// Allows setting a radio group, which can be used to group multiple checkboxes together to guarantee that 
+        /// only a single checkbox is checked at any given time.
+        /// </summary>
+        /// <value>The radio group.</value>
+        IRadioGroup RadioGroup { get; set; }
     }
 }

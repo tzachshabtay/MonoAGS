@@ -67,6 +67,7 @@
 
         /// <summary>
         /// Gets or sets the slider's value.
+        /// Note that the value will be clamped to <see cref="MinValue"/> and <see cref="MaxValue"/> (in other words, if you try to set a value above the maximum it will set it to the maximum, and the same for the minimum value).
         /// </summary>
         /// <value>The value.</value>
 		float Value { get; set; }
@@ -123,6 +124,27 @@
         /// </summary>
         /// <value>The on value changed.</value>
         IBlockingEvent<SliderValueEventArgs> OnValueChanging { get; }
+
+        /// <summary>
+        /// Increase the the slider by the specified amount.
+        /// This checks for a case where the value is below the minimum (could happen when <see cref="ShouldClampValuesWhenChangingMinMax"/> is false), and 
+        /// if true it increases the value from the minimum and not from the current value.
+        /// </summary>
+        /// <param name="step">Step.</param>
+        void Increase(float step);
+
+        /// <summary>
+        /// Decrease the the slider by the specified amount.
+        /// This checks for a case where the value is above the maximum (could happen when <see cref="ShouldClampValuesWhenChangingMinMax"/> is false), and 
+        /// if true it decreases the value from the maximum and not from the current value.
+        /// </summary>
+        /// <param name="step">Step.</param>
+        void Decrease(float step);
+
+        /// <summary>
+        /// Is the slider horizontal (<see cref="SliderDirection.RightToLeft"/> or <see cref="SliderDirection.LeftToRight"/>) or vertical (<see cref="SliderDirection.TopToBottom"/> or <see cref="SliderDirection.BottomToTop"/>)?
+        /// </summary>
+        /// <returns><c>true</c>, if the slider is horizontal, <c>false</c> otherwise.</returns>
+        bool IsHorizontal();
 	}
 }
-

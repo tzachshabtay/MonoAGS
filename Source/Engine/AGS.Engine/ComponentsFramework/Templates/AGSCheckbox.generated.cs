@@ -626,6 +626,12 @@ namespace AGS.Engine
             set { _checkboxComponent.TextLabel = value; } 
         }
 
+        public IRadioGroup RadioGroup
+        {
+            get { return _checkboxComponent.RadioGroup; }
+            set { _checkboxComponent.RadioGroup = value; }
+        }
+
         #endregion
     }
 }

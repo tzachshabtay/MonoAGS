@@ -1,10 +1,13 @@
-﻿namespace AGS.API
+﻿using System.Collections.Generic;
+
+namespace AGS.API
 {
     /// <summary>
     /// Allows changing properties of the button to "animate" it as it moves between states (idle, hover, pushed).
     /// Each <see cref="ButtonAnimation"/> represents one of this states, and can have a different animation (or image),
     /// border, background color (tint) or text rendering configuration (font, shadows, etc- <see cref="ITextConfig"/>).
     /// </summary>
+    [PropertyFolder]
     public class ButtonAnimation
     {
         /// <summary>
@@ -66,5 +69,21 @@
         /// </summary>
         /// <value>The tint.</value>
         public Color? Tint { get; set; }
+
+        public override string ToString()
+        {
+            if (Animation == null && Image == null && Border == null && TextConfig == null && Tint == null)
+            {
+                return "No Changes";
+            }
+            List<string> builder = new List<string>();
+            if (Animation != null) builder.Add($"Animation");
+            if (Image != null) builder.Add($"Image");
+            if (Border != null) builder.Add($"Border");
+            if (TextConfig != null) builder.Add($"Text");
+            if (Tint != null) builder.Add($"Tint");
+
+            return $"Changing: {string.Join(", ", builder)}";
+        }
     }
 }

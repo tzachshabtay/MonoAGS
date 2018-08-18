@@ -50,13 +50,7 @@ namespace AGS.Editor
         {
             return model.Entities.GetOrAdd(entity.ID, id =>
             {
-                var e = new EntityModel
-                {
-                    ID = id,
-                    DisplayName = entity.DisplayName,
-                    EntityConcreteType = entity.GetType(),
-                    Components = new Dictionary<Type, ComponentModel>()
-                };
+                var e = EntityModel.FromEntity(entity);
                 var room = entity.GetComponent<IHasRoomComponent>()?.Room;
                 if (room != null)
                 {

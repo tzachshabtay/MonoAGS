@@ -24,7 +24,7 @@ namespace DemoGame
             _label.RenderLayer = parent.RenderLayer;
             _label.Pivot = (0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;
-            _label.Border = AGSBorders.SolidColor(Colors.LightSeaGreen, 3f);
+            _label.Border = factory.Graphics.Borders.SolidColor(Colors.LightSeaGreen, 3f);
             _label.MouseEnter.Subscribe(_ => _label.Tint = Colors.DarkGoldenrod);
             _label.MouseLeave.Subscribe(_ => _label.Tint = Colors.DarkOliveGreen);
             _label.Enabled = true;

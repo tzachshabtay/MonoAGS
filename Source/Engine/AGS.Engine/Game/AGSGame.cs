@@ -47,8 +47,6 @@ namespace AGS.Engine
 
         public static IShader Shader { get; set; }
 
-        public static Resolver Resolver => ((AGSGame)Game)._resolver;
-
         public static IGLUtils GLUtils { get; private set; }
 
         public static IGame Create(IGameSettings settings)
@@ -98,7 +96,7 @@ namespace AGS.Engine
 
         public ICoordinates Coordinates { get; private set; }
 
-        public Resolver GetResolver() => _resolver;
+        public IResolver Resolver => _resolver;
 
         public void Start()
         {
@@ -112,7 +110,7 @@ namespace AGS.Engine
             if (GameWindow == null)
             {
                 isNewWindow = true;
-                try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
+                try { GameWindow = _resolver.Container.Resolve<IGameWindow>(settingsParameter); }
                 catch (Exception ese)
                 {
                     Debug.WriteLine(ese.ToString());
@@ -261,10 +259,12 @@ namespace AGS.Engine
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
 
+            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+            Settings.Defaults.MessageBox = _resolver.Container.Resolve<IMessageBoxSettings>(gameParameter);
+
             var input = _resolver.Container.Resolve<IInput>();
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
             TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
             RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter,

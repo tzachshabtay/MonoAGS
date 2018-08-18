@@ -16,18 +16,21 @@ namespace AGS.Engine.Desktop
         private readonly IConcurrentHashSet<API.Key> _keysDown;
         private readonly IGameEvents _events;
         private readonly ICoordinates _coordinates;
+        private readonly IAGSCursor _cursor;
+        private readonly IAGSHitTest _hitTest;
 
-        private IObject _mouseCursor;
         private MouseCursor _originalOSCursor;
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
-        public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, 
+        public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, IAGSCursor cursor, IAGSHitTest hitTest,
                         IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
                         IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
+            _cursor = cursor;
             _events = events;
+            _hitTest = hitTest;
             _actions = new ConcurrentQueue<Func<Task>>();
             _coordinates = coordinates;
             this._shouldBlockInput = shouldBlockInput;
@@ -49,17 +52,21 @@ namespace AGS.Engine.Desktop
             _game = game;
             this._originalOSCursor = game.Cursor;
 
+            _cursor.PropertyChanged += (sender, e) =>
+            {
+                if (_cursor.Cursor != null) _game.Cursor = MouseCursor.Empty;
+            };
             game.MouseDown += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
+                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
             game.MouseUp += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
+                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
             game.MouseMove += (sender, e) =>
             {
@@ -107,19 +114,6 @@ namespace AGS.Engine.Desktop
         public bool RightMouseButtonDown { get; private set; }
         public bool IsTouchDrag => false;  //todo: support touch screens on desktops
 
-        public IObject Cursor
-        {
-            get => _mouseCursor;
-            set
-            {
-                _mouseCursor = value;
-                if (value != null)
-                {
-                    _game.Cursor = MouseCursor.Empty;
-                }
-            }
-        }
-
         public bool ShowHardwareCursor
         {
             get => _game.Cursor != MouseCursor.Empty;
@@ -145,6 +139,7 @@ namespace AGS.Engine.Desktop
 
         private void onRepeatedlyExecute()
         {
+            _hitTest.Refresh(MousePosition);
             if (!isInputBlocked())
             {
                 var cursorState = Mouse.GetCursorState();

@@ -208,7 +208,6 @@ namespace AGS.Engine
                 }
 
                 _withCaret.Tint = _imageComponent.Tint;
-                _withCaret.Border = isVisible ? _borderComponent?.Border : null;
                 _withCaret.Text = _textComponent.Text;
                 _withCaret.TextConfig = _textComponent.TextConfig;
             }

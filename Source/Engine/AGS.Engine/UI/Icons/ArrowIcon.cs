@@ -11,7 +11,7 @@ namespace AGS.Engine
         private GLVertex[] _quad = new GLVertex[4];
         private IRuntimeSettings _settings;
         private ArrowDirection _direction;
-        private IGLColor _color;
+        private GLColor _color;
         private AGSBoundingBox _lastSquare;
         private Size _lastWindowSize;
 
@@ -30,7 +30,7 @@ namespace AGS.Engine
         public float WidthTop => 0f;
 
         public ArrowDirection Direction { get => _direction; set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
-        public IGLColor ArrowColor { get => _color; set { if (_color == value) return; _color = value; _frameBuffer = null; } }
+        public GLColor ArrowColor { get => _color; set { if (_color.Equals(value)) return; _color = value; _frameBuffer = null; } }
 
         public void RenderBorderBack(AGSBoundingBox square)
         {

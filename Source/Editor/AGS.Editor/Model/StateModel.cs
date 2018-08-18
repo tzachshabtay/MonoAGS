@@ -65,6 +65,7 @@ namespace AGS.Editor
 
         private void generateEntityCode(string id, string path, ICodeGenerator codeGenerator)
         {
+            if (id == null) return;
             path = Path.Combine(path, id);
             if (!Entities.TryGetValue(id, out var entity))
             {
@@ -72,7 +73,7 @@ namespace AGS.Editor
                 return;
             }
             StringBuilder code = new StringBuilder();
-            codeGenerator.GenerateCode(entity, code);
+            codeGenerator.GenerateCode("MyGameNamespace", entity, code); //todo: namespace
             Debug.WriteLine($"Code for {id}:");
             Debug.WriteLine(code.ToString());
             Debug.WriteLine("----------");

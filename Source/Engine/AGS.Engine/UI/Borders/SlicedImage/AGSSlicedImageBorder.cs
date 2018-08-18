@@ -17,7 +17,7 @@ namespace AGS.Engine
 	{
 		private int _texture;
 		private float _width, _height;
-		private readonly IGLColor _white;
+		private readonly GLColor _white;
         private readonly IGLUtils _glUtils;
 
         public AGSSlicedImageBorder(IGLUtils glUtils)
@@ -79,9 +79,11 @@ namespace AGS.Engine
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
-		#endregion
+        #endregion
 
-		private void drawBorders(AGSBoundingBox square)
+        public override string ToString() => "Sliced Image";
+
+        private void drawBorders(AGSBoundingBox square)
 		{
 			var slice = Slice.ToPercentage(_width, _height);
 			var width = Width.ToPixels(_width, _height);
@@ -312,4 +314,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

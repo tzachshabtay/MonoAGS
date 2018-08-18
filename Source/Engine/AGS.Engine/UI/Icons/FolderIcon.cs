@@ -15,10 +15,10 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IRuntimeSettings _settings;
 
-        private readonly IGLColor _color = Colors.Gold.ToGLColor();
-        private readonly IGLColor _foldColor = Colors.DarkGoldenrod.ToGLColor();
-        private readonly IGLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
-        private readonly IGLColor _selectedFoldColor = Colors.Blue.ToGLColor();
+        private readonly GLColor _color = Colors.Gold.ToGLColor();
+        private readonly GLColor _foldColor = Colors.DarkGoldenrod.ToGLColor();
+        private readonly GLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
+        private readonly GLColor _selectedFoldColor = Colors.Blue.ToGLColor();
 
         private readonly Vector2 _emptyVector = new Vector2();
         private IFrameBuffer _frameBuffer;
@@ -59,8 +59,8 @@ namespace AGS.Engine
 
             float width = _glUtils.CurrentResolution.Width;
             float height = _glUtils.CurrentResolution.Height;
-            IGLColor color = IsSelected ? _selectedColor : _color;
-            IGLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
+            GLColor color = IsSelected ? _selectedColor : _color;
+            GLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
             float foldHeight = height * (1f / 5f);
             PointF foldBottom = new PointF(width / 2f, foldHeight);
 

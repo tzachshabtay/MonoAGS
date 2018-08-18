@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using AGS.API;
-using Autofac;
 
 namespace AGS.Engine
 {
 	public class AGSViewport : IViewport
 	{
-        private readonly Resolver _resolver;
+        private readonly IResolver _resolver;
         private readonly Func<int, IGLViewportMatrix> _createMatrixFunc;
         private readonly Dictionary<int, IGLViewportMatrix> _viewports;
         private readonly static IRenderLayer _dummyLayer = new AGSRenderLayer(0);
 
-        public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera, Resolver resolver = null)
+        public AGSViewport(IDisplayListSettings displayListSettings, ICamera camera, IResolver resolver = null)
 		{
-            _resolver = resolver ?? AGSGame.Resolver;
+            _resolver = resolver ?? AGSGame.Game.Resolver;
             _createMatrixFunc = _ => createMatrix(); //Creating a delegate in advance to avoid memory allocation in critical path
             _viewports = new Dictionary<int, IGLViewportMatrix>(10);
 			ScaleX = 1f;
@@ -125,7 +124,7 @@ namespace AGS.Engine
 
         private IGLViewportMatrix createMatrix()
         {
-            return _resolver.Container.Resolve<IGLViewportMatrix>();
+            return _resolver.Resolve<IGLViewportMatrix>();
         }
     }
 }

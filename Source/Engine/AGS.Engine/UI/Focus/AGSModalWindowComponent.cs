@@ -15,8 +15,8 @@ namespace AGS.Engine
 
 		public override void Dispose()
 		{
-            base.Dispose();
             LoseFocus();
+            base.Dispose();
 		}
 
         public bool HasFocus => _focusedUi.FocusedWindow == Entity;

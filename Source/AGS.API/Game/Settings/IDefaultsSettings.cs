@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// Gets or sets settings for various defaults.
@@ -23,5 +22,11 @@ namespace AGS.API
         /// </summary>
         /// <value>The skin.</value>
         ISkin Skin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default settings for showing message boxes (like Display, Yes/No prompts, etc).
+        /// </summary>
+        /// <value>The message box.</value>
+        IMessageBoxSettings MessageBox { get; set; }
     }
 }

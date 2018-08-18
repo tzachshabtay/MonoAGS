@@ -13,12 +13,14 @@ namespace AGS.Editor
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
+        private string _idPrefix = "";
 
-        const float _padding = 42f;
+        const float _padding = 28f;
         const float _gutterSize = 15f;
 
-        public InspectorPanel(AGSEditor editor, IRenderLayer layer, ActionManager actions)
+        public InspectorPanel(AGSEditor editor, IRenderLayer layer, ActionManager actions, string idPrefix = "")
         {
+            _idPrefix = idPrefix;
             _editor = editor;
             _actions = actions;
             _layer = layer;
@@ -33,22 +35,22 @@ namespace AGS.Editor
             _parent = parent;
             var factory = _editor.Editor.Factory;
 
-            _searchBox = factory.UI.GetTextBox("GameDebugInspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
+            _searchBox = factory.UI.GetTextBox($"{_idPrefix}_InspectorSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
 
             var height = parent.Height - _searchBox.Height - _gutterSize;
-            _scrollingPanel = factory.UI.GetPanel("GameDebugInspectorScrollingPanel", parent.Width - _gutterSize, height, 0f, parent.Height - _searchBox.Height, parent);
+            _scrollingPanel = factory.UI.GetPanel($"{_idPrefix}_InspectorScrollingPanel", parent.Width - _gutterSize, height, 0f, parent.Height - _searchBox.Height, parent);
 			_scrollingPanel.RenderLayer = _layer;
 			_scrollingPanel.Pivot = new PointF(0f, 1f);
 			_scrollingPanel.Tint = Colors.Transparent;
-            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
 
-            _treePanel = factory.UI.GetPanel("GameDebugInspectorPanel", 0f, 0f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
+            _treePanel = factory.UI.GetPanel($"{_idPrefix}_InspectorPanel", 0f, 0f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
 			_treePanel.Tint = Colors.Transparent;
             _treePanel.RenderLayer = _layer;
             _treePanel.Pivot = new PointF(0f, 1f);

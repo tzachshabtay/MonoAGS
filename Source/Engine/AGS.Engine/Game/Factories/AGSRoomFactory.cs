@@ -64,6 +64,18 @@ namespace AGS.Engine
             component.MaxZoom = maxZoom;
         }
 
+        [MethodWizard]
+        public IArea GetArea(string id, IMask mask, bool isWalkable, bool isWalkbehind, 
+             bool isScaling, [MethodParam(Default = 1f)]float minScaling, [MethodParam(Default = 1f)]float maxScaling,
+             bool isZoom, [MethodParam(Default = 1f)]float minZoom, [MethodParam(Default = 1f)]float maxZoom, 
+             [MethodParam(Browsable = false)] IRoom room = null)
+        {
+            var area = GetArea(id, mask, room, isWalkable, isWalkbehind);
+            if (isScaling) CreateScaleArea(area, minScaling, maxScaling);
+            if (isZoom) CreateZoomArea(area, minZoom, maxZoom);
+            return area;
+        }
+
         private IArea createArea(string id, IMask mask, IRoom room, bool isWalkable, bool isWalkBehind)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);

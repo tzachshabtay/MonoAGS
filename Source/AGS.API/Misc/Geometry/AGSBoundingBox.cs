@@ -136,7 +136,8 @@ namespace AGS.API
 			float scaleY = adjustedScale.Y;
             float spriteWidth = Width / scaleX;
             float spriteHeight = Height / scaleY;
-            FourCorners<Vector2> cropArea = crop.GetCropArea(new BeforeCropEventArgs(this, boundingBoxType), spriteWidth, spriteHeight, out float width, out float height);
+            var args = new BeforeCropEventArgs(this, boundingBoxType);
+            FourCorners<Vector2> cropArea = crop.GetCropArea(args, spriteWidth, spriteHeight, out float width, out float height);
             if (!crop.CropEnabled) return new AGSCropInfo(this, null);
             if (width <= 0f || height <= 0f) return default;
 			width *= scaleX;
@@ -212,8 +213,8 @@ namespace AGS.API
 
         public bool Equals(AGSBoundingBox square)
 		{
-			return BottomLeft.Equals(square.BottomLeft) && BottomRight.Equals(square.BottomRight)
-				 && TopLeft.Equals(square.TopLeft) && TopRight.Equals(square.TopRight);
+            return equals(BottomLeft, square.BottomLeft) && equals(BottomRight, square.BottomRight)
+                && equals(TopLeft, square.TopLeft) && equals(TopRight, square.TopRight);
 		}
 
         /// <summary>
@@ -226,7 +227,23 @@ namespace AGS.API
             return MathUtils.FloatEquals(Width, box.Width) && MathUtils.FloatEquals(Height, box.Height);
         }
 
+        /// <summary>
+        /// Multiply the box limits with the specified factorX and factorY.
+        /// </summary>
+        /// <returns>The new multiplied box.</returns>
+        /// <param name="factorX">Factor x.</param>
+        /// <param name="factorY">Factor y.</param>
+        public AGSBoundingBox Multiply(float factorX, float factorY)
+        {
+            return new AGSBoundingBox(MinX * factorX, MaxX * factorX, MinY * factorY, MaxY * factorY);
+        }
+
 		#endregion
+
+        private bool equals(Vector3 a, Vector3 b)
+        {
+            return MathUtils.FloatEquals(a.X, b.X) && MathUtils.FloatEquals(a.Y, b.Y) && MathUtils.FloatEquals(a.Z, b.Z);
+        }
 
 		private float distance(Vector3 a, Vector3 b)
 		{

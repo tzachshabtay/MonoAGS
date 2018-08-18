@@ -37,5 +37,7 @@ namespace AGS.Engine
                 border.RenderBorderFront(square);
             }
         }
+
+        public override string ToString() => string.Join(" + ", Borders);
     }
 }
