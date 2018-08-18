@@ -46,7 +46,7 @@ namespace AGS.Editor
             _toolbar.Tint = GameViewColors.SubPanel;
             _toolbar.RenderLayer = new AGSRenderLayer(-99999, independentResolution: _resolution);
             _toolbar.ClickThrough = false;
-            _toolbar.Border = AGSBorders.SolidColor(editor.EditorResolver.Container.Resolve<IGLUtils>(), editor.Editor.Settings,  GameViewColors.Border, 3f, true);
+            _toolbar.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f, true);
 
             var idle = new ButtonAnimation(null, FontIcons.ButtonConfig, GameViewColors.Button);
             var hover = new ButtonAnimation(null, AGSTextConfig.ChangeColor(FontIcons.ButtonConfig, Colors.Yellow, Colors.White, 0f), GameViewColors.HoveredButton);
