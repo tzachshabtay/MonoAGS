@@ -69,6 +69,7 @@ namespace AGS.API
         /// <typeparam name="TNewValue">The type of the converted object.</typeparam>
 		public FourCorners<TNewValue> Convert<TNewValue>(Func<TValue, TNewValue> convert)
 		{
+            if (IsOneValue) return new FourCorners<TNewValue>(convert(BottomLeft));
 			return new FourCorners<TNewValue> (convert(BottomLeft), convert(BottomRight), convert(TopLeft),
 				convert(TopRight));
 		}

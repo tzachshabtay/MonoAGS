@@ -78,8 +78,8 @@ namespace AGS.Engine
 		}
 
 		public void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight, 
-			Vector3 topLeft, Vector3 topRight, IGLColor bottomLeftColor, IGLColor bottomRightColor,
-			IGLColor topLeftColor, IGLColor topRightColor)
+			Vector3 topLeft, Vector3 topRight, GLColor bottomLeftColor, GLColor bottomRightColor,
+			GLColor topLeftColor, GLColor topRightColor)
 		{
             _quad[0] = new GLVertex(bottomLeft.Xy, _bottomLeft, bottomLeftColor);
             _quad[1] = new GLVertex(bottomRight.Xy, _bottomRight, bottomRightColor);
@@ -88,7 +88,7 @@ namespace AGS.Engine
             DrawQuad(texture, _quad);
 		}
 
-        public void DrawQuad(int texture, AGSBoundingBox box, IGLColor color, FourCorners<Vector2> texturePos)
+        public void DrawQuad(int texture, AGSBoundingBox box, GLColor color, FourCorners<Vector2> texturePos)
 		{
             _quad[0] = new GLVertex(box.BottomLeft.Xy, texturePos.BottomLeft, color);
             _quad[1] = new GLVertex(box.BottomRight.Xy, texturePos.BottomRight, color);

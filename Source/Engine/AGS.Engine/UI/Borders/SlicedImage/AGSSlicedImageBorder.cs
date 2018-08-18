@@ -17,7 +17,7 @@ namespace AGS.Engine
 	{
 		private int _texture;
 		private float _width, _height;
-		private readonly IGLColor _white;
+		private readonly GLColor _white;
         private readonly IGLUtils _glUtils;
 
         public AGSSlicedImageBorder(IGLUtils glUtils)

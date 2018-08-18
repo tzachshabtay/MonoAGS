@@ -116,7 +116,7 @@ namespace AGS.Editor
         {
             nodeView.TreeItem.Tint = Colors.Transparent;
             nodeView.HorizontalPanel.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Gray.WithAlpha(50);
-            var subscriber = _resizeSubscribers.GetOrAdd(nodeView, () => new ResizeSubscriber(nodeView));
+            var subscriber = _resizeSubscribers.GetOrAdd(nodeView, view => new ResizeSubscriber(view));
             subscriber.Subscribe(_onResize);
             subscriber.Resize(_rowWidth);
         }
@@ -124,21 +124,23 @@ namespace AGS.Editor
         private class ResizeSubscriber
         {
             private ITreeNodeView _nodeView;
+            private readonly Action<float> _resizeCallback;
 
             public ResizeSubscriber(ITreeNodeView nodeView)
             {
                 _nodeView = nodeView;
+                _resizeCallback = new Action<float>(Resize);
             }
 
             public void Subscribe(IBlockingEvent<float> resizeEvent)
             {
-                resizeEvent.Unsubscribe(Resize);
-                resizeEvent.Subscribe(Resize);
+                resizeEvent.Unsubscribe(_resizeCallback);
+                resizeEvent.Subscribe(_resizeCallback);
             }
 
             public void Unsubscribe(IBlockingEvent<float> resizeEvent)
             {
-                resizeEvent.Unsubscribe(Resize);
+                resizeEvent.Unsubscribe(_resizeCallback);
             }
 
             public void Resize(float rowWidth)

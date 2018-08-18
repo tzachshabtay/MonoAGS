@@ -4,13 +4,9 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public class GLColor : IGLColor, IGLColorBuilder, IEquatable<GLColor>
+    public struct GLColor : IEquatable<GLColor>
 	{
 		private const float COLOR_FACTOR = 255f;
-
-		public GLColor()
-		{
-		}
 
 		public GLColor(float r, float g, float b, float a)
 		{
@@ -34,22 +30,22 @@ namespace AGS.Engine
 
 		#region IGLColorBuilder implementation
 
-		public IGLColor Build(params IHasImage[] sprites)
+		public GLColor Build(params IHasImage[] sprites)
 		{
-            R = multiply(s => (s.Tint.R / COLOR_FACTOR) * s.Brightness.X, sprites);
-            G = multiply(s => (s.Tint.G / COLOR_FACTOR) * s.Brightness.Y, sprites);
-            B = multiply(s => (s.Tint.B / COLOR_FACTOR) * s.Brightness.Z, sprites);
-            A = multiply(s => (s.Opacity / COLOR_FACTOR) * s.Brightness.W, sprites);
-			return this;
+            float r = multiply(s => (s.Tint.R / COLOR_FACTOR) * s.Brightness.X, sprites);
+            float g = multiply(s => (s.Tint.G / COLOR_FACTOR) * s.Brightness.Y, sprites);
+            float b = multiply(s => (s.Tint.B / COLOR_FACTOR) * s.Brightness.Z, sprites);
+            float a = multiply(s => (s.Opacity / COLOR_FACTOR) * s.Brightness.W, sprites);
+            return new GLColor(r, g, b, a);
 		}
 
-		public IGLColor Build(Color color)
+		public GLColor Build(Color color)
 		{
-			R = color.R / COLOR_FACTOR;
-			G = color.G / COLOR_FACTOR;
-			B = color.B / COLOR_FACTOR;
-			A = color.A / COLOR_FACTOR;
-			return this;
+			float r = color.R / COLOR_FACTOR;
+			float g = color.G / COLOR_FACTOR;
+			float b = color.B / COLOR_FACTOR;
+			float a = color.A / COLOR_FACTOR;
+            return new GLColor(r, g, b, a);
 		}
 
 		public override string ToString()

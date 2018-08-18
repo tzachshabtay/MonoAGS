@@ -12,6 +12,7 @@ namespace AGS.Engine
         private readonly Action _onPropertyChanged;
         private readonly Action<TComponent> _onAdd, _onRemove;
         private readonly ConcurrentDictionary<string, API.IComponentBinding> _bindings;
+        private readonly PropertyChangedEventHandler _onPropertyChangedCallback;
 
         public EntitySubscription(Action onPropertyChanged, Action<TComponent> onAdd = null, 
                                   Action<TComponent> onRemove = null, params string[] propertyNames)
@@ -20,6 +21,7 @@ namespace AGS.Engine
             _onAdd = onAdd;
             _onRemove = onRemove;
             _propertyNames = propertyNames;
+            _onPropertyChangedCallback = this.onPropertyChanged;
             _bindings = new ConcurrentDictionary<string, API.IComponentBinding>();
         }
 
@@ -41,7 +43,7 @@ namespace AGS.Engine
             _onAdd?.Invoke(component);
             if (_propertyNames.Length > 0)
             {
-                component.PropertyChanged += onPropertyChanged;
+                component.PropertyChanged += _onPropertyChangedCallback;
             }
         }
 
@@ -53,7 +55,7 @@ namespace AGS.Engine
             _onRemove?.Invoke(component);
             if (_propertyNames.Length > 0)
             {
-                component.PropertyChanged -= onPropertyChanged;
+                component.PropertyChanged -= _onPropertyChangedCallback;
             }
         }
 

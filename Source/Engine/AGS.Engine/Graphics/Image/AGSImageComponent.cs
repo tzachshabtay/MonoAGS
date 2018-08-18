@@ -18,18 +18,18 @@ namespace AGS.Engine
         private readonly Func<string, ITexture> _getTextureFunc;
         private readonly ITextureCache _textures;
         private readonly IHasImage[] _colorAdjusters;
-        private readonly IGLColorBuilder _colorBuilder;
+        private readonly GLColor _colorBuilder;
         private readonly ObjectPool<Instruction> _instructionPool;
         private readonly ObjectPool<AGSBoundingBoxes> _boxesPool;
 
         public AGSImageComponent(IHasImage image, IGraphicsFactory factory, IRenderPipeline pipeline, 
                                  IGLTextureRenderer renderer, ITextureCache textures, 
-                                 ITextureFactory textureFactory, IGLColorBuilder colorBuilder)
+                                 ITextureFactory textureFactory)
         {
             IsImageVisible = true;
             _getTextureFunc = textureFactory.CreateTexture;  //Creating a delegate in advance to avoid memory allocations on critical path
             _textures = textures;
-            _colorBuilder = colorBuilder;
+            _colorBuilder = new GLColor();
             _image = image;
             _factory = factory;
             _colorAdjusters = new IHasImage[2];
@@ -169,7 +169,7 @@ namespace AGS.Engine
 
             _colorAdjusters[0] = sprite;
             _colorAdjusters[1] = this;
-            IGLColor color = _colorBuilder.Build(_colorAdjusters);
+            GLColor color = _colorBuilder.Build(_colorAdjusters);
             var instruction = _instructionPool.Acquire();
             if (instruction == null)
             {
@@ -187,7 +187,7 @@ namespace AGS.Engine
 
             private ITexture _texture;
             private AGSBoundingBoxes _boxes;
-            private IGLColor _color;
+            private GLColor _color;
 
             public Instruction(ObjectPool<Instruction> instructionPool, ObjectPool<AGSBoundingBoxes> boxesPool, IGLTextureRenderer renderer)
             {
@@ -196,7 +196,7 @@ namespace AGS.Engine
                 _renderer = renderer;
             }
 
-            public void Setup(ITexture texture, AGSBoundingBoxes boxes, IGLColor color)
+            public void Setup(ITexture texture, AGSBoundingBoxes boxes, GLColor color)
             {
                 _texture = texture;
                 _boxes = boxes;
