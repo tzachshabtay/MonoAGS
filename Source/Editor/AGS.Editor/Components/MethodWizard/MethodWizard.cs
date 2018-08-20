@@ -120,9 +120,12 @@ namespace AGS.Editor
                 Dictionary<string, object> map = new Dictionary<string, object>();
                 foreach (var param in _inspector.Inspector.Properties.SelectMany(p => p.Value))
                 {
-                    map[param.Name] = param.GetValue();
+                    map[param.Name] = param.Value;
                 }
-                if (!await _validate(map)) return;
+                if (_validate != null)
+                {
+                    if (!await _validate(map)) return;
+                }
 
                 _modal?.LoseFocus();
                 _parent.DestroyWithChildren(_editor.Editor.State);

@@ -87,6 +87,17 @@ namespace AGS.Editor
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 view.ParentPanel.OnDisposed(() => propertyChanged.PropertyChanged -= onPropertyChanged);
             }
+            else if (node.Property is INotifyPropertyChanged propertyValueChanged)
+            {
+                PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
+                {
+                    if (e.PropertyName != nameof(IProperty.Value)) return;
+                    node.Property.Refresh();
+                    node.Editor.RefreshUI();
+                };
+                propertyValueChanged.PropertyChanged += onPropertyChanged;
+                view.ParentPanel.OnDisposed(() => propertyValueChanged.PropertyChanged -= onPropertyChanged);
+            }
 
             return view;
         }

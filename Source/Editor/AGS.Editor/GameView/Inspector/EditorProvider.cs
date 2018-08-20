@@ -12,9 +12,12 @@ namespace AGS.Editor
         private readonly StateModel _model;
         private readonly IGameState _state;
         private readonly IGameSettings _settings;
+        private readonly AGSEditor _editor;
 
-        public EditorProvider(IGameFactory factory, ActionManager actions, StateModel model, IGameState state, IGameSettings settings)
+        public EditorProvider(IGameFactory factory, ActionManager actions, StateModel model, IGameState state, 
+                              IGameSettings settings, AGSEditor editor)
         {
+            _editor = editor;
             _factory = factory;
             _actions = actions;
             _model = model;
@@ -54,6 +57,10 @@ namespace AGS.Editor
             if (propType == typeof(RectangleF?)) return new RectangleFPropertyEditor(_actions, _state, _factory, _model, true);
             if (propType == typeof(Rectangle?)) return new RectanglePropertyEditor(_actions, _state, _factory, _model, true);
 
+            if (propType.IsInterface)
+            {
+                return new InterfacePropertyEditor(_factory.UI, _actions, _model, _editor);
+            }
             var typeInfo = propType.GetTypeInfo();
             if (typeInfo.IsEnum)
                 return new EnumPropertyEditor(_factory.UI, _actions, _model);

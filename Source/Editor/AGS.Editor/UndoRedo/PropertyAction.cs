@@ -28,13 +28,13 @@ namespace AGS.Editor
 
         protected override void ExecuteCore()
         {
-            OldValue = Property.GetValue();
+            OldValue = Property.Value;
             execute();
         }
 
         protected override void UnExecuteCore()
         {
-            Property.SetValue(OldValue);
+            Property.Value = OldValue;
             _undoModel?.Invoke();
         }
 
@@ -65,7 +65,7 @@ namespace AGS.Editor
 
         private void execute()
         {
-            Property.SetValue(Value);
+            Property.Value = Value;
             if (Property.Object is API.IComponent component)
             {
                 _undoModel = ModelAction.Execute(_model, (component, Property.Name, Value));

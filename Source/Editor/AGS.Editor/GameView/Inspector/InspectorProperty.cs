@@ -32,9 +32,7 @@ namespace AGS.Editor
 
         public const string NullValue = "(null)";
 
-        public void SetValue(object value) => Prop.SetValue(Object, value, null);
-
-        public object GetValue() => Prop.GetValue(Object, null);
+        public object Value { get => Prop.GetValue(Object, null); set => Prop.SetValue(Object, value, null); }
 
         public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
         {

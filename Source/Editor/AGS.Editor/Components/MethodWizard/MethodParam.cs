@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace AGS.Editor
 {
-	public class MethodParam : IProperty
+	public class MethodParam : IProperty, INotifyPropertyChanged
     {
         private readonly ParameterInfo _param;
-        private object _value;
+
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
         public MethodParam(ParameterInfo parameter, object obj, object overrideDefault = null)
         {
             _param = parameter;
             Object = obj;
             Children = new List<IProperty>();
-            _value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType));
+            Value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType));
         }
 
         public string Name => _param.Name;
 
         public object Object { get; }
 
-        public string ValueString => GetValue()?.ToString() ?? "null";
+        public string ValueString => Value?.ToString() ?? "null";
 
         public Type PropertyType => _param.ParameterType;
 
@@ -34,9 +38,7 @@ namespace AGS.Editor
             return _param.GetCustomAttribute<TAttribute>();
         }
 
-        public object GetValue() => _value;
-
-        public void SetValue(object value) => _value = value;
+        public object Value { get; set; }
 
         public void Refresh() {}
 

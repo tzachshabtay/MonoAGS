@@ -1,0 +1,95 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using AGS.API;
+
+namespace AGS.Editor
+{
+    public class FactoryWizard
+    {
+        private readonly AGSEditor _editor;
+        private Action<IPanel> _addUiExternal;
+        private Func<Dictionary<string, object>, Task<bool>> _validate;
+        private Action<Dictionary<string, object>> _setDefaults;
+
+        public FactoryWizard(AGSEditor editor, Action<IPanel> addUiExternal, 
+                             Func<Dictionary<string, object>, Task<bool>> validate,
+                             Action<Dictionary<string, object>> setDefaults)
+        {
+            _editor = editor;
+            _addUiExternal = addUiExternal;
+            _validate = validate;
+            _setDefaults = setDefaults;
+        }
+
+        public async Task<(object result, MethodModel model, MethodWizardAttribute attr)> Run(object factory, string methodName)
+        {
+            var (method, methodAttribute) = getMethod(factory, methodName);
+            HashSet<string> hideProperties = new HashSet<string>();
+            Dictionary<string, object> overrideDefaults = new Dictionary<string, object>();
+            foreach (var param in method.GetParameters())
+            {
+                var attr = param.GetCustomAttribute<MethodParamAttribute>();
+                if (attr == null) continue;
+                if (!attr.Browsable) hideProperties.Add(param.Name);
+                if (attr.DefaultProvider != null)
+                {
+                    var resolver = _editor.GameResolver;
+                    var provider = factory.GetType().GetMethod(attr.DefaultProvider);
+                    if (provider == null)
+                    {
+                        throw new NullReferenceException($"Failed to find method with name: {attr.DefaultProvider ?? "null"}");
+                    }
+                    overrideDefaults[param.Name] = provider.Invoke(null, new[] { resolver });
+                }
+                else if (attr.Default != null) overrideDefaults[param.Name] = attr.Default;
+            }
+
+            _setDefaults?.Invoke(overrideDefaults);
+            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, _addUiExternal, _editor, _validate);
+            wizard.Load();
+            var parameters = await wizard.ShowAsync();
+            if (parameters == null) return (null, null, null);
+            foreach (var param in overrideDefaults.Keys)
+            {
+                parameters[param] = get(param, parameters) ?? overrideDefaults[param];
+            }
+            (object result, MethodModel model) = runMethod(method, factory, parameters);
+            return (result, model, methodAttribute);
+        }
+
+        private object get(string key, Dictionary<string, object> parameters) => parameters.TryGetValue(key, out var val) ? val : null;
+
+        private (MethodInfo, MethodWizardAttribute) getMethod(object factory, string methodName)
+        {
+            foreach (var method in factory.GetType().GetMethods())
+            {
+                if (method.Name != methodName) continue;
+                var attr = method.GetCustomAttribute<MethodWizardAttribute>();
+                if (attr == null) continue;
+                return (method, attr);
+            }
+            throw new InvalidOperationException($"Failed to find method name {methodName} in {factory.GetType()}");
+        }
+
+        private (object, MethodModel) runMethod(MethodInfo method, object factory, Dictionary<string, object> parameters)
+        {
+            var methodParams = method.GetParameters();
+            object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
+                                                  val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
+            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values, ReturnType = method.ReturnType };
+            return (method.Invoke(factory, values), model);
+        }
+
+        private string getFactoryName(object factory)
+        {
+            if (factory == _editor.Game.Factory.UI) return "_factory.UI";
+            if (factory == _editor.Game.Factory.Object) return "_factory.Object";
+            if (factory == _editor.Game.Factory.Room) return "_factory.Room";
+            if (factory == _editor.Game.Factory.Graphics.Borders) return "_factory.Graphics.Borders";
+            throw new InvalidOperationException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
+        }
+    }
+}
