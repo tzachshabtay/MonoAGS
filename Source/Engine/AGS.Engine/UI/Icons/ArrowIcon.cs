@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(Browsable = false)]
     public class ArrowIcon : IBorderStyle
     {
         private readonly IGLUtils _glUtils;

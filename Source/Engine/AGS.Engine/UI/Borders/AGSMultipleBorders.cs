@@ -5,6 +5,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
     public class AGSMultipleBorders : IBorderStyle
     {
         public AGSMultipleBorders(params IBorderStyle[] borders)

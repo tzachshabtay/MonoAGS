@@ -14,6 +14,9 @@
     /// You can also implement your own custom border style by implementing this interface, which can then be used
     /// for all objects.
     /// </summary>
+    [HasFactory(FactoryType = nameof(IBorderFactory), MethodName = nameof(IBorderFactory.SolidColor))]
+    [HasFactory(FactoryType = nameof(IBorderFactory), MethodName = nameof(IBorderFactory.Gradient))]
+    [HasFactory(FactoryType = nameof(IBorderFactory), MethodName = nameof(IBorderFactory.Multiple))]
     public interface IBorderStyle
 	{
         /// <summary>

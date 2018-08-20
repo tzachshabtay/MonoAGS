@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(Browsable = false)]
     public class XIcon : IBorderStyle
     {
         private readonly IGLUtils _glUtils;

@@ -13,7 +13,7 @@ namespace AGS.API
         /// <param name="color">Color.</param>
         /// <param name="lineWidth">Line width.</param>
         /// <param name="hasRoundCorners">If set to <c>true</c> has round corners.</param>
-        IBorderStyle SolidColor(Color? color = null, float lineWidth = 10f, bool hasRoundCorners = false);
+        IBorderStyle SolidColor(Color color, float lineWidth = 10f, bool hasRoundCorners = false);
 
         /// <summary>
         /// Creates a gradient border (you can give a different color for each of the corners, and the border color will interpolate between them).
