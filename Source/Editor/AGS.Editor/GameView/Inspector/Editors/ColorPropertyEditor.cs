@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
@@ -17,16 +18,12 @@ namespace AGS.Editor
         private ITextBox _text;
         private ILabel _colorLabel;
         private IButton _dropDownButton;
-        private Dictionary<string, uint> _namedColors;
-        private Dictionary<uint, string> _namedColorsReversed;
 
         public ColorPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
             _actions = actions;
             _model = model;
-            _namedColors = new Dictionary<string, uint>();
-            _namedColorsReversed = new Dictionary<uint, string>();
         }
 
         public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
@@ -37,14 +34,7 @@ namespace AGS.Editor
             _dropDownButton = combobox.DropDownButton;
             _text = combobox.TextBox;
             _text.TextBackgroundVisible = false;
-            var list = new List<IStringItem>();
-            foreach (var field in typeof(Colors).GetTypeInfo().DeclaredFields)
-            {
-                list.Add(new AGSStringItem { Text = field.Name });
-                Color color = (Color)field.GetValue(null);
-                _namedColors[field.Name] = color.Value;
-                _namedColorsReversed[color.Value] = field.Name;
-            }
+            var list = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c}));
             combobox.DropDownPanelList.Items.AddRange(list);
             combobox.Z = label.Z;
 
@@ -70,21 +60,21 @@ namespace AGS.Editor
             combobox.SuggestMode = ComboSuggest.Suggest;
             combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
             {
-                setColor(Color.FromHexa(_namedColors[args.Item.Text]));
+                setColor(Color.FromHexa(NamedColorsMap.NamedColors[args.Item.Text]));
             });
         }
 
         public void RefreshUI()
         {
-            var color = (Color)_property.GetValue();
-            if (_namedColorsReversed.ContainsKey(color.Value))
+            var color = Colors.Red;
+            if (_property.Value is Color c) color = c;
+            else if (_property.Value is uint u)
             {
-                _text.Text = _namedColorsReversed[color.Value];
+                color = Color.FromHexa(u);
+                _property.Value = color;
             }
-            else
-            {
-                _text.Text = $"{color.R},{color.G},{color.B},{color.A}";
-            }
+
+            _text.Text = color.ToString();
             _colorLabel.Tint = color;
             _text.Border = _factory.Graphics.Borders.SolidColor(color, 2f);
             var buttonBorder = _factory.Graphics.Borders.Multiple(_factory.Graphics.Borders.SolidColor(color, 1f),
