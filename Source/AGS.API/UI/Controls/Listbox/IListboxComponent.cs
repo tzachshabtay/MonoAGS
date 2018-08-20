@@ -51,6 +51,14 @@ namespace AGS.API
         IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
 
         /// <summary>
+        /// An event which fires whenever the selected item in the dropdown is in the process of being changed
+        /// (this can be because the user selected an item, or because the <see cref="SelectedIndex"/> was set from code).
+        /// The selection has not been applied yet in this event, and can be cancelled by the event subscriber by settings <see cref="ListboxItemChangingArgs.ShouldCancel"/> to true.
+        /// </summary>
+        /// <value>The on selected item changing event.</value>
+        IEvent<ListboxItemChangingArgs> OnSelectedItemChanging { get; }
+
+        /// <summary>
         /// Gets or sets the minimum height for the box.
         /// </summary>
         /// <value>The minimum height.</value>

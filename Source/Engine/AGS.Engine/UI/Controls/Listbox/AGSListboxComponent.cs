@@ -31,6 +31,7 @@ namespace AGS.Engine
             _selectedIndex = -1;
             _maxHeight = float.MaxValue;
             OnSelectedItemChanged = new AGSEvent<ListboxItemArgs>();
+            OnSelectedItemChanging = new AGSEvent<ListboxItemChangingArgs>();
         }
 
         public override void Init()
@@ -65,13 +66,12 @@ namespace AGS.Engine
             get => _selectedIndex;
             set
             {
-                _selectedIndex = value;
+                IStringItem item = null;
                 if (value >= 0 && value < Items.Count)
                 {
-                    var selectedItem = Items[value];
-                    OnSelectedItemChanged.Invoke(new ListboxItemArgs(selectedItem, value));
+                    item = Items[value];
                 }
-                else OnSelectedItemChanged.Invoke(new ListboxItemArgs(null, value));    
+                select(item, value); 
             }
         }
 
@@ -129,6 +129,18 @@ namespace AGS.Engine
         }
 
         public IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
+
+        public IEvent<ListboxItemChangingArgs> OnSelectedItemChanging { get; }
+
+        private async void select(IStringItem item, int index)
+        {
+            ListboxItemChangingArgs args = new ListboxItemChangingArgs(item, index);
+            await OnSelectedItemChanging.InvokeAsync(args);
+            if (args.ShouldCancel) return;
+
+            _selectedIndex = index;
+            OnSelectedItemChanged.Invoke(new ListboxItemArgs(item, index));
+        }
 
         private void applySearch(string filter)
         {
