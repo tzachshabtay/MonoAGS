@@ -27,6 +27,18 @@ namespace AGS.Engine
 			_white = Colors.White.ToGLColor();
 		}
 
+        [MethodWizard]
+        public AGSSlicedImageBorder(SliceValues slice, SliceValues width, SliceValues outset, BorderRepeat repeat, [MethodParam(Browsable = false, DefaultProvider = nameof(GetDefaultGLUtils))]IGLUtils glUtils)
+            :this(glUtils)
+        {
+            Slice = slice;
+            Width = width;
+            Outset = outset;
+            Repeat = repeat;
+        }
+
+        public static IGLUtils GetDefaultGLUtils(Resolver resolver) => resolver.Resolve<IGLUtils>();
+
 		public IAnimation Image { get; set; }
 
 		public SliceValues Slice { get; set; }
