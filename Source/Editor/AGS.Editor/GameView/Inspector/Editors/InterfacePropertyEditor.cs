@@ -27,9 +27,11 @@ namespace AGS.Editor
         {
             private readonly Type _type;
             private readonly string _displayName;
+            private readonly AGSEditor _editor;
 
-            public TypeImplementation(Type type)
+            public TypeImplementation(Type type, AGSEditor editor)
             {
+                _editor = editor;
                 _type = type;
                 var attr = type.GetCustomAttribute<ConcreteImplementationAttribute>();
                 _displayName = attr.DisplayName;
@@ -37,9 +39,11 @@ namespace AGS.Editor
 
             public string Name => _displayName ?? _type.Name;
 
-            public Task<SelectEditor.ReturnValue> Create()
+            public async Task<SelectEditor.ReturnValue> Create()
             {
-                return Task.FromResult(new SelectEditor.ReturnValue(Activator.CreateInstance(_type), false));
+                var factoryWizard = new FactoryWizard(_editor, null, null, null);
+                (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunConstructor(_type);
+                return new SelectEditor.ReturnValue(result, model == null);
             }
         }
 
@@ -68,7 +72,7 @@ namespace AGS.Editor
             public async Task<SelectEditor.ReturnValue> Create()
             {
                 var factoryWizard = new FactoryWizard(_editor, null, null, null);
-                (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.Run(_factory, _methodName);
+                (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, _methodName);
                 return new SelectEditor.ReturnValue(result, model == null);
             }
         }
@@ -127,7 +131,7 @@ namespace AGS.Editor
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && isConcreteImplementation(p))
-                .Select(s => new TypeImplementation(s));
+                .Select(s => new TypeImplementation(s, _editor));
             implementations.AddRange(types);
 
             return implementations;

@@ -91,7 +91,7 @@ namespace AGS.Editor
         {
             _topMenu.Visible = false;
             FactoryWizard wizard = new FactoryWizard(_editor, panel => addTargetUIForCreate(panel, target), validate, defaults => setDefaults(name, defaults));
-            (object result, MethodModel model, MethodWizardAttribute methodAttribute) = await wizard.Run(factory, methodName);
+            (object result, MethodModel model, MethodWizardAttribute methodAttribute) = await wizard.RunMethod(factory, methodName);
             if (model == null) return;
             List<object> entities = getEntities(factory, result, methodAttribute);
             addNewEntities(entities, model);

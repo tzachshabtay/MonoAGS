@@ -24,9 +24,19 @@ namespace AGS.Editor
             _setDefaults = setDefaults;
         }
 
-        public async Task<(object result, MethodModel model, MethodWizardAttribute attr)> Run(object factory, string methodName)
+        public Task<(object result, MethodModel model, MethodWizardAttribute attr)> RunMethod(object factory, string methodName)
         {
-            var (method, methodAttribute) = getMethod(factory, methodName);
+            return run(factory, factory.GetType(), methodName);
+        }
+
+        public Task<(object result, MethodModel model, MethodWizardAttribute attr)> RunConstructor(Type factoryType)
+        {
+            return run(null, factoryType, null);
+        }
+
+        private async Task<(object result, MethodModel model, MethodWizardAttribute attr)> run(object factory, Type factoryType, string methodName)
+        {
+            var (method, methodAttribute) = getMethod(factoryType, methodName);
             HashSet<string> hideProperties = new HashSet<string>();
             Dictionary<string, object> overrideDefaults = new Dictionary<string, object>();
             foreach (var param in method.GetParameters())
@@ -37,7 +47,7 @@ namespace AGS.Editor
                 if (attr.DefaultProvider != null)
                 {
                     var resolver = _editor.GameResolver;
-                    var provider = factory.GetType().GetMethod(attr.DefaultProvider);
+                    var provider = factoryType.GetMethod(attr.DefaultProvider);
                     if (provider == null)
                     {
                         throw new NullReferenceException($"Failed to find method with name: {attr.DefaultProvider ?? "null"}");
@@ -62,34 +72,47 @@ namespace AGS.Editor
 
         private object get(string key, Dictionary<string, object> parameters) => parameters.TryGetValue(key, out var val) ? val : null;
 
-        private (MethodInfo, MethodWizardAttribute) getMethod(object factory, string methodName)
+        private (MethodBase, MethodWizardAttribute) getMethod(Type factoryType, string methodName)
         {
-            foreach (var method in factory.GetType().GetMethods())
+            if (methodName == null)
+            {
+                foreach (var method in factoryType.GetConstructors())
+                {
+                    var attr = method.GetCustomAttribute<MethodWizardAttribute>();
+                    if (attr == null) continue;
+                    return (method, attr);
+                }
+                throw new InvalidOperationException($"Failed to find constructor (with MethodWizard attribute) in {factoryType}");
+            }
+            foreach (var method in factoryType.GetMethods())
             {
                 if (method.Name != methodName) continue;
                 var attr = method.GetCustomAttribute<MethodWizardAttribute>();
                 if (attr == null) continue;
                 return (method, attr);
             }
-            throw new InvalidOperationException($"Failed to find method name {methodName} in {factory.GetType()}");
+            throw new InvalidOperationException($"Failed to find method name {methodName} (with MethodWizard attribute) in {factoryType}");
         }
 
-        private (object, MethodModel) runMethod(MethodInfo method, object factory, Dictionary<string, object> parameters)
+        private (object, MethodModel) runMethod(MethodBase method, object factory, Dictionary<string, object> parameters)
         {
             var methodParams = method.GetParameters();
             object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
                                                   val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
-            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values, ReturnType = method.ReturnType };
+            var returnType = method is MethodInfo methodInfo ? methodInfo.ReturnType : null;
+            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values, ReturnType = returnType };
+            if (method is ConstructorInfo constructor) return (constructor.Invoke(values), model);
             return (method.Invoke(factory, values), model);
         }
 
         private string getFactoryName(object factory)
         {
+            if (factory == null) return null; //constructor
             if (factory == _editor.Game.Factory.UI) return "_factory.UI";
             if (factory == _editor.Game.Factory.Object) return "_factory.Object";
             if (factory == _editor.Game.Factory.Room) return "_factory.Room";
             if (factory == _editor.Game.Factory.Graphics.Borders) return "_factory.Graphics.Borders";
-            throw new InvalidOperationException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
+            throw new NotSupportedException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AGS.Editor
 {
     public class MethodWizard
     {
-        private readonly MethodInfo _method;
+        private readonly MethodBase _method;
         private readonly IRenderLayer _layer;
         private readonly HashSet<string> _hideProperties;
         private readonly Dictionary<string, object> _overrideDefaults;
@@ -27,7 +27,7 @@ namespace AGS.Editor
         private const float WIDTH = 500f;
         private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
 
-        public MethodWizard(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
+        public MethodWizard(MethodBase method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
                             Action<IPanel> addUiExternal, AGSEditor editor, Func<Dictionary<string, object>, Task<bool>> validate)
         {
             _method = method;
