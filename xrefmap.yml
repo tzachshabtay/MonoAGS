@@ -2233,6 +2233,51 @@ references:
   commentId: F:AGS.API.ComboSuggest.Suggest
   fullName: AGS.API.ComboSuggest.Suggest
   nameWithType: ComboSuggest.Suggest
+- uid: AGS.API.ConcreteImplementationAttribute
+  name: ConcreteImplementationAttribute
+  href: api/AGS.API.ConcreteImplementationAttribute.html
+  commentId: T:AGS.API.ConcreteImplementationAttribute
+  fullName: AGS.API.ConcreteImplementationAttribute
+  nameWithType: ConcreteImplementationAttribute
+- uid: AGS.API.ConcreteImplementationAttribute.#ctor
+  name: ConcreteImplementationAttribute()
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute__ctor
+  commentId: M:AGS.API.ConcreteImplementationAttribute.#ctor
+  fullName: AGS.API.ConcreteImplementationAttribute.ConcreteImplementationAttribute()
+  nameWithType: ConcreteImplementationAttribute.ConcreteImplementationAttribute()
+- uid: AGS.API.ConcreteImplementationAttribute.#ctor*
+  name: ConcreteImplementationAttribute
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute__ctor_
+  commentId: Overload:AGS.API.ConcreteImplementationAttribute.#ctor
+  isSpec: "True"
+  fullName: AGS.API.ConcreteImplementationAttribute.ConcreteImplementationAttribute
+  nameWithType: ConcreteImplementationAttribute.ConcreteImplementationAttribute
+- uid: AGS.API.ConcreteImplementationAttribute.Browsable
+  name: Browsable
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_Browsable
+  commentId: P:AGS.API.ConcreteImplementationAttribute.Browsable
+  fullName: AGS.API.ConcreteImplementationAttribute.Browsable
+  nameWithType: ConcreteImplementationAttribute.Browsable
+- uid: AGS.API.ConcreteImplementationAttribute.Browsable*
+  name: Browsable
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_Browsable_
+  commentId: Overload:AGS.API.ConcreteImplementationAttribute.Browsable
+  isSpec: "True"
+  fullName: AGS.API.ConcreteImplementationAttribute.Browsable
+  nameWithType: ConcreteImplementationAttribute.Browsable
+- uid: AGS.API.ConcreteImplementationAttribute.DisplayName
+  name: DisplayName
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_DisplayName
+  commentId: P:AGS.API.ConcreteImplementationAttribute.DisplayName
+  fullName: AGS.API.ConcreteImplementationAttribute.DisplayName
+  nameWithType: ConcreteImplementationAttribute.DisplayName
+- uid: AGS.API.ConcreteImplementationAttribute.DisplayName*
+  name: DisplayName
+  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_DisplayName_
+  commentId: Overload:AGS.API.ConcreteImplementationAttribute.DisplayName
+  isSpec: "True"
+  fullName: AGS.API.ConcreteImplementationAttribute.DisplayName
+  nameWithType: ConcreteImplementationAttribute.DisplayName
 - uid: AGS.API.CustomStringApplyWhen
   name: CustomStringApplyWhen
   href: api/AGS.API.CustomStringApplyWhen.html
@@ -2569,6 +2614,38 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).TopRight
   nameWithType: FourCorners<TValue>.TopRight
   nameWithType.vb: FourCorners(Of TValue).TopRight
+- uid: AGS.API.HasFactoryAttribute
+  name: HasFactoryAttribute
+  href: api/AGS.API.HasFactoryAttribute.html
+  commentId: T:AGS.API.HasFactoryAttribute
+  fullName: AGS.API.HasFactoryAttribute
+  nameWithType: HasFactoryAttribute
+- uid: AGS.API.HasFactoryAttribute.FactoryType
+  name: FactoryType
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_FactoryType
+  commentId: P:AGS.API.HasFactoryAttribute.FactoryType
+  fullName: AGS.API.HasFactoryAttribute.FactoryType
+  nameWithType: HasFactoryAttribute.FactoryType
+- uid: AGS.API.HasFactoryAttribute.FactoryType*
+  name: FactoryType
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_FactoryType_
+  commentId: Overload:AGS.API.HasFactoryAttribute.FactoryType
+  isSpec: "True"
+  fullName: AGS.API.HasFactoryAttribute.FactoryType
+  nameWithType: HasFactoryAttribute.FactoryType
+- uid: AGS.API.HasFactoryAttribute.MethodName
+  name: MethodName
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_MethodName
+  commentId: P:AGS.API.HasFactoryAttribute.MethodName
+  fullName: AGS.API.HasFactoryAttribute.MethodName
+  nameWithType: HasFactoryAttribute.MethodName
+- uid: AGS.API.HasFactoryAttribute.MethodName*
+  name: MethodName
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_MethodName_
+  commentId: Overload:AGS.API.HasFactoryAttribute.MethodName
+  isSpec: "True"
+  fullName: AGS.API.HasFactoryAttribute.MethodName
+  nameWithType: HasFactoryAttribute.MethodName
 - uid: AGS.API.HatchStyle
   name: HatchStyle
   href: api/AGS.API.HatchStyle.html
@@ -4243,15 +4320,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBorderFactory.Multiple
   nameWithType: IBorderFactory.Multiple
-- uid: AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
-  name: SolidColor(Nullable<Color>, Single, Boolean)
-  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_System_Nullable_AGS_API_Color__System_Single_System_Boolean_
-  commentId: M:AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
-  name.vb: SolidColor(Nullable(Of Color), Single, Boolean)
-  fullName: AGS.API.IBorderFactory.SolidColor(System.Nullable<AGS.API.Color>, System.Single, System.Boolean)
-  fullName.vb: AGS.API.IBorderFactory.SolidColor(System.Nullable(Of AGS.API.Color), System.Single, System.Boolean)
-  nameWithType: IBorderFactory.SolidColor(Nullable<Color>, Single, Boolean)
-  nameWithType.vb: IBorderFactory.SolidColor(Nullable(Of Color), Single, Boolean)
+- uid: AGS.API.IBorderFactory.SolidColor(AGS.API.Color,System.Single,System.Boolean)
+  name: SolidColor(Color, Single, Boolean)
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_AGS_API_Color_System_Single_System_Boolean_
+  commentId: M:AGS.API.IBorderFactory.SolidColor(AGS.API.Color,System.Single,System.Boolean)
+  fullName: AGS.API.IBorderFactory.SolidColor(AGS.API.Color, System.Single, System.Boolean)
+  nameWithType: IBorderFactory.SolidColor(Color, Single, Boolean)
 - uid: AGS.API.IBorderFactory.SolidColor*
   name: SolidColor
   href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_
@@ -10494,6 +10568,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.OnSelectedItemChanged
   nameWithType: IListboxComponent.OnSelectedItemChanged
+- uid: AGS.API.IListboxComponent.OnSelectedItemChanging
+  name: OnSelectedItemChanging
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanging
+  commentId: P:AGS.API.IListboxComponent.OnSelectedItemChanging
+  fullName: AGS.API.IListboxComponent.OnSelectedItemChanging
+  nameWithType: IListboxComponent.OnSelectedItemChanging
+- uid: AGS.API.IListboxComponent.OnSelectedItemChanging*
+  name: OnSelectedItemChanging
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanging_
+  commentId: Overload:AGS.API.IListboxComponent.OnSelectedItemChanging
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.OnSelectedItemChanging
+  nameWithType: IListboxComponent.OnSelectedItemChanging
 - uid: AGS.API.IListboxComponent.SearchFilter
   name: SearchFilter
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SearchFilter
@@ -17922,6 +18009,38 @@ references:
   isSpec: "True"
   fullName: AGS.API.ListboxItemArgs.Item
   nameWithType: ListboxItemArgs.Item
+- uid: AGS.API.ListboxItemChangingArgs
+  name: ListboxItemChangingArgs
+  href: api/AGS.API.ListboxItemChangingArgs.html
+  commentId: T:AGS.API.ListboxItemChangingArgs
+  fullName: AGS.API.ListboxItemChangingArgs
+  nameWithType: ListboxItemChangingArgs
+- uid: AGS.API.ListboxItemChangingArgs.#ctor(AGS.API.IStringItem,System.Int32)
+  name: ListboxItemChangingArgs(IStringItem, Int32)
+  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs__ctor_AGS_API_IStringItem_System_Int32_
+  commentId: M:AGS.API.ListboxItemChangingArgs.#ctor(AGS.API.IStringItem,System.Int32)
+  fullName: AGS.API.ListboxItemChangingArgs.ListboxItemChangingArgs(AGS.API.IStringItem, System.Int32)
+  nameWithType: ListboxItemChangingArgs.ListboxItemChangingArgs(IStringItem, Int32)
+- uid: AGS.API.ListboxItemChangingArgs.#ctor*
+  name: ListboxItemChangingArgs
+  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs__ctor_
+  commentId: Overload:AGS.API.ListboxItemChangingArgs.#ctor
+  isSpec: "True"
+  fullName: AGS.API.ListboxItemChangingArgs.ListboxItemChangingArgs
+  nameWithType: ListboxItemChangingArgs.ListboxItemChangingArgs
+- uid: AGS.API.ListboxItemChangingArgs.ShouldCancel
+  name: ShouldCancel
+  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel
+  commentId: P:AGS.API.ListboxItemChangingArgs.ShouldCancel
+  fullName: AGS.API.ListboxItemChangingArgs.ShouldCancel
+  nameWithType: ListboxItemChangingArgs.ShouldCancel
+- uid: AGS.API.ListboxItemChangingArgs.ShouldCancel*
+  name: ShouldCancel
+  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel_
+  commentId: Overload:AGS.API.ListboxItemChangingArgs.ShouldCancel
+  isSpec: "True"
+  fullName: AGS.API.ListboxItemChangingArgs.ShouldCancel
+  nameWithType: ListboxItemChangingArgs.ShouldCancel
 - uid: AGS.API.ListChangeType
   name: ListChangeType
   href: api/AGS.API.ListChangeType.html
@@ -20630,6 +20749,24 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePositionEventArgs.MousePosition
   nameWithType: MousePositionEventArgs.MousePosition
+- uid: AGS.API.NamedColorsMap
+  name: NamedColorsMap
+  href: api/AGS.API.NamedColorsMap.html
+  commentId: T:AGS.API.NamedColorsMap
+  fullName: AGS.API.NamedColorsMap
+  nameWithType: NamedColorsMap
+- uid: AGS.API.NamedColorsMap.NamedColors
+  name: NamedColors
+  href: api/AGS.API.NamedColorsMap.html#AGS_API_NamedColorsMap_NamedColors
+  commentId: F:AGS.API.NamedColorsMap.NamedColors
+  fullName: AGS.API.NamedColorsMap.NamedColors
+  nameWithType: NamedColorsMap.NamedColors
+- uid: AGS.API.NamedColorsMap.NamedColorsReversed
+  name: NamedColorsReversed
+  href: api/AGS.API.NamedColorsMap.html#AGS_API_NamedColorsMap_NamedColorsReversed
+  commentId: F:AGS.API.NamedColorsMap.NamedColorsReversed
+  fullName: AGS.API.NamedColorsMap.NamedColorsReversed
+  nameWithType: NamedColorsMap.NamedColorsReversed
 - uid: AGS.API.NodeEventArgs
   name: NodeEventArgs
   href: api/AGS.API.NodeEventArgs.html

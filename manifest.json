@@ -302,6 +302,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ConcreteImplementationAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ConcreteImplementationAttribute.html",
+          "hash": "ot9LI04ZBs004AgBx84KtA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.CustomStringApplyWhen.yml",
       "output": {
         ".html": {
@@ -367,6 +379,18 @@
         ".html": {
           "relative_path": "api/AGS.API.FourCorners-1.html",
           "hash": "Vdmg2TPOfgOPj/UVh8HvVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.HasFactoryAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.HasFactoryAttribute.html",
+          "hash": "mA+mW9VjamAzCx0gOSf7CA=="
         }
       },
       "is_incremental": false,
@@ -666,7 +690,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBorderFactory.html",
-          "hash": "/bMdIMl0p0fhV5hit0Mr0Q=="
+          "hash": "0sSO3thr8NVRcrXGEK+8Rw=="
         }
       },
       "is_incremental": false,
@@ -678,7 +702,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBorderStyle.html",
-          "hash": "K0iula1i4vZX1zJIWSmdbw=="
+          "hash": "17f5zSsEvaYXtf7n/bqtcw=="
         }
       },
       "is_incremental": false,
@@ -1758,7 +1782,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IListboxComponent.html",
-          "hash": "vAiYd11h9xJMPCn5VxpDHQ=="
+          "hash": "rDFtR+bVI/Sr44pz/vkPNQ=="
         }
       },
       "is_incremental": false,
@@ -3066,7 +3090,19 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ListboxItemArgs.html",
-          "hash": "06XFGHa+ngJi84SIdsIgmA=="
+          "hash": "+ZWxyxYfgdofidbCwjkT4w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.ListboxItemChangingArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.ListboxItemChangingArgs.html",
+          "hash": "YrrZ6akZ9k2j3vp11XKVKQ=="
         }
       },
       "is_incremental": false,
@@ -3223,6 +3259,18 @@
         ".html": {
           "relative_path": "api/AGS.API.MousePositionEventArgs.html",
           "hash": "bl5TrvBr7i37sooCOiGDVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.NamedColorsMap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.NamedColorsMap.html",
+          "hash": "bthuV+zr0Mq5ZX5TGFuDBA=="
         }
       },
       "is_incremental": false,
@@ -3690,7 +3738,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "c2jVqyIro5s0am+OmIcGPg=="
+          "hash": "SUF3BORYvjGOBrEbqW1+JA=="
         }
       },
       "is_incremental": false,
@@ -3702,7 +3750,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "vY0hkpBSg1aTAwviA0KmSQ=="
+          "hash": "A6pcB7piDanMZ6rn6kRSfg=="
         }
       },
       "is_incremental": false,
@@ -4145,17 +4193,17 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ResourceDocumentProcessor": {

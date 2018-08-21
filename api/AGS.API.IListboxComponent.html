@@ -224,7 +224,7 @@ in the list. The function gets the text of the item and should return a UI contr
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InterfaceSelector/apiSpec/new?filename=AGS_API_IListboxComponent_MaxHeight.md&amp;value=---%0Auid%3A%20AGS.API.IListboxComponent.MaxHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L65">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L73">View Source</a>
   </span>
   <a id="AGS_API_IListboxComponent_MaxHeight_" data-uid="AGS.API.IListboxComponent.MaxHeight*"></a>
   <h4 id="AGS_API_IListboxComponent_MaxHeight" data-uid="AGS.API.IListboxComponent.MaxHeight">MaxHeight</h4>
@@ -258,7 +258,7 @@ should be added to the list (<a class="xref" href="AGS.API.IUIFactory.html#AGS_A
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InterfaceSelector/apiSpec/new?filename=AGS_API_IListboxComponent_MinHeight.md&amp;value=---%0Auid%3A%20AGS.API.IListboxComponent.MinHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L57">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L65">View Source</a>
   </span>
   <a id="AGS_API_IListboxComponent_MinHeight_" data-uid="AGS.API.IListboxComponent.MinHeight*"></a>
   <h4 id="AGS_API_IListboxComponent_MinHeight" data-uid="AGS.API.IListboxComponent.MinHeight">MinHeight</h4>
@@ -320,10 +320,44 @@ should be added to the list (<a class="xref" href="AGS.API.IUIFactory.html#AGS_A
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/InterfaceSelector/apiSpec/new?filename=AGS_API_IListboxComponent_OnSelectedItemChanging.md&amp;value=---%0Auid%3A%20AGS.API.IListboxComponent.OnSelectedItemChanging%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L59">View Source</a>
+  </span>
+  <a id="AGS_API_IListboxComponent_OnSelectedItemChanging_" data-uid="AGS.API.IListboxComponent.OnSelectedItemChanging*"></a>
+  <h4 id="AGS_API_IListboxComponent_OnSelectedItemChanging" data-uid="AGS.API.IListboxComponent.OnSelectedItemChanging">OnSelectedItemChanging</h4>
+  <div class="markdown level1 summary"><p>An event which fires whenever the selected item in the dropdown is in the process of being changed
+(this can be because the user selected an item, or because the <a class="xref" href="AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SelectedIndex">SelectedIndex</a> was set from code).
+The selection has not been applied yet in this event, and can be cancelled by the event subscriber by settings <a class="xref" href="AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel">ShouldCancel</a> to true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEvent&lt;ListboxItemChangingArgs&gt; OnSelectedItemChanging { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="AGS.API.IEvent-1.html">IEvent</a>&lt;<a class="xref" href="AGS.API.ListboxItemChangingArgs.html">ListboxItemChangingArgs</a>&gt;</td>
+        <td><p>The on selected item changing event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/InterfaceSelector/apiSpec/new?filename=AGS_API_IListboxComponent_SearchFilter.md&amp;value=---%0Auid%3A%20AGS.API.IListboxComponent.SearchFilter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L72">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Listbox/IListboxComponent.cs/#L80">View Source</a>
   </span>
   <a id="AGS_API_IListboxComponent_SearchFilter_" data-uid="AGS.API.IListboxComponent.SearchFilter*"></a>
   <h4 id="AGS_API_IListboxComponent_SearchFilter" data-uid="AGS.API.IListboxComponent.SearchFilter">SearchFilter</h4>
