@@ -524,7 +524,7 @@ namespace AGS.Engine
 
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.DropDownPanel = listbox.ContentsPanel;
+            comboBox.DropDownPanel = listbox;
 
             setParent(comboBox, parent);
 

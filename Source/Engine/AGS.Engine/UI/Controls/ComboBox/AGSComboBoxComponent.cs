@@ -13,7 +13,7 @@ namespace AGS.Engine
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
         private IScrollingComponent _scrolling;
-        private IEntity _dropDownPanel;
+        private IListbox _dropDownPanel;
         private ComboSuggest _suggestMode;
         private ITextBox _textbox;
         private int _currentSuggestion = -1;
@@ -52,7 +52,7 @@ namespace AGS.Engine
             }
         }
 
-        public IListboxComponent DropDownPanelList => _dropDownPanelList;
+        public IListboxComponent DropDownPanelList => _dropDownPanel.ListboxComponent;
 
         public ComboSuggest SuggestMode 
         { 
@@ -64,18 +64,19 @@ namespace AGS.Engine
             }
         }
 
-        public IEntity DropDownPanel 
+        public IListbox DropDownPanel 
         {
             get => _dropDownPanel;
             set 
             {
                 _dropDownPanel = value;
-                var scrollingContainer = value.GetComponent<IInObjectTreeComponent>()?.TreeNode.Parent ?? value;
+                var panel = value.ContentsPanel;
+                var scrollingContainer = value.ScrollingPanel ?? panel;
                 var visibleComponent = scrollingContainer.GetComponent<IVisibleComponent>();
-                var listBoxComponent = value.GetComponent<IListboxComponent>();
+                var listBoxComponent = panel.GetComponent<IListboxComponent>();
                 var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
-                var imageComponent = value.GetComponent<IImageComponent>();
-                _scrolling = value.GetComponent<IScrollingComponent>();
+                var imageComponent = panel.GetComponent<IImageComponent>();
+                _scrolling = panel.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
 
                 _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
