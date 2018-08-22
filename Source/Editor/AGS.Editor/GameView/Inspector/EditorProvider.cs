@@ -62,7 +62,7 @@ namespace AGS.Editor
             if (propType.IsEnum) return new EnumPropertyEditor(_factory.UI, _actions, _model);
             if (propType.IsInterface || propType.IsClass)
             {
-                return new InterfacePropertyEditor(_factory.UI, _actions, _model, _editor, _parentDialog);
+                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentDialog);
             }
             return new StringPropertyEditor(_factory, false, _actions, _model);
         }
