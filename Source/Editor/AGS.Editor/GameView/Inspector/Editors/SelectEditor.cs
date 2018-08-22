@@ -15,7 +15,7 @@ namespace AGS.Editor
         private IProperty _property;
         private ITextComponent _text;
         private readonly Func<IProperty, List<IStringItem>> _getOptions;
-        private readonly Func<IStringItem, IProperty, Task<ReturnValue>> _getValue;
+        private readonly Func<IStringItem, IProperty, Action, Task<ReturnValue>> _getValue;
 
         public class ReturnValue
         {
@@ -30,7 +30,7 @@ namespace AGS.Editor
         }
 
         public SelectEditor(IUIFactory factory, ActionManager actions, StateModel model, 
-                            Func<IProperty, List<IStringItem>> getOptions, Func<IStringItem, IProperty, Task<ReturnValue>> getValue)
+                            Func<IProperty, List<IStringItem>> getOptions, Func<IStringItem, IProperty, Action, Task<ReturnValue>> getValue)
         {
             _factory = factory;
             _actions = actions;
@@ -55,10 +55,11 @@ namespace AGS.Editor
             {
                 combobox.SuggestMode = ComboSuggest.Enforce;
             }
+            Action closeCombobox = () => (combobox.DropDownPanel.ScrollingPanel ?? combobox.DropDownPanel.ContentsPanel).Visible = false;
             combobox.DropDownPanelList.OnSelectedItemChanging.SubscribeToAsync(async args =>
             {
                 if (_actions.ActionIsExecuting) return;
-                var returnValue = await _getValue(args.Item, property);
+                var returnValue = await _getValue(args.Item, property, closeCombobox);
                 if (returnValue.ShouldCancel)
                 {
                     args.ShouldCancel = true;

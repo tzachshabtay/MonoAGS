@@ -25,7 +25,7 @@ namespace AGS.Editor
         private readonly EditorProvider _editorProvider;
 
         public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, 
-                            ActionManager actions, StateModel model, AGSEditor editor)
+                            ActionManager actions, StateModel model, AGSEditor editor, IObject parentDialog)
         {
             _cleanup = new List<Action>(50);
             _actions = actions;
@@ -34,7 +34,7 @@ namespace AGS.Editor
             _props = new Dictionary<InspectorCategory, List<IProperty>>();
             _factory = factory;
             _font = editorSettings.Defaults.TextFont;
-            _editorProvider = new EditorProvider(factory, actions, model, state, gameSettings, editor);
+            _editorProvider = new EditorProvider(factory, actions, model, state, gameSettings, editor, parentDialog);
         }
 
         public ITreeViewComponent Tree => _treeView;

@@ -26,11 +26,16 @@ namespace AGS.Editor
         private const float MARGIN_VERTICAL = 20f;
         private const float WIDTH = 500f;
         private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
+        private readonly IObject _parentDialog;
+        private readonly string _idSuffix;
+        static int _index = 1;
 
-        public MethodWizard(MethodBase method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
+        public MethodWizard(IObject parentDialog, MethodBase method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
                             Action<IPanel> addUiExternal, AGSEditor editor, Func<Dictionary<string, object>, Task<bool>> validate)
         {
+            _parentDialog = parentDialog;
             _method = method;
+            _idSuffix = $"_{_method.DeclaringType}_{_method.Name}_{_index++}";
             _editor = editor;
             _validate = validate;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1);
@@ -44,7 +49,7 @@ namespace AGS.Editor
         {
             float center = _editor.ToEditorResolution(_editor.Game.Settings.VirtualResolution.Width / 2f, 0f, null).x;
             var factory = _editor.Editor.Factory;
-            _parent = factory.UI.GetPanel($"MethodWizardPanel_{_method.Name}", 600f, 400f, -1000f, 100f, addToUi: false);
+            _parent = factory.UI.GetPanel($"MethodWizardPanel{_idSuffix}", 600f, 400f, -1000f, 100f, addToUi: false);
             _parent.RenderLayer = _layer;
             _parent.Tint = GameViewColors.Panel;
             _parent.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
@@ -58,12 +63,12 @@ namespace AGS.Editor
             _parent.Visible = false;
             _editor.Editor.State.UI.Add(_parent);
 
-            var inspectorParent = factory.UI.GetPanel("WizardInspectorParentPanel", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _parent);
+            var inspectorParent = factory.UI.GetPanel($"WizardInspectorParentPanel{_idSuffix}", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _parent);
             inspectorParent.Tint = Colors.Transparent;
             inspectorParent.Pivot = (0f, 1f);
 
-            _inspector = new InspectorPanel(_editor, _layer, new ActionManager(), "Wizard");
-            _inspector.Load(inspectorParent);
+            _inspector = new InspectorPanel(_editor, _layer, new ActionManager(), $"Wizard{_idSuffix}");
+            _inspector.Load(inspectorParent, _parent);
             _inspector.Inspector.SortValues = false;
 
             var methodDescriptor = new MethodTypeDescriptor(_method, _hideProperties, _overrideDefaults);
@@ -88,8 +93,12 @@ namespace AGS.Editor
 
         public async Task<Dictionary<string, object>> ShowAsync()
         {
+            var dialog = _parentDialog;
+            if (dialog != null) dialog.Visible = false;
             _parent.Visible = true;
-            return await _taskCompletionSource.Task;
+            var result = await _taskCompletionSource.Task;
+            if (dialog != null) dialog.Visible = true;
+            return result;
         }
 
         private void addButtons()
@@ -103,7 +112,7 @@ namespace AGS.Editor
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(factory.Graphics.Borders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
 
-            var buttonsPanel = factory.UI.GetPanel("MethodWizardButtonsPanel", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, _parent);
+            var buttonsPanel = factory.UI.GetPanel($"MethodWizardButtonsPanel{_idSuffix}", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, _parent);
             buttonsPanel.Tint = Colors.Transparent;
 
             var layout = buttonsPanel.AddComponent<IStackLayoutComponent>();
@@ -114,7 +123,7 @@ namespace AGS.Editor
             layout.StartLocation = WIDTH / 2f;
 
             const float buttonWidth = 80f;
-            var okButton = factory.UI.GetButton("MethodWizardOkButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: buttonWidth, height: 20f);
+            var okButton = factory.UI.GetButton($"MethodWizardOkButton{_idSuffix}", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: buttonWidth, height: 20f);
             okButton.MouseClicked.Subscribe(async () =>
             {
                 Dictionary<string, object> map = new Dictionary<string, object>();
@@ -132,7 +141,7 @@ namespace AGS.Editor
                 _taskCompletionSource.TrySetResult(map);
             });
 
-            var cancelButton = factory.UI.GetButton("MethodWizardCancelButton", idle, hovered, pushed, 0f, 0f, buttonsPanel, "Cancel", width: buttonWidth, height: 20f);
+            var cancelButton = factory.UI.GetButton($"MethodWizardCancelButton{_idSuffix}", idle, hovered, pushed, 0f, 0f, buttonsPanel, "Cancel", width: buttonWidth, height: 20f);
             cancelButton.MouseClicked.Subscribe(() =>
             {
                 _modal?.LoseFocus();

@@ -10,14 +10,16 @@ namespace AGS.Editor
     public class FactoryWizard
     {
         private readonly AGSEditor _editor;
-        private Action<IPanel> _addUiExternal;
-        private Func<Dictionary<string, object>, Task<bool>> _validate;
-        private Action<Dictionary<string, object>> _setDefaults;
+        private readonly Action<IPanel> _addUiExternal;
+        private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
+        private readonly Action<Dictionary<string, object>> _setDefaults;
+        private readonly IObject _parentDialog;
 
-        public FactoryWizard(AGSEditor editor, Action<IPanel> addUiExternal, 
+        public FactoryWizard(IObject parentDialog, AGSEditor editor, Action<IPanel> addUiExternal, 
                              Func<Dictionary<string, object>, Task<bool>> validate,
                              Action<Dictionary<string, object>> setDefaults)
         {
+            _parentDialog = parentDialog;
             _editor = editor;
             _addUiExternal = addUiExternal;
             _validate = validate;
@@ -58,7 +60,7 @@ namespace AGS.Editor
             }
 
             _setDefaults?.Invoke(overrideDefaults);
-            var wizard = new MethodWizard(method, hideProperties, overrideDefaults, _addUiExternal, _editor, _validate);
+            var wizard = new MethodWizard(_parentDialog, method, hideProperties, overrideDefaults, _addUiExternal, _editor, _validate);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return (null, null, null);
@@ -76,21 +78,28 @@ namespace AGS.Editor
         {
             if (methodName == null)
             {
+                ConstructorInfo ctor = null;
                 foreach (var method in factoryType.GetConstructors())
                 {
+                    if (ctor == null) ctor = method;
                     var attr = method.GetCustomAttribute<MethodWizardAttribute>();
                     if (attr == null) continue;
                     return (method, attr);
                 }
-                throw new InvalidOperationException($"Failed to find constructor (with MethodWizard attribute) in {factoryType}");
+                if (ctor != null) return (ctor, new MethodWizardAttribute());
+                throw new InvalidOperationException($"Failed to find constructor in {factoryType}");
             }
+
+            MethodInfo factory = null;
             foreach (var method in factoryType.GetMethods())
             {
                 if (method.Name != methodName) continue;
+                if (factory == null) factory = method;
                 var attr = method.GetCustomAttribute<MethodWizardAttribute>();
                 if (attr == null) continue;
                 return (method, attr);
             }
+            if (factory != null) return (factory, new MethodWizardAttribute());
             throw new InvalidOperationException($"Failed to find method name {methodName} (with MethodWizard attribute) in {factoryType}");
         }
 

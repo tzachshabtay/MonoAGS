@@ -104,7 +104,7 @@ namespace AGS.Editor
 
             Tree.Load(topPanel);
             _displayList.Load(topPanel);
-            _inspector.Load(bottomPanel);
+            _inspector.Load(bottomPanel, null);
             _currentTab = Tree;
             _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
             _splitPanel.TopPanel = topPanel;

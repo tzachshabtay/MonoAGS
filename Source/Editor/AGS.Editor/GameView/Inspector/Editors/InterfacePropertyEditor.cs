@@ -13,6 +13,7 @@ namespace AGS.Editor
     {
         private readonly SelectEditor _selectEditor;
         private readonly AGSEditor _editor;
+        private readonly IObject _parentDialog;
 
         //todo: cache need to be refreshed/cleared when assembly is replaced in the app domain (i.e the user compiled new code).
         private static Dictionary<Type, List<IImplementation>> _interfaces = new Dictionary<Type, List<IImplementation>>();
@@ -28,20 +29,22 @@ namespace AGS.Editor
             private readonly Type _type;
             private readonly string _displayName;
             private readonly AGSEditor _editor;
+            private readonly IObject _parentDialog;
 
-            public TypeImplementation(Type type, AGSEditor editor)
+            public TypeImplementation(Type type, AGSEditor editor, IObject parentDialog)
             {
+                _parentDialog = parentDialog;
                 _editor = editor;
                 _type = type;
                 var attr = type.GetCustomAttribute<ConcreteImplementationAttribute>();
-                _displayName = attr.DisplayName;
+                _displayName = attr?.DisplayName;
             }
 
             public string Name => _displayName ?? _type.Name;
 
             public async Task<SelectEditor.ReturnValue> Create()
             {
-                var factoryWizard = new FactoryWizard(_editor, null, null, null);
+                var factoryWizard = new FactoryWizard(_parentDialog, _editor, null, null, null);
                 (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunConstructor(_type);
                 return new SelectEditor.ReturnValue(result, model == null);
             }
@@ -52,9 +55,11 @@ namespace AGS.Editor
             private readonly string _methodName;
             private readonly object _factory;
             private readonly AGSEditor _editor;
+            private readonly IObject _parentDialog;
 
-            public FactoryImplementation(HasFactoryAttribute attr, AGSEditor editor)
+            public FactoryImplementation(HasFactoryAttribute attr, AGSEditor editor, IObject parentDialog)
             {
+                _parentDialog = parentDialog;
                 _editor = editor;
                 switch (attr.FactoryType)
                 {
@@ -71,7 +76,7 @@ namespace AGS.Editor
 
             public async Task<SelectEditor.ReturnValue> Create()
             {
-                var factoryWizard = new FactoryWizard(_editor, null, null, null);
+                var factoryWizard = new FactoryWizard(_parentDialog, _editor, null, null, null);
                 (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, _methodName);
                 return new SelectEditor.ReturnValue(result, model == null);
             }
@@ -88,8 +93,9 @@ namespace AGS.Editor
             public IImplementation Implementation { get; }
         }
 
-        public InterfacePropertyEditor(IUIFactory factory, ActionManager actions, StateModel model, AGSEditor editor)
+        public InterfacePropertyEditor(IUIFactory factory, ActionManager actions, StateModel model, AGSEditor editor, IObject parentDialog)
         {
+            _parentDialog = parentDialog;
             _editor = editor;
             _selectEditor = new SelectEditor(factory, actions, model, getOptions, getValue);
         }
@@ -115,8 +121,9 @@ namespace AGS.Editor
             return list;
         }
 
-        private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property)
+        private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property, Action closeCombobox)
         {
+            closeCombobox();
             ComboItem typeItem = (ComboItem)item;
             return typeItem.Implementation?.Create() ?? Task.FromResult(new SelectEditor.ReturnValue(null, false));
         }
@@ -126,12 +133,12 @@ namespace AGS.Editor
             List<IImplementation> implementations = new List<IImplementation>();
 
             var factories = type.GetCustomAttributes(typeof(HasFactoryAttribute), true);
-            implementations.AddRange(factories.Select(f => new FactoryImplementation((HasFactoryAttribute)f, _editor)));
+            implementations.AddRange(factories.Select(f => new FactoryImplementation((HasFactoryAttribute)f, _editor, _parentDialog)));
 
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && isConcreteImplementation(p))
-                .Select(s => new TypeImplementation(s, _editor));
+                .Select(s => new TypeImplementation(s, _editor, _parentDialog));
             implementations.AddRange(types);
 
             return implementations;

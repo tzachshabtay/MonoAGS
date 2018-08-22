@@ -13,10 +13,12 @@ namespace AGS.Editor
         private readonly IGameState _state;
         private readonly IGameSettings _settings;
         private readonly AGSEditor _editor;
+        private readonly IObject _parentDialog;
 
         public EditorProvider(IGameFactory factory, ActionManager actions, StateModel model, IGameState state, 
-                              IGameSettings settings, AGSEditor editor)
+                              IGameSettings settings, AGSEditor editor, IObject parentDialog)
         {
+            _parentDialog = parentDialog;
             _editor = editor;
             _factory = factory;
             _actions = actions;
@@ -56,15 +58,13 @@ namespace AGS.Editor
             if (propType == typeof(Vector4?)) return new Vector4PropertyEditor(_actions, _state, _factory, _model, true);
             if (propType == typeof(RectangleF?)) return new RectangleFPropertyEditor(_actions, _state, _factory, _model, true);
             if (propType == typeof(Rectangle?)) return new RectanglePropertyEditor(_actions, _state, _factory, _model, true);
-
-            if (propType.IsInterface)
+            if (propType == typeof(string)) return new StringPropertyEditor(_factory, true, _actions, _model);
+            if (propType.IsEnum) return new EnumPropertyEditor(_factory.UI, _actions, _model);
+            if (propType.IsInterface || propType.IsClass)
             {
-                return new InterfacePropertyEditor(_factory.UI, _actions, _model, _editor);
+                return new InterfacePropertyEditor(_factory.UI, _actions, _model, _editor, _parentDialog);
             }
-            var typeInfo = propType.GetTypeInfo();
-            if (typeInfo.IsEnum)
-                return new EnumPropertyEditor(_factory.UI, _actions, _model);
-            return new StringPropertyEditor(_factory, propType == typeof(string), _actions, _model);
+            return new StringPropertyEditor(_factory, false, _actions, _model);
         }
     }
 }

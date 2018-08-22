@@ -90,7 +90,7 @@ namespace AGS.Editor
         private async void showWizard(string name, Target target, object factory, string methodName)
         {
             _topMenu.Visible = false;
-            FactoryWizard wizard = new FactoryWizard(_editor, panel => addTargetUIForCreate(panel, target), validate, defaults => setDefaults(name, defaults));
+            FactoryWizard wizard = new FactoryWizard(null, _editor, panel => addTargetUIForCreate(panel, target), validate, defaults => setDefaults(name, defaults));
             (object result, MethodModel model, MethodWizardAttribute methodAttribute) = await wizard.RunMethod(factory, methodName);
             if (model == null) return;
             List<object> entities = getEntities(factory, result, methodAttribute);

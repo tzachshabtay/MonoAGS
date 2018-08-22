@@ -34,7 +34,7 @@ namespace AGS.Editor
             return list;
         }
 
-        private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property)
+        private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property, Action closeCombobox)
         {
             Type enumType = property.PropertyType;
             return Task.FromResult(new SelectEditor.ReturnValue(Enum.Parse(enumType, item.Text), false));
