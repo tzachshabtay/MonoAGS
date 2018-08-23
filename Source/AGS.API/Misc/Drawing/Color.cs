@@ -50,7 +50,7 @@ namespace AGS.API
         /// <value>The alpha element of the color.</value>
         public byte A => (byte)((Value >> SHIFT_A));
 
-        public override string ToString() => NamedColorsMap.NamedColorsReversed.TryGetValue(Value, out string name) ? name : $"[{R},{G},{B},{A} (#{Value.ToString("X")})]";
+        public override string ToString() => NamedColorsMap.NamedColorsReversed.TryGetValue(Value, out string name) ? name : $"{R},{G},{B},{A}";
 
         /// <summary>
         /// Gets a color from RGBA elements (red, green, blue, alpha).

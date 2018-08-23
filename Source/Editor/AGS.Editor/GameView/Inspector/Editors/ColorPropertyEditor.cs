@@ -19,6 +19,8 @@ namespace AGS.Editor
         private ILabel _colorLabel;
         private IButton _dropDownButton;
 
+        private static List<IStringItem> _colorList = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c }));
+
         public ColorPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
@@ -30,21 +32,21 @@ namespace AGS.Editor
         {
             _property = property;
             var label = view.TreeItem;
-            var combobox = _factory.UI.GetComboBox(id, null, null, null, label.TreeNode.Parent, defaultWidth: 200f, defaultHeight: 25f);
+            var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
+            var combobox = _factory.UI.GetComboBox($"{id}_Combobox", null, null, null, panel, defaultWidth: 200f, defaultHeight: 25f);
             _dropDownButton = combobox.DropDownButton;
             _text = combobox.TextBox;
             _text.TextBackgroundVisible = false;
-            var list = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c}));
-            combobox.DropDownPanelList.Items.AddRange(list);
+            combobox.DropDownPanelList.Items.AddRange(_colorList);
             combobox.Z = label.Z;
 
-            _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, combobox.Width + 10f, 0f, label.TreeNode.Parent);
+            _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, 250f, 0f, panel);
             _colorLabel.TextVisible = false;
 
             var layout = view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>();
             if (layout != null)
             {
-                layout.RestrictionList.RestrictionList.AddRange(new List<string> { combobox.ID, _colorLabel.ID });
+                layout.RestrictionList.RestrictionList.AddRange(new List<string> { panel.ID });
             }
 
             RefreshUI();
@@ -74,13 +76,8 @@ namespace AGS.Editor
                 _property.Value = color;
             }
 
-            _text.Text = color.ToString();
+            _text.Text = color.Value == 0 ? "" : color.ToString();
             _colorLabel.Tint = color;
-            _text.Border = _factory.Graphics.Borders.SolidColor(color, 2f);
-            var buttonBorder = _factory.Graphics.Borders.Multiple(_factory.Graphics.Borders.SolidColor(color, 1f),
-                               _factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, color));
-            _dropDownButton.IdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.Transparent);
-            _dropDownButton.Border = buttonBorder;
         }
 
         private void onTextboxPressingKey(TextBoxKeyPressingEventArgs args)
