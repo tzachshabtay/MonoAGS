@@ -5,6 +5,7 @@ namespace AGS.API
     /// <summary>
     /// Represents four values of "something" that matches four corners of a bounding box (for example, four colors for a gradient border).
     /// </summary>
+    [ConcreteImplementation(DisplayName = "4-Corners")]
 	public class FourCorners<TValue>
 	{
         /// <summary>
@@ -23,6 +24,7 @@ namespace AGS.API
         /// <param name="bottomRight">Bottom right.</param>
         /// <param name="topLeft">Top left.</param>
         /// <param name="topRight">Top right.</param>
+        [MethodWizard]
 		public FourCorners(TValue bottomLeft, TValue bottomRight, TValue topLeft, TValue topRight)
 		{
 			BottomLeft = bottomLeft;
