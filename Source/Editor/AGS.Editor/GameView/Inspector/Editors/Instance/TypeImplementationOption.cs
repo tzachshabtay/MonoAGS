@@ -12,11 +12,15 @@ namespace AGS.Editor
         private readonly AGSEditor _editor;
         private readonly IObject _parentDialog;
 
-        public TypeImplementationOption(Type type, AGSEditor editor, IObject parentDialog)
+        public TypeImplementationOption(Type type, Type targetType, AGSEditor editor, IObject parentDialog)
         {
             _parentDialog = parentDialog;
             _editor = editor;
-            _type = type;
+            if (type.IsGenericTypeDefinition)
+            {
+                _type = type.MakeGenericType(targetType.GetGenericArguments());
+            }
+            else _type = type;
             var attr = type.GetCustomAttribute<ConcreteImplementationAttribute>();
             _displayName = attr?.DisplayName;
         }

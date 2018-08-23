@@ -71,10 +71,11 @@ namespace AGS.Editor
             var factories = type.GetCustomAttributes(typeof(HasFactoryAttribute), true);
             implementations.AddRange(factories.Select(f => new FactoryImplementationOption((HasFactoryAttribute)f, _editor, _parentDialog)));
 
+            var baseType = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && isConcreteImplementation(p))
-                .Select(s => new TypeImplementationOption(s, _editor, _parentDialog));
+                .Where(p => baseType.IsAssignableFrom(p) && isConcreteImplementation(p))
+                .Select(s => new TypeImplementationOption(s, type, _editor, _parentDialog));
             implementations.AddRange(types);
 
             return implementations;
