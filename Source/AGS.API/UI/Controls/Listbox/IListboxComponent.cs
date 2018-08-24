@@ -10,6 +10,7 @@ namespace AGS.API
     [RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IStackLayoutComponent))]
+    [RequiredComponent(typeof(IVisibleComponent))]
     public interface IListboxComponent : IComponent
     {
         /// <summary>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using AGS.API;
 using PropertyChanged;
 
@@ -19,7 +21,9 @@ namespace AGS.Engine
         private IImageComponent _image;
         private IGameState _state;
         private IStackLayoutComponent _layout;
+        private IVisibleComponent _visible;
         private string _searchFilter;
+        private List<AGSListChangedEventArgs<IStringItem>> _incomingChanges = new List<AGSListChangedEventArgs<IStringItem>>();
 
         public AGSListboxComponent(IUIFactory factory, IGameState state)
         {
@@ -40,6 +44,16 @@ namespace AGS.Engine
             Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
             Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            Entity.Bind<IVisibleComponent>(c =>
+            {
+                _visible = c;
+                c.PropertyChanged += onVisibleChanged;
+                applyAllChangesIfNeeded();
+            }, c =>
+            {
+                _visible = null;
+                c.PropertyChanged -= onVisibleChanged;
+            });
             Entity.Bind<IStackLayoutComponent>(c => 
             { 
                 c.RelativeSpacing = -1f; 
@@ -132,6 +146,11 @@ namespace AGS.Engine
 
         public IEvent<ListboxItemChangingArgs> OnSelectedItemChanging { get; }
 
+        private void onVisibleChanged(object sender, PropertyChangedEventArgs e)
+        {
+            applyAllChangesIfNeeded();
+        }
+
         private async void select(IStringItem item, int index)
         {
             ListboxItemChangingArgs args = new ListboxItemChangingArgs(item, index);
@@ -158,6 +177,20 @@ namespace AGS.Engine
         }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
+        {
+            if (_visible.Visible) applyChange(args);
+            else _incomingChanges.Add(args);
+        }
+
+        private void applyAllChangesIfNeeded()
+        {
+            if (!_visible.Visible) return;
+            var newIncoming = new List<AGSListChangedEventArgs<IStringItem>>(_incomingChanges.Capacity);
+            var oldIncoming = Interlocked.Exchange(ref _incomingChanges, newIncoming);
+            foreach (var change in oldIncoming) applyChange(change);
+        }
+
+        private void applyChange(AGSListChangedEventArgs<IStringItem> args)
         {
             _layout?.StopLayout();
             var tree = _tree;
