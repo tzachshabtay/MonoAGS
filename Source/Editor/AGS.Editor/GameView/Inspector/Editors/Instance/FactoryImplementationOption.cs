@@ -6,14 +6,11 @@ namespace AGS.Editor
 {
     public class FactoryImplementationOption : IImplementationOption
     {
-        private readonly string _methodName;
         private readonly object _factory;
         private readonly AGSEditor _editor;
-        private readonly IObject _parentDialog;
 
-        public FactoryImplementationOption(HasFactoryAttribute attr, AGSEditor editor, IObject parentDialog)
+        public FactoryImplementationOption(HasFactoryAttribute attr, AGSEditor editor)
         {
-            _parentDialog = parentDialog;
             _editor = editor;
             switch (attr.FactoryType)
             {
@@ -23,15 +20,15 @@ namespace AGS.Editor
                 default:
                     throw new NotSupportedException($"Not supported factory type: {attr.FactoryType}");
             }
-            _methodName = attr.MethodName;
+            Name = attr.MethodName;
         }
 
-        public string Name => _methodName;
+        public string Name { get; }
 
-        public async Task<SelectEditor.ReturnValue> Create()
+        public async Task<SelectEditor.ReturnValue> Create(IObject parentDialog)
         {
-            var factoryWizard = new FactoryWizard(_parentDialog, _editor, null, null, null);
-            (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, _methodName);
+            var factoryWizard = new FactoryWizard(parentDialog, _editor, null, null, null);
+            (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, Name);
             return new SelectEditor.ReturnValue(result, model == null);
         }
     }

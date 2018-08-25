@@ -61,7 +61,7 @@ namespace AGS.Editor
         {
             closeCombobox();
             ComboItem typeItem = (ComboItem)item;
-            return typeItem.Implementation?.Create() ?? Task.FromResult(new SelectEditor.ReturnValue(null, false));
+            return typeItem.Implementation?.Create(_parentDialog) ?? Task.FromResult(new SelectEditor.ReturnValue(null, false));
         }
 
         private List<IImplementationOption> getImplementations(Type type)
@@ -69,13 +69,13 @@ namespace AGS.Editor
             List<IImplementationOption> implementations = new List<IImplementationOption>();
 
             var factories = type.GetCustomAttributes(typeof(HasFactoryAttribute), true);
-            implementations.AddRange(factories.Select(f => new FactoryImplementationOption((HasFactoryAttribute)f, _editor, _parentDialog)));
+            implementations.AddRange(factories.Select(f => new FactoryImplementationOption((HasFactoryAttribute)f, _editor)));
 
             var baseType = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => baseType.IsAssignableFrom(p) && isConcreteImplementation(p))
-                .Select(s => new TypeImplementationOption(s, type, _editor, _parentDialog));
+                .Select(s => new TypeImplementationOption(s, type, _editor));
             implementations.AddRange(types);
 
             return implementations;

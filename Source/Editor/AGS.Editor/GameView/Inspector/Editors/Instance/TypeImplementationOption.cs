@@ -10,11 +10,9 @@ namespace AGS.Editor
         private readonly Type _type;
         private readonly string _displayName;
         private readonly AGSEditor _editor;
-        private readonly IObject _parentDialog;
 
-        public TypeImplementationOption(Type type, Type targetType, AGSEditor editor, IObject parentDialog)
+        public TypeImplementationOption(Type type, Type targetType, AGSEditor editor)
         {
-            _parentDialog = parentDialog;
             _editor = editor;
             if (type.IsGenericTypeDefinition)
             {
@@ -27,9 +25,9 @@ namespace AGS.Editor
 
         public string Name => _displayName ?? _type.Name;
 
-        public async Task<SelectEditor.ReturnValue> Create()
+        public async Task<SelectEditor.ReturnValue> Create(IObject parentDialog)
         {
-            var factoryWizard = new FactoryWizard(_parentDialog, _editor, null, null, null);
+            var factoryWizard = new FactoryWizard(parentDialog, _editor, null, null, null);
             (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunConstructor(_type);
             return new SelectEditor.ReturnValue(result, model == null);
         }
