@@ -143,22 +143,28 @@ namespace AGS.Editor
                 PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != property.Name) return;
-                    bool isExpanded = _treeView.IsCollapsed(node) == false;
-                    if (isExpanded) _treeView.Collapse(node);
-                    ObjectTypeDescriptor.RefreshChildrenProperties(property);
-                    node.TreeNode.Children.Clear();
-                    addChildrenToTree(node, property);
-
-                    //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
-                    //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
-                    //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
-                    //if (isExpanded)
-                      //  _treeView.Expand(node);
+                    refreshNode(node, property);
                 };
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 _cleanup.Add(() => propertyChanged.PropertyChanged -= onPropertyChanged);
             }
             return node;
+        }
+
+        private void refreshNode(ITreeStringNode node, IProperty property)
+        {
+            bool isExpanded = _treeView.IsCollapsed(node) == false;
+            if (isExpanded)
+                _treeView.Collapse(node);
+            ObjectTypeDescriptor.RefreshChildrenProperties(property);
+            node.TreeNode.Children.Clear();
+            addChildrenToTree(node, property);
+
+            //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
+            //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
+            //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
+            //if (isExpanded)
+            //  _treeView.Expand(node);
         }
 
         private void cleanup()
@@ -168,16 +174,21 @@ namespace AGS.Editor
         }
 
         private ITreeStringNode addToTree(IProperty property, ITreeStringNode parent)
-		{
+        {
             if (property.IsReadonly)
             {
                 return addReadonlyNodeToTree(property, parent);
             }
 
             var propType = property.PropertyType;
-            var editor = _editorProvider.GetEditor(propType, _currentEntity);
+            var container = new NodeContainer();
+            var editor = _editorProvider.GetEditor(propType, _currentEntity, () =>
+            {
+                if (container.Node != null) refreshNode(container.Node, property);
+            });
 
             ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
+            container.Node = node;
             return addToTree(node, parent);
 		}
 
@@ -185,6 +196,11 @@ namespace AGS.Editor
         {
 			if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
 			return node;
+        }
+
+        private class NodeContainer
+        {
+            public ITreeStringNode Node { get; set; }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace AGS.Editor
             _settings = settings;
         }
 
-        public IInspectorPropertyEditor GetEditor(Type propType, IEntity entity)
+        public IInspectorPropertyEditor GetEditor(Type propType, IEntity entity, Action refreshNode)
         {
             if (propType == typeof(bool)) return new BoolPropertyEditor(_factory, _actions, _model);
             if (propType == typeof(Color)) return new ColorPropertyEditor(_factory, _actions, _model);
@@ -62,7 +62,7 @@ namespace AGS.Editor
             if (propType.IsEnum) return new EnumPropertyEditor(_factory.UI, _actions, _model);
             if (propType.IsInterface || propType.IsClass)
             {
-                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentForm);
+                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentForm, refreshNode);
             }
             return new StringPropertyEditor(_factory, false, _actions, _model);
         }
