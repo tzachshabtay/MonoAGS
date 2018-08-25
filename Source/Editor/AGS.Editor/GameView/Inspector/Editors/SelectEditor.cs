@@ -55,6 +55,11 @@ namespace AGS.Editor
             {
                 combobox.SuggestMode = ComboSuggest.Enforce;
             }
+            var layout = view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>();
+            if (layout != null)
+            {
+                layout.RestrictionList.RestrictionList.AddRange(new List<string> { combobox.ID });
+            }
             Action closeCombobox = () => (combobox.DropDownPanel.ScrollingPanel ?? combobox.DropDownPanel.ContentsPanel).Visible = false;
             combobox.DropDownPanelList.OnSelectedItemChanging.SubscribeToAsync(async args =>
             {
