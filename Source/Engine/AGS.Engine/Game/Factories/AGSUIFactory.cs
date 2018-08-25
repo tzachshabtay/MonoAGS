@@ -559,6 +559,18 @@ namespace AGS.Engine
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
         }
 
+        public IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true)
+        {
+            var config = new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel);
+            var header = GetLabel($"{id}_TitleLabel", title, width, titleHeight, x, y + contentsHeight + titleHeight, config: config, addToUi: addToUi);
+            header.Enabled = true;
+            header.ClickThrough = true;
+            var contentsPanel = GetPanel($"{id}_ContentsPanel", width, contentsHeight, 0f, 0f, header, addToUi);
+            contentsPanel.Pivot = (0f, 1f);
+
+            return new AGSForm(header, contentsPanel);
+        }
+
 		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, bool addToUi = true)
         {

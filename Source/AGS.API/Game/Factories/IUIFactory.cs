@@ -335,6 +335,19 @@ namespace AGS.API
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
+
+        /// <summary>
+        /// Creates a form.
+        /// </summary>
+        /// <returns>The form.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <param name="title">Title.</param>
+        /// <param name="width">Width.</param>
+        /// <param name="titleHeight">Title height.</param>
+        /// <param name="contentsHeight">Contents height.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+        IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true);
 	}
 }
-
