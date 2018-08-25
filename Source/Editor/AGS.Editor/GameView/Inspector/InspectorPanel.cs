@@ -30,7 +30,7 @@ namespace AGS.Editor
 
         public IPanel Panel => _scrollingPanel;
 
-        public void Load(IPanel parent, IObject parentDialog)
+        public void Load(IPanel parent, IForm parentForm)
         {
             _parent = parent;
             var factory = _editor.Editor.Factory;
@@ -58,7 +58,7 @@ namespace AGS.Editor
             treeView.SkipRenderingRoot = true;
 
             Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, 
-                                         _editor.Editor.State, _actions, _editor.Project.Model, _editor, parentDialog);
+                                         _editor.Editor.State, _actions, _editor.Project.Model, _editor, parentForm);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _editor.Editor.Factory,

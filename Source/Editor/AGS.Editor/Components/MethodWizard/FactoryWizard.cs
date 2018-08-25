@@ -13,13 +13,15 @@ namespace AGS.Editor
         private readonly Action<IPanel> _addUiExternal;
         private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
         private readonly Action<Dictionary<string, object>> _setDefaults;
-        private readonly IObject _parentDialog;
+        private readonly IForm _parentForm;
+        private readonly string _title;
 
-        public FactoryWizard(IObject parentDialog, AGSEditor editor, Action<IPanel> addUiExternal, 
+        public FactoryWizard(IForm parentForm, string title, AGSEditor editor, Action<IPanel> addUiExternal, 
                              Func<Dictionary<string, object>, Task<bool>> validate,
                              Action<Dictionary<string, object>> setDefaults)
         {
-            _parentDialog = parentDialog;
+            _title = title;
+            _parentForm = parentForm;
             _editor = editor;
             _addUiExternal = addUiExternal;
             _validate = validate;
@@ -60,7 +62,7 @@ namespace AGS.Editor
             }
 
             _setDefaults?.Invoke(overrideDefaults);
-            var wizard = new MethodWizard(_parentDialog, method, hideProperties, overrideDefaults, _addUiExternal, _editor, _validate);
+            var wizard = new MethodWizard(_parentForm, _title, method, hideProperties, overrideDefaults, _addUiExternal, _editor, _validate);
             wizard.Load();
             var parameters = await wizard.ShowAsync();
             if (parameters == null) return (null, null, null);

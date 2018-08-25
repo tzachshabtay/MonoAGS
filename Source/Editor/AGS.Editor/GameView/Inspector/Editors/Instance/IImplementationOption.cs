@@ -6,6 +6,6 @@ namespace AGS.Editor
     public interface IImplementationOption
     {
         string Name { get; }
-        Task<SelectEditor.ReturnValue> Create(IObject parentDialog);
+        Task<SelectEditor.ReturnValue> Create(IForm parentForm, string title);
     }
 }

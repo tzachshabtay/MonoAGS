@@ -13,12 +13,12 @@ namespace AGS.Editor
         private readonly IGameState _state;
         private readonly IGameSettings _settings;
         private readonly AGSEditor _editor;
-        private readonly IObject _parentDialog;
+        private readonly IForm _parentForm;
 
         public EditorProvider(IGameFactory factory, ActionManager actions, StateModel model, IGameState state, 
-                              IGameSettings settings, AGSEditor editor, IObject parentDialog)
+                              IGameSettings settings, AGSEditor editor, IForm parentForm)
         {
-            _parentDialog = parentDialog;
+            _parentForm = parentForm;
             _editor = editor;
             _factory = factory;
             _actions = actions;
@@ -62,7 +62,7 @@ namespace AGS.Editor
             if (propType.IsEnum) return new EnumPropertyEditor(_factory.UI, _actions, _model);
             if (propType.IsInterface || propType.IsClass)
             {
-                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentDialog);
+                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentForm);
             }
             return new StringPropertyEditor(_factory, false, _actions, _model);
         }

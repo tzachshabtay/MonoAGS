@@ -13,25 +13,28 @@ namespace AGS.Editor
     {
         private readonly SelectEditor _selectEditor;
         private readonly AGSEditor _editor;
-        private readonly IObject _parentDialog;
+        private readonly IForm _parentForm;
 
         //todo: cache need to be refreshed/cleared when assembly is replaced in the app domain (i.e the user compiled new code).
         private static Dictionary<Type, List<IImplementationOption>> _interfaces = new Dictionary<Type, List<IImplementationOption>>();
 
         private class ComboItem : AGSStringItem
         {
-            public ComboItem(IImplementationOption implementation)
+            public ComboItem(IImplementationOption implementation, string title)
             {
                 Implementation = implementation;
                 Text = implementation?.Name ?? "(null)";
+                Title = title;
             }
 
             public IImplementationOption Implementation { get; }
+
+            public string Title { get; }
         }
 
-        public InstancePropertyEditor(IUIFactory factory, ActionManager actions, StateModel model, AGSEditor editor, IObject parentDialog)
+        public InstancePropertyEditor(IUIFactory factory, ActionManager actions, StateModel model, AGSEditor editor, IForm parentForm)
         {
-            _parentDialog = parentDialog;
+            _parentForm = parentForm;
             _editor = editor;
             _selectEditor = new SelectEditor(factory, actions, model, getOptions, getValue);
         }
@@ -48,11 +51,11 @@ namespace AGS.Editor
 
         private List<IStringItem> getOptions(IProperty property)
         {
-            var list = new List<IStringItem> { new ComboItem(null) };
+            var list = new List<IStringItem> { new ComboItem(null, property.Name) };
             var implementations = _interfaces.GetOrAdd(property.PropertyType, getImplementations);
             foreach (var option in implementations)
             {
-                list.Add(new ComboItem(option));
+                list.Add(new ComboItem(option, property.Name));
             }
             return list;
         }
@@ -61,7 +64,7 @@ namespace AGS.Editor
         {
             closeCombobox();
             ComboItem typeItem = (ComboItem)item;
-            return typeItem.Implementation?.Create(_parentDialog) ?? Task.FromResult(new SelectEditor.ReturnValue(null, false));
+            return typeItem.Implementation?.Create(_parentForm, typeItem.Title) ?? Task.FromResult(new SelectEditor.ReturnValue(null, false));
         }
 
         private List<IImplementationOption> getImplementations(Type type)

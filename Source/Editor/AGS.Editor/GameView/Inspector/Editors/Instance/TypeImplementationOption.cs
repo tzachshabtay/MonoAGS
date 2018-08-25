@@ -25,9 +25,9 @@ namespace AGS.Editor
 
         public string Name => _displayName ?? _type.Name;
 
-        public async Task<SelectEditor.ReturnValue> Create(IObject parentDialog)
+        public async Task<SelectEditor.ReturnValue> Create(IForm parentForm, string title)
         {
-            var factoryWizard = new FactoryWizard(parentDialog, _editor, null, null, null);
+            var factoryWizard = new FactoryWizard(parentForm, title, _editor, null, null, null);
             (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunConstructor(_type);
             return new SelectEditor.ReturnValue(result, model == null);
         }
