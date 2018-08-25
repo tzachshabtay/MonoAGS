@@ -25,7 +25,7 @@ namespace AGS.Editor
 
         public object Object { get; }
 
-        public string ValueString => Value?.ToString() ?? "null";
+        public string ValueString => Value?.ToString() ?? InspectorProperty.NullValue;
 
         public Type PropertyType => _param.ParameterType;
 

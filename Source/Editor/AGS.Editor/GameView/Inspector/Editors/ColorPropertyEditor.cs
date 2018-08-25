@@ -9,7 +9,7 @@ using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
-    public class ColorPropertyEditor : IInspectorPropertyEditor
+    public class ColorPropertyEditor : IEditorSupportsNulls
     {
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
@@ -18,6 +18,7 @@ namespace AGS.Editor
         private ITextBox _text;
         private ILabel _colorLabel;
         private IButton _dropDownButton;
+        private IComboBox _combobox;
 
         private static List<IStringItem> _colorList = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c }));
 
@@ -33,12 +34,12 @@ namespace AGS.Editor
             _property = property;
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
-            var combobox = _factory.UI.GetComboBox($"{id}_Combobox", null, null, null, panel, defaultWidth: 200f, defaultHeight: 25f);
-            _dropDownButton = combobox.DropDownButton;
-            _text = combobox.TextBox;
+            _combobox = _factory.UI.GetComboBox($"{id}_Combobox", null, null, null, panel, defaultWidth: 200f, defaultHeight: 25f);
+            _dropDownButton = _combobox.DropDownButton;
+            _text = _combobox.TextBox;
             _text.TextBackgroundVisible = false;
-            combobox.DropDownPanelList.Items.AddRange(_colorList);
-            combobox.Z = label.Z;
+            _combobox.DropDownPanelList.Items.AddRange(_colorList);
+            _combobox.Z = label.Z;
 
             _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, 250f, 0f, panel);
             _colorLabel.TextVisible = false;
@@ -59,8 +60,8 @@ namespace AGS.Editor
             _text.MouseEnter.Subscribe(_ => { _text.TextConfig.Brush = yellowBrush; });
             _text.MouseLeave.Subscribe(_ => { _text.TextConfig.Brush = whiteBrush; });
             _text.OnPressingKey.Subscribe(onTextboxPressingKey);
-            combobox.SuggestMode = ComboSuggest.Suggest;
-            combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
+            _combobox.SuggestMode = ComboSuggest.Suggest;
+            _combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
             {
                 setColor(Color.FromHexa(NamedColorsMap.NamedColors[args.Item.Text]));
             });
@@ -68,8 +69,22 @@ namespace AGS.Editor
 
         public void RefreshUI()
         {
+            if (_property == null) return;
+            OnNullChanged(false);
+        }
+
+        public void OnNullChanged(bool isNull)
+        {
+            if (isNull)
+            {
+                _text.Text = "";
+                _colorLabel.Tint = Colors.Transparent;
+                _combobox.Visible = false;
+                return;
+            }
             var color = Colors.Red;
-            if (_property.Value is Color c) color = c;
+            if (_property.Value is Color c)
+                color = c;
             else if (_property.Value is uint u)
             {
                 color = Color.FromHexa(u);
@@ -78,6 +93,7 @@ namespace AGS.Editor
 
             _text.Text = color.Value == 0 ? "" : color.ToString();
             _colorLabel.Tint = color;
+            _combobox.Visible = true;
         }
 
         private void onTextboxPressingKey(TextBoxKeyPressingEventArgs args)

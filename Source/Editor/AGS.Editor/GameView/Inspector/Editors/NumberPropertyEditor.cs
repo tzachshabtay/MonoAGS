@@ -9,10 +9,10 @@ using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
-    public class NumberPropertyEditor : IInspectorPropertyEditor
+    public class NumberPropertyEditor : IEditorSupportsNulls
     {
         private readonly IGameFactory _factory;
-        private readonly bool _wholeNumbers, _nullable;
+        private readonly bool _wholeNumbers;
         private readonly List<InternalNumberEditor> _internalEditors;
         private readonly IGameState _state;
         private readonly ActionManager _actions;
@@ -52,13 +52,12 @@ namespace AGS.Editor
         }
 
         public NumberPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model,
-                                    bool wholeNumbers, bool nullable, List<InternalNumberEditor> internalEditors = null)
+                                    bool wholeNumbers, List<InternalNumberEditor> internalEditors = null)
         {
             _actions = actions;
             _state = state;
             _factory = factory;
             _wholeNumbers = wholeNumbers;
-            _nullable = nullable;
             _model = model;
             _internalEditors = internalEditors ?? new List<InternalNumberEditor>
             {
@@ -75,52 +74,31 @@ namespace AGS.Editor
         public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
-            ICheckBox nullBox = null;
-            if (_nullable)
-            {
-                nullBox = BoolPropertyEditor.CreateCheckbox(view.TreeItem, _factory, id + "_NullBox");
-                _nullBox = nullBox;
-                nullBox.Checked = (property.ValueString != InspectorProperty.NullValue);
-            }
             var panels = new List<(IObject control, INumberEditorComponent editor)>(_internalEditors.Count);
             for (int i = 0; i < _internalEditors.Count; i++)
             {
                 var editor = _internalEditors[i];
                 var panel = addEditor(id + i, view, property, editor);
-                panel.control.Visible = nullBox == null ? true : nullBox.Checked;
                 panels.Add(panel);
             }
             _panels = panels;
-
-            nullBox?.OnCheckChanged.Subscribe(args =>
-            {
-                object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.PropertyType)) : null;
-                    
-                if (args.UserInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
-                else property.Value = val;
-
-                foreach (var panel in panels)
-                {
-                    panel.control.Visible = nullBox.Checked;
-                }
-            });
         }
 
         public void RefreshUI()
         {
             if (_property == null) return;
-            if (_nullBox != null)
-            {
-                _nullBox.Checked = (_property.ValueString != InspectorProperty.NullValue);
-            }
+            OnNullChanged(false);
+        }
 
-            for (int i = 0; i < _panels.Count(); i++)
+        public void OnNullChanged(bool isNull)
+        {
+            for (int i = 0; i < _panels.Count; i++)
             {
                 var panel = _panels[i];
                 var editor = _internalEditors[i];
-                var text = editor.GetValueString(_property);
-                if (text != InspectorProperty.NullValue)
+                if (!isNull)
                 {
+                    var text = editor.GetValueString(_property);
                     panel.editor.Value = float.Parse(text);
                     panel.control.Visible = true;
                 }
@@ -266,10 +244,9 @@ namespace AGS.Editor
     public class MultipleNumbersPropertyEditor<T> : NumberPropertyEditor
     {
         public MultipleNumbersPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model,
-                                             bool wholeNumbers, bool nullable,
-                                             Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor,
+                                             bool wholeNumbers, Action<InternalNumberEditor, INumberEditorComponent> configureNumberEditor,
                                              params (string text, Func<float, T, T> getValue)[] creators) :
-        base(actions, state, factory, model, wholeNumbers, nullable, creators.Select((creator, index) =>
+        base(actions, state, factory, model, wholeNumbers, creators.Select((creator, index) =>
             new InternalNumberEditor(creator.text, prop => prop.ValueString == InspectorProperty.NullValue ?
                                      InspectorProperty.NullValue : prop.ValueString.Replace("(", "").Replace(")", "").Split(',')[index],
                                      (prop, value, userInitiated) =>
@@ -285,24 +262,24 @@ namespace AGS.Editor
 
     public class SizeFPropertyEditor : MultipleNumbersPropertyEditor<SizeF>
     {
-        public SizeFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable)
-            : base(actions, state, factory, model, false, nullable, null,
+        public SizeFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model)
+            : base(actions, state, factory, model, false, null,
                            ("Width", (width, size) => new SizeF(width, size.Height)),
                            ("Height", (height, size) => new SizeF(size.Width, height))){}
     }
 
     public class SizePropertyEditor : MultipleNumbersPropertyEditor<Size>
     {
-        public SizePropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, true, nullable, null,
+        public SizePropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, true, null,
                    ("Width", (width, size) => new Size((int)Math.Round(width), size.Height)),
                    ("Height", (height, size) => new Size(size.Width, (int)Math.Round(height)))){}
     }
 
     public class PointFPropertyEditor : MultipleNumbersPropertyEditor<PointF>
     {
-        public PointFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, false, nullable, null,
+        public PointFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, false, null,
                            ("X", (x, point) => new PointF(x, point.Y)),
                            ("Y", (y, point) => new PointF(point.X, y)))
         { }
@@ -310,8 +287,8 @@ namespace AGS.Editor
 
     public class PointPropertyEditor : MultipleNumbersPropertyEditor<Point>
     {
-        public PointPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, true, nullable, null,
+        public PointPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, true, null,
                    ("X", (x, point) => new Point((int)Math.Round(x), point.Y)),
                    ("Y", (y, point) => new Point(point.X, (int)Math.Round(y))))
         { }
@@ -319,8 +296,8 @@ namespace AGS.Editor
 
     public class Vector2PropertyEditor : MultipleNumbersPropertyEditor<Vector2>
     {
-        public Vector2PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, false, nullable, null,
+        public Vector2PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, false, null,
                            ("X", (x, vector) => new Vector2(x, vector.Y)),
                            ("Y", (y, vector) => new Vector2(vector.X, y)))
         { }
@@ -328,8 +305,8 @@ namespace AGS.Editor
 
     public class Vector3PropertyEditor : MultipleNumbersPropertyEditor<Vector3>
     {
-        public Vector3PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, false, nullable, null,
+        public Vector3PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, false, null,
                            ("X", (x, vector) => new Vector3(x, vector.Y, vector.Z)),
                            ("Y", (y, vector) => new Vector3(vector.X, y, vector.Z)),
                            ("Z", (z, vector) => new Vector3(vector.X, vector.Y, z)))
@@ -338,8 +315,8 @@ namespace AGS.Editor
 
     public class Vector4PropertyEditor : MultipleNumbersPropertyEditor<Vector4>
     {
-        public Vector4PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, false, nullable, null,
+        public Vector4PropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, false, null,
                            ("X", (x, vector) => new Vector4(x, vector.Y, vector.Z, vector.W)),
                            ("Y", (y, vector) => new Vector4(vector.X, y, vector.Z, vector.W)),
                            ("Z", (z, vector) => new Vector4(vector.X, vector.Y, z, vector.W)),
@@ -349,8 +326,8 @@ namespace AGS.Editor
 
     public class LocationPropertyEditor : MultipleNumbersPropertyEditor<Position>
     {
-        public LocationPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable, IGameSettings settings, IDrawableInfoComponent drawable) 
-            : base(actions, state, factory, model, false, nullable,
+        public LocationPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, IGameSettings settings, IDrawableInfoComponent drawable) 
+            : base(actions, state, factory, model, false,
                             (internalEditor, editor) =>
                             {
                                 if (internalEditor.Text == "X")
@@ -372,8 +349,8 @@ namespace AGS.Editor
 
     public class RectangleFPropertyEditor : MultipleNumbersPropertyEditor<RectangleF>
     {
-        public RectangleFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, false, nullable, null,
+        public RectangleFPropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, false, null,
                            ("X", (x, rect) => new RectangleF(x, rect.Y, rect.Width, rect.Height)),
                            ("Y", (y, rect) => new RectangleF(rect.X, y, rect.Width, rect.Height)),
                            ("Width", (w, rect) => new RectangleF(rect.X, rect.Y, w, rect.Height)),
@@ -383,8 +360,8 @@ namespace AGS.Editor
 
     public class RectanglePropertyEditor : MultipleNumbersPropertyEditor<Rectangle>
     {
-        public RectanglePropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model, bool nullable) 
-            : base(actions, state, factory, model, true, nullable, null,
+        public RectanglePropertyEditor(ActionManager actions, IGameState state, IGameFactory factory, StateModel model) 
+            : base(actions, state, factory, model, true, null,
                            ("X", (x, rect) => new Rectangle((int)Math.Round(x), rect.Y, rect.Width, rect.Height)),
                            ("Y", (y, rect) => new Rectangle(rect.X, (int)Math.Round(y), rect.Width, rect.Height)),
                            ("Width", (w, rect) => new Rectangle(rect.X, rect.Y, (int)Math.Round(w), rect.Height)),
