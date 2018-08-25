@@ -34,6 +34,7 @@ namespace AGS.API
         /// <param name="border">Border.</param>
         /// <param name="textConfig">Text config.</param>
         /// <param name="tint">Tint.</param>
+        [MethodWizard]
         public ButtonAnimation(IBorderStyle border, ITextConfig textConfig, Color? tint)
         {
             Border = border;

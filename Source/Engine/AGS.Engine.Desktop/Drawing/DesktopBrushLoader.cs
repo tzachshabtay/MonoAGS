@@ -9,11 +9,13 @@ namespace AGS.Engine.Desktop
 	{
 		#region IBrushLoader implementation
 
+        [MethodWizard]
 		public IBrush LoadSolidBrush(AGS.API.Color color)
 		{
 			return DesktopBrush.Solid(color);
 		}
 
+        [MethodWizard]
 		public IBrush LoadLinearBrush(AGS.API.Point point1, AGS.API.Point point2, AGS.API.Color color1, AGS.API.Color color2)
 		{
 			return new DesktopBrush (new LinearGradientBrush (point1.Convert(), point2.Convert(), color1.Convert(), color2.Convert()));

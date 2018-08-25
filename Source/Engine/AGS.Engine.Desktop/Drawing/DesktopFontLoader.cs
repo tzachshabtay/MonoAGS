@@ -20,6 +20,7 @@ namespace AGS.Engine.Desktop
 			_familyLoader.InstallFonts(paths);
 		}
 
+        [MethodWizard]
 		public IFont LoadFont(string fontFamily, float sizeInPoints, AGS.API.FontStyle style)
 		{
             if (fontFamily == null)

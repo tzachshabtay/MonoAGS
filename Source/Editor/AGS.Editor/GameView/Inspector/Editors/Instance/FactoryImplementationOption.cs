@@ -17,6 +17,12 @@ namespace AGS.Editor
                 case nameof(IBorderFactory):
                     _factory = editor.Game.Factory.Graphics.Borders;
                     break;
+                case nameof(IBrushLoader):
+                    _factory = editor.Game.Factory.Graphics.Brushes;
+                    break;
+                case nameof(IFontLoader):
+                    _factory = editor.Game.Factory.Fonts;
+                    break;
                 default:
                     throw new NotSupportedException($"Not supported factory type: {attr.FactoryType}");
             }

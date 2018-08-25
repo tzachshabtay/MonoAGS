@@ -5,6 +5,7 @@ using System.Drawing;
 namespace AGS.Engine.Desktop
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
 	public class DesktopBrush : IBrush
 	{
 		public DesktopBrush(Brush brush)

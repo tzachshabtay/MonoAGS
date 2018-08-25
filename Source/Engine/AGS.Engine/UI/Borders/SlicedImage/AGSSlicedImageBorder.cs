@@ -53,9 +53,16 @@ namespace AGS.Engine
 
 		public bool DrawBorderBehind { get; set; }
 
+        [Property(Browsable = false)]
         public float WidthLeft => Width.Left.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthRight => Width.Right.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthTop => Width.Top.ToPixels(_height).Value;
+
+        [Property(Browsable = false)]
         public float WidthBottom => Width.Bottom.ToPixels(_height).Value;
 
         #region IBorderStyle implementation
