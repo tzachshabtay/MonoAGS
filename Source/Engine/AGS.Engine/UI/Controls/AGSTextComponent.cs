@@ -125,7 +125,7 @@ namespace AGS.Engine
 
         public bool TextVisible { get; set; }
 
-        public bool TextBackgroundVisible { get => _image.IsImageVisible; set => _image.IsImageVisible = value; }
+        public bool TextBackgroundVisible { get => _image?.IsImageVisible ?? false; set => _image.IsImageVisible = value; }
 
         [DoNotNotify]
         public SizeF LabelRenderSize
@@ -212,7 +212,7 @@ namespace AGS.Engine
         private void prepare(IViewport viewport)
         {
             if (!TextBackgroundVisible && !TextVisible) return;
-            if (!_visible.Visible) return;
+            if (!(_visible?.Visible ?? false)) return;
 
             _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
             _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, true);
