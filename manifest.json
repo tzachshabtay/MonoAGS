@@ -198,7 +198,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.ButtonAnimation.html",
-          "hash": "bQ7cXiQLCRAMK9y2S79wfA=="
+          "hash": "cJd/ZcV+OvwDE2OlX/j1kg=="
         }
       },
       "is_incremental": false,
@@ -738,7 +738,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IBrush.html",
-          "hash": "QXajGNzEo6FvJyLoQJemPA=="
+          "hash": "K4iCWeErOa1lfXDG9sMytg=="
         }
       },
       "is_incremental": false,
@@ -1374,7 +1374,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IFont.html",
-          "hash": "diDdwIXskG9VIR27zqnvvg=="
+          "hash": "gvnhMFtVPojCGcJu/ovzNA=="
         }
       },
       "is_incremental": false,
@@ -4205,11 +4205,11 @@
         "incrementalPhase": "build"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build"
         },
