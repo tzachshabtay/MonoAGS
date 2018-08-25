@@ -8268,6 +8268,103 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFontLoader.LoadFontFromPath
   nameWithType: IFontLoader.LoadFontFromPath
+- uid: AGS.API.IForm
+  name: IForm
+  href: api/AGS.API.IForm.html
+  commentId: T:AGS.API.IForm
+  fullName: AGS.API.IForm
+  nameWithType: IForm
+- uid: AGS.API.IForm.Contents
+  name: Contents
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Contents
+  commentId: P:AGS.API.IForm.Contents
+  fullName: AGS.API.IForm.Contents
+  nameWithType: IForm.Contents
+- uid: AGS.API.IForm.Contents*
+  name: Contents
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Contents_
+  commentId: Overload:AGS.API.IForm.Contents
+  isSpec: "True"
+  fullName: AGS.API.IForm.Contents
+  nameWithType: IForm.Contents
+- uid: AGS.API.IForm.Header
+  name: Header
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Header
+  commentId: P:AGS.API.IForm.Header
+  fullName: AGS.API.IForm.Header
+  nameWithType: IForm.Header
+- uid: AGS.API.IForm.Header*
+  name: Header
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Header_
+  commentId: Overload:AGS.API.IForm.Header
+  isSpec: "True"
+  fullName: AGS.API.IForm.Header
+  nameWithType: IForm.Header
+- uid: AGS.API.IForm.Height
+  name: Height
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Height
+  commentId: P:AGS.API.IForm.Height
+  fullName: AGS.API.IForm.Height
+  nameWithType: IForm.Height
+- uid: AGS.API.IForm.Height*
+  name: Height
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Height_
+  commentId: Overload:AGS.API.IForm.Height
+  isSpec: "True"
+  fullName: AGS.API.IForm.Height
+  nameWithType: IForm.Height
+- uid: AGS.API.IForm.Visible
+  name: Visible
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Visible
+  commentId: P:AGS.API.IForm.Visible
+  fullName: AGS.API.IForm.Visible
+  nameWithType: IForm.Visible
+- uid: AGS.API.IForm.Visible*
+  name: Visible
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Visible_
+  commentId: Overload:AGS.API.IForm.Visible
+  isSpec: "True"
+  fullName: AGS.API.IForm.Visible
+  nameWithType: IForm.Visible
+- uid: AGS.API.IForm.Width
+  name: Width
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Width
+  commentId: P:AGS.API.IForm.Width
+  fullName: AGS.API.IForm.Width
+  nameWithType: IForm.Width
+- uid: AGS.API.IForm.Width*
+  name: Width
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Width_
+  commentId: Overload:AGS.API.IForm.Width
+  isSpec: "True"
+  fullName: AGS.API.IForm.Width
+  nameWithType: IForm.Width
+- uid: AGS.API.IForm.X
+  name: X
+  href: api/AGS.API.IForm.html#AGS_API_IForm_X
+  commentId: P:AGS.API.IForm.X
+  fullName: AGS.API.IForm.X
+  nameWithType: IForm.X
+- uid: AGS.API.IForm.X*
+  name: X
+  href: api/AGS.API.IForm.html#AGS_API_IForm_X_
+  commentId: Overload:AGS.API.IForm.X
+  isSpec: "True"
+  fullName: AGS.API.IForm.X
+  nameWithType: IForm.X
+- uid: AGS.API.IForm.Y
+  name: Y
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Y
+  commentId: P:AGS.API.IForm.Y
+  fullName: AGS.API.IForm.Y
+  nameWithType: IForm.Y
+- uid: AGS.API.IForm.Y*
+  name: Y
+  href: api/AGS.API.IForm.html#AGS_API_IForm_Y_
+  commentId: Overload:AGS.API.IForm.Y
+  isSpec: "True"
+  fullName: AGS.API.IForm.Y
+  nameWithType: IForm.Y
 - uid: AGS.API.IFrameBuffer
   name: IFrameBuffer
   href: api/AGS.API.IFrameBuffer.html
@@ -16326,6 +16423,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetComboBox
   nameWithType: IUIFactory.GetComboBox
+- uid: AGS.API.IUIFactory.GetForm(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)
+  name: GetForm(String, String, Single, Single, Single, Single, Single, Boolean)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetForm_System_String_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Boolean_
+  commentId: M:AGS.API.IUIFactory.GetForm(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)
+  fullName: AGS.API.IUIFactory.GetForm(System.String, System.String, System.Single, System.Single, System.Single, System.Single, System.Single, System.Boolean)
+  nameWithType: IUIFactory.GetForm(String, String, Single, Single, Single, Single, Single, Boolean)
+- uid: AGS.API.IUIFactory.GetForm*
+  name: GetForm
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetForm_
+  commentId: Overload:AGS.API.IUIFactory.GetForm
+  isSpec: "True"
+  fullName: AGS.API.IUIFactory.GetForm
+  nameWithType: IUIFactory.GetForm
 - uid: AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,System.Boolean)
   name: GetLabel(String, String, Single, Single, Single, Single, IObject, ITextConfig, Boolean)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_
