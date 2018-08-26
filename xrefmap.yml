@@ -2614,6 +2614,23 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).TopRight
   nameWithType: FourCorners<TValue>.TopRight
   nameWithType.vb: FourCorners(Of TValue).TopRight
+- uid: AGS.API.FourCorners`1.ToString
+  name: ToString()
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_ToString
+  commentId: M:AGS.API.FourCorners`1.ToString
+  fullName: AGS.API.FourCorners<TValue>.ToString()
+  fullName.vb: AGS.API.FourCorners(Of TValue).ToString()
+  nameWithType: FourCorners<TValue>.ToString()
+  nameWithType.vb: FourCorners(Of TValue).ToString()
+- uid: AGS.API.FourCorners`1.ToString*
+  name: ToString
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_ToString_
+  commentId: Overload:AGS.API.FourCorners`1.ToString
+  isSpec: "True"
+  fullName: AGS.API.FourCorners<TValue>.ToString
+  fullName.vb: AGS.API.FourCorners(Of TValue).ToString
+  nameWithType: FourCorners<TValue>.ToString
+  nameWithType.vb: FourCorners(Of TValue).ToString
 - uid: AGS.API.HasFactoryAttribute
   name: HasFactoryAttribute
   href: api/AGS.API.HasFactoryAttribute.html
