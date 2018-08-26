@@ -48,7 +48,9 @@ namespace AGS.Engine
 			Bottom = edges.Bottom;
 		}
 
-		private void checkHorizontalEdges(PlayerState currentState, PlayerState lastState)
+        public override string ToString() => $"({Left}-{Right}), ({Bottom}-{Top})";
+
+        private void checkHorizontalEdges(PlayerState currentState, PlayerState lastState)
 		{
 			float previous = lastState.X;
 			float current = currentState.X;

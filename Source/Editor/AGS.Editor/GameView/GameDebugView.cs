@@ -59,7 +59,7 @@ namespace AGS.Editor
             _panel.ClickThrough = false;
             _editor.Editor.State.FocusedUI.CannotLoseFocus.Add(_panelId);
 
-            var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
+            var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game View", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
                                       _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
             headerLabel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);

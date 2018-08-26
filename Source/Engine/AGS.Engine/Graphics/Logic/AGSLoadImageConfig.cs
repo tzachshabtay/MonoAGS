@@ -17,7 +17,9 @@ namespace AGS.Engine
 
         public ITextureConfig TextureConfig { get; private set; }
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString() => "Load Image Config";
+    }
 }
 

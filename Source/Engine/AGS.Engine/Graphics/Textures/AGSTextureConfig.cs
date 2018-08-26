@@ -3,6 +3,7 @@
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Texture Config")]
     public class AGSTextureConfig : ITextureConfig
     {
         public AGSTextureConfig(ScaleDownFilters scaleDown = ScaleDownFilters.Nearest,
@@ -23,5 +24,22 @@ namespace AGS.Engine
         public TextureWrap WrapX { get; private set; }
 
         public TextureWrap WrapY { get; private set; }
+
+        public override string ToString() => $"{scaleToString()}, {wrapToString()}";
+
+        private string scaleToString()
+        {
+            if (ScaleDownFilter == ScaleDownFilters.Nearest && ScaleUpFilter == ScaleUpFilters.Nearest)
+                return "Nearest";
+            if (ScaleDownFilter == ScaleDownFilters.Nearest && ScaleUpFilter == ScaleUpFilters.Linear)
+                return "Linear";
+            return $"{ScaleDownFilter}, {ScaleUpFilter}";
+        }
+
+        private string wrapToString()
+        {
+            if (WrapX == WrapY) return WrapX.ToString();
+            return $"{WrapX},{WrapY}";
+        }
     }
 }

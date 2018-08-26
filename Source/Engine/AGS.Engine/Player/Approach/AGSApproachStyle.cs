@@ -5,6 +5,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Approach Style")]
 	public class AGSApproachStyle : IApproachStyle
 	{
 		public AGSApproachStyle()
@@ -27,7 +28,9 @@ namespace AGS.Engine
 			ApplyApproachStyleOnDefaults = style.ApplyApproachStyleOnDefaults;
 		}
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString() => $"Approach style ({ApproachWhenVerb.Count} verb(s) setup)";
+    }
 }
 

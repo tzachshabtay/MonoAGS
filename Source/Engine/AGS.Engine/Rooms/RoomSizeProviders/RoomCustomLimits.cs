@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(DisplayName = "Custom Limits")]
     public class RoomCustomLimits : IRoomLimitsProvider
     {
         RectangleF _customLimits;
@@ -18,5 +19,7 @@ namespace AGS.Engine
         {
             return _customLimits;
         }
+
+        public override string ToString() => $"Custom: {_customLimits.ToInspectorString()}";
     }
 }

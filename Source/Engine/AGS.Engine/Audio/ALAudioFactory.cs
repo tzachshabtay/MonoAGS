@@ -34,6 +34,7 @@ namespace AGS.Engine
 
         #region ISoundFactory implementation
 
+        [MethodWizard]
         public IAudioClip LoadAudioClip(string filePath, string id = null)
         {
             Debug.WriteLine("Loading AudioClip: " + filePath);

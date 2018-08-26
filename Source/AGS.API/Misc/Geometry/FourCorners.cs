@@ -83,6 +83,12 @@ namespace AGS.API
             return BottomLeft.Equals(other.BottomLeft) && BottomRight.Equals(other.BottomRight)
                              && TopLeft.Equals(other.TopLeft) && TopRight.Equals(other.TopRight);
         }
-	}
+
+        public override string ToString()
+        {
+            if (IsOneValue) return BottomLeft.ToString();
+            return "Four Corners";
+        }
+    }
 }
 

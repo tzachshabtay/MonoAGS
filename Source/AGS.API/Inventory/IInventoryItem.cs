@@ -3,6 +3,7 @@
     /// <summary>
     /// Represents an inventory item that a character can hold in his/her inventory.
     /// </summary>
+    [HasFactory(FactoryType = nameof(IInventoryFactory), MethodName = nameof(IInventoryFactory.GetInventoryItem))]
     public interface IInventoryItem
 	{
         /// <summary>

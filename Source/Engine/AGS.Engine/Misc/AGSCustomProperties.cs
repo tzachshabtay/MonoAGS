@@ -35,8 +35,10 @@ namespace AGS.Engine
             Entities.CopyFrom(properties.Entities);
 		}
 
-		#endregion
-	}
+        public override string ToString() => "Custom Properties";
+
+        #endregion
+    }
 
     public class AGSCustomPropertiesComponent : AGSComponent, ICustomPropertiesComponent
     {

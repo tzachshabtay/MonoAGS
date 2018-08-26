@@ -5,6 +5,7 @@ using System.Drawing;
 namespace AGS.Engine.Desktop
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
 	public class DesktopFont : IFont
 	{
         private readonly IFontLoader _fontLoader;
@@ -15,6 +16,7 @@ namespace AGS.Engine.Desktop
             _fontLoader = fontLoader;
 		}
 
+        [Property(Browsable = false)]
 		public Font InnerFont { get; }
 
         #region IFont implementation

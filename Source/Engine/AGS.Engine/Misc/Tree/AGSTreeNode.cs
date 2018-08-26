@@ -68,6 +68,14 @@ namespace AGS.Engine
             Node = null;
         }
 
+        public override string ToString()
+        {
+            var count = ChildrenCount;
+            var countString = count == 0 ? "No children" : count == 1 ? "1 child" : $"{count} children";
+            if (Parent == null) return countString;
+            return $"Child of {Parent.ToString()}, {countString}";
+        }
+
         public TItem Node { get; set; }
 
 		public TItem Parent

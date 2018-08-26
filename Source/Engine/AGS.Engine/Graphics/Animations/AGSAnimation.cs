@@ -136,6 +136,8 @@ namespace AGS.Engine
 			} 
 		}
 
+        public override string ToString() => $"{Frames.Count} frame(s)";
+
         #endregion
 
         private int getTimeForNextFrame(IAnimationFrame frame)

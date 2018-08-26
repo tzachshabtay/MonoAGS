@@ -12,20 +12,7 @@ namespace AGS.Editor
         public FactoryImplementationOption(HasFactoryAttribute attr, AGSEditor editor)
         {
             _editor = editor;
-            switch (attr.FactoryType)
-            {
-                case nameof(IBorderFactory):
-                    _factory = editor.Game.Factory.Graphics.Borders;
-                    break;
-                case nameof(IBrushLoader):
-                    _factory = editor.Game.Factory.Graphics.Brushes;
-                    break;
-                case nameof(IFontLoader):
-                    _factory = editor.Game.Factory.Fonts;
-                    break;
-                default:
-                    throw new NotSupportedException($"Not supported factory type: {attr.FactoryType}");
-            }
+            _factory = FactoryProvider.GetFactory(attr.FactoryType, editor.Game);
             Name = attr.MethodName;
         }
 

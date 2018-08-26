@@ -111,21 +111,9 @@ namespace AGS.Editor
             object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
                                                   val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
             var returnType = method is MethodInfo methodInfo ? methodInfo.ReturnType : null;
-            var model = new MethodModel { InstanceName = getFactoryName(factory), Name = method.Name, Parameters = values, ReturnType = returnType };
+            var model = new MethodModel { InstanceName = FactoryProvider.GetFactoryScriptName(factory, _editor.Game), Name = method.Name, Parameters = values, ReturnType = returnType };
             if (method is ConstructorInfo constructor) return (constructor.Invoke(values), model);
             return (method.Invoke(factory, values), model);
-        }
-
-        private string getFactoryName(object factory)
-        {
-            if (factory == null) return null; //constructor
-            if (factory == _editor.Game.Factory.UI) return "_factory.UI";
-            if (factory == _editor.Game.Factory.Object) return "_factory.Object";
-            if (factory == _editor.Game.Factory.Room) return "_factory.Room";
-            if (factory == _editor.Game.Factory.Graphics.Borders) return "_factory.Graphics.Borders";
-            if (factory == _editor.Game.Factory.Graphics.Brushes) return "_factory.Graphics.Brushes";
-            if (factory == _editor.Game.Factory.Fonts) return "_factory.Fonts";
-            throw new NotSupportedException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
         }
     }
 }

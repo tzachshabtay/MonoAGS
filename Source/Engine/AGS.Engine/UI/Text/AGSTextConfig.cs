@@ -4,6 +4,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Text Configuration")]
     public class AGSTextConfig : ITextConfig
     {
         private static IBrushLoader _brushes => AGSGame.Device.BrushLoader;
@@ -103,5 +104,7 @@ namespace AGS.Engine
         }
 
         public override int GetHashCode() => Font?.GetHashCode() ?? 0;
+
+        public override string ToString() => "Text Configuration";
     }
 }

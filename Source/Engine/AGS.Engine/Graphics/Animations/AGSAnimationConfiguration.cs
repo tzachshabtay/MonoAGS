@@ -23,6 +23,12 @@ namespace AGS.Engine
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString()
+        {
+            if (Loops == 0) return $"Repeating animation, looping: {Looping}, delay: {DelayBetweenFrames}";
+            return $"{Loops} loop(s), looping: {Looping}, delay: {DelayBetweenFrames}";
+        }
+    }
 }

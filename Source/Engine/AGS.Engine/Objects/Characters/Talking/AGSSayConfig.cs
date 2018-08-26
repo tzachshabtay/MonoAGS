@@ -46,7 +46,9 @@ namespace AGS.Engine
 
         public IPortraitConfig PortraitConfig { get; set; }
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString() => "Say Config";
+    }
 }
 

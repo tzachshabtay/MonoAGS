@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AGS.API;
 
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Directional Animation")]
 	public class AGSDirectionalAnimation : IDirectionalAnimation
 	{
 		public AGSDirectionalAnimation ()
@@ -41,6 +43,8 @@ namespace AGS.Engine
         }
 
         #endregion
+
+        public override string ToString() => $"{GetAllDirections().Count()} directions";
     }
 }
 

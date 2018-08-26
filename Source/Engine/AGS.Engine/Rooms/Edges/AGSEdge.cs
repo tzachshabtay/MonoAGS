@@ -19,7 +19,9 @@ namespace AGS.Engine
 
         public bool Enabled { get; set; }
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString() => Enabled ? $"{Value:0.##}" : "N/A";
+    }
 }
 

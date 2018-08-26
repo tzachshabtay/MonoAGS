@@ -24,7 +24,7 @@ namespace AGS.Editor
             public ComboItem(IImplementationOption implementation, string title)
             {
                 Implementation = implementation;
-                Text = implementation?.Name ?? "(null)";
+                Text = implementation?.Name ?? InspectorProperty.NullValue;
                 Title = title;
             }
 

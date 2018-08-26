@@ -30,7 +30,7 @@ namespace AGS.Editor
 
         public Type PropertyType => Prop.PropertyType;
 
-        public const string NullValue = "(null)";
+        public const string NullValue = "(None)";
 
         public object Value { get => Prop.GetValue(Object, null); set => Prop.SetValue(Object, value, null); }
 
