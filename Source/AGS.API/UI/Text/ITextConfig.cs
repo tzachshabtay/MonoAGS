@@ -126,6 +126,12 @@ namespace AGS.API
         /// </summary>
         /// <value>The bottom padding.</value>
         float PaddingBottom { get; set; }
+
+        /// <summary>
+        /// An optional minimum size for the label containing the text.
+        /// This will be enforced after <see cref="AutoFit"/> has taken place.
+        /// </summary>
+        /// <value>The minimum size of the label.</value>
+        SizeF? LabelMinSize { get; set; }
 	}
 }
-

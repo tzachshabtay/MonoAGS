@@ -16,7 +16,7 @@ namespace AGS.Engine
         public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
             IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f,
             Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
-            float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
+            float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f, SizeF? labelMinSize = null)
         {
             Brush = brush ?? _brushes.LoadSolidBrush(Colors.White);
             Font = font ?? AGSGame.Game?.Settings.Defaults.TextFont;
@@ -31,6 +31,7 @@ namespace AGS.Engine
             PaddingRight = paddingRight;
             PaddingTop = paddingTop;
             PaddingBottom = paddingBottom;
+            LabelMinSize = labelMinSize;
         }
 
         public static AGSTextConfig Clone(ITextConfig config)
@@ -86,6 +87,8 @@ namespace AGS.Engine
         public float PaddingRight { get; set; }
         public float PaddingTop { get; set; }
         public float PaddingBottom { get; set; }
+
+        public SizeF? LabelMinSize { get; set; }
 
         #endregion
 
