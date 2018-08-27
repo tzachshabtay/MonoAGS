@@ -299,8 +299,10 @@ namespace AGS.API
 		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
 		/// <param name="defaultHeight">If no textbox or dropdown button was provided, this will be the height of the combobox.</param>
         /// <param name="watermark">An optional watermark text to show when there's no text and the textbox is out of focus (i.e explanation text, see example here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl).</param>
+        /// <param name="dropDownPanelOffset">An optional vertical offset for the dropdown panel from the combobox</param>
         IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IUIControl> listItemFactory = null,
-                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "");
+                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, 
+                              string watermark = "", float dropDownPanelOffset = 0f);
 
         /// <summary>
         /// Creates a slider

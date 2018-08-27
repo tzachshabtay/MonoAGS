@@ -477,7 +477,7 @@ namespace AGS.Engine
             [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null, 
             [MethodParam(Browsable = false)]IObject parent = null, 
             [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
-            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
+            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "", float dropDownPanelOffset = 0f)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
@@ -516,7 +516,7 @@ namespace AGS.Engine
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y - dropDownPanelOffset);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
