@@ -18,7 +18,6 @@ namespace AGS.Editor
         private readonly ActionManager _actions;
         private readonly StateModel _model; 
         private List<(IObject control, INumberEditorComponent editor)> _panels;
-        private ICheckboxComponent _nullBox;
         private IProperty _property;
         private const float SLIDER_HEIGHT = 5f;
         private const float ROW_HEIGHT = 20f;
