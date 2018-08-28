@@ -21,9 +21,11 @@ namespace AGS.Editor
 
         public Dictionary<InspectorCategory, List<IProperty>> GetProperties()
         {
+            var parameters = _method.GetParameters();
+            if (parameters.Length == 0) return _props;
+
             InspectorCategory cat = new InspectorCategory("General");
             _props[cat] = new List<IProperty>();
-            var parameters = _method.GetParameters();
             foreach (var parameter in parameters)
             {
                 if (_hideProperties.Contains(parameter.Name)) continue;

@@ -74,7 +74,11 @@ namespace AGS.Editor
             _inspector.Inspector.SortValues = false;
 
             var methodDescriptor = new MethodTypeDescriptor(_method, _hideProperties, _overrideDefaults);
-            _inspector.Show(methodDescriptor);
+            if (!_inspector.Show(methodDescriptor) && _addUiExternal == null)
+            {
+                closeForm(new Dictionary<string, object>());
+                return;
+            }
 
             _addUiExternal?.Invoke(_form.Contents);
             addButtons();
@@ -147,20 +151,23 @@ namespace AGS.Editor
                     if (!await _validate(map)) return;
                 }
 
-                _modal?.LoseFocus();
-                _form.Header.DestroyWithChildren(_editor.Editor.State);
-                _taskCompletionSource.TrySetResult(map);
+                closeForm(map);
             });
 
             var cancelButton = factory.UI.GetButton($"MethodWizardCancelButton{_idSuffix}", idle, hovered, pushed, 0f, 0f, buttonsPanel, "Cancel", width: buttonWidth, height: 20f);
             cancelButton.MouseClicked.Subscribe(() =>
             {
-                _modal?.LoseFocus();
-                _form.Header.DestroyWithChildren(_editor.Editor.State);
-                _taskCompletionSource.TrySetResult(null);
+                closeForm(null);
             });
 
             layout.StartLayout();
+        }
+
+        private void closeForm(Dictionary<string, object> map)
+        {
+            _modal?.LoseFocus();
+            _form.Header.DestroyWithChildren(_editor.Editor.State);
+            _taskCompletionSource.TrySetResult(map);
         }
     }
 }

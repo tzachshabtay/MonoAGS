@@ -78,12 +78,13 @@ namespace AGS.Editor
             _inspectorNodeView.Resize(_contentsPanel.Width);
 		}
 
-        public void Show(object obj)
+        public bool Show(object obj)
         {
             var cropChildren = _contentsPanel.GetComponent<ICropChildrenComponent>();
             cropChildren.CropChildrenEnabled = false;
-            Inspector.Show(obj);
+            var result = Inspector.Show(obj);
             cropChildren.CropChildrenEnabled = true;
+            return result;
         }
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)

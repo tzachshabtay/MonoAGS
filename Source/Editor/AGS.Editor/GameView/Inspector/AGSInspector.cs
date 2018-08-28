@@ -51,7 +51,7 @@ namespace AGS.Editor
             Entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree(); }, _ => _treeView = null);
         }
 
-        public void Show(object obj)
+        public bool Show(object obj)
         {
             cleanup();
             SelectedObject = obj;
@@ -59,7 +59,10 @@ namespace AGS.Editor
             GC.Collect(2, GCCollectionMode.Forced);
             var descriptor = getTypeDescriptor(obj);
             _props = descriptor.GetProperties();
+            if (_props.Count == 0) return false;
+
             refreshTree();
+            return true;
         }
 
         public void Undo() => _actions.Undo();
