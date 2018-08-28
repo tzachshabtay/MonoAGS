@@ -4305,6 +4305,15 @@ references:
   commentId: T:AGS.API.IBorderFactory
   fullName: AGS.API.IBorderFactory
   nameWithType: IBorderFactory
+- uid: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},AGS.API.FourCorners{System.Boolean},System.Single)
+  name: Gradient(FourCorners<Color>, FourCorners<Boolean>, Single)
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__AGS_API_FourCorners_System_Boolean__System_Single_
+  commentId: M:AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},AGS.API.FourCorners{System.Boolean},System.Single)
+  name.vb: Gradient(FourCorners(Of Color), FourCorners(Of Boolean), Single)
+  fullName: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners<AGS.API.Color>, AGS.API.FourCorners<System.Boolean>, System.Single)
+  fullName.vb: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners(Of AGS.API.Color), AGS.API.FourCorners(Of System.Boolean), System.Single)
+  nameWithType: IBorderFactory.Gradient(FourCorners<Color>, FourCorners<Boolean>, Single)
+  nameWithType.vb: IBorderFactory.Gradient(FourCorners(Of Color), FourCorners(Of Boolean), Single)
 - uid: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},System.Single,System.Boolean)
   name: Gradient(FourCorners<Color>, Single, Boolean)
   href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_
