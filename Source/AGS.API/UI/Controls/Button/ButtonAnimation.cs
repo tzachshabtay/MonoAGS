@@ -8,6 +8,7 @@ namespace AGS.API
     /// border, background color (tint) or text rendering configuration (font, shadows, etc- <see cref="ITextConfig"/>).
     /// </summary>
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Button State Animation")]
     public class ButtonAnimation
     {
         /// <summary>
@@ -34,12 +35,20 @@ namespace AGS.API
         /// <param name="border">Border.</param>
         /// <param name="textConfig">Text config.</param>
         /// <param name="tint">Tint.</param>
-        [MethodWizard]
         public ButtonAnimation(IBorderStyle border, ITextConfig textConfig, Color? tint)
         {
             Border = border;
             TextConfig = textConfig;
             Tint = tint;
+        }
+
+        [MethodWizard]
+        public ButtonAnimation(IAnimation animation, IBorderStyle border, ITextConfig textConfig, Color? tint)
+        {
+            Border = border;
+            TextConfig = textConfig;
+            Tint = tint;
+            Animation = animation;
         }
 
         /// <summary>
