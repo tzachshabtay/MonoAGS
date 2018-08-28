@@ -966,6 +966,15 @@ references:
   commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation)
   fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation)
   nameWithType: ButtonAnimation.ButtonAnimation(IAnimation)
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name: ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable<Color>)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IAnimation_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name.vb: ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable(Of Color))
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
+  nameWithType: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable<Color>)
+  nameWithType.vb: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable(Of Color))
 - uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
   name: ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
   href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
