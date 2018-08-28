@@ -177,27 +177,28 @@ namespace AGS.Editor
         private void addArrowButtons(string id, IObject panel,
                                      INumberEditorComponent numberEditor, float x)
         {
-            var icons = _factory.Graphics.Icons;
-            var arrowUpIdle = icons.GetArrowIcon(ArrowDirection.Up, Colors.White);
-            var arrowDownIdle = icons.GetArrowIcon(ArrowDirection.Down, Colors.White);
-            var arrowUpHovered = icons.GetArrowIcon(ArrowDirection.Up, Colors.Black);
-            var arrowDownHovered = icons.GetArrowIcon(ArrowDirection.Down, Colors.Black);
+            var textConfig = FontIcons.TinyButtonConfig;
+            var hoveredConfig = AGSTextConfig.ChangeColor(textConfig, Colors.Black, Colors.White, 0f);
+
+            var idle = new ButtonAnimation(null, textConfig, Colors.Purple);
+            var hover = new ButtonAnimation(null, hoveredConfig, Colors.Yellow);
+            var pushed = new ButtonAnimation(null, textConfig, Colors.Blue);
+
             var buttonsPanel = _factory.UI.GetPanel(id + "_ButtonsPanel", 1f, 1f, 0f, 0f, panel);
             buttonsPanel.RenderLayer = panel.RenderLayer;
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
-            float buttonBottomPadding = 7f;
+            float buttonBottomPadding = 1f;
             float betweenButtonsPadding = 1f;
-            float buttonHeight = halfRowHeight - betweenButtonsPadding * 2;
-            var upButton = _factory.UI.GetButton(id + "_UpButton", new ButtonAnimation(arrowUpIdle, null, Colors.Purple),
-                                              new ButtonAnimation(arrowUpHovered, null, Colors.Yellow), new ButtonAnimation(arrowUpIdle, null, Colors.Blue),
-                                              x, buttonBottomPadding + buttonHeight + betweenButtonsPadding, buttonsPanel, width: 20f, height: buttonHeight);
+            float buttonHeight = halfRowHeight + 5f - betweenButtonsPadding * 2;
+
+            var upButton = _factory.UI.GetButton(id + "_UpButton", idle, hover, pushed, x, buttonBottomPadding + buttonHeight + betweenButtonsPadding, 
+                                                 buttonsPanel, FontIcons.CaretUp, width: 20f, height: buttonHeight);
             upButton.RenderLayer = panel.RenderLayer;
             upButton.Z = panel.Z;
 
-            var downButton = _factory.UI.GetButton(id + "_DownButton", new ButtonAnimation(arrowDownIdle, null, Colors.Purple),
-                                                new ButtonAnimation(arrowDownHovered, null, Colors.Yellow), new ButtonAnimation(arrowDownIdle, null, Colors.Blue),
-                                                x, buttonBottomPadding, buttonsPanel, width: 20f, height: buttonHeight);
+            var downButton = _factory.UI.GetButton(id + "_DownButton", idle, hover, pushed, x, buttonBottomPadding, 
+                                                   buttonsPanel, FontIcons.CaretDown, width: 20f, height: buttonHeight);
             downButton.RenderLayer = panel.RenderLayer;
             downButton.Z = panel.Z;
             numberEditor.UpButton = upButton;

@@ -16,11 +16,21 @@ namespace AGS.Editor
 
             ButtonConfig = new AGSTextConfig(font: font, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
                                            paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
+
+            var tinyFont = fontLoader.LoadFontFromPath(path, 8f, FontStyle.Regular);
+            TinyButtonConfig = new AGSTextConfig(font: tinyFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
+                                                 paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
+
+            TinyButtonConfigHovered = AGSTextConfig.ChangeColor(TinyButtonConfig, Colors.Black, Colors.White, 0f);
         }
 
         public static ITextConfig IconConfig { get; private set; }
 
         public static ITextConfig ButtonConfig { get; private set; }
+
+        public static ITextConfig TinyButtonConfig { get; private set; }
+
+        public static ITextConfig TinyButtonConfigHovered { get; private set; }
 
         //https://fontawesome.com/cheatsheet
 
@@ -41,5 +51,6 @@ namespace AGS.Editor
         public const string SubMenu = "\uf105";
 
         public const string CaretDown = "\uf0d7";
+        public const string CaretUp = "\uf0d8";
     }
 }
