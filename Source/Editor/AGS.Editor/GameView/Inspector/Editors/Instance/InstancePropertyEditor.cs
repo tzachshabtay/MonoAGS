@@ -33,7 +33,7 @@ namespace AGS.Editor
             public string Title { get; }
         }
 
-        public InstancePropertyEditor(IUIFactory factory, ActionManager actions, StateModel model, AGSEditor editor, 
+        public InstancePropertyEditor(IGameFactory factory, ActionManager actions, StateModel model, AGSEditor editor, 
                                       IForm parentForm, Action refreshNode)
         {
             _refreshNode = refreshNode;

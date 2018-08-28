@@ -26,6 +26,11 @@ namespace AGS.Engine
             return new AGSColoredBorder(_gLUtils, lineWidth, color, new FourCorners<bool>(hasRoundCorners));
         }
 
+        public IBorderStyle Gradient(FourCorners<Color> color, FourCorners<bool> hasRoundCorners, float lineWidth = 10)
+        {
+            return new AGSColoredBorder(_gLUtils, lineWidth, color, hasRoundCorners);
+        }
+
         [MethodWizard]
         public IBorderStyle Multiple(params IBorderStyle[] borders) => new AGSMultipleBorders(borders);
     }

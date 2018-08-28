@@ -57,10 +57,10 @@ namespace AGS.Editor
                 }
                 else throw new NotSupportedException($"Nullable type {propType} is not yet supported.");
             }
-            if (propType.IsEnum) return new EnumPropertyEditor(_factory.UI, _actions, _model);
+            if (propType.IsEnum) return new EnumPropertyEditor(_factory, _actions, _model);
             if (propType.IsInterface || propType.IsClass)
             {
-                return new InstancePropertyEditor(_factory.UI, _actions, _model, _editor, _parentForm, refreshNode);
+                return new InstancePropertyEditor(_factory, _actions, _model, _editor, _parentForm, refreshNode);
             }
             return new StringPropertyEditor(_factory, false, _actions, _model);
         }

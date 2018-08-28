@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -34,10 +35,9 @@ namespace AGS.Editor
             _property = property;
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
-            _combobox = _factory.UI.GetComboBox($"{id}_Combobox", null, null, null, panel, defaultWidth: 200f, defaultHeight: 25f);
+            _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel);
             _dropDownButton = _combobox.DropDownButton;
             _text = _combobox.TextBox;
-            _text.TextBackgroundVisible = false;
             _combobox.DropDownPanelList.Items.AddRange(_colorList);
             _combobox.Z = label.Z;
 
@@ -51,14 +51,6 @@ namespace AGS.Editor
             }
 
             RefreshUI();
-            _text.TextConfig.AutoFit = AutoFit.TextShouldFitLabel;
-            _text.TextConfig.Alignment = Alignment.MiddleLeft;
-            _text.TextBackgroundVisible = true;
-            _text.Border = _factory.Graphics.Borders.SolidColor(Colors.White, 2f);
-            var whiteBrush = _text.TextConfig.Brush;
-            var yellowBrush = _factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-            _text.MouseEnter.Subscribe(_ => { _text.TextConfig.Brush = yellowBrush; });
-            _text.MouseLeave.Subscribe(_ => { _text.TextConfig.Brush = whiteBrush; });
             _text.OnPressingKey.Subscribe(onTextboxPressingKey);
             _combobox.SuggestMode = ComboSuggest.Suggest;
             _combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
@@ -91,6 +83,13 @@ namespace AGS.Editor
                 _property.Value = color;
             }
 
+            Action onBoxChanged = null;
+            onBoxChanged = () =>
+            {
+                _colorLabel.X = _text.WorldBoundingBox.Width + 40f;
+                _text.OnBoundingBoxesChanged.Unsubscribe(onBoxChanged);
+            };
+            _text.OnBoundingBoxesChanged.Subscribe(onBoxChanged);
             _text.Text = color.Value == 0 ? "" : color.ToString();
             _colorLabel.Tint = color;
             _combobox.Visible = true;

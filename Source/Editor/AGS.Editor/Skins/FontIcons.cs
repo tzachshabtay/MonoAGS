@@ -39,5 +39,7 @@ namespace AGS.Editor
         public const string Pointer = "\uf245";
 
         public const string SubMenu = "\uf105";
+
+        public const string CaretDown = "\uf0d7";
     }
 }

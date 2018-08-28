@@ -11,7 +11,7 @@ namespace AGS.Editor
     {
         private readonly SelectEditor _editor;
 
-        public EnumPropertyEditor(IUIFactory factory, ActionManager actions, StateModel model)
+        public EnumPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _editor = new SelectEditor(factory, actions, model, getOptions, getValue);
         }

@@ -50,7 +50,13 @@ namespace AGS.Editor
 
         private void refreshChecked()
         {
-            _nullBox.Checked = (_property.ValueString != InspectorProperty.NullValue);
+            bool newChecked = (_property.ValueString != InspectorProperty.NullValue);
+            if (_nullBox.Checked == newChecked) 
+            {
+                _editor.RefreshUI();
+                return;
+            }
+            _nullBox.Checked = newChecked;
         }
     }
 }

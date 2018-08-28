@@ -6,6 +6,8 @@ namespace AGS.Editor
 {
     public static class GameViewColors
     {
+        private static IBorderFactory borders() => AGSGame.Game.Factory.Graphics.Borders;
+
         public static Color Panel = Color.FromRgba(53, 64, 81, 250);
         public static Color Border = Color.FromRgba(44, 51, 61, 255);
         public static Color Text = Colors.WhiteSmoke;
@@ -18,10 +20,20 @@ namespace AGS.Editor
         public static Color Textbox = Border;
         public static Color Menu = Border;
         public static Color HoveredMenuItem = Colors.DarkBlue;
-        public static Color TextboxColor = Color.FromHexa(0x2d323a).WithAlpha(255);
-        public static Color TextboxHoverColor = Color.FromHexa(0x505660).WithAlpha(255);
-        public static IBorderStyle TextboxBorder = AGSGame.Game.Factory.Graphics.Borders.SolidColor(TextboxColor, 3f, true);
-        public static IBorderStyle TextboxHoverBorder = AGSGame.Game.Factory.Graphics.Borders.SolidColor(TextboxHoverColor, 3f, true);
+        public static Color TextEditor = Color.FromHexa(0x2d323a).WithAlpha(255);
+        public static Color HoveredTextEditor = Color.FromHexa(0x505660).WithAlpha(255);
+        public static Color PushedTextEditor = Color.FromHexa(0x282b30).WithAlpha(255);
+        public static IBorderStyle TextEditorBorder = borders().SolidColor(TextEditor, 3f, true);
+        public static IBorderStyle HoveredTextEditorBorder = borders().SolidColor(HoveredTextEditor, 3f, true);
+        public static IBorderStyle DropDownBorder = borders().SolidColor(PushedTextEditor, 3f, true);
+        public static IBorderStyle ComboboxTextBorder = borders().Gradient(new FourCorners<Color>(TextEditor),
+                                                                           new FourCorners<bool>(true, false, true, false), 3f);
+        public static IBorderStyle HoveredComboboxTextBorder = borders().Gradient(new FourCorners<Color>(HoveredTextEditor),
+                                                                           new FourCorners<bool>(true, false, true, false), 3f);
+        public static IBorderStyle ComboboxButtonBorder = borders().Gradient(new FourCorners<Color>(TextEditor),
+                                                                           new FourCorners<bool>(false, true, false, true), 3f);
+        public static IBorderStyle HoveredComboboxButtonBorder = borders().Gradient(new FourCorners<Color>(HoveredTextEditor),
+                                                                           new FourCorners<bool>(false, true, false, true), 3f);
 
         public static IBrush TextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Text);
         public static IBrush HoveredTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);
@@ -33,24 +45,33 @@ namespace AGS.Editor
              font: AGSGame.Device.FontLoader.LoadFont(AGSGame.Game.Settings.Defaults.TextFont.FontFamily, 12f));
         public static ITextConfig ButtonHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
         public static ITextConfig TextboxHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, brush: HoveredTextBrush);
+        public static ITextConfig ComboboxTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
+        public static ITextConfig ComboboxHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
 
-        public static void AddHoverEffect(ITextBox textbox)
+        public static void AddHoverEffect(ITextBox textbox, 
+                                          IBorderStyle border = null, IBorderStyle hoveredBorder = null,
+                                          ITextConfig textConfig = null, ITextConfig hoveredTextConfig = null)
         {
             textbox.TextBackgroundVisible = true;
-            textbox.Tint = TextboxColor;
-            textbox.Border = TextboxBorder;
+            textbox.Tint = TextEditor;
+            border = border ?? TextEditorBorder;
+            hoveredBorder = hoveredBorder ?? HoveredTextEditorBorder;
+            textConfig = textConfig ?? TextboxTextConfig;
+            hoveredTextConfig = hoveredTextConfig ?? TextboxHoverTextConfig;
+            textbox.Border = border;
+            textbox.TextConfig = textConfig;
             var uiEvents = textbox.GetComponent<IUIEvents>();
             uiEvents.MouseEnter.Subscribe(_ =>
             {
-                textbox.TextConfig = TextboxHoverTextConfig;
-                textbox.Tint = TextboxHoverColor;
-                textbox.Border = TextboxHoverBorder;
+                textbox.TextConfig = hoveredTextConfig;
+                textbox.Tint = HoveredTextEditor;
+                textbox.Border = hoveredBorder;
             });
             uiEvents.MouseLeave.Subscribe(_ => 
             {
-                textbox.TextConfig = TextboxTextConfig;
-                textbox.Tint = TextboxColor;
-                textbox.Border = TextboxBorder;
+                textbox.TextConfig = textConfig;
+                textbox.Tint = TextEditor;
+                textbox.Border = border;
             });
         }
     }
