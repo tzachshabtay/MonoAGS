@@ -19,7 +19,7 @@ namespace AGS.Editor
 
             var tinyFont = fontLoader.LoadFontFromPath(path, 8f, FontStyle.Regular);
             TinyButtonConfig = new AGSTextConfig(font: tinyFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
-                                                 paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
+                                                 paddingLeft: -1f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
 
             TinyButtonConfigHovered = AGSTextConfig.ChangeColor(TinyButtonConfig, Colors.Black, Colors.White, 0f);
         }

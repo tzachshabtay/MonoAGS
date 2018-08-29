@@ -154,7 +154,7 @@ namespace AGS.Editor
             });
             numberEditor.OnValueChanged.Subscribe(onValueChanged);
             panel.OnDisposed(() => numberEditor.OnValueChanged.Unsubscribe(onValueChanged));
-            x += textbox.Width;
+            x += textbox.Width + 5f;
             addArrowButtons(id, panel, numberEditor, x);
             editor.ConfigureNumberEditor(property, numberEditor);
             return (panel, numberEditor);
@@ -189,16 +189,16 @@ namespace AGS.Editor
             buttonsPanel.Tint = Colors.Transparent;
             float halfRowHeight = ROW_HEIGHT / 2f;
             float buttonBottomPadding = 1f;
-            float betweenButtonsPadding = 1f;
-            float buttonHeight = halfRowHeight + 5f - betweenButtonsPadding * 2;
+            float betweenButtonsPadding = 2f;
+            float buttonHeight = halfRowHeight + 6f - betweenButtonsPadding * 2;
 
             var upButton = _factory.UI.GetButton(id + "_UpButton", idle, hover, pushed, x, buttonBottomPadding + buttonHeight + betweenButtonsPadding, 
-                                                 buttonsPanel, FontIcons.CaretUp, width: 20f, height: buttonHeight);
+                                                 buttonsPanel, FontIcons.CaretUp, width: 15f, height: buttonHeight);
             upButton.RenderLayer = panel.RenderLayer;
             upButton.Z = panel.Z;
 
             var downButton = _factory.UI.GetButton(id + "_DownButton", idle, hover, pushed, x, buttonBottomPadding, 
-                                                   buttonsPanel, FontIcons.CaretDown, width: 20f, height: buttonHeight);
+                                                   buttonsPanel, FontIcons.CaretDown, width: 15f, height: buttonHeight);
             downButton.RenderLayer = panel.RenderLayer;
             downButton.Z = panel.Z;
             numberEditor.UpButton = upButton;
