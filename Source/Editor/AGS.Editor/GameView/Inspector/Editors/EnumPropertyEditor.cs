@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -23,13 +24,18 @@ namespace AGS.Editor
 
         public void RefreshUI() => _editor.RefreshUI();
 
+        private class ComboItem : AGSStringItem 
+        {
+            public object Value { get; set; } 
+        }
+
         private List<IStringItem> getOptions(IProperty property)
         {
             var list = new List<IStringItem>();
             Type enumType = property.PropertyType;
             foreach (var option in Enum.GetValues(enumType))
             {
-                list.Add(new AGSStringItem { Text = option.ToString() });
+                list.Add(new ComboItem { Text = option.ToString().Humanize(), Value = option });
             }
             return list;
         }
@@ -37,7 +43,8 @@ namespace AGS.Editor
         private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property, Action closeCombobox)
         {
             Type enumType = property.PropertyType;
-            return Task.FromResult(new SelectEditor.ReturnValue(Enum.Parse(enumType, item.Text), false));
+            var comboItem = (ComboItem)item;
+            return Task.FromResult(new SelectEditor.ReturnValue(comboItem.Value, false));
         }
     }
 }

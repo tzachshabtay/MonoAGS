@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AGS.API;
 using AGS.Engine;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -20,7 +21,7 @@ namespace AGS.Editor
         {
             foreach (var component in _entity)
             {
-                InspectorCategory cat = new InspectorCategory(component.Name);
+                InspectorCategory cat = new InspectorCategory(component.Name.Humanize());
                 ObjectTypeDescriptor.AddProperties(cat, component, _props);
             }
             addEntityProps(_entity);

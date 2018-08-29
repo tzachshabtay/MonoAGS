@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -16,12 +17,15 @@ namespace AGS.Editor
         public MethodParam(ParameterInfo parameter, object obj, object overrideDefault = null)
         {
             _param = parameter;
+            DisplayName = Name.Humanize();
             Object = obj;
             Children = new List<IProperty>();
             Value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType));
         }
 
         public string Name => _param.Name;
+
+        public string DisplayName { get; }
 
         public object Object { get; }
 

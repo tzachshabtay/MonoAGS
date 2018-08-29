@@ -12,7 +12,7 @@ namespace AGS.Editor
 		{
 			TreeNode = new AGSTreeNode<ITreeStringNode>(this);
 			_item = new AGSStringItem(font);
-            Text = property.Name;
+            Text = property.DisplayName;
             Property = property;
             Editor = editor;
 		}

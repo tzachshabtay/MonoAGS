@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using AGS.API;
+using Humanizer;
 
 namespace AGS.Editor
 {
     public class TypeImplementationOption : IImplementationOption
     {
         private readonly Type _type;
-        private readonly string _displayName;
         private readonly AGSEditor _editor;
 
         public TypeImplementationOption(Type type, Type targetType, AGSEditor editor)
@@ -20,10 +20,10 @@ namespace AGS.Editor
             }
             else _type = type;
             var attr = type.GetCustomAttribute<ConcreteImplementationAttribute>();
-            _displayName = attr?.DisplayName;
+            Name = attr?.DisplayName ?? _type.Name.Humanize();
         }
 
-        public string Name => _displayName ?? _type.Name;
+        public string Name { get; }
 
         public async Task<SelectEditor.ReturnValue> Create(IForm parentForm, string title)
         {

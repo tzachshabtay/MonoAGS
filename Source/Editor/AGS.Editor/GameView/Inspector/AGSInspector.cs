@@ -98,7 +98,7 @@ namespace AGS.Editor
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
                 ITreeStringNode cat = skipCategories ? root : addToTree(pair.Key.Name, root);
-                IEnumerable<IProperty> values = SortValues ? pair.Value.OrderBy(p => p.Name) : (IEnumerable<IProperty>)pair.Value;
+                IEnumerable<IProperty> values = SortValues ? pair.Value.OrderBy(p => p.DisplayName) : (IEnumerable<IProperty>)pair.Value;
                 foreach (var prop in values)
                 {
                     addToTree(cat, prop);

@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a font which is used when drawing text.
     /// </summary>
-    [HasFactory(FactoryType = nameof(IFontLoader), MethodName = nameof(IFontLoader.LoadFont))]
+    [HasFactory(FactoryType = nameof(IFontLoader), MethodName = nameof(IFontLoader.LoadFont), DisplayName = "Font")]
     public interface IFont
 	{
         /// <summary>

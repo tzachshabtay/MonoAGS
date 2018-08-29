@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -43,13 +44,14 @@ namespace AGS.Editor
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             string name = prop.Name;
+            string displayName = null;
             if (attr != null)
             {
                 if (!attr.Browsable) return null;
                 if (attr.Category != null) cat = new InspectorCategory(attr.Category, attr.CategoryZ, attr.CategoryExpand);
-                if (attr.DisplayName != null) name = attr.DisplayName;
+                displayName = attr.DisplayName;
             }
-            InspectorProperty property = new InspectorProperty(obj, name, prop);
+            InspectorProperty property = new InspectorProperty(obj, name, prop, displayName);
             RefreshChildrenProperties(property);
             return property;
         }

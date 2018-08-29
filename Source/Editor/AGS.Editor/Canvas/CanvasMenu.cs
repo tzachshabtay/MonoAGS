@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -90,7 +91,7 @@ namespace AGS.Editor
         private async void showWizard(string name, Target target, object factory, string methodName)
         {
             _topMenu.Visible = false;
-            FactoryWizard wizard = new FactoryWizard(null, name, _editor, panel => addTargetUIForCreate(panel, target), validate, defaults => setDefaults(name, defaults));
+            FactoryWizard wizard = new FactoryWizard(null, name.Humanize(), _editor, panel => addTargetUIForCreate(panel, target), validate, defaults => setDefaults(name, defaults));
             (object result, MethodModel model, MethodWizardAttribute methodAttribute) = await wizard.RunMethod(factory, methodName);
             if (model == null) return;
             List<object> entities = getEntities(factory, result, methodAttribute);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AGS.API;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -13,7 +14,7 @@ namespace AGS.Editor
         {
             _editor = editor;
             _factory = FactoryProvider.GetFactory(attr.FactoryType, editor.Game);
-            Name = attr.MethodName;
+            Name = attr.DisplayName ?? attr.MethodName.Humanize();
         }
 
         public string Name { get; }

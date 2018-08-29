@@ -55,11 +55,11 @@ namespace AGS.Editor
 
         private List<IStringItem> getOptions(IProperty property)
         {
-            var list = new List<IStringItem> { new ComboItem(null, property.Name) };
+            var list = new List<IStringItem> { new ComboItem(null, property.DisplayName) };
             var implementations = _interfaces.GetOrAdd(property.PropertyType, getImplementations);
             foreach (var option in implementations)
             {
-                list.Add(new ComboItem(option, property.Name));
+                list.Add(new ComboItem(option, property.DisplayName));
             }
             return list;
         }

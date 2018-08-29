@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -11,22 +12,24 @@ namespace AGS.Editor
         private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
             new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
 
-		public InspectorProperty(object obj, string name, PropertyInfo prop)
+		public InspectorProperty(object obj, string name, PropertyInfo prop, string displayName = null)
 		{
 			Prop = prop;
 			Name = name;
+            DisplayName = displayName ?? name.Humanize();
 			Object = obj;
 			Children = new List<IProperty>();
             IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
 		}
 
-		public string Name { get; private set; }
+		public string Name { get; }
+        public string DisplayName { get; }
 		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
-		public object Object { get; private set; }
-		public List<IProperty> Children { get; private set; }
-        public bool IsReadonly { get; private set; }
+		public object Object { get; }
+		public List<IProperty> Children { get; }
+        public bool IsReadonly { get; }
 
         public Type PropertyType => Prop.PropertyType;
 

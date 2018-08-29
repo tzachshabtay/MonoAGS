@@ -3,8 +3,8 @@
     /// <summary>
     /// A brush which can be used to draw. 
     /// </summary>
-    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadSolidBrush))]
-    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadLinearBrush))]
+    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadSolidBrush), DisplayName = "Solid Brush")]
+    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadLinearBrush), DisplayName = "Linear Brush")]
     public interface IBrush
 	{
         /// <summary>

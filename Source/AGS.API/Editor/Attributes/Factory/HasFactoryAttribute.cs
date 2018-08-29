@@ -20,5 +20,11 @@ namespace AGS.API
         /// </summary>
         /// <value>The name of the method.</value>
         public string MethodName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        /// <value>The display name.</value>
+        public string DisplayName { get; set; }
     }
 }

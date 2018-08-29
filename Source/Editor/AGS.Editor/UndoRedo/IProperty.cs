@@ -6,6 +6,7 @@ namespace AGS.Editor
     public interface IProperty
     {
         string Name { get; }
+        string DisplayName { get; }
         object Object { get; }
         object Value { get; set; }
         string ValueString { get; }

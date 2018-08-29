@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AGS.API;
 using GuiLabs.Undo;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -62,7 +63,7 @@ namespace AGS.Editor
             var list = _getOptions(property);
             combobox.DropDownPanelList.Items.AddRange(list);
             combobox.Z = label.Z;
-            combobox.TextBox.Text = property.ValueString;
+            combobox.TextBox.Text = property.ValueString.Humanize();
             if (list.Count > 5) //If more than 5 items in the dropdown, let's have it with textbox suggestions as user might prefer to type for filtering the dropdown
             {
                 combobox.SuggestMode = ComboSuggest.Enforce;
