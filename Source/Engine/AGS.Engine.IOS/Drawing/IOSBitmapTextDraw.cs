@@ -56,7 +56,7 @@ namespace AGS.Engine.IOS
             _config = config;
             _text = text;
 
-            float left = xOffset + _config.AlignX(textSize.Width, baseSize);
+            float centerX = xOffset + _config.AlignX(textSize.Width, baseSize);
 
             //Unlike desktop and android which start the bitmap from the top (and draws the text from the top),
             //in ios the bitmap starts from the bottom (and draws the text from the bottom), so we need to adjust
@@ -64,7 +64,7 @@ namespace AGS.Engine.IOS
             float topOfTextFromTopOfBitmap = _config.AlignY(_image.CGImage.Height, textSize.Height, baseSize);
             float bottom = _image.CGImage.Height - (topOfTextFromTopOfBitmap + textSize.Height);
 
-            float centerX = left + _config.OutlineWidth / 2f;
+            float left = centerX - _config.OutlineWidth / 2f;
             float centerY = bottom - _config.OutlineWidth / 2f;
             float right = left + _config.OutlineWidth;
             float top = bottom - _config.OutlineWidth;
