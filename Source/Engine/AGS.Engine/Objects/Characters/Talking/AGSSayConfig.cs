@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -14,7 +15,11 @@ namespace AGS.Engine
 			BackgroundColor = Colors.Transparent;
 		}
 
-		public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
 		{
 			AGSSayConfig sayConfig = new AGSSayConfig();
             sayConfig.TextConfig = config.TextConfig;
@@ -51,4 +56,3 @@ namespace AGS.Engine
         public override string ToString() => "Say Config";
     }
 }
-
