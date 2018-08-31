@@ -633,7 +633,7 @@ namespace AGS.Engine
             {
                 throw new InvalidOperationException("No animation/image and no size was supplied for GUI control " + id);
             }
-            button.Image = new EmptyImage(width, height);
+            button = new ButtonAnimation(button.Animation, new EmptyImage(width, height), button.Border, button.TextConfig, button.Tint);
             return button;
         }
 

@@ -69,12 +69,9 @@ namespace AGS.Engine
             game = game ?? AGSGame.Game;
             var factory = game.Factory;
             settings = settings ?? game.Settings.Defaults.MessageBox;
-            var idle = new ButtonAnimation (new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
-			idle.Tint = Colors.Black;
-            var hovered = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
-			hovered.Tint = Colors.Yellow;
-            var pushed = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight));
-			pushed.Tint = Colors.DarkSlateBlue;
+            var idle = new ButtonAnimation (new EmptyImage (settings.ButtonWidth, settings.ButtonHeight), Colors.Black);
+            var hovered = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight), Colors.Yellow);
+            var pushed = new ButtonAnimation(new EmptyImage (settings.ButtonWidth, settings.ButtonHeight), Colors.DarkSlateBlue);
             var border = game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
 				Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
 			

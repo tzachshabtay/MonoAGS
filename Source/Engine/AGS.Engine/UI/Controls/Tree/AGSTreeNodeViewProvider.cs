@@ -41,12 +41,9 @@ namespace AGS.Engine
         {
             var buttonWidth = 20f;
             var buttonHeight = 60f;
-            var idle = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
-            idle.Tint = Colors.Black;
-            var hovered = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
-            hovered.Tint = Colors.Yellow;
-            var pushed = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight));
-            pushed.Tint = Colors.DarkSlateBlue;
+            var idle = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight), Colors.Black);
+            var hovered = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight), Colors.Yellow);
+            var pushed = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight), Colors.DarkSlateBlue);
             int nodeId = Interlocked.Increment(ref _nextNodeId);
             var itemTextId = (item.Text ?? "") + "_" + nodeId;
             var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, addToUi: false);
