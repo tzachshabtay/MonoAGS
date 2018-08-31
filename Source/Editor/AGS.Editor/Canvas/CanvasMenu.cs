@@ -194,8 +194,8 @@ namespace AGS.Editor
             factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 0f, 0f, buttonsPanel, labelConfig);
 
             const float buttonY = -40f;
-            var roomButton = factory.UI.GetCheckBox("AddToRoomRadioButton", (ButtonAnimation)null, null, null, null, 10f, buttonY, buttonsPanel, "Room", width: 20f, height: 25f);
-            var guiButton = factory.UI.GetCheckBox("AddToGUIRadioButton", (ButtonAnimation)null, null, null, null, 130f, buttonY, buttonsPanel, "GUI", width: 20f, height: 25f);
+            var roomButton = BoolPropertyEditor.CreateRadioButton(buttonsPanel, factory, "AddToRoomRadioButton", 10f, buttonY, "Room");
+            var guiButton = BoolPropertyEditor.CreateRadioButton(buttonsPanel, factory, "AddToGUIRadioButton", 130f, buttonY, "GUI");
 
             _guiButton = guiButton.GetComponent<ICheckboxComponent>();
             _targetRadioGroup = new AGSRadioGroup();
@@ -203,7 +203,7 @@ namespace AGS.Editor
             guiButton.RadioGroup = _targetRadioGroup;
             if (_potentialParent != null)
             {
-                var parentButton = factory.UI.GetCheckBox("AddToParentRadioButton", (ButtonAnimation)null, null, null, null, 250f, buttonY, buttonsPanel, _potentialParent.GetFriendlyName(), width: 20f, height: 25f);
+                var parentButton = BoolPropertyEditor.CreateRadioButton(buttonsPanel, factory, "AddToParentRadioButton", 250f, buttonY, _potentialParent.GetFriendlyName());
                 parentButton.RadioGroup = _targetRadioGroup;
                 _parentButton = parentButton.GetComponent<ICheckboxComponent>();
                 parentButton.MouseClicked.Subscribe(() => 
