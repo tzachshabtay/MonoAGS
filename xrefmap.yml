@@ -975,6 +975,15 @@ references:
   fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
   nameWithType: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable<Color>)
   nameWithType.vb: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable(Of Color))
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IImage,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name: ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable<Color>)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IAnimation_AGS_API_IImage_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IImage,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
+  name.vb: ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable(Of Color))
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IImage, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IImage, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
+  nameWithType: ButtonAnimation.ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable<Color>)
+  nameWithType.vb: ButtonAnimation.ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable(Of Color))
 - uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
   name: ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
   href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
@@ -984,12 +993,15 @@ references:
   fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
   nameWithType: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
   nameWithType.vb: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable(Of Color))
-- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IImage)
-  name: ButtonAnimation(IImage)
-  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IImage_
-  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IImage)
-  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage)
-  nameWithType: ButtonAnimation.ButtonAnimation(IImage)
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IImage,System.Nullable{AGS.API.Color})
+  name: ButtonAnimation(IImage, Nullable<Color>)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IImage_System_Nullable_AGS_API_Color__
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IImage,System.Nullable{AGS.API.Color})
+  name.vb: ButtonAnimation(IImage, Nullable(Of Color))
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage, System.Nullable<AGS.API.Color>)
+  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage, System.Nullable(Of AGS.API.Color))
+  nameWithType: ButtonAnimation.ButtonAnimation(IImage, Nullable<Color>)
+  nameWithType.vb: ButtonAnimation.ButtonAnimation(IImage, Nullable(Of Color))
 - uid: AGS.API.ButtonAnimation.#ctor*
   name: ButtonAnimation
   href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_
@@ -2646,6 +2658,19 @@ references:
   commentId: T:AGS.API.HasFactoryAttribute
   fullName: AGS.API.HasFactoryAttribute
   nameWithType: HasFactoryAttribute
+- uid: AGS.API.HasFactoryAttribute.DisplayName
+  name: DisplayName
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_DisplayName
+  commentId: P:AGS.API.HasFactoryAttribute.DisplayName
+  fullName: AGS.API.HasFactoryAttribute.DisplayName
+  nameWithType: HasFactoryAttribute.DisplayName
+- uid: AGS.API.HasFactoryAttribute.DisplayName*
+  name: DisplayName
+  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_DisplayName_
+  commentId: Overload:AGS.API.HasFactoryAttribute.DisplayName
+  isSpec: "True"
+  fullName: AGS.API.HasFactoryAttribute.DisplayName
+  nameWithType: HasFactoryAttribute.DisplayName
 - uid: AGS.API.HasFactoryAttribute.FactoryType
   name: FactoryType
   href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_FactoryType
