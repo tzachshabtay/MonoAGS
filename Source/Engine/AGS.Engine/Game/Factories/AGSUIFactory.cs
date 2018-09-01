@@ -238,6 +238,7 @@ namespace AGS.Engine
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IButton button = _resolver.Container.Resolve<IButton>(idParam);
+
             button.LabelRenderSize = new SizeF(width, height);
             button.IdleAnimation = idle;
             button.HoverAnimation = hovered;
@@ -255,7 +256,6 @@ namespace AGS.Engine
 
             if (addToUi)
                 _gameState.UI.Add(button);
-
             return button;
         }
 
@@ -436,12 +436,13 @@ namespace AGS.Engine
             {
                 var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
                 var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
+                var idle = new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null);
+                var hovered = new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null);
+                var pushed = new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null);
                 listItemFactory = text =>
                 {
                     var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           idle, hovered, pushed,
                                            0f, 0f, width: defaultWidth, height: defaultHeight);
                     button.Pivot = new PointF(0f, 1f);
                     button.RenderLayer = layer;

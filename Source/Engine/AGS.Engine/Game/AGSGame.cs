@@ -258,6 +258,7 @@ namespace AGS.Engine
             _glUtils.GenBuffers();
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
+            _resolver.Resolve<ITextureFactory>(); //Need to resolve this early in the rendering thread, as it creates the static empty texture and therefore need to be in the rendering thread
 
             TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             Settings.Defaults.MessageBox = _resolver.Container.Resolve<IMessageBoxSettings>(gameParameter);

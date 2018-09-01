@@ -63,6 +63,7 @@ namespace AGS.Engine
             Builder.RegisterType<AGSCoordinates>().SingleInstance().As<ICoordinates>();
             Builder.RegisterType<RoomTransitionWorkflow>().SingleInstance().As<IRoomTransitionWorkflow>();
             Builder.RegisterType<AGSGameLoop>().SingleInstance().As<IGameLoop>();
+            Builder.RegisterType<GLTextureFactory>().SingleInstance().As<ITextureFactory>();
 
             //Registering lambdas for increasing performance
             Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();
@@ -98,7 +99,8 @@ namespace AGS.Engine
             Builder.Register<IPixelPerfectComponent>((c, p) => new AGSPixelPerfectComponent()).ExternallyOwned();
             Builder.Register<IModelMatrixComponent>((c, p) => new AGSModelMatrixComponent(c.Resolve<IRuntimeSettings>())).ExternallyOwned();
             Builder.Register<IWorldPositionComponent>((c, p) => new AGSWorldPositionComponent()).ExternallyOwned();
-
+            Builder.Register<IImageComponent>((c, p) => new AGSImageComponent(c.Resolve<IHasImage>(), c.Resolve<IGraphicsFactory>(), c.Resolve<IRenderPipeline>(), 
+                  c.Resolve<IGLTextureRenderer>(), c.Resolve<ITextureCache>(), c.Resolve<ITextureFactory>())).ExternallyOwned();
 			RegisterType<AGSSprite, ISprite>();
             RegisterType<AGSBoundingBoxesBuilder, IBoundingBoxBuilder>();
             RegisterType<AGSHasImage, IHasImage>();
