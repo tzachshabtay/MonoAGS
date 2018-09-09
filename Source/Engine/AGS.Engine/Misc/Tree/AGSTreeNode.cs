@@ -60,6 +60,21 @@ namespace AGS.Engine
             return null;
         }
 
+        public TItem FindPreviousSibling(Predicate<TItem> isMatch)
+        {
+            if (Parent == null) return default;
+            TItem prev = default;
+            foreach (var child in Parent.TreeNode.Children)
+            {
+                if (child == this.Node) return prev;
+                if (isMatch(child))
+                {
+                    prev = child;
+                }
+            }
+            throw new Exception($"Node {Node} wasn't found in the list of children");
+        }
+
         public void Dispose()
         {
             SetParent(null);
@@ -139,6 +154,6 @@ namespace AGS.Engine
             prevParent?.RemoveChild(Node);
             fireParentChanged();
         }
-	}
+    }
 }
 
