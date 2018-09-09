@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using AGS.API;
 using PropertyChanged;
 
@@ -15,7 +16,8 @@ namespace AGS.Engine
         private List<(IUIControl control, IStringItem item)> _itemControls;
         private IUIFactory _uiFactory;
         private int _selectedIndex;
-        private float _minHeight, _maxHeight;
+        private float _minHeight, _maxHeight, _minWidth, _maxWidth;
+        private SizeF _padding;
         private IScaleComponent _scale;
         private IInObjectTreeComponent _tree;
         private IImageComponent _image;
@@ -33,7 +35,8 @@ namespace AGS.Engine
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);
             _selectedIndex = -1;
-            _maxHeight = float.MaxValue;
+            _maxHeight = _maxWidth = float.MaxValue;
+            _padding = new SizeF(3f, 3f);
             OnSelectedItemChanged = new AGSEvent<ListboxItemArgs>();
             OnSelectedItemChanging = new AGSEvent<ListboxItemChangingArgs>();
         }
@@ -131,6 +134,42 @@ namespace AGS.Engine
             }
         }
 
+        public float MinWidth
+        {
+            get => _minWidth;
+            set
+            {
+                if (MathUtils.FloatEquals(_minWidth, value))
+                    return;
+                _minWidth = value;
+                refreshItemsLayout();
+            }
+        }
+
+        public float MaxWidth
+        {
+            get => _maxWidth;
+            set
+            {
+                if (MathUtils.FloatEquals(_maxWidth, value))
+                    return;
+                _maxWidth = value;
+                refreshItemsLayout();
+            }
+        }
+
+        public SizeF Padding
+        {
+            get => _padding;
+            set
+            {
+                if (_padding.Equals(value))
+                    return;
+                _padding = value;
+                refreshItemsLayout();
+            }
+        }
+
         public string SearchFilter
         {
             get => _searchFilter;
@@ -174,12 +213,14 @@ namespace AGS.Engine
                 else control.Visible = (item.Text?.ToLowerInvariant() ?? "").Contains(filter);
             }
             _layout?.StartLayout();
+            _layout?.ForceRefreshLayout();
+            refreshItemsLayout();
         }
 
         private void onListChanged(AGSListChangedEventArgs<IStringItem> args)
         {
-            if (_visible.Visible) applyChange(args);
-            else _incomingChanges.Add(args);
+            _incomingChanges.Add(args);
+            applyAllChangesIfNeeded();
         }
 
         private void applyAllChangesIfNeeded()
@@ -187,12 +228,21 @@ namespace AGS.Engine
             if (!_visible.Visible) return;
             var newIncoming = new List<AGSListChangedEventArgs<IStringItem>>(_incomingChanges.Capacity);
             var oldIncoming = Interlocked.Exchange(ref _incomingChanges, newIncoming);
-            foreach (var change in oldIncoming) applyChange(change);
+            _layout?.StopLayout();
+            foreach (var change in oldIncoming)
+            {
+                applyChange(change);
+            }
+
+            //refresh items layout is called twice: first time to update layout start location, second time to update drop panel size
+            refreshItemsLayout();
+            _layout?.StartLayout();
+            _layout?.ForceRefreshLayout();
+            refreshItemsLayout();
         }
 
         private void applyChange(AGSListChangedEventArgs<IStringItem> args)
         {
-            _layout?.StopLayout();
             var tree = _tree;
             if (args.ChangeType == ListChangeType.Remove)
             {
@@ -223,8 +273,6 @@ namespace AGS.Engine
                 _itemControls = controls;
                 tree?.TreeNode.AddChildren(newControls);
             }
-            refreshItemsLayout();
-            _layout?.StartLayout();
         }
 
         private void onLayoutChanged()
@@ -239,8 +287,8 @@ namespace AGS.Engine
             if (scale == null) return;
             var visibleControls = _itemControls.Where(i => i.control.Visible).ToList();
             if (visibleControls.Count == 0) return;
-            scale.BaseSize = new SizeF(visibleControls.Max(i => Math.Max(i.control.Width, i.control.GetComponent<ITextComponent>()?.TextWidth ?? 0f)),
-                                       MathUtils.Clamp(visibleControls.Sum(i => Math.Max(i.control.Height, i.control.GetComponent<ITextComponent>()?.TextHeight ?? 0f)), _minHeight, _maxHeight));
+            scale.BaseSize = new SizeF(MathUtils.Clamp(visibleControls.Max(i => Math.Max(i.control.Width, i.control.GetComponent<ITextComponent>()?.TextWidth ?? 0f)) + _padding.Width, _minWidth, _maxWidth),
+                                       MathUtils.Clamp(visibleControls.Sum(i => Math.Max(i.control.Height, i.control.GetComponent<ITextComponent>()?.TextHeight ?? 0f)) + _padding.Height, _minHeight, _maxHeight));
             _layout.StartLocation = scale.Height;
             var image = _image;
             if (image == null) return;
