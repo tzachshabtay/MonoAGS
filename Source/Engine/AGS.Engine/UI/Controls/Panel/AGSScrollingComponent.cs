@@ -92,13 +92,26 @@ namespace AGS.Engine
                 return;
             }
 
+            var layout = _layout;
 			if (verticalScrollBar != null)
             {
-                refreshSliderLimits(verticalScrollBar, withChildren.Value.Height, container.Value.Height);
+                float childrenHeight = withChildren.Value.Height;
+                if (layout != null && layout.Direction == LayoutDirection.Vertical && MathUtils.FloatEquals(layout.RelativeSpacing, 0f))
+                {
+                    float layoutHeight = layout.DryRun();
+                    childrenHeight = Math.Max(layoutHeight, childrenHeight);
+                }
+                refreshSliderLimits(verticalScrollBar, childrenHeight, container.Value.Height);
             }
             if (horizontalScrollBar != null)
             {
-                refreshSliderLimits(horizontalScrollBar, withChildren.Value.Width, container.Value.Width);
+                float childrenWidth = withChildren.Value.Width;
+                if (layout != null && layout.Direction == LayoutDirection.Horizontal && MathUtils.FloatEquals(layout.RelativeSpacing, 0f))
+                {
+                    float layoutWidth = layout.DryRun();
+                    childrenWidth = Math.Max(layoutWidth, childrenWidth);
+                }
+                refreshSliderLimits(horizontalScrollBar, childrenWidth, container.Value.Width);
             }
         }
 

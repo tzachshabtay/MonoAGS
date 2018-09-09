@@ -106,5 +106,11 @@
         /// </summary>
         /// <seealso cref="TextBoundingBoxes"/>
         void PrepareTextBoundingBoxes();
+
+        /// <summary>
+        /// Allows locking the component from changing (to allow for changing multiple components "at once").
+        /// </summary>
+        /// <value>The lock step.</value>
+        ILockStep TextLockStep { get; }
     }
 }

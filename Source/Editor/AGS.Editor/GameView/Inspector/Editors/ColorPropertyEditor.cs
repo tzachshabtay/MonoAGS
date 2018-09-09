@@ -38,6 +38,7 @@ namespace AGS.Editor
             _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel);
             _dropDownButton = _combobox.DropDownButton;
             _text = _combobox.TextBox;
+            _combobox.DropDownPanelList.MinWidth = 200f;
             _combobox.DropDownPanelList.Items.AddRange(_colorList);
             _combobox.Z = label.Z;
 

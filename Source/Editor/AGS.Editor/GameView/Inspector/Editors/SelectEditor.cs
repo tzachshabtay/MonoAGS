@@ -45,6 +45,12 @@ namespace AGS.Editor
             var combobox = factory.UI.GetComboBox(id, dropDownButton, null, null, parent,
                                defaultWidth: 100f, defaultHeight: 25f, dropDownPanelOffset: 10f);
 
+            var layout = combobox.DropDownPanel.ContentsPanel.GetComponent<IStackLayoutComponent>();
+            layout.StopLayout();
+            layout.RelativeSpacing = 0f;
+            layout.AbsoluteSpacing = -25f;
+            layout.StartLayout();
+
             GameViewColors.AddHoverEffect(combobox.TextBox, GameViewColors.ComboboxTextBorder, 
                                           GameViewColors.HoveredComboboxTextBorder, GameViewColors.ComboboxTextConfig, GameViewColors.ComboboxHoverTextConfig);
             combobox.DropDownPanel.ScrollingPanel.Tint = GameViewColors.TextEditor.WithAlpha(240);

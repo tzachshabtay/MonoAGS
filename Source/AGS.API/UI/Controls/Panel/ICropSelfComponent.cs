@@ -17,6 +17,12 @@
         RectangleF CropArea { get; set; }
 
         /// <summary>
+        /// The information on the last crop.
+        /// </summary>
+        /// <value>The last crop.</value>
+        AGSCropInfo LastCrop { get; }
+
+        /// <summary>
         /// An event which fires before cropping the area, allows to change the crop configuration.
         /// </summary>
         /// <value>The on before crop.</value>
@@ -25,12 +31,20 @@
         /// <summary>
         /// Calculates and crops both the texture and the bounding box (used by the engine).
         /// </summary>
-        /// <returns>The texture area to render.</returns>
-        /// <param name="eventArgs">The event arguments which will be fired by the component before cropping</param>
-        /// <param name="spriteWidth">Sprite width.</param>
-        /// <param name="spriteHeight">Sprite height.</param>
-        /// <param name="width">The bounding box width.</param>
-        /// <param name="height">The bounding box height.</param>
-        FourCorners<Vector2> GetCropArea(BeforeCropEventArgs eventArgs, float spriteWidth, float spriteHeight, out float width, out float height);
+        /// <returns>The crop info.</returns>
+        /// <param name="box">The bounding box to crop.</param>
+        /// <param name="boundingBoxType">Which type of bounding box is to be cropped.</param>
+        /// <param name="adjustedScale">Adjusted scale.</param>
+        AGSCropInfo Crop(ref AGSBoundingBox box, BoundingBoxType boundingBoxType, PointF adjustedScale);
+
+        /// <summary>
+        /// Is the entity guaranteed to be fully cropped?
+        /// In specific scenario we can know for certain that the entity will be fully cropped from the scene,
+        /// which can be used for optimizations in the engine.
+        /// For example: if the entity is part of a vertical stack layout and the previous item was cropped from
+        /// the top we know that this item will also be fully cropped.
+        /// </summary>
+        /// <returns><c>true</c>, if guaranteed to fully crop, <c>false</c> otherwise.</returns>
+        bool IsGuaranteedToFullyCrop();
     }
 }

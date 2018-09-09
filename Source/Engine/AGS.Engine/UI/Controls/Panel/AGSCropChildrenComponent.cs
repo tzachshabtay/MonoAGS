@@ -235,7 +235,7 @@ namespace AGS.Engine
                 cropSelf = textComponent.CustomTextCrop;
                 if (cropSelf == null)
                 {
-                    cropSelf = new AGSCropSelfComponent();
+                    cropSelf = new AGSCropSelfComponent { CropText = true};
                     ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf,
                                                             () => getBoundingBox(boundingBoxes, obj, textComponent));
                     cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
@@ -299,8 +299,8 @@ namespace AGS.Engine
                 float bottomParent = minYParent;
                 float leftChild = minXChild;
                 float bottomChild = minYChild;
-                float left = leftChild > leftParent ? 0f : leftParent - leftChild;
-                float bottom = bottomChild > bottomParent ? 0f : bottomParent - bottomChild;
+                float left = leftParent - leftChild;
+                float bottom = bottomParent - bottomChild;
 				float width = Math.Min(maxXParent, maxXChild) - Math.Max(minXParent, minXChild);
 				float height = Math.Min(maxYParent, maxYChild) - Math.Max(minYParent, minYChild);
 				if (width < 0) width = 0f;

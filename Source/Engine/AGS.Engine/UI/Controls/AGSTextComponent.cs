@@ -3,12 +3,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
 using AGS.API;
 using PropertyChanged;
 
 namespace AGS.Engine
 {
-    public class AGSTextComponent : AGSComponent, ITextComponent, IRenderer
+    public class AGSTextComponent : AGSComponent, ITextComponent, IRenderer, ILockStep
     {
         private IImageComponent _image;
         private IScaleComponent _scale;
@@ -37,6 +38,8 @@ namespace AGS.Engine
         private readonly IRuntimeSettings _settings;
         private readonly ObjectPool<Instruction> _instructionPool;
         private float _lastWidth = 1f, _lastHeight = 1f;
+        private bool _isGuaranteedToFullyCrop;
+        private int _pendingLocks;
 
         private IDrawableInfoComponent _drawable;
         private ICropSelfComponent _cropSelf;
@@ -159,20 +162,20 @@ namespace AGS.Engine
         public int CaretPosition { get; set; }
         public bool RenderCaret { get; set; }
 
+        [Property(Browsable = false)]
+        public ILockStep TextLockStep { get { return this; } }
+
         public IRenderInstruction GetNextInstruction(IViewport viewport)
         {
-            if (!TextVisible || _usedTextBoundingBoxes == null) return null;
+            if (!TextVisible || _usedTextBoundingBoxes == null || _isGuaranteedToFullyCrop) return null;
+
+            if (!_afterCropTextBoundingBoxes.ViewportBox.IsValid)
+                return null;
 
             Size resolution;
             PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, _drawable,
                textScaleFactor, out _, out resolution);
-
-            var cropInfo = _usedTextBoundingBoxes.ViewportBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? _cropSelf, AGSModelMatrixComponent.NoScaling);
-            if (!cropInfo.BoundingBox.IsValid) return null;
-
-            _afterCropTextBoundingBoxes.ViewportBox = cropInfo.BoundingBox;
-            _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
 
             var instruction = _instructionPool.Acquire();
             if (instruction == null) return null;
@@ -182,7 +185,27 @@ namespace AGS.Engine
 
         public void PrepareTextBoundingBoxes()
         {
+            if (_pendingLocks > 0) return;
             prepare(_state.Viewport); //todo: support multiple viewports
+
+            if (_usedTextBoundingBoxes == null) return;
+            var cropInfo = _usedTextBoundingBoxes.ViewportBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? _cropSelf, AGSModelMatrixComponent.NoScaling);
+
+            _afterCropTextBoundingBoxes.ViewportBox = cropInfo.BoundingBox;
+            _afterCropTextBoundingBoxes.TextureBox = cropInfo.TextureBox;
+        }
+
+        public void Lock()
+        {
+            Interlocked.Increment(ref _pendingLocks);
+        }
+
+        public void PrepareForUnlock() {}
+
+        public void Unlock()
+        {
+            if (Interlocked.Decrement(ref _pendingLocks) > 0) return;
+            PrepareTextBoundingBoxes();
         }
 
         private void onPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -213,6 +236,12 @@ namespace AGS.Engine
         {
             if (!TextBackgroundVisible && !TextVisible) return;
             if (!(_visible?.Visible ?? false)) return;
+            var crop = CustomTextCrop ?? _cropSelf;
+            _isGuaranteedToFullyCrop = crop?.IsGuaranteedToFullyCrop() ?? false;
+            if (_isGuaranteedToFullyCrop)
+            {
+                return;
+            }
 
             _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
             _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, true);

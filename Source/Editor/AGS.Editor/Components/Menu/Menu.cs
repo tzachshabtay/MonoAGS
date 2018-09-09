@@ -105,6 +105,7 @@ namespace AGS.Editor
                 return menuItem.GetControl(factory, layer, idle, hovered, _width, _height);
             };
 
+            _menu.ListboxComponent.Padding = new SizeF();
             _menu.ListboxComponent.Items.AddRange(_menuItems.Cast<IStringItem>().ToList());
             _menu.ContentsPanel.Pivot = (0f, 1f);
 

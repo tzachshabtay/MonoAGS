@@ -131,45 +131,8 @@ namespace AGS.API
         /// <param name="adjustedScale">Adjusted scale.</param>
         public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF adjustedScale)
 		{
-            if (crop == null) return new AGSCropInfo(this, null);
-			float scaleX = adjustedScale.X;
-			float scaleY = adjustedScale.Y;
-            float spriteWidth = Width / scaleX;
-            float spriteHeight = Height / scaleY;
-            var args = new BeforeCropEventArgs(this, boundingBoxType);
-            FourCorners<Vector2> cropArea = crop.GetCropArea(args, spriteWidth, spriteHeight, out float width, out float height);
-            if (!crop.CropEnabled) return new AGSCropInfo(this, null);
-            if (width <= 0f || height <= 0f) return default;
-			width *= scaleX;
-			height *= scaleY;
-            if (float.IsNaN(width) || float.IsNaN(height))
-            {
-                return default;
-            }
-
-			float boxWidth = Width;
-			float boxHeight = Height;
-
-			float leftForBottomLeft = BottomLeft.X;
-			float bottomForBottomLeft = BottomLeft.Y;
-
-			float leftForTopLeft = TopLeft.X;
-			float topForTopLeft = MathUtils.Lerp(0f, BottomLeft.Y, boxHeight, TopLeft.Y, height);
-
-			float rightForTopRight = MathUtils.Lerp(0f, TopLeft.X, boxWidth, TopRight.X, width);
-			float topForTopRight = MathUtils.Lerp(0f, BottomRight.Y, boxHeight, TopRight.Y, height);
-
-			float rightForBottomRight = MathUtils.Lerp(0f, BottomLeft.X, boxWidth, BottomRight.X, width);
-			float bottomForBottomRight = BottomRight.Y;
-
-			float offsetX = crop.CropArea.X * scaleX;
-			float offsetY = crop.CropArea.Y * scaleY;
-            AGSBoundingBox croppedBox = new AGSBoundingBox(new Vector3(leftForBottomLeft + offsetX, bottomForBottomLeft + offsetY, BottomLeft.Z),
-                                                       new Vector3(rightForBottomRight + offsetX, bottomForBottomRight + offsetY, BottomRight.Z),
-                                                           new Vector3(leftForTopLeft + offsetX, topForTopLeft + offsetY, TopLeft.Z),
-                                                        new Vector3(rightForTopRight + offsetX, topForTopRight + offsetY, TopRight.Z)
-                                                       );
-            return new AGSCropInfo(croppedBox, cropArea);
+            if (crop == null) return new AGSCropInfo(this, null, CropFrom.None);
+            return crop.Crop(ref this, boundingBoxType, adjustedScale);
 		}
 
 		/// <summary>

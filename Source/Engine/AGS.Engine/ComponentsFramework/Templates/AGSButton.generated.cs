@@ -666,6 +666,11 @@ namespace AGS.Engine
             set { _textComponent.RenderCaret = value; } 
         }
 
+        public ILockStep TextLockStep
+        {
+            get { return _textComponent.TextLockStep; }
+        }
+
         public void PrepareTextBoundingBoxes()
         {
             _textComponent.PrepareTextBoundingBoxes();
