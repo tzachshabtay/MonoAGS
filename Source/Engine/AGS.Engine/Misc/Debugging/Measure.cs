@@ -12,7 +12,7 @@ namespace AGS.Engine
         private static ConcurrentDictionary<string, Stopwatch> _measurements = new ConcurrentDictionary<string, Stopwatch>();
         private static int _numIndents;
         private static string _lastKey;
-        private static ConcurrentDictionary<string, ConcurrentDictionary<string, Stopwatch>> _tags = new ConcurrentDictionary<string, ConcurrentDictionary<string, Stopwatch>>();
+        private static ConcurrentDictionary<string, ConcurrentDictionary<string, List<Stopwatch>>> _tags = new ConcurrentDictionary<string, ConcurrentDictionary<string, List<Stopwatch>>>();
 
         public static void Start(string key)
         {
@@ -49,39 +49,37 @@ namespace AGS.Engine
 
         public static void StartTag(string key)
         {
-            _tags[key] = new ConcurrentDictionary<string, Stopwatch>();
+            _tags[key] = new ConcurrentDictionary<string, List<Stopwatch>>();
             Measure.Start(key);
         }
 
         public static void EndTag(string key)
         {
             Measure.End(key);
-            if (!_tags.TryRemove(key, out var stopwatches))
+            if (!_tags.TryRemove(key, out var stopwatchesMap))
             {
                 throw new Exception($"Missing key for tag measurement: {key}");
             }
-            var sum = stopwatches.Values.Sum(w => w.ElapsedTicks);
-            var average = (float)sum / stopwatches.Count;
-            var totalTime = TimeSpan.FromTicks(sum);
-            var averageTime = TimeSpan.FromTicks((long)average);
-            Debug.WriteLine($"Tag: {key}, Instances: {stopwatches.Count}, Total: {totalTime}, Average: {averageTime}");
+            foreach (var stopwatches in stopwatchesMap)
+            {
+                var sum = stopwatches.Value.Sum(w => w.ElapsedTicks);
+                var average = (float)sum / stopwatches.Value.Count;
+                var totalTime = TimeSpan.FromTicks(sum);
+                var averageTime = TimeSpan.FromTicks((long)average);
+                var category = (stopwatches.Key == "" ? "" : $"Category: {stopwatches.Key}, "); 
+                Debug.WriteLine($"\tTag: {key}, {category}Instances: {stopwatches.Value.Count}, Total: {totalTime}, Average: {averageTime}");
+            }
         }
 
-        public static string StartTagInstance(string key)
+        public static Action StartTagInstance(string key, string subCategory = null)
         {
             if (!_tags.TryGetValue(key, out var values))
-                return null;
+                return () => {};
+            subCategory = subCategory ?? "";
             var watch = new Stopwatch();
-            var id = Guid.NewGuid().ToString();
-            values[id] = watch;
+            values.GetOrAdd(subCategory, _ => new List<Stopwatch>()).Add(watch);
             watch.Restart();
-            return id;
-        }
-
-        public static void EndTagInstance(string key, string id)
-        {
-            if (id == null) return;
-            _tags[key][id].Stop();
+            return () => watch.Stop();
         }
 
         private static void indent(StringBuilder sb)
