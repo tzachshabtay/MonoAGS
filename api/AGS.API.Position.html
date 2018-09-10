@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct Position
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.38.1.0">
+    <meta name="generator" content="docfx 2.39.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -453,12 +453,12 @@ public float Z { get; }</code></pre>
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/Misc/Position.cs/#L68">View Source</a>
   </span>
   <a id="AGS_API_Position_op_Implicit_" data-uid="AGS.API.Position.op_Implicit*"></a>
-  <h4 id="AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Nullable_System_Single____AGS_API_Position" data-uid="AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position">Implicit( to Position)</h4>
+  <h4 id="AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Nullable_System_Single____AGS_API_Position" data-uid="AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position">Implicit((Single x, Single y, Nullable&lt;Single&gt; z) to Position)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator Position(pos)</code></pre>
+    <pre><code class="lang-csharp hljs">public static implicit operator Position((float x, float y, float? z)pos)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -471,7 +471,7 @@ public float Z { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.</span></td>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">System.Single</span>&gt;&gt;</td>
         <td><span class="parametername">pos</span></td>
         <td></td>
       </tr>
@@ -500,12 +500,12 @@ public float Z { get; }</code></pre>
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/Misc/Position.cs/#L66">View Source</a>
   </span>
   <a id="AGS_API_Position_op_Implicit_" data-uid="AGS.API.Position.op_Implicit*"></a>
-  <h4 id="AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_Position" data-uid="AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position">Implicit( to Position)</h4>
+  <h4 id="AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_Position" data-uid="AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position">Implicit((Single x, Single y) to Position)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator Position(pos)</code></pre>
+    <pre><code class="lang-csharp hljs">public static implicit operator Position((float x, float y)pos)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -518,7 +518,7 @@ public float Z { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.</span></td>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
         <td><span class="parametername">pos</span></td>
         <td></td>
       </tr>

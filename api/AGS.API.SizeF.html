@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct SizeF
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.38.1.0">
+    <meta name="generator" content="docfx 2.39.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -474,12 +474,12 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/Misc/Drawing/SizeF.cs/#L44">View Source</a>
   </span>
   <a id="AGS_API_SizeF_op_Implicit_" data-uid="AGS.API.SizeF.op_Implicit*"></a>
-  <h4 id="AGS_API_SizeF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_SizeF" data-uid="AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF">Implicit( to SizeF)</h4>
+  <h4 id="AGS_API_SizeF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_SizeF" data-uid="AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF">Implicit((Single width, Single height) to SizeF)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator SizeF(size)</code></pre>
+    <pre><code class="lang-csharp hljs">public static implicit operator SizeF((float width, float height)size)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -492,7 +492,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.</span></td>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
         <td><span class="parametername">size</span></td>
         <td></td>
       </tr>

@@ -381,15 +381,15 @@ references:
   commentId: T:AGS.API.AGSCropInfo
   fullName: AGS.API.AGSCropInfo
   nameWithType: AGSCropInfo
-- uid: AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
-  name: AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
-  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_AGS_API_AGSBoundingBox_AGS_API_FourCorners_AGS_API_Vector2__
-  commentId: M:AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
-  name.vb: AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
-  fullName: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners<AGS.API.Vector2>)
-  fullName.vb: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners(Of AGS.API.Vector2))
-  nameWithType: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
-  nameWithType.vb: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
+- uid: AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2},AGS.API.CropFrom)
+  name: AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>, CropFrom)
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_AGS_API_AGSBoundingBox_AGS_API_FourCorners_AGS_API_Vector2__AGS_API_CropFrom_
+  commentId: M:AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2},AGS.API.CropFrom)
+  name.vb: AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2), CropFrom)
+  fullName: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners<AGS.API.Vector2>, AGS.API.CropFrom)
+  fullName.vb: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners(Of AGS.API.Vector2), AGS.API.CropFrom)
+  nameWithType: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>, CropFrom)
+  nameWithType.vb: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2), CropFrom)
 - uid: AGS.API.AGSCropInfo.#ctor*
   name: AGSCropInfo
   href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_
@@ -410,6 +410,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSCropInfo.BoundingBox
   nameWithType: AGSCropInfo.BoundingBox
+- uid: AGS.API.AGSCropInfo.CropFrom
+  name: CropFrom
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_CropFrom
+  commentId: P:AGS.API.AGSCropInfo.CropFrom
+  fullName: AGS.API.AGSCropInfo.CropFrom
+  nameWithType: AGSCropInfo.CropFrom
+- uid: AGS.API.AGSCropInfo.CropFrom*
+  name: CropFrom
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_CropFrom_
+  commentId: Overload:AGS.API.AGSCropInfo.CropFrom
+  isSpec: "True"
+  fullName: AGS.API.AGSCropInfo.CropFrom
+  nameWithType: AGSCropInfo.CropFrom
 - uid: AGS.API.AGSCropInfo.TextureBox
   name: TextureBox
   href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_TextureBox
@@ -2299,6 +2312,42 @@ references:
   isSpec: "True"
   fullName: AGS.API.ConcreteImplementationAttribute.DisplayName
   nameWithType: ConcreteImplementationAttribute.DisplayName
+- uid: AGS.API.CropFrom
+  name: CropFrom
+  href: api/AGS.API.CropFrom.html
+  commentId: T:AGS.API.CropFrom
+  fullName: AGS.API.CropFrom
+  nameWithType: CropFrom
+- uid: AGS.API.CropFrom.Bottom
+  name: Bottom
+  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Bottom
+  commentId: F:AGS.API.CropFrom.Bottom
+  fullName: AGS.API.CropFrom.Bottom
+  nameWithType: CropFrom.Bottom
+- uid: AGS.API.CropFrom.Left
+  name: Left
+  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Left
+  commentId: F:AGS.API.CropFrom.Left
+  fullName: AGS.API.CropFrom.Left
+  nameWithType: CropFrom.Left
+- uid: AGS.API.CropFrom.None
+  name: None
+  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_None
+  commentId: F:AGS.API.CropFrom.None
+  fullName: AGS.API.CropFrom.None
+  nameWithType: CropFrom.None
+- uid: AGS.API.CropFrom.Right
+  name: Right
+  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Right
+  commentId: F:AGS.API.CropFrom.Right
+  fullName: AGS.API.CropFrom.Right
+  nameWithType: CropFrom.Right
+- uid: AGS.API.CropFrom.Top
+  name: Top
+  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Top
+  commentId: F:AGS.API.CropFrom.Top
+  fullName: AGS.API.CropFrom.Top
+  nameWithType: CropFrom.Top
 - uid: AGS.API.CustomStringApplyWhen
   name: CustomStringApplyWhen
   href: api/AGS.API.CustomStringApplyWhen.html
@@ -6023,6 +6072,22 @@ references:
   commentId: T:AGS.API.ICropSelfComponent
   fullName: AGS.API.ICropSelfComponent
   nameWithType: ICropSelfComponent
+- uid: AGS.API.ICropSelfComponent.Crop(AGS.API.AGSBoundingBox@,AGS.API.BoundingBoxType,AGS.API.PointF)
+  name: Crop(ref AGSBoundingBox, BoundingBoxType, PointF)
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_Crop_AGS_API_AGSBoundingBox__AGS_API_BoundingBoxType_AGS_API_PointF_
+  commentId: M:AGS.API.ICropSelfComponent.Crop(AGS.API.AGSBoundingBox@,AGS.API.BoundingBoxType,AGS.API.PointF)
+  name.vb: Crop(ByRef AGSBoundingBox, BoundingBoxType, PointF)
+  fullName: AGS.API.ICropSelfComponent.Crop(ref AGS.API.AGSBoundingBox, AGS.API.BoundingBoxType, AGS.API.PointF)
+  fullName.vb: AGS.API.ICropSelfComponent.Crop(ByRef AGS.API.AGSBoundingBox, AGS.API.BoundingBoxType, AGS.API.PointF)
+  nameWithType: ICropSelfComponent.Crop(ref AGSBoundingBox, BoundingBoxType, PointF)
+  nameWithType.vb: ICropSelfComponent.Crop(ByRef AGSBoundingBox, BoundingBoxType, PointF)
+- uid: AGS.API.ICropSelfComponent.Crop*
+  name: Crop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_Crop_
+  commentId: Overload:AGS.API.ICropSelfComponent.Crop
+  isSpec: "True"
+  fullName: AGS.API.ICropSelfComponent.Crop
+  nameWithType: ICropSelfComponent.Crop
 - uid: AGS.API.ICropSelfComponent.CropArea
   name: CropArea
   href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropArea
@@ -6049,22 +6114,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICropSelfComponent.CropEnabled
   nameWithType: ICropSelfComponent.CropEnabled
-- uid: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
-  name: GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_AGS_API_BeforeCropEventArgs_System_Single_System_Single_System_Single__System_Single__
-  commentId: M:AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
-  name.vb: GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
-  fullName: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, out System.Single, out System.Single)
-  fullName.vb: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, ByRef System.Single, ByRef System.Single)
-  nameWithType: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
-  nameWithType.vb: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
-- uid: AGS.API.ICropSelfComponent.GetCropArea*
-  name: GetCropArea
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_
-  commentId: Overload:AGS.API.ICropSelfComponent.GetCropArea
+- uid: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
+  name: IsGuaranteedToFullyCrop()
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_IsGuaranteedToFullyCrop
+  commentId: M:AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
+  fullName: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop()
+  nameWithType: ICropSelfComponent.IsGuaranteedToFullyCrop()
+- uid: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop*
+  name: IsGuaranteedToFullyCrop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_IsGuaranteedToFullyCrop_
+  commentId: Overload:AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
   isSpec: "True"
-  fullName: AGS.API.ICropSelfComponent.GetCropArea
-  nameWithType: ICropSelfComponent.GetCropArea
+  fullName: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
+  nameWithType: ICropSelfComponent.IsGuaranteedToFullyCrop
+- uid: AGS.API.ICropSelfComponent.LastCrop
+  name: LastCrop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_LastCrop
+  commentId: P:AGS.API.ICropSelfComponent.LastCrop
+  fullName: AGS.API.ICropSelfComponent.LastCrop
+  nameWithType: ICropSelfComponent.LastCrop
+- uid: AGS.API.ICropSelfComponent.LastCrop*
+  name: LastCrop
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_LastCrop_
+  commentId: Overload:AGS.API.ICropSelfComponent.LastCrop
+  isSpec: "True"
+  fullName: AGS.API.ICropSelfComponent.LastCrop
+  nameWithType: ICropSelfComponent.LastCrop
 - uid: AGS.API.ICropSelfComponent.OnBeforeCrop
   name: OnBeforeCrop
   href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnBeforeCrop
@@ -10699,6 +10774,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.MaxHeight
   nameWithType: IListboxComponent.MaxHeight
+- uid: AGS.API.IListboxComponent.MaxWidth
+  name: MaxWidth
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MaxWidth
+  commentId: P:AGS.API.IListboxComponent.MaxWidth
+  fullName: AGS.API.IListboxComponent.MaxWidth
+  nameWithType: IListboxComponent.MaxWidth
+- uid: AGS.API.IListboxComponent.MaxWidth*
+  name: MaxWidth
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MaxWidth_
+  commentId: Overload:AGS.API.IListboxComponent.MaxWidth
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.MaxWidth
+  nameWithType: IListboxComponent.MaxWidth
 - uid: AGS.API.IListboxComponent.MinHeight
   name: MinHeight
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinHeight
@@ -10712,6 +10800,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.MinHeight
   nameWithType: IListboxComponent.MinHeight
+- uid: AGS.API.IListboxComponent.MinWidth
+  name: MinWidth
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinWidth
+  commentId: P:AGS.API.IListboxComponent.MinWidth
+  fullName: AGS.API.IListboxComponent.MinWidth
+  nameWithType: IListboxComponent.MinWidth
+- uid: AGS.API.IListboxComponent.MinWidth*
+  name: MinWidth
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinWidth_
+  commentId: Overload:AGS.API.IListboxComponent.MinWidth
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.MinWidth
+  nameWithType: IListboxComponent.MinWidth
 - uid: AGS.API.IListboxComponent.OnSelectedItemChanged
   name: OnSelectedItemChanged
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanged
@@ -10738,6 +10839,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.OnSelectedItemChanging
   nameWithType: IListboxComponent.OnSelectedItemChanging
+- uid: AGS.API.IListboxComponent.Padding
+  name: Padding
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Padding
+  commentId: P:AGS.API.IListboxComponent.Padding
+  fullName: AGS.API.IListboxComponent.Padding
+  nameWithType: IListboxComponent.Padding
+- uid: AGS.API.IListboxComponent.Padding*
+  name: Padding
+  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Padding_
+  commentId: Overload:AGS.API.IListboxComponent.Padding
+  isSpec: "True"
+  fullName: AGS.API.IListboxComponent.Padding
+  nameWithType: IListboxComponent.Padding
 - uid: AGS.API.IListboxComponent.SearchFilter
   name: SearchFilter
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SearchFilter
@@ -14719,6 +14833,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IStackLayoutComponent.EntitiesToIgnore
   nameWithType: IStackLayoutComponent.EntitiesToIgnore
+- uid: AGS.API.IStackLayoutComponent.ForceRefreshLayout
+  name: ForceRefreshLayout()
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_ForceRefreshLayout
+  commentId: M:AGS.API.IStackLayoutComponent.ForceRefreshLayout
+  fullName: AGS.API.IStackLayoutComponent.ForceRefreshLayout()
+  nameWithType: IStackLayoutComponent.ForceRefreshLayout()
+- uid: AGS.API.IStackLayoutComponent.ForceRefreshLayout*
+  name: ForceRefreshLayout
+  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_ForceRefreshLayout_
+  commentId: Overload:AGS.API.IStackLayoutComponent.ForceRefreshLayout
+  isSpec: "True"
+  fullName: AGS.API.IStackLayoutComponent.ForceRefreshLayout
+  nameWithType: IStackLayoutComponent.ForceRefreshLayout
 - uid: AGS.API.IStackLayoutComponent.LayoutAfterCrop
   name: LayoutAfterCrop
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_LayoutAfterCrop
@@ -15094,6 +15221,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.TextHeight
   nameWithType: ITextComponent.TextHeight
+- uid: AGS.API.ITextComponent.TextLockStep
+  name: TextLockStep
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextLockStep
+  commentId: P:AGS.API.ITextComponent.TextLockStep
+  fullName: AGS.API.ITextComponent.TextLockStep
+  nameWithType: ITextComponent.TextLockStep
+- uid: AGS.API.ITextComponent.TextLockStep*
+  name: TextLockStep
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextLockStep_
+  commentId: Overload:AGS.API.ITextComponent.TextLockStep
+  isSpec: "True"
+  fullName: AGS.API.ITextComponent.TextLockStep
+  nameWithType: ITextComponent.TextLockStep
 - uid: AGS.API.ITextComponent.TextVisible
   name: TextVisible
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextVisible
@@ -15666,6 +15806,24 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).FindDescendant
   nameWithType: ITreeNode<TItem>.FindDescendant
   nameWithType.vb: ITreeNode(Of TItem).FindDescendant
+- uid: AGS.API.ITreeNode`1.FindPreviousSibling(System.Predicate{`0})
+  name: FindPreviousSibling(Predicate<TItem>)
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindPreviousSibling_System_Predicate__0__
+  commentId: M:AGS.API.ITreeNode`1.FindPreviousSibling(System.Predicate{`0})
+  name.vb: FindPreviousSibling(Predicate(Of TItem))
+  fullName: AGS.API.ITreeNode<TItem>.FindPreviousSibling(System.Predicate<TItem>)
+  fullName.vb: AGS.API.ITreeNode(Of TItem).FindPreviousSibling(System.Predicate(Of TItem))
+  nameWithType: ITreeNode<TItem>.FindPreviousSibling(Predicate<TItem>)
+  nameWithType.vb: ITreeNode(Of TItem).FindPreviousSibling(Predicate(Of TItem))
+- uid: AGS.API.ITreeNode`1.FindPreviousSibling*
+  name: FindPreviousSibling
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindPreviousSibling_
+  commentId: Overload:AGS.API.ITreeNode`1.FindPreviousSibling
+  isSpec: "True"
+  fullName: AGS.API.ITreeNode<TItem>.FindPreviousSibling
+  fullName.vb: AGS.API.ITreeNode(Of TItem).FindPreviousSibling
+  nameWithType: ITreeNode<TItem>.FindPreviousSibling
+  nameWithType.vb: ITreeNode(Of TItem).FindPreviousSibling
 - uid: AGS.API.ITreeNode`1.GetRoot
   name: GetRoot()
   href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_GetRoot
@@ -15894,12 +16052,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode
   nameWithType: ITreeNodeViewProvider.BeforeDisplayingNode
-- uid: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
-  name: CreateNode(ITreeStringNode, IRenderLayer)
-  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_AGS_API_ITreeStringNode_AGS_API_IRenderLayer_
-  commentId: M:AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
-  fullName: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode, AGS.API.IRenderLayer)
-  nameWithType: ITreeNodeViewProvider.CreateNode(ITreeStringNode, IRenderLayer)
+- uid: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer,AGS.API.IObject)
+  name: CreateNode(ITreeStringNode, IRenderLayer, IObject)
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_AGS_API_ITreeStringNode_AGS_API_IRenderLayer_AGS_API_IObject_
+  commentId: M:AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer,AGS.API.IObject)
+  fullName: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode, AGS.API.IRenderLayer, AGS.API.IObject)
+  nameWithType: ITreeNodeViewProvider.CreateNode(ITreeStringNode, IRenderLayer, IObject)
 - uid: AGS.API.ITreeNodeViewProvider.CreateNode*
   name: CreateNode
   href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_
@@ -21153,14 +21311,14 @@ references:
   fullName: AGS.API.Point.Deconstruct
   nameWithType: Point.Deconstruct
 - uid: AGS.API.Point.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Point
-  name: Implicit( to Point)
+  name: Implicit((Int32 x, Int32 y) to Point)
   href: api/AGS.API.Point.html#AGS_API_Point_op_Implicit_System_ValueTuple_System_Int32_System_Int32___AGS_API_Point
   commentId: M:AGS.API.Point.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Point
-  name.vb: Widening( to Point)
-  fullName: AGS.API.Point.Implicit(System. to AGS.API.Point)
-  fullName.vb: AGS.API.Point.Widening(System. to AGS.API.Point)
-  nameWithType: Point.Implicit( to Point)
-  nameWithType.vb: Point.Widening( to Point)
+  name.vb: Widening((x As Int32, y As Int32) to Point)
+  fullName: AGS.API.Point.Implicit(System.ValueTuple<System.Int32, System.Int32> to AGS.API.Point)
+  fullName.vb: AGS.API.Point.Widening(System.ValueTuple(Of System.Int32, System.Int32) to AGS.API.Point)
+  nameWithType: Point.Implicit((Int32 x, Int32 y) to Point)
+  nameWithType.vb: Point.Widening((x As Int32, y As Int32) to Point)
 - uid: AGS.API.Point.op_Implicit*
   name: Implicit
   href: api/AGS.API.Point.html#AGS_API_Point_op_Implicit_
@@ -21316,14 +21474,14 @@ references:
   fullName: AGS.API.PointF.Division
   nameWithType: PointF.Division
 - uid: AGS.API.PointF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.PointF
-  name: Implicit( to PointF)
+  name: Implicit((Single x, Single y) to PointF)
   href: api/AGS.API.PointF.html#AGS_API_PointF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_PointF
   commentId: M:AGS.API.PointF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.PointF
-  name.vb: Widening( to PointF)
-  fullName: AGS.API.PointF.Implicit(System. to AGS.API.PointF)
-  fullName.vb: AGS.API.PointF.Widening(System. to AGS.API.PointF)
-  nameWithType: PointF.Implicit( to PointF)
-  nameWithType.vb: PointF.Widening( to PointF)
+  name.vb: Widening((x As Single, y As Single) to PointF)
+  fullName: AGS.API.PointF.Implicit(System.ValueTuple<System.Single, System.Single> to AGS.API.PointF)
+  fullName.vb: AGS.API.PointF.Widening(System.ValueTuple(Of System.Single, System.Single) to AGS.API.PointF)
+  nameWithType: PointF.Implicit((Single x, Single y) to PointF)
+  nameWithType.vb: PointF.Widening((x As Single, y As Single) to PointF)
 - uid: AGS.API.PointF.op_Implicit*
   name: Implicit
   href: api/AGS.API.PointF.html#AGS_API_PointF_op_Implicit_
@@ -21483,23 +21641,23 @@ references:
   fullName: AGS.API.Position.Empty
   nameWithType: Position.Empty
 - uid: AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position
-  name: Implicit( to Position)
+  name: Implicit((Single x, Single y, Nullable<Single> z) to Position)
   href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Nullable_System_Single____AGS_API_Position
   commentId: M:AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position
-  name.vb: Widening( to Position)
-  fullName: AGS.API.Position.Implicit(System. to AGS.API.Position)
-  fullName.vb: AGS.API.Position.Widening(System. to AGS.API.Position)
-  nameWithType: Position.Implicit( to Position)
-  nameWithType.vb: Position.Widening( to Position)
+  name.vb: Widening((x As Single, y As Single, z As Nullable(Of Single)) to Position)
+  fullName: AGS.API.Position.Implicit(System.ValueTuple<System.Single, System.Single, System.Nullable<System.Single>> to AGS.API.Position)
+  fullName.vb: AGS.API.Position.Widening(System.ValueTuple(Of System.Single, System.Single, System.Nullable(Of System.Single)) to AGS.API.Position)
+  nameWithType: Position.Implicit((Single x, Single y, Nullable<Single> z) to Position)
+  nameWithType.vb: Position.Widening((x As Single, y As Single, z As Nullable(Of Single)) to Position)
 - uid: AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position
-  name: Implicit( to Position)
+  name: Implicit((Single x, Single y) to Position)
   href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_Position
   commentId: M:AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.Position
-  name.vb: Widening( to Position)
-  fullName: AGS.API.Position.Implicit(System. to AGS.API.Position)
-  fullName.vb: AGS.API.Position.Widening(System. to AGS.API.Position)
-  nameWithType: Position.Implicit( to Position)
-  nameWithType.vb: Position.Widening( to Position)
+  name.vb: Widening((x As Single, y As Single) to Position)
+  fullName: AGS.API.Position.Implicit(System.ValueTuple<System.Single, System.Single> to AGS.API.Position)
+  fullName.vb: AGS.API.Position.Widening(System.ValueTuple(Of System.Single, System.Single) to AGS.API.Position)
+  nameWithType: Position.Implicit((Single x, Single y) to Position)
+  nameWithType.vb: Position.Widening((x As Single, y As Single) to Position)
 - uid: AGS.API.Position.op_Implicit*
   name: Implicit
   href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_
@@ -22365,14 +22523,14 @@ references:
   fullName: AGS.API.Rectangle.Height
   nameWithType: Rectangle.Height
 - uid: AGS.API.Rectangle.op_Implicit(System.ValueTuple{System.Int32,System.Int32,System.Int32,System.Int32})~AGS.API.Rectangle
-  name: Implicit( to Rectangle)
+  name: Implicit((Int32 x, Int32 y, Int32 width, Int32 height) to Rectangle)
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_op_Implicit_System_ValueTuple_System_Int32_System_Int32_System_Int32_System_Int32___AGS_API_Rectangle
   commentId: M:AGS.API.Rectangle.op_Implicit(System.ValueTuple{System.Int32,System.Int32,System.Int32,System.Int32})~AGS.API.Rectangle
-  name.vb: Widening( to Rectangle)
-  fullName: AGS.API.Rectangle.Implicit(System. to AGS.API.Rectangle)
-  fullName.vb: AGS.API.Rectangle.Widening(System. to AGS.API.Rectangle)
-  nameWithType: Rectangle.Implicit( to Rectangle)
-  nameWithType.vb: Rectangle.Widening( to Rectangle)
+  name.vb: Widening((x As Int32, y As Int32, width As Int32, height As Int32) to Rectangle)
+  fullName: AGS.API.Rectangle.Implicit(System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32> to AGS.API.Rectangle)
+  fullName.vb: AGS.API.Rectangle.Widening(System.ValueTuple(Of System.Int32, System.Int32, System.Int32, System.Int32) to AGS.API.Rectangle)
+  nameWithType: Rectangle.Implicit((Int32 x, Int32 y, Int32 width, Int32 height) to Rectangle)
+  nameWithType.vb: Rectangle.Widening((x As Int32, y As Int32, width As Int32, height As Int32) to Rectangle)
 - uid: AGS.API.Rectangle.op_Implicit*
   name: Implicit
   href: api/AGS.API.Rectangle.html#AGS_API_Rectangle_op_Implicit_
@@ -22542,14 +22700,14 @@ references:
   fullName: AGS.API.RectangleF.Height
   nameWithType: RectangleF.Height
 - uid: AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF
-  name: Implicit( to RectangleF)
+  name: Implicit((Single x, Single y, Single width, Single height) to RectangleF)
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Single_System_Single___AGS_API_RectangleF
   commentId: M:AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF
-  name.vb: Widening( to RectangleF)
-  fullName: AGS.API.RectangleF.Implicit(System. to AGS.API.RectangleF)
-  fullName.vb: AGS.API.RectangleF.Widening(System. to AGS.API.RectangleF)
-  nameWithType: RectangleF.Implicit( to RectangleF)
-  nameWithType.vb: RectangleF.Widening( to RectangleF)
+  name.vb: Widening((x As Single, y As Single, width As Single, height As Single) to RectangleF)
+  fullName: AGS.API.RectangleF.Implicit(System.ValueTuple<System.Single, System.Single, System.Single, System.Single> to AGS.API.RectangleF)
+  fullName.vb: AGS.API.RectangleF.Widening(System.ValueTuple(Of System.Single, System.Single, System.Single, System.Single) to AGS.API.RectangleF)
+  nameWithType: RectangleF.Implicit((Single x, Single y, Single width, Single height) to RectangleF)
+  nameWithType.vb: RectangleF.Widening((x As Single, y As Single, width As Single, height As Single) to RectangleF)
 - uid: AGS.API.RectangleF.op_Implicit*
   name: Implicit
   href: api/AGS.API.RectangleF.html#AGS_API_RectangleF_op_Implicit_
@@ -22910,14 +23068,14 @@ references:
   fullName: AGS.API.Size.Height
   nameWithType: Size.Height
 - uid: AGS.API.Size.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Size
-  name: Implicit( to Size)
+  name: Implicit((Int32 width, Int32 height) to Size)
   href: api/AGS.API.Size.html#AGS_API_Size_op_Implicit_System_ValueTuple_System_Int32_System_Int32___AGS_API_Size
   commentId: M:AGS.API.Size.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Size
-  name.vb: Widening( to Size)
-  fullName: AGS.API.Size.Implicit(System. to AGS.API.Size)
-  fullName.vb: AGS.API.Size.Widening(System. to AGS.API.Size)
-  nameWithType: Size.Implicit( to Size)
-  nameWithType.vb: Size.Widening( to Size)
+  name.vb: Widening((width As Int32, height As Int32) to Size)
+  fullName: AGS.API.Size.Implicit(System.ValueTuple<System.Int32, System.Int32> to AGS.API.Size)
+  fullName.vb: AGS.API.Size.Widening(System.ValueTuple(Of System.Int32, System.Int32) to AGS.API.Size)
+  nameWithType: Size.Implicit((Int32 width, Int32 height) to Size)
+  nameWithType.vb: Size.Widening((width As Int32, height As Int32) to Size)
 - uid: AGS.API.Size.op_Implicit*
   name: Implicit
   href: api/AGS.API.Size.html#AGS_API_Size_op_Implicit_
@@ -23035,14 +23193,14 @@ references:
   fullName: AGS.API.SizeF.Height
   nameWithType: SizeF.Height
 - uid: AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF
-  name: Implicit( to SizeF)
+  name: Implicit((Single width, Single height) to SizeF)
   href: api/AGS.API.SizeF.html#AGS_API_SizeF_op_Implicit_System_ValueTuple_System_Single_System_Single___AGS_API_SizeF
   commentId: M:AGS.API.SizeF.op_Implicit(System.ValueTuple{System.Single,System.Single})~AGS.API.SizeF
-  name.vb: Widening( to SizeF)
-  fullName: AGS.API.SizeF.Implicit(System. to AGS.API.SizeF)
-  fullName.vb: AGS.API.SizeF.Widening(System. to AGS.API.SizeF)
-  nameWithType: SizeF.Implicit( to SizeF)
-  nameWithType.vb: SizeF.Widening( to SizeF)
+  name.vb: Widening((width As Single, height As Single) to SizeF)
+  fullName: AGS.API.SizeF.Implicit(System.ValueTuple<System.Single, System.Single> to AGS.API.SizeF)
+  fullName.vb: AGS.API.SizeF.Widening(System.ValueTuple(Of System.Single, System.Single) to AGS.API.SizeF)
+  nameWithType: SizeF.Implicit((Single width, Single height) to SizeF)
+  nameWithType.vb: SizeF.Widening((width As Single, height As Single) to SizeF)
 - uid: AGS.API.SizeF.op_Implicit*
   name: Implicit
   href: api/AGS.API.SizeF.html#AGS_API_SizeF_op_Implicit_

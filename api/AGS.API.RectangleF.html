@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Struct RectangleF
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.38.1.0">
+    <meta name="generator" content="docfx 2.39.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -588,12 +588,12 @@ public string ToInspectorString()</code></pre>
     <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/Misc/Geometry/RectangleF.cs/#L79">View Source</a>
   </span>
   <a id="AGS_API_RectangleF_op_Implicit_" data-uid="AGS.API.RectangleF.op_Implicit*"></a>
-  <h4 id="AGS_API_RectangleF_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Single_System_Single___AGS_API_RectangleF" data-uid="AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF">Implicit( to RectangleF)</h4>
+  <h4 id="AGS_API_RectangleF_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Single_System_Single___AGS_API_RectangleF" data-uid="AGS.API.RectangleF.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Single,System.Single})~AGS.API.RectangleF">Implicit((Single x, Single y, Single width, Single height) to RectangleF)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator RectangleF(rect)</code></pre>
+    <pre><code class="lang-csharp hljs">public static implicit operator RectangleF((float x, float y, float width, float height)rect)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -606,7 +606,7 @@ public string ToInspectorString()</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.</span></td>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>, <span class="xref">System.Single</span>&gt;</td>
         <td><span class="parametername">rect</span></td>
         <td></td>
       </tr>
