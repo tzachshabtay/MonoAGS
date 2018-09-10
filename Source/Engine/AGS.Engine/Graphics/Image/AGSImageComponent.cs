@@ -89,6 +89,8 @@ namespace AGS.Engine
             get => _provider;
             set
             {
+                if (_provider == value)
+                    return;
                 var previousProvider = _provider;
                 if (previousProvider != null)
                     previousProvider.PropertyChanged -= OnProviderPropertyChanged;

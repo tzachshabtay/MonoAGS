@@ -106,7 +106,7 @@ namespace AGS.Editor
             var idle = new ButtonAnimation(GameViewColors.ComboboxButtonBorder, textConfig, GameViewColors.TextEditor);
             var hover = new ButtonAnimation(GameViewColors.HoveredComboboxButtonBorder, null, GameViewColors.HoveredTextEditor);
             var pushed = new ButtonAnimation(GameViewColors.ComboboxButtonBorder, null, GameViewColors.PushedTextEditor);
-            var dropDownButton = factory.UI.GetButton($"{id}_DropDownButton", idle, hover, pushed, 0f, 0f, null, FontIcons.CaretDown, textConfig, true, 25f, 25f);
+            var dropDownButton = factory.UI.GetButton($"{id}_DropDownButton", idle, hover, pushed, 0f, 0f, null, FontIcons.CaretDown, textConfig, false, 25f, 25f);
             return dropDownButton;
         }
     }

@@ -514,13 +514,16 @@ namespace AGS.Engine
             {
                 if (View != null) return;
                 var drawable = _drawable();
-                var view = _tree.NodeViewProvider.CreateNode(Item,
-                                     drawable == null ? AGSLayers.UI : drawable.RenderLayer);
                 var parentNode = Parent;
                 if (parentNode != null)
                 {
                     parentNode.initView();
-                    view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);
+                }
+                var view = _tree.NodeViewProvider.CreateNode(Item,
+                                 drawable == null ? AGSLayers.UI : drawable.RenderLayer,
+                                 parentNode?.View.VerticalPanel);
+                if (parentNode != null)
+                {
                     view.ParentPanel.Visible = !parentNode.IsCollapsed;
                 }
 

@@ -147,6 +147,7 @@ namespace AGS.Engine
 
         public ref ModelMatrices GetModelMatrices() 
         {
+            _parent?.GetModelMatrices();
             if (_pendingLocks > 0) return ref _preLockMatrices;
             if (!_isDirty)
             {

@@ -53,6 +53,7 @@ namespace AGS.Editor
             var factory = _editor.Editor.Factory;
             var title = _parentForm == null ? _title : $"{_parentForm.Header.Text}->{_title}";
             _form = factory.UI.GetForm($"MethodWizardPanel{_idSuffix}", title, 600f, 30f, 400f, -1000f, 100f, addToUi: false);
+            _form.Visible = false;
 
             var host = new AGSComponentHost(_editor.GameResolver);
             host.Init(_form.Contents, typeof(AGSComponentHost));
@@ -61,11 +62,13 @@ namespace AGS.Editor
             var box = _form.Contents.AddComponent<IBoundingBoxWithChildrenComponent>();
             box.IncludeSelf = false;
 
-            _form.Visible = false;
             setupForm(_form.Contents, factory);
             setupForm(_form.Header, factory);
 
-            var inspectorParent = factory.UI.GetPanel($"WizardInspectorParentPanel{_idSuffix}", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, _form.Contents);
+            var layoutPanel = factory.UI.GetPanel($"WizardLayoutPanel{_idSuffix}", 1f, 1f, 0f, 0f, _form.Contents);
+            layoutPanel.Tint = Colors.Transparent;
+
+            var inspectorParent = factory.UI.GetPanel($"WizardInspectorParentPanel{_idSuffix}", WIDTH, 300f, MARGIN_HORIZONTAL, 0f, layoutPanel);
             inspectorParent.Tint = Colors.Transparent;
             inspectorParent.Pivot = (0f, 1f);
 
@@ -80,22 +83,23 @@ namespace AGS.Editor
                 return;
             }
 
-            _addUiExternal?.Invoke(_form.Contents);
-            addButtons();
+            _addUiExternal?.Invoke(layoutPanel);
+            addButtons(layoutPanel);
 
-            var layout = _form.Contents.AddComponent<IStackLayoutComponent>();
+            var layout = layoutPanel.AddComponent<IStackLayoutComponent>();
             layout.AbsoluteSpacing = -30f;
             layout.LayoutAfterCrop = true;
 
             box.OnBoundingBoxWithChildrenChanged.Subscribe(() =>
             {
-                layout.StartLocation = box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL;
+                layoutPanel.Y = box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL;
                 _form.Contents.BaseSize = (_form.Contents.BaseSize.Width, box.BoundingBoxWithChildren.Height + MARGIN_VERTICAL * 2f);
                 _form.Width = box.BoundingBoxWithChildren.Width + MARGIN_HORIZONTAL * 2f;
                 _form.X = center - _form.Contents.BaseSize.Width / 2f;
             });
 
             layout.StartLayout();
+            layout.ForceRefreshLayout();
         }
 
         public async Task<Dictionary<string, object>> ShowAsync()
@@ -116,7 +120,7 @@ namespace AGS.Editor
             _editor.Editor.State.UI.Add(formPart);
         }
 
-        private void addButtons()
+        private void addButtons(IObject parent)
         {
             var factory = _editor.Editor.Factory;
             var font = _editor.Editor.Settings.Defaults.TextFont;
@@ -127,7 +131,7 @@ namespace AGS.Editor
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(factory.Graphics.Borders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);
 
-            var buttonsPanel = factory.UI.GetPanel($"MethodWizardButtonsPanel{_idSuffix}", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, _form.Contents);
+            var buttonsPanel = factory.UI.GetPanel($"MethodWizardButtonsPanel{_idSuffix}", WIDTH, 20f, MARGIN_HORIZONTAL, 50f, parent);
             buttonsPanel.Tint = Colors.Transparent;
 
             var layout = buttonsPanel.AddComponent<IStackLayoutComponent>();
@@ -161,6 +165,7 @@ namespace AGS.Editor
             });
 
             layout.StartLayout();
+            layout.ForceRefreshLayout();
         }
 
         private void closeForm(Dictionary<string, object> map)

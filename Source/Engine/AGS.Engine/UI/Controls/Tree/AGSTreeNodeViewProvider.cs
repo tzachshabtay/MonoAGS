@@ -37,7 +37,7 @@ namespace AGS.Engine
             }
         }
 
-        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
+        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer, IObject parent)
         {
             var buttonWidth = 20f;
             var buttonHeight = 60f;
@@ -46,7 +46,7 @@ namespace AGS.Engine
             var pushed = new ButtonAnimation(new EmptyImage(buttonWidth, buttonHeight), Colors.DarkSlateBlue);
             int nodeId = Interlocked.Increment(ref _nextNodeId);
             var itemTextId = (item.Text ?? "") + "_" + nodeId;
-            var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, addToUi: false);
+            var parentPanel = _factory.UI.GetPanel("TreeNodeParentPanel_" + itemTextId, 0f, 0f, 0f, 0f, parent, false);
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, parentPanel, false);
             var expandButton = _factory.UI.GetButton("ExpandButton_" + itemTextId, idle, hovered, pushed, 0f, 0f, horizontalPanel, addToUi: false);
             var label = _factory.UI.GetLabel("TreeNodeLabel_" + itemTextId, item.Text, 0f, 0f, buttonWidth, 0f, horizontalPanel,
@@ -72,6 +72,7 @@ namespace AGS.Engine
             layout.RelativeSpacing = 1f;
             layout.Direction = LayoutDirection.Horizontal;
             layout.StartLayout();
+            layout.ForceRefreshLayout();
 
             PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
             {

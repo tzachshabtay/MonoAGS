@@ -51,9 +51,9 @@ namespace AGS.Editor
             _onResize.Invoke(width);
         }
 
-        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
+        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer, IObject parentObj)
         {
-            var view = _provider.CreateNode(item, layer);
+            var view = _provider.CreateNode(item, layer, parentObj);
             var parent = item.TreeNode.Parent;
             var node = item as IInspectorTreeNode;
             if (parent != null && node == null)
