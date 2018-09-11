@@ -217,6 +217,7 @@ namespace AGS.Engine
 
         private void onRepeatedlyExecute()
         {
+            if (TextConfig == null) return;
             updateSize();
             PrepareTextBoundingBoxes();
         }
