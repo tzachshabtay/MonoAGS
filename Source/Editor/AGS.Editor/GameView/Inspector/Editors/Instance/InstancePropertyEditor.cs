@@ -79,9 +79,8 @@ namespace AGS.Editor
             implementations.AddRange(factories.Select(f => new FactoryImplementationOption((HasFactoryAttribute)f, _editor)));
 
             var baseType = type.IsGenericType ? type.GetGenericTypeDefinition() : type;
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => baseType.IsAssignableFrom(p) && isConcreteImplementation(p))
+            var types = baseType.AllImplementations()
+                .Where(p => isConcreteImplementation(p))
                 .Select(s => new TypeImplementationOption(s, type, _editor));
             implementations.AddRange(types);
 

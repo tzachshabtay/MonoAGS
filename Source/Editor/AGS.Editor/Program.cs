@@ -33,6 +33,7 @@ namespace AGS.Editor
                 screen.Show();
 
                 var room = game.Factory.Room.GetRoom("MainEditorRoom");
+                ReflectionCache.Refresh();
                 await game.State.ChangeRoomAsync(room);
             });
 
