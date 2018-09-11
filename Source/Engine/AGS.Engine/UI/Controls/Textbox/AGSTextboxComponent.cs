@@ -27,7 +27,8 @@ namespace AGS.Engine
         private bool _leftShiftOn, _rightShiftOn;
         private bool _shiftOn => _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible);
 
-        private ILabel _withCaret, _watermark;
+        private ILabel _watermark;
+        private Lazy<ILabel> _withCaret;
 
         public AGSTextBoxComponent(IBlockingEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
@@ -71,24 +72,17 @@ namespace AGS.Engine
             Entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
 
             _caretFlashCounter = (int)CaretFlashDelay;
-            _withCaret = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
-            _withCaret.Pivot = new PointF(0f, 0f);
-            _withCaret.TextBackgroundVisible = false;
+            _withCaret = new Lazy<ILabel>(() =>
+            {
+                var label = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+                label.Pivot = new PointF(0f, 0f);
+                label.TextBackgroundVisible = false;
+                return label;
+            });
 
             Entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
-
             Entity.Bind<IBorderComponent>(c => _borderComponent = c, _ => _borderComponent = null);
-
-            Entity.Bind<IDrawableInfoComponent>(c =>
-            {
-                _drawableComponent = c;
-                c.PropertyChanged += onDrawableChanged;
-                onRenderLayerChanged();
-            }, c => 
-            { 
-                c.PropertyChanged -= onDrawableChanged; 
-                _drawableComponent = null; 
-            });
+            Entity.Bind<IDrawableInfoComponent>(c => _drawableComponent = c, _ => _drawableComponent = null);
 
             _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
@@ -97,12 +91,6 @@ namespace AGS.Engine
         {
             if (e.PropertyName != nameof(ITextComponent.Text)) return;
             updateWatermark();
-        }
-
-        public override void AfterInit()
-        {
-            base.AfterInit();
-            _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
         }
 
         public bool IsFocused
@@ -140,31 +128,15 @@ namespace AGS.Engine
         {
             base.Dispose();
             _game?.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _game?.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
             _input?.KeyDown.Unsubscribe(onKeyDown);
             _input?.KeyUp.Unsubscribe(onKeyUp);
-        }
-
-        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer)) return;
-            onRenderLayerChanged();
-        }
-
-        private void onRenderLayerChanged()
-        {
-            var drawable = _drawableComponent;
-            if (drawable == null) return;
-            var layer = drawable.RenderLayer;
-            if (layer == null) return;
-            _withCaret.RenderLayer = layer;
         }
 
         private void onRepeatedlyExecute()
         {
             var visible = _visibleComponent;
             if (visible == null || !visible.Visible) IsFocused = false;
-            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
+            updateCaret();
         }
 
         private void onSoftKeyboardHidden()
@@ -190,11 +162,15 @@ namespace AGS.Engine
             IsFocused = false;
         }
 
-        private void onBeforeRender()
+        private void updateCaret()
         {
-            if (_textComponent == null) return;
+            var drawable = _drawableComponent;
+            if (drawable == null) return;
+            var textComponent = _textComponent;
+            if (textComponent == null) return;
             if (_room?.Room != null && _room?.Room != _game?.State?.Room) return;
             bool isVisible = IsFocused;
+            ILabel caret = _withCaret.IsValueCreated ? _withCaret.Value : null;
             if (isVisible)
             {
                 _caretFlashCounter--;
@@ -207,27 +183,27 @@ namespace AGS.Engine
                     }
                 }
 
-                _withCaret.Tint = _imageComponent.Tint;
-                _withCaret.Text = _textComponent.Text;
-                _withCaret.TextConfig = _textComponent.TextConfig;
+                caret = caret ?? _withCaret.Value;
+                if (caret.TreeNode.Parent == null)
+                    caret.TreeNode.SetParent(_tree.TreeNode);
+                caret.RenderLayer = drawable.RenderLayer;
+                caret.Tint = _imageComponent.Tint;
+                caret.Text = _textComponent.Text;
+                caret.TextConfig = _textComponent.TextConfig;
             }
-            _withCaret.TextVisible = isVisible;
-            _textComponent.TextVisible = !isVisible;
-
-            var caretTextComponent = _withCaret.GetComponent<ITextComponent>();
-            if (caretTextComponent != null)
+            if (caret != null)
             {
-                caretTextComponent.CaretPosition = CaretPosition;
-                caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
-                caretTextComponent.RenderCaret = true;
+                caret.TextVisible = isVisible;
+                var caretTextComponent = caret.GetComponent<ITextComponent>();
+                if (caretTextComponent != null)
+                {
+                    caretTextComponent.CaretPosition = CaretPosition;
+                    caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
+                    caretTextComponent.RenderCaret = true;
+                }
             }
-            _textComponent.TextVisible = !isVisible;
-            var imageComponent = _imageComponent;
-            var textComponent = _textComponent;
-            if (textComponent != null)
-            {
-                textComponent.CaretPosition = CaretPosition;
-            }
+            textComponent.TextVisible = !isVisible;
+            textComponent.CaretPosition = CaretPosition;
         }
 
         private void onKeyUp(KeyboardEventArgs args)
