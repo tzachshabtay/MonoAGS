@@ -114,10 +114,6 @@ border, background color (tint) or text rendering configuration (font, shadows, 
       <h4><a class="xref" href="AGS.API.Colors.html">Colors</a></h4>
       <section><p>A list of colors to choose from.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ConcreteImplementationAttribute.html">ConcreteImplementationAttribute</a></h4>
-      <section><p>This attribute can be assigned to concrete implementations of interfaces.
-This affects the inspector, when selecting implementations for interfaces (for example, when selecting a border you&apos;d want to look of implmentations of <a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>).</p>
-</section>
       <h4><a class="xref" href="AGS.API.CustomStringValueAttribute.html">CustomStringValueAttribute</a></h4>
       <section><p>An attribute to be placed on a method that will be used instead of ToString() to supply the string display value
 to the inspector.
@@ -128,11 +124,6 @@ The method must accept no arguments and return a string.</p>
 </section>
       <h4><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners&lt;TValue&gt;</a></h4>
       <section><p>Represents four values of &quot;something&quot; that matches four corners of a bounding box (for example, four colors for a gradient border).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.HasFactoryAttribute.html">HasFactoryAttribute</a></h4>
-      <section><p>This attribute can be associated to an interface, to allow specifying factory methods that
-can be used to create a possible implementation. This is used by the inspector when selecting an implementation
-for an interface. For example, when selecting a border via <a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>, it can refer you to various methods in <a class="xref" href="AGS.API.IBorderFactory.html">IBorderFactory</a>.</p>
 </section>
       <h4><a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a></h4>
       <section><p>The event arguments for the inventory combination events.
@@ -146,10 +137,6 @@ The arguments contain the two combined items.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ListboxItemArgs.html">ListboxItemArgs</a></h4>
       <section><p>Event arguments for when a selected item changes in a listbox/combobox.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.ListboxItemChangingArgs.html">ListboxItemChangingArgs</a></h4>
-      <section><p>Event arguments for when a selected item is in the process of changing (before actually being changed) in a listbox/combobox.
-The event gives the ability to cancel the selection by settings <a class="xref" href="AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel">ShouldCancel</a> to true.</p>
 </section>
       <h4><a class="xref" href="AGS.API.MathHelper.html">MathHelper</a></h4>
       <section><p>Contains common mathematical functions and constants.</p>
@@ -171,8 +158,6 @@ The event gives the ability to cancel the selection by settings <a class="xref" 
       <h4><a class="xref" href="AGS.API.MousePositionEventArgs.html">MousePositionEventArgs</a></h4>
       <section><p>Event arguments for mouse move to indicate the mouse&apos;s position.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.NamedColorsMap.html">NamedColorsMap</a></h4>
-      <section></section>
       <h4><a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a></h4>
       <section><p>Event arguments which contain a tree node.</p>
 </section>
@@ -378,7 +363,7 @@ Interested parties can subscribe to the event and be notified when it triggers (
 It can draw both behind and in front of the entity.</p>
 <p>There are several borders that come built in:</p>
 <ol>
-<li>A solid color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_AGS_API_Color_System_Single_System_Boolean_">SolidColor(Color, Single, Boolean)</a>): allows to set a color, line width and optional rounded corners.</li>
+<li>A solid color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_System_Nullable_AGS_API_Color__System_Single_System_Boolean_">SolidColor(Nullable&lt;Color&gt;, Single, Boolean)</a>): allows to set a color, line width and optional rounded corners.</li>
 <li>A gradient color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_">Gradient(FourCorners&lt;Color&gt;, Single, Boolean)</a>): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.</li>
 <li>A 9-slice image border (use AGSSlicedImageBorder): this allows you to use an image, slice it to 9 pieces, and spread it in various ways to create a border.
 The 9-slice image border is heavily inspired by the border image used by CSS, so you can look at an example in CSS, to
@@ -599,9 +584,6 @@ to where the entity is. The follow settings can be configured to set how aggress
 </section>
       <h4><a class="xref" href="AGS.API.IFontLoader.html">IFontLoader</a></h4>
       <section><p>Allows loading fonts.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IForm.html">IForm</a></h4>
-      <section><p>A form (a panel with a header).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IFrameBuffer.html">IFrameBuffer</a></h4>
       <section><p>Allows rendering into a texture instead of rendering to screen</p>
@@ -1158,9 +1140,6 @@ High priority subscribers will receive the event before normal priority (the def
 </section>
       <h4><a class="xref" href="AGS.API.ComboSuggest.html">ComboSuggest</a></h4>
       <section><p>Which mode to apply when typing text in the combo box&apos;s textbox?</p>
-</section>
-      <h4><a class="xref" href="AGS.API.CropFrom.html">CropFrom</a></h4>
-      <section><p>If the item was completely cropped, gets the direction the item was cropped from.</p>
 </section>
       <h4><a class="xref" href="AGS.API.CustomStringApplyWhen.html">CustomStringApplyWhen</a></h4>
       <section><p>Indicates when to apply a custom display string instead of using ToString().</p>
