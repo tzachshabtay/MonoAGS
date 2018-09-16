@@ -33,7 +33,7 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
         private readonly IRenderMessagePump _messagePump;
         private readonly BitmapPool _bitmapPool;
-        private readonly IFontLoader _fonts;
+        private readonly IFontFactory _fonts;
         private readonly BoundingBoxesEmptyBuilder _labelBoundingBoxFakeBuilder;
         private readonly IRuntimeSettings _settings;
         private readonly ObjectPool<Instruction> _instructionPool;
@@ -47,7 +47,7 @@ namespace AGS.Engine
         public AGSTextComponent(IRenderPipeline pipeline, IBoundingBoxBuilder boundingBoxBuilder,
             IGLTextureRenderer textureRenderer, BitmapPool bitmapPool,
             AGSBoundingBoxes labelBoundingBoxes, AGSBoundingBoxes textBoundingBoxes,
-            IGLUtils glUtils, IGraphicsBackend graphics, IFontLoader fonts,
+            IGLUtils glUtils, IGraphicsBackend graphics, IFontFactory fonts,
             IRuntimeSettings settings, IRenderMessagePump messagePump, IGameState state, IGameEvents events)
         {
             _pipeline = pipeline;

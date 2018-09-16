@@ -37,8 +37,8 @@ namespace AGS.Editor
         private static ICheckBox createCheckbox(IObject parent, IGameFactory factory, string id, 
                                                 float x, float y, string text, string @unchecked, string @checked)
         {
-            var idleConfig = new AGSTextConfig(font: FontIcons.Font, brush: factory.Graphics.Brushes.LoadSolidBrush(Colors.WhiteSmoke), paddingTop: 0f, paddingLeft: 0f, paddingRight: 0f, paddingBottom: 0f, alignment: Alignment.MiddleCenter);
-            var hoverConfig = new AGSTextConfig(font: FontIcons.Font, brush: factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), paddingTop: 0f, paddingLeft: 0f, paddingRight: 0f, paddingBottom: 0f, alignment: Alignment.MiddleCenter);
+            var idleConfig = factory.Fonts.GetTextConfig(font: FontIcons.Font, brush: factory.Graphics.Brushes.LoadSolidBrush(Colors.WhiteSmoke), paddingTop: 0f, paddingLeft: 0f, paddingRight: 0f, paddingBottom: 0f, alignment: Alignment.MiddleCenter);
+            var hoverConfig = factory.Fonts.GetTextConfig(font: FontIcons.Font, brush: factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), paddingTop: 0f, paddingLeft: 0f, paddingRight: 0f, paddingBottom: 0f, alignment: Alignment.MiddleCenter);
             var idleAnimation = new ButtonAnimation(null, idleConfig, null);
             var hoverAnimation = new ButtonAnimation(null, hoverConfig, null);
             var checkbox = factory.UI.GetCheckBox(id, idleAnimation, hoverAnimation, idleAnimation, hoverAnimation,

@@ -40,13 +40,13 @@ namespace DemoGame
 			_panel.AddComponent<IModalWindowComponent>();
 
             var headerLabel = factory.UI.GetLabel("FeaturesHeaderLabel", "Guided Tour", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
-                                                  _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
+                                                  _panel, factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
             headerLabel.Border = _panel.Border;
             headerLabel.RenderLayer = _layer;
 
-            var xButton = factory.UI.GetButton("FeaturesCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X", 
-                                               new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
+            var xButton = factory.UI.GetButton("FeaturesCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",
+                                               factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter), 
                                                                  width: 40f, height: 40f);
             xButton.Pivot = (0f, 0f);

@@ -128,7 +128,7 @@ namespace AGS.Editor
             if (editor.Text != null)
             {
                 var propLabel = _factory.UI.GetLabel(id + "_PropLabel", editor.Text, 1f, 1f, 0f, 0f, panel,
-                                     new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText));
+                             _factory.Fonts.GetTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText));
                 propLabel.Tint = Colors.Transparent;
                 propLabel.TextBackgroundVisible = false;
                 propLabel.RenderLayer = label.RenderLayer;

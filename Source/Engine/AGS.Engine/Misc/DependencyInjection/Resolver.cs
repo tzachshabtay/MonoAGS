@@ -64,6 +64,7 @@ namespace AGS.Engine
             Builder.RegisterType<RoomTransitionWorkflow>().SingleInstance().As<IRoomTransitionWorkflow>();
             Builder.RegisterType<AGSGameLoop>().SingleInstance().As<IGameLoop>();
             Builder.RegisterType<GLTextureFactory>().SingleInstance().As<ITextureFactory>();
+            Builder.RegisterType<AGSFontFactory>().SingleInstance().As<IFontFactory>();
 
             //Registering lambdas for increasing performance
             Builder.Register<IPanel>((c, p) => new AGSPanel(p.TypedAs<string>(), this)).ExternallyOwned();

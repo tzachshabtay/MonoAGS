@@ -74,7 +74,7 @@ namespace AGS.Engine
             _caretFlashCounter = (int)CaretFlashDelay;
             _withCaret = new Lazy<ILabel>(() =>
             {
-                var label = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
+                var label = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: _game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText));
                 label.Pivot = new PointF(0f, 0f);
                 label.TextBackgroundVisible = false;
                 return label;

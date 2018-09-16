@@ -50,7 +50,7 @@ namespace AGS.Engine
             var horizontalPanel = _factory.UI.GetPanel("TreeNodeHorizontalPanel_" + itemTextId, 0f, 0f, 0f, 0f, parentPanel, false);
             var expandButton = _factory.UI.GetButton("ExpandButton_" + itemTextId, idle, hovered, pushed, 0f, 0f, horizontalPanel, addToUi: false);
             var label = _factory.UI.GetLabel("TreeNodeLabel_" + itemTextId, item.Text, 0f, 0f, buttonWidth, 0f, horizontalPanel,
-                                             new AGSTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText), addToUi: false);
+                                             _factory.Fonts.GetTextConfig(paddingTop: 0f, paddingBottom: 0f, autoFit: AutoFit.LabelShouldFitText), addToUi: false);
             var verticalPanel = _factory.UI.GetPanel("TreeNodeVerticalPanel_" + itemTextId, 0f, 0f, 0f, 0f, parentPanel, false);
             horizontalPanel.RenderLayer = layer;
             verticalPanel.RenderLayer = layer;

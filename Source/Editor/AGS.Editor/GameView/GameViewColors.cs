@@ -6,7 +6,9 @@ namespace AGS.Editor
 {
     public static class GameViewColors
     {
-        private static IBorderFactory borders() => AGSGame.Game.Factory.Graphics.Borders;
+        private static IGame _game = AGSGame.Game;
+        private static IFontFactory fonts() => _game.Factory.Fonts;
+        private static IBorderFactory borders() => _game.Factory.Graphics.Borders;
 
         public static Color Panel = Color.FromRgba(53, 64, 81, 250);
         public static Color Border = Color.FromRgba(44, 51, 61, 255);
@@ -35,18 +37,18 @@ namespace AGS.Editor
         public static IBorderStyle HoveredComboboxButtonBorder = borders().Gradient(new FourCorners<Color>(HoveredTextEditor),
                                                                            new FourCorners<bool>(false, true, false, true), 3f);
 
-        public static IBrush TextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Text);
-        public static IBrush HoveredTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);
-        public static IBrush ReadonlyTextBrush = AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(ReadonlyText);
+        public static IBrush TextBrush = _game.Factory.Graphics.Brushes.LoadSolidBrush(Text);
+        public static IBrush HoveredTextBrush = _game.Factory.Graphics.Brushes.LoadSolidBrush(HoveredText);
+        public static IBrush ReadonlyTextBrush = _game.Factory.Graphics.Brushes.LoadSolidBrush(ReadonlyText);
 
-        public static ITextConfig ButtonTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
-        public static ITextConfig TextboxTextConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, brush: TextBrush);
-        public static ITextConfig ReadonlyTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush,
-             font: AGSGame.Device.FontLoader.LoadFont(AGSGame.Game.Settings.Defaults.TextFont.FontFamily, 12f));
-        public static ITextConfig ButtonHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
-        public static ITextConfig TextboxHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, brush: HoveredTextBrush);
-        public static ITextConfig ComboboxTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
-        public static ITextConfig ComboboxHoverTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
+        public static ITextConfig ButtonTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
+        public static ITextConfig TextboxTextConfig = fonts().GetTextConfig(autoFit: AutoFit.TextShouldCrop, brush: TextBrush);
+        public static ITextConfig ReadonlyTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush,
+             font: _game.Factory.Fonts.LoadFont(_game.Settings.Defaults.TextFont.FontFamily, 12f));
+        public static ITextConfig ButtonHoverTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
+        public static ITextConfig TextboxHoverTextConfig = fonts().GetTextConfig(autoFit: AutoFit.TextShouldCrop, brush: HoveredTextBrush);
+        public static ITextConfig ComboboxTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
+        public static ITextConfig ComboboxHoverTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
 
         public static void AddHoverEffect(ITextBox textbox, 
                                           IBorderStyle border = null, IBorderStyle hoveredBorder = null,

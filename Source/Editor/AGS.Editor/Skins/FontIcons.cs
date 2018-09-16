@@ -6,19 +6,19 @@ namespace AGS.Editor
 {
     public static class FontIcons
     {
-        public static void Init(IFontLoader fontLoader)
+        public static void Init(IFontFactory fontLoader)
         {
             const string path = "Fonts/Font Awesome 5 Free-Solid-900.otf";
 
             Font = fontLoader.LoadFontFromPath(path, 14f, FontStyle.Regular);
-            IconConfig = new AGSTextConfig(font: Font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
+            IconConfig = fontLoader.GetTextConfig(font: Font, autoFit: AutoFit.NoFitting, alignment: Alignment.MiddleCenter,
                                            paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
 
-            ButtonConfig = new AGSTextConfig(font: Font, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
+            ButtonConfig = fontLoader.GetTextConfig(font: Font, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
                                            paddingLeft: 0f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f);
 
             var tinyFont = fontLoader.LoadFontFromPath(path, 8f, FontStyle.Regular);
-            TinyButtonConfig = new AGSTextConfig(font: tinyFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
+            TinyButtonConfig = fontLoader.GetTextConfig(font: tinyFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
                                                  paddingLeft: -1f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
 
             TinyButtonConfigHovered = AGSTextConfig.ChangeColor(TinyButtonConfig, Colors.Black, Colors.White, 0f);
@@ -54,6 +54,7 @@ namespace AGS.Editor
 
         public const string CaretDown = "\uf0d7";
         public const string CaretUp = "\uf0d8";
+        public const string CaretRight = "\uf0da";
 
         public const string Square = "\uf0c8";
         public const string CheckSquare = "\uf14a";

@@ -8,7 +8,9 @@ namespace AGS.Engine
 	{ 
 		public AGSSayConfig()
 		{
-            TextConfig = new AGSTextConfig(font : AGSGame.Game?.Settings.Defaults.SpeechFont, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+            //todo: remove usage of AGSGame (the factory itself should provide speech config)
+            TextConfig = AGSGame.Game.Factory.Fonts.GetTextConfig(font : AGSGame.Game.Settings.Defaults.SpeechFont, 
+              autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
 			TextDelay = 70;
 			LabelSize = new AGS.API.SizeF (250f, 200f);
 			SkipText = SkipText.ByTimeAndMouse;

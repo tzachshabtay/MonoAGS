@@ -19,8 +19,8 @@ namespace DemoGame
             _parent = parent;
             var factory = game.Factory;
             _label = factory.UI.GetLabel("FeaturesLabel", LABEL_TEXT,
-                                         200f, 50f, 25f, _parent.Height - 25f, parent, 
-                                         new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
+                                         200f, 50f, 25f, _parent.Height - 25f, parent,
+                                         factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
             _label.Pivot = (0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;

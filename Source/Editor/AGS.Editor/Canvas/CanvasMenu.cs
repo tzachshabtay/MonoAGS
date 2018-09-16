@@ -190,7 +190,7 @@ namespace AGS.Editor
             buttonsPanel.Tint = Colors.Transparent;
 
             var font = _editor.Editor.Settings.Defaults.TextFont;
-            var labelConfig = new AGSTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
+            var labelConfig = factory.Fonts.GetTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
             factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 0f, 0f, buttonsPanel, labelConfig);
 
             const float buttonY = -40f;

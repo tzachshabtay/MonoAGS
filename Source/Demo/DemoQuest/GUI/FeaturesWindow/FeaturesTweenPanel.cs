@@ -248,8 +248,8 @@ namespace DemoGame
 
         private IButton addButton(string id, string text, float x, float y, Action onClick)
         {
-            AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
-            AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
+            ITextConfig idleConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
+            ITextConfig hoverConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
             var borders = _game.Factory.Graphics.Borders;
             var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 5f), idleConfig, Colors.Transparent);
             var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 5f), hoverConfig, Colors.Yellow);
@@ -343,11 +343,11 @@ namespace DemoGame
 
                 _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
-                                          new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
+                                          _game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldFitLabel));
                 _label.Pivot = (0.5f, 0f);
 
-                AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
-                AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
+                ITextConfig idleConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
+                ITextConfig hoverConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
 
                 var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 2f), idleConfig, Colors.Transparent);
                 var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);

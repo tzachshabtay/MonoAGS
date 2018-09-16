@@ -60,13 +60,13 @@ namespace AGS.Editor
             _editor.Editor.State.FocusedUI.CannotLoseFocus.Add(_panelId);
 
             var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game View", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
-                                      _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
+                _panel, factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
             headerLabel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             headerLabel.RenderLayer = _layer;
 
             var xButton = factory.UI.GetButton("GameDebugTreeCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",
-                                               new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
+                                               factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter),
                                                                  width: 40f, height: 40f);
             xButton.Pivot = new PointF();
@@ -77,7 +77,7 @@ namespace AGS.Editor
             xButton.MouseClicked.Subscribe(_ => Hide());
 
             _panesButton = factory.UI.GetButton("GameDebugViewPanesButton", (IAnimation)null, null, null, _panel.Width, xButton.Y, _panel, "Display List",
-                                                   new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
+                                                   factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
                                                    width: 120f, height: 40f);
             _panesButton.Pivot = new PointF(1f, 0f);
             _panesButton.RenderLayer = _layer;

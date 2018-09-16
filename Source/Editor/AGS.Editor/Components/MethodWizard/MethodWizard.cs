@@ -123,10 +123,9 @@ namespace AGS.Editor
         private void addButtons(IObject parent)
         {
             var factory = _editor.Editor.Factory;
-            var font = _editor.Editor.Settings.Defaults.TextFont;
             var border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
-            var idleConfig = new AGSTextConfig(GameViewColors.TextBrush, alignment: Alignment.MiddleCenter, font: font);
-            var hoveredConfig = new AGSTextConfig(GameViewColors.HoveredTextBrush, alignment: Alignment.MiddleCenter, font: font);
+            var idleConfig = factory.Fonts.GetTextConfig(GameViewColors.TextBrush, alignment: Alignment.MiddleCenter);
+            var hoveredConfig = factory.Fonts.GetTextConfig(GameViewColors.HoveredTextBrush, alignment: Alignment.MiddleCenter);
             var idle = new ButtonAnimation(border, idleConfig, GameViewColors.Button);
             var hovered = new ButtonAnimation(border, hoveredConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(factory.Graphics.Borders.SolidColor(Colors.Black, 2f), idleConfig, GameViewColors.Button);

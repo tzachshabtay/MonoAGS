@@ -47,7 +47,7 @@ namespace AGS.Engine
         /// </summary>
         public static int TextResolutionFactorY = 1;
 
-        public GLText(IGraphicsBackend graphics, IRenderMessagePump messagePump, IFontLoader fonts, IFont defaultFont, BitmapPool pool, 
+        public GLText(IGraphicsBackend graphics, IRenderMessagePump messagePump, IFontFactory fonts, IFont defaultFont, BitmapPool pool, 
                       bool alwaysMeasureOnly, string text = "", int maxWidth = int.MaxValue)
         {
             _messagePump = messagePump;
@@ -57,7 +57,7 @@ namespace AGS.Engine
             this._maxWidth = maxWidth;
             this._text = text;
             this._bitmapPool = pool;
-            _config = new AGSTextConfig(font: defaultFont);
+            _config = fonts.GetTextConfig(font: defaultFont);
 
             prepareBitmapDraw();
         }
