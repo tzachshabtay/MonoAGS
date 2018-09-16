@@ -23,6 +23,7 @@ namespace AGS.Editor
         private readonly ActionManager _actions;
         private List<Action> _cleanup;
         private readonly EditorProvider _editorProvider;
+        private IEntity _scrollingContainer;
 
         public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, 
                             ActionManager actions, StateModel model, AGSEditor editor, IForm parentForm)
@@ -45,6 +46,21 @@ namespace AGS.Editor
 
         public Dictionary<InspectorCategory, List<IProperty>> Properties => _props;
 
+        public IEntity ScrollingContainer 
+        {
+            get => _scrollingContainer;
+            set
+            {
+                _scrollingContainer = value;
+                var treeView = _treeView;
+                if (treeView == null)
+                {
+                    throw new NullReferenceException($"Can't set a scrolling container without a tree view already attached");
+                }
+                treeView.ScrollingContainer = value;
+            }
+        }
+
         public override void Init()
         {
             base.Init();
@@ -60,7 +76,6 @@ namespace AGS.Editor
             var descriptor = getTypeDescriptor(obj);
             _props = descriptor.GetProperties();
             if (_props.Count == 0) return false;
-
             refreshTree();
             return true;
         }

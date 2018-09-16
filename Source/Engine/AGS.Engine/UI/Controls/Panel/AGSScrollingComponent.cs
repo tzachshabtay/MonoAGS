@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -13,6 +14,7 @@ namespace AGS.Engine
         private readonly IGameState _state;
         private IInObjectTreeComponent _tree;
         private bool _inEvent;
+        private float? _contentsWidth, _contentsHeight;
 
         public AGSScrollingComponent(IGameState state)
         {
@@ -48,6 +50,26 @@ namespace AGS.Engine
                 refreshSliderLimits();
 			}
 		}
+
+        public float? ContentsWidth
+        {
+            get => _contentsWidth;
+            set
+            {
+                _contentsWidth = value;
+                refreshSliderLimits();
+            }
+        }
+
+        public float? ContentsHeight
+        {
+            get => _contentsHeight;
+            set
+            {
+                _contentsHeight = value;
+                refreshSliderLimits();
+            }
+        }
 
         public override void Init()
         {
@@ -95,7 +117,7 @@ namespace AGS.Engine
             var layout = _layout;
 			if (verticalScrollBar != null)
             {
-                float childrenHeight = withChildren.Value.Height;
+                float childrenHeight = _contentsHeight ?? withChildren.Value.Height;
                 if (layout != null && layout.Direction == LayoutDirection.Vertical && MathUtils.FloatEquals(layout.RelativeSpacing, 0f))
                 {
                     float layoutHeight = layout.DryRun();
@@ -105,7 +127,7 @@ namespace AGS.Engine
             }
             if (horizontalScrollBar != null)
             {
-                float childrenWidth = withChildren.Value.Width;
+                float childrenWidth = _contentsWidth ?? withChildren.Value.Width;
                 if (layout != null && layout.Direction == LayoutDirection.Horizontal && MathUtils.FloatEquals(layout.RelativeSpacing, 0f))
                 {
                     float layoutWidth = layout.DryRun();

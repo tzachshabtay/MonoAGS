@@ -60,6 +60,7 @@ namespace AGS.Editor
             Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, 
                                          _editor.Editor.State, _actions, _editor.Project.Model, _editor, parentForm);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
+            Inspector.ScrollingContainer = _contentsPanel;
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _editor.Editor.Factory,
                                                                _editor.Editor.Events, _treePanel);
@@ -82,6 +83,9 @@ namespace AGS.Editor
         {
             var cropChildren = _contentsPanel.GetComponent<ICropChildrenComponent>();
             cropChildren.CropChildrenEnabled = false;
+            var scroll = _contentsPanel.GetComponent<IScrollingComponent>();
+            scroll.VerticalScrollBar.Value = 0f;
+            scroll.HorizontalScrollBar.Value = 0f;
             var result = Inspector.Show(obj);
             cropChildren.CropChildrenEnabled = true;
             return result;

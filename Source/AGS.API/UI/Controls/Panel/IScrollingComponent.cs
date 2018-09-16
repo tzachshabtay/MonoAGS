@@ -20,5 +20,17 @@
         /// </summary>
         /// <value>The horizontal scroll bar.</value>
         ISlider HorizontalScrollBar { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the contents (or leave as null to auto-detect).
+        /// </summary>
+        /// <value>The width of the contents.</value>
+        float? ContentsWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the height of the contents (or leave as null to auto-detect).
+        /// </summary>
+        /// <value>The height of the contents.</value>
+        float? ContentsHeight { get; set; }
     }
 }
