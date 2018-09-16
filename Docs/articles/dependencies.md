@@ -61,6 +61,10 @@ Font used to display icons in the editor.
 
 Used by the editor to show human friendly names for properties from code.
 
+### [Fira Sans](https://github.com/mozilla/Fira)
+
+The font used by the editor.
+
 ## Development only dependencies
 
 ### [NUnit](http://nunit.org/)
