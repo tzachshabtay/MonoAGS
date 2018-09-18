@@ -5,9 +5,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Using a different IDE | MonoAGS Documentation </title>
+    <title>Enum CropFrom
+   | MonoAGS Documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using a different IDE | MonoAGS Documentation ">
+    <meta name="title" content="Enum CropFrom
+   | MonoAGS Documentation ">
     <meta name="generator" content="docfx 2.39.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -76,31 +78,57 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
-<h1 id="using-a-different-ide">Using a different IDE</h1>
-
-<p>If you don&#39;t want to use <code>Visual Studio</code> and don&#39;t need to target Android/IOS you can install the needed to components to compile from command-line, then you can use whatever coding environment you wish (even <code>Notepad</code>!).</p>
-<p>Note: For Android/IOS, <code>Visual Studio</code> is currently a requirement, but you can still do all your coding for desktop on your favorite editor and switch to <code>Visual Studio</code> in the end.</p>
-<h2 id="prerequisites--on-windows">Prerequisites- On Windows</h2>
-<p>Install <a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017">Build Tools For Visual Studio 2017</a>.
-In the installer, check <code>.Net Core Build Tools</code> (under <code>Workloads</code>) and check <code>Nuget Package Manager</code> under <code>Individual Components</code>.</p>
-<p>After installing, add the MSBuild folder to your PATH environment variable (<code>%programfiles(x86)%\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin</code>).</p>
-<h2 id="prerequisites--on-maclinux">Prerequisites- On Mac/Linux</h2>
-<p>Install <a href="https://www.mono-project.com/download/stable/">Mono</a> (GTK# is not needed)
-Add the <code>Mono/bin</code> folder to your PATH environment variable.</p>
-<p>TBD.</p>
-<h2 id="compile-from-command-line">Compile from Command-Line</h2>
-<ol>
-<li>Run: <code>dotnet restore</code> (you need to do this every time you add a new package to your projects, so if you don&#39;t add anything specific you&#39;ll only need to run this once).</li>
-<li>To compile, run <code>msbuild /p:Configuration=DesktopDebug /p:Platform=&quot;Any CPU&quot; MonoAGS.sln</code> for debug, or <code>msbuild /p:Configuration=DesktopRelease /p:Platform=&quot;Any CPU&quot; MonoAGS.sln</code> for release.</li>
-</ol>
-<h2 id="ides">IDEs</h2>
-<p>While using <code>Notepad</code> for writing code is fine and dandy, sometimes you want a little more from your coding environment, like debugging, code completion, syntax highlighting, etc.
-For that you need an IDE. Here&#39;s some additional instructions (after you&#39;ve setup the prequisites) for a few IDEs.</p>
-<h2 id="vs-code">VS Code</h2>
-<p><code>Visual Studio Code</code> (not to be confused with <code>Visual Studio</code>, which is a completely different product) is an open source IDE which supports c# (and a lot of other languages) with extensions. </p>
-<p>Install <a href="https://code.visualstudio.com/download">VS Code</a> and start it.
-In <code>VS Code</code>, go to the extensions tab, and install the <code>C#</code> extension and the <code>Mono Debug</code> extension.</p>
+            <article class="content wrap" id="_content" data-uid="AGS.API.CropFrom">
+  
+  
+  <h1 id="AGS_API_CropFrom" data-uid="AGS.API.CropFrom" class="text-break">Enum CropFrom
+  </h1>
+  <div class="markdown level0 summary"><p>If the item was completely cropped, gets the direction the item was cropped from.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="AGS.API.html">AGS.API</a></h6>
+  <h6><strong>Assembly</strong>: AGS.API.dll</h6>
+  <h5 id="AGS_API_CropFrom_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum CropFrom</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="AGS_API_CropFrom_Bottom">Bottom</td>
+        <td><p>The item was cropped from the bottom.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_CropFrom_Left">Left</td>
+        <td><p>The item was cropped from the left.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_CropFrom_None">None</td>
+        <td><p>The item was not fully cropped.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_CropFrom_Right">Right</td>
+        <td><p>The item was cropped from the right.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="AGS_API_CropFrom_Top">Top</td>
+        <td><p>The item was cropped from the top.</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
 </article>
           </div>
           
@@ -109,7 +137,10 @@ In <code>VS Code</code>, go to the extensions tab, and install the <code>C#</cod
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/vscode/Docs/articles/different-ide.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/InterfaceSelector/apiSpec/new?filename=AGS_API_CropFrom.md&amp;value=---%0Auid%3A%20AGS.API.CropFrom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/InterfaceSelector/Source/AGS.API/UI/Controls/Panel/AGSCropInfo.cs/#L6" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
