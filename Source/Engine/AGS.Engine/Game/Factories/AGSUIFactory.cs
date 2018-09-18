@@ -147,8 +147,8 @@ namespace AGS.Engine
             };
 
             resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
-            scroll.HorizontalScrollBar = horizScrollbar.Slider;
-            scroll.VerticalScrollBar = verScrollbar.Slider;
+            scroll.HorizontalScrollBar = horizScrollbar;
+            scroll.VerticalScrollBar = verScrollbar;
 
             contentsPanel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
 

@@ -84,8 +84,8 @@ namespace AGS.Editor
             var cropChildren = _contentsPanel.GetComponent<ICropChildrenComponent>();
             cropChildren.CropChildrenEnabled = false;
             var scroll = _contentsPanel.GetComponent<IScrollingComponent>();
-            scroll.VerticalScrollBar.Value = 0f;
-            scroll.HorizontalScrollBar.Value = 0f;
+            scroll.VerticalScrollBar.Slider.Value = 0f;
+            scroll.HorizontalScrollBar.Slider.Value = 0f;
             var result = Inspector.Show(obj);
             cropChildren.CropChildrenEnabled = true;
             return result;

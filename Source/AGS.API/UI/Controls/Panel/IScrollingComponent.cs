@@ -13,13 +13,13 @@
         /// Gets or sets the vertical scroll bar.
         /// </summary>
         /// <value>The vertical scroll bar.</value>
-        ISlider VerticalScrollBar { get; set; }
+        IScrollbar VerticalScrollBar { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal scroll bar.
         /// </summary>
         /// <value>The horizontal scroll bar.</value>
-        ISlider HorizontalScrollBar { get; set; }
+        IScrollbar HorizontalScrollBar { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the contents (or leave as null to auto-detect).

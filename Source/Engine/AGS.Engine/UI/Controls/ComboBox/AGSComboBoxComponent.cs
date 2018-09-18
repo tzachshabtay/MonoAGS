@@ -108,8 +108,10 @@ namespace AGS.Engine
             if (clicked != null)
             {
                 if (clicked == _dropDownButton || clicked == _textbox || 
-                    clicked == _scrolling?.VerticalScrollBar.Graphics || clicked == _scrolling?.VerticalScrollBar.HandleGraphics ||
-                    clicked == _scrolling?.HorizontalScrollBar.Graphics || clicked == _scrolling?.HorizontalScrollBar.HandleGraphics ||
+                    clicked == _scrolling?.VerticalScrollBar?.Slider.Graphics || clicked == _scrolling?.VerticalScrollBar?.Slider.HandleGraphics ||
+                    clicked == _scrolling?.HorizontalScrollBar?.Slider.Graphics || clicked == _scrolling?.HorizontalScrollBar?.Slider.HandleGraphics ||
+                    clicked == _scrolling?.VerticalScrollBar?.DownButton || clicked == _scrolling?.VerticalScrollBar?.UpButton ||
+                    clicked == _scrolling?.HorizontalScrollBar?.DownButton || clicked == _scrolling?.HorizontalScrollBar?.UpButton ||
                     clicked == _dropDownPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
                 {
                     return;
@@ -298,10 +300,10 @@ namespace AGS.Engine
             var totalHeight = button.Height * visibleButtons.Count;
             var heightToReachButton = button.Height * index;
 
-            var sliderValue = MathUtils.Lerp(0f, _scrolling.VerticalScrollBar.MinValue,
-                                             totalHeight, _scrolling.VerticalScrollBar.MaxValue, heightToReachButton);
+            var sliderValue = MathUtils.Lerp(0f, _scrolling.VerticalScrollBar.Slider.MinValue,
+                                             totalHeight, _scrolling.VerticalScrollBar.Slider.MaxValue, heightToReachButton);
 
-            _scrolling.VerticalScrollBar.Value = sliderValue;                
+            _scrolling.VerticalScrollBar.Slider.Value = sliderValue;                
         }
 
         private void onSelectedItemChanged(ListboxItemArgs args)
