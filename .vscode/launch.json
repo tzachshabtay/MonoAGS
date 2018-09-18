@@ -1,24 +1,22 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"name": "Launch",
-			"type": "mono",
-			"request": "launch",
-			"program": "${workspaceRoot}/DemoGame/bin/Debug/DemoGame.exe",
-			"args": [],
-			"cwd": "${workspaceRoot}",
-			"preLaunchTask": "",
-			"runtimeExecutable": null,
-			"env": {},
-			"externalConsole": false
-		},
-		{
-			"name": "Attach",
-			"type": "mono",
-			"request": "attach",
-			"address": "localhost",
-			"port": 55555
-		}
-	]
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "mono",
+            "request": "launch",
+            "program": "${workspaceRoot}/Source/Demo/DemoQuest.Desktop/bin/Debug/net461/DemoQuest.Desktop.exe",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "Attach",
+            "type": "mono",
+            "request": "attach",
+            "address": "localhost",
+            "port": 55555
+        }
+    ]
 }
