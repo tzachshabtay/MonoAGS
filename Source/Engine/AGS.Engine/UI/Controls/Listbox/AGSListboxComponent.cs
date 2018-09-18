@@ -254,6 +254,7 @@ namespace AGS.Engine
                     control.MouseClicked.Unsubscribe(onItemClicked);
                     tree?.TreeNode.RemoveChild(control);
                     _state.UI.Remove(control);
+                    control.DestroyWithChildren();
                     controls.RemoveAt(item.Index);
                 }
                 _itemControls = controls;
