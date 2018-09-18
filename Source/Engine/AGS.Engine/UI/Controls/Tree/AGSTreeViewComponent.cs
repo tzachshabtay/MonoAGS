@@ -568,11 +568,9 @@ namespace AGS.Engine
                 {
                     parentNode.initView();
                     if (parentNode.View == null) return;
-                }
-                if (parentNode != null)
-                {
                     Visible = !parentNode.IsCollapsed;
                 }
+                else Visible = true;
                 if (!Visible) return;
                 var view = _tree.NodeViewProvider.CreateNode(Item,
                                  drawable == null ? AGSLayers.UI : drawable.RenderLayer,
