@@ -13,7 +13,7 @@ namespace AGS.Engine
             Entity.Bind<IImageComponent>(c => { _image = c; }, _ => { _image = null; });
         }
 
-        [Property(Category = "Collider")]
+        [Property(Category = "Collider", DisplayName = "Pixel Perfect")]
         public bool IsPixelPerfect { get; set; }
 
         [Property(Browsable = false)]

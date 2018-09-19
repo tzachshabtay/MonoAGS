@@ -47,6 +47,7 @@ namespace AGS.Engine
         }
 
         [NumberEditorSlider(sliderMin: -2f, sliderMax: 2f, step: 0.1f)]
+        [Property(Category = "Image")]
         public float Saturation { get; set; } = 1f;
 
 		public override void Init()

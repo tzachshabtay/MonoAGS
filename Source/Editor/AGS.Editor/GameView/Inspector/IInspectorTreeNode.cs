@@ -8,5 +8,7 @@ namespace AGS.Editor
         IProperty Property { get; }
 
         IInspectorPropertyEditor Editor { get; }
+
+        bool IsCategory { get; }
     }
 }

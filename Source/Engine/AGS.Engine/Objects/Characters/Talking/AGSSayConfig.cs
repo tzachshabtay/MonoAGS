@@ -55,6 +55,6 @@ namespace AGS.Engine
 
         #endregion
 
-        public override string ToString() => "Say Config";
+        public override string ToString() => TextConfig?.Brush?.Color.ToString() ?? "No color set";
     }
 }

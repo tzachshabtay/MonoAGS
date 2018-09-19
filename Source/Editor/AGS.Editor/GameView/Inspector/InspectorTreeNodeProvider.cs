@@ -39,10 +39,9 @@ namespace AGS.Editor
         {
             _provider.BeforeDisplayingNode(item, nodeView, isCollapsed, isHovered, isSelected);
             var parent = item.TreeNode.Parent;
-            if (parent != null && !(item is IInspectorTreeNode))
-            {
-                displayCategoryRow(nodeView, isSelected);
-            }
+            if (parent == null) return;
+            if (item is IInspectorTreeNode node && !node.IsCategory) return;
+            displayCategoryRow(nodeView, isSelected);
         }
 
         public void Resize(float width)
@@ -56,11 +55,11 @@ namespace AGS.Editor
             var view = _provider.CreateNode(item, layer, parentObj);
             var parent = item.TreeNode.Parent;
             var node = item as IInspectorTreeNode;
-            if (parent != null && node == null)
+            if (parent != null && (node == null || node.IsCategory))
             {
                 setupCategoryRow(view);
             }
-            else if (parent != null && node != null)
+            if (parent != null && node != null)
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });

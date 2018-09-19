@@ -14,6 +14,7 @@ namespace AGS.Engine
             ApproachStyle = new AGSApproachStyle();
         }
 
+        [Property(DisplayName = "Approach")]
         public IApproachStyle ApproachStyle { get; set; }
 
         public override void Init()

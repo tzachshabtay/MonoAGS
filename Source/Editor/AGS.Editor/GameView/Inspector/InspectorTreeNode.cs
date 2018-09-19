@@ -8,14 +8,17 @@ namespace AGS.Editor
     {
 		private readonly IStringItem _item;
 
-		public InspectorTreeNode(IProperty property, IInspectorPropertyEditor editor, IFont font)
+		public InspectorTreeNode(IProperty property, IInspectorPropertyEditor editor, IFont font, bool isCategory)
 		{
 			TreeNode = new AGSTreeNode<ITreeStringNode>(this);
 			_item = new AGSStringItem(font);
             Text = property.DisplayName;
             Property = property;
             Editor = editor;
-		}
+            IsCategory = isCategory;
+        }
+
+        public bool IsCategory { get; }
 
 		public ITextConfig HoverTextConfig { get => _item.HoverTextConfig; set => _item.HoverTextConfig = value; }
 

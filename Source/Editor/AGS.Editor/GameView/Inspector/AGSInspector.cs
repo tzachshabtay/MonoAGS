@@ -112,11 +112,20 @@ namespace AGS.Editor
             bool skipCategories = _props.Count == 1;
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
-                ITreeStringNode cat = skipCategories ? root : addToTree(pair.Key.Name, root);
-                IEnumerable<IProperty> values = SortValues ? pair.Value.OrderBy(p => p.DisplayName) : (IEnumerable<IProperty>)pair.Value;
-                foreach (var prop in values)
+                ITreeStringNode cat = null;
+                if (!skipCategories && pair.Value.Count == 1)
                 {
-                    addToTree(cat, prop);
+                    //special case: category has only one child, let's "merge" them together
+                    cat = addToTree(root, pair.Value[0], true);
+                }
+                else
+                {
+                    cat = skipCategories ? root : addToTree(pair.Key.Name, root);
+                    IEnumerable<IProperty> values = SortValues ? pair.Value.OrderBy(p => p.DisplayName) : (IEnumerable<IProperty>)pair.Value;
+                    foreach (var prop in values)
+                    {
+                        addToTree(cat, prop, false);
+                    }
                 }
                 if (pair.Key.Expand)
                 {
@@ -131,17 +140,18 @@ namespace AGS.Editor
             }
         }
 
-        private void addToTree(ITreeStringNode parent, IProperty prop)
+        private ITreeStringNode addToTree(ITreeStringNode parent, IProperty prop, bool isCategory)
         {
-            var node = addToTree(prop, parent);
+            var node = addToTree(prop, parent, isCategory);
             addChildrenToTree(node, prop);
+            return node;
         }
 
         private void addChildrenToTree(ITreeStringNode node, IProperty prop)
         {
             foreach (var child in prop.Children)
             {
-                addToTree(node, child);
+                addToTree(node, child, false);
             }
         }
 
@@ -151,10 +161,10 @@ namespace AGS.Editor
             return addToTree(node, parent);
 		}
 
-        private ITreeStringNode addReadonlyNodeToTree(IProperty property, ITreeStringNode parent)
+        private ITreeStringNode addReadonlyNodeToTree(IProperty property, ITreeStringNode parent, bool isCategory)
         {
             IInspectorPropertyEditor editor = new StringPropertyEditor(_factory, false, _actions, _model);
-            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font, isCategory);
             addToTree(node, parent);
             if (property.Object is INotifyPropertyChanged propertyChanged)
             {
@@ -191,11 +201,11 @@ namespace AGS.Editor
             _cleanup.Clear();
         }
 
-        private ITreeStringNode addToTree(IProperty property, ITreeStringNode parent)
+        private ITreeStringNode addToTree(IProperty property, ITreeStringNode parent, bool isCategory)
         {
             if (property.IsReadonly)
             {
-                return addReadonlyNodeToTree(property, parent);
+                return addReadonlyNodeToTree(property, parent, isCategory);
             }
 
             var propType = property.PropertyType;
@@ -205,7 +215,7 @@ namespace AGS.Editor
                 if (container.Node != null) refreshNode(container.Node, property);
             });
 
-            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font, isCategory);
             container.Node = node;
             return addToTree(node, parent);
 		}

@@ -33,6 +33,7 @@ namespace AGS.Engine
 			OnBeforeSay = onBeforeSay;
 		}
 
+        [Property(DisplayName = "Speech")]
 		public ISayConfig SpeechConfig { get; private set; }
 		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; private set; }
 
