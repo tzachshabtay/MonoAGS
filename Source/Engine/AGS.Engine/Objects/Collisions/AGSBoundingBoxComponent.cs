@@ -64,6 +64,7 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep => this;
 
+        [Property(Category = "World position")]
         public AGSBoundingBox WorldBoundingBox => _pendingLocks > 0 ? GetBoundingBoxes(_state.Viewport).WorldBox : _hitTestBox; 
 
         public override void Init()
