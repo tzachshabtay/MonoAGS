@@ -161,6 +161,7 @@ namespace AGS.Engine
 
         public int CaretPosition { get; set; }
         public bool RenderCaret { get; set; }
+        public int CaretXOffset { get; set; } = -1;
 
         [Property(Browsable = false)]
         public ILockStep TextLockStep { get { return this; } }
@@ -442,7 +443,7 @@ namespace AGS.Engine
             if (TextVisible)
             {
                 if (Text == null) return;
-                if (glText.SetProperties(baseSize, Text, TextConfig, maxWidth, scaleUp, scaleDown, CaretPosition, RenderCaret, cropText, measureOnly))
+                if (glText.SetProperties(baseSize, Text, TextConfig, maxWidth, scaleUp, scaleDown, CaretPosition, CaretXOffset, RenderCaret, cropText, measureOnly))
                 {
                     onBoundingBoxShouldChange();
                 }

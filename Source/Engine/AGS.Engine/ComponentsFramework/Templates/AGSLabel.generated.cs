@@ -173,6 +173,12 @@ namespace AGS.Engine
             set { _textComponent.CaretPosition = value; }
         }
 
+        public int CaretXOffset
+        {
+            get { return _textComponent.CaretXOffset; }
+            set { _textComponent.CaretXOffset = value; }
+        }
+
         public bool RenderCaret
         {
             get { return _textComponent.RenderCaret; }

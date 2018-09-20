@@ -190,6 +190,7 @@ namespace AGS.Engine
                 caret.Tint = _imageComponent.Tint;
                 caret.Text = _textComponent.Text;
                 caret.TextConfig = _textComponent.TextConfig;
+                caret.CaretXOffset = _textComponent.CaretXOffset;
             }
             if (caret != null)
             {

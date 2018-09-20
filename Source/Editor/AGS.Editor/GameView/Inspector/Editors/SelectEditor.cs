@@ -44,6 +44,7 @@ namespace AGS.Editor
             var dropDownButton = getDropDownButton(id, factory);
             var combobox = factory.UI.GetComboBox(id, dropDownButton, null, null, parent,
                                defaultWidth: 100f, defaultHeight: 25f, dropDownPanelOffset: 10f);
+            combobox.TextBox.CaretXOffset = -15;
 
             var layout = combobox.DropDownPanel.ContentsPanel.GetComponent<IStackLayoutComponent>();
             layout.StopLayout();

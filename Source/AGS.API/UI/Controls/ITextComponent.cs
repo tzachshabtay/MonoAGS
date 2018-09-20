@@ -101,6 +101,12 @@
         bool RenderCaret { get; set; }
 
         /// <summary>
+        /// Horizontal offset in pixels for the caret.
+        /// </summary>
+        /// <value>The caret X offset.</value>
+        int CaretXOffset { get; set; }
+
+        /// <summary>
         /// Prepares the bounding boxes for the text. This is called repeatedly by the engine,
         /// but you can call it yourself if you need accurate measurements NOW.
         /// </summary>

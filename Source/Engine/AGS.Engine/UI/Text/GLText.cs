@@ -17,6 +17,7 @@ namespace AGS.Engine
         private int _caretPosition;
         private float _spaceWidth;
         private bool _cropText, _renderCaret, _measureOnly;
+        private int _caretXOffset;
         private readonly IGraphicsBackend _graphics;
         private readonly IFontLoader _fonts;
         private readonly IRenderMessagePump _messagePump;
@@ -77,7 +78,7 @@ namespace AGS.Engine
         public float Height { get; private set; }
 
         public bool SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
-              PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, bool renderCaret = false,
+              PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, int caretXOffset = 0, bool renderCaret = false,
               bool cropText = false, bool measureOnly = false)
         {
             bool configIsDifferent = config != null && !config.Equals(_config);
@@ -88,6 +89,7 @@ namespace AGS.Engine
                 || !baseSize.Equals(_baseSize)
                 || _caretPosition != caretPosition
                 || _renderCaret != renderCaret
+                || _caretXOffset != caretXOffset
                 || cropText != _cropText
                 || measureOnly != _measureOnly
                 || (scaleUp != null && !scaleUp.Value.Equals(_scaleUp))
@@ -109,6 +111,7 @@ namespace AGS.Engine
 
             _baseSize = baseSize;
             _caretPosition = caretPosition;
+            _caretXOffset = caretXOffset;
             _renderCaret = renderCaret;
 
             prepareBitmapDraw();
@@ -228,7 +231,7 @@ namespace AGS.Engine
             AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, maxWidth);
             float spaceOffset = 0f;
             if (untilCaret.EndsWith(" ", StringComparison.Ordinal)) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
-            textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)heightF, caretOffset.Width + spaceOffset - 1f);
+            textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)heightF, caretOffset.Width + spaceOffset + _caretXOffset);
         }
 
         private float measureSpace()
