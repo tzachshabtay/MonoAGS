@@ -15113,6 +15113,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.CaretPosition
   nameWithType: ITextComponent.CaretPosition
+- uid: AGS.API.ITextComponent.CaretXOffset
+  name: CaretXOffset
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretXOffset
+  commentId: P:AGS.API.ITextComponent.CaretXOffset
+  fullName: AGS.API.ITextComponent.CaretXOffset
+  nameWithType: ITextComponent.CaretXOffset
+- uid: AGS.API.ITextComponent.CaretXOffset*
+  name: CaretXOffset
+  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretXOffset_
+  commentId: Overload:AGS.API.ITextComponent.CaretXOffset
+  isSpec: "True"
+  fullName: AGS.API.ITextComponent.CaretXOffset
+  nameWithType: ITextComponent.CaretXOffset
 - uid: AGS.API.ITextComponent.CustomImageResolutionFactor
   name: CustomImageResolutionFactor
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageResolutionFactor
