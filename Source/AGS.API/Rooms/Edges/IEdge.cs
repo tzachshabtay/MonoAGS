@@ -1,10 +1,12 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// Room edges are a convenient way for scripting a room change once a player walks beyond an edge.
     /// Each room has 4 edges, and this interface represents any of those edges.
     /// </summary>
-    public interface IEdge
+    public interface IEdge : INotifyPropertyChanged
 	{
         /// <summary>
         /// Gets or sets the edge's value 
