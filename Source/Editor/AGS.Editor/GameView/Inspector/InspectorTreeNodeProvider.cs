@@ -80,8 +80,13 @@ namespace AGS.Editor
                 PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != node.Property.Name) return;
-                    node.Property.Refresh();
-                    node.Editor.RefreshUI();
+                    IInspectorTreeNode inspectorNode = node;
+                    do
+                    {
+                        inspectorNode.Property.Refresh();
+                        inspectorNode.Editor.RefreshUI();
+                        inspectorNode = inspectorNode.TreeNode.Parent as IInspectorTreeNode;
+                    } while (inspectorNode != null);
                 };
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 view.ParentPanel.OnDisposed(() => propertyChanged.PropertyChanged -= onPropertyChanged);
