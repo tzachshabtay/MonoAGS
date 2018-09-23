@@ -381,15 +381,15 @@ references:
   commentId: T:AGS.API.AGSCropInfo
   fullName: AGS.API.AGSCropInfo
   nameWithType: AGSCropInfo
-- uid: AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2},AGS.API.CropFrom)
-  name: AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>, CropFrom)
-  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_AGS_API_AGSBoundingBox_AGS_API_FourCorners_AGS_API_Vector2__AGS_API_CropFrom_
-  commentId: M:AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2},AGS.API.CropFrom)
-  name.vb: AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2), CropFrom)
-  fullName: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners<AGS.API.Vector2>, AGS.API.CropFrom)
-  fullName.vb: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners(Of AGS.API.Vector2), AGS.API.CropFrom)
-  nameWithType: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>, CropFrom)
-  nameWithType.vb: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2), CropFrom)
+- uid: AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
+  name: AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
+  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_AGS_API_AGSBoundingBox_AGS_API_FourCorners_AGS_API_Vector2__
+  commentId: M:AGS.API.AGSCropInfo.#ctor(AGS.API.AGSBoundingBox,AGS.API.FourCorners{AGS.API.Vector2})
+  name.vb: AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
+  fullName: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners<AGS.API.Vector2>)
+  fullName.vb: AGS.API.AGSCropInfo.AGSCropInfo(AGS.API.AGSBoundingBox, AGS.API.FourCorners(Of AGS.API.Vector2))
+  nameWithType: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners<Vector2>)
+  nameWithType.vb: AGSCropInfo.AGSCropInfo(AGSBoundingBox, FourCorners(Of Vector2))
 - uid: AGS.API.AGSCropInfo.#ctor*
   name: AGSCropInfo
   href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo__ctor_
@@ -410,19 +410,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSCropInfo.BoundingBox
   nameWithType: AGSCropInfo.BoundingBox
-- uid: AGS.API.AGSCropInfo.CropFrom
-  name: CropFrom
-  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_CropFrom
-  commentId: P:AGS.API.AGSCropInfo.CropFrom
-  fullName: AGS.API.AGSCropInfo.CropFrom
-  nameWithType: AGSCropInfo.CropFrom
-- uid: AGS.API.AGSCropInfo.CropFrom*
-  name: CropFrom
-  href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_CropFrom_
-  commentId: Overload:AGS.API.AGSCropInfo.CropFrom
-  isSpec: "True"
-  fullName: AGS.API.AGSCropInfo.CropFrom
-  nameWithType: AGSCropInfo.CropFrom
 - uid: AGS.API.AGSCropInfo.TextureBox
   name: TextureBox
   href: api/AGS.API.AGSCropInfo.html#AGS_API_AGSCropInfo_TextureBox
@@ -979,24 +966,6 @@ references:
   commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation)
   fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation)
   nameWithType: ButtonAnimation.ButtonAnimation(IAnimation)
-- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
-  name: ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable<Color>)
-  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IAnimation_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
-  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
-  name.vb: ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable(Of Color))
-  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable<AGS.API.Color>)
-  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
-  nameWithType: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable<Color>)
-  nameWithType.vb: ButtonAnimation.ButtonAnimation(IAnimation, IBorderStyle, ITextConfig, Nullable(Of Color))
-- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IImage,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
-  name: ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable<Color>)
-  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IAnimation_AGS_API_IImage_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
-  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IAnimation,AGS.API.IImage,AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
-  name.vb: ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable(Of Color))
-  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IImage, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable<AGS.API.Color>)
-  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IAnimation, AGS.API.IImage, AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
-  nameWithType: ButtonAnimation.ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable<Color>)
-  nameWithType.vb: ButtonAnimation.ButtonAnimation(IAnimation, IImage, IBorderStyle, ITextConfig, Nullable(Of Color))
 - uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IBorderStyle,AGS.API.ITextConfig,System.Nullable{AGS.API.Color})
   name: ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
   href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IBorderStyle_AGS_API_ITextConfig_System_Nullable_AGS_API_Color__
@@ -1006,15 +975,12 @@ references:
   fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IBorderStyle, AGS.API.ITextConfig, System.Nullable(Of AGS.API.Color))
   nameWithType: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable<Color>)
   nameWithType.vb: ButtonAnimation.ButtonAnimation(IBorderStyle, ITextConfig, Nullable(Of Color))
-- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IImage,System.Nullable{AGS.API.Color})
-  name: ButtonAnimation(IImage, Nullable<Color>)
-  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IImage_System_Nullable_AGS_API_Color__
-  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IImage,System.Nullable{AGS.API.Color})
-  name.vb: ButtonAnimation(IImage, Nullable(Of Color))
-  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage, System.Nullable<AGS.API.Color>)
-  fullName.vb: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage, System.Nullable(Of AGS.API.Color))
-  nameWithType: ButtonAnimation.ButtonAnimation(IImage, Nullable<Color>)
-  nameWithType.vb: ButtonAnimation.ButtonAnimation(IImage, Nullable(Of Color))
+- uid: AGS.API.ButtonAnimation.#ctor(AGS.API.IImage)
+  name: ButtonAnimation(IImage)
+  href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_AGS_API_IImage_
+  commentId: M:AGS.API.ButtonAnimation.#ctor(AGS.API.IImage)
+  fullName: AGS.API.ButtonAnimation.ButtonAnimation(AGS.API.IImage)
+  nameWithType: ButtonAnimation.ButtonAnimation(IImage)
 - uid: AGS.API.ButtonAnimation.#ctor*
   name: ButtonAnimation
   href: api/AGS.API.ButtonAnimation.html#AGS_API_ButtonAnimation__ctor_
@@ -2267,87 +2233,6 @@ references:
   commentId: F:AGS.API.ComboSuggest.Suggest
   fullName: AGS.API.ComboSuggest.Suggest
   nameWithType: ComboSuggest.Suggest
-- uid: AGS.API.ConcreteImplementationAttribute
-  name: ConcreteImplementationAttribute
-  href: api/AGS.API.ConcreteImplementationAttribute.html
-  commentId: T:AGS.API.ConcreteImplementationAttribute
-  fullName: AGS.API.ConcreteImplementationAttribute
-  nameWithType: ConcreteImplementationAttribute
-- uid: AGS.API.ConcreteImplementationAttribute.#ctor
-  name: ConcreteImplementationAttribute()
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute__ctor
-  commentId: M:AGS.API.ConcreteImplementationAttribute.#ctor
-  fullName: AGS.API.ConcreteImplementationAttribute.ConcreteImplementationAttribute()
-  nameWithType: ConcreteImplementationAttribute.ConcreteImplementationAttribute()
-- uid: AGS.API.ConcreteImplementationAttribute.#ctor*
-  name: ConcreteImplementationAttribute
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute__ctor_
-  commentId: Overload:AGS.API.ConcreteImplementationAttribute.#ctor
-  isSpec: "True"
-  fullName: AGS.API.ConcreteImplementationAttribute.ConcreteImplementationAttribute
-  nameWithType: ConcreteImplementationAttribute.ConcreteImplementationAttribute
-- uid: AGS.API.ConcreteImplementationAttribute.Browsable
-  name: Browsable
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_Browsable
-  commentId: P:AGS.API.ConcreteImplementationAttribute.Browsable
-  fullName: AGS.API.ConcreteImplementationAttribute.Browsable
-  nameWithType: ConcreteImplementationAttribute.Browsable
-- uid: AGS.API.ConcreteImplementationAttribute.Browsable*
-  name: Browsable
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_Browsable_
-  commentId: Overload:AGS.API.ConcreteImplementationAttribute.Browsable
-  isSpec: "True"
-  fullName: AGS.API.ConcreteImplementationAttribute.Browsable
-  nameWithType: ConcreteImplementationAttribute.Browsable
-- uid: AGS.API.ConcreteImplementationAttribute.DisplayName
-  name: DisplayName
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_DisplayName
-  commentId: P:AGS.API.ConcreteImplementationAttribute.DisplayName
-  fullName: AGS.API.ConcreteImplementationAttribute.DisplayName
-  nameWithType: ConcreteImplementationAttribute.DisplayName
-- uid: AGS.API.ConcreteImplementationAttribute.DisplayName*
-  name: DisplayName
-  href: api/AGS.API.ConcreteImplementationAttribute.html#AGS_API_ConcreteImplementationAttribute_DisplayName_
-  commentId: Overload:AGS.API.ConcreteImplementationAttribute.DisplayName
-  isSpec: "True"
-  fullName: AGS.API.ConcreteImplementationAttribute.DisplayName
-  nameWithType: ConcreteImplementationAttribute.DisplayName
-- uid: AGS.API.CropFrom
-  name: CropFrom
-  href: api/AGS.API.CropFrom.html
-  commentId: T:AGS.API.CropFrom
-  fullName: AGS.API.CropFrom
-  nameWithType: CropFrom
-- uid: AGS.API.CropFrom.Bottom
-  name: Bottom
-  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Bottom
-  commentId: F:AGS.API.CropFrom.Bottom
-  fullName: AGS.API.CropFrom.Bottom
-  nameWithType: CropFrom.Bottom
-- uid: AGS.API.CropFrom.Left
-  name: Left
-  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Left
-  commentId: F:AGS.API.CropFrom.Left
-  fullName: AGS.API.CropFrom.Left
-  nameWithType: CropFrom.Left
-- uid: AGS.API.CropFrom.None
-  name: None
-  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_None
-  commentId: F:AGS.API.CropFrom.None
-  fullName: AGS.API.CropFrom.None
-  nameWithType: CropFrom.None
-- uid: AGS.API.CropFrom.Right
-  name: Right
-  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Right
-  commentId: F:AGS.API.CropFrom.Right
-  fullName: AGS.API.CropFrom.Right
-  nameWithType: CropFrom.Right
-- uid: AGS.API.CropFrom.Top
-  name: Top
-  href: api/AGS.API.CropFrom.html#AGS_API_CropFrom_Top
-  commentId: F:AGS.API.CropFrom.Top
-  fullName: AGS.API.CropFrom.Top
-  nameWithType: CropFrom.Top
 - uid: AGS.API.CustomStringApplyWhen
   name: CustomStringApplyWhen
   href: api/AGS.API.CustomStringApplyWhen.html
@@ -2684,68 +2569,6 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).TopRight
   nameWithType: FourCorners<TValue>.TopRight
   nameWithType.vb: FourCorners(Of TValue).TopRight
-- uid: AGS.API.FourCorners`1.ToString
-  name: ToString()
-  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_ToString
-  commentId: M:AGS.API.FourCorners`1.ToString
-  fullName: AGS.API.FourCorners<TValue>.ToString()
-  fullName.vb: AGS.API.FourCorners(Of TValue).ToString()
-  nameWithType: FourCorners<TValue>.ToString()
-  nameWithType.vb: FourCorners(Of TValue).ToString()
-- uid: AGS.API.FourCorners`1.ToString*
-  name: ToString
-  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_ToString_
-  commentId: Overload:AGS.API.FourCorners`1.ToString
-  isSpec: "True"
-  fullName: AGS.API.FourCorners<TValue>.ToString
-  fullName.vb: AGS.API.FourCorners(Of TValue).ToString
-  nameWithType: FourCorners<TValue>.ToString
-  nameWithType.vb: FourCorners(Of TValue).ToString
-- uid: AGS.API.HasFactoryAttribute
-  name: HasFactoryAttribute
-  href: api/AGS.API.HasFactoryAttribute.html
-  commentId: T:AGS.API.HasFactoryAttribute
-  fullName: AGS.API.HasFactoryAttribute
-  nameWithType: HasFactoryAttribute
-- uid: AGS.API.HasFactoryAttribute.DisplayName
-  name: DisplayName
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_DisplayName
-  commentId: P:AGS.API.HasFactoryAttribute.DisplayName
-  fullName: AGS.API.HasFactoryAttribute.DisplayName
-  nameWithType: HasFactoryAttribute.DisplayName
-- uid: AGS.API.HasFactoryAttribute.DisplayName*
-  name: DisplayName
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_DisplayName_
-  commentId: Overload:AGS.API.HasFactoryAttribute.DisplayName
-  isSpec: "True"
-  fullName: AGS.API.HasFactoryAttribute.DisplayName
-  nameWithType: HasFactoryAttribute.DisplayName
-- uid: AGS.API.HasFactoryAttribute.FactoryType
-  name: FactoryType
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_FactoryType
-  commentId: P:AGS.API.HasFactoryAttribute.FactoryType
-  fullName: AGS.API.HasFactoryAttribute.FactoryType
-  nameWithType: HasFactoryAttribute.FactoryType
-- uid: AGS.API.HasFactoryAttribute.FactoryType*
-  name: FactoryType
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_FactoryType_
-  commentId: Overload:AGS.API.HasFactoryAttribute.FactoryType
-  isSpec: "True"
-  fullName: AGS.API.HasFactoryAttribute.FactoryType
-  nameWithType: HasFactoryAttribute.FactoryType
-- uid: AGS.API.HasFactoryAttribute.MethodName
-  name: MethodName
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_MethodName
-  commentId: P:AGS.API.HasFactoryAttribute.MethodName
-  fullName: AGS.API.HasFactoryAttribute.MethodName
-  nameWithType: HasFactoryAttribute.MethodName
-- uid: AGS.API.HasFactoryAttribute.MethodName*
-  name: MethodName
-  href: api/AGS.API.HasFactoryAttribute.html#AGS_API_HasFactoryAttribute_MethodName_
-  commentId: Overload:AGS.API.HasFactoryAttribute.MethodName
-  isSpec: "True"
-  fullName: AGS.API.HasFactoryAttribute.MethodName
-  nameWithType: HasFactoryAttribute.MethodName
 - uid: AGS.API.HatchStyle
   name: HatchStyle
   href: api/AGS.API.HatchStyle.html
@@ -4388,15 +4211,6 @@ references:
   commentId: T:AGS.API.IBorderFactory
   fullName: AGS.API.IBorderFactory
   nameWithType: IBorderFactory
-- uid: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},AGS.API.FourCorners{System.Boolean},System.Single)
-  name: Gradient(FourCorners<Color>, FourCorners<Boolean>, Single)
-  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__AGS_API_FourCorners_System_Boolean__System_Single_
-  commentId: M:AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},AGS.API.FourCorners{System.Boolean},System.Single)
-  name.vb: Gradient(FourCorners(Of Color), FourCorners(Of Boolean), Single)
-  fullName: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners<AGS.API.Color>, AGS.API.FourCorners<System.Boolean>, System.Single)
-  fullName.vb: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners(Of AGS.API.Color), AGS.API.FourCorners(Of System.Boolean), System.Single)
-  nameWithType: IBorderFactory.Gradient(FourCorners<Color>, FourCorners<Boolean>, Single)
-  nameWithType.vb: IBorderFactory.Gradient(FourCorners(Of Color), FourCorners(Of Boolean), Single)
 - uid: AGS.API.IBorderFactory.Gradient(AGS.API.FourCorners{AGS.API.Color},System.Single,System.Boolean)
   name: Gradient(FourCorners<Color>, Single, Boolean)
   href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_
@@ -4429,12 +4243,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.IBorderFactory.Multiple
   nameWithType: IBorderFactory.Multiple
-- uid: AGS.API.IBorderFactory.SolidColor(AGS.API.Color,System.Single,System.Boolean)
-  name: SolidColor(Color, Single, Boolean)
-  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_AGS_API_Color_System_Single_System_Boolean_
-  commentId: M:AGS.API.IBorderFactory.SolidColor(AGS.API.Color,System.Single,System.Boolean)
-  fullName: AGS.API.IBorderFactory.SolidColor(AGS.API.Color, System.Single, System.Boolean)
-  nameWithType: IBorderFactory.SolidColor(Color, Single, Boolean)
+- uid: AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
+  name: SolidColor(Nullable<Color>, Single, Boolean)
+  href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_System_Nullable_AGS_API_Color__System_Single_System_Boolean_
+  commentId: M:AGS.API.IBorderFactory.SolidColor(System.Nullable{AGS.API.Color},System.Single,System.Boolean)
+  name.vb: SolidColor(Nullable(Of Color), Single, Boolean)
+  fullName: AGS.API.IBorderFactory.SolidColor(System.Nullable<AGS.API.Color>, System.Single, System.Boolean)
+  fullName.vb: AGS.API.IBorderFactory.SolidColor(System.Nullable(Of AGS.API.Color), System.Single, System.Boolean)
+  nameWithType: IBorderFactory.SolidColor(Nullable<Color>, Single, Boolean)
+  nameWithType.vb: IBorderFactory.SolidColor(Nullable(Of Color), Single, Boolean)
 - uid: AGS.API.IBorderFactory.SolidColor*
   name: SolidColor
   href: api/AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_
@@ -6072,22 +5889,6 @@ references:
   commentId: T:AGS.API.ICropSelfComponent
   fullName: AGS.API.ICropSelfComponent
   nameWithType: ICropSelfComponent
-- uid: AGS.API.ICropSelfComponent.Crop(AGS.API.AGSBoundingBox@,AGS.API.BoundingBoxType,AGS.API.PointF)
-  name: Crop(ref AGSBoundingBox, BoundingBoxType, PointF)
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_Crop_AGS_API_AGSBoundingBox__AGS_API_BoundingBoxType_AGS_API_PointF_
-  commentId: M:AGS.API.ICropSelfComponent.Crop(AGS.API.AGSBoundingBox@,AGS.API.BoundingBoxType,AGS.API.PointF)
-  name.vb: Crop(ByRef AGSBoundingBox, BoundingBoxType, PointF)
-  fullName: AGS.API.ICropSelfComponent.Crop(ref AGS.API.AGSBoundingBox, AGS.API.BoundingBoxType, AGS.API.PointF)
-  fullName.vb: AGS.API.ICropSelfComponent.Crop(ByRef AGS.API.AGSBoundingBox, AGS.API.BoundingBoxType, AGS.API.PointF)
-  nameWithType: ICropSelfComponent.Crop(ref AGSBoundingBox, BoundingBoxType, PointF)
-  nameWithType.vb: ICropSelfComponent.Crop(ByRef AGSBoundingBox, BoundingBoxType, PointF)
-- uid: AGS.API.ICropSelfComponent.Crop*
-  name: Crop
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_Crop_
-  commentId: Overload:AGS.API.ICropSelfComponent.Crop
-  isSpec: "True"
-  fullName: AGS.API.ICropSelfComponent.Crop
-  nameWithType: ICropSelfComponent.Crop
 - uid: AGS.API.ICropSelfComponent.CropArea
   name: CropArea
   href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_CropArea
@@ -6114,32 +5915,22 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICropSelfComponent.CropEnabled
   nameWithType: ICropSelfComponent.CropEnabled
-- uid: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
-  name: IsGuaranteedToFullyCrop()
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_IsGuaranteedToFullyCrop
-  commentId: M:AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
-  fullName: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop()
-  nameWithType: ICropSelfComponent.IsGuaranteedToFullyCrop()
-- uid: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop*
-  name: IsGuaranteedToFullyCrop
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_IsGuaranteedToFullyCrop_
-  commentId: Overload:AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
+- uid: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
+  name: GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_AGS_API_BeforeCropEventArgs_System_Single_System_Single_System_Single__System_Single__
+  commentId: M:AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs,System.Single,System.Single,System.Single@,System.Single@)
+  name.vb: GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
+  fullName: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, out System.Single, out System.Single)
+  fullName.vb: AGS.API.ICropSelfComponent.GetCropArea(AGS.API.BeforeCropEventArgs, System.Single, System.Single, ByRef System.Single, ByRef System.Single)
+  nameWithType: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, out Single, out Single)
+  nameWithType.vb: ICropSelfComponent.GetCropArea(BeforeCropEventArgs, Single, Single, ByRef Single, ByRef Single)
+- uid: AGS.API.ICropSelfComponent.GetCropArea*
+  name: GetCropArea
+  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_GetCropArea_
+  commentId: Overload:AGS.API.ICropSelfComponent.GetCropArea
   isSpec: "True"
-  fullName: AGS.API.ICropSelfComponent.IsGuaranteedToFullyCrop
-  nameWithType: ICropSelfComponent.IsGuaranteedToFullyCrop
-- uid: AGS.API.ICropSelfComponent.LastCrop
-  name: LastCrop
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_LastCrop
-  commentId: P:AGS.API.ICropSelfComponent.LastCrop
-  fullName: AGS.API.ICropSelfComponent.LastCrop
-  nameWithType: ICropSelfComponent.LastCrop
-- uid: AGS.API.ICropSelfComponent.LastCrop*
-  name: LastCrop
-  href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_LastCrop_
-  commentId: Overload:AGS.API.ICropSelfComponent.LastCrop
-  isSpec: "True"
-  fullName: AGS.API.ICropSelfComponent.LastCrop
-  nameWithType: ICropSelfComponent.LastCrop
+  fullName: AGS.API.ICropSelfComponent.GetCropArea
+  nameWithType: ICropSelfComponent.GetCropArea
 - uid: AGS.API.ICropSelfComponent.OnBeforeCrop
   name: OnBeforeCrop
   href: api/AGS.API.ICropSelfComponent.html#AGS_API_ICropSelfComponent_OnBeforeCrop
@@ -8355,28 +8146,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFont.Style
   nameWithType: IFont.Style
-- uid: AGS.API.IFontFactory
-  name: IFontFactory
-  href: api/AGS.API.IFontFactory.html
-  commentId: T:AGS.API.IFontFactory
-  fullName: AGS.API.IFontFactory
-  nameWithType: IFontFactory
-- uid: AGS.API.IFontFactory.GetTextConfig(AGS.API.IBrush,AGS.API.IFont,AGS.API.IBrush,System.Single,AGS.API.IBrush,System.Single,System.Single,AGS.API.Alignment,AGS.API.AutoFit,System.Single,System.Single,System.Single,System.Single,System.Nullable{AGS.API.SizeF})
-  name: GetTextConfig(IBrush, IFont, IBrush, Single, IBrush, Single, Single, Alignment, AutoFit, Single, Single, Single, Single, Nullable<SizeF>)
-  href: api/AGS.API.IFontFactory.html#AGS_API_IFontFactory_GetTextConfig_AGS_API_IBrush_AGS_API_IFont_AGS_API_IBrush_System_Single_AGS_API_IBrush_System_Single_System_Single_AGS_API_Alignment_AGS_API_AutoFit_System_Single_System_Single_System_Single_System_Single_System_Nullable_AGS_API_SizeF__
-  commentId: M:AGS.API.IFontFactory.GetTextConfig(AGS.API.IBrush,AGS.API.IFont,AGS.API.IBrush,System.Single,AGS.API.IBrush,System.Single,System.Single,AGS.API.Alignment,AGS.API.AutoFit,System.Single,System.Single,System.Single,System.Single,System.Nullable{AGS.API.SizeF})
-  name.vb: GetTextConfig(IBrush, IFont, IBrush, Single, IBrush, Single, Single, Alignment, AutoFit, Single, Single, Single, Single, Nullable(Of SizeF))
-  fullName: AGS.API.IFontFactory.GetTextConfig(AGS.API.IBrush, AGS.API.IFont, AGS.API.IBrush, System.Single, AGS.API.IBrush, System.Single, System.Single, AGS.API.Alignment, AGS.API.AutoFit, System.Single, System.Single, System.Single, System.Single, System.Nullable<AGS.API.SizeF>)
-  fullName.vb: AGS.API.IFontFactory.GetTextConfig(AGS.API.IBrush, AGS.API.IFont, AGS.API.IBrush, System.Single, AGS.API.IBrush, System.Single, System.Single, AGS.API.Alignment, AGS.API.AutoFit, System.Single, System.Single, System.Single, System.Single, System.Nullable(Of AGS.API.SizeF))
-  nameWithType: IFontFactory.GetTextConfig(IBrush, IFont, IBrush, Single, IBrush, Single, Single, Alignment, AutoFit, Single, Single, Single, Single, Nullable<SizeF>)
-  nameWithType.vb: IFontFactory.GetTextConfig(IBrush, IFont, IBrush, Single, IBrush, Single, Single, Alignment, AutoFit, Single, Single, Single, Single, Nullable(Of SizeF))
-- uid: AGS.API.IFontFactory.GetTextConfig*
-  name: GetTextConfig
-  href: api/AGS.API.IFontFactory.html#AGS_API_IFontFactory_GetTextConfig_
-  commentId: Overload:AGS.API.IFontFactory.GetTextConfig
-  isSpec: "True"
-  fullName: AGS.API.IFontFactory.GetTextConfig
-  nameWithType: IFontFactory.GetTextConfig
 - uid: AGS.API.IFontLoader
   name: IFontLoader
   href: api/AGS.API.IFontLoader.html
@@ -8425,103 +8194,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFontLoader.LoadFontFromPath
   nameWithType: IFontLoader.LoadFontFromPath
-- uid: AGS.API.IForm
-  name: IForm
-  href: api/AGS.API.IForm.html
-  commentId: T:AGS.API.IForm
-  fullName: AGS.API.IForm
-  nameWithType: IForm
-- uid: AGS.API.IForm.Contents
-  name: Contents
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Contents
-  commentId: P:AGS.API.IForm.Contents
-  fullName: AGS.API.IForm.Contents
-  nameWithType: IForm.Contents
-- uid: AGS.API.IForm.Contents*
-  name: Contents
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Contents_
-  commentId: Overload:AGS.API.IForm.Contents
-  isSpec: "True"
-  fullName: AGS.API.IForm.Contents
-  nameWithType: IForm.Contents
-- uid: AGS.API.IForm.Header
-  name: Header
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Header
-  commentId: P:AGS.API.IForm.Header
-  fullName: AGS.API.IForm.Header
-  nameWithType: IForm.Header
-- uid: AGS.API.IForm.Header*
-  name: Header
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Header_
-  commentId: Overload:AGS.API.IForm.Header
-  isSpec: "True"
-  fullName: AGS.API.IForm.Header
-  nameWithType: IForm.Header
-- uid: AGS.API.IForm.Height
-  name: Height
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Height
-  commentId: P:AGS.API.IForm.Height
-  fullName: AGS.API.IForm.Height
-  nameWithType: IForm.Height
-- uid: AGS.API.IForm.Height*
-  name: Height
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Height_
-  commentId: Overload:AGS.API.IForm.Height
-  isSpec: "True"
-  fullName: AGS.API.IForm.Height
-  nameWithType: IForm.Height
-- uid: AGS.API.IForm.Visible
-  name: Visible
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Visible
-  commentId: P:AGS.API.IForm.Visible
-  fullName: AGS.API.IForm.Visible
-  nameWithType: IForm.Visible
-- uid: AGS.API.IForm.Visible*
-  name: Visible
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Visible_
-  commentId: Overload:AGS.API.IForm.Visible
-  isSpec: "True"
-  fullName: AGS.API.IForm.Visible
-  nameWithType: IForm.Visible
-- uid: AGS.API.IForm.Width
-  name: Width
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Width
-  commentId: P:AGS.API.IForm.Width
-  fullName: AGS.API.IForm.Width
-  nameWithType: IForm.Width
-- uid: AGS.API.IForm.Width*
-  name: Width
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Width_
-  commentId: Overload:AGS.API.IForm.Width
-  isSpec: "True"
-  fullName: AGS.API.IForm.Width
-  nameWithType: IForm.Width
-- uid: AGS.API.IForm.X
-  name: X
-  href: api/AGS.API.IForm.html#AGS_API_IForm_X
-  commentId: P:AGS.API.IForm.X
-  fullName: AGS.API.IForm.X
-  nameWithType: IForm.X
-- uid: AGS.API.IForm.X*
-  name: X
-  href: api/AGS.API.IForm.html#AGS_API_IForm_X_
-  commentId: Overload:AGS.API.IForm.X
-  isSpec: "True"
-  fullName: AGS.API.IForm.X
-  nameWithType: IForm.X
-- uid: AGS.API.IForm.Y
-  name: Y
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Y
-  commentId: P:AGS.API.IForm.Y
-  fullName: AGS.API.IForm.Y
-  nameWithType: IForm.Y
-- uid: AGS.API.IForm.Y*
-  name: Y
-  href: api/AGS.API.IForm.html#AGS_API_IForm_Y_
-  commentId: Overload:AGS.API.IForm.Y
-  isSpec: "True"
-  fullName: AGS.API.IForm.Y
-  nameWithType: IForm.Y
 - uid: AGS.API.IFrameBuffer
   name: IFrameBuffer
   href: api/AGS.API.IFrameBuffer.html
@@ -10796,19 +10468,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.MaxHeight
   nameWithType: IListboxComponent.MaxHeight
-- uid: AGS.API.IListboxComponent.MaxWidth
-  name: MaxWidth
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MaxWidth
-  commentId: P:AGS.API.IListboxComponent.MaxWidth
-  fullName: AGS.API.IListboxComponent.MaxWidth
-  nameWithType: IListboxComponent.MaxWidth
-- uid: AGS.API.IListboxComponent.MaxWidth*
-  name: MaxWidth
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MaxWidth_
-  commentId: Overload:AGS.API.IListboxComponent.MaxWidth
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.MaxWidth
-  nameWithType: IListboxComponent.MaxWidth
 - uid: AGS.API.IListboxComponent.MinHeight
   name: MinHeight
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinHeight
@@ -10822,19 +10481,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.MinHeight
   nameWithType: IListboxComponent.MinHeight
-- uid: AGS.API.IListboxComponent.MinWidth
-  name: MinWidth
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinWidth
-  commentId: P:AGS.API.IListboxComponent.MinWidth
-  fullName: AGS.API.IListboxComponent.MinWidth
-  nameWithType: IListboxComponent.MinWidth
-- uid: AGS.API.IListboxComponent.MinWidth*
-  name: MinWidth
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_MinWidth_
-  commentId: Overload:AGS.API.IListboxComponent.MinWidth
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.MinWidth
-  nameWithType: IListboxComponent.MinWidth
 - uid: AGS.API.IListboxComponent.OnSelectedItemChanged
   name: OnSelectedItemChanged
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanged
@@ -10848,32 +10494,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IListboxComponent.OnSelectedItemChanged
   nameWithType: IListboxComponent.OnSelectedItemChanged
-- uid: AGS.API.IListboxComponent.OnSelectedItemChanging
-  name: OnSelectedItemChanging
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanging
-  commentId: P:AGS.API.IListboxComponent.OnSelectedItemChanging
-  fullName: AGS.API.IListboxComponent.OnSelectedItemChanging
-  nameWithType: IListboxComponent.OnSelectedItemChanging
-- uid: AGS.API.IListboxComponent.OnSelectedItemChanging*
-  name: OnSelectedItemChanging
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_OnSelectedItemChanging_
-  commentId: Overload:AGS.API.IListboxComponent.OnSelectedItemChanging
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.OnSelectedItemChanging
-  nameWithType: IListboxComponent.OnSelectedItemChanging
-- uid: AGS.API.IListboxComponent.Padding
-  name: Padding
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Padding
-  commentId: P:AGS.API.IListboxComponent.Padding
-  fullName: AGS.API.IListboxComponent.Padding
-  nameWithType: IListboxComponent.Padding
-- uid: AGS.API.IListboxComponent.Padding*
-  name: Padding
-  href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_Padding_
-  commentId: Overload:AGS.API.IListboxComponent.Padding
-  isSpec: "True"
-  fullName: AGS.API.IListboxComponent.Padding
-  nameWithType: IListboxComponent.Padding
 - uid: AGS.API.IListboxComponent.SearchFilter
   name: SearchFilter
   href: api/AGS.API.IListboxComponent.html#AGS_API_IListboxComponent_SearchFilter
@@ -13560,32 +13180,6 @@ references:
   commentId: T:AGS.API.IScrollingComponent
   fullName: AGS.API.IScrollingComponent
   nameWithType: IScrollingComponent
-- uid: AGS.API.IScrollingComponent.ContentsHeight
-  name: ContentsHeight
-  href: api/AGS.API.IScrollingComponent.html#AGS_API_IScrollingComponent_ContentsHeight
-  commentId: P:AGS.API.IScrollingComponent.ContentsHeight
-  fullName: AGS.API.IScrollingComponent.ContentsHeight
-  nameWithType: IScrollingComponent.ContentsHeight
-- uid: AGS.API.IScrollingComponent.ContentsHeight*
-  name: ContentsHeight
-  href: api/AGS.API.IScrollingComponent.html#AGS_API_IScrollingComponent_ContentsHeight_
-  commentId: Overload:AGS.API.IScrollingComponent.ContentsHeight
-  isSpec: "True"
-  fullName: AGS.API.IScrollingComponent.ContentsHeight
-  nameWithType: IScrollingComponent.ContentsHeight
-- uid: AGS.API.IScrollingComponent.ContentsWidth
-  name: ContentsWidth
-  href: api/AGS.API.IScrollingComponent.html#AGS_API_IScrollingComponent_ContentsWidth
-  commentId: P:AGS.API.IScrollingComponent.ContentsWidth
-  fullName: AGS.API.IScrollingComponent.ContentsWidth
-  nameWithType: IScrollingComponent.ContentsWidth
-- uid: AGS.API.IScrollingComponent.ContentsWidth*
-  name: ContentsWidth
-  href: api/AGS.API.IScrollingComponent.html#AGS_API_IScrollingComponent_ContentsWidth_
-  commentId: Overload:AGS.API.IScrollingComponent.ContentsWidth
-  isSpec: "True"
-  fullName: AGS.API.IScrollingComponent.ContentsWidth
-  nameWithType: IScrollingComponent.ContentsWidth
 - uid: AGS.API.IScrollingComponent.HorizontalScrollBar
   name: HorizontalScrollBar
   href: api/AGS.API.IScrollingComponent.html#AGS_API_IScrollingComponent_HorizontalScrollBar
@@ -14881,19 +14475,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IStackLayoutComponent.EntitiesToIgnore
   nameWithType: IStackLayoutComponent.EntitiesToIgnore
-- uid: AGS.API.IStackLayoutComponent.ForceRefreshLayout
-  name: ForceRefreshLayout()
-  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_ForceRefreshLayout
-  commentId: M:AGS.API.IStackLayoutComponent.ForceRefreshLayout
-  fullName: AGS.API.IStackLayoutComponent.ForceRefreshLayout()
-  nameWithType: IStackLayoutComponent.ForceRefreshLayout()
-- uid: AGS.API.IStackLayoutComponent.ForceRefreshLayout*
-  name: ForceRefreshLayout
-  href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_ForceRefreshLayout_
-  commentId: Overload:AGS.API.IStackLayoutComponent.ForceRefreshLayout
-  isSpec: "True"
-  fullName: AGS.API.IStackLayoutComponent.ForceRefreshLayout
-  nameWithType: IStackLayoutComponent.ForceRefreshLayout
 - uid: AGS.API.IStackLayoutComponent.LayoutAfterCrop
   name: LayoutAfterCrop
   href: api/AGS.API.IStackLayoutComponent.html#AGS_API_IStackLayoutComponent_LayoutAfterCrop
@@ -15113,19 +14694,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.CaretPosition
   nameWithType: ITextComponent.CaretPosition
-- uid: AGS.API.ITextComponent.CaretXOffset
-  name: CaretXOffset
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretXOffset
-  commentId: P:AGS.API.ITextComponent.CaretXOffset
-  fullName: AGS.API.ITextComponent.CaretXOffset
-  nameWithType: ITextComponent.CaretXOffset
-- uid: AGS.API.ITextComponent.CaretXOffset*
-  name: CaretXOffset
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CaretXOffset_
-  commentId: Overload:AGS.API.ITextComponent.CaretXOffset
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.CaretXOffset
-  nameWithType: ITextComponent.CaretXOffset
 - uid: AGS.API.ITextComponent.CustomImageResolutionFactor
   name: CustomImageResolutionFactor
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_CustomImageResolutionFactor
@@ -15282,19 +14850,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextComponent.TextHeight
   nameWithType: ITextComponent.TextHeight
-- uid: AGS.API.ITextComponent.TextLockStep
-  name: TextLockStep
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextLockStep
-  commentId: P:AGS.API.ITextComponent.TextLockStep
-  fullName: AGS.API.ITextComponent.TextLockStep
-  nameWithType: ITextComponent.TextLockStep
-- uid: AGS.API.ITextComponent.TextLockStep*
-  name: TextLockStep
-  href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextLockStep_
-  commentId: Overload:AGS.API.ITextComponent.TextLockStep
-  isSpec: "True"
-  fullName: AGS.API.ITextComponent.TextLockStep
-  nameWithType: ITextComponent.TextLockStep
 - uid: AGS.API.ITextComponent.TextVisible
   name: TextVisible
   href: api/AGS.API.ITextComponent.html#AGS_API_ITextComponent_TextVisible
@@ -15379,19 +14934,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITextConfig.Font
   nameWithType: ITextConfig.Font
-- uid: AGS.API.ITextConfig.LabelMinSize
-  name: LabelMinSize
-  href: api/AGS.API.ITextConfig.html#AGS_API_ITextConfig_LabelMinSize
-  commentId: P:AGS.API.ITextConfig.LabelMinSize
-  fullName: AGS.API.ITextConfig.LabelMinSize
-  nameWithType: ITextConfig.LabelMinSize
-- uid: AGS.API.ITextConfig.LabelMinSize*
-  name: LabelMinSize
-  href: api/AGS.API.ITextConfig.html#AGS_API_ITextConfig_LabelMinSize_
-  commentId: Overload:AGS.API.ITextConfig.LabelMinSize
-  isSpec: "True"
-  fullName: AGS.API.ITextConfig.LabelMinSize
-  nameWithType: ITextConfig.LabelMinSize
 - uid: AGS.API.ITextConfig.OutlineBrush
   name: OutlineBrush
   href: api/AGS.API.ITextConfig.html#AGS_API_ITextConfig_OutlineBrush
@@ -15867,24 +15409,6 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).FindDescendant
   nameWithType: ITreeNode<TItem>.FindDescendant
   nameWithType.vb: ITreeNode(Of TItem).FindDescendant
-- uid: AGS.API.ITreeNode`1.FindPreviousSibling(System.Predicate{`0})
-  name: FindPreviousSibling(Predicate<TItem>)
-  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindPreviousSibling_System_Predicate__0__
-  commentId: M:AGS.API.ITreeNode`1.FindPreviousSibling(System.Predicate{`0})
-  name.vb: FindPreviousSibling(Predicate(Of TItem))
-  fullName: AGS.API.ITreeNode<TItem>.FindPreviousSibling(System.Predicate<TItem>)
-  fullName.vb: AGS.API.ITreeNode(Of TItem).FindPreviousSibling(System.Predicate(Of TItem))
-  nameWithType: ITreeNode<TItem>.FindPreviousSibling(Predicate<TItem>)
-  nameWithType.vb: ITreeNode(Of TItem).FindPreviousSibling(Predicate(Of TItem))
-- uid: AGS.API.ITreeNode`1.FindPreviousSibling*
-  name: FindPreviousSibling
-  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_FindPreviousSibling_
-  commentId: Overload:AGS.API.ITreeNode`1.FindPreviousSibling
-  isSpec: "True"
-  fullName: AGS.API.ITreeNode<TItem>.FindPreviousSibling
-  fullName.vb: AGS.API.ITreeNode(Of TItem).FindPreviousSibling
-  nameWithType: ITreeNode<TItem>.FindPreviousSibling
-  nameWithType.vb: ITreeNode(Of TItem).FindPreviousSibling
 - uid: AGS.API.ITreeNode`1.GetRoot
   name: GetRoot()
   href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_GetRoot
@@ -16113,12 +15637,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITreeNodeViewProvider.BeforeDisplayingNode
   nameWithType: ITreeNodeViewProvider.BeforeDisplayingNode
-- uid: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer,AGS.API.IObject)
-  name: CreateNode(ITreeStringNode, IRenderLayer, IObject)
-  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_AGS_API_ITreeStringNode_AGS_API_IRenderLayer_AGS_API_IObject_
-  commentId: M:AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer,AGS.API.IObject)
-  fullName: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode, AGS.API.IRenderLayer, AGS.API.IObject)
-  nameWithType: ITreeNodeViewProvider.CreateNode(ITreeStringNode, IRenderLayer, IObject)
+- uid: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
+  name: CreateNode(ITreeStringNode, IRenderLayer)
+  href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_AGS_API_ITreeStringNode_AGS_API_IRenderLayer_
+  commentId: M:AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode,AGS.API.IRenderLayer)
+  fullName: AGS.API.ITreeNodeViewProvider.CreateNode(AGS.API.ITreeStringNode, AGS.API.IRenderLayer)
+  nameWithType: ITreeNodeViewProvider.CreateNode(ITreeStringNode, IRenderLayer)
 - uid: AGS.API.ITreeNodeViewProvider.CreateNode*
   name: CreateNode
   href: api/AGS.API.ITreeNodeViewProvider.html#AGS_API_ITreeNodeViewProvider_CreateNode_
@@ -16410,19 +15934,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITreeViewComponent.RefreshLayout
   nameWithType: ITreeViewComponent.RefreshLayout
-- uid: AGS.API.ITreeViewComponent.ScrollingContainer
-  name: ScrollingContainer
-  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_ScrollingContainer
-  commentId: P:AGS.API.ITreeViewComponent.ScrollingContainer
-  fullName: AGS.API.ITreeViewComponent.ScrollingContainer
-  nameWithType: ITreeViewComponent.ScrollingContainer
-- uid: AGS.API.ITreeViewComponent.ScrollingContainer*
-  name: ScrollingContainer
-  href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_ScrollingContainer_
-  commentId: Overload:AGS.API.ITreeViewComponent.ScrollingContainer
-  isSpec: "True"
-  fullName: AGS.API.ITreeViewComponent.ScrollingContainer
-  nameWithType: ITreeViewComponent.ScrollingContainer
 - uid: AGS.API.ITreeViewComponent.SearchFilter
   name: SearchFilter
   href: api/AGS.API.ITreeViewComponent.html#AGS_API_ITreeViewComponent_SearchFilter
@@ -16712,15 +16223,15 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetCheckBoxAsync
   nameWithType: IUIFactory.GetCheckBoxAsync
-- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String,System.Single)
-  name: GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String, Single)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IUIControl__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_System_Single_
-  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String,System.Single)
-  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String, Single)
-  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IUIControl>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String, System.Single)
-  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IUIControl), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String, System.Single)
-  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String, Single)
-  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String, Single)
+- uid: AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name: GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String)
+  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IUIControl__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_
+  commentId: M:AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)
+  name.vb: GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String)
+  fullName: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func<System.String, AGS.API.IUIControl>, AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  fullName.vb: AGS.API.IUIFactory.GetComboBox(System.String, AGS.API.IButton, AGS.API.ITextBox, System.Func(Of System.String, AGS.API.IUIControl), AGS.API.IObject, System.Boolean, System.Single, System.Single, System.String)
+  nameWithType: IUIFactory.GetComboBox(String, IButton, ITextBox, Func<String, IUIControl>, IObject, Boolean, Single, Single, String)
+  nameWithType.vb: IUIFactory.GetComboBox(String, IButton, ITextBox, Func(Of String, IUIControl), IObject, Boolean, Single, Single, String)
 - uid: AGS.API.IUIFactory.GetComboBox*
   name: GetComboBox
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetComboBox_
@@ -16728,19 +16239,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IUIFactory.GetComboBox
   nameWithType: IUIFactory.GetComboBox
-- uid: AGS.API.IUIFactory.GetForm(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)
-  name: GetForm(String, String, Single, Single, Single, Single, Single, Boolean)
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetForm_System_String_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Boolean_
-  commentId: M:AGS.API.IUIFactory.GetForm(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)
-  fullName: AGS.API.IUIFactory.GetForm(System.String, System.String, System.Single, System.Single, System.Single, System.Single, System.Single, System.Boolean)
-  nameWithType: IUIFactory.GetForm(String, String, Single, Single, Single, Single, Single, Boolean)
-- uid: AGS.API.IUIFactory.GetForm*
-  name: GetForm
-  href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetForm_
-  commentId: Overload:AGS.API.IUIFactory.GetForm
-  isSpec: "True"
-  fullName: AGS.API.IUIFactory.GetForm
-  nameWithType: IUIFactory.GetForm
 - uid: AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,System.Boolean)
   name: GetLabel(String, String, Single, Single, Single, Single, IObject, ITextConfig, Boolean)
   href: api/AGS.API.IUIFactory.html#AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_
@@ -18424,38 +17922,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.ListboxItemArgs.Item
   nameWithType: ListboxItemArgs.Item
-- uid: AGS.API.ListboxItemChangingArgs
-  name: ListboxItemChangingArgs
-  href: api/AGS.API.ListboxItemChangingArgs.html
-  commentId: T:AGS.API.ListboxItemChangingArgs
-  fullName: AGS.API.ListboxItemChangingArgs
-  nameWithType: ListboxItemChangingArgs
-- uid: AGS.API.ListboxItemChangingArgs.#ctor(AGS.API.IStringItem,System.Int32)
-  name: ListboxItemChangingArgs(IStringItem, Int32)
-  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs__ctor_AGS_API_IStringItem_System_Int32_
-  commentId: M:AGS.API.ListboxItemChangingArgs.#ctor(AGS.API.IStringItem,System.Int32)
-  fullName: AGS.API.ListboxItemChangingArgs.ListboxItemChangingArgs(AGS.API.IStringItem, System.Int32)
-  nameWithType: ListboxItemChangingArgs.ListboxItemChangingArgs(IStringItem, Int32)
-- uid: AGS.API.ListboxItemChangingArgs.#ctor*
-  name: ListboxItemChangingArgs
-  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs__ctor_
-  commentId: Overload:AGS.API.ListboxItemChangingArgs.#ctor
-  isSpec: "True"
-  fullName: AGS.API.ListboxItemChangingArgs.ListboxItemChangingArgs
-  nameWithType: ListboxItemChangingArgs.ListboxItemChangingArgs
-- uid: AGS.API.ListboxItemChangingArgs.ShouldCancel
-  name: ShouldCancel
-  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel
-  commentId: P:AGS.API.ListboxItemChangingArgs.ShouldCancel
-  fullName: AGS.API.ListboxItemChangingArgs.ShouldCancel
-  nameWithType: ListboxItemChangingArgs.ShouldCancel
-- uid: AGS.API.ListboxItemChangingArgs.ShouldCancel*
-  name: ShouldCancel
-  href: api/AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel_
-  commentId: Overload:AGS.API.ListboxItemChangingArgs.ShouldCancel
-  isSpec: "True"
-  fullName: AGS.API.ListboxItemChangingArgs.ShouldCancel
-  nameWithType: ListboxItemChangingArgs.ShouldCancel
 - uid: AGS.API.ListChangeType
   name: ListChangeType
   href: api/AGS.API.ListChangeType.html
@@ -21164,24 +20630,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.MousePositionEventArgs.MousePosition
   nameWithType: MousePositionEventArgs.MousePosition
-- uid: AGS.API.NamedColorsMap
-  name: NamedColorsMap
-  href: api/AGS.API.NamedColorsMap.html
-  commentId: T:AGS.API.NamedColorsMap
-  fullName: AGS.API.NamedColorsMap
-  nameWithType: NamedColorsMap
-- uid: AGS.API.NamedColorsMap.NamedColors
-  name: NamedColors
-  href: api/AGS.API.NamedColorsMap.html#AGS_API_NamedColorsMap_NamedColors
-  commentId: F:AGS.API.NamedColorsMap.NamedColors
-  fullName: AGS.API.NamedColorsMap.NamedColors
-  nameWithType: NamedColorsMap.NamedColors
-- uid: AGS.API.NamedColorsMap.NamedColorsReversed
-  name: NamedColorsReversed
-  href: api/AGS.API.NamedColorsMap.html#AGS_API_NamedColorsMap_NamedColorsReversed
-  commentId: F:AGS.API.NamedColorsMap.NamedColorsReversed
-  fullName: AGS.API.NamedColorsMap.NamedColorsReversed
-  nameWithType: NamedColorsMap.NamedColorsReversed
 - uid: AGS.API.NodeEventArgs
   name: NodeEventArgs
   href: api/AGS.API.NodeEventArgs.html
