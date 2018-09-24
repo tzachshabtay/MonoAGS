@@ -1,23 +1,24 @@
 ﻿using System;
 using AGS.API;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
 	public class TwoButtonsInputScheme
 	{
 		private IGame _game;
-		private IInputEvents _input;
 
-		public TwoButtonsInputScheme (IGame game, IInputEvents input)
+		public TwoButtonsInputScheme (IGame game)
 		{
+            Trace.Assert(game != null, "Please pass in a valid game argument");
             this._game = game;
-			this._input = input;
 		}
 
 		public void Start()
 		{
-			_input.MouseDown.SubscribeToAsync(onMouseDown);
+            Trace.Assert(_game.Input != null, "Game input passed as argument is null, please make sure to only start the control scheme after the game is loaded (for example, in the game's OnLoad event");
+            _game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 			
 		private async Task onMouseDown(MouseButtonEventArgs e)

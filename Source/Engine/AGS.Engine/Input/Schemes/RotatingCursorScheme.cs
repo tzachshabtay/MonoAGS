@@ -25,7 +25,9 @@ namespace AGS.Engine
             IObject interactCursor, IObject waitCursor)
 		{
 			RotatingEnabled = true;
-			_game = game;
+            Trace.Assert(game != null, "Please pass in a valid game argument");
+            Trace.Assert(game.Events != null, "Game events passed as argument is null, please make sure to only pass the input after the game is loaded (for example, in the game's OnLoad event");
+            _game = game;
 			_game.Events.OnSavedGameLoad.Subscribe(onSavedGameLoad);
 
 			if (walkCursor != null) AddCursor(WALK_MODE, walkCursor, true);
@@ -61,7 +63,8 @@ namespace AGS.Engine
 
 		public void Start()
 		{
-			setCursor();
+            Trace.Assert(_game.Input != null, "Game input passed as argument is null, please make sure to only start the control scheme after the game is loaded (for example, in the game's OnLoad event");
+            setCursor();
 			_game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 
