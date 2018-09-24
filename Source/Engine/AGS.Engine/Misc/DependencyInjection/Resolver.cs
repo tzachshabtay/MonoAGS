@@ -29,6 +29,7 @@ namespace AGS.Engine
             RegisterType<AGSDialogActions, IDialogActions>();
             RegisterType<AGSSayLocationProvider, ISayLocationProvider>();
             RegisterType<AGSTreeNodeViewProvider, ITreeNodeViewProvider>();
+            RegisterType<AGSAnimation, IAnimation>();
 
             Builder.RegisterType<AGSGameState>().SingleInstance().As<IGameState>().As<IAGSGameState>();
 			Builder.RegisterType<AGSGame>().SingleInstance().As<IGame>();
