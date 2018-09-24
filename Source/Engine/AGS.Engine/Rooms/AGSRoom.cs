@@ -77,7 +77,9 @@ namespace AGS.Engine
 			} 
 		}
 
-		public IConcurrentHashSet<IObject> Objects { get; }
+        public Color? BackgroundColor { get; set; }
+
+        public IConcurrentHashSet<IObject> Objects { get; }
 
 		public IAGSBindingList<IArea> Areas { get; }
 
