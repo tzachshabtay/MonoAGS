@@ -356,8 +356,8 @@ namespace AGS.Engine
             var maxX = (int)walkables.Max(a => a.Mask.MaxX);
             var minY = (int)walkables.Min(a => a.Mask.MinY);
             var maxY = (int)walkables.Max(a => a.Mask.MaxY);
-            int width = maxX - minX;
-            int height = maxY - minY;
+            int width = maxX - minX + 1;
+            int height = maxY - minY + 1;
             offset = new Point(minX, minY);
             bool[][] mask = new bool[width][];
             for (int i = 0; i < mask.Length; i++) mask[i] = new bool[height];
