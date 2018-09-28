@@ -314,7 +314,8 @@ namespace AGS.Engine
 
         private IEnumerable<Position> getWalkPoints(Position destination)
         {
-            if (!isWalkable(_translate.Position))
+            var from = _translate.Position;
+            if (!isWalkable(from))
                 return new List<Position>();
             List<PointF> closestPoints = new List<PointF>(_room.Room.Areas.Count + 1);
             if (isWalkable(destination))
@@ -328,7 +329,6 @@ namespace AGS.Engine
 
             Point offset;
             bool[][] mask = getWalkableMask(out offset);
-            var from = _translate.Position;
             from = new Position(from.X - offset.X, from.Y - offset.Y);
             _pathFinder.Init(mask);
             foreach (var closest in closestPoints)
