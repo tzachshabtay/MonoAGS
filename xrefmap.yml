@@ -12029,6 +12029,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IRoom.Background
   nameWithType: IRoom.Background
+- uid: AGS.API.IRoom.BackgroundColor
+  name: BackgroundColor
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_BackgroundColor
+  commentId: P:AGS.API.IRoom.BackgroundColor
+  fullName: AGS.API.IRoom.BackgroundColor
+  nameWithType: IRoom.BackgroundColor
+- uid: AGS.API.IRoom.BackgroundColor*
+  name: BackgroundColor
+  href: api/AGS.API.IRoom.html#AGS_API_IRoom_BackgroundColor_
+  commentId: Overload:AGS.API.IRoom.BackgroundColor
+  isSpec: "True"
+  fullName: AGS.API.IRoom.BackgroundColor
+  nameWithType: IRoom.BackgroundColor
 - uid: AGS.API.IRoom.Edges
   name: Edges
   href: api/AGS.API.IRoom.html#AGS_API_IRoom_Edges

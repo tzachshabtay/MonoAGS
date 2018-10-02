@@ -112,7 +112,7 @@ Note: this is different than &quot;Classic&quot; AGS in which the room is explic
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Areas.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Areas%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L105">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L113">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Areas_" data-uid="AGS.API.IRoom.Areas*"></a>
   <h4 id="AGS_API_IRoom_Areas" data-uid="AGS.API.IRoom.Areas">Areas</h4>
@@ -189,10 +189,44 @@ available on regular objects.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_BackgroundColor.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.BackgroundColor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L54">View Source</a>
+  </span>
+  <a id="AGS_API_IRoom_BackgroundColor_" data-uid="AGS.API.IRoom.BackgroundColor*"></a>
+  <h4 id="AGS_API_IRoom_BackgroundColor" data-uid="AGS.API.IRoom.BackgroundColor">BackgroundColor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the background color of the room.
+If null (the default), then the screen will not be cleared with any color before rendering: this
+is assuming that you&apos;ll cover the screen anyway with images.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Color? BackgroundColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<a class="xref" href="AGS.API.Color.html">Color</a>&gt;</td>
+        <td><p>The color of the background.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Edges.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Edges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L113">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L121">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Edges_" data-uid="AGS.API.IRoom.Edges*"></a>
   <h4 id="AGS_API_IRoom_Edges" data-uid="AGS.API.IRoom.Edges">Edges</h4>
@@ -226,7 +260,7 @@ events when the player crosses the edge to change the room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Events.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Events%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L86">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L94">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Events_" data-uid="AGS.API.IRoom.Events*"></a>
   <h4 id="AGS_API_IRoom_Events" data-uid="AGS.API.IRoom.Events">Events</h4>
@@ -290,7 +324,7 @@ events when the player crosses the edge to change the room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Limits.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Limits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L55">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L63">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Limits_" data-uid="AGS.API.IRoom.Limits*"></a>
   <h4 id="AGS_API_IRoom_Limits" data-uid="AGS.API.IRoom.Limits">Limits</h4>
@@ -360,7 +394,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Objects.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Objects%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L80">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L88">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Objects_" data-uid="AGS.API.IRoom.Objects*"></a>
   <h4 id="AGS_API_IRoom_Objects" data-uid="AGS.API.IRoom.Objects">Objects</h4>
@@ -392,7 +426,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Properties.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Properties%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L92">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L100">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Properties_" data-uid="AGS.API.IRoom.Properties*"></a>
   <h4 id="AGS_API_IRoom_Properties" data-uid="AGS.API.IRoom.Properties">Properties</h4>
@@ -424,7 +458,7 @@ and you can configure the cross-fading duration and easing functions from
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_RoomLimitsProvider.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.RoomLimitsProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L74">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L82">View Source</a>
   </span>
   <a id="AGS_API_IRoom_RoomLimitsProvider_" data-uid="AGS.API.IRoom.RoomLimitsProvider*"></a>
   <h4 id="AGS_API_IRoom_RoomLimitsProvider" data-uid="AGS.API.IRoom.RoomLimitsProvider">RoomLimitsProvider</h4>
@@ -503,7 +537,7 @@ to another room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_Find__1_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.Find%60%601(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L129">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L137">View Source</a>
   </span>
   <a id="AGS_API_IRoom_Find_" data-uid="AGS.API.IRoom.Find*"></a>
   <h4 id="AGS_API_IRoom_Find__1_System_String_" data-uid="AGS.API.IRoom.Find``1(System.String)">Find&lt;TObject&gt;(String)</h4>
@@ -570,7 +604,7 @@ to another room.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/cat_fixes/apiSpec/new?filename=AGS_API_IRoom_GetMatchingAreas_AGS_API_PointF_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IRoom.GetMatchingAreas(AGS.API.PointF%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L121">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/cat_fixes/Source/AGS.API/Rooms/IRoom.cs/#L129">View Source</a>
   </span>
   <a id="AGS_API_IRoom_GetMatchingAreas_" data-uid="AGS.API.IRoom.GetMatchingAreas*"></a>
   <h4 id="AGS_API_IRoom_GetMatchingAreas_AGS_API_PointF_System_String_" data-uid="AGS.API.IRoom.GetMatchingAreas(AGS.API.PointF,System.String)">GetMatchingAreas(PointF, String)</h4>
