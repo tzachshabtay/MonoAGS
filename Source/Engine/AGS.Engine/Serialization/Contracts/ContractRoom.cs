@@ -35,7 +35,7 @@ namespace AGS.Engine
 		public IContract<IAGSEdges> Edges { get; set; }
 
         [ProtoMember(8)]
-        public Color? BackgroundColor { get; set; }
+        public uint? BackgroundColor { get; set; }
 
 		#region IContract implementation
 
@@ -64,7 +64,7 @@ namespace AGS.Engine
 			{
 				edges.FromEdges(Edges.ToItem(context));
 			}
-            room.BackgroundColor = BackgroundColor;
+            room.BackgroundColor = BackgroundColor == null ? (Color?)null : Color.FromHexa(BackgroundColor.Value);
 			return room;
 		}
 
@@ -91,7 +91,7 @@ namespace AGS.Engine
 			}
 
 			Edges = context.GetContract((IAGSEdges)item.Edges);
-            BackgroundColor = item.BackgroundColor;
+            BackgroundColor = item.BackgroundColor?.Value;
 		}
 
 		#endregion
