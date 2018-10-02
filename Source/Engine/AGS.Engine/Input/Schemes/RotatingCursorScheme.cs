@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace AGS.Engine
 {
@@ -10,7 +11,7 @@ namespace AGS.Engine
 	{
 		private List<Cursor> _cursors = new List<Cursor>(10);
 		private readonly IGame _game;
-		private bool _handlingClick;
+		private int _handlingClick;
 
 		public const string WALK_MODE = "Walk";
 		public const string LOOK_MODE = "Look";
@@ -88,19 +89,26 @@ namespace AGS.Engine
 
 		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
-			var state = _game.State;
-            var hitTest = _game.HitTest;
-			if (_handlingClick || !state.Player.Enabled)
-				return;
+            if (Interlocked.CompareExchange(ref _handlingClick, 1, 0) != 0) return;
+            try
+            {
+    			var state = _game.State;
+                var hitTest = _game.HitTest;
+    			if (!state.Player.Enabled) return;
 
-			if (e.Button == MouseButton.Left)
-			{
-				await onLeftMouseDown(e, state, hitTest);
-			}
-			else if (e.Button == MouseButton.Right)
-			{
-				onRightMouseDown(e, state);
-			}
+    			if (e.Button == MouseButton.Left)
+    			{
+    				await onLeftMouseDown(e, state, hitTest);
+    			}
+    			else if (e.Button == MouseButton.Right)
+    			{
+    				onRightMouseDown(e, state);
+    			}
+            }
+            finally
+            {
+                _handlingClick = 0;
+            }
 		}
 
         private async Task onLeftMouseDown(MouseButtonEventArgs e, IGameState state, IHitTest hitTest)
@@ -140,27 +148,19 @@ namespace AGS.Engine
 				}
 				else if (mode != WAIT_MODE)
 				{
-					_handlingClick = true;
-					try
-					{
-						if (hotComp == null) return;
+					if (hotComp == null) return;
 
-						if (mode == LOOK_MODE)
-						{
-                            await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
-						}
-						else if (mode == INTERACT_MODE)
-						{
-                            await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
-						}
-						else
-						{
-                            await hotComp.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
-						}
-					}
-					finally
+					if (mode == LOOK_MODE)
 					{
-						_handlingClick = false;
+                        await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
+					}
+					else if (mode == INTERACT_MODE)
+					{
+                        await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
+					}
+					else
+					{
+                        await hotComp.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
 					}
 				}
 			}

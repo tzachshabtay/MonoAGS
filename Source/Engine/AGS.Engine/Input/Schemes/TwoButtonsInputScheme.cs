@@ -3,13 +3,14 @@ using AGS.API;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace AGS.Engine
 {
 	public class TwoButtonsInputScheme
 	{
 		private readonly IGame _game;
-        private bool _handlingClick;
+        private int _handlingClick;
         private IObject _inventoryCursor;
         private IObject _previousCursor;
 
@@ -27,18 +28,25 @@ namespace AGS.Engine
 			
 		private async Task onMouseDown(MouseButtonEventArgs e)
 		{
-            var state = _game.State;
-            var hitTest = _game.HitTest;
-            if (_handlingClick || !state.Player.Enabled)
-                return;
+            if (Interlocked.CompareExchange(ref _handlingClick, 1, 0) != 0) return;
+            try
+            {
+                var state = _game.State;
+                var hitTest = _game.HitTest;
+                if (!state.Player.Enabled) return;
 
-            if (e.Button == MouseButton.Left)
-            {
-                await onLeftMouseDown(e, state, hitTest);
+                if (e.Button == MouseButton.Left)
+                {
+                    await onLeftMouseDown(e, state, hitTest);
+                }
+                else if (e.Button == MouseButton.Right)
+                {
+                    await onRightMouseDown(e, state, hitTest);
+                }
             }
-            else if (e.Button == MouseButton.Right)
+            finally
             {
-                await onRightMouseDown(e, state, hitTest);
+                _handlingClick = 0;
             }
 		}
 
@@ -78,15 +86,7 @@ namespace AGS.Engine
 
                 if (hotComp == null) return;
 
-                _handlingClick = true;
-                try
-                {
-                    await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs(hotspot));
-                }
-                finally
-                {
-                    _handlingClick = false;
-                }
+                await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs(hotspot));
             }
             else if (hotComp != null)
             {
@@ -123,14 +123,7 @@ namespace AGS.Engine
 
             if (hotComp == null) return;
 
-            try
-            {
-                await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs(hotspot));
-            }
-            finally
-            {
-                _handlingClick = false;
-            }
+            await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs(hotspot));
         }
     }
 }
