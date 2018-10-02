@@ -288,7 +288,8 @@ namespace AGS.Engine
             if (scale == null) return;
             var visibleControls = _itemControls.Where(i => i.control.Visible).ToList();
             if (visibleControls.Count == 0) return;
-            scale.BaseSize = new SizeF(MathUtils.Clamp(visibleControls.Max(i => Math.Max(i.control.Width, i.control.GetComponent<ITextComponent>()?.TextWidth ?? 0f)) + _padding.Width, _minWidth, _maxWidth),
+            float potentialMaxWidth = getPotentialMaxWidth(visibleControls);
+            scale.BaseSize = new SizeF(MathUtils.Clamp(Math.Max(potentialMaxWidth, visibleControls.Max(i => Math.Max(i.control.Width, i.control.GetComponent<ITextComponent>()?.TextWidth ?? 0f))) + _padding.Width, _minWidth, _maxWidth),
                                        MathUtils.Clamp(visibleControls.Sum(i => Math.Max(i.control.Height, i.control.GetComponent<ITextComponent>()?.TextHeight ?? 0f)) + _padding.Height, _minHeight, _maxHeight));
             _layout.StartLocation = scale.Height;
             var image = _image;
@@ -298,6 +299,30 @@ namespace AGS.Engine
             {
                 _image.Image = new EmptyImage(scale.BaseSize.Width, scale.BaseSize.Height);
             }
+        }
+
+        private float getPotentialMaxWidth(List<(IUIControl control, IStringItem item)> visibleControls)
+        {
+            //We should guarantee that the item with the longest text is measured even if it's cropped,
+            //as that's probably the item with the maximum width which will give us the width of our container.
+            (IUIControl control, IStringItem item) maxControl = default;
+            int maxText = int.MinValue;
+            foreach (var control in visibleControls)
+            {
+                if (control.item.Text.Length > maxText)
+                {
+                    maxText = control.item.Text.Length;
+                    maxControl = control;
+                }
+            }
+            if (maxText <= 0) return 0f;
+            var textComponent = maxControl.control.GetComponent<ITextComponent>();
+            if (textComponent == null) return 0f;
+            var crop = maxControl.control.AddComponent<ICropSelfComponent>();
+            crop.NeverGuaranteedToFullyCrop = true;
+            crop.CropEnabled = false;
+            textComponent.PrepareTextBoundingBoxes();
+            return textComponent.TextWidth;
         }
 
         private void onItemClicked(MouseButtonEventArgs args)

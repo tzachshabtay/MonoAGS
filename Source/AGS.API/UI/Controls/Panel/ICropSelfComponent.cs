@@ -46,5 +46,13 @@
         /// </summary>
         /// <returns><c>true</c>, if guaranteed to fully crop, <c>false</c> otherwise.</returns>
         bool IsGuaranteedToFullyCrop();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.ICropSelfComponent"/> is never guaranteed to
+        /// fully crop (so calling <see cref="IsGuaranteedToFullyCrop"/> will always return true, ensuring bounding box calculations
+        /// are always performed on this entity (even if it's outside a scrolling panel).
+        /// </summary>
+        /// <value><c>true</c> if never guaranteed to fully crop; otherwise, <c>false</c>.</value>
+        bool NeverGuaranteedToFullyCrop { get; set; }
     }
 }

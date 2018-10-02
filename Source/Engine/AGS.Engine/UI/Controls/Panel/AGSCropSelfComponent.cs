@@ -23,6 +23,8 @@ namespace AGS.Engine
 
         public AGSCropInfo LastCrop { get; private set; }
 
+        public bool NeverGuaranteedToFullyCrop { get; set; }
+
         public IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
 
         public override void Init()
@@ -101,6 +103,11 @@ namespace AGS.Engine
 
         private (bool isGuaranteed, CropFrom cropFrom) isGuaranteedToFullyCrop()
         {
+            if (NeverGuaranteedToFullyCrop)
+            {
+                return (false, CropFrom.None);
+            }
+
             var tree = _tree;
             if (tree == null)
             {

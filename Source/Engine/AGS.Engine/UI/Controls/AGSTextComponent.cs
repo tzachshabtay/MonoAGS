@@ -187,7 +187,10 @@ namespace AGS.Engine
         public void PrepareTextBoundingBoxes()
         {
             if (_pendingLocks > 0) return;
-            prepare(_state.Viewport); //todo: support multiple viewports
+            if (!prepare(_state.Viewport)) //todo: support multiple viewports
+            {
+                return;
+            }
 
             if (_usedTextBoundingBoxes == null) return;
             var cropInfo = _usedTextBoundingBoxes.ViewportBox.Crop(BoundingBoxType.Render, CustomTextCrop ?? _cropSelf, AGSModelMatrixComponent.NoScaling);
@@ -234,32 +237,36 @@ namespace AGS.Engine
             scale.BaseSize = new SizeF(Width, Height);
         }
 
-        private void prepare(IViewport viewport)
+        private bool prepare(IViewport viewport)
         {
-            if (!TextBackgroundVisible && !TextVisible) return;
-            if (!(_visible?.Visible ?? false)) return;
+            if (!TextBackgroundVisible && !TextVisible) return false;
+            if (!(_visible?.Visible ?? false)) return false;
             var crop = CustomTextCrop ?? _cropSelf;
             _isGuaranteedToFullyCrop = crop?.IsGuaranteedToFullyCrop() ?? false;
             if (_isGuaranteedToFullyCrop)
             {
-                return;
+                return false;
             }
 
             _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
             _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, true);
 
-            updateBoundingBoxes(viewport);
+            if (!updateBoundingBoxes(viewport))
+            {
+                return false;
+            }
             if (_usedLabelBoundingBoxes != null)
             {
                 _labelBoundingBoxFakeBuilder.BoundingBoxes = _usedLabelBoundingBoxes;
             }
             Width = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.ViewportBox.Width;
             Height = _usedLabelBoundingBoxes == null ? 1f : _usedLabelBoundingBoxes.ViewportBox.Height;
+            return true;
         }
 
         private AutoFit getAutoFit() => TextConfig?.AutoFit ?? AutoFit.NoFitting;
 
-        private void updateBoundingBoxes(IViewport viewport)
+        private bool updateBoundingBoxes(IViewport viewport)
         {
             var noFactor = AGSModelMatrixComponent.NoScaling;
             bool resolutionMatches;
@@ -317,7 +324,7 @@ namespace AGS.Engine
             }
             if (!shouldUpdateBoundingBoxes)
             {
-                return;
+                return false;
             }
 
             IGLMatrices textRenderMatrices = acquireMatrix(0).SetMatrices(modelMatrices.InObjResolutionMatrix, viewportMatrix);
@@ -337,6 +344,8 @@ namespace AGS.Engine
             }
             _lastWidth = Width;
             _lastHeight = Height;
+
+            return true;
         }
 
         //A very simple "object pool" for the possible 3 matrices a label renderer can create, 
