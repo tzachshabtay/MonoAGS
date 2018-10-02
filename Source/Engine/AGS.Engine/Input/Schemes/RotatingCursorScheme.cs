@@ -9,7 +9,7 @@ namespace AGS.Engine
 	public class RotatingCursorScheme
 	{
 		private List<Cursor> _cursors = new List<Cursor>(10);
-		private IGame _game;
+		private readonly IGame _game;
 		private bool _handlingClick;
 
 		public const string WALK_MODE = "Walk";
