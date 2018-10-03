@@ -226,9 +226,11 @@ namespace Tests
 
             Mock<IImage> image = new Mock<IImage>();
             Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();
-            buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
-            buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
-            buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
+            var animation = new AGSAnimation(new AGSAnimationConfiguration { Loops = 1 }, new AGSAnimationState(), 1);
+            animation.Frames.Add(new AGSAnimationFrame(getSprite()) { Delay = -1 });
+            buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(animation));
+            buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(animation));
+            buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(animation));
             Mock<IALAudioSystem> audioSystem = new Mock<IALAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
             Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
