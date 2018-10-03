@@ -62,7 +62,9 @@ namespace AGS.Engine
                 {
                     var xy = e.MousePosition.GetProjectedPoint(state.Viewport, state.Player);
                     Position position = new Position(xy.X, xy.Y, state.Player.Z);
-                    await state.Player.WalkAsync(position).ConfigureAwait(true);
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    state.Player.WalkAsync(position);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     return;
                 }
                 if (hotspot.Room == null)
