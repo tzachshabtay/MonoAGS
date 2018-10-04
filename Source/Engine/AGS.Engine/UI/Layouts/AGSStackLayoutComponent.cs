@@ -166,7 +166,10 @@ namespace AGS.Engine
             }
             try
             {
-                _isDirty = false;
+                if (!isDryRun)
+                {
+                    _isDirty = false;
+                }
                 var lockStep = isDryRun ? null : new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
                 lockStep?.Lock();
                 foreach (var child in tree.TreeNode.Children)
