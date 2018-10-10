@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AGS.API
 {
@@ -17,6 +18,7 @@ namespace AGS.API
             _z = z;
         }
 
+        [JsonConstructor]
         public Position(float x, float y, float? z = null) : this(new PointF(x, y), z)
         { }
 

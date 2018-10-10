@@ -26,13 +26,13 @@ namespace AGS.Editor
             {
                 json = reader.ReadToEnd();
             }
-            T obj = JsonConvert.DeserializeObject<T>(json);
+            T obj = JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
             return obj;
         }
 
         public static void SaveJson(string path, object model)
         {
-            string json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
             File.WriteAllText(path, json);
         }
 
