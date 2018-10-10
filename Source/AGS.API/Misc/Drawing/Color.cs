@@ -5,7 +5,7 @@ namespace AGS.API
     /// <summary>
     /// Represents a color.
     /// </summary>
-	public struct Color
+    public struct Color : IEquatable<Color>
 	{
 		private const int SHIFT_A = 24;
 		private const int SHIFT_R = 16;
@@ -204,6 +204,11 @@ namespace AGS.API
         /// <returns>The color.</returns>
         /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
         public Color WithAlpha(byte a) => Color.FromArgb(a, R, G, B);
+
+        public override bool Equals(object obj) => obj is Color c && Equals(c);
+
+        public override int GetHashCode() => Value.GetHashCode();
+
+        public bool Equals(Color other) => Value == other.Value;
     }
 }
-
