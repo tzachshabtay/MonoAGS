@@ -234,7 +234,7 @@ namespace AGS.Editor
             overrideDefaults["id"] = $"{name}{++_lastId}";
         }
 
-        private async Task<bool> validate(Dictionary<string, object> map)
+        private async Task<bool> validate(Dictionary<string, ValueModel> map)
         {
             var id = map["id"];
             if (_editor.Project.Model.Entities.ContainsKey(id.ToString()))

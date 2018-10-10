@@ -76,12 +76,12 @@ namespace AGS.Editor
                 return;
             }
             var color = Colors.Red;
-            if (_property.Value is Color c)
+            if (_property.Value.Value is Color c)
                 color = c;
-            else if (_property.Value is uint u)
+            else if (_property.Value.Value is uint u)
             {
                 color = Color.FromHexa(u);
-                _property.Value = color;
+                _property.Value = new ValueModel { Value = color };
             }
 
             Action onBoxChanged = null;

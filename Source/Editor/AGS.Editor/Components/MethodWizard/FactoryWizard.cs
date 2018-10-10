@@ -11,13 +11,13 @@ namespace AGS.Editor
     {
         private readonly AGSEditor _editor;
         private readonly Action<IPanel> _addUiExternal;
-        private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
+        private readonly Func<Dictionary<string, ValueModel>, Task<bool>> _validate;
         private readonly Action<Dictionary<string, object>> _setDefaults;
         private readonly IForm _parentForm;
         private readonly string _title;
 
         public FactoryWizard(IForm parentForm, string title, AGSEditor editor, Action<IPanel> addUiExternal, 
-                             Func<Dictionary<string, object>, Task<bool>> validate,
+                             Func<Dictionary<string, ValueModel>, Task<bool>> validate,
                              Action<Dictionary<string, object>> setDefaults)
         {
             _title = title;
@@ -68,13 +68,13 @@ namespace AGS.Editor
             if (parameters == null) return (null, null, null);
             foreach (var param in overrideDefaults.Keys)
             {
-                parameters[param] = get(param, parameters) ?? overrideDefaults[param];
+                parameters[param] = get(param, parameters) ?? new ValueModel { Value = overrideDefaults[param] };
             }
             (object result, MethodModel model) = runMethod(method, factory, parameters);
             return (result, model, methodAttribute);
         }
 
-        private object get(string key, Dictionary<string, object> parameters) => parameters.TryGetValue(key, out var val) ? val : null;
+        private ValueModel get(string key, Dictionary<string, ValueModel> parameters) => parameters.TryGetValue(key, out var val) ? val : new ValueModel { Value = null };
 
         private (MethodBase, MethodWizardAttribute) getMethod(Type factoryType, string methodName)
         {
@@ -105,13 +105,14 @@ namespace AGS.Editor
             throw new InvalidOperationException($"Failed to find method name {methodName} (with MethodWizard attribute) in {factoryType}");
         }
 
-        private (object, MethodModel) runMethod(MethodBase method, object factory, Dictionary<string, object> parameters)
+        private (object, MethodModel) runMethod(MethodBase method, object factory, Dictionary<string, ValueModel> parameters)
         {
             var methodParams = method.GetParameters();
-            object[] values = methodParams.Select(m => parameters.TryGetValue(m.Name, out object val) ?
-                                                  val : MethodParam.GetDefaultValue(m.ParameterType)).ToArray();
+            ValueModel[] valueModels = methodParams.Select(m => parameters.TryGetValue(m.Name, out ValueModel val) ?
+                                                      val : new ValueModel { Value = MethodParam.GetDefaultValue(m.ParameterType) }).ToArray();
+            object[] values = valueModels.Select(v => v.Value).ToArray();
             var returnType = method is MethodInfo methodInfo ? methodInfo.ReturnType : null;
-            var model = new MethodModel { InstanceName = FactoryProvider.GetFactoryScriptName(factory, _editor.Game), Name = method.Name, Parameters = values, ReturnType = returnType };
+            var model = new MethodModel { InstanceName = FactoryProvider.GetFactoryScriptName(factory, _editor.Game), Name = method.Name, Parameters = valueModels, ReturnType = returnType };
             if (method is ConstructorInfo constructor) return (constructor.Invoke(values), model);
             return (method.Invoke(factory, values), model);
         }

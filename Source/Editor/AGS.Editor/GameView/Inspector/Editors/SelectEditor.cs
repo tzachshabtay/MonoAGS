@@ -19,13 +19,13 @@ namespace AGS.Editor
 
         public class ReturnValue
         {
-            public ReturnValue(object value, bool shouldCancel)
+            public ReturnValue(ValueModel value, bool shouldCancel)
             {
                 Value = value;
                 ShouldCancel = shouldCancel;
             }
 
-            public object Value { get; }
+            public ValueModel Value { get; }
             public bool ShouldCancel { get; }
         }
 

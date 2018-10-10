@@ -12,6 +12,8 @@ namespace AGS.Editor
         private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
             new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
 
+        private MethodModel _initializer;
+
 		public InspectorProperty(object obj, string name, PropertyInfo prop, string displayName = null)
 		{
 			Prop = prop;
@@ -35,7 +37,15 @@ namespace AGS.Editor
 
         public const string NullValue = "(None)";
 
-        public object Value { get => Prop.GetValue(Object, null); set => Prop.SetValue(Object, value, null); }
+        public ValueModel Value
+        {
+            get => new ValueModel { Value = Prop.GetValue(Object, null), Initializer = _initializer };
+            set
+            {
+                Prop.SetValue(Object, value.Value, null);
+                _initializer = value.Initializer;
+            }
+        }
 
         public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
         {

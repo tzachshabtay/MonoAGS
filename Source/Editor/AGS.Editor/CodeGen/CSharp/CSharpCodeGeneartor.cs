@@ -82,7 +82,7 @@ namespace AGS.Editor
                 if (!needEntity(model)) return "";
                 return $"{model.ScriptName} = ({getType(model)}){getRoot(model).ScriptName}.TreeNode.FindDescendant({'"'}{model.ID}{'"'});";
             }
-            return $"{model.ScriptName} = {generateMethod(model.Initializer)}";
+            return $"{model.ScriptName} = {generateMethod(model.Initializer)};";
         }
 
         private EntityModel getRoot(EntityModel model)
@@ -208,19 +208,23 @@ namespace {namespaceName}
 
         private string generateMethod(MethodModel model)
         {
-            var parameters = string.Join(", ", model.Parameters.Select(p => getValueString(p)));
+            var parameters = string.Join(", ", model.Parameters.Select(p => convertValueToCode(p)));
             if (string.IsNullOrEmpty(model.InstanceName))
             {
-                return $"{model.Name}({parameters});";
+                if (model.Name == ".ctor")
+                {
+                    return $"new {typeNameToString(model.ReturnType)}({parameters})";
+                }
+                return $"{model.Name}({parameters})";
             }
-            return $"{model.InstanceName}.{model.Name}({parameters});";
+            return $"{model.InstanceName}.{model.Name}({parameters})";
         }
 
         private void generateSetProperty(ComponentModel model, string name, StringBuilder code)
         {
             foreach (var pair in model.Properties)
             {
-                indent(code).AppendLine($"{name}.{pair.Key} = {getValueString(pair.Value)};");
+                indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value)};");
             }
         }
 
@@ -254,6 +258,16 @@ namespace {namespaceName}
             name = getRawName(name);
             var suffix = name.Length > 1 ? name.Substring(1) : "";
             return $"{char.ToUpperInvariant(name[0])}{suffix}";
+        }
+
+        private string convertValueToCode(ValueModel val)
+        {
+            if (val.Initializer == null) return getValueString(val.Value);
+            if (val.Initializer.Name == ".ctor")
+            {
+                val.Initializer.ReturnType = val.Value.GetType();
+            }
+            return generateMethod(val.Initializer);
         }
 
         private string getValueString(object val)

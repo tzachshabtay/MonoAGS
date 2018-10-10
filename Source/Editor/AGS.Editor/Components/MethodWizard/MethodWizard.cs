@@ -16,7 +16,7 @@ namespace AGS.Editor
         private readonly IRenderLayer _layer;
         private readonly HashSet<string> _hideProperties;
         private readonly Dictionary<string, object> _overrideDefaults;
-        private readonly TaskCompletionSource<Dictionary<string, object>> _taskCompletionSource;
+        private readonly TaskCompletionSource<Dictionary<string, ValueModel>> _taskCompletionSource;
         private readonly Action<IPanel> _addUiExternal;
         private readonly AGSEditor _editor;
         private IForm _form;
@@ -25,14 +25,14 @@ namespace AGS.Editor
         public const float MARGIN_HORIZONTAL = 30f;
         private const float MARGIN_VERTICAL = 20f;
         private const float WIDTH = 500f;
-        private readonly Func<Dictionary<string, object>, Task<bool>> _validate;
+        private readonly Func<Dictionary<string, ValueModel>, Task<bool>> _validate;
         private readonly IForm _parentForm;
         private readonly string _idSuffix;
         private readonly string _title;
         static int _index = 1;
 
         public MethodWizard(IForm parentForm, string title, MethodBase method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults, 
-                            Action<IPanel> addUiExternal, AGSEditor editor, Func<Dictionary<string, object>, Task<bool>> validate)
+                            Action<IPanel> addUiExternal, AGSEditor editor, Func<Dictionary<string, ValueModel>, Task<bool>> validate)
         {
             _parentForm = parentForm;
             _title = title;
@@ -44,7 +44,7 @@ namespace AGS.Editor
             _hideProperties = hideProperties;
             _overrideDefaults = overrideDefaults;
             _addUiExternal = addUiExternal;
-            _taskCompletionSource = new TaskCompletionSource<Dictionary<string, object>>();
+            _taskCompletionSource = new TaskCompletionSource<Dictionary<string, ValueModel>>();
         }
 
         public void Load()
@@ -79,7 +79,7 @@ namespace AGS.Editor
             var methodDescriptor = new MethodTypeDescriptor(_method, _hideProperties, _overrideDefaults);
             if (!_inspector.Show(methodDescriptor) && _addUiExternal == null)
             {
-                closeForm(new Dictionary<string, object>());
+                closeForm(new Dictionary<string, ValueModel>());
                 return;
             }
 
@@ -102,7 +102,7 @@ namespace AGS.Editor
             layout.ForceRefreshLayout();
         }
 
-        public async Task<Dictionary<string, object>> ShowAsync()
+        public async Task<Dictionary<string, ValueModel>> ShowAsync()
         {
             var dialog = _parentForm;
             if (dialog != null) dialog.Visible = false;
@@ -144,7 +144,7 @@ namespace AGS.Editor
             var okButton = factory.UI.GetButton($"MethodWizardOkButton{_idSuffix}", idle, hovered, pushed, 0f, 0f, buttonsPanel, "OK", width: buttonWidth, height: 20f);
             okButton.MouseClicked.Subscribe(async () =>
             {
-                Dictionary<string, object> map = new Dictionary<string, object>();
+                Dictionary<string, ValueModel> map = new Dictionary<string, ValueModel>();
                 foreach (var param in _inspector.Inspector.Properties.SelectMany(p => p.Value))
                 {
                     map[param.Name] = param.Value;
@@ -167,7 +167,7 @@ namespace AGS.Editor
             layout.ForceRefreshLayout();
         }
 
-        private void closeForm(Dictionary<string, object> map)
+        private void closeForm(Dictionary<string, ValueModel> map)
         {
             _modal?.LoseFocus();
             _form.Header.DestroyWithChildren(_editor.Editor.State);

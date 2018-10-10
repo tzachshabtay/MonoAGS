@@ -20,7 +20,7 @@ namespace AGS.Editor
             DisplayName = Name.Humanize();
             Object = obj;
             Children = new List<IProperty>();
-            Value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType));
+            Value = new ValueModel { Value = overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType)) };
         }
 
         public string Name => _param.Name;
@@ -42,7 +42,7 @@ namespace AGS.Editor
             return _param.GetCustomAttribute<TAttribute>();
         }
 
-        public object Value { get; set; }
+        public ValueModel Value { get; set; }
 
         public void Refresh() {}
 

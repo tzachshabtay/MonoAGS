@@ -25,7 +25,7 @@ namespace AGS.Editor
         {
             var factoryWizard = new FactoryWizard(parentForm, title, _editor, null, null, null);
             (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, _methodName);
-            return new SelectEditor.ReturnValue(result, model == null);
+            return new SelectEditor.ReturnValue(new ValueModel { Value = result, Initializer = model }, model == null);
         }
     }
 }

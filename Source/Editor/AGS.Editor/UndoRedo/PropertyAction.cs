@@ -11,7 +11,10 @@ namespace AGS.Editor
         private readonly StateModel _model;
         private Action _undoModel;
 
-        public PropertyAction(IProperty property, object value, StateModel model)
+        public PropertyAction(IProperty property, object value, StateModel model) : 
+            this(property, new ValueModel { Value = value}, model) {}
+
+        public PropertyAction(IProperty property, ValueModel value, StateModel model)
         {
             _model = model;
             _timestamp = DateTime.Now;
@@ -21,8 +24,8 @@ namespace AGS.Editor
         }
 
         public IProperty Property { get; set; }
-        public object Value { get; set; }
-        public object OldValue { get; set; }
+        public ValueModel Value { get; set; }
+        public ValueModel OldValue { get; set; }
 
         public override string ToString() => _actionDisplayName;
 

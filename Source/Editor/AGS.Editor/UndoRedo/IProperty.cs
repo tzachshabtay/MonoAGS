@@ -8,7 +8,7 @@ namespace AGS.Editor
         string Name { get; }
         string DisplayName { get; }
         object Object { get; }
-        object Value { get; set; }
+        ValueModel Value { get; set; }
         string ValueString { get; }
         Type PropertyType { get; }
         TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute;

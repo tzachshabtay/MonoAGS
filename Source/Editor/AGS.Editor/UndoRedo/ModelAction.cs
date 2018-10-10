@@ -8,7 +8,7 @@ namespace AGS.Editor
 {
     public class ModelAction
     {
-        public static Action Execute(StateModel model, params (IComponent component, string propertyName, object value)[] properties)
+        public static Action Execute(StateModel model, params (IComponent component, string propertyName, ValueModel value)[] properties)
         {
             if (properties.Length == 0 || properties[0].component?.Entity == null)
                 return null;
@@ -16,13 +16,13 @@ namespace AGS.Editor
             var entityModel = getEntity(properties[0].component.Entity, model);
             bool wasDirty = entityModel.IsDirty;
 
-            var oldProperties = new List<(ComponentModel componentModel, string name, bool hadValue, object oldValue)>();
-            foreach ((IComponent component, string propertyName, object value) in properties)
+            var oldProperties = new List<(ComponentModel componentModel, string name, bool hadValue, ValueModel oldValue)>();
+            foreach ((IComponent component, string propertyName, ValueModel value) in properties)
             {
                 var componentModel = entityModel.Components.GetOrAdd(component.RegistrationType, _ => new ComponentModel
-                    { ComponentConcreteType = component.GetType(), Properties = new Dictionary<string, object>() });
+                    { ComponentConcreteType = component.GetType(), Properties = new Dictionary<string, ValueModel>() });
 
-                if (componentModel.Properties.TryGetValue(propertyName, out object oldValue))
+                if (componentModel.Properties.TryGetValue(propertyName, out ValueModel oldValue))
                 {
                     oldProperties.Add((componentModel, propertyName, true, oldValue));
                 }
@@ -36,7 +36,7 @@ namespace AGS.Editor
 
             Action undoModel = () =>
             {
-                foreach ((ComponentModel componentModel, string name, bool hadValue, object oldValue) in oldProperties)
+                foreach ((ComponentModel componentModel, string name, bool hadValue, ValueModel oldValue) in oldProperties)
                 {
                     if (hadValue) componentModel.Properties[name] = oldValue;
                     else componentModel.Properties.Remove(name);
