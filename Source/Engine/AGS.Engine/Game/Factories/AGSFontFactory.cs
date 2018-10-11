@@ -38,6 +38,7 @@ namespace AGS.Engine
             return _device.FontLoader.LoadFontFromPath(path, sizeInPoints, style);
         }
 
+        [MethodWizard]
         public ITextConfig GetTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
             IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f,
             Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,

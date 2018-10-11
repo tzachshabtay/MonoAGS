@@ -15,6 +15,7 @@ namespace AGS.Editor
                 case nameof(IFontLoader): return factory.Fonts;
                 case nameof(IInventoryFactory): return factory.Inventory;
                 case nameof(IAudioFactory): return factory.Sound;
+                case nameof(IFontFactory): return factory.Fonts;
                 default:
                     throw new NotSupportedException($"Not supported factory type: {factoryType}");
             }

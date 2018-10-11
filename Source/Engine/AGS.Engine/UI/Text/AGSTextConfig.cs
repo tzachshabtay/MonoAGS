@@ -4,7 +4,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
-    [ConcreteImplementation(DisplayName = "Text Configuration")]
+    [ConcreteImplementation(Browsable = false)]
     public class AGSTextConfig : ITextConfig
     {
         private static IBrushLoader _brushes => AGSGame.Device.BrushLoader;
