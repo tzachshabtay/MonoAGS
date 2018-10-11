@@ -38,7 +38,7 @@ namespace AGS.API
     /// <summary>
     /// Configuration which is used when rendering text.
     /// </summary>
-    [HasFactory(FactoryType = nameof(IFontFactory), DisplayName = "Font Configuration", MethodName = nameof(IFontFactory.GetTextConfig))]
+    [HasFactory(FactoryType = nameof(IFontFactory), DisplayName = "Text Configuration", MethodName = nameof(IFontFactory.GetTextConfig))]
     public interface ITextConfig : INotifyPropertyChanged
 	{
         /// <summary>
