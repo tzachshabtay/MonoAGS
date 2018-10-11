@@ -278,8 +278,8 @@ namespace {namespaceName}
                     return "null";
                 case float f:
                     return $"{f.ToString()}f";
-                case double d1:
-                    return $"{d1.ToString()}d";
+                case double d1: //todo: currently we treat doubles as floats (using f suffix instead of d suffix): this is because json.net always deserializes as doubles and we use floats everywhere, so our floats are coming back as doubles. Waiting for this: https://github.com/JamesNK/Newtonsoft.Json/issues/1872
+                    return $"{d1.ToString()}f";
                 case decimal d2:
                     return $"{d2.ToString()}m";
                 case byte v1:
