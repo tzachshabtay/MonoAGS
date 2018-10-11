@@ -1235,6 +1235,25 @@ references:
   isSpec: "True"
   fullName: AGS.API.Color.B
   nameWithType: Color.B
+- uid: AGS.API.Color.Equals(AGS.API.Color)
+  name: Equals(Color)
+  href: api/AGS.API.Color.html#AGS_API_Color_Equals_AGS_API_Color_
+  commentId: M:AGS.API.Color.Equals(AGS.API.Color)
+  fullName: AGS.API.Color.Equals(AGS.API.Color)
+  nameWithType: Color.Equals(Color)
+- uid: AGS.API.Color.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.Color.html#AGS_API_Color_Equals_System_Object_
+  commentId: M:AGS.API.Color.Equals(System.Object)
+  fullName: AGS.API.Color.Equals(System.Object)
+  nameWithType: Color.Equals(Object)
+- uid: AGS.API.Color.Equals*
+  name: Equals
+  href: api/AGS.API.Color.html#AGS_API_Color_Equals_
+  commentId: Overload:AGS.API.Color.Equals
+  isSpec: "True"
+  fullName: AGS.API.Color.Equals
+  nameWithType: Color.Equals
 - uid: AGS.API.Color.FromArgb(System.Byte,System.Byte,System.Byte,System.Byte)
   name: FromArgb(Byte, Byte, Byte, Byte)
   href: api/AGS.API.Color.html#AGS_API_Color_FromArgb_System_Byte_System_Byte_System_Byte_System_Byte_
@@ -1300,6 +1319,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.Color.G
   nameWithType: Color.G
+- uid: AGS.API.Color.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.Color.html#AGS_API_Color_GetHashCode
+  commentId: M:AGS.API.Color.GetHashCode
+  fullName: AGS.API.Color.GetHashCode()
+  nameWithType: Color.GetHashCode()
+- uid: AGS.API.Color.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.Color.html#AGS_API_Color_GetHashCode_
+  commentId: Overload:AGS.API.Color.GetHashCode
+  isSpec: "True"
+  fullName: AGS.API.Color.GetHashCode
+  nameWithType: Color.GetHashCode
 - uid: AGS.API.Color.GetHue
   name: GetHue()
   href: api/AGS.API.Color.html#AGS_API_Color_GetHue
