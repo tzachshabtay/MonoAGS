@@ -68,13 +68,13 @@ namespace AGS.Editor
             if (parameters == null) return (null, null, null);
             foreach (var param in overrideDefaults.Keys)
             {
-                parameters[param] = get(param, parameters) ?? new ValueModel { Value = overrideDefaults[param] };
+                parameters[param] = get(param, parameters) ?? new ValueModel(overrideDefaults[param]);
             }
             (object result, MethodModel model) = runMethod(method, factory, parameters);
             return (result, model, methodAttribute);
         }
 
-        private ValueModel get(string key, Dictionary<string, ValueModel> parameters) => parameters.TryGetValue(key, out var val) ? val : new ValueModel { Value = null };
+        private ValueModel get(string key, Dictionary<string, ValueModel> parameters) => parameters.TryGetValue(key, out var val) ? val : new ValueModel(null);
 
         private (MethodBase, MethodWizardAttribute) getMethod(Type factoryType, string methodName)
         {
@@ -109,7 +109,7 @@ namespace AGS.Editor
         {
             var methodParams = method.GetParameters();
             ValueModel[] valueModels = methodParams.Select(m => parameters.TryGetValue(m.Name, out ValueModel val) ?
-                                                      val : new ValueModel { Value = MethodParam.GetDefaultValue(m.ParameterType) }).ToArray();
+                                                           val : new ValueModel(MethodParam.GetDefaultValue(m.ParameterType))).ToArray();
             object[] values = valueModels.Select(v => v.Value).ToArray();
             var returnType = method is MethodInfo methodInfo ? methodInfo.ReturnType : null;
             var model = new MethodModel { InstanceName = FactoryProvider.GetFactoryScriptName(factory, _editor.Game), Name = method.Name, Parameters = valueModels, ReturnType = returnType };

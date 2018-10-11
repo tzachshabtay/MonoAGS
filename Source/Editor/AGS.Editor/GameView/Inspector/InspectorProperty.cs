@@ -39,7 +39,7 @@ namespace AGS.Editor
 
         public ValueModel Value
         {
-            get => new ValueModel { Value = Prop.GetValue(Object, null), Initializer = _initializer };
+            get => new ValueModel(Prop.GetValue(Object, null), _initializer);
             set
             {
                 Prop.SetValue(Object, value.Value, null);

@@ -44,7 +44,7 @@ namespace AGS.Editor
         {
             Type enumType = property.PropertyType;
             var comboItem = (ComboItem)item;
-            return Task.FromResult(new SelectEditor.ReturnValue(new ValueModel { Value = comboItem.Value }, false));
+            return Task.FromResult(new SelectEditor.ReturnValue(new ValueModel(comboItem.Value), false));
         }
     }
 }

@@ -81,7 +81,7 @@ namespace AGS.Editor
             else if (_property.Value.Value is uint u)
             {
                 color = Color.FromHexa(u);
-                _property.Value = new ValueModel { Value = color };
+                _property.Value = new ValueModel(color);
             }
 
             Action onBoxChanged = null;
