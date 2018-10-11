@@ -30,5 +30,7 @@
         {
             return Name.GetHashCode();
         }
+
+        public override string ToString() => Name;
     }
 }

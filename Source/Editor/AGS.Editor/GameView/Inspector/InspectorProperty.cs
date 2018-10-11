@@ -80,6 +80,8 @@ namespace AGS.Editor
             }
 		}
 
+        public override string ToString() => $"{DisplayName}: {ValueString}";
+
         private MethodInfo getCustomStringMethod((MethodInfo method, CustomStringValueAttribute attr)provider)
         {
             if (provider.Equals(default)) return null;

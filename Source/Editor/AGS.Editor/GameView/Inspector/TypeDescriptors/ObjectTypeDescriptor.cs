@@ -59,7 +59,7 @@ namespace AGS.Editor
         public static void RefreshChildrenProperties(IProperty property)
         {
             property.Children.Clear();
-            var val = property.Value;
+            var val = property.Value.Value;
             if (val == null) return;
             var objType = val.GetType();
             if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
