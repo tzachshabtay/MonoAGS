@@ -19,6 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -27,6 +28,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +48,12 @@
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.8.0\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>..\..\..\..\..\..\Library\Frameworks\Mono.framework\Versions\5.12.0\lib\mono\4.6.1-api\System.Runtime.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +92,7 @@
     <Compile Include="Engine\ComponentsFramework\EntityTests.cs" />
     <Compile Include="Engine\ComponentsFramework\ComponentTests.cs" />
     <Compile Include="Engine\Misc\DependencyInjection\ResolverTests.cs" />
+    <Compile Include="Editor\JsonTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -103,6 +112,10 @@
       <Project>{6BEEC517-011A-441E-8A2F-D9461806A879}</Project>
       <Name>AGS.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Editor\AGS.Editor\AGS.Editor.csproj">
+      <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
+      <Name>AGS.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -113,5 +126,6 @@
     <Folder Include="Engine\ComponentsFramework\" />
     <Folder Include="Engine\Misc\Collection\" />
     <Folder Include="Engine\Misc\DependencyInjection\" />
+    <Folder Include="Editor\" />
   </ItemGroup>
 </Project>

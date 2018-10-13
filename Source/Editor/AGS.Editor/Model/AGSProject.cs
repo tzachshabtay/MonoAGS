@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace AGS.Editor
 {
@@ -17,6 +18,11 @@ namespace AGS.Editor
 
         public StateModel Model { get; private set; }
 
+        public static JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All
+        };
+
         public static T LoadJson<T>(string path)
         {
             var stream = File.OpenRead(path);
@@ -26,13 +32,13 @@ namespace AGS.Editor
             {
                 json = reader.ReadToEnd();
             }
-            T obj = JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            T obj = JsonConvert.DeserializeObject<T>(json, JsonSettings);
             return obj;
         }
 
         public static void SaveJson(string path, object model)
         {
-            string json = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            string json = JsonConvert.SerializeObject(model, Formatting.Indented, JsonSettings);
             File.WriteAllText(path, json);
         }
 

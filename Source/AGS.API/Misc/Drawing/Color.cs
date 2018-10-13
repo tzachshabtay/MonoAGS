@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AGS.API
 {
     /// <summary>
     /// Represents a color.
     /// </summary>
+    [DataContract]
     public struct Color : IEquatable<Color>
 	{
 		private const int SHIFT_A = 24;
@@ -14,6 +17,7 @@ namespace AGS.API
 
 		private readonly uint _value;
 
+        [JsonConstructor]
 		private Color(uint argb)
 		{
 			_value = argb;
@@ -24,6 +28,7 @@ namespace AGS.API
         /// where the order is A (alpha)-R (red)-G (green)-B (blue).
         /// </summary>
         /// <value>The color value.</value>
+        [DataMember(Name = "Argb")]
 		public uint Value => _value;
 
         /// <summary>

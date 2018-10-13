@@ -297,12 +297,36 @@ namespace {namespaceName}
                     return $"{"'"}{c}{"'"}";
                 case bool b:
                     return b.ToString().ToLowerInvariant();
+                case Color color:
+                    return colorToString(color);
                 case ValueTuple t:
                     return tupleToString(t.GetType().GetProperties().Select(p => p.GetValue(t)));
                 default:
-                    Type type = val.GetType();
-                    return deconstructToString(val, type) ?? enumToString(val, type) ?? factoryToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
+                    return unknownTypeToString(val);
             }
+        }
+
+        private string unknownTypeToString(object val)
+        {
+            Type type = val.GetType();
+            return deconstructToString(val, type) ?? enumToString(val, type) ?? factoryToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
+        }
+
+        private string colorToString(Color color)
+        {
+            if (NamedColorsMap.NamedColorsReversed.TryGetValue(color.Value, out string colorName))
+            {
+                return $"Colors.{colorName}";
+            }
+            if (color.A != 255)
+            {
+                var solid = color.WithAlpha(255);
+                if (NamedColorsMap.NamedColorsReversed.TryGetValue(solid.Value, out string solidName))
+                {
+                    return $"Colors.{solidName}.WithAlpha({color.A})";
+                }
+            }
+            return unknownTypeToString(color);
         }
 
         private string deconstructToString(object val, Type type)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AGS.API
 {
@@ -8,7 +9,7 @@ namespace AGS.API
     /// </summary>
     [ConcreteImplementation(DisplayName = "4-Corners")]
     [DataContract]
-	public class FourCorners<TValue>
+    public class FourCorners<TValue> : IEquatable<FourCorners<TValue>>
 	{
         private TValue _bottomLeft, _bottomRight, _topLeft, _topRight;
 
@@ -102,6 +103,10 @@ namespace AGS.API
 			return new FourCorners<TNewValue> (convert(BottomLeft), convert(BottomRight), convert(TopLeft),
 				convert(TopRight));
 		}
+
+        public override bool Equals(object obj) => obj is FourCorners<TValue> other && Equals(other);
+
+        public override int GetHashCode() => BottomLeft.GetHashCode();
 
         public bool Equals(FourCorners<TValue> other)
         {
