@@ -2664,6 +2664,14 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).Equals(AGS.API.FourCorners(Of TValue))
   nameWithType: FourCorners<TValue>.Equals(FourCorners<TValue>)
   nameWithType.vb: FourCorners(Of TValue).Equals(FourCorners(Of TValue))
+- uid: AGS.API.FourCorners`1.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Equals_System_Object_
+  commentId: M:AGS.API.FourCorners`1.Equals(System.Object)
+  fullName: AGS.API.FourCorners<TValue>.Equals(System.Object)
+  fullName.vb: AGS.API.FourCorners(Of TValue).Equals(System.Object)
+  nameWithType: FourCorners<TValue>.Equals(Object)
+  nameWithType.vb: FourCorners(Of TValue).Equals(Object)
 - uid: AGS.API.FourCorners`1.Equals*
   name: Equals
   href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_Equals_
@@ -2673,6 +2681,23 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).Equals
   nameWithType: FourCorners<TValue>.Equals
   nameWithType.vb: FourCorners(Of TValue).Equals
+- uid: AGS.API.FourCorners`1.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_GetHashCode
+  commentId: M:AGS.API.FourCorners`1.GetHashCode
+  fullName: AGS.API.FourCorners<TValue>.GetHashCode()
+  fullName.vb: AGS.API.FourCorners(Of TValue).GetHashCode()
+  nameWithType: FourCorners<TValue>.GetHashCode()
+  nameWithType.vb: FourCorners(Of TValue).GetHashCode()
+- uid: AGS.API.FourCorners`1.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_GetHashCode_
+  commentId: Overload:AGS.API.FourCorners`1.GetHashCode
+  isSpec: "True"
+  fullName: AGS.API.FourCorners<TValue>.GetHashCode
+  fullName.vb: AGS.API.FourCorners(Of TValue).GetHashCode
+  nameWithType: FourCorners<TValue>.GetHashCode
+  nameWithType.vb: FourCorners(Of TValue).GetHashCode
 - uid: AGS.API.FourCorners`1.IsOneValue
   name: IsOneValue
   href: api/AGS.API.FourCorners-1.html#AGS_API_FourCorners_1_IsOneValue
@@ -21437,6 +21462,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.Point.Deconstruct
   nameWithType: Point.Deconstruct
+- uid: AGS.API.Point.Empty
+  name: Empty
+  href: api/AGS.API.Point.html#AGS_API_Point_Empty
+  commentId: F:AGS.API.Point.Empty
+  fullName: AGS.API.Point.Empty
+  nameWithType: Point.Empty
 - uid: AGS.API.Point.op_Implicit(System.ValueTuple{System.Int32,System.Int32})~AGS.API.Point
   name: Implicit((Int32 x, Int32 y) to Point)
   href: api/AGS.API.Point.html#AGS_API_Point_op_Implicit_System_ValueTuple_System_Int32_System_Int32___AGS_API_Point
@@ -21767,6 +21798,38 @@ references:
   commentId: F:AGS.API.Position.Empty
   fullName: AGS.API.Position.Empty
   nameWithType: Position.Empty
+- uid: AGS.API.Position.Equals(AGS.API.Position)
+  name: Equals(Position)
+  href: api/AGS.API.Position.html#AGS_API_Position_Equals_AGS_API_Position_
+  commentId: M:AGS.API.Position.Equals(AGS.API.Position)
+  fullName: AGS.API.Position.Equals(AGS.API.Position)
+  nameWithType: Position.Equals(Position)
+- uid: AGS.API.Position.Equals(System.Object)
+  name: Equals(Object)
+  href: api/AGS.API.Position.html#AGS_API_Position_Equals_System_Object_
+  commentId: M:AGS.API.Position.Equals(System.Object)
+  fullName: AGS.API.Position.Equals(System.Object)
+  nameWithType: Position.Equals(Object)
+- uid: AGS.API.Position.Equals*
+  name: Equals
+  href: api/AGS.API.Position.html#AGS_API_Position_Equals_
+  commentId: Overload:AGS.API.Position.Equals
+  isSpec: "True"
+  fullName: AGS.API.Position.Equals
+  nameWithType: Position.Equals
+- uid: AGS.API.Position.GetHashCode
+  name: GetHashCode()
+  href: api/AGS.API.Position.html#AGS_API_Position_GetHashCode
+  commentId: M:AGS.API.Position.GetHashCode
+  fullName: AGS.API.Position.GetHashCode()
+  nameWithType: Position.GetHashCode()
+- uid: AGS.API.Position.GetHashCode*
+  name: GetHashCode
+  href: api/AGS.API.Position.html#AGS_API_Position_GetHashCode_
+  commentId: Overload:AGS.API.Position.GetHashCode
+  isSpec: "True"
+  fullName: AGS.API.Position.GetHashCode
+  nameWithType: Position.GetHashCode
 - uid: AGS.API.Position.op_Implicit(System.ValueTuple{System.Single,System.Single,System.Nullable{System.Single}})~AGS.API.Position
   name: Implicit((Single x, Single y, Nullable<Single> z) to Position)
   href: api/AGS.API.Position.html#AGS_API_Position_op_Implicit_System_ValueTuple_System_Single_System_Single_System_Nullable_System_Single____AGS_API_Position
@@ -23149,6 +23212,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.Size.Deconstruct
   nameWithType: Size.Deconstruct
+- uid: AGS.API.Size.Empty
+  name: Empty
+  href: api/AGS.API.Size.html#AGS_API_Size_Empty
+  commentId: F:AGS.API.Size.Empty
+  fullName: AGS.API.Size.Empty
+  nameWithType: Size.Empty
 - uid: AGS.API.Size.Equals(AGS.API.Size)
   name: Equals(Size)
   href: api/AGS.API.Size.html#AGS_API_Size_Equals_AGS_API_Size_
@@ -23274,6 +23343,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.SizeF.Deconstruct
   nameWithType: SizeF.Deconstruct
+- uid: AGS.API.SizeF.Empty
+  name: Empty
+  href: api/AGS.API.SizeF.html#AGS_API_SizeF_Empty
+  commentId: F:AGS.API.SizeF.Empty
+  fullName: AGS.API.SizeF.Empty
+  nameWithType: SizeF.Empty
 - uid: AGS.API.SizeF.Equals(AGS.API.SizeF)
   name: Equals(SizeF)
   href: api/AGS.API.SizeF.html#AGS_API_SizeF_Equals_AGS_API_SizeF_
