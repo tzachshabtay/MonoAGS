@@ -228,24 +228,23 @@ namespace AGS.Engine
             if (boundingBox == null) return;
             var boundingBoxes = boundingBox.GetBoundingBoxes(_state.Viewport);
             if (boundingBoxes == null || obj.GetBoundingBoxes(_state.Viewport) == null) return;
-            ICropSelfComponent cropSelf;
+            var cropSelf = obj.GetComponent<ICropSelfComponent>();
             var textComponent = obj.GetComponent<ITextComponent>();
             if (textComponent != null)
             {
-                cropSelf = textComponent.CustomTextCrop;
-                if (cropSelf == null)
+                var textCropSelf = textComponent.CustomTextCrop;
+                if (textCropSelf == null)
                 {
-                    cropSelf = new AGSCropSelfComponent { CropText = true};
-                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, cropSelf,
+                    textCropSelf = new AGSCropSelfComponent { CropText = true, NeverGuaranteedToFullyCrop = cropSelf?.NeverGuaranteedToFullyCrop ?? false};
+                    ChildCropper cropper = new ChildCropper("Label: " + obj.ID, () => _isDirty, textCropSelf,
                                                             () => getBoundingBox(boundingBoxes, obj, textComponent));
-                    cropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
-                    cropSelf.Init(obj, typeof(ICropSelfComponent));
-                    cropSelf.AfterInit();
-                    textComponent.CustomTextCrop = cropSelf;
-                    obj.OnDisposed(() => cropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
+                    textCropSelf.OnBeforeCrop.Subscribe(cropper.CropIfNeeded);
+                    textCropSelf.Init(obj, typeof(ICropSelfComponent));
+                    textCropSelf.AfterInit();
+                    textComponent.CustomTextCrop = textCropSelf;
+                    obj.OnDisposed(() => textCropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
                 }
             }
-            cropSelf = obj.GetComponent<ICropSelfComponent>();
             if (cropSelf == null)
             {
                 cropSelf = new AGSCropSelfComponent();
@@ -274,6 +273,8 @@ namespace AGS.Engine
 
             public ChildCropper(string id, Func<bool> isDirty, ICropSelfComponent crop, Func<AGSBoundingBox> parentBox)
             {
+                Trace.Assert(crop != null);
+                Trace.Assert(parentBox != null);
                 _id = id;
                 _isDirty = isDirty;
                 _crop = crop;

@@ -320,6 +320,10 @@ namespace AGS.Engine
             if (textComponent == null) return 0f;
             var crop = maxControl.control.AddComponent<ICropSelfComponent>();
             crop.NeverGuaranteedToFullyCrop = true;
+            if (textComponent.CustomTextCrop != null)
+            {
+                textComponent.CustomTextCrop.NeverGuaranteedToFullyCrop = true;
+            }
             crop.CropEnabled = false;
             textComponent.PrepareTextBoundingBoxes();
             return textComponent.TextWidth;
