@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AGS.API;
+using AGS.Engine;
 using GuiLabs.Undo;
 using Humanizer;
 
@@ -39,7 +40,7 @@ namespace AGS.Editor
             _getValue = getValue;
         }
 
-        public static IComboBox GetCombobox(string id, IGameFactory factory, IObject parent)
+        public static IComboBox GetCombobox(string id, IGameFactory factory, IObject parent, float? customWidth = null)
         {
             var dropDownButton = getDropDownButton(id, factory);
             var combobox = factory.UI.GetComboBox(id, dropDownButton, null, null, parent,
@@ -52,8 +53,10 @@ namespace AGS.Editor
             layout.AbsoluteSpacing = -25f;
             layout.StartLayout();
 
+            var config = customWidth == null ? GameViewColors.ComboboxTextConfig : modifyConfig(GameViewColors.ComboboxTextConfig, customWidth.Value);
+            var hoverConfig = customWidth == null ? GameViewColors.ComboboxHoverTextConfig : modifyConfig(GameViewColors.ComboboxHoverTextConfig, customWidth.Value);
             GameViewColors.AddHoverEffect(combobox.TextBox, GameViewColors.ComboboxTextBorder, 
-                                          GameViewColors.HoveredComboboxTextBorder, GameViewColors.ComboboxTextConfig, GameViewColors.ComboboxHoverTextConfig);
+                                          GameViewColors.HoveredComboboxTextBorder, config, hoverConfig);
             combobox.DropDownPanel.ScrollingPanel.Tint = GameViewColors.TextEditor.WithAlpha(240);
             combobox.DropDownPanel.ScrollingPanel.Border = GameViewColors.DropDownBorder;
 
@@ -98,6 +101,13 @@ namespace AGS.Editor
         {
             if (_text == null) return;
             _text.Text = _property.ValueString;
+        }
+
+        private static ITextConfig modifyConfig(ITextConfig config, float width)
+        {
+            config = AGSTextConfig.Clone(config);
+            config.LabelMinSize = (width, config.LabelMinSize?.Height ?? 0f);
+            return config;
         }
 
         private static IButton getDropDownButton(string id, IGameFactory factory)

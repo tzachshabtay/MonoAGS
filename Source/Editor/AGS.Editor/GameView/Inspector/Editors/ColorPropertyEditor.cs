@@ -35,7 +35,7 @@ namespace AGS.Editor
             _property = property;
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
-            _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel);
+            _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel, 200f);
             _dropDownButton = _combobox.DropDownButton;
             _text = _combobox.TextBox;
             _combobox.DropDownPanelList.MinWidth = 200f;
