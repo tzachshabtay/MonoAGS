@@ -562,6 +562,7 @@ namespace AGS.Engine
                         return;
                     }
                 }
+                if (View != null) return; //The GetBoundingBoxes call above might trigger a bounding box change event, which can trigger another initView call. So we need to check again that view is not null so to not create two GUIs for the same node.
                 var drawable = _drawable();
                 var parentNode = Parent;
                 if (parentNode != null)
