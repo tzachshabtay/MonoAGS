@@ -14,11 +14,17 @@ namespace AGS.Editor
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public MethodParam(ParameterInfo parameter, object obj, object overrideDefault = null)
+        public MethodParam(ParameterInfo parameter, API.IComponent obj, object overrideDefault = null)
+            : this(parameter, obj, obj, null, overrideDefault)
+        {}
+
+        public MethodParam(ParameterInfo parameter, API.IComponent component, object obj, IProperty parent, object overrideDefault = null)
         {
             _param = parameter;
             DisplayName = Name.Humanize();
             Object = obj;
+            Component = component;
+            Parent = parent;
             Children = new List<IProperty>();
             Value = new ValueModel(overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType)));
         }
@@ -28,6 +34,10 @@ namespace AGS.Editor
         public string DisplayName { get; }
 
         public object Object { get; }
+
+        public API.IComponent Component { get; }
+
+        public IProperty Parent { get; }
 
         public string ValueString => Value?.ToString() ?? InspectorProperty.NullValue;
 

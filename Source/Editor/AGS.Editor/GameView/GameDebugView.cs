@@ -200,13 +200,13 @@ namespace AGS.Editor
             if (!MathUtils.FloatEquals(xOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.X));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.X), prop), translate.X + xOffset, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, null, nameof(ITranslateComponent.X), prop), translate.X + xOffset, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
             if (!MathUtils.FloatEquals(yOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.Y));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.Y), prop), translate.Y + yOffset, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, null, nameof(ITranslateComponent.Y), prop), translate.Y + yOffset, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
         }
@@ -221,7 +221,7 @@ namespace AGS.Editor
             }
             if (MathUtils.FloatEquals(angleOffset, 0f)) return;
             PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
-            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, nameof(IRotateComponent.Angle), prop), rotate.Angle + angleOffset, _editor.Project.Model);
+            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, null, nameof(IRotateComponent.Angle), prop), rotate.Angle + angleOffset, _editor.Project.Model);
             _actions.RecordAction(action);
         }
 
@@ -234,7 +234,7 @@ namespace AGS.Editor
                 scaleOffset /= 10f;
             }
             PropertyInfo prop = scale.GetType().GetProperty(nameof(IScaleComponent.Scale));
-            PropertyAction action = new PropertyAction(new InspectorProperty(scale, nameof(IScaleComponent.Scale), prop), new PointF(scale.ScaleX + scaleOffset, scale.ScaleY + scaleOffset), _editor.Project.Model);
+            PropertyAction action = new PropertyAction(new InspectorProperty(scale, null, nameof(IScaleComponent.Scale), prop), new PointF(scale.ScaleX + scaleOffset, scale.ScaleY + scaleOffset), _editor.Project.Model);
             _actions.RecordAction(action);
         }
 

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
+using AGS.API;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -69,10 +72,34 @@ namespace AGS.Editor
         private void execute()
         {
             Property.Value = Value;
-            if (Property.Object is API.IComponent component)
+            if (Property.Component != null)
             {
-                _undoModel = ModelAction.Execute(_model, (component, Property.Name, Value));
+                List<IProperty> propertyChain = Property.Parent == null ? null : getPropertyChain(Property);
+                _undoModel = ModelAction.Execute(_model, (Property.Component, Property.Name, Value, propertyChain));
             }
+            else if (Property.Name == nameof(IEntity.DisplayName) && Property.Object is IEntity entity)
+            {
+                var entityModel = ModelAction.GetEntity(entity, _model);
+                Trace.Assert(entityModel != null);
+                var oldDisplayName = entityModel.DisplayName;
+                entityModel.DisplayName = Value?.Value as string;
+                _undoModel = () => entity.DisplayName = oldDisplayName;
+            }
+            else
+            {
+                Debug.WriteLine($"No component associated with property {Property.DisplayName} of {Property.Object?.ToString() ?? "null"}, can't update model.");
+            }
+        }
+
+        private List<IProperty> getPropertyChain(IProperty property)
+        {
+            List<IProperty> chain = new List<IProperty>();
+            while (property.Parent != null)
+            {
+                chain.Insert(0, property.Parent);
+                property = property.Parent;
+            }
+            return chain;
         }
 	}
 }

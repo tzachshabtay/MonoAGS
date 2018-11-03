@@ -32,13 +32,13 @@ namespace AGS.Editor
             foreach (var prop in props)
             {
                 var cat = defaultCategory;
-                InspectorProperty property = AddProperty(obj, prop, ref cat);
+                InspectorProperty property = AddProperty(obj, obj as IComponent, null, prop, ref cat);
                 if (property == null) continue;
                 properties.GetOrAdd(cat, () => new List<IProperty>(props.Length)).Add(property);
             }
         }
 
-        public static InspectorProperty AddProperty(object obj, PropertyInfo prop, ref InspectorCategory cat)
+        public static InspectorProperty AddProperty(object obj, IComponent component, IProperty parent, PropertyInfo prop, ref InspectorCategory cat)
         {
             var attr = prop.GetCustomAttribute<PropertyAttribute>();
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
@@ -51,7 +51,7 @@ namespace AGS.Editor
                 if (attr.Category != null) cat = new InspectorCategory(attr.Category, attr.CategoryZ, attr.CategoryExpand);
                 displayName = attr.DisplayName;
             }
-            InspectorProperty property = new InspectorProperty(obj, name, prop, displayName);
+            InspectorProperty property = new InspectorProperty(component, obj, parent, name, prop, displayName);
             RefreshChildrenProperties(property);
             return property;
         }
@@ -68,7 +68,7 @@ namespace AGS.Editor
                 foreach (var childProp in props)
                 {
                     InspectorCategory dummyCat = null;
-                    var childProperty = AddProperty(val, childProp, ref dummyCat);
+                    var childProperty = AddProperty(val, property.Component, property, childProp, ref dummyCat);
                     if (childProperty == null) continue;
                     property.Children.Add(childProperty);
                 }

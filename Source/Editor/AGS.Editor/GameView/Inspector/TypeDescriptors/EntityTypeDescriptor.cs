@@ -32,7 +32,7 @@ namespace AGS.Editor
         {
             InspectorCategory cat = new InspectorCategory("Hotspot");
             var prop = entity.GetType().GetProperty(nameof(IEntity.DisplayName));
-            InspectorProperty property = ObjectTypeDescriptor.AddProperty(entity, prop, ref cat);
+            InspectorProperty property = ObjectTypeDescriptor.AddProperty(entity, null, null, prop, ref cat);
             if (property == null) return;
             _props.GetOrAdd(cat, () => new List<IProperty>()).Add(property);
         }

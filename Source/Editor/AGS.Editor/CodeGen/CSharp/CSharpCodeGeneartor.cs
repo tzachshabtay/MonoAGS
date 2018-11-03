@@ -11,13 +11,15 @@ namespace AGS.Editor
 	public class CSharpCodeGeneartor : ICodeGenerator
     {
         private StateModel _stateModel;
-        private Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
+        private readonly Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
+        private readonly Dictionary<string, ValueModel> _valueMethods;
         private const string REMOVE_LINE = "REMOVE_LINE";
 
         public CSharpCodeGeneartor(StateModel stateModel)
         {
             _stateModel = stateModel;
             _factories = new Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>>(getFactories);
+            _valueMethods = new Dictionary<string, ValueModel>();
         }
 
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
@@ -196,8 +198,50 @@ namespace {namespaceName}
 {generateModels(model, generateComponents, 0)}
 {generateModels(model, generateAddToState)}
         }}
+
+{generateValueMethods()}
     }}
 }}";
+        }
+
+        private string generateValueMethods()
+        {
+            StringBuilder code = new StringBuilder();
+            foreach (var pair in _valueMethods)
+            {
+                indent(code, 8);
+                code.AppendLine($"private {pair.Key}()");
+                indent(code, 8);
+                code.AppendLine("{");
+
+                generateValueMethod(code, pair.Value);
+
+                indent(code, 8);
+                code.AppendLine("}");
+                code.AppendLine();
+            }
+            return code.ToString();
+        }
+
+        private void generateValueMethod(StringBuilder code, ValueModel value)
+        {
+            indent(code, 12);
+            code.AppendLine($"var value = {convertSingleValueToCode(value)}");
+            foreach (var child in value.Children)
+            {
+                generateValueChainCode(child.Key, "value", code, child.Value);
+            }
+        }
+
+        private void generateValueChainCode(string valueName, string currentChain, StringBuilder code, ValueModel value)
+        {
+            currentChain = $"{currentChain}.{valueName}";
+            indent(code, 12);
+            code.AppendLine($"{currentChain} = {convertSingleValueToCode(value)}");
+            foreach (var child in value.Children)
+            {
+                generateValueChainCode(child.Key, currentChain, code, child.Value);
+            }
         }
 
         private StringBuilder indent(StringBuilder code, int chars = 12)
@@ -262,7 +306,26 @@ namespace {namespaceName}
 
         private string convertValueToCode(ValueModel val)
         {
-            if (val.Initializer == null) return getValueString(val.Value);
+            if (val.Children.Count == 0) return convertSingleValueToCode(val);
+            string methodName = $"create{val.Value?.GetType().Name ?? "Object"}";
+            if (_valueMethods.ContainsKey(methodName))
+            {
+                int index = 1;
+                string origMethodName = methodName;
+                do
+                {
+                    methodName = $"{origMethodName}_{index}";
+                }
+                while (!_valueMethods.ContainsKey(methodName));
+            }
+            _valueMethods[methodName] = val;
+            return $"{methodName}()";
+        }
+
+        private string convertSingleValueToCode(ValueModel val)
+        {
+            if (val.Initializer == null)
+                return getValueString(val.Value);
             if (val.Initializer.Name == ".ctor")
             {
                 val.Initializer.ReturnType = val.Value.GetType();

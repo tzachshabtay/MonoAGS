@@ -14,12 +14,18 @@ namespace AGS.Editor
 
         private MethodModel _initializer;
 
-		public InspectorProperty(object obj, string name, PropertyInfo prop, string displayName = null)
-		{
+		public InspectorProperty(IComponent obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+            : this(obj, obj, parent, name, prop, displayName)
+        {}
+
+        public InspectorProperty(IComponent component, object obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+        {
 			Prop = prop;
 			Name = name;
             DisplayName = displayName ?? name.Humanize();
 			Object = obj;
+            Component = component;
+            Parent = parent;
 			Children = new List<IProperty>();
             IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
@@ -30,7 +36,9 @@ namespace AGS.Editor
 		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
 		public object Object { get; }
-		public List<IProperty> Children { get; }
+        public IComponent Component { get; }
+        public IProperty Parent { get; }
+        public List<IProperty> Children { get; }
         public bool IsReadonly { get; }
 
         public Type PropertyType => Prop.PropertyType;

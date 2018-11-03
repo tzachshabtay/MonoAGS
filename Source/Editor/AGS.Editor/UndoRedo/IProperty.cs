@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AGS.API;
 
 namespace AGS.Editor
 {
@@ -8,6 +9,8 @@ namespace AGS.Editor
         string Name { get; }
         string DisplayName { get; }
         object Object { get; }
+        IComponent Component { get; }
+        IProperty Parent { get; }
         ValueModel Value { get; set; }
         string ValueString { get; }
         Type PropertyType { get; }
