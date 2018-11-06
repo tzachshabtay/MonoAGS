@@ -56,7 +56,7 @@ namespace AGS.Editor
             if (string.IsNullOrEmpty(file)) return;
             var messagePump = _resolver.Container.Resolve<IRenderMessagePump>();
             _panel.Visible = false;
-            AGSProject agsProj = AGSProject.Load(file);
+            AGSProject agsProj = AGSProject.Load(AGSEditor.Platform, _editor.Editor, file);
             _recentGames.AddGame(agsProj.Name, file);
             await Task.Delay(100);
             GameLoader.Load(messagePump, agsProj, _editor);

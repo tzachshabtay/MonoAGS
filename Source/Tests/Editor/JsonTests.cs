@@ -1,6 +1,7 @@
 ﻿using System;
 using AGS.API;
 using AGS.Editor;
+using AGS.Editor.Desktop;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -29,8 +30,8 @@ namespace Tests
 
         private void test<TValue>(TValue expected)
         {
-            var json = JsonConvert.SerializeObject(expected, Formatting.Indented, AGSProject.JsonSettings);
-            var actual = JsonConvert.DeserializeObject<TValue>(json, AGSProject.JsonSettings);
+            var json = JsonConvert.SerializeObject(expected, Formatting.Indented, DesktopSerialization.GetJsonSettings(null));
+            var actual = JsonConvert.DeserializeObject<TValue>(json, DesktopSerialization.GetJsonSettings(null));
             Assert.AreEqual(expected, actual);
         }
     }

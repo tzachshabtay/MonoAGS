@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using AGS.API;
 
 namespace AGS.Editor
 {
@@ -21,10 +22,10 @@ namespace AGS.Editor
 
         public HashSet<string> Guis { get; }
 
-        public void Load(string basePath)
+        public void Load(IEditorPlatform platform, IGame game, string basePath)
         {
-            loadGuis(getGuisFolder(basePath));
-            loadRooms(getRoomsFolder(basePath));
+            loadGuis(platform, game, getGuisFolder(basePath));
+            loadRooms(platform, game, getRoomsFolder(basePath));
         }
 
         public void GenerateCode(string basePath, ICodeGenerator codeGenerator)
@@ -33,10 +34,10 @@ namespace AGS.Editor
             generateRoomsCode(getRoomsFolder(basePath), codeGenerator);
         }
 
-        public void Save(string basePath)
+        public void Save(IEditorPlatform platform, IGame game, string basePath)
         {
-            saveGuis(getGuisFolder(basePath));
-            saveRooms(getRoomsFolder(basePath));
+            saveGuis(platform, game, getGuisFolder(basePath));
+            saveRooms(platform, game, getRoomsFolder(basePath));
         }
 
         private string getGuisFolder(string basePath) => Path.Combine(basePath, "GUIs");
@@ -79,7 +80,7 @@ namespace AGS.Editor
             Debug.WriteLine("----------");
         }
 
-        private void saveEntity(string folder, string id)
+        private void saveEntity(IEditorPlatform platform, IGame game, string folder, string id)
         {
             if (id == null) return;
             if (!Entities.TryGetValue(id, out var entity))
@@ -87,27 +88,27 @@ namespace AGS.Editor
                 Debug.WriteLine($"Missing entity {id}, cannot save it in {folder}.");
                 return;
             }
-            entity.Save(folder);
+            entity.Save(platform, game, folder);
         }
 
-        private void saveGuis(string basePath)
+        private void saveGuis(IEditorPlatform platform, IGame game, string basePath)
         {
             Directory.CreateDirectory(basePath);
 
             foreach (var id in Guis)
             {
-                saveEntity(basePath, id);
+                saveEntity(platform, game, basePath, id);
             }
         }
 
-        private void loadGuis(string basePath)
+        private void loadGuis(IEditorPlatform platform, IGame game, string basePath)
         {
             if (!Directory.Exists(basePath)) return;
 
             var guiFiles = Directory.GetFiles(basePath);
             foreach (var guiFile in guiFiles)
             {
-                var gui = EntityModel.Load(guiFile);
+                var gui = EntityModel.Load(platform, game, guiFile);
                 if (gui == null)
                     continue;
                 Entities.Add(gui.ID, gui);
@@ -115,24 +116,24 @@ namespace AGS.Editor
             }
         }
 
-        private void saveRooms(string basePath)
+        private void saveRooms(IEditorPlatform platform, IGame game, string basePath)
         {
             Directory.CreateDirectory(basePath);
 
             foreach (var room in Rooms)
             {
-                room.Save(basePath);
+                room.Save(platform, game, basePath);
 
                 string roomFolder = Path.Combine(basePath, room.Folder);
-                saveEntity(roomFolder, room.BackgroundEntity);
+                saveEntity(platform, game, roomFolder, room.BackgroundEntity);
                 foreach (var id in room.Entities)
                 {
-                    saveEntity(roomFolder, id);
+                    saveEntity(platform, game, roomFolder, id);
                 }
             }
         }
 
-        private void loadRooms(string basePath)
+        private void loadRooms(IEditorPlatform platform, IGame game, string basePath)
         {
             if (!Directory.Exists(basePath)) return;
 
@@ -146,7 +147,7 @@ namespace AGS.Editor
                     Debug.WriteLine($"Missing room json at {roomFolder}");
                     continue;
                 }
-                var room = RoomModel.Load(roomJsonPath);
+                var room = RoomModel.Load(platform, game, roomJsonPath);
                 Rooms.Add(room);
                 var roomFiles = Directory.GetFiles(roomFolder);
                 foreach (var roomFile in roomFiles)
@@ -154,7 +155,7 @@ namespace AGS.Editor
                     if (roomFile == roomJsonPath)
                         continue;
 
-                    var entity = EntityModel.Load(roomFile);
+                    var entity = EntityModel.Load(platform, game, roomFile);
                     Entities.Add(entity.ID, entity);
                     if (entity.ID != room.BackgroundEntity)
                         room.Entities.Add(entity.ID);

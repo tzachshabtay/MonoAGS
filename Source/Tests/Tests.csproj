@@ -116,6 +116,10 @@
       <Project>{5F511E0A-CE3C-49C6-8706-2D9850FA9FE0}</Project>
       <Name>AGS.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Editor\AGS.Editor.Desktop\AGS.Editor.Desktop.csproj">
+      <Project>{BFB62B1A-8E55-4EA9-84E9-23B02240A4A2}</Project>
+      <Name>AGS.Editor.Desktop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

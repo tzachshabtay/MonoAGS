@@ -184,7 +184,7 @@ namespace AGS.Editor
                 string baseFolder = Path.GetDirectoryName(_editor.Project.AGSProjectPath);
                 CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor(_editor.Project.Model);
                 _editor.Project.Model.GenerateCode(baseFolder, codeGeneartor);
-                _editor.Project.Model.Save(baseFolder);
+                _editor.Project.Model.Save(AGSEditor.Platform, _editor.Editor, baseFolder);
             }
         }
 

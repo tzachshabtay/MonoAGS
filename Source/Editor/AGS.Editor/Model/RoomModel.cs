@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using AGS.API;
 using Newtonsoft.Json;
 
 namespace AGS.Editor
@@ -22,14 +23,14 @@ namespace AGS.Editor
 
         public const string Filename = "room.json";
 
-        public static RoomModel Load(string path)
+        public static RoomModel Load(IEditorPlatform platform, IGame game, string path)
         {
-            var model = AGSProject.LoadJson<RoomModel>(path);
+            var model = AGSProject.LoadJson<RoomModel>(platform, game, path);
             model.Folder = getDirectoryName(Path.GetDirectoryName(path));
             return model;
         }
 
-        public void Save(string folderPath) => AGSProject.SaveJson(Path.Combine(getFolder(folderPath), Filename), this);
+        public void Save(IEditorPlatform platform, IGame game, string folderPath) => AGSProject.SaveJson(platform, game, Path.Combine(getFolder(folderPath), Filename), this);
 
         private string getFolder(string folder)
         {
