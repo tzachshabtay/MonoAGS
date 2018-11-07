@@ -197,16 +197,17 @@ namespace {namespaceName}
 {generateModels(model, generateDisplayName)}
 {generateModels(model, generateComponents, 0)}
 {generateModels(model, generateAddToState)}
-        }}
-
-{generateValueMethods()}
+        }}{generateValueMethods()}
     }}
 }}";
         }
 
         private string generateValueMethods()
         {
+            if (_valueMethods.Count == 0) return "";
             StringBuilder code = new StringBuilder();
+            code.AppendLine();
+            code.AppendLine();
             foreach (var pair in _valueMethods)
             {
                 indent(code, 8);
@@ -236,8 +237,11 @@ namespace {namespaceName}
         private void generateValueChainCode(string valueName, string currentChain, StringBuilder code, ValueModel value)
         {
             currentChain = $"{currentChain}.{valueName}";
-            indent(code, 12);
-            code.AppendLine($"{currentChain} = {convertSingleValueToCode(value)}");
+            if (!value.IsDefault)
+            {
+                indent(code, 12);
+                code.AppendLine($"{currentChain} = {convertSingleValueToCode(value)}");
+            }
             foreach (var child in value.Children)
             {
                 generateValueChainCode(child.Key, currentChain, code, child.Value);
@@ -268,7 +272,14 @@ namespace {namespaceName}
         {
             foreach (var pair in model.Properties)
             {
-                indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value)};");
+                if (pair.Value.IsDefault)
+                {
+                    generateValueChainCode(pair.Key, name, code, pair.Value);
+                }
+                else
+                {
+                    indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value)};");
+                }
             }
         }
 

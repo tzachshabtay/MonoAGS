@@ -53,6 +53,7 @@ namespace AGS.Editor
                     {
                         oldProperties.Add((componentModel, propertyName, false, oldValue, parentValue));
                     }
+                    parentValue.Children[propertyName] = value;
                 }
                 entityModel.IsDirty = true;
             }

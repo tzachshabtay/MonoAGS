@@ -14,6 +14,8 @@ namespace AGS.Editor
 
         private MethodModel _initializer;
 
+        private bool _isDefault = true;
+
 		public InspectorProperty(IComponent obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
             : this(obj, obj, parent, name, prop, displayName)
         {}
@@ -47,9 +49,10 @@ namespace AGS.Editor
 
         public ValueModel Value
         {
-            get => new ValueModel(Prop.GetValue(Object, null), _initializer);
+            get => new ValueModel(Prop.GetValue(Object, null), _initializer, isDefault: _isDefault);
             set
             {
+                _isDefault = false;
                 Prop.SetValue(Object, value.Value, null);
                 _initializer = value.Initializer;
             }
