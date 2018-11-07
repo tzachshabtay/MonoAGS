@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using AGS.API;
 
 namespace AGS.Engine
@@ -22,7 +23,11 @@ namespace AGS.Engine
 
 		public bool ApplyApproachStyleOnDefaults { get; set; }
 
-		public void CopyFrom(IApproachStyle style)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public void CopyFrom(IApproachStyle style)
 		{
             ApproachWhenVerb = style.ApproachWhenVerb;
 			ApplyApproachStyleOnDefaults = style.ApplyApproachStyleOnDefaults;
@@ -33,4 +38,3 @@ namespace AGS.Engine
         public override string ToString() => $"Approach style ({ApproachWhenVerb.Count} verb(s) setup)";
     }
 }
-
