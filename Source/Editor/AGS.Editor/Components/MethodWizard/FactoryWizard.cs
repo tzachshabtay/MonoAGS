@@ -68,13 +68,11 @@ namespace AGS.Editor
             if (parameters == null) return (null, null, null);
             foreach (var param in overrideDefaults.Keys)
             {
-                parameters[param] = get(param, parameters) ?? new ValueModel(overrideDefaults[param]);
+                if (!parameters.ContainsKey(param)) parameters[param] = new ValueModel(overrideDefaults[param]);
             }
             (object result, MethodModel model) = runMethod(method, factory, parameters);
             return (result, model, methodAttribute);
         }
-
-        private ValueModel get(string key, Dictionary<string, ValueModel> parameters) => parameters.TryGetValue(key, out var val) ? val : new ValueModel(null);
 
         private (MethodBase, MethodWizardAttribute) getMethod(Type factoryType, string methodName)
         {

@@ -68,7 +68,7 @@ namespace AGS.Editor
         {
             closeCombobox();
             ComboItem typeItem = (ComboItem)item;
-            return typeItem.Implementation?.Create(_parentForm, typeItem.Title) ?? Task.FromResult(new SelectEditor.ReturnValue(new ValueModel(null), false));
+            return typeItem.Implementation?.Create(_parentForm, typeItem.Title) ?? Task.FromResult(new SelectEditor.ReturnValue(new ValueModel(null, type: property.PropertyType), false));
         }
 
         private List<IImplementationOption> getImplementations(Type type)

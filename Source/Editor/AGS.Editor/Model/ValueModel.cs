@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -9,9 +10,11 @@ namespace AGS.Editor
     public class ValueModel
     {
         [JsonConstructor]
-        public ValueModel(object value, MethodModel initializer = null, Dictionary<string, ValueModel> children = null, bool isDefault = false)
+        public ValueModel(object value, MethodModel initializer = null, Dictionary<string, ValueModel> children = null, bool isDefault = false, Type type = null)
         {
+            Trace.Assert(value != null || type != null, "Both value and type are null");
             Value = value;
+            Type = type ?? value.GetType();
             Initializer = initializer;
             Children = children ?? new Dictionary<string, ValueModel>();
             IsDefault = isDefault;
@@ -19,6 +22,9 @@ namespace AGS.Editor
 
         [DataMember(Name = "Value")]
         public object Value { get; }
+
+        [DataMember(Name = "Type")]
+        public Type Type { get; }
 
         [DataMember(Name = "Initializer")]
         public MethodModel Initializer { get; }

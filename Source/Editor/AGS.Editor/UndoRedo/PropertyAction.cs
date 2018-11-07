@@ -15,7 +15,7 @@ namespace AGS.Editor
         private Action _undoModel;
 
         public PropertyAction(IProperty property, object value, StateModel model) : 
-            this(property, new ValueModel(value), model) {}
+            this(property, new ValueModel(value, type: property.PropertyType), model) {}
 
         public PropertyAction(IProperty property, ValueModel value, StateModel model)
         {

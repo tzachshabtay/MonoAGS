@@ -207,11 +207,11 @@ namespace {namespaceName}
             if (_valueMethods.Count == 0) return "";
             StringBuilder code = new StringBuilder();
             code.AppendLine();
-            code.AppendLine();
             foreach (var pair in _valueMethods)
             {
+                code.AppendLine();
                 indent(code, 8);
-                code.AppendLine($"private {pair.Key}()");
+                code.AppendLine($"private {pair.Value.Type.Name} {pair.Key}()");
                 indent(code, 8);
                 code.AppendLine("{");
 
@@ -219,7 +219,6 @@ namespace {namespaceName}
 
                 indent(code, 8);
                 code.AppendLine("}");
-                code.AppendLine();
             }
             return code.ToString();
         }
@@ -227,11 +226,13 @@ namespace {namespaceName}
         private void generateValueMethod(StringBuilder code, ValueModel value)
         {
             indent(code, 12);
-            code.AppendLine($"var value = {convertSingleValueToCode(value)}");
+            code.AppendLine($"var value = {convertSingleValueToCode(value)};");
             foreach (var child in value.Children)
             {
                 generateValueChainCode(child.Key, "value", code, child.Value);
             }
+            indent(code, 12);
+            code.AppendLine($"return value;");
         }
 
         private void generateValueChainCode(string valueName, string currentChain, StringBuilder code, ValueModel value)
@@ -278,7 +279,7 @@ namespace {namespaceName}
                 }
                 else
                 {
-                    indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value)};");
+                    indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value, pair.Key)};");
                 }
             }
         }
@@ -315,10 +316,11 @@ namespace {namespaceName}
             return $"{char.ToUpperInvariant(name[0])}{suffix}";
         }
 
-        private string convertValueToCode(ValueModel val)
+        private string convertValueToCode(ValueModel val, string name = null)
         {
+            name = name ?? val.Value?.GetType().Name.Replace("AGS", "") ?? "Object";
             if (val.Children.Count == 0) return convertSingleValueToCode(val);
-            string methodName = $"create{val.Value?.GetType().Name ?? "Object"}";
+            string methodName = $"create{name}";
             if (_valueMethods.ContainsKey(methodName))
             {
                 int index = 1;

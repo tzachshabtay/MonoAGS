@@ -33,7 +33,7 @@ namespace AGS.Editor
                 object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.PropertyType)) : null;
 
                 if (args.UserInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
-                else property.Value = new ValueModel(val);
+                else property.Value = new ValueModel(val, type: property.PropertyType);
 
                 _editor.OnNullChanged(!_nullBox.Checked);
             });

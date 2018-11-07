@@ -49,7 +49,7 @@ namespace AGS.Editor
 
         public ValueModel Value
         {
-            get => new ValueModel(Prop.GetValue(Object, null), _initializer, isDefault: _isDefault);
+            get => new ValueModel(Prop.GetValue(Object, null), _initializer, isDefault: _isDefault, type: PropertyType);
             set
             {
                 _isDefault = false;

@@ -114,7 +114,7 @@ namespace AGS.Editor
                 val = valInt;
             }
             if (userInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
-            else property.Value = new ValueModel(val);
+            else property.Value = new ValueModel(val, type: property.PropertyType);
         }
 
         private (IObject control, INumberEditorComponent editor) addEditor(string id, ITreeNodeView view, IProperty property, InternalNumberEditor editor)
@@ -255,7 +255,7 @@ namespace AGS.Editor
                 object objVal = prop.Value.Value;
                 T val = objVal == null ? default : (T)objVal;
                 if (userInitiated) actions.RecordAction(new PropertyAction(prop, creator.getValue(value, val), model));
-                else prop.Value = new ValueModel(creator.getValue(value, val));
+                else prop.Value = new ValueModel(creator.getValue(value, val), type: prop.PropertyType);
             }, configureNumberEditor)
         ).ToList()){}
     }
