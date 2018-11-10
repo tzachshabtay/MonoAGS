@@ -26,7 +26,7 @@ namespace AGS.Editor
             Component = component;
             Parent = parent;
             Children = new List<IProperty>();
-            Value = new ValueModel(overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType)));
+            Value = new ValueModel(overrideDefault ?? (parameter.HasDefaultValue ? parameter.DefaultValue : GetDefaultValue(PropertyType)), type: PropertyType);
         }
 
         public string Name => _param.Name;
