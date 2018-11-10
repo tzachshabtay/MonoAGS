@@ -63,7 +63,7 @@ namespace AGS.Editor
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });
-                view.ParentPanel.OnDisposed(() => tableLayout.Dispose());
+                view.ParentPanel.OnDisposed(() => { tableLayout.Dispose(); _layouts.Remove(layoutId); });
                 view.HorizontalPanel.RemoveComponent<IStackLayoutComponent>();
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
                 rowLayout.FixedWidthOverrides[0] = 15f; //fixed width for the expand button, as the column padding is too much for it
