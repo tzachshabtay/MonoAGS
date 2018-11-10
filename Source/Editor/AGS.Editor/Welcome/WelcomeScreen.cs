@@ -33,7 +33,7 @@ namespace AGS.Editor
             var hovered = new ButtonAnimation(border, GameViewColors.ButtonHoverTextConfig, GameViewColors.Button);
             var pushed = new ButtonAnimation(factory.Graphics.Borders.SolidColor(Colors.Black, 2f), GameViewColors.ButtonTextConfig, GameViewColors.Button);
             var loadButton = factory.UI.GetButton("LoadGameButton", idle, hovered, pushed, 200f, 700f, _panel, 
-                    "Load Game...", new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText), width: 100f, height: 100f);
+              "Load Game...", factory.Fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText), width: 100f, height: 100f);
             loadButton.Pivot = new PointF(0f, 1f);
 
             loadButton.MouseClicked.SubscribeToAsync(onLoadGameClicked);
@@ -56,7 +56,7 @@ namespace AGS.Editor
             if (string.IsNullOrEmpty(file)) return;
             var messagePump = _resolver.Container.Resolve<IRenderMessagePump>();
             _panel.Visible = false;
-            AGSProject agsProj = AGSProject.Load(file);
+            AGSProject agsProj = AGSProject.Load(AGSEditor.Platform, _editor.Editor, file);
             _recentGames.AddGame(agsProj.Name, file);
             await Task.Delay(100);
             GameLoader.Load(messagePump, agsProj, _editor);

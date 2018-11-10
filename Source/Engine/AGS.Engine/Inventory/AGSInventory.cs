@@ -3,6 +3,7 @@
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Inventory")]
 	public class AGSInventory : IInventory
 	{
 		public AGSInventory()
@@ -16,6 +17,8 @@ namespace AGS.Engine
 
         public IAGSBindingList<IInventoryItem> Items { get; private set; }
 
-		#endregion
-	}
+        #endregion
+
+        public override string ToString() => $"{Items.Count} inventory item(s)";
+    }
 }

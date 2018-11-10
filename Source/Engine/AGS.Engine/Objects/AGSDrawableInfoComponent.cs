@@ -8,7 +8,6 @@ namespace AGS.Engine
 
         public bool IgnoreViewport { get; set; }
 
-        public bool IgnoreScalingArea { get; set; }
+        public bool IgnoreScalingArea { get; set; } = true; //Performance optimization: setting true by default allows skipping scaling area checks on init in model matrix component
 	}
 }
-

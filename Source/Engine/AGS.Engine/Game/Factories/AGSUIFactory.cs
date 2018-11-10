@@ -15,13 +15,13 @@ namespace AGS.Engine
         private readonly IGraphicsFactory _graphics;
         private readonly IBorderFactory _borders;
         private readonly IObjectFactory _object;
-        private readonly IGameSettings _settings;
         private readonly IFocusedUI _focus;
+        private readonly IFontFactory _fonts;
 
         public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj, 
-                            IGameSettings settings, IFocusedUI focusedUI)
+                            IFocusedUI focusedUI, IFontFactory fonts)
         {
-            _settings = settings;
+            _fonts = fonts;
             _resolver = resolver;
             _gameState = gameState;
             _graphics = graphics;
@@ -147,8 +147,8 @@ namespace AGS.Engine
             };
 
             resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
-            scroll.HorizontalScrollBar = horizScrollbar.Slider;
-            scroll.VerticalScrollBar = verScrollbar.Slider;
+            scroll.HorizontalScrollBar = horizScrollbar;
+            scroll.VerticalScrollBar = verScrollbar;
 
             contentsPanel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
 
@@ -170,7 +170,7 @@ namespace AGS.Engine
             label.X = x;
             label.Y = y;
             label.Tint = Colors.Transparent;
-            label.TextConfig = config ?? new AGSTextConfig(font: _settings.Defaults.TextFont);
+            label.TextConfig = config ?? _fonts.GetTextConfig();
             setParent(label, parent);
             if (addToUi)
                 _gameState.UI.Add(label);
@@ -178,8 +178,8 @@ namespace AGS.Engine
         }
 
         public static ButtonAnimation GetDefaultIdleAnimation(Resolver resolver) 
-            => new ButtonAnimation(getDefaultBorder(resolver), 
-                               new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, 
+            => new ButtonAnimation(getDefaultBorder(resolver),
+                               resolver.Resolve<IFontFactory>().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, 
                                                  brush: AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.WhiteSmoke)), 
                                Color.FromRgba(44, 51, 61, 255));
 
@@ -238,6 +238,7 @@ namespace AGS.Engine
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IButton button = _resolver.Container.Resolve<IButton>(idParam);
+
             button.LabelRenderSize = new SizeF(width, height);
             button.IdleAnimation = idle;
             button.HoverAnimation = hovered;
@@ -246,7 +247,7 @@ namespace AGS.Engine
             button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
-            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter, font: _settings.Defaults.TextFont);
+            button.TextConfig = config ?? _fonts.GetTextConfig(alignment: Alignment.MiddleCenter);
             button.Text = text;
             setParent(button, parent);
 
@@ -255,7 +256,6 @@ namespace AGS.Engine
 
             if (addToUi)
                 _gameState.UI.Add(button);
-
             return button;
         }
 
@@ -301,16 +301,12 @@ namespace AGS.Engine
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
-            if (config == null)
-            {
-                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, font: _settings.Defaults.TextFont);
-            }
-            textbox.TextConfig = config;
+            textbox.TextConfig = config ?? _fonts.GetTextConfig(autoFit: AutoFit.TextShouldCrop);
             textbox.Text = "";
             setParent(textbox, parent);
             if (!string.IsNullOrEmpty(watermark))
             {
-                var watermarkConfig = AGSTextConfig.Clone(config);
+                var watermarkConfig = AGSTextConfig.Clone(textbox.TextConfig);
                 watermarkConfig.Brush = _graphics.Brushes.LoadSolidBrush(Colors.LightGray);
                 var watermarkLabel = GetLabel($"{id}_watermark", watermark, width, height, 0f, 0f, textbox, watermarkConfig, addToUi);
                 watermarkLabel.Opacity = 50;
@@ -340,7 +336,7 @@ namespace AGS.Engine
             {
                 height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
             }
-            config = config ?? new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont);
+            config = config ?? _fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText);
 
             var idleColor = Colors.White;
             var hoverColor = Colors.Yellow;
@@ -436,12 +432,13 @@ namespace AGS.Engine
             {
                 var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
                 var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
+                var idle = new ButtonAnimation(null, _fonts.GetTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null);
+                var hovered = new ButtonAnimation(null, _fonts.GetTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null);
+                var pushed = new ButtonAnimation(null, _fonts.GetTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null);
                 listItemFactory = text =>
                 {
                     var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
+                                           idle, hovered, pushed,
                                            0f, 0f, width: defaultWidth, height: defaultHeight);
                     button.Pivot = new PointF(0f, 1f);
                     button.RenderLayer = layer;
@@ -477,7 +474,7 @@ namespace AGS.Engine
             [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null, 
             [MethodParam(Browsable = false)]IObject parent = null, 
             [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
-            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
+            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "", float dropDownPanelOffset = 0f)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
@@ -487,7 +484,7 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, font: _settings.Defaults.TextFont),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, _fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
                                      false, itemWidth, defaultHeight);
                 textBox.Border = _borders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
@@ -516,7 +513,7 @@ namespace AGS.Engine
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y - dropDownPanelOffset);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
@@ -524,7 +521,7 @@ namespace AGS.Engine
 
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.DropDownPanel = listbox.ContentsPanel;
+            comboBox.DropDownPanel = listbox;
 
             setParent(comboBox, parent);
 
@@ -557,6 +554,18 @@ namespace AGS.Engine
             var image = imagePath == null ? null : await _graphics.LoadImageAsync(imagePath, loadConfig);
             var handleImage = handleImagePath == null ? null : await _graphics.LoadImageAsync(handleImagePath, loadConfig);
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
+        }
+
+        public IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true)
+        {
+            var config = _fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel);
+            var header = GetLabel($"{id}_TitleLabel", title, width, titleHeight, x, y + contentsHeight + titleHeight, config: config, addToUi: addToUi);
+            header.Enabled = true;
+            header.ClickThrough = true;
+            var contentsPanel = GetPanel($"{id}_ContentsPanel", width, contentsHeight, 0f, 0f, header, addToUi);
+            contentsPanel.Pivot = (0f, 1f);
+
+            return new AGSForm(header, contentsPanel);
         }
 
 		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
@@ -621,7 +630,7 @@ namespace AGS.Engine
             {
                 throw new InvalidOperationException("No animation/image and no size was supplied for GUI control " + id);
             }
-            button.Image = new EmptyImage(width, height);
+            button = new ButtonAnimation(button.Animation, new EmptyImage(width, height), button.Border, button.TextConfig, button.Tint);
             return button;
         }
 

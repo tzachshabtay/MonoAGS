@@ -1,4 +1,5 @@
 ﻿using System;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -8,6 +9,7 @@ namespace AGS.Engine
 		Percentage,
 	}
 
+    [PropertyFolder]
 	public class SliceMeasureUnit
 	{
 		public SliceMeasureUnit(float value, SliceMeasurement measureUnit)
@@ -26,4 +28,3 @@ namespace AGS.Engine
         }
 	}
 }
-

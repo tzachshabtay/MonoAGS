@@ -56,12 +56,12 @@ namespace AGS.Editor
             return e;
         }
 
-        public static EntityModel Load(string path)
+        public static EntityModel Load(IEditorPlatform platform, IGame game, string path)
         {
             if (!path.EndsWith(".json", StringComparison.InvariantCultureIgnoreCase)) return null;
             try
             {
-                var model = AGSProject.LoadJson<EntityModel>(path);
+                var model = AGSProject.LoadJson<EntityModel>(platform, game, path);
                 model.Filename = Path.GetFileName(path);
                 return model;
             }
@@ -72,7 +72,7 @@ namespace AGS.Editor
             }
         }
 
-        public void Save(string folderPath) => AGSProject.SaveJson(getFilepath(folderPath), this);
+        public void Save(IEditorPlatform platform, IGame game, string folderPath) => AGSProject.SaveJson(platform, game, getFilepath(folderPath), this);
 
         private string getFilepath(string folder)
         {

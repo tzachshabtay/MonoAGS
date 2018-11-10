@@ -30,7 +30,7 @@ namespace AGS.Editor
 
         public IPanel Panel => _scrollingPanel;
 
-        public void Load(IPanel parent)
+        public void Load(IPanel parent, IForm parentForm)
         {
             _parent = parent;
             var factory = _editor.Editor.Factory;
@@ -57,8 +57,10 @@ namespace AGS.Editor
 			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
-            Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, _editor.Editor.State, _actions, _editor.Project.Model);
+            Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, 
+                                         _editor.Editor.State, _actions, _editor.Project.Model, _editor, parentForm);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
+            Inspector.ScrollingContainer = _contentsPanel;
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider, _editor.Editor.Factory,
                                                                _editor.Editor.Events, _treePanel);
@@ -77,12 +79,16 @@ namespace AGS.Editor
             _inspectorNodeView.Resize(_contentsPanel.Width);
 		}
 
-        public void Show(object obj)
+        public bool Show(object obj)
         {
             var cropChildren = _contentsPanel.GetComponent<ICropChildrenComponent>();
             cropChildren.CropChildrenEnabled = false;
-            Inspector.Show(obj);
+            var scroll = _contentsPanel.GetComponent<IScrollingComponent>();
+            scroll.VerticalScrollBar.Slider.Value = 0f;
+            scroll.HorizontalScrollBar.Slider.Value = 0f;
+            var result = Inspector.Show(obj);
             cropChildren.CropChildrenEnabled = true;
+            return result;
         }
 
         private void onParentPanelScaleChanged(object sender, PropertyChangedEventArgs args)

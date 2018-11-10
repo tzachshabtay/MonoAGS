@@ -96,7 +96,14 @@ namespace AGS.API
         /// <returns>The descendant, or null if not found.</returns>
         /// <param name="isMatch">The predicate.</param>
         TItem FindDescendant(Predicate<TItem> isMatch);
-	}
+
+        /// <summary>
+        /// Finds the previous sibling which matches a specific predicate.
+        /// </summary>
+        /// <returns>The previous sibling.</returns>
+        /// <param name="isMatch">Is match.</param>
+        TItem FindPreviousSibling(Predicate<TItem> isMatch);
+    }
 
     /// <summary>
     /// A component which adds the ability for an entity to be a part of an entity's tree.

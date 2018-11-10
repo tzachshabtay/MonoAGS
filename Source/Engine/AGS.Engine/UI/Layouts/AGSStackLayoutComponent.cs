@@ -63,6 +63,8 @@ namespace AGS.Engine
             _isPaused = true;
         }
 
+        public void ForceRefreshLayout() => adjustLayout();
+
         public float DryRun()
         {
             var tree = _tree;
@@ -147,6 +149,9 @@ namespace AGS.Engine
 
         private AGSBoundingBox? getChildBox(IEntity child)
         {
+#pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            if (_relativeSpacing == 0f) return null;
+#pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             if (_layoutAfterCrop) return child.AddComponent<IBoundingBoxWithChildrenComponent>()?.BoundingBoxWithChildren;
             return child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren;
         }
@@ -161,7 +166,10 @@ namespace AGS.Engine
             }
             try
             {
-                _isDirty = false;
+                if (!isDryRun)
+                {
+                    _isDirty = false;
+                }
                 var lockStep = isDryRun ? null : new TreeLockStep(tree, obj => obj.UnderlyingVisible && !EntitiesToIgnore.Contains(obj.ID));
                 lockStep?.Lock();
                 foreach (var child in tree.TreeNode.Children)

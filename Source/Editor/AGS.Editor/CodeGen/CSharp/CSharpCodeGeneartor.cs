@@ -11,13 +11,15 @@ namespace AGS.Editor
 	public class CSharpCodeGeneartor : ICodeGenerator
     {
         private StateModel _stateModel;
-        private Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
+        private readonly Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>> _factories;
+        private readonly Dictionary<string, ValueModel> _valueMethods;
         private const string REMOVE_LINE = "REMOVE_LINE";
 
         public CSharpCodeGeneartor(StateModel stateModel)
         {
             _stateModel = stateModel;
             _factories = new Lazy<List<(Type returnType, Func<string> getPrefix, ParameterInfo[] pars)>>(getFactories);
+            _valueMethods = new Dictionary<string, ValueModel>();
         }
 
         public void GenerateCode(string namespaceName, EntityModel model, StringBuilder code)
@@ -82,7 +84,7 @@ namespace AGS.Editor
                 if (!needEntity(model)) return "";
                 return $"{model.ScriptName} = ({getType(model)}){getRoot(model).ScriptName}.TreeNode.FindDescendant({'"'}{model.ID}{'"'});";
             }
-            return $"{model.ScriptName} = {generateMethod(model.Initializer)}";
+            return $"{model.ScriptName} = {generateMethod(model.Initializer)};";
         }
 
         private EntityModel getRoot(EntityModel model)
@@ -195,9 +197,56 @@ namespace {namespaceName}
 {generateModels(model, generateDisplayName)}
 {generateModels(model, generateComponents, 0)}
 {generateModels(model, generateAddToState)}
-        }}
+        }}{generateValueMethods()}
     }}
 }}";
+        }
+
+        private string generateValueMethods()
+        {
+            if (_valueMethods.Count == 0) return "";
+            StringBuilder code = new StringBuilder();
+            code.AppendLine();
+            foreach (var pair in _valueMethods)
+            {
+                code.AppendLine();
+                indent(code, 8);
+                code.AppendLine($"private {pair.Value.Type.Name} {pair.Key}()");
+                indent(code, 8);
+                code.AppendLine("{");
+
+                generateValueMethod(code, pair.Value);
+
+                indent(code, 8);
+                code.AppendLine("}");
+            }
+            return code.ToString();
+        }
+
+        private void generateValueMethod(StringBuilder code, ValueModel value)
+        {
+            indent(code, 12);
+            code.AppendLine($"var value = {convertSingleValueToCode(value)};");
+            foreach (var child in value.Children)
+            {
+                generateValueChainCode(child.Key, "value", code, child.Value);
+            }
+            indent(code, 12);
+            code.AppendLine($"return value;");
+        }
+
+        private void generateValueChainCode(string valueName, string currentChain, StringBuilder code, ValueModel value)
+        {
+            currentChain = $"{currentChain}.{valueName}";
+            if (!value.IsDefault)
+            {
+                indent(code, 12);
+                code.AppendLine($"{currentChain} = {convertSingleValueToCode(value)}");
+            }
+            foreach (var child in value.Children)
+            {
+                generateValueChainCode(child.Key, currentChain, code, child.Value);
+            }
         }
 
         private StringBuilder indent(StringBuilder code, int chars = 12)
@@ -208,19 +257,30 @@ namespace {namespaceName}
 
         private string generateMethod(MethodModel model)
         {
-            var parameters = string.Join(", ", model.Parameters.Select(p => getValueString(p)));
+            var parameters = string.Join(", ", model.Parameters.Select(p => convertValueToCode(p)));
             if (string.IsNullOrEmpty(model.InstanceName))
             {
-                return $"{model.Name}({parameters});";
+                if (model.Name == ".ctor")
+                {
+                    return $"new {typeNameToString(model.ReturnType)}({parameters})";
+                }
+                return $"{model.Name}({parameters})";
             }
-            return $"{model.InstanceName}.{model.Name}({parameters});";
+            return $"{model.InstanceName}.{model.Name}({parameters})";
         }
 
         private void generateSetProperty(ComponentModel model, string name, StringBuilder code)
         {
             foreach (var pair in model.Properties)
             {
-                indent(code).AppendLine($"{name}.{pair.Key} = {getValueString(pair.Value)};");
+                if (pair.Value.IsDefault)
+                {
+                    generateValueChainCode(pair.Key, name, code, pair.Value);
+                }
+                else
+                {
+                    indent(code).AppendLine($"{name}.{pair.Key} = {convertValueToCode(pair.Value, pair.Key)};");
+                }
             }
         }
 
@@ -256,6 +316,36 @@ namespace {namespaceName}
             return $"{char.ToUpperInvariant(name[0])}{suffix}";
         }
 
+        private string convertValueToCode(ValueModel val, string name = null)
+        {
+            name = name ?? val.Value?.GetType().Name.Replace("AGS", "") ?? "Object";
+            if (val.Children.Count == 0) return convertSingleValueToCode(val);
+            string methodName = $"create{name}";
+            if (_valueMethods.ContainsKey(methodName))
+            {
+                int index = 1;
+                string origMethodName = methodName;
+                do
+                {
+                    methodName = $"{origMethodName}_{index}";
+                }
+                while (!_valueMethods.ContainsKey(methodName));
+            }
+            _valueMethods[methodName] = val;
+            return $"{methodName}()";
+        }
+
+        private string convertSingleValueToCode(ValueModel val)
+        {
+            if (val.Initializer == null)
+                return getValueString(val.Value);
+            if (val.Initializer.Name == ".ctor")
+            {
+                val.Initializer.ReturnType = val.Value.GetType();
+            }
+            return generateMethod(val.Initializer);
+        }
+
         private string getValueString(object val)
         {
             switch (val)
@@ -264,8 +354,8 @@ namespace {namespaceName}
                     return "null";
                 case float f:
                     return $"{f.ToString()}f";
-                case double d1:
-                    return $"{d1.ToString()}d";
+                case double d1: //todo: currently we treat doubles as floats (using f suffix instead of d suffix): this is because json.net always deserializes as doubles and we use floats everywhere, so our floats are coming back as doubles. Waiting for this: https://github.com/JamesNK/Newtonsoft.Json/issues/1872
+                    return $"{d1.ToString()}f";
                 case decimal d2:
                     return $"{d2.ToString()}m";
                 case byte v1:
@@ -283,12 +373,36 @@ namespace {namespaceName}
                     return $"{"'"}{c}{"'"}";
                 case bool b:
                     return b.ToString().ToLowerInvariant();
+                case Color color:
+                    return colorToString(color);
                 case ValueTuple t:
                     return tupleToString(t.GetType().GetProperties().Select(p => p.GetValue(t)));
                 default:
-                    Type type = val.GetType();
-                    return deconstructToString(val, type) ?? enumToString(val, type) ?? factoryToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
+                    return unknownTypeToString(val);
             }
+        }
+
+        private string unknownTypeToString(object val)
+        {
+            Type type = val.GetType();
+            return deconstructToString(val, type) ?? enumToString(val, type) ?? factoryToString(val, type) ?? ctorToString(val, type) ?? val.ToString();
+        }
+
+        private string colorToString(Color color)
+        {
+            if (NamedColorsMap.NamedColorsReversed.TryGetValue(color.Value, out string colorName))
+            {
+                return $"Colors.{colorName}";
+            }
+            if (color.A != 255)
+            {
+                var solid = color.WithAlpha(255);
+                if (NamedColorsMap.NamedColorsReversed.TryGetValue(solid.Value, out string solidName))
+                {
+                    return $"Colors.{solidName}.WithAlpha({color.A})";
+                }
+            }
+            return unknownTypeToString(color);
         }
 
         private string deconstructToString(object val, Type type)

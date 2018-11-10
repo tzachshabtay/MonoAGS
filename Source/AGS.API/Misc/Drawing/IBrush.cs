@@ -3,7 +3,9 @@
     /// <summary>
     /// A brush which can be used to draw. 
     /// </summary>
-	public interface IBrush
+    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadSolidBrush), DisplayName = "Solid Brush")]
+    [HasFactory(FactoryType = nameof(IBrushLoader), MethodName = nameof(IBrushLoader.LoadLinearBrush), DisplayName = "Linear Brush")]
+    public interface IBrush
 	{
         /// <summary>
         /// Gets the brush type (currently only Solid is supported on all platforms, though other brushes are

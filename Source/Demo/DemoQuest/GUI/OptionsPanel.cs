@@ -13,12 +13,13 @@ namespace DemoGame
         private IPanel _panel, _buttonsPanel;
         private IGame _game;
 
-        AGSTextConfig _textConfig = new AGSTextConfig(font: AGSGame.Game.Factory.Fonts.LoadFont(null, 10f),
+        private static IFontFactory _fonts = AGSGame.Game.Factory.Fonts;
+        ITextConfig _textConfig = _fonts.GetTextConfig(font: _fonts.LoadFont(null, 10f),
             brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.DarkOliveGreen),
             alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel,
             outlineBrush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
 
-        AGSTextConfig _buttonTextConfig = new AGSTextConfig(font: AGSGame.Game.Factory.Fonts.LoadFont(null, 7f, FontStyle.Bold),
+        ITextConfig _buttonTextConfig = _fonts.GetTextConfig(font: _fonts.LoadFont(null, 7f, FontStyle.Bold),
             brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
             alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 0f);
 

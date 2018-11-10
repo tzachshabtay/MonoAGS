@@ -75,10 +75,21 @@ namespace AGS.Engine
 
         public override void AfterInit()
         {
+            Entity.Bind<IDrawableInfoComponent>(
+                c =>
+                {
+                    _drawable = c;
+                    c.PropertyChanged += _onDrawbaleChangedCallback;
+                    onSomethingChanged();
+                }, c =>
+                {
+                    c.PropertyChanged -= _onDrawbaleChangedCallback;
+                    _drawable = null;
+                    onSomethingChanged();
+                });
             Entity.Bind<IHasRoomComponent>(
                 c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
                 c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
-            
             Entity.Bind<IScaleComponent>(
                 c => { _scale = c; c.PropertyChanged += _onScaleChangedCallback; onSomethingChanged(); },
                 c => { c.PropertyChanged -= _onScaleChangedCallback; _scale = null; onSomethingChanged(); });
@@ -107,19 +118,6 @@ namespace AGS.Engine
                 c => { unsubscribeTextComponent(c); _text = null; }
             );
 
-            Entity.Bind<IDrawableInfoComponent>(
-                c => 
-            {
-                _drawable = c;
-                c.PropertyChanged += _onDrawbaleChangedCallback;
-                onSomethingChanged();
-            },c =>
-            {
-                c.PropertyChanged -= _onDrawbaleChangedCallback;
-                _drawable = null;
-				onSomethingChanged();
-            });
-
             Entity.Bind<IInObjectTreeComponent>(
 				c =>
 			{
@@ -147,6 +145,7 @@ namespace AGS.Engine
 
         public ref ModelMatrices GetModelMatrices() 
         {
+            _parent?.GetModelMatrices();
             if (_pendingLocks > 0) return ref _preLockMatrices;
             if (!_isDirty)
             {
@@ -313,6 +312,9 @@ namespace AGS.Engine
                 args.PropertyName != nameof(IDrawableInfoComponent.IgnoreScalingArea)) return;
             if (args.PropertyName == nameof(IDrawableInfoComponent.IgnoreScalingArea))
             {
+                if (_drawable?.IgnoreScalingArea ?? false) unsubscribeRoom(_room);
+                else subscribeRoom();
+
                 refreshAreaScaling();
             }
             onSomethingChanged();
@@ -423,6 +425,10 @@ namespace AGS.Engine
 
         private void subscribeRoomAreas()
         {
+            if (_drawable?.IgnoreScalingArea ?? false)
+            {
+                return;
+            }
             var room = _room?.Room;
             if (room == null) return;
             room.Areas.OnListChanged.Subscribe(_onAreasChangedCallback);
@@ -440,7 +446,10 @@ namespace AGS.Engine
 
         private void unsubscribeRoom(IHasRoomComponent room)
         {
-            room.PropertyChanged -= _onRoomChangedCallback;
+            if (room != null)
+            {
+                room.PropertyChanged -= _onRoomChangedCallback;
+            }
             unsubscribeRoomAreas();
         }
 
@@ -531,8 +540,9 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
+            if (_drawable?.IgnoreScalingArea ?? false) return NoScaling;
             var room = _room?.Room;
-            if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
+            if (room == null) return NoScaling;
 
             //Problem: we'd like to always use the world position when checking if the entity is standing
             //in a scaling area. However, the world position is calculated from the bounding box, which
@@ -545,7 +555,8 @@ namespace AGS.Engine
             foreach (IArea area in room.GetMatchingAreas(position, Entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
-                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
+                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY))
+                    continue;
                 float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? position.X : position.Y);
                 return new PointF(scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
             }

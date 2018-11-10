@@ -1,22 +1,32 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
     [PropertyFolder]
 	public class AGSSayConfig : ISayConfig
 	{ 
-		public AGSSayConfig()
+        public AGSSayConfig(IFontFactory fonts, IDefaultsSettings defaults)
 		{
-            TextConfig = new AGSTextConfig(font : AGSGame.Game?.Settings.Defaults.SpeechFont, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+            //todo: should the factory provide speech config?
+            if (fonts != null)
+            {
+                TextConfig = fonts.GetTextConfig(font: defaults.SpeechFont,
+                  autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+            }
 			TextDelay = 70;
 			LabelSize = new AGS.API.SizeF (250f, 200f);
 			SkipText = SkipText.ByTimeAndMouse;
 			BackgroundColor = Colors.Transparent;
 		}
 
-		public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
 		{
-			AGSSayConfig sayConfig = new AGSSayConfig();
+			AGSSayConfig sayConfig = new AGSSayConfig(null, null);
             sayConfig.TextConfig = config.TextConfig;
             sayConfig.TextConfig.PaddingBottom += paddingBottomOffset;
 			sayConfig.TextDelay = config.TextDelay;
@@ -46,7 +56,8 @@ namespace AGS.Engine
 
         public IPortraitConfig PortraitConfig { get; set; }
 
-		#endregion
-	}
-}
+        #endregion
 
+        public override string ToString() => TextConfig?.Brush?.Color.ToString() ?? "No color set";
+    }
+}

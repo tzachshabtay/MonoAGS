@@ -38,7 +38,8 @@ namespace AGS.Engine
 
 		private static ITextConfig getDefaultTextConfig()
 		{
-            return new AGSTextConfig (brush: AGSGame.Device.BrushLoader.LoadSolidBrush (Colors.WhiteSmoke),
+            //todo: remove usage of AGSGame
+            return AGSGame.Game.Factory.Fonts.GetTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush (Colors.WhiteSmoke),
 			                          alignment: Alignment.MiddleCenter, autoFit: AutoFit.LabelShouldFitText);
 		}
 
@@ -87,4 +88,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

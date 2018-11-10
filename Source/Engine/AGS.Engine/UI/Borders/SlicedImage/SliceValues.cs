@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
 	public class SliceValues
 	{
 		public SliceValues(SliceMeasurement measurement, float value) : this(measurement, value, value, value, value)
@@ -52,4 +53,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

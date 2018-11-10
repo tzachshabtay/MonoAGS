@@ -14,7 +14,7 @@ namespace AGS.Editor
         public string Name { get; set; }
 
         [DataMember(Name = "Parameters")]
-        public object[] Parameters { get; set; }
+        public ValueModel[] Parameters { get; set; }
 
         [DataMember(Name = "ReturnType")]
         public Type ReturnType { get; set; }

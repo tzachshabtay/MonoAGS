@@ -68,16 +68,16 @@ namespace AGS.Editor
             var labelFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 8f, FontStyle.Italic);
             if (_games.Count == 0)
             {
-                factory.UI.GetLabel("NoRecentGamesLabel", "There's nothing here yet, time to start making games!", 200f, 20f, 0f, 0f, panel, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
+                factory.UI.GetLabel("NoRecentGamesLabel", "There's nothing here yet, time to start making games!", 200f, 20f, 0f, 0f, panel, factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
                 layout.StartLayout();
                 return panel;
             }
 
             var buttonFont = factory.Fonts.LoadFont(_editor.Editor.Settings.Defaults.TextFont.FontFamily, 14f, FontStyle.Bold);
 
-            var idle = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.LightSkyBlue), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
-            var hovered = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
-            var pushed = new ButtonAnimation(null, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Black), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var idle = new ButtonAnimation(null, factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.LightSkyBlue), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var hovered = new ButtonAnimation(null, factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
+            var pushed = new ButtonAnimation(null, factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Black), buttonFont, autoFit: AutoFit.LabelShouldFitText), Colors.Transparent);
 
             foreach (var (game, path) in _games)
             {
@@ -94,9 +94,9 @@ namespace AGS.Editor
                     parent.Visible = false;
                     AddGame(game, path);
                     await Task.Delay(100);
-                    GameLoader.Load(_messagePump, AGSProject.Load(path), _editor);
+                    GameLoader.Load(_messagePump, AGSProject.Load(AGSEditor.Platform, _editor.Editor, path), _editor);
                 });
-                factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
+                factory.UI.GetLabel($"RecentGameLabel_{path}", path, 200f, 20f, 0f, 0f, gamePanel, factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Gray), labelFont));
             }
             layout.StartLayout();
             return panel;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -7,8 +8,7 @@ namespace AGS.Engine
     public class TreeLockStep
     {
         private readonly IInObjectTreeComponent _tree;
-        private readonly List<ILockStep> _matrices, _boxes, _boxesWithChildren;
-        private readonly List<(ITextComponent textComponent, IObject obj)> _textComponents;
+        private readonly List<ILockStep> _matrices, _boxes, _boxesWithChildren, _texts;
         private readonly Func<IObject, bool> _shouldLock;
 
         public TreeLockStep(IInObjectTreeComponent tree, Func<IObject, bool> shouldLock)
@@ -17,8 +17,7 @@ namespace AGS.Engine
             _matrices = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxes = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _boxesWithChildren = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
-            _textComponents = _tree == null ? new List<(ITextComponent, IObject)>() : 
-                new List<(ITextComponent, IObject)>(_tree.TreeNode.ChildrenCount);
+            _texts = _tree == null ? new List<ILockStep>() : new List<ILockStep>(_tree.TreeNode.ChildrenCount);
             _shouldLock = shouldLock;
         }
 
@@ -30,10 +29,7 @@ namespace AGS.Engine
         public void Unlock()
         {
             unlock(_matrices);
-            foreach (var component in _textComponents)
-            {
-                component.textComponent.PrepareTextBoundingBoxes();
-            }
+            unlock(_texts);
             unlock(_boxes);
             unlock(_boxesWithChildren);
         }
@@ -79,7 +75,10 @@ namespace AGS.Engine
                     lockComponent(boxWithChildren.LockStep, _boxesWithChildren);
                 }
                 var textComponent = child.GetComponent<ITextComponent>();
-                if (textComponent != null) _textComponents.Add((textComponent, child));
+                if (textComponent != null) 
+                {
+                    lockComponent(textComponent.TextLockStep, _texts);
+                }
                 lockTree(child);
             }
         }

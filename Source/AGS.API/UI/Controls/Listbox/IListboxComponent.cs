@@ -10,6 +10,7 @@ namespace AGS.API
     [RequiredComponent(typeof(IInObjectTreeComponent))]
     [RequiredComponent(typeof(IImageComponent))]
     [RequiredComponent(typeof(IStackLayoutComponent))]
+    [RequiredComponent(typeof(IVisibleComponent))]
     public interface IListboxComponent : IComponent
     {
         /// <summary>
@@ -51,6 +52,14 @@ namespace AGS.API
         IBlockingEvent<ListboxItemArgs> OnSelectedItemChanged { get; }
 
         /// <summary>
+        /// An event which fires whenever the selected item in the dropdown is in the process of being changed
+        /// (this can be because the user selected an item, or because the <see cref="SelectedIndex"/> was set from code).
+        /// The selection has not been applied yet in this event, and can be cancelled by the event subscriber by settings <see cref="ListboxItemChangingArgs.ShouldCancel"/> to true.
+        /// </summary>
+        /// <value>The on selected item changing event.</value>
+        IEvent<ListboxItemChangingArgs> OnSelectedItemChanging { get; }
+
+        /// <summary>
         /// Gets or sets the minimum height for the box.
         /// </summary>
         /// <value>The minimum height.</value>
@@ -61,8 +70,28 @@ namespace AGS.API
         /// If it is expected for the items in the list to exceed the height, scrollbars 
         /// should be added to the list (<see cref="IUIFactory.CreateScrollingPanel"/> ).
         /// </summary>
-        /// <value>The height of the max.</value>
+        /// <value>The maximum height.</value>
         float MaxHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum width for the box.
+        /// </summary>
+        /// <value>The minimum width.</value>
+        float MinWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum width of the box.
+        /// If it is expected for the items in the list to exceed the width, scrollbars 
+        /// should be added to the list (<see cref="IUIFactory.CreateScrollingPanel"/> ).
+        /// </summary>
+        /// <value>The maximum width.</value>
+        float MaxWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the padding that will be added to the box (this is performed before applying min/max width/height).
+        /// </summary>
+        /// <value>The padding.</value>
+        SizeF Padding { get; set; }
 
         /// <summary>
         /// Gets or sets the search filter (a search text that filters the tree so that

@@ -8,6 +8,7 @@ namespace AGS.API
     /// border, background color (tint) or text rendering configuration (font, shadows, etc- <see cref="ITextConfig"/>).
     /// </summary>
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Button State Animation")]
     public class ButtonAnimation
     {
         /// <summary>
@@ -23,9 +24,10 @@ namespace AGS.API
         /// Initializes a new instance of the <see cref="T:AGS.API.ButtonAnimation"/> class.
         /// </summary>
         /// <param name="image">Image.</param>
-        public ButtonAnimation(IImage image)
+        public ButtonAnimation(IImage image, Color? tint = null)
         {
             Image = image;
+            Tint = tint;
         }
 
         /// <summary>
@@ -41,34 +43,52 @@ namespace AGS.API
             Tint = tint;
         }
 
+        [MethodWizard]
+        public ButtonAnimation(IAnimation animation, IBorderStyle border, ITextConfig textConfig, Color? tint)
+        {
+            Border = border;
+            TextConfig = textConfig;
+            Tint = tint;
+            Animation = animation;
+        }
+
+        public ButtonAnimation(IAnimation animation, IImage image, IBorderStyle border, ITextConfig textConfig, Color? tint)
+        {
+            Border = border;
+            TextConfig = textConfig;
+            Tint = tint;
+            Animation = animation;
+            Image = image;
+        }
+
         /// <summary>
         /// Gets or sets the image.
         /// </summary>
-        public IImage Image { get; set; }
+        public IImage Image { get; }
 
         /// <summary>
         /// Gets or sets the animation.
         /// </summary>
         /// <value>The animation.</value>
-        public IAnimation Animation { get; set; }
+        public IAnimation Animation { get; }
 
         /// <summary>
         /// Gets or sets the border.
         /// </summary>
         /// <value>The border.</value>
-        public IBorderStyle Border { get; set; }
+        public IBorderStyle Border { get; }
 
         /// <summary>
         /// Gets or sets the text rendering configuration.
         /// </summary>
         /// <value>The text config.</value>
-        public ITextConfig TextConfig { get; set; }
+        public ITextConfig TextConfig { get; }
 
         /// <summary>
         /// Gets or sets the tint (background color).
         /// </summary>
         /// <value>The tint.</value>
-        public Color? Tint { get; set; }
+        public Color? Tint { get; }
 
         public override string ToString()
         {
@@ -83,7 +103,8 @@ namespace AGS.API
             if (TextConfig != null) builder.Add($"Text");
             if (Tint != null) builder.Add($"Tint");
 
-            return $"Changing: {string.Join(", ", builder)}";
+            string changes = string.Join(", ", builder);
+            return $"Changing: {changes}";
         }
     }
 }

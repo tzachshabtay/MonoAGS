@@ -1,29 +1,43 @@
 ﻿using System;
 using AGS.API;
 using System.Drawing;
+using System.Diagnostics;
+using System.Runtime.Serialization;
 
 namespace AGS.Engine.Desktop
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
+    [DataContract]
 	public class DesktopFont : IFont
 	{
         private readonly IFontLoader _fontLoader;
 
-        public DesktopFont(Font font, IFontLoader fontLoader)
+        public DesktopFont(Font font, IFontLoader fontLoader, string path)
 		{
-			InnerFont = font;
+            Trace.Assert(font != null, "font is null");
+            Trace.Assert(font.FontFamily != null, "font.FontFamily is null");
+            InnerFont = font;
             _fontLoader = fontLoader;
+            Path = path;
 		}
 
+        [Property(Browsable = false)]
 		public Font InnerFont { get; }
 
         #region IFont implementation
 
+        [DataMember]
         public string FontFamily => InnerFont.FontFamily.Name;
 
+        [DataMember]
         public AGS.API.FontStyle Style => (AGS.API.FontStyle)InnerFont.Style;
 
+        [DataMember]
         public float SizeInPoints => InnerFont.SizeInPoints;
+
+        [DataMember]
+        public string Path { get; }
 
         public AGS.API.SizeF MeasureString(string text, int maxWidth = 2147483647)
 		{

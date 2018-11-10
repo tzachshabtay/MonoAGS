@@ -73,19 +73,18 @@ namespace AGS.Engine
 
         public static float AlignY(this ITextConfig config, float bitmapHeight, float height, AGS.API.SizeF baseSize)
         {
-            const float reducePadding = 2f;
             switch (config.Alignment)
             {
                 case Alignment.TopLeft:
                 case Alignment.TopCenter:
                 case Alignment.TopRight:
-                    return bitmapHeight - baseSize.Height - reducePadding + config.PaddingTop;
+                    return bitmapHeight - baseSize.Height + config.PaddingTop;
                 case Alignment.MiddleLeft:
                 case Alignment.MiddleCenter:
                 case Alignment.MiddleRight:
-                    return bitmapHeight - baseSize.Height / 2f - height / 2f - reducePadding / 2f;
+                    return bitmapHeight - baseSize.Height / 2f - height / 2f;
                 default:
-                    return bitmapHeight - height - reducePadding - config.PaddingBottom;
+                    return bitmapHeight - height - config.PaddingBottom;
             }
         }
 

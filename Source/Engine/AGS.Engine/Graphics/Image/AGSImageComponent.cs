@@ -77,15 +77,20 @@ namespace AGS.Engine
         [NumberEditorSlider(sliderMin: 0f, sliderMax: 2f, step: 0.1f)]
         public Vector4 Brightness { get => _image.Brightness; set => _image.Brightness = value; }
 
+        [Property(Browsable = false)]
         public ISprite Sprite { get => _sprite; }
 
+        [Property(Browsable = false)]
         public ISprite CurrentSprite { get => _provider?.Sprite; }
 
+        [Property(Browsable = false)]
         public ISpriteProvider SpriteProvider
         {
             get => _provider;
             set
             {
+                if (_provider == value)
+                    return;
                 var previousProvider = _provider;
                 if (previousProvider != null)
                     previousProvider.PropertyChanged -= OnProviderPropertyChanged;

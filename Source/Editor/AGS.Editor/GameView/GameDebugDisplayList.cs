@@ -62,9 +62,9 @@ namespace AGS.Editor
             _listBox.ListItemFactory = text =>
             {
                 var button = factory.UI.GetButton("GameDebugDisplayListPanel_" + text,
-                                                  new ButtonAnimation(null, new AGSTextConfig(textBrush, autoFit: AutoFit.LabelShouldFitText), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(hoverBrush, autoFit: AutoFit.LabelShouldFitText), null),
-                                                  new ButtonAnimation(null, new AGSTextConfig(hoverBrush, outlineBrush: textBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, factory.Fonts.GetTextConfig(textBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, factory.Fonts.GetTextConfig(hoverBrush, autoFit: AutoFit.LabelShouldFitText), null),
+                                                  new ButtonAnimation(null, factory.Fonts.GetTextConfig(hoverBrush, outlineBrush: textBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null),
                                                   0f, 0f, width: 500f, height: 50f);
                 button.RenderLayer = parent.RenderLayer;
                 button.Text = text;

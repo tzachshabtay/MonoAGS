@@ -13,6 +13,7 @@ namespace AGS.Engine
 
 	//Inspired from css: https://css-tricks.com/almanac/properties/b/border-image/
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Sliced Image (9-Slice)")]
 	public class AGSSlicedImageBorder : IBorderStyle
 	{
 		private int _texture;
@@ -25,6 +26,18 @@ namespace AGS.Engine
             _glUtils = glUtils;
 			_white = Colors.White.ToGLColor();
 		}
+
+        [MethodWizard]
+        public AGSSlicedImageBorder(SliceValues slice, SliceValues width, SliceValues outset, BorderRepeat repeat, [MethodParam(Browsable = false, DefaultProvider = nameof(GetDefaultGLUtils))]IGLUtils glUtils)
+            :this(glUtils)
+        {
+            Slice = slice;
+            Width = width;
+            Outset = outset;
+            Repeat = repeat;
+        }
+
+        public static IGLUtils GetDefaultGLUtils(Resolver resolver) => resolver.Resolve<IGLUtils>();
 
 		public IAnimation Image { get; set; }
 
@@ -40,9 +53,16 @@ namespace AGS.Engine
 
 		public bool DrawBorderBehind { get; set; }
 
+        [Property(Browsable = false)]
         public float WidthLeft => Width.Left.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthRight => Width.Right.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthTop => Width.Top.ToPixels(_height).Value;
+
+        [Property(Browsable = false)]
         public float WidthBottom => Width.Bottom.ToPixels(_height).Value;
 
         #region IBorderStyle implementation

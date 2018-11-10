@@ -5,6 +5,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(DisplayName = "OpenGL Shader")]
 	public class GLShader : IShader, IDisposable
 	{
 		private int _program;
@@ -143,9 +144,11 @@ namespace AGS.Engine
 			return true;
 		}
 
-		#region IDisposable implementation
+        public override string ToString() => "OpenGL Shader";
 
-		public void Dispose()
+        #region IDisposable implementation
+
+        public void Dispose()
 		{
 			int program = _program;
 			if (program == 0) return;
@@ -228,4 +231,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

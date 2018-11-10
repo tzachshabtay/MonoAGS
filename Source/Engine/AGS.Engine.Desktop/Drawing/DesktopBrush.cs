@@ -5,6 +5,7 @@ using System.Drawing;
 namespace AGS.Engine.Desktop
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
 	public class DesktopBrush : IBrush
 	{
 		public DesktopBrush(Brush brush)
@@ -12,6 +13,7 @@ namespace AGS.Engine.Desktop
 			InnerBrush = brush;
 		}
 
+        [Property(Browsable = false)]
 		public Brush InnerBrush { get; private set; }
 
 		public static DesktopBrush Solid(AGS.API.Color color)
@@ -56,7 +58,12 @@ namespace AGS.Engine.Desktop
 
 		public AGS.API.PointF FocusScales { get; private set; }
 
-		#endregion
-	}
-}
+        #endregion
 
+        public override string ToString()
+        {
+            if (Type == BrushType.Solid) return Color.ToString();
+            return Type.ToString();
+        }
+    }
+}

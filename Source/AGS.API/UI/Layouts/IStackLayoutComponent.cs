@@ -74,6 +74,12 @@
         void StopLayout();
 
         /// <summary>
+        /// Forces a layout refresh now (blocking), assuming layout was started.
+        /// This should only be done from the update thread.
+        /// </summary>
+        void ForceRefreshLayout();
+
+        /// <summary>
         /// Performs the calculation of the layout without actually changing anything, and returns the width/height (depending if this is a horizontal/vertical layout)
         /// of the potential layout.
         /// </summary>

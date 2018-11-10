@@ -11,6 +11,6 @@ namespace AGS.Editor
         public Type ComponentConcreteType { get; set; }
 
         [DataMember]
-        public Dictionary<string, object> Properties { get; set; }
+        public Dictionary<string, ValueModel> Properties { get; set; }
     }
 }

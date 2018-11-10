@@ -5,13 +5,13 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class HasRoomComponent : AGSComponent, IHasRoomComponent
+	public class RoomComponent : AGSComponent, IHasRoomComponent
 	{
 		private IObject _obj;
 		private readonly IGameState _state;
 		private Lazy<IRoom> _cachedRoom;
 
-		public HasRoomComponent(IGameState state)
+		public RoomComponent(IGameState state)
 		{
 			_state = state;
             OnRoomChanged = new AGSEvent();
@@ -33,6 +33,7 @@ namespace AGS.Engine
             _obj = null;
         }
 
+        [Property(DisplayName = "Current Room")]
         public IRoom Room => _cachedRoom?.Value ?? null;
 
         public IRoom PreviousRoom { get; private set; }

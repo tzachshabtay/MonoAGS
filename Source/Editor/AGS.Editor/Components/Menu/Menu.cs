@@ -95,7 +95,7 @@ namespace AGS.Editor
             _menu.ContentsPanel.Tint = GameViewColors.Menu;
 
             var whiteBrush = factory.Graphics.Brushes.LoadSolidBrush(Colors.White);
-            var textConfig = new AGSTextConfig(whiteBrush, autoFit: AutoFit.TextShouldFitLabel, font: settings.TextFont);
+            var textConfig = factory.Fonts.GetTextConfig(whiteBrush, autoFit: AutoFit.TextShouldFitLabel);
             var idle = new ButtonAnimation(null, textConfig, Colors.Transparent);
             var hovered = new ButtonAnimation(null, textConfig, GameViewColors.HoveredMenuItem);
 
@@ -105,6 +105,7 @@ namespace AGS.Editor
                 return menuItem.GetControl(factory, layer, idle, hovered, _width, _height);
             };
 
+            _menu.ListboxComponent.Padding = new SizeF();
             _menu.ListboxComponent.Items.AddRange(_menuItems.Cast<IStringItem>().ToList());
             _menu.ContentsPanel.Pivot = (0f, 1f);
 

@@ -6,12 +6,12 @@ namespace AGS.Editor
 {
     public class MethodTypeDescriptor : ITypeDescriptor
     {
-        private readonly MethodInfo _method;
+        private readonly MethodBase _method;
         private readonly Dictionary<InspectorCategory, List<IProperty>> _props;
         private readonly HashSet<string> _hideProperties;
         private readonly Dictionary<string, object> _overrideDefaults;
 
-        public MethodTypeDescriptor(MethodInfo method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults)
+        public MethodTypeDescriptor(MethodBase method, HashSet<string> hideProperties, Dictionary<string, object> overrideDefaults)
         {
             _method = method;
             _hideProperties = hideProperties;
@@ -21,9 +21,11 @@ namespace AGS.Editor
 
         public Dictionary<InspectorCategory, List<IProperty>> GetProperties()
         {
+            var parameters = _method.GetParameters();
+            if (parameters.Length == 0) return _props;
+
             InspectorCategory cat = new InspectorCategory("General");
             _props[cat] = new List<IProperty>();
-            var parameters = _method.GetParameters();
             foreach (var parameter in parameters)
             {
                 if (_hideProperties.Contains(parameter.Name)) continue;

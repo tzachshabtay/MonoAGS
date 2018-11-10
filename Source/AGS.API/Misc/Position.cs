@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AGS.API
 {
@@ -6,7 +8,7 @@ namespace AGS.API
     /// A 3D location in the world.
     /// </summary>
     [DataContract]
-    public struct Position
+    public struct Position : IEquatable<Position>
     {
         private readonly float? _z;
         private readonly PointF _xy;
@@ -17,6 +19,7 @@ namespace AGS.API
             _z = z;
         }
 
+        [JsonConstructor]
         public Position(float x, float y, float? z = null) : this(new PointF(x, y), z)
         { }
 
@@ -79,5 +82,11 @@ namespace AGS.API
             y = this.Y;
             z = this.Z;
         }
+
+        public override bool Equals(object obj) => obj is Position other && Equals(other);
+
+        public override int GetHashCode() => XY.GetHashCode();
+
+        public bool Equals(Position other) => XY.Equals(other.XY) && MathUtils.FloatEquals(Z, other.Z);
     }
 }

@@ -8,4 +8,3 @@ namespace AGS.Engine
 		public IShader Shader { get; set; }
 	}
 }
-

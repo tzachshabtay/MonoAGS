@@ -39,10 +39,9 @@ namespace AGS.Editor
         {
             _provider.BeforeDisplayingNode(item, nodeView, isCollapsed, isHovered, isSelected);
             var parent = item.TreeNode.Parent;
-            if (parent != null && !(item is IInspectorTreeNode))
-            {
-                displayCategoryRow(nodeView, isSelected);
-            }
+            if (parent == null) return;
+            if (item is IInspectorTreeNode node && !node.IsCategory) return;
+            displayCategoryRow(nodeView, isSelected);
         }
 
         public void Resize(float width)
@@ -51,20 +50,20 @@ namespace AGS.Editor
             _onResize.Invoke(width);
         }
 
-        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
+        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer, IObject parentObj)
         {
-            var view = _provider.CreateNode(item, layer);
+            var view = _provider.CreateNode(item, layer, parentObj);
             var parent = item.TreeNode.Parent;
             var node = item as IInspectorTreeNode;
-            if (parent != null && node == null)
+            if (parent != null && (node == null || node.IsCategory))
             {
                 setupCategoryRow(view);
             }
-            else if (parent != null && node != null)
+            if (parent != null && node != null)
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });
-                view.ParentPanel.OnDisposed(() => tableLayout.Dispose());
+                view.ParentPanel.OnDisposed(() => { tableLayout.Dispose(); _layouts.Remove(layoutId); });
                 view.HorizontalPanel.RemoveComponent<IStackLayoutComponent>();
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
                 rowLayout.FixedWidthOverrides[0] = 15f; //fixed width for the expand button, as the column padding is too much for it
@@ -81,11 +80,27 @@ namespace AGS.Editor
                 PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != node.Property.Name) return;
-                    node.Property.Refresh();
-                    node.Editor.RefreshUI();
+                    IInspectorTreeNode inspectorNode = node;
+                    do
+                    {
+                        inspectorNode.Property.Refresh();
+                        inspectorNode.Editor.RefreshUI();
+                        inspectorNode = inspectorNode.TreeNode.Parent as IInspectorTreeNode;
+                    } while (inspectorNode != null);
                 };
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 view.ParentPanel.OnDisposed(() => propertyChanged.PropertyChanged -= onPropertyChanged);
+            }
+            else if (node.Property is INotifyPropertyChanged propertyValueChanged)
+            {
+                PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
+                {
+                    if (e.PropertyName != nameof(IProperty.Value)) return;
+                    node.Property.Refresh();
+                    node.Editor.RefreshUI();
+                };
+                propertyValueChanged.PropertyChanged += onPropertyChanged;
+                view.ParentPanel.OnDisposed(() => propertyValueChanged.PropertyChanged -= onPropertyChanged);
             }
 
             return view;

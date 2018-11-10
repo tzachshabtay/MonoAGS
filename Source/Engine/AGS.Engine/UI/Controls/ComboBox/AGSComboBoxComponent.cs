@@ -9,11 +9,14 @@ namespace AGS.Engine
 {
     public class AGSComboBoxComponent : AGSComponent, IComboBoxComponent
     {
+        private readonly IInput _input;
+        private readonly IGameEvents _gameEvents;
+        private readonly IGameState _state;
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
         private IScrollingComponent _scrolling;
-        private IEntity _dropDownPanel;
+        private IListbox _dropDownPanel;
         private ComboSuggest _suggestMode;
         private ITextBox _textbox;
         private int _currentSuggestion = -1;
@@ -21,10 +24,23 @@ namespace AGS.Engine
         private bool _currentlyNavigatingSuggestions;
         private bool _currentlyUsingTextbox;
 
-        public AGSComboBoxComponent(IGameEvents gameEvents)
+        public AGSComboBoxComponent(IGameEvents gameEvents, IInput input, IGameState state)
         {
+            _state = state;
+            _input = input;
+            _gameEvents = gameEvents;
             MarkComboboxSuggestion = markSuggestion;
             gameEvents.OnRepeatedlyExecute.Subscribe(refreshDropDownLayout);
+            input.MouseDown.Subscribe(onMouseDown);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _input?.MouseDown.Unsubscribe(onMouseDown);
+            _gameEvents?.OnRepeatedlyExecute.Unsubscribe(refreshDropDownLayout);
+            DropDownPanel?.ScrollingPanel?.DestroyWithChildren(_state);
+            DropDownPanel?.ContentsPanel?.DestroyWithChildren(_state);
         }
 
         public IButton DropDownButton
@@ -52,7 +68,7 @@ namespace AGS.Engine
             }
         }
 
-        public IListboxComponent DropDownPanelList => _dropDownPanelList;
+        public IListboxComponent DropDownPanelList => _dropDownPanel.ListboxComponent;
 
         public ComboSuggest SuggestMode 
         { 
@@ -64,18 +80,19 @@ namespace AGS.Engine
             }
         }
 
-        public IEntity DropDownPanel 
+        public IListbox DropDownPanel 
         {
             get => _dropDownPanel;
             set 
             {
                 _dropDownPanel = value;
-                var scrollingContainer = value.GetComponent<IInObjectTreeComponent>()?.TreeNode.Parent ?? value;
+                var panel = value.ContentsPanel;
+                var scrollingContainer = value.ScrollingPanel ?? panel;
                 var visibleComponent = scrollingContainer.GetComponent<IVisibleComponent>();
-                var listBoxComponent = value.GetComponent<IListboxComponent>();
+                var listBoxComponent = panel.GetComponent<IListboxComponent>();
                 var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
-                var imageComponent = value.GetComponent<IImageComponent>();
-                _scrolling = value.GetComponent<IScrollingComponent>();
+                var imageComponent = panel.GetComponent<IImageComponent>();
+                _scrolling = panel.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
 
                 _dropDownPanelList?.OnSelectedItemChanged.Unsubscribe(onSelectedItemChanged);
@@ -87,6 +104,25 @@ namespace AGS.Engine
         }
 
         public Action<IButton, IButton> MarkComboboxSuggestion { get; set; }
+
+        private void onMouseDown(MouseButtonEventArgs args)
+        {
+            if (!(_dropDownPanelVisible?.Visible ?? false)) return;
+            var clicked = args.ClickedEntity;
+            if (clicked != null)
+            {
+                if (clicked == _dropDownButton || clicked == _textbox || 
+                    clicked == _scrolling?.VerticalScrollBar?.Slider.Graphics || clicked == _scrolling?.VerticalScrollBar?.Slider.HandleGraphics ||
+                    clicked == _scrolling?.HorizontalScrollBar?.Slider.Graphics || clicked == _scrolling?.HorizontalScrollBar?.Slider.HandleGraphics ||
+                    clicked == _scrolling?.VerticalScrollBar?.DownButton || clicked == _scrolling?.VerticalScrollBar?.UpButton ||
+                    clicked == _scrolling?.HorizontalScrollBar?.DownButton || clicked == _scrolling?.HorizontalScrollBar?.UpButton ||
+                    clicked == _dropDownPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
+                {
+                    return;
+                }
+            }
+            setPanelVisible(false);
+        }
 
         private void updateTextbox()
         {
@@ -268,10 +304,10 @@ namespace AGS.Engine
             var totalHeight = button.Height * visibleButtons.Count;
             var heightToReachButton = button.Height * index;
 
-            var sliderValue = MathUtils.Lerp(0f, _scrolling.VerticalScrollBar.MinValue,
-                                             totalHeight, _scrolling.VerticalScrollBar.MaxValue, heightToReachButton);
+            var sliderValue = MathUtils.Lerp(0f, _scrolling.VerticalScrollBar.Slider.MinValue,
+                                             totalHeight, _scrolling.VerticalScrollBar.Slider.MaxValue, heightToReachButton);
 
-            _scrolling.VerticalScrollBar.Value = sliderValue;                
+            _scrolling.VerticalScrollBar.Slider.Value = sliderValue;                
         }
 
         private void onSelectedItemChanged(ListboxItemArgs args)
@@ -304,10 +340,14 @@ namespace AGS.Engine
 
         private void onDropDownClicked(MouseButtonEventArgs args)
         {
+            setPanelVisible(!(_dropDownPanelVisible?.Visible ?? false));
+        }
+
+        private void setPanelVisible(bool visible)
+        {
             if (_dropDownPanelVisible != null)
             {
-                bool visible = _dropDownPanelVisible.Visible;
-                _dropDownPanelVisible.Visible = !visible;
+                _dropDownPanelVisible.Visible = visible;
             }
             if (_currentlyUsingTextbox)
             {

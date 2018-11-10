@@ -253,7 +253,7 @@ namespace AGS.Editor
 
                 PropertyInfo prop = _scale.GetType().GetProperty(nameof(IScaleComponent.Scale));
                 PointF toScale = (w / _scale.BaseSize.Width, h / _scale.BaseSize.Height);
-                PropertyAction action = new PropertyAction(new InspectorProperty(_scale, "Scale", prop), toScale, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(_scale, null, nameof(IScale.Scale), prop), toScale, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
 

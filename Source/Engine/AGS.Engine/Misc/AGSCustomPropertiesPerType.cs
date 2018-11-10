@@ -41,5 +41,13 @@ namespace AGS.Engine
                 _properties[property.Key] = property.Value;
             }
         }
+
+        public override string ToString()
+        {
+            int count = _properties.Count;
+            if (count == 0) return "No properties";
+            if (count == 1) return "1 property";
+            return $"{count} properties";
+        }
     }
 }

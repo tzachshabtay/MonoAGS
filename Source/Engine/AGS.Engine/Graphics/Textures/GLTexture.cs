@@ -43,6 +43,8 @@ namespace AGS.Engine
 
         public int ID { get; private set; }
 
+        public override string ToString() => $"Texture ID: {ID}";
+
         public void Dispose()
         {
             dispose(true);

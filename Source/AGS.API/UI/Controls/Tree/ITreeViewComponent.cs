@@ -61,6 +61,14 @@
         bool SkipRenderingRoot { get; set; }
 
         /// <summary>
+        /// If the tree view is contained in a scrolling panel (<see cref="IUIFactory.CreateScrollingPanel"/>), you can set
+        /// the containing contents panel here, which the tree view will then use to optimize performance by only loading the tree node views when 
+        /// they're inside the scrolling range.
+        /// </summary>
+        /// <value>The scrolling container.</value>
+        IEntity ScrollingContainer { get; set; }
+
+        /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).
         /// </summary>
         IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }

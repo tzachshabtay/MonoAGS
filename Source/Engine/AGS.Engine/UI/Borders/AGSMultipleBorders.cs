@@ -5,6 +5,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
     public class AGSMultipleBorders : IBorderStyle
     {
         public AGSMultipleBorders(params IBorderStyle[] borders)
@@ -14,12 +15,16 @@ namespace AGS.Engine
 
         public List<IBorderStyle> Borders { get; }
 
+        [Property(Browsable = false)]
         public float WidthBottom => Borders.Max(b => b.WidthBottom);
 
+        [Property(Browsable = false)]
         public float WidthTop => Borders.Max(b => b.WidthTop);
 
+        [Property(Browsable = false)]
         public float WidthLeft => Borders.Max(b => b.WidthLeft);
 
+        [Property(Browsable = false)]
         public float WidthRight => Borders.Max(b => b.WidthRight);
 
         public void RenderBorderBack(AGSBoundingBox square)

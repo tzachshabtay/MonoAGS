@@ -58,6 +58,7 @@ namespace AGS.Engine
 
         public IEvent<MouseButtonEventArgs> LostFocus { get; private set; }
 
+        [Property(Browsable = false)]
         public bool IsMouseIn { get; private set; }
 	}
 }

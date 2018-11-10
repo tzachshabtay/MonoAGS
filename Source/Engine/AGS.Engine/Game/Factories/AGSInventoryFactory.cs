@@ -49,6 +49,7 @@ namespace AGS.Engine
 			return inventoryWindow;
 		}
 
+        [MethodWizard]
 		public IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)
 		{
 			IInventoryItem item = _resolver.Container.Resolve<IInventoryItem>();

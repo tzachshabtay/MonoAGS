@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using Humanizer;
 
 namespace AGS.Editor
 {
@@ -11,30 +12,51 @@ namespace AGS.Editor
         private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
             new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
 
-		public InspectorProperty(object obj, string name, PropertyInfo prop)
-		{
+        private MethodModel _initializer;
+
+        private bool _isDefault = true;
+
+		public InspectorProperty(IComponent obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+            : this(obj, obj, parent, name, prop, displayName)
+        {}
+
+        public InspectorProperty(IComponent component, object obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+        {
 			Prop = prop;
 			Name = name;
+            DisplayName = displayName ?? name.Humanize();
 			Object = obj;
+            Component = component;
+            Parent = parent;
 			Children = new List<IProperty>();
             IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
 		}
 
-		public string Name { get; private set; }
+		public string Name { get; }
+        public string DisplayName { get; }
 		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
-		public object Object { get; private set; }
-		public List<IProperty> Children { get; private set; }
-        public bool IsReadonly { get; private set; }
+		public object Object { get; }
+        public IComponent Component { get; }
+        public IProperty Parent { get; }
+        public List<IProperty> Children { get; }
+        public bool IsReadonly { get; }
 
         public Type PropertyType => Prop.PropertyType;
 
-        public const string NullValue = "(null)";
+        public const string NullValue = "(None)";
 
-        public void SetValue(object value) => Prop.SetValue(Object, value, null);
-
-        public object GetValue() => Prop.GetValue(Object, null);
+        public ValueModel Value
+        {
+            get => new ValueModel(Prop.GetValue(Object, null), _initializer, isDefault: _isDefault, type: PropertyType);
+            set
+            {
+                _isDefault = false;
+                Prop.SetValue(Object, value.Value, null);
+                _initializer = value.Initializer;
+            }
+        }
 
         public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
         {
@@ -68,6 +90,8 @@ namespace AGS.Editor
                 throw new Exception($"Failed to refresh property: {Name}", e);
             }
 		}
+
+        public override string ToString() => $"{DisplayName}: {ValueString}";
 
         private MethodInfo getCustomStringMethod((MethodInfo method, CustomStringValueAttribute attr)provider)
         {

@@ -4,6 +4,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
     public class AGSColoredBorder : IBorderStyle
     {
         private GLVertex[] _roundCorner;
@@ -26,9 +27,16 @@ namespace AGS.Engine
         public FourCorners<bool> HasRoundCorner { get; set; }
         public bool DrawBorderBehind { get; set; }
 
+        [Property(Browsable = false)]
         public float WidthLeft => LineWidth;
+
+        [Property(Browsable = false)]
         public float WidthRight => LineWidth;
+
+        [Property(Browsable = false)]
         public float WidthTop => LineWidth;
+
+        [Property(Browsable = false)]
         public float WidthBottom => LineWidth;
 
         #region IBorderStyle implementation
