@@ -11,6 +11,7 @@ namespace AGS.Engine
     {
         private readonly IInput _input;
         private readonly IGameEvents _gameEvents;
+        private readonly IGameState _state;
         private IButton _dropDownButton;
         private IListboxComponent _dropDownPanelList;
         private IVisibleComponent _dropDownPanelVisible;
@@ -23,8 +24,9 @@ namespace AGS.Engine
         private bool _currentlyNavigatingSuggestions;
         private bool _currentlyUsingTextbox;
 
-        public AGSComboBoxComponent(IGameEvents gameEvents, IInput input)
+        public AGSComboBoxComponent(IGameEvents gameEvents, IInput input, IGameState state)
         {
+            _state = state;
             _input = input;
             _gameEvents = gameEvents;
             MarkComboboxSuggestion = markSuggestion;
@@ -37,6 +39,8 @@ namespace AGS.Engine
             base.Dispose();
             _input?.MouseDown.Unsubscribe(onMouseDown);
             _gameEvents?.OnRepeatedlyExecute.Unsubscribe(refreshDropDownLayout);
+            DropDownPanel?.ScrollingPanel?.DestroyWithChildren(_state);
+            DropDownPanel?.ContentsPanel?.DestroyWithChildren(_state);
         }
 
         public IButton DropDownButton
