@@ -39,4 +39,3 @@ namespace AGS.Engine
         public string ToInspectorString() => "Animation State";
     }
 }
-

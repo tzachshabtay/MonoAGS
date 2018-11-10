@@ -50,4 +50,3 @@ namespace AGS.Engine
         public ICustomProperties Properties { get; private set; }
     }
 }
-

@@ -52,8 +52,5 @@ namespace AGS.Engine
 		public IAudioFactory Sound { get; private set; }
 
 		#endregion
-
-
 	}
 }
-

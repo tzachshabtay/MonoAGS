@@ -29,4 +29,3 @@ namespace AGS.Engine
         public override string ToString() => Enabled ? $"{Value:0.##}" : "N/A";
     }
 }
-

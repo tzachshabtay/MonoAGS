@@ -47,4 +47,3 @@ namespace AGS.Engine
         public override string ToString() => $"{GetAllDirections().Count()} directions";
     }
 }
-

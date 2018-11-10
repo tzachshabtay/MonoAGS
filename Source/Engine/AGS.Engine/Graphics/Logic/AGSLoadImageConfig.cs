@@ -22,4 +22,3 @@ namespace AGS.Engine
         public override string ToString() => "Load Image Config";
     }
 }
-

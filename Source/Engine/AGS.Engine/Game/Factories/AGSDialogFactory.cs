@@ -73,8 +73,5 @@ namespace AGS.Engine
 			}
 			return dialog;
 		}
-
-
 	}
 }
-
