@@ -181,18 +181,38 @@ namespace AGS.Editor
 
         private void refreshNode(ITreeStringNode node, IProperty property)
         {
-            bool isExpanded = _treeView.IsCollapsed(node) == false;
-            if (isExpanded)
-                _treeView.Collapse(node);
             ObjectTypeDescriptor.RefreshChildrenProperties(property);
-            node.TreeNode.Children.Clear();
-            addChildrenToTree(node, property);
+            if (shouldRecreateTree(node, property))
+            {
+                node.TreeNode.Children.Clear();
+                addChildrenToTree(node, property);
+            }
+            else for(int i = 0; i < node.TreeNode.ChildrenCount; i++)
+            {
+                //todo: Do we really need to refresh the property and editor here? Not sure...
+                property.Children[i].Refresh();
+                if (node.TreeNode.Children[i] is InspectorTreeNode inspectorNode) inspectorNode.Editor.RefreshUI();
 
-            //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
-            //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
-            //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
-            //if (isExpanded)
-            //  _treeView.Expand(node);
+                refreshNode(node.TreeNode.Children[i], property.Children[i]);
+            }
+        }
+
+        private bool shouldRecreateTree(ITreeStringNode node, IProperty property)
+        {
+            if (node.TreeNode.ChildrenCount != property.Children.Count)
+                return true;
+            for (int i = 0; i < node.TreeNode.ChildrenCount; i++)
+            {
+                if (node.TreeNode.Children[i].Text != property.Children[i].DisplayName)
+                {
+                    return true;
+                }
+                if (node is InspectorTreeNode inspectorNode && inspectorNode.Property != property.Children[i])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void cleanup()
