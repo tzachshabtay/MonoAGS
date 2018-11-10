@@ -167,8 +167,13 @@ namespace AGS.Editor
             return _currentTab.Show();
         }
 
-        private void onShortcutKeyPressed(string action)
+        private async void onShortcutKeyPressed(string action)
         {
+            if (action == KeyboardBindings.BreakDebugger)
+            {
+                await BreakDebuggerForm.Show(_editor);
+                return;
+            }
             if (!_panel?.Visible ?? false) return;
 
             if (action == KeyboardBindings.Undo)
