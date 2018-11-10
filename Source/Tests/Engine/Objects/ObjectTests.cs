@@ -205,6 +205,7 @@ namespace Tests
             Resolver resolver = GetResolver();
             input.Setup(i => i.KeyUp).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
             input.Setup(i => i.KeyDown).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
+            input.Setup(i => i.MouseDown).Returns(new Mock<IEvent<MouseButtonEventArgs>>().Object);
             if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();

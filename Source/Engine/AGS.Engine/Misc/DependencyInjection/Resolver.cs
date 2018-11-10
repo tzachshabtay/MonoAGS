@@ -115,6 +115,7 @@ namespace AGS.Engine
 			FastFingerChecker checker = new FastFingerChecker ();
 			Builder.RegisterInstance(checker);
             Builder.RegisterInstance(settings).As<IGameSettings>();
+            Builder.RegisterInstance(settings.Defaults).As<IDefaultsSettings>();
 
             Builder.RegisterSource(new ResolveAnythingSource());
 

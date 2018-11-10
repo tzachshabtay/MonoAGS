@@ -21,7 +21,7 @@ namespace AGS.Engine
 
         private ISayConfig getDefaultConfig(IGame game)
         {
-            AGSSayConfig config = new AGSSayConfig();
+            AGSSayConfig config = new AGSSayConfig(game.Factory.Fonts, game.Settings.Defaults);
             config.Border = game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
                 Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
             config.TextConfig = game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.TopCenter
