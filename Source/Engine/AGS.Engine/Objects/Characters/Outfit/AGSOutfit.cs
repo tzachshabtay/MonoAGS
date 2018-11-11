@@ -17,6 +17,7 @@ namespace AGS.Engine
         public const string Idle = "Idle";
         public const string Walk = "Walk";
         public const string Speak = "Speak";
+        public const string SpeakAndWalk = "SpeakAndWalk";
 
         #region IOutfit implementation
 
