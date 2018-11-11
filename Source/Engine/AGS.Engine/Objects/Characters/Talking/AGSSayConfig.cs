@@ -13,7 +13,7 @@ namespace AGS.Engine
             {
                 TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.SpeechFont,
                   autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
-                LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (4f/5f), game.Settings.VirtualResolution.Height);
+                LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (7f/10f), game.Settings.VirtualResolution.Height);
             }
 			TextDelay = 70;
 			SkipText = SkipText.ByTimeAndMouse;
