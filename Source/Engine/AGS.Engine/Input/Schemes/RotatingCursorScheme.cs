@@ -69,9 +69,14 @@ namespace AGS.Engine
 			_game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 
-		public void SetInventoryCursor()
+        /// <summary>
+        /// Sets the cursor to the active inventory item.
+        /// </summary>
+        /// <param name="inventoryItem">Inventory item (optional, if not set we'll use the active inventory item of the player).</param>
+		public void SetInventoryCursor(IInventoryItem inventoryItem = null)
 		{
-			_inventoryCursor.Animation = _game.State.Player.Inventory.ActiveItem.CursorGraphics;
+            inventoryItem = inventoryItem ?? _game.State.Player.Inventory.ActiveItem;
+            _inventoryCursor.Animation = inventoryItem.CursorGraphics ?? inventoryItem.Graphics;
 			CurrentMode = INVENTORY_MODE;
 		}
 

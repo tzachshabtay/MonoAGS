@@ -25,8 +25,21 @@ namespace AGS.Engine
             Trace.Assert(_game.Input != null, "Game input passed as argument is null, please make sure to only start the control scheme after the game is loaded (for example, in the game's OnLoad event");
             _game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
-			
-		private async Task onMouseDown(MouseButtonEventArgs e)
+
+        /// <summary>
+        /// Sets the cursor to the active inventory item.
+        /// </summary>
+        /// <param name="inventoryItem">Inventory item (optional, if not set we'll use the active inventory item of the player).</param>
+        public void SetInventoryCursor(IInventoryItem inventoryItem = null)
+        {
+            var state = _game.State;
+            inventoryItem = inventoryItem ?? state.Player.Inventory.ActiveItem;
+            _inventoryCursor = inventoryItem.CursorGraphics ?? inventoryItem.Graphics;
+            _previousCursor = state.Cursor;
+            state.Cursor = _inventoryCursor;
+        }
+
+        private async Task onMouseDown(MouseButtonEventArgs e)
 		{
             if (Interlocked.CompareExchange(ref _handlingClick, 1, 0) != 0) return;
             try
@@ -76,9 +89,7 @@ namespace AGS.Engine
                         if (!inventoryItem.ShouldInteract)
                         {
                             state.Player.Inventory.ActiveItem = inventoryItem;
-                            _inventoryCursor = inventoryItem.CursorGraphics ?? inventoryItem.Graphics;
-                            _previousCursor = state.Cursor;
-                            state.Cursor = _inventoryCursor;
+                            SetInventoryCursor();
                             return;
                         }
                     }
