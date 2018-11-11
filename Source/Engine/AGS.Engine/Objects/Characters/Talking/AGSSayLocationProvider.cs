@@ -29,7 +29,7 @@ namespace AGS.Engine
             var portraitLocation = getPortraitLocation(config);
             _lastSpeaker = _obj;
             var boundingBox = _obj.WorldBoundingBox;
-            float x = portraitLocation == null ? (boundingBox.MaxX - (_obj.IgnoreViewport ? 0 : _state.Viewport.X)) 
+            float x = portraitLocation == null ? ((boundingBox.MinX + boundingBox.MaxX)/2f - (_obj.IgnoreViewport ? 0 : _state.Viewport.X)) 
                                                   : portraitLocation.Value.X;
             if (portraitLocation != null && _lastSpeakerOnLeft) x += config.PortraitConfig.Portrait.Width + getBorderWidth(config.PortraitConfig, true).X;
             float y = portraitLocation == null ? (boundingBox.MaxY - (_obj.IgnoreViewport ? 0 : _state.Viewport.Y)) 
@@ -54,7 +54,7 @@ namespace AGS.Engine
             y += config.TextOffset.Y;
 
             float rightPortraitX = _settings.VirtualResolution.Width - 100;
-            x += config.PortraitConfig == null ? 0f : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
+            x += config.PortraitConfig == null ? -(width / 2f) : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
                                                        : config.PortraitConfig.TextOffset.X);
             float maxX = y > _settings.VirtualResolution.Height - 100 && x > rightPortraitX ? 
                                   Math.Min(x, _settings.VirtualResolution.Width) : _settings.VirtualResolution.Width;
@@ -122,4 +122,3 @@ namespace AGS.Engine
 
 	}
 }
-
