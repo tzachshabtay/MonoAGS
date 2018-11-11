@@ -12,13 +12,15 @@ namespace AGS.Engine
 		private readonly IGame _game;
         private int _handlingClick;
         private IObject _inventoryCursor;
-        private IObject _previousCursor;
 
-        public TwoButtonsInputScheme (IGame game)
+        public TwoButtonsInputScheme (IGame game, IObject defaultCursor = null)
 		{
             Trace.Assert(game != null, "Please pass in a valid game argument");
             this._game = game;
+            DefaultCursor = defaultCursor ?? game.State.Cursor;
 		}
+
+        public IObject DefaultCursor { get; set; }
 
 		public void Start()
 		{
@@ -34,9 +36,8 @@ namespace AGS.Engine
         {
             var state = _game.State;
             inventoryItem = inventoryItem ?? state.Player.Inventory.ActiveItem;
-            _inventoryCursor = inventoryItem.CursorGraphics ?? inventoryItem.Graphics;
-            _previousCursor = state.Cursor;
-            state.Cursor = _inventoryCursor;
+            _inventoryCursor = inventoryItem?.CursorGraphics ?? inventoryItem?.Graphics;
+            state.Cursor = _inventoryCursor ?? DefaultCursor;
         }
 
         private async Task onMouseDown(MouseButtonEventArgs e)
@@ -127,7 +128,7 @@ namespace AGS.Engine
         {
             if (state.Cursor == _inventoryCursor && _inventoryCursor != null)
             {
-                state.Cursor = _previousCursor;
+                state.Cursor = DefaultCursor;
                 state.Player.Inventory.ActiveItem = null;
                 return;
             }
