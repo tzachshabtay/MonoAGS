@@ -159,15 +159,15 @@ namespace AGS.Engine
 
 					if (mode == LOOK_MODE)
 					{
-                        await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs (hotspot));
+                        await interact(AGSInteractions.LOOK, state, hotComp, hotspot);
 					}
 					else if (mode == INTERACT_MODE)
 					{
-                        await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs (hotspot));
+                        await interact(AGSInteractions.INTERACT, state, hotComp, hotspot);
 					}
 					else
 					{
-                        await hotComp.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs (hotspot));
+                        await interact(mode, state, hotComp, hotspot);
 					}
 				}
 			}
@@ -180,15 +180,23 @@ namespace AGS.Engine
 					if (inventoryItem != null)
 					{
                         var activeItem = state.Player.Inventory.ActiveItem;
+                        await state.Player.StopWalkingAsync();
                         await activeItem.OnCombination(inventoryItem).InvokeAsync(new InventoryCombinationEventArgs(activeItem, inventoryItem));
 					}
 					return;
 				}
 
+                await state.Player.StopWalkingAsync();
                 await hotComp.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
 					state.Player.Inventory.ActiveItem));
 			}
 		}
+
+        private async Task interact(string mode, IGameState state, IHotspotComponent hotComp, IObject hotspot)
+        {
+            await state.Player.StopWalkingAsync();
+            await hotComp.Interactions.OnInteract(mode).InvokeAsync(new ObjectEventArgs(hotspot));
+        }
 
 		private void onRightMouseDown(MouseButtonEventArgs e, IGameState state)
 		{

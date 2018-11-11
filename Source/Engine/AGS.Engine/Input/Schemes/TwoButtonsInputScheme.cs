@@ -99,6 +99,7 @@ namespace AGS.Engine
 
                 if (hotComp == null) return;
 
+                await state.Player.StopWalkingAsync();
                 await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs(hotspot));
             }
             else if (hotComp != null)
@@ -110,11 +111,13 @@ namespace AGS.Engine
                     if (inventoryItem != null)
                     {
                         var activeItem = state.Player.Inventory.ActiveItem;
+                        await state.Player.StopWalkingAsync();
                         await activeItem.OnCombination(inventoryItem).InvokeAsync(new InventoryCombinationEventArgs(activeItem, inventoryItem));
                     }
                     return;
                 }
 
+                await state.Player.StopWalkingAsync();
                 await hotComp.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
                     state.Player.Inventory.ActiveItem));
             }
@@ -136,6 +139,7 @@ namespace AGS.Engine
 
             if (hotComp == null) return;
 
+            await state.Player.StopWalkingAsync();
             await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs(hotspot));
         }
     }
