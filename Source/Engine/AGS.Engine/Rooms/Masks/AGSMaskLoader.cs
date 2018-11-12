@@ -23,7 +23,7 @@ namespace AGS.Engine
         public IMask Load(string path, bool transparentMeansMasked = false,
             Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
         {
-            Debug.WriteLine("MaskLoader: Load " + path ?? "null");
+            Debug.WriteLine("MaskLoader: Load " + (path ?? "null"));
             var resource = _resourceLoader.LoadResource(path);
             IBitmap image = _bitmapLoader.Load(resource.Stream);
             return load(path, image, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
@@ -51,7 +51,7 @@ namespace AGS.Engine
         public async Task<IMask> LoadAsync(string path, bool transparentMeansMasked = false,
             Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
         {
-            Debug.WriteLine("MaskLoader: LoadAsync " + path ?? "null");
+            Debug.WriteLine("MaskLoader: LoadAsync " + (path ?? "null"));
             var resource = await Task.Run(() => _resourceLoader.LoadResource(path));
             if (resource == null) return null;
             IBitmap image = await Task.Run(() => _bitmapLoader.Load(resource.Stream));

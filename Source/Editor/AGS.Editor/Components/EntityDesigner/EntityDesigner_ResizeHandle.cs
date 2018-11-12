@@ -268,7 +268,7 @@ namespace AGS.Editor
                 _isDown = true;
             }
 
-            private void onMouseLeave(MousePositionEventArgs args)
+            private void onMouseLeave()
             {
                 if (_isDown) return;
                 var handle = _handle;
@@ -276,7 +276,7 @@ namespace AGS.Editor
                 handle.TextConfig = _idleConfig;
             }
 
-            private void onMouseEnter(MousePositionEventArgs args)
+            private void onMouseEnter()
             {
                 var handle = _handle;
                 if (handle == null) return;

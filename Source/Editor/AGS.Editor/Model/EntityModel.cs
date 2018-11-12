@@ -39,7 +39,7 @@ namespace AGS.Editor
             }
             catch (JsonReaderException e)
             {
-                Debug.WriteLine($"Exception while trying to read json from {path}.{Environment.NewLine}Exception: {e.ToString()}");
+                Debug.WriteLine($"Exception while trying to read json from {path}.{Environment.NewLine}Exception: {e}");
                 throw;
             }
         }

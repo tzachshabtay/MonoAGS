@@ -15,7 +15,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
         public const double UPDATE_RATE = 60.0;
-        private int _renderFrameRetries = 0;
+        private int _renderFrameRetries;
         private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
@@ -105,7 +105,7 @@ namespace AGS.Engine
             _gameCount++;
             _gameIndex = _gameCount;
             var settings = _resolver.Container.Resolve<IGameSettings>();
-            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(AGS.API.Size), settings.VirtualResolution));
+            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
             bool isNewWindow = false;
@@ -187,7 +187,7 @@ namespace AGS.Engine
                 //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
                 //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
                 //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
-                ///The downside of this approach is that we need to look out for re-entrancy issues.
+                //The downside of this approach is that we need to look out for re-entrancy issues.
                 await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
 
                 _pipeline?.Update();

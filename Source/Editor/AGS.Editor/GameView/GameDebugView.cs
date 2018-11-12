@@ -15,21 +15,17 @@ namespace AGS.Editor
         private readonly GameDebugDisplayList _displayList;
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
-        private readonly KeyboardBindings _keyboardBindings;
         private readonly ActionManager _actions;
-        private readonly GameToolbar _toolbar;
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions, GameToolbar toolbar)
+        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions)
         {
-            _toolbar = toolbar;
             _actions = actions;
             _editor = editor;
-            _keyboardBindings = keyboardBindings;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
             _inspector = new InspectorPanel(editor, _layer, actions);
             Tree = new GameDebugTree(editor, _layer, _inspector);
@@ -238,7 +234,7 @@ namespace AGS.Editor
             _actions.RecordAction(action);
         }
 
-        private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
+        private void onRepeatedlyExecute()
         {
             var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;

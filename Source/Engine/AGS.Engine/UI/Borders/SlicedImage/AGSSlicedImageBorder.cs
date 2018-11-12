@@ -192,7 +192,7 @@ namespace AGS.Engine
 			float rowWidth = rightX - leftX;
 			float textureWorldWidth = ((1f - slice.Left.Value - slice.Right.Value) * _width);
 			int stepsX = (int)(rowWidth / textureWorldWidth);
-			float remainderX = rowWidth - textureWorldWidth * ((float)stepsX);
+			float remainderX = rowWidth - textureWorldWidth * stepsX;
 
 			float textureWidth = 1f - slice.Left.Value - slice.Right.Value;
 			if (textureWidth < 0f) textureWidth = 1f;
@@ -226,7 +226,7 @@ namespace AGS.Engine
 			int stepsY = (int)(rowHeight / textureWorldHeight);
 			float textureHeight = 1f - slice.Top.Value - slice.Bottom.Value;
 			if (textureHeight < 0f) textureHeight = 1f;
-			float remainderY = rowHeight - textureWorldHeight * ((float)stepsY);
+			float remainderY = rowHeight - textureWorldHeight * stepsY;
 			float stepY = textureWorldHeight;
 			float heightY = textureWorldHeight;
 			float startY = bottomY;

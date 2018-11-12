@@ -6,12 +6,12 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public class EntitySubscription<TComponent> : IEntitySubscription where TComponent : API.IComponent
+    public class EntitySubscription<TComponent> : IEntitySubscription where TComponent : IComponent
     {
         private readonly string[] _propertyNames;
         private readonly Action _onPropertyChanged;
         private readonly Action<TComponent> _onAdd, _onRemove;
-        private readonly ConcurrentDictionary<string, API.IComponentBinding> _bindings;
+        private readonly ConcurrentDictionary<string, IComponentBinding> _bindings;
 
         public EntitySubscription(Action onPropertyChanged, Action<TComponent> onAdd = null, 
                                   Action<TComponent> onRemove = null, params string[] propertyNames)
@@ -20,7 +20,7 @@ namespace AGS.Engine
             _onAdd = onAdd;
             _onRemove = onRemove;
             _propertyNames = propertyNames;
-            _bindings = new ConcurrentDictionary<string, API.IComponentBinding>();
+            _bindings = new ConcurrentDictionary<string, IComponentBinding>();
         }
 
         public void Subscribe(IEntity entity)

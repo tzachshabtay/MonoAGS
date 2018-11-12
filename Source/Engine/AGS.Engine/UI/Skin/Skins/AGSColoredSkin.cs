@@ -4,13 +4,6 @@ namespace AGS.Engine
 {
     public class AGSColoredSkin
     {
-        private IGraphicsFactory _factory;
-
-        public AGSColoredSkin(IGraphicsFactory factory)
-        {
-            _factory = factory;            
-        }
-
         public ButtonAnimation ButtonIdleAnimation { get; set; }
         public ButtonAnimation ButtonHoverAnimation { get; set; }
         public ButtonAnimation ButtonPushedAnimation { get; set; }

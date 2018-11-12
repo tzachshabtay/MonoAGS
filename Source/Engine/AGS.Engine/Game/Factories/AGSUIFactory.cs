@@ -65,7 +65,7 @@ namespace AGS.Engine
             contentsPanel.RenderLayer = panel.RenderLayer;
 
             contentsPanel.AddComponent<ICropChildrenComponent>();
-            var box = contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
             IScrollingComponent scroll = contentsPanel.AddComponent<IScrollingComponent>();
 
             var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);

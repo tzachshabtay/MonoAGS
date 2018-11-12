@@ -7,12 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractMask : IContract<IMask>
 	{
-		public ContractMask()
-		{
-		}
-
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public bool[] Mask { get; set; }
 
 		[ProtoMember(2)]

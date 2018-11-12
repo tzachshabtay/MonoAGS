@@ -13,7 +13,6 @@ namespace AGS.Engine
 		private readonly IAGSEdges _edges;
 		private readonly IGameState _state;
 		private readonly IGameEvents _gameEvents;
-        private readonly IInput _input;
 
 #pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
@@ -21,11 +20,10 @@ namespace AGS.Engine
 
         public AGSRoom (string id, IAGSEdges edges, IGameEvents gameEvents,
                         IRoomEvents roomEvents, IGameState state, ICustomProperties properties,
-                        IRoomLimitsProvider roomLimitsProvider, IInput input)
+                        IRoomLimitsProvider roomLimitsProvider)
 		{
 			_state = state;
-            _input = input;
-            RoomLimitsProvider = roomLimitsProvider;
+		    RoomLimitsProvider = roomLimitsProvider;
 			_gameEvents = gameEvents;
 			Events = roomEvents;
 			ID = id;

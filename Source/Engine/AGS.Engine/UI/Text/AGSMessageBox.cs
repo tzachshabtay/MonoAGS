@@ -27,8 +27,7 @@ namespace AGS.Engine
                 args.Label.RenderLayer = RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
-                var textConfig = sayComponent.SpeechConfig.TextConfig;
-
+                
                 float labelWidth = sayComponent.SpeechConfig.LabelSize.Width;
 
                 float buttonsWidth = buttons.Sum(b => b.Width) + ButtonXPadding * (buttons.Length - 1);
@@ -88,7 +87,7 @@ namespace AGS.Engine
         private static ISayComponent getSayComponent(float buttonHeight)
 		{
 			TypedParameter outfitParameter = new TypedParameter (typeof(IOutfitComponent), null);
-			ISayLocationProvider location = new MessageBoxLocation (AGSGame.Game);
+			ISayLocationProvider location = new MessageBoxLocation ();
 			TypedParameter locationParameter = new TypedParameter (typeof(ISayLocationProvider), location);
 			TypedParameter faceDirectionParameter = new TypedParameter (typeof(IFaceDirectionComponent), null);
 			TypedParameter configParameter = new TypedParameter (typeof(ISayConfig), AGSSayConfig.FromConfig(Config, buttonHeight));
@@ -122,13 +121,6 @@ namespace AGS.Engine
 
 		private class MessageBoxLocation : ISayLocationProvider
 		{
-			private readonly IGame _game;
-
-			public MessageBoxLocation(IGame game)
-			{
-				_game = game;
-			}
-
 			#region ISayLocation implementation
 
             public ISayLocation GetLocation(string text, ISayConfig sayConfig)

@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractEdge : IContract<IEdge>
 	{
-		public ContractEdge()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float Value { get; set; }
 
 		#region IContract implementation

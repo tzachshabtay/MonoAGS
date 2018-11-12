@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractArea : IContract<IArea>
 	{
-		public ContractArea()
-		{
-		}
-
-        [ProtoMember(1)]
+	    [ProtoMember(1)]
         public string ID { get; set; }
 
 		[ProtoMember(2)]

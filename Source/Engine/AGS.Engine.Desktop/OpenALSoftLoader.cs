@@ -75,7 +75,7 @@ namespace AGS.Engine.Desktop
 
             if (e == null)
                 return;
-            Debug.WriteLine($"Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {e.ToString()}");
+            Debug.WriteLine($"Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {e}");
         }
     }
 }

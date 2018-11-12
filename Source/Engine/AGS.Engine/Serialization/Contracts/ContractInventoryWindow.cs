@@ -12,11 +12,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(IInventoryWindow), () => new ContractInventoryWindow ());
 		}
 
-		public ContractInventoryWindow()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
@@ -49,7 +45,7 @@ namespace AGS.Engine
 		public void FromItem(AGSSerializationContext context, IInventoryWindow item)
 		{
 			Object = new ContractObject ();
-			Object.FromItem(context, (IObject)item);
+			Object.FromItem(context, item);
 
             Inventory = item.Inventory == null ? null : context.GetContract(item.Inventory);
 

@@ -71,7 +71,7 @@ namespace AGS.Engine.Desktop
 
 		private int getOffset(int x, int y)
 		{
-			return (_bitmapWidth * y + x) * bpp;;
+			return (_bitmapWidth * y + x) * bpp;
 		}
 	}
 }

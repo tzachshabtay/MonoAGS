@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractSpriteSheet : IContract<ISpriteSheet>
 	{
-		public ContractSpriteSheet()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public int CellWidth { get; set; }
 
 		[ProtoMember(2)]

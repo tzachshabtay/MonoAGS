@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractLoadImageConfig : IContract<ILoadImageConfig>
 	{
-		public ContractLoadImageConfig()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public int? TransparentColorSamplePointX { get; set; }
 
 		[ProtoMember(2)]

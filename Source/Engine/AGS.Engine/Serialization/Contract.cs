@@ -19,13 +19,7 @@ namespace AGS.Engine
 		//private int _id;
 		private TItem _item;
 
-		public Contract()
-		{
-			//_id = runningId;
-			//runningId++;
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IContract<TItem> Item { get; set; }
 
 		public IContract<T> GetInnerContract<T>()

@@ -13,11 +13,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterSubtype(typeof(IContract<IObject>), typeof(ContractCharacter));
 		}
 
-		public ContractCharacter()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
         public PointF WalkSpeed { get; set; }
 
 		[ProtoMember(2)]

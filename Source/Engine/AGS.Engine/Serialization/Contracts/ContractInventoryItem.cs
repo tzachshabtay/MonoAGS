@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractInventoryItem : IContract<IInventoryItem>
 	{
-		public ContractInventoryItem()
-		{
-		}
-
-		[ProtoMember(1, AsReference = true)]
+	    [ProtoMember(1, AsReference = true)]
 		public IContract<IObject> Graphics { get; set; }
 
 		[ProtoMember(2, AsReference = true)]

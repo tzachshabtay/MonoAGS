@@ -12,11 +12,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(ILabel), () => new ContractLabel ());
 		}
 
-		public ContractLabel()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]
@@ -44,7 +40,7 @@ namespace AGS.Engine
 		public void FromItem(AGSSerializationContext context, ILabel item)
 		{
 			Object = new ContractObject ();
-			Object.FromItem(context, (IObject)item);
+			Object.FromItem(context, item);
 
             TextComponent = context.GetContract(item as ITextComponent);            
 		}

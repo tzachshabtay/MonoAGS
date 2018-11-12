@@ -155,7 +155,7 @@ namespace AGS.Engine
 				Type contract = getSupportedInterfaces(type.AsType(), contractType);
 				if (contract == null) continue;
 
-				if (contractType.Equals(type)) continue;
+				if (contractType.GetTypeInfo().Equals(type)) continue;
 
 				RuntimeTypeModel.Default.Add(contract, true).AddSubType(ContractsFactory.RunningID++, type.AsType());
 

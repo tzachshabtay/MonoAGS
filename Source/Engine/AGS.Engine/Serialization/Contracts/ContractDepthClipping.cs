@@ -7,10 +7,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractDepthClipping : IContract<IDepthClipping>
     {
-        public ContractDepthClipping()
-        {
-        }
-
         [ProtoMember(1)]
         public IContract<IClippingPlane> NearClippingPlane { get; set; }
 

@@ -15,6 +15,7 @@ namespace AGS.API
         /// </summary>
         /// <param name="xWindow">X position of the mouse in window coordinates.</param>
         /// <param name="yWindow">Y position of the mouse in window coordinates.</param>
+        /// <param name="coordinates">Coordinate conversion utilities.</param>
         public MousePosition(float xWindow, float yWindow, ICoordinates coordinates)
         {
             XWindow = xWindow;

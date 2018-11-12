@@ -138,7 +138,7 @@ namespace AGS.Engine
 
 		#region IEnumerable implementation
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		IEnumerator IEnumerable.GetEnumerator()
 		{
             return _list.GetEnumerator();
 		}

@@ -5,8 +5,6 @@ namespace AGS.Engine
 { 
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
-        private IImageComponent _image;
-
         public AGSCropSelfComponent()
         {
             OnBeforeCrop = new AGSEvent<BeforeCropEventArgs>();
@@ -18,12 +16,6 @@ namespace AGS.Engine
         public RectangleF CropArea { get; set; }
 
         public IBlockingEvent<BeforeCropEventArgs> OnBeforeCrop { get; private set; }
-
-        public override void Init()
-        {
-            base.Init();
-            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-        }
 
         public override void Dispose()
         {

@@ -15,11 +15,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(IObject), () => new ContractObject ());
 		}
 
-		public ContractObject()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IContract<IRenderLayer> RenderLayer { get; set; }
 
 		[ProtoMember(2)]

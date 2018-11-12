@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractCamera : IContract<ICamera>
 	{
-		public ContractCamera()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public bool Enabled { get; set; }
 
 		#region IContract implementation

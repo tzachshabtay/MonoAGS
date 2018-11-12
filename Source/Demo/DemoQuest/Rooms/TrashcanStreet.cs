@@ -23,7 +23,6 @@ namespace DemoGame
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
 			_room.Background = bg;
 
-            var device = AGSGame.Device;
             await factory.Room.GetAreaAsync(_baseFolder + "walkable.png", _room, isWalkable: true);
             factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.90f);
 

@@ -46,7 +46,7 @@ namespace AGS.Engine
                 return;
             }
             var currentCursor = _input.Cursor;
-            bool isCurrentSpecialCursor = currentCursor?.Properties.Bools.GetValue(SPECIAL_CURSOR_TAG, false) ?? false;
+            bool isCurrentSpecialCursor = currentCursor?.Properties.Bools.GetValue(SPECIAL_CURSOR_TAG) ?? false;
             if (!isCurrentSpecialCursor)
             {
                 _lastCursor = currentCursor;
@@ -61,7 +61,6 @@ namespace AGS.Engine
         {
             if (!_showingObjectSpecificCursor) return;
             _showingObjectSpecificCursor = false;
-            var lastCursor = _lastCursor;
             if (_cursorWasSaved)
             {
                 _input.Cursor = _lastCursor;

@@ -1,9 +1,8 @@
-﻿using NUnit.Framework;
-using Moq;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using Autofac;
-using System.Threading.Tasks;
+using Moq;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -230,9 +229,9 @@ namespace Tests
 		public void Camera_ViewportMovesTest()
 		{
 			Mock<ICamera> camera = new Mock<ICamera> ();
-			AGS.API.PointF sourcePoint = new AGS.API.PointF (15f, 25f);
-			AGS.API.PointF targetPoint = new AGS.API.PointF (55f, 65f);
-            camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<AGS.API.RectangleF>(), It.IsAny<AGS.API.Size>(),
+			PointF sourcePoint = new PointF (15f, 25f);
+			PointF targetPoint = new PointF (55f, 65f);
+            camera.Setup(f => f.Tick(_mocks.Viewport().Object, It.IsAny<RectangleF>(), It.IsAny<Size>(),
 				It.IsAny<bool>())).Callback(() => 
 				{_mocks.Viewport().Object.X = targetPoint.X; _mocks.Viewport().Object.Y = targetPoint.Y; });
 			_mocks.Viewport().Setup(v => v.X).Returns(sourcePoint.X);
@@ -250,7 +249,7 @@ namespace Tests
 
 		private AGSGameLoop getGameLoop()
 		{
-			return _mocks.Create<AGSGameLoop>(new TypedParameter (typeof(AGS.API.Size), new AGS.API.Size (320, 200)));
+			return _mocks.Create<AGSGameLoop>(new TypedParameter (typeof(Size), new Size (320, 200)));
 		}
 	}
 }

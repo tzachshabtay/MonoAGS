@@ -16,7 +16,6 @@ namespace AGS.Engine
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
         private readonly HashSet<string> _alreadyPrepared = new HashSet<string>();
-        private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
         private readonly ConcurrentDictionary<IViewport, ViewportDisplayList> _cache;
@@ -29,10 +28,9 @@ namespace AGS.Engine
         private IObject _cursor;
 
         public AGSDisplayList(IGameState gameState, IInput input, 
-                              IMatrixUpdater matrixUpdater, IRoomTransitions roomTransitions)
+                              IMatrixUpdater matrixUpdater)
         {
             _matrixUpdater = matrixUpdater;
-            _roomTransitions = roomTransitions;
             _gameState = gameState;
             _input = input;
             _cache = new ConcurrentDictionary<IViewport, ViewportDisplayList>();
@@ -278,7 +276,7 @@ namespace AGS.Engine
             unsubscribeAreas(lastRoom.Areas);
         }
 
-        private static API.IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : API.IComponent
+        private static IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : IComponent
         {
             return entity.Bind<TComponent>(c => c.PropertyChanged += ev, c => c.PropertyChanged -= ev);
         }

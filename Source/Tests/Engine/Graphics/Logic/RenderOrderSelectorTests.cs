@@ -136,7 +136,7 @@ namespace Tests
 			return order1 > 0;
 		}
 
-		private bool objExists(int? renderLayerZ, float? z, float? spriteZ)
+		private bool objExists(float? z, float? spriteZ)
 		{
 			if (z.HasValue && spriteZ.HasValue) return true;
 			if (!z.HasValue && !spriteZ.HasValue) return false;
@@ -146,7 +146,7 @@ namespace Tests
 
 		private IObject getObject(int? renderLayerZ, float? z, float? spriteZ, IObject parent)
 		{
-			if (!objExists(renderLayerZ, z, spriteZ)) return null;
+			if (!objExists(z, spriteZ)) return null;
 			return getObject(renderLayerZ, z.Value, spriteZ.Value, parent);
 		}
 

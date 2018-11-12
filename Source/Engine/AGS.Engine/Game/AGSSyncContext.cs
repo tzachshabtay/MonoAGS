@@ -15,7 +15,7 @@ namespace AGS.Engine
 
 		public void SetSyncContext ()
 		{
-			SynchronizationContext.SetSynchronizationContext (this);
+			SetSynchronizationContext (this);
 		}
 
 		public void PumpMessages ()

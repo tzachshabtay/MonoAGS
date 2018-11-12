@@ -140,7 +140,6 @@ namespace AGS.Engine
             public float AppWindowHeight => throw new NotImplementedException();
             public float AppWindowWidth => throw new NotImplementedException();
             public Rectangle GameSubWindow { get; set; }
-            public Rectangle ScreenViewport { get; set; }
 #pragma warning disable CS0067
             public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067

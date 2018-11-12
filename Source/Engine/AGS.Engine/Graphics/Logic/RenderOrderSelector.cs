@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AGS.API;
 
 namespace AGS.Engine
@@ -21,7 +22,7 @@ namespace AGS.Engine
         public int Compare(IObject s1, IObject s2)
 		{
             float resultF = compare(s1, s2);
-            int result = resultF > 0f ? 1 : resultF < 0 ? -1 : string.Compare(s1.ID, s2.ID);
+            int result = resultF > 0f ? 1 : resultF < 0 ? -1 : String.CompareOrdinal(s1.ID, s2.ID);
 #if DEBUG
             if (Printouts)
             {
@@ -102,17 +103,6 @@ namespace AGS.Engine
                 obj = obj.TreeNode.Parent;
             }
         }
-
-		private float getZ(IObject parent, IObject obj, out IObject newParent)
-		{
-			newParent = obj;
-
-			while (newParent != null && newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
-			{
-				newParent = newParent.TreeNode.Parent;
-			}
-			return getZ(newParent ?? obj);
-		}
 
 		private float getZ(IObject obj)
 		{

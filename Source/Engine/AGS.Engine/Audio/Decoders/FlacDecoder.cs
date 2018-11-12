@@ -22,7 +22,7 @@ namespace AGS.Engine
 			}
 			catch (FlacException e)
 			{
-				Debug.WriteLine("Failed to parse flac file: " + e.ToString());
+				Debug.WriteLine("Failed to parse flac file: " + e);
 				return null;
 			}
 		}

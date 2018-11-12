@@ -42,7 +42,7 @@ namespace AGS.Engine
         private PointF getTextLocation(string text, ISayConfig config, float x, float y)
         {
             //todo: need to account for alignment
-            AGS.API.SizeF size = config.TextConfig.GetTextSize(text, config.LabelSize);
+            SizeF size = config.TextConfig.GetTextSize(text, config.LabelSize);
             float width = size.Width + config.TextConfig.PaddingLeft + config.TextConfig.PaddingRight;
             float height = size.Height + config.TextConfig.PaddingTop + config.TextConfig.PaddingBottom;
 
@@ -82,7 +82,7 @@ namespace AGS.Engine
                     return getPortraitLocation(portraitConfig);
                 case PortraitPositioning.SpeakerPosition:
                     portrait.Pivot = new PointF(0f, 0f);
-                    if (_obj.X < _settings.VirtualResolution.Width / 2) _lastSpeakerOnLeft = true;
+                    if (_obj.X < _settings.VirtualResolution.Width / 2f) _lastSpeakerOnLeft = true;
                     else _lastSpeakerOnLeft = false;
                     return getPortraitLocation(portraitConfig);
                 default: throw new NotSupportedException(portraitConfig.Positioning.ToString());

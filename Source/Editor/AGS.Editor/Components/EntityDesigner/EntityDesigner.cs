@@ -164,10 +164,10 @@ namespace AGS.Editor
         private void addDragHandle(IEntity entity)
         {
             var obj = _factory.Object.GetObject($"{entity.ID}_DragHandle");
-            _dragHandle = new DragHandle(obj, _editor, _state, _input, _actions, true);
+            _dragHandle = new DragHandle(obj, _editor, _state, _actions, true);
         }
 
-        private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs obj)
+        private void onRepeatedlyExecute()
         {
             foreach (var handle in _resizeHandles) handle.Visit();
             foreach (var handle in _rotateHandles) handle.Visit();

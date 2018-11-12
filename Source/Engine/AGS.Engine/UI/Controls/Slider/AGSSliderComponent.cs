@@ -257,8 +257,6 @@ namespace AGS.Engine
                     if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Value = MaxValue;
                     else Value = MinValue;
                     break;
-                default:
-                    break;
             }
         }
 

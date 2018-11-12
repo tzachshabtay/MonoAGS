@@ -11,7 +11,6 @@ namespace AGS.Engine
     {
         private AGSBindingList<IStringItem> _items;
         private List<(IButton button, IStringItem item)> _itemButtons;
-        private IUIFactory _uiFactory;
         private int _selectedIndex;
         private float _minHeight, _maxHeight;
         private IScaleComponent _scale;
@@ -21,10 +20,9 @@ namespace AGS.Engine
         private IStackLayoutComponent _layout;
         private string _searchFilter;
 
-        public AGSListboxComponent(IUIFactory factory, IGameState state)
+        public AGSListboxComponent(IGameState state)
         {
             _state = state;
-            _uiFactory = factory;
             _itemButtons = new List<(IButton, IStringItem)>();
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);

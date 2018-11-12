@@ -5,17 +5,11 @@ namespace AGS.Engine
 {
 	public class AGSCollider : AGSComponent, IColliderComponent
 	{
-		private IGameState _state;
-		private IDrawableInfoComponent _drawableInfo;
+	    private IDrawableInfoComponent _drawableInfo;
 		private IImageComponent _obj;
         private IScale _scale;
         private IPixelPerfectComponent _pixelPerfect;
         private IBoundingBoxComponent _boundingBox;
-
-        public AGSCollider(IGameState state)
-		{
-			_state = state;
-		}
 
 		public override void Init()
 		{

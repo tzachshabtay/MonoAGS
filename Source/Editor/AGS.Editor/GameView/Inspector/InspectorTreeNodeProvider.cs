@@ -11,7 +11,6 @@ namespace AGS.Editor
     public class InspectorTreeNodeProvider : ITreeNodeViewProvider
     {
         private ITreeNodeViewProvider _provider;
-        private IGameFactory _factory;
         private float _rowWidth;
         private readonly Dictionary<string, ITreeTableLayout> _layouts;
         private readonly IGameEvents _gameEvents;
@@ -21,13 +20,12 @@ namespace AGS.Editor
 
         private static int _nextNodeId;
 
-        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameFactory factory,
+        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider,
                                          IGameEvents gameEvents, IObject inspectorPanel)
         {
             _inspectorPanel = inspectorPanel;
             _onResize = new AGSEvent<float>();
             _provider = provider;
-            _factory = factory;
             _gameEvents = gameEvents;
             _layouts = new Dictionary<string, ITreeTableLayout>();
             _resizeSubscribers = new Dictionary<ITreeNodeView, ResizeSubscriber>();

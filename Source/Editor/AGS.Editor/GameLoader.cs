@@ -52,7 +52,7 @@ namespace AGS.Editor
             }
             catch (ReflectionTypeLoadException e)
             {
-                Debug.WriteLine($"Game Loader: Can't load types from {path}. Exception: {e.ToString()}");
+                Debug.WriteLine($"Game Loader: Can't load types from {path}. Exception: {e}");
                 foreach (var loaderException in e.LoaderExceptions)
                 {
                     Debug.WriteLine(loaderException.ToString());
@@ -141,7 +141,7 @@ namespace AGS.Editor
             {
                 editor.Init();
 
-                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
+                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions);
                 toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>(), gameDebugView.Tree);
                 var canvas = new GameCanvas(editor, toolbar, gameDebugView.Tree);
                 canvas.Init();
@@ -161,7 +161,7 @@ namespace AGS.Editor
             game.Start();
         }
 
-        private static Assembly loadFromSameFolder(object sender, ResolveEventArgs args)
+        private static Assembly loadFromSameFolder(object _, ResolveEventArgs args)
         {
             if (_currentFolder == null) return null;
             string assemblyPath = Path.Combine(_currentFolder, new AssemblyName(args.Name).Name + ".dll");

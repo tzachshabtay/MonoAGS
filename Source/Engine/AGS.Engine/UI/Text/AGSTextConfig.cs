@@ -102,6 +102,6 @@ namespace AGS.Engine
                   && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
-        public override int GetHashCode() => Font?.GetHashCode() ?? 0;
+        public override int GetHashCode() => Font?.GetHashCode() ?? 0; //todo: non-readonly property referenced in GetHashCode
     }
 }

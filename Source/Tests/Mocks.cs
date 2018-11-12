@@ -65,7 +65,7 @@ namespace Tests
 
         public static void Bind<T>(Mock<IEntity> entity, Mock<T> mock) where T:class, IComponent
         {
-            entity.Setup(e => e.Bind<T>(It.IsAny<Action<T>>(), It.IsAny<Action<T>>())).Callback<Action<T>, Action<T>>((a, b) => a(mock.Object));
+            entity.Setup(e => e.Bind(It.IsAny<Action<T>>(), It.IsAny<Action<T>>())).Callback<Action<T>, Action<T>>((a, b) => a(mock.Object));
         }
 
         public static Resolver GetResolver()

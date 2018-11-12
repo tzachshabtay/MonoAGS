@@ -57,12 +57,7 @@
     <Compile Include="Engine\Graphics\SpriteTests.cs" />
     <Compile Include="Engine\Graphics\Logic\RenderOrderSelectorTests.cs" />
     <Compile Include="Engine\Graphics\Logic\RendererLoopTests.cs" />
-    <Compile Include="Engine\Input\InputEventsTests.cs" />
-    <Compile Include="Engine\Input\Schemes\TwoButtonsInputSchemeTests.cs" />
-    <Compile Include="Engine\Objects\ChildrenObjectsTests.cs" />
     <Compile Include="Engine\Objects\ObjectTests.cs" />
-    <Compile Include="Engine\Objects\Characters\CharacterTests.cs" />
-    <Compile Include="Engine\Rooms\RoomTests.cs" />
     <Compile Include="Engine\Misc\Events\EventTests.cs" />
     <Compile Include="Engine\Misc\Geometry\SquareTests.cs" />
     <Compile Include="Engine\Misc\LocationTests.cs" />

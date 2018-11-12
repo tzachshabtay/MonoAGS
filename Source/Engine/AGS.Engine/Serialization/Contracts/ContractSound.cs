@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractSound : IContract<ISound>
 	{
-		public ContractSound()
-		{
-		}
-
-		public ISound ToItem(AGSSerializationContext context)
+	    public ISound ToItem(AGSSerializationContext context)
 		{
 			return null;
 		}

@@ -9,11 +9,7 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class ContractGameState : IContract<IGameState>
 	{
-		public ContractGameState()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
         public ContractCharacter Player { get; set; }
 
 		[ProtoMember(2)]

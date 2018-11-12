@@ -96,7 +96,7 @@ namespace AGS.Engine
 			}
 			else if (e.Button == MouseButton.Right)
 			{
-				onRightMouseDown(e, state);
+				onRightMouseDown();
 			}
 		}
 
@@ -180,11 +180,9 @@ namespace AGS.Engine
 			}
 		}
 
-		private void onRightMouseDown(MouseButtonEventArgs e, IGameState state)
+		private void onRightMouseDown()
 		{
 			if (!RotatingEnabled) return;
-
-			IInventory inventory = state.Player.Inventory;
 
 			int startMode = _currentMode;
 			Cursor cursor = _cursors[_currentMode];

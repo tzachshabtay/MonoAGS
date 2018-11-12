@@ -23,8 +23,8 @@ namespace AGS.Engine.Desktop
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, 
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
+                        IEvent<API.MouseButtonEventArgs> mouseDown, 
+                        IEvent<API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
             _events = events;
@@ -53,13 +53,13 @@ namespace AGS.Engine.Desktop
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
+                _actions.Enqueue(() => MouseDown.InvokeAsync(new API.MouseButtonEventArgs(null, button, MousePosition)));
             };
             game.MouseUp += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(null, button, MousePosition)));
+                _actions.Enqueue(() => MouseUp.InvokeAsync(new API.MouseButtonEventArgs(null, button, MousePosition)));
             };
             game.MouseMove += (sender, e) =>
             {
@@ -87,9 +87,9 @@ namespace AGS.Engine.Desktop
 
         #region IInputEvents implementation
 
-        public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
+        public IEvent<API.MouseButtonEventArgs> MouseDown { get; private set; }
 
-        public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
+        public IEvent<API.MouseButtonEventArgs> MouseUp { get; private set; }
 
         public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
 
@@ -99,7 +99,7 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
+        public bool IsKeyDown(API.Key key) => _keysDown.Contains(key);
 
         public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _coordinates);
 
@@ -128,16 +128,16 @@ namespace AGS.Engine.Desktop
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
-        private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
+        private API.MouseButton convert(OpenTK.Input.MouseButton button)
         {
             switch (button)
             {
                 case OpenTK.Input.MouseButton.Left:
-                    return AGS.API.MouseButton.Left;
+                    return API.MouseButton.Left;
                 case OpenTK.Input.MouseButton.Right:
-                    return AGS.API.MouseButton.Right;
+                    return API.MouseButton.Right;
                 case OpenTK.Input.MouseButton.Middle:
-                    return AGS.API.MouseButton.Middle;
+                    return API.MouseButton.Middle;
                 default:
                     throw new NotSupportedException();
             }
@@ -166,6 +166,6 @@ namespace AGS.Engine.Desktop
             }
         }
 
-        private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;
+        private API.Key convert(OpenTK.Input.Key key) => (API.Key)(int)key;
     }
 }

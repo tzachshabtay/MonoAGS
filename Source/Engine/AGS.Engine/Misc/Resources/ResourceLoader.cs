@@ -21,7 +21,7 @@ namespace AGS.Engine
 
 		public IResource LoadResource(string path)
 		{
-            Debug.WriteLine("Loading resource from " + path ?? "null");
+            Debug.WriteLine("Loading resource from " + (path ?? "null"));
 			if (shouldIgnoreFile(path)) return null;
             foreach (var pack in _sortedResourcePacks)
             {

@@ -19,11 +19,9 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
         private readonly IRenderMessagePump _messagePump;
         private readonly GLVertex[] _quad, _line;
-        private readonly IGameState _state;
 
-        public GLUtils(IGraphicsBackend graphics, IRenderMessagePump messagePump, IGameState state)
+        public GLUtils(IGraphicsBackend graphics, IRenderMessagePump messagePump)
         {
-            _state = state;
             _graphics = graphics;
             _messagePump = messagePump;
             _quad = new GLVertex[4];

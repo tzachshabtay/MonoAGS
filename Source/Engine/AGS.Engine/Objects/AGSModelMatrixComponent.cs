@@ -79,7 +79,7 @@ namespace AGS.Engine
 			);
             Entity.Bind<ITextComponent>(
                 c => { _text = c; subscribeTextComponent(); },
-                c => { unsubscribeTextComponent(c); _text = null; }
+                _ => { unsubscribeTextComponent(); _text = null; }
             );
 
             Entity.Bind<IDrawableInfoComponent>(
@@ -256,7 +256,7 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void unsubscribeTextComponent(ITextComponent text)
+        private void unsubscribeTextComponent()
         {
             _customImageSize = null;
             _customResolutionFactor = null;
@@ -328,10 +328,9 @@ namespace AGS.Engine
         private void recalculate()
         {
             PointF resolutionFactor;
-            Size resolution;
             _isDirty = false;
             bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
-                                                   out resolutionFactor, out resolution);
+                                                   out resolutionFactor, out Size _);
 
             var renderMatrix = getMatrix(resolutionFactor);
             var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,

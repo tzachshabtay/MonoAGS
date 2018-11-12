@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractAnimationConfiguration : IContract<IAnimationConfiguration>
 	{
-		public ContractAnimationConfiguration()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public LoopingStyle Looping { get; set; }
 
 		[ProtoMember(2)]

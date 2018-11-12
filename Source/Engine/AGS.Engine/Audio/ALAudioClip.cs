@@ -103,7 +103,7 @@ namespace AGS.Engine
         {
             if (channels == 0 || bitsPerSample == 0 || sampleRate == 0)
                 return 0f;
-            return (float)((dataLength / channels) * 8 / bitsPerSample) / sampleRate;
+            return (((float)dataLength / channels) * 8f / bitsPerSample) / sampleRate;
         }
 
         private int generateBuffer()

@@ -215,7 +215,8 @@ namespace AGS.Engine
                     cropSelf.Init(obj, typeof(ICropSelfComponent));
                     cropSelf.AfterInit();
                     textComponent.CustomTextCrop = cropSelf;
-                    obj.OnDisposed(() => cropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
+                    var self = cropSelf;
+                    obj.OnDisposed(() => self.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
                 }
             }
             cropSelf = obj.GetComponent<ICropSelfComponent>();

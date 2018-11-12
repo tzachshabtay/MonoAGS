@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Concurrent;
-
+﻿using System.Collections.Concurrent;
 using AGS.API;
 
 namespace AGS.Engine
 {
 	public class BitmapPool
 	{
-		private readonly ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> _bitmaps;
+		private readonly ConcurrentDictionary<Size, ObjectPool<IBitmap>> _bitmaps;
         private readonly IBitmapLoader _bitmapLoader;
 
         public BitmapPool(IBitmapLoader bitmapLoader)
 		{
-			_bitmaps = new ConcurrentDictionary<AGS.API.Size, ObjectPool<IBitmap>> (2, 40);
+			_bitmaps = new ConcurrentDictionary<Size, ObjectPool<IBitmap>> (2, 40);
             _bitmapLoader = bitmapLoader;
 			initPool();		
 		}
@@ -53,7 +51,7 @@ namespace AGS.Engine
 
 		private ObjectPool<IBitmap> getPool(int width, int height)
 		{
-			AGS.API.Size size = new AGS.API.Size (width, height);
+			Size size = new Size (width, height);
 			return _bitmaps.GetOrAdd(size, _ => new ObjectPool<IBitmap> (__ => _bitmapLoader.Load(width, height), 3,
 				bitmap => bitmap.Clear()));
 		}

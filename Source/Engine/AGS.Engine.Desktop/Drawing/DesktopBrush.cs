@@ -14,7 +14,7 @@ namespace AGS.Engine.Desktop
 
 		public Brush InnerBrush { get; private set; }
 
-		public static DesktopBrush Solid(AGS.API.Color color)
+		public static DesktopBrush Solid(API.Color color)
 		{
 			DesktopBrush brush = new DesktopBrush (new SolidBrush (color.Convert()));
 			brush.Type = BrushType.Solid;
@@ -34,7 +34,7 @@ namespace AGS.Engine.Desktop
 
 		public BrushType Type { get; private set; }
 
-		public AGS.API.Color Color { get; private set; }
+		public API.Color Color { get; private set; }
 
 		public IBlend Blend { get; private set; }
 

@@ -4,12 +4,12 @@ namespace AGS.Engine
 {
     public class AGSBlueSkin
     {
-        private AGSColoredSkin _skin;
+        private readonly AGSColoredSkin _skin;
 
-        public AGSBlueSkin(IGraphicsFactory factory, IGLUtils glUtils, IGameSettings settings)
+        public AGSBlueSkin(IGLUtils glUtils, IGameSettings settings)
         {
             var buttonBorder = AGSBorders.SolidColor(glUtils, settings, Colors.DarkBlue, 1f);
-            _skin = new AGSColoredSkin(factory)
+            _skin = new AGSColoredSkin
             {
                 ButtonIdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.CornflowerBlue),
                 ButtonHoverAnimation = new ButtonAnimation(buttonBorder, null, Colors.Blue),

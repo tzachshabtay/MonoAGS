@@ -28,7 +28,7 @@ namespace AGS.Editor
                 }
                 else
                 {
-                    oldProperties.Add((componentModel, propertyName, false, oldValue));
+                    oldProperties.Add((componentModel, propertyName, false, null));
                 }
                 componentModel.Properties[propertyName] = value;
                 entityModel.IsDirty = true;

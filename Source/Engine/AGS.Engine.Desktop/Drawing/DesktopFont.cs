@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Drawing;
 using AGS.API;
-using System.Drawing;
+using FontStyle = AGS.API.FontStyle;
+using SizeF = AGS.API.SizeF;
 
 namespace AGS.Engine.Desktop
 {
@@ -21,14 +22,14 @@ namespace AGS.Engine.Desktop
 
         public string FontFamily => InnerFont.FontFamily.Name;
 
-        public AGS.API.FontStyle Style => (AGS.API.FontStyle)InnerFont.Style;
+        public FontStyle Style => (FontStyle)InnerFont.Style;
 
         public float SizeInPoints => InnerFont.SizeInPoints;
 
-        public AGS.API.SizeF MeasureString(string text, int maxWidth = 2147483647)
+        public SizeF MeasureString(string text, int maxWidth = 2147483647)
 		{
 			System.Drawing.SizeF size = text.Measure(InnerFont, maxWidth);
-			return new AGS.API.SizeF (size.Width, size.Height);
+			return new SizeF (size.Width, size.Height);
 		}
 
         public IFont Resize(float sizeInPoints)

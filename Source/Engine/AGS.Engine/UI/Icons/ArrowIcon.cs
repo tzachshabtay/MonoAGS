@@ -80,7 +80,7 @@ namespace AGS.Engine
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
             if (_frameBuffer == null) return;
-            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex((point1).ToVector2(), _emptyVector, ArrowColor),
+            _glUtils.DrawTriangle(0, new[] { new GLVertex((point1).ToVector2(), _emptyVector, ArrowColor),
                 new GLVertex((point2).ToVector2(), _emptyVector, ArrowColor), new GLVertex((point3).ToVector2(), _emptyVector, ArrowColor)});
             _frameBuffer.End();
 

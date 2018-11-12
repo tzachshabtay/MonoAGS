@@ -59,15 +59,16 @@ namespace AGS.API
         /// <param name="addToUi">If set to <c>true</c> add to the game's GUI list for rendering.</param>
 		Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 
-        /// <summary>
-        /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
-        /// The scrollbars are only shown if the contents is bigger than panel.
-        /// 
-        /// The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
-        /// a contents panel with the original size, in which to put the scrolled contents.
-        /// </summary>
-        /// <param name="panel">Panel.</param>
-        IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f);
+	    /// <summary>
+	    /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
+	    /// The scrollbars are only shown if the contents is bigger than panel.
+	    /// 
+	    /// The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
+	    /// a contents panel with the original size, in which to put the scrolled contents.
+	    /// </summary>
+	    /// <param name="panel">Panel.</param>
+	    /// <param name="gutterSize">The gutter size (which contains the scrollbars).</param>
+	    IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f);
 
         /// <summary>
         /// Creates a label.
@@ -176,84 +177,88 @@ namespace AGS.API
         ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = "", ITextConfig config = null, bool addToUi = true, 
                             float width = -1, float height = -1); //todo: remove the optional -1 from width and height (need to reorder parameters)
 
-        /// <summary>
-        /// Creats a checkbox.
-        /// </summary>
-        /// <returns>The checkbox.</returns>
-        /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
-        /// <param name="notChecked">Not checked animation (when the checkbox is not checked).</param>
-        /// <param name="notCheckedHovered">Hovered and not checked animation (when the checkbox is hovered by the mouse but not checked).</param>
-        /// <param name="checked">Checked animation (when the checkbox is checked).</param>
-        /// <param name="checkedHovered">Hovered and checked animation (when the checkbox is hovered by the mouse and checked).</param>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="parent">The UI control's parent.</param>
-        /// <param name="text">Text for the checkbox.</param>
-        /// <param name="config">Configuration for rendering the text.</param>
-        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
+	    /// <summary>
+	    /// Creats a checkbox.
+	    /// </summary>
+	    /// <returns>The checkbox.</returns>
+	    /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
+	    /// <param name="notChecked">Not checked animation (when the checkbox is not checked).</param>
+	    /// <param name="notCheckedHovered">Hovered and not checked animation (when the checkbox is hovered by the mouse but not checked).</param>
+	    /// <param name="checked">Checked animation (when the checkbox is checked).</param>
+	    /// <param name="checkedHovered">Hovered and checked animation (when the checkbox is hovered by the mouse and checked).</param>
+	    /// <param name="x">The x coordinate.</param>
+	    /// <param name="y">The y coordinate.</param>
+	    /// <param name="parent">The UI control's parent.</param>
+	    /// <param name="text">Text for the checkbox.</param>
+	    /// <param name="config">Configuration for rendering the text.</param>
+	    /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+	    /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="isCheckButton">If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</param>
+	    ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
         	float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
-        /// <summary>
-        /// Creats a checkbox.
-        /// </summary>
-        /// <returns>The checkbox.</returns>
-        /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
-        /// <param name="notChecked">Not checked animation (when the checkbox is not checked).</param>
-        /// <param name="notCheckedHovered">Hovered and not checked animation (when the checkbox is hovered by the mouse but not checked).</param>
-        /// <param name="checked">Checked animation (when the checkbox is checked).</param>
-        /// <param name="checkedHovered">Hovered and checked animation (when the checkbox is hovered by the mouse and checked).</param>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="parent">The UI control's parent.</param>
-        /// <param name="text">Text for the checkbox.</param>
-        /// <param name="config">Configuration for rendering the text.</param>
-        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
+	    /// <summary>
+	    /// Creats a checkbox.
+	    /// </summary>
+	    /// <returns>The checkbox.</returns>
+	    /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
+	    /// <param name="notChecked">Not checked animation (when the checkbox is not checked).</param>
+	    /// <param name="notCheckedHovered">Hovered and not checked animation (when the checkbox is hovered by the mouse but not checked).</param>
+	    /// <param name="checked">Checked animation (when the checkbox is checked).</param>
+	    /// <param name="checkedHovered">Hovered and checked animation (when the checkbox is hovered by the mouse and checked).</param>
+	    /// <param name="x">The x coordinate.</param>
+	    /// <param name="y">The y coordinate.</param>
+	    /// <param name="parent">The UI control's parent.</param>
+	    /// <param name="text">Text for the checkbox.</param>
+	    /// <param name="config">Configuration for rendering the text.</param>
+	    /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+	    /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="isCheckButton">If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</param>
+	    ICheckBox GetCheckBox(string id, IAnimation notChecked, IAnimation notCheckedHovered, IAnimation @checked, IAnimation checkedHovered,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
-        /// <summary>
-        /// Creats a checkbox.
-        /// </summary>
-        /// <returns>The checkbox.</returns>
-        /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
-        /// <param name="notCheckedPath">Not checked image resource/file path (when the checkbox is not checked).</param>
-        /// <param name="notCheckedHoveredPath">Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</param>
-        /// <param name="checkedPath">Checked image resource/file path (when the checkbox is checked).</param>
-        /// <param name="checkedHoveredPath">Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</param>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="parent">The UI control's parent.</param>
-        /// <param name="text">Text for the checkbox.</param>
-        /// <param name="config">Configuration for rendering the text.</param>
-        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
+	    /// <summary>
+	    /// Creats a checkbox.
+	    /// </summary>
+	    /// <returns>The checkbox.</returns>
+	    /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
+	    /// <param name="notCheckedPath">Not checked image resource/file path (when the checkbox is not checked).</param>
+	    /// <param name="notCheckedHoveredPath">Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</param>
+	    /// <param name="checkedPath">Checked image resource/file path (when the checkbox is checked).</param>
+	    /// <param name="checkedHoveredPath">Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</param>
+	    /// <param name="x">The x coordinate.</param>
+	    /// <param name="y">The y coordinate.</param>
+	    /// <param name="parent">The UI control's parent.</param>
+	    /// <param name="text">Text for the checkbox.</param>
+	    /// <param name="config">Configuration for rendering the text.</param>
+	    /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+	    /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="isCheckButton">If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</param>
+	    ICheckBox GetCheckBox(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
-        /// <summary>
-        /// Creats a checkbox asynchronously.
-        /// </summary>
-        /// <returns>The checkbox.</returns>
-        /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
-        /// <param name="notCheckedPath">Not checked image resource/file path (when the checkbox is not checked).</param>
-        /// <param name="notCheckedHoveredPath">Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</param>
-        /// <param name="checkedPath">Checked image resource/file path (when the checkbox is checked).</param>
-        /// <param name="checkedHoveredPath">Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</param>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="parent">The UI control's parent.</param>
-        /// <param name="text">Text for the checkbox.</param>
-        /// <param name="config">Configuration for rendering the text.</param>
-        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
-        /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
-        Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
+	    /// <summary>
+	    /// Creats a checkbox asynchronously.
+	    /// </summary>
+	    /// <returns>The checkbox.</returns>
+	    /// <param name="id">A unique identifer for the checkbox (it has to be globally unique across all entities).</param>
+	    /// <param name="notCheckedPath">Not checked image resource/file path (when the checkbox is not checked).</param>
+	    /// <param name="notCheckedHoveredPath">Hovered and not checked image resource/file path (when the checkbox is hovered by the mouse but not checked).</param>
+	    /// <param name="checkedPath">Checked image resource/file path (when the checkbox is checked).</param>
+	    /// <param name="checkedHoveredPath">Hovered and checked image resource/file path (when the checkbox is hovered by the mouse and checked).</param>
+	    /// <param name="x">The x coordinate.</param>
+	    /// <param name="y">The y coordinate.</param>
+	    /// <param name="parent">The UI control's parent.</param>
+	    /// <param name="text">Text for the checkbox.</param>
+	    /// <param name="config">Configuration for rendering the text.</param>
+	    /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+	    /// <param name="width">Width (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="height">Height (if not supplied the engine takes it from the not checked animation's first frame).</param>
+	    /// <param name="isCheckButton">If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</param>
+	    Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
 		/// <summary>

@@ -7,7 +7,7 @@ namespace AGS.Engine
         private IModalWindows _modalWindows;
         private IFocusedUI _focusedUi;
 
-        public AGSModalWindowComponent(IModalWindows modalWindows, IFocusedUI focusedUI, IGameEvents gameEvents)
+        public AGSModalWindowComponent(IModalWindows modalWindows, IFocusedUI focusedUI)
         {
             _modalWindows = modalWindows;
             _focusedUi = focusedUI;
@@ -30,8 +30,7 @@ namespace AGS.Engine
         public void LoseFocus()
         {
             if (!HasFocus) return;
-            IEntity entity;
-            _modalWindows.ModalWindows.TryPop(out entity);
+            _modalWindows.ModalWindows.TryPop(out IEntity _);
         }
     }
 }

@@ -10,16 +10,14 @@ namespace DemoGame
         private ILabel _label;
         private IComboBox _featuresAutoFitCombobox;
         private IGame _game;
-        private IObject _parent;
         private const string LABEL_TEXT = "The quick brown fox jumps over the lazy dog.";
 
         public FeaturesLabelsPanel(IGame game, IObject parent)
         {
             _game = game;
-            _parent = parent;
             var factory = game.Factory;
             _label = factory.UI.GetLabel("FeaturesLabel", LABEL_TEXT,
-                                         200f, 50f, 25f, _parent.Height - 25f, parent, 
+                                         200f, 50f, 25f, parent.Height - 25f, parent, 
                                          new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
             _label.Pivot = (0f, 1f);

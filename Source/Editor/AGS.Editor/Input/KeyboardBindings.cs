@@ -54,7 +54,7 @@ namespace AGS.Editor
 
         private void removeBinding(KeyboardShortcut keyboardShortcut)
         {
-            if (!_bindings.TryRemove(keyboardShortcut, out string currentAction)) return;
+            _bindings.TryRemove(keyboardShortcut, out string _);
         }
 
         private Key convert(Key key)

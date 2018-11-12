@@ -23,7 +23,7 @@ namespace AGS.API
         /// <param name="maxWidth">The maximum width allowed for the text (use int.MaxValue for unlimited width).</param>
         /// <param name="height">The expected height of the text after adding padding and outline.</param>
         /// <param name="xOffset">An optional x pixels to offset the drawn text.</param>
-		void DrawText(string text, ITextConfig config, AGS.API.SizeF textSize, AGS.API.SizeF baseSize, 
+		void DrawText(string text, ITextConfig config, SizeF textSize, SizeF baseSize, 
 			int maxWidth, int height, float xOffset);
 	}
 }

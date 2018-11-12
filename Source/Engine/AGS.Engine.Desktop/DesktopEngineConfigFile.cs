@@ -56,7 +56,7 @@ namespace AGS.Engine.Desktop
 			}
 			catch (ConfigurationErrorsException e)
 			{
-				Debug.WriteLine("Error reading app settings: " + e.ToString());
+				Debug.WriteLine("Error reading app settings: " + e);
 				return null;
 			}
 		}

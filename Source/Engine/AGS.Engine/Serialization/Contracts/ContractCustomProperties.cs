@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractCustomProperties : IContract<ICustomProperties>
 	{
-		public ContractCustomProperties()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IDictionary<string, string> Strings { get; set; }
 
 		[ProtoMember(2)]

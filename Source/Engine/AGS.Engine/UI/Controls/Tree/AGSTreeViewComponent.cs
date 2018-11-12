@@ -248,7 +248,6 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var drawable = _drawable;
                     var newNode = new Node(actualChild, () => _drawable, () => null, currentNode, this);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
@@ -367,7 +366,6 @@ namespace AGS.Engine
             }
             public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
-            public float XOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
 
             public void Dispose()
@@ -555,7 +553,7 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return null;
-                return (IUIEvents)view.ExpandButton ?? view.TreeItem;
+                return view.ExpandButton ?? view.TreeItem;
             }
 
             private void onMouseEnterExpandButton(MousePositionEventArgs args)

@@ -20,7 +20,7 @@ namespace AGS.Engine.Desktop
 			_familyLoader.InstallFonts(paths);
 		}
 
-		public IFont LoadFont(string fontFamily, float sizeInPoints, AGS.API.FontStyle style)
+		public IFont LoadFont(string fontFamily, float sizeInPoints, API.FontStyle style)
 		{
             if (fontFamily == null)
             {
@@ -35,7 +35,7 @@ namespace AGS.Engine.Desktop
 
         }
 
-		public IFont LoadFontFromPath(string path, float sizeInPoints, AGS.API.FontStyle style)
+		public IFont LoadFontFromPath(string path, float sizeInPoints, API.FontStyle style)
 		{
 			return new DesktopFont(new Font(_familyLoader.LoadFontFamily(path), sizeInPoints, style.Convert()), this);
 		}

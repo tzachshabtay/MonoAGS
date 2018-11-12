@@ -53,7 +53,6 @@ namespace Tests
 
         private async Task testAllocation<TObj>() where TObj : class
         {
-            Mocks mocks = new Mocks();
             Resolver resolver = Mocks.GetResolver();
             resolver.Build();
 

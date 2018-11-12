@@ -13,7 +13,6 @@ namespace AGS.Engine
         private IBorderComponent _borderComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
-        private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
         private readonly IKeyboardState _keyboardState;
@@ -57,12 +56,10 @@ namespace AGS.Engine
             });
             Entity.Bind<IUIEvents>(c =>
             {
-                _uiEvents = c;
                 c.MouseDown.Subscribe(onMouseDown);
                 c.LostFocus.Subscribe(onMouseDownOutside);
             }, c =>
             {
-                _uiEvents = null;
                 c.MouseDown.Unsubscribe(onMouseDown);
                 c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
@@ -223,7 +220,6 @@ namespace AGS.Engine
                 caretTextComponent.RenderCaret = true;
             }
             _textComponent.TextVisible = !isVisible;
-            var imageComponent = _imageComponent;
             var textComponent = _textComponent;
             if (textComponent != null)
             {
@@ -289,11 +285,11 @@ namespace AGS.Engine
                     }
                     if (key >= Key.Number0 && key <= Key.Number9)
                     {
-                        return processDigit((char)((int)'0' + (key - Key.Number0)));
+                        return processDigit((char)('0' + (key - Key.Number0)));
                     }
                     if (key >= Key.Keypad0 && key <= Key.Keypad9)
                     {
-                        return addCharacter((char)((int)'0' + (key - Key.Keypad0)));
+                        return addCharacter((char)('0' + (key - Key.Keypad0)));
                     }
                     return getCurrentState();
             }
@@ -323,7 +319,7 @@ namespace AGS.Engine
 
         private TextboxState processLetter(Key key)
         {
-            char c = (char)((int)'a' + (key - Key.A));
+            char c = (char)('a' + (key - Key.A));
             if (_capslock || _shiftOn) c = char.ToUpperInvariant(c);
             return addCharacter(c);
         }

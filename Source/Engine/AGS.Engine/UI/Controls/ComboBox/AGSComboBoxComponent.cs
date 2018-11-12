@@ -74,7 +74,6 @@ namespace AGS.Engine
                 var visibleComponent = scrollingContainer.GetComponent<IVisibleComponent>();
                 var listBoxComponent = value.GetComponent<IListboxComponent>();
                 var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
-                var imageComponent = value.GetComponent<IImageComponent>();
                 _scrolling = value.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
 

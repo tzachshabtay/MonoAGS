@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractScalingArea : IContract<IScalingArea>
 	{
-		public ContractScalingArea()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float MaxScaling { get; set; }
 
 		[ProtoMember(2)]

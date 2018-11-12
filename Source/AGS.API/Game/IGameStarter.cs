@@ -20,7 +20,7 @@ namespace AGS.API
     ///         game.Events.OnLoad.Subscribe(onGameLoaded); //Here is where you create all of the rooms, characters, etc in the game.
     ///     }
     /// }
-    /// <code>
+    /// </code>
     /// </example>
     public interface IGameStarter
     {

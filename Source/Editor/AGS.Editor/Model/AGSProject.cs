@@ -39,7 +39,7 @@ namespace AGS.Editor
         public static string GetPath(string folder, string id, string fileExtension)
         {
             id = getSafeFilename(id);
-            string path = null;
+            string path;
             int uid = 0;
             do
             {

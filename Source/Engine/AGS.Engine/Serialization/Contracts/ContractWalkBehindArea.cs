@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractWalkBehindArea : IContract<IWalkBehindArea>
 	{
-		public ContractWalkBehindArea()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float? BaseLine { get; set; }
 
 		#region IContract implementation

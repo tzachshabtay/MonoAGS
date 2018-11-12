@@ -4,13 +4,10 @@ namespace AGS.Engine
 {
 	public class AGSCutscene : ICutscene
 	{
-		private readonly IInput _input;
-
-		public AGSCutscene(IInput input)
+	    public AGSCutscene(IInput input)
 		{
-			_input = input;
-			_input.KeyUp?.Subscribe(onKeyUp);
-            _input.MouseUp?.Subscribe(onMouseUp);
+			input.KeyUp?.Subscribe(onKeyUp);
+            input.MouseUp?.Subscribe(onMouseUp);
 		}
 
 		#region ICutscene implementation

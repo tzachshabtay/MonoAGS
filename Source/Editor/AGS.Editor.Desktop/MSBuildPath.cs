@@ -23,7 +23,6 @@ namespace AGS.Editor.Desktop
                         Environment.SetEnvironmentVariable("MSBuildExtensionsPath", Path.Combine(monoDir, "xbuild"));
                     });
                 });
-                return;
             }
 #endif
         }

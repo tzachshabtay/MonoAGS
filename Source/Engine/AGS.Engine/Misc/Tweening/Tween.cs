@@ -325,7 +325,6 @@ namespace AGS.Engine
         private void stop(TweenCompletion completion)
         {
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            var repeat = RepeatInfo;
             if (completion == TweenCompletion.Complete)
             {
                 Setter(To);

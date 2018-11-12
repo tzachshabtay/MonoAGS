@@ -108,7 +108,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenOpacity(this IHasImage sprite, byte toOpacity, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Opacity, (float)toOpacity, o => sprite.Opacity = (byte)o, timeInSeconds, easing);
+			return Tween.Run(sprite.Opacity, toOpacity, o => sprite.Opacity = (byte)o, timeInSeconds, easing);
 		}
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenRed(this IHasImage sprite, byte toRed, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Tint.R, (float)toRed, r => sprite.Tint = Color.FromArgb(sprite.Tint.A, (byte)r,
+			return Tween.Run(sprite.Tint.R, toRed, r => sprite.Tint = Color.FromArgb(sprite.Tint.A, (byte)r,
 				sprite.Tint.G, sprite.Tint.B), timeInSeconds, easing);
 		}
 
@@ -175,7 +175,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenGreen(this IHasImage sprite, byte toGreen, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Tint.G, (float)toGreen, g => sprite.Tint = Color.FromArgb(sprite.Tint.A, sprite.Tint.R,
+			return Tween.Run(sprite.Tint.G, toGreen, g => sprite.Tint = Color.FromArgb(sprite.Tint.A, sprite.Tint.R,
 				(byte)g, sprite.Tint.B), timeInSeconds, easing);
 		}
 
@@ -197,7 +197,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenBlue(this IHasImage sprite, byte toBlue, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run(sprite.Tint.B, (float)toBlue, b => sprite.Tint = Color.FromArgb(sprite.Tint.A, sprite.Tint.R,
+			return Tween.Run(sprite.Tint.B, toBlue, b => sprite.Tint = Color.FromArgb(sprite.Tint.A, sprite.Tint.R,
 				sprite.Tint.G, (byte)b), timeInSeconds, easing);
 		}
 
@@ -220,7 +220,7 @@ namespace AGS.Engine
         /// <param name="easing">Easing function.</param>
 		public static Tween TweenTintHue(this IHasImage sprite, int toHue, float timeInSeconds, Func<float, float> easing = null)
 		{
-			return Tween.Run((float)sprite.Tint.GetHue(), (float)toHue, h => sprite.Tint = Color.FromHsla((int)h, sprite.Tint.GetSaturation(),
+			return Tween.Run(sprite.Tint.GetHue(), toHue, h => sprite.Tint = Color.FromHsla((int)h, sprite.Tint.GetSaturation(),
 				sprite.Tint.GetLightness(), sprite.Tint.A), timeInSeconds, easing);
 		}
 

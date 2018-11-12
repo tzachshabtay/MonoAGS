@@ -40,7 +40,7 @@ namespace AGS.Engine
 			if (finishedAnimation) return false;
 
 			int frame = State.CurrentFrame;
-			bool endedLoop = false;
+			bool endedLoop;
 			bool runningBackwards = State.RunningBackwards;
 			if (runningBackwards) 
 			{

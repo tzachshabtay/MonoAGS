@@ -4,8 +4,8 @@ namespace AGS.Engine
 {
 	public class AGSGameSettings : IGameSettings
 	{
-		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
-               AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.Adaptive, bool preserveAspectRatio = true,
+		public AGSGameSettings(string title, Size virtualResolution, WindowState windowState = WindowState.Maximized,
+               Size? windowSize = null, VsyncMode vsync = VsyncMode.Adaptive, bool preserveAspectRatio = true,
                                WindowBorder windowBorder = WindowBorder.Resizable)
 		{
             Title = title;
@@ -18,19 +18,19 @@ namespace AGS.Engine
             Defaults = new AGSDefaultsSettings();
 		}
 
-        public string Title { get; private set; }
+        public string Title { get; }
         
-        public AGS.API.Size VirtualResolution { get; private set; }
+        public Size VirtualResolution { get; }
 
-        public VsyncMode Vsync { get; private set; }
+        public VsyncMode Vsync { get; }
 
-        public AGS.API.Size WindowSize { get; private set; }
+        public Size WindowSize { get; }
 
-        public bool PreserveAspectRatio { get; private set; }
+        public bool PreserveAspectRatio { get; }
 
-        public WindowState WindowState { get; private set; }
+        public WindowState WindowState { get; }
 
-        public WindowBorder WindowBorder { get; private set; }
+        public WindowBorder WindowBorder { get; }
 
         public IDefaultsSettings Defaults { get; }
     }

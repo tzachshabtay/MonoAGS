@@ -9,11 +9,7 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class ContractRoom : IContract<IRoom>
 	{
-		public ContractRoom()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public string ID { get; set; }
 
 		[ProtoMember(2)]

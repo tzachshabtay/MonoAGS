@@ -6,13 +6,11 @@ namespace AGS.Engine
     {
         private readonly IGameWindow _gameWindow;
         private readonly IRenderMessagePump _messagePump;
-        private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
         private string _title;
 
-        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
+        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump)
         {
-            _glUtils = glUtils;
             _gameWindow = gameWindow;
             _messagePump = messagePump;
             Title = settings.Title;
@@ -34,13 +32,13 @@ namespace AGS.Engine
             } 
         }
         
-        public AGS.API.Size VirtualResolution { get; }
+        public Size VirtualResolution { get; }
 
         public VsyncMode Vsync { get => _gameWindow.Vsync; set => _gameWindow.Vsync = value; }
 
-        public AGS.API.Size WindowSize 
+        public Size WindowSize 
         {
-            get => new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
+            get => new Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
             set => _messagePump.Post(_ => _gameWindow.SetSize(value), null);
         }
 
@@ -50,15 +48,15 @@ namespace AGS.Engine
             set => _preserveAspectRatio = value;
         }
 
-        public AGS.API.WindowState WindowState 
+        public WindowState WindowState 
         {
-            get => (AGS.API.WindowState)_gameWindow.WindowState;
+            get => _gameWindow.WindowState;
             set => _messagePump.Post(_ => _gameWindow.WindowState = value, null);
         }
 
-        public AGS.API.WindowBorder WindowBorder 
+        public WindowBorder WindowBorder 
         {
-            get => (AGS.API.WindowBorder)_gameWindow.WindowBorder;
+            get => _gameWindow.WindowBorder;
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
 

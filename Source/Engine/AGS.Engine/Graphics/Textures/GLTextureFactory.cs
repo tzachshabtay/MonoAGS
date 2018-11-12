@@ -28,7 +28,7 @@ namespace AGS.Engine
         {
             var bitmap = _bitmapLoader.Load(1, 1);
             bitmap.SetPixel(Colors.White, 0, 0);
-            return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest))).Texture;
+            return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig())).Texture;
         }
     }
 }

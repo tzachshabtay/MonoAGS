@@ -146,10 +146,7 @@ namespace AGS.Engine
                     subscriber.FireMouseEnter = mouseIn && !subscriber.Events.IsMouseIn;
                     subscriber.FireMouseLeave = !mouseIn && subscriber.Events.IsMouseIn;
                     subscriber.SetMouseIn(mouseIn);
-                    if (anyButtonDown) 
-                    {
-                        subscriber.WasClickedIn = mouseIn && anyButtonDown;
-                    }
+                    subscriber.WasClickedIn = mouseIn && anyButtonDown;
                 }
 
                 _mousePosition = position;
@@ -220,12 +217,12 @@ namespace AGS.Engine
                 sw.Reset();
             }
 
-            if (fireDown || fireUp || fireClick || fireDownOutside)
+            if (fireDown || fireUp || fireDownOutside) //fireClick implied here as fireUp will always be true if fireClick is true
             {
                 MouseClickEventArgs args = new MouseClickEventArgs(subscriber.Entity, button, _mousePosition, elapsedClick);
                 if (fireDown) await subscriber.Events.MouseDown.InvokeAsync(args);
                 else if (fireUp) await subscriber.Events.MouseUp.InvokeAsync(args);
-                else if (fireDownOutside) await subscriber.Events.LostFocus.InvokeAsync(args);
+                else await subscriber.Events.LostFocus.InvokeAsync(args); //fireDownOutside implied here as it's true if both fireDown and fireUp are false
                 if (fireClick) await subscriber.Events.MouseClicked.InvokeAsync(args);
                 if (fireDoubleClick) await subscriber.Events.MouseDoubleClicked.InvokeAsync(args);
             }

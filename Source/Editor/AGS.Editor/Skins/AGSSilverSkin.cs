@@ -6,13 +6,13 @@ namespace AGS.Editor
 {
     public class AGSSilverSkin
     {
-        private AGSColoredSkin _skin;
+        private readonly AGSColoredSkin _skin;
 
-        public AGSSilverSkin(IGraphicsFactory factory, IGLUtils glUtils, IGameSettings settings)
+        public AGSSilverSkin(IGLUtils glUtils, IGameSettings settings)
         {
             var buttonBorder = AGSBorders.SolidColor(glUtils, settings, GameViewColors.Border, 1f);
             var pushedButtonBorder = AGSBorders.SolidColor(glUtils, settings, GameViewColors.Border, 2f);
-            _skin = new AGSColoredSkin(factory)
+            _skin = new AGSColoredSkin
             {
                 ButtonIdleAnimation = new ButtonAnimation(buttonBorder, null, GameViewColors.Button),
                 ButtonHoverAnimation = new ButtonAnimation(buttonBorder, null, GameViewColors.HoveredButton),

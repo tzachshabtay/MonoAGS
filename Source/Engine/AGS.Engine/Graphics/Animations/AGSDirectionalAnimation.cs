@@ -6,11 +6,7 @@ namespace AGS.Engine
     [PropertyFolder]
 	public class AGSDirectionalAnimation : IDirectionalAnimation
 	{
-		public AGSDirectionalAnimation ()
-		{
-		}
-
-		#region IDirectionalAnimation implementation
+	    #region IDirectionalAnimation implementation
 
 		public IAnimation Left { get; set; }
 

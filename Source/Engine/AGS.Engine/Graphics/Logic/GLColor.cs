@@ -70,7 +70,7 @@ namespace AGS.Engine
 
 		public override int GetHashCode()
 		{
-            return R.GetHashCode();
+            return R.GetHashCode(); //todo: this is a potential bug as R is not readonly
 		}
 
 		#endregion

@@ -8,10 +8,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractRestrictionList : IContract<IRestrictionList>
     {
-        public ContractRestrictionList()
-        {
-        }
-
         [ProtoMember(1)]
         public RestrictionListType RestrictionType { get; set; }
 

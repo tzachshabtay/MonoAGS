@@ -4,12 +4,12 @@ namespace AGS.Engine
 {
     public class AGSGraySkin
     {
-        private AGSColoredSkin _skin;
+        private readonly AGSColoredSkin _skin;
 
-        public AGSGraySkin(IGraphicsFactory factory, IGLUtils glUtils, IRuntimeSettings settings)
+        public AGSGraySkin(IGLUtils glUtils, IRuntimeSettings settings)
         {
             var buttonBorder = AGSBorders.SolidColor(glUtils, settings, Colors.Black, 1f);
-            _skin = new AGSColoredSkin(factory)
+            _skin = new AGSColoredSkin
             {
                 ButtonIdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.DimGray),
                 ButtonHoverAnimation = new ButtonAnimation(buttonBorder, null, Colors.LightGray),

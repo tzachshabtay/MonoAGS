@@ -52,7 +52,7 @@ namespace AGS.Editor
                 varName.Append(c);
             }
             if (varName.Length == 0) throw new ArgumentException($"{name} is not a legal name: it must have at least one letter or digit");
-            return varName[0] == '_' ? varName.ToString() : $"_{varName.ToString()}";
+            return varName[0] == '_' ? varName.ToString() : $"_{varName}";
         }
 
         private string getValueString(object val)
@@ -62,19 +62,19 @@ namespace AGS.Editor
                 case null:
                     return "null";
                 case float f:
-                    return $"{f.ToString()}f";
+                    return $"{f.ToString(CultureInfo.InvariantCulture)}f";
                 case double d1:
-                    return $"{d1.ToString()}d";
+                    return $"{d1.ToString(CultureInfo.InvariantCulture)}d";
                 case decimal d2:
-                    return $"{d2.ToString()}m";
-                case byte v1:
-                case int v2:
-                case uint v3:
-                case long v4:
-                case ulong v5:
-                case sbyte v6:
-                case short v7:
-                case ushort v8:
+                    return $"{d2.ToString(CultureInfo.InvariantCulture)}m";
+                case byte _:
+                case int _:
+                case uint _:
+                case long _:
+                case ulong _:
+                case sbyte _:
+                case short _:
+                case ushort _:
                     return val.ToString();
                 case string s:
                     return $"{'"'}{s}{'"'}";

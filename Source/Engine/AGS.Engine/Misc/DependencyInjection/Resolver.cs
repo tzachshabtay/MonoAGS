@@ -86,7 +86,7 @@ namespace AGS.Engine
             Builder.Register<IHasRoomComponent>((c, p) => new HasRoomComponent(c.Resolve<IGameState>())).ExternallyOwned();
             Builder.Register<IAnimationComponent>((c, p) => new AGSAnimationComponent()).ExternallyOwned();
             Builder.Register<IInObjectTreeComponent>((c, p) => new InObjectTreeComponent()).ExternallyOwned();
-            Builder.Register<IColliderComponent>((c, p) => new AGSCollider(c.Resolve<IGameState>())).ExternallyOwned();
+            Builder.Register<IColliderComponent>((c, p) => new AGSCollider()).ExternallyOwned();
             Builder.Register<IVisibleComponent>((c, p) => new VisibleProperty()).ExternallyOwned();
             Builder.Register<IEnabledComponent>((c, p) => new EnabledProperty()).ExternallyOwned();
             Builder.Register<ICustomPropertiesComponent>((c, p) => new AGSCustomPropertiesComponent(c.Resolve<ICustomProperties>())).ExternallyOwned();

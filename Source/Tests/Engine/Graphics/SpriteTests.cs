@@ -122,7 +122,7 @@ namespace Tests
 			foreach (var sprite in getPixelPerfectImplementors())
 			{
                 Mock<IMask> mask = new Mock<IMask>();
-                _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), (IBitmap)null, false, null, null)).Returns(mask.Object);
+                _mocks.MaskLoader().Setup(m => m.Load(It.IsAny<string>(), null, false, null, null)).Returns(mask.Object);
 				sprite.Model.Image = _mocks.Image().Object;
                 _mocks.Image().Setup(i => i.OriginalBitmap).Returns(new Mock<IBitmap>().Object);
 

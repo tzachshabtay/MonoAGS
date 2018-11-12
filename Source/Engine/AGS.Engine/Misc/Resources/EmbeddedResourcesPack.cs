@@ -79,7 +79,7 @@ namespace AGS.Engine
             }
             catch (Exception e)
             {
-                throw new ArgumentException("Invalid resource name: " + path ?? "null", e);
+                throw new ArgumentException("Invalid resource name: " + (path ?? "null"), e);
             }
         }
 

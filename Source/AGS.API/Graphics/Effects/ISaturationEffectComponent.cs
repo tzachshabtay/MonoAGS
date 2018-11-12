@@ -8,7 +8,7 @@
     /// <code language="lang-csharp">
     /// 
     /// //to adjust saturation for an object:
-    /// myObj.AddComponent<ISaturationEffectComponent>().Saturation = 0.5f;
+    /// myObj.AddComponent&lt;ISaturationEffectComponent&gt;().Saturation = 0.5f;
     /// 
     /// //to adjust saturation for the screen:
     /// var effect = new SaturationEffect(game.Factory.Shaders, game.Events);

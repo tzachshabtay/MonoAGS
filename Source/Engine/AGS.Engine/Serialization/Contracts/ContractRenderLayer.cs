@@ -7,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractRenderLayer : IContract<IRenderLayer>
 	{
-		public ContractRenderLayer()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public int Z { get; set; }
 
 		#region IContract implementation

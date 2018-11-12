@@ -107,7 +107,7 @@ namespace AGS.Engine
             string dir = exeDir;
             while (true)
             {
-                var childDirs = _fileSystem.GetDirectories(dir);
+                var childDirs = _fileSystem.GetDirectories(dir).ToArray();
                 var assetsDir = findAssetsDir(childDirs);
                 if (assetsDir != null) return assetsDir;
 
