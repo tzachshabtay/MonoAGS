@@ -72,7 +72,9 @@ namespace AGS.Editor
             try
             {
                 string currentDir = Directory.GetCurrentDirectory();
-                Directory.SetCurrentDirectory(Path.GetDirectoryName(agsProj.AGSProjectPath));
+                string projectDir = Path.GetDirectoryName(agsProj.AGSProjectPath);
+                Trace.Assert(projectDir != null, $"Directory name for {agsProj.AGSProjectPath ?? "null"} returned null");
+                Directory.SetCurrentDirectory(projectDir);
                 await AGSEditor.Platform.DotnetProject.Load(agsProj.DotnetProjectPath);
                 Directory.SetCurrentDirectory(currentDir);
                 if (!File.Exists(AGSEditor.Platform.DotnetProject.OutputFilePath))

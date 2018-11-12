@@ -123,9 +123,6 @@ namespace AGS.Editor
 
             LastDragged = DateTime.Now;
 
-            var handleBottomLeft = handle.WorldBoundingBox.BottomLeft;
-            var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y, _drawable);
-
             var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y, _drawable);
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 

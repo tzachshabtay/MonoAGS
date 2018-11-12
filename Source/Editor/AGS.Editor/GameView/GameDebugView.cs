@@ -16,6 +16,7 @@ namespace AGS.Editor
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
         private readonly ActionManager _actions;
+        private readonly Size _resolution = (1800, 1200);
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
@@ -26,7 +27,7 @@ namespace AGS.Editor
         {
             _actions = actions;
             _editor = editor;
-            _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: new Size(1800, 1200));
+            _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: _resolution);
             _inspector = new InspectorPanel(editor, _layer, actions);
             Tree = new GameDebugTree(editor, _layer, _inspector);
             _displayList = new GameDebugDisplayList(editor.Editor, editor.Game, _layer);
@@ -45,8 +46,8 @@ namespace AGS.Editor
             const float headerHeight = 50f;
             const float borderWidth = 3f;
             IGameFactory factory = _editor.Editor.Factory;
-            _panel = factory.UI.GetPanel(_panelId, _layer.IndependentResolution.Value.Width / 4f, _layer.IndependentResolution.Value.Height,
-                                                     1f, _layer.IndependentResolution.Value.Height / 2f);
+            _panel = factory.UI.GetPanel(_panelId, _resolution.Width / 4f, _resolution.Height,
+                                                     1f, _resolution.Height / 2f);
             _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = GameViewColors.Panel;
@@ -143,7 +144,7 @@ namespace AGS.Editor
             int height = _editor.Editor.Settings.WindowSize.Height - 100;
             if (_panel.Visible)
             {
-                float panelWidth = MathUtils.Lerp(0f, 0f, _layer.IndependentResolution.Value.Width, _editor.Editor.Settings.WindowSize.Width, _panel.Width);
+                float panelWidth = MathUtils.Lerp(0f, 0f, _resolution.Width, _editor.Editor.Settings.WindowSize.Width, _panel.Width);
                 AGSEditor.Platform.SetHostedGameWindow(new Rectangle((int)Math.Round(panelWidth), 0, (int)Math.Round(_editor.Editor.Settings.WindowSize.Width - panelWidth), height));
             }
             else

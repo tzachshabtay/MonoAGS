@@ -117,17 +117,17 @@ namespace AGS.Editor
             return true;
         }
 
-        private bool parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
+        private void parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
         {
             var tokens = text.Split(',');
-            if (tokens.Length != 3 && tokens.Length != 4) return false;
-            if (!byte.TryParse(tokens[0], out byte r)) return false;
-            if (!byte.TryParse(tokens[1], out byte g)) return false;
-            if (!byte.TryParse(tokens[2], out byte b)) return false;
+            if (tokens.Length != 3 && tokens.Length != 4) return;
+            if (!byte.TryParse(tokens[0], out byte r)) return;
+            if (!byte.TryParse(tokens[1], out byte g)) return;
+            if (!byte.TryParse(tokens[2], out byte b)) return;
             byte a = 255;
             if (tokens.Length == 4)
             {
-                if (!byte.TryParse(tokens[3], out a)) return false;
+                if (!byte.TryParse(tokens[3], out a)) return;
             }
 
             var color = Color.FromRgba(r, g, b, a);
@@ -139,7 +139,6 @@ namespace AGS.Editor
                 else args.IntendedState.Text = $"{color.R},{color.G},{color.B}";
             }
             setColor(color);
-            return true;
         }
 
         private Color? manipulateRgb(Color color, string[] tokens, string text, TextBoxKeyPressingEventArgs args)

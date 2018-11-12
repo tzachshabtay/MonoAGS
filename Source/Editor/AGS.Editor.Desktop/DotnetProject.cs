@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 //using Microsoft.CodeAnalysis;
@@ -31,11 +32,16 @@ namespace AGS.Editor.Desktop
             doc.Load(path);
 
             XmlNamespaceManager mgr = new XmlNamespaceManager(doc.NameTable);
+            Trace.Assert(doc.DocumentElement != null, "DocumentElement is missing from project xml file");
             mgr.AddNamespace("foo", doc.DocumentElement.NamespaceURI);
             XmlNode firstOutputType = doc.SelectSingleNode("//foo:OutputType", mgr);
             XmlNode firstOutputPath = doc.SelectSingleNode("//foo:OutputPath", mgr);
             XmlNode firstAssemblyName = doc.SelectSingleNode("//foo:AssemblyName", mgr);
             XmlNode firstTargetFramework = doc.SelectSingleNode("//foo:TargetFramework", mgr);
+
+            Trace.Assert(firstTargetFramework != null, "TargetFramework is missing from project xml file");
+            Trace.Assert(firstOutputType != null, "OutputType is missing from project xml file");
+            Trace.Assert(firstAssemblyName != null, "AssemblyName is missing from project xml file");
 
             string outputPath = firstOutputPath == null ? $"bin{Path.DirectorySeparatorChar}Debug{Path.DirectorySeparatorChar}{firstTargetFramework.InnerText}" :
                 firstOutputPath.InnerText.Replace("\\", Path.DirectorySeparatorChar.ToString());

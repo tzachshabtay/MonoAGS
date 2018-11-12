@@ -14,13 +14,14 @@ namespace DemoGame
 		private string _lastMode;
 		private readonly RotatingCursorScheme _scheme;
         private readonly IRenderLayer _layer;
+        private readonly Size _resolution = (1200, 800);
         private Dictionary<string, Lazy<IFeaturesPanel>> _panels;
         private IFeaturesPanel _currentPanel;
 
 		public FeaturesTopWindow(RotatingCursorScheme scheme)
 		{
 			_scheme = scheme;
-            _layer = new AGSRenderLayer(AGSLayers.UI.Z, independentResolution: (1200, 800));
+            _layer = new AGSRenderLayer(AGSLayers.UI.Z, independentResolution: _resolution);
             _panels = new Dictionary<string, Lazy<IFeaturesPanel>>();
 		}
 
@@ -30,8 +31,7 @@ namespace DemoGame
             const float borderWidth = 3f;
             _game = game;
             IGameFactory factory = game.Factory;
-            _panel = factory.UI.GetPanel(_panelId, 800, 600, 
-                 _layer.IndependentResolution.Value.Width / 2f, _layer.IndependentResolution.Value.Height / 2f);
+            _panel = factory.UI.GetPanel(_panelId, 800, 600, _resolution.Width / 2f, _resolution.Height / 2f);
 			_panel.Pivot = (0.5f, 0.5f);
 			_panel.Visible = false;
             _panel.Tint = Colors.Black;

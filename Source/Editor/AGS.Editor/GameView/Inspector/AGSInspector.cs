@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using AGS.API;
@@ -99,6 +100,7 @@ namespace AGS.Editor
         private InspectorProperty addProp(object obj, PropertyInfo prop, ref Category cat)
         {
 			var attr = prop.GetCustomAttribute<PropertyAttribute>();
+            Trace.Assert(prop.PropertyType.FullName != null, $"Property type's full name is null for {prop.Name}");
 			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
 			string name = prop.Name;
