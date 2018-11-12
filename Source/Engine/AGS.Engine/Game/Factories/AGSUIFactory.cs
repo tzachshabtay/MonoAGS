@@ -2,8 +2,6 @@
 using AGS.API;
 using Autofac;
 using System;
-using System.Diagnostics;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace AGS.Engine

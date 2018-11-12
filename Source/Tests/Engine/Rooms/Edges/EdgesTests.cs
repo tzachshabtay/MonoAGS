@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using AGS.Engine;
 using AGS.API;
 using Moq;

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
-using Autofac;
 using Moq;
 using NUnit.Framework;
 

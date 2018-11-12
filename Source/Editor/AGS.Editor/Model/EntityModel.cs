@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using AGS.API;
 using Newtonsoft.Json;
 
 namespace AGS.Editor

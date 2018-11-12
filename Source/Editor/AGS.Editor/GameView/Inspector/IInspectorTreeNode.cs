@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Editor
 {

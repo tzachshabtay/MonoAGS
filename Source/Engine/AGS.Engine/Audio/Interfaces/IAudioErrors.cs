@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public interface IAudioErrors
 	{

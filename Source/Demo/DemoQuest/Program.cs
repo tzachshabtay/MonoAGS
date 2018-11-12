@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
 using DemoQuest;
-using System;
 
 namespace DemoGame
 {

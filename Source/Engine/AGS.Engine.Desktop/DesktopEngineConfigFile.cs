@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Diagnostics;
-using AGS.Engine;
 
 namespace AGS.Engine.Desktop
 {

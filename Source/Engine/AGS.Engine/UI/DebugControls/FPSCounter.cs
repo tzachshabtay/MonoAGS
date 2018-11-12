@@ -1,6 +1,4 @@
-﻿using System;
-using AGS.API;
-using System.Collections.Generic;
+﻿using AGS.API;
 using System.Diagnostics;
 
 namespace AGS.Engine

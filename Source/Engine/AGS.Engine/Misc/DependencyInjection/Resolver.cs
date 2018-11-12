@@ -3,7 +3,6 @@ using Autofac;
 using System.Reflection;
 using AGS.API;
 using System.Collections.Generic;
-using Autofac.Features.ResolveAnything;
 
 namespace AGS.Engine
 {

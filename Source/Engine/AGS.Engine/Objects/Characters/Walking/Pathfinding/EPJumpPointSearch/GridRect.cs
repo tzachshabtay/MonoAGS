@@ -35,11 +35,6 @@ THE SOFTWARE.
 An Interface for the GridRect Struct.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace AGS.Engine
 {

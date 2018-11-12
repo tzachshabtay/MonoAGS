@@ -1,11 +1,5 @@
-﻿using System;
-using NUnit.Framework;
-using AGS.Engine;
-using AGS.API;
+﻿using NUnit.Framework;
 using AGS.Engine.Desktop;
-using System.Threading.Tasks;
-using Moq;
-using System.IO;
 
 namespace Tests
 {

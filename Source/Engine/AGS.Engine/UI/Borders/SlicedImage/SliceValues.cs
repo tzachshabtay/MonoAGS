@@ -1,7 +1,4 @@
-﻿using System;
-using AGS.API;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public class SliceValues
 	{

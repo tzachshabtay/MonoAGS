@@ -1,7 +1,5 @@
 ﻿using System;
 using AGS.API;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Threading;
 
 namespace AGS.Engine

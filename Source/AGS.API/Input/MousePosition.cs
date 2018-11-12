@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// Represents a mouse position on the screen.

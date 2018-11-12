@@ -4,7 +4,6 @@ using AGS.API;
 using System.Collections.Generic;
 using Autofac;
 using Autofac.Features.ResolveAnything;
-using System.Drawing;
 using Autofac.Core;
 using AGS.Engine;
 using System.Threading.Tasks;

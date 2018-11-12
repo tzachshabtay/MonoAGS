@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// The character's inventory. Those are the items that the character holds in his/her (usually) imaginary bag.

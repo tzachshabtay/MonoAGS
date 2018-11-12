@@ -1,7 +1,4 @@
-﻿using System;
-using ProtoBuf;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public interface IContract<TItem>
 	{

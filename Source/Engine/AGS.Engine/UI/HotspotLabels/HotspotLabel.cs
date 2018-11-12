@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {

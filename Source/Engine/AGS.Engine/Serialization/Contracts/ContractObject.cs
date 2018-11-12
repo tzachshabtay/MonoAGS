@@ -1,7 +1,6 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-using System.Collections.Generic;
 
 namespace AGS.Engine
 {
