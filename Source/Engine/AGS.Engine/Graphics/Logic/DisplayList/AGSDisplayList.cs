@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -232,7 +231,7 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onRoomPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onRoomPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IRoom.Background) && args.PropertyName != nameof(IRoom.RoomLimitsProvider)
                 && args.PropertyName != nameof(IRoom.ShowPlayer)) return;
@@ -276,7 +275,7 @@ namespace AGS.Engine
             unsubscribeAreas(lastRoom.Areas);
         }
 
-        private static IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : IComponent
+        private static IComponentBinding bind<TComponent>(IEntity entity, System.ComponentModel.PropertyChangedEventHandler ev) where TComponent : IComponent
         {
             return entity.Bind<TComponent>(c => c.PropertyChanged += ev, c => c.PropertyChanged -= ev);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using AGS.API;
 using PropertyChanged;
 
@@ -82,7 +81,7 @@ namespace AGS.Engine
             refreshValue();
         }
 
-        private void onParentPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onParentPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (args.PropertyName != _valuePropertyName) return;
             refreshValue();

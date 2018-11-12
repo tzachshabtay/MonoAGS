@@ -85,7 +85,7 @@ namespace AGS.Editor
 
             _dragHandle?.Dispose();
             var handle = _editor.Editor.Factory.Object.GetObject($"{obj.ID}_DraggingHandle");
-            _dragHandle = new DragHandle(handle, _editor, _editor.Editor.State, _editor.Editor.Input, 
+            _dragHandle = new DragHandle(handle, _editor, _editor.Editor.State, 
                                          _editor.EditorResolver.Container.Resolve<ActionManager>(), false);
             _dragHandle.SetBox(obj.GetComponent<IBoundingBoxComponent>());
             _dragHandle.SetTranslate(obj.GetComponent<ITranslateComponent>());

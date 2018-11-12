@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using AGS.API;
 using Autofac;
 using PropertyChanged;
@@ -19,7 +18,7 @@ namespace AGS.Engine
         private string _displayName;
         private IBlockingEvent _onDisposed;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
         private static AGSConcurrentHashSet<string> _ids = new AGSConcurrentHashSet<string>(1000, false);
 
@@ -54,7 +53,7 @@ namespace AGS.Engine
             {
                 if (_displayName == value) return;
                 _displayName = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(DisplayName)));
             }
         }
 

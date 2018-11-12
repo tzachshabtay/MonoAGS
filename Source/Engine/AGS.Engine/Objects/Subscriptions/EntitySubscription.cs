@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.ComponentModel;
 using System.Linq;
 using AGS.API;
 
@@ -57,7 +56,7 @@ namespace AGS.Engine
             }
         }
 
-        private void onPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (_propertyNames.Any(p => p == args.PropertyName)) _onPropertyChanged();
         }
