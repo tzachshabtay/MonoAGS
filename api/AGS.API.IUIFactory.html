@@ -96,13 +96,13 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L84">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L71">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_CreateScrollingPanel_" data-uid="AGS.API.IUIFactory.CreateScrollingPanel*"></a>
-  <h4 id="AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single,System.Single,System.Single)">CreateScrollingPanel(IPanel, Single, Single, Single)</h4>
+  <h4 id="AGS_API_IUIFactory_CreateScrollingPanel_AGS_API_IPanel_System_Single_" data-uid="AGS.API.IUIFactory.CreateScrollingPanel(AGS.API.IPanel,System.Single)">CreateScrollingPanel(IPanel, Single)</h4>
   <div class="markdown level1 summary"><p>Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
 The scrollbars are only shown if the contents is bigger than panel.</p>
 <p>The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
@@ -111,7 +111,7 @@ a contents panel with the original size, in which to put the scrolled contents.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15F, float stepHorizontal = 10F, float stepVertical = 10F)</code></pre>
+    <pre><code class="lang-csharp hljs">IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15F)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -132,17 +132,8 @@ a contents panel with the original size, in which to put the scrolled contents.<
       <tr>
         <td><span class="xref">System.Single</span></td>
         <td><span class="parametername">gutterSize</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">stepHorizontal</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">stepVertical</span></td>
-        <td></td>
+        <td><p>The gutter size (which contains the scrollbars).</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -163,10 +154,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L117">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L104">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetButton_" data-uid="AGS.API.IUIFactory.GetButton*"></a>
   <h4 id="AGS_API_IUIFactory_GetButton_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButton(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButton(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)</h4>
@@ -279,10 +270,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L136">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L123">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetButton_" data-uid="AGS.API.IUIFactory.GetButton*"></a>
   <h4 id="AGS_API_IUIFactory_GetButton_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButton(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButton(String, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)</h4>
@@ -395,10 +386,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButton(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L155">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L142">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetButton_" data-uid="AGS.API.IUIFactory.GetButton*"></a>
   <h4 id="AGS_API_IUIFactory_GetButton_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButton(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButton(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)</h4>
@@ -511,10 +502,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButtonAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetButtonAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L174">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L161">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetButtonAsync_" data-uid="AGS.API.IUIFactory.GetButtonAsync*"></a>
   <h4 id="AGS_API_IUIFactory_GetButtonAsync_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetButtonAsync(System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetButtonAsync(String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)</h4>
@@ -627,10 +618,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CAGS.API.ButtonAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L210">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L198">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetCheckBox_" data-uid="AGS.API.IUIFactory.GetCheckBox*"></a>
   <h4 id="AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_AGS_API_ButtonAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,AGS.API.ButtonAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBox(String, ButtonAnimation, ButtonAnimation, ButtonAnimation, ButtonAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
@@ -732,7 +723,8 @@ a contents panel with the original size, in which to put the scrolled contents.<
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isCheckButton</span></td>
-        <td></td>
+        <td><p>If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -754,10 +746,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CAGS.API.IAnimation%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L230">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L219">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetCheckBox_" data-uid="AGS.API.IUIFactory.GetCheckBox*"></a>
   <h4 id="AGS_API_IUIFactory_GetCheckBox_System_String_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_AGS_API_IAnimation_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBox(System.String,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,AGS.API.IAnimation,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBox(String, IAnimation, IAnimation, IAnimation, IAnimation, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
@@ -859,7 +851,8 @@ a contents panel with the original size, in which to put the scrolled contents.<
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isCheckButton</span></td>
-        <td></td>
+        <td><p>If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -881,10 +874,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBox(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L250">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L240">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetCheckBox_" data-uid="AGS.API.IUIFactory.GetCheckBox*"></a>
   <h4 id="AGS_API_IUIFactory_GetCheckBox_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBox(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBox(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
@@ -986,7 +979,8 @@ a contents panel with the original size, in which to put the scrolled contents.<
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isCheckButton</span></td>
-        <td></td>
+        <td><p>If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -1008,10 +1002,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBoxAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetCheckBoxAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L270">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L261">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetCheckBoxAsync_" data-uid="AGS.API.IUIFactory.GetCheckBoxAsync*"></a>
   <h4 id="AGS_API_IUIFactory_GetCheckBoxAsync_System_String_System_String_System_String_System_String_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetCheckBoxAsync(System.String,System.String,System.String,System.String,System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single,System.Boolean)">GetCheckBoxAsync(String, String, String, String, String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single, Boolean)</h4>
@@ -1113,7 +1107,8 @@ a contents panel with the original size, in which to put the scrolled contents.<
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isCheckButton</span></td>
-        <td></td>
+        <td><p>If true, this checkbox will be skinned as a button (which has a check/unchecked state), and not as a checkbox, so it can look like a toggle button.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -1135,19 +1130,19 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IUIControl__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetComboBox(System.String%2CAGS.API.IButton%2CAGS.API.ITextBox%2CSystem.Func%7BSystem.String%2CAGS.API.IUIControl%7D%2CAGS.API.IObject%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.String%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetComboBox(System.String%2CAGS.API.IButton%2CAGS.API.ITextBox%2CSystem.Func%7BSystem.String%2CAGS.API.IButton%7D%2CAGS.API.IObject%2CSystem.Boolean%2CSystem.Single%2CSystem.Single%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L303">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L277">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetComboBox_" data-uid="AGS.API.IUIFactory.GetComboBox*"></a>
-  <h4 id="AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IUIControl__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_System_Single_" data-uid="AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IUIControl},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String,System.Single)">GetComboBox(String, IButton, ITextBox, Func&lt;String, IUIControl&gt;, IObject, Boolean, Single, Single, String, Single)</h4>
+  <h4 id="AGS_API_IUIFactory_GetComboBox_System_String_AGS_API_IButton_AGS_API_ITextBox_System_Func_System_String_AGS_API_IButton__AGS_API_IObject_System_Boolean_System_Single_System_Single_System_String_" data-uid="AGS.API.IUIFactory.GetComboBox(System.String,AGS.API.IButton,AGS.API.ITextBox,System.Func{System.String,AGS.API.IButton},AGS.API.IObject,System.Boolean,System.Single,System.Single,System.String)">GetComboBox(String, IButton, ITextBox, Func&lt;String, IButton&gt;, IObject, Boolean, Single, Single, String)</h4>
   <div class="markdown level1 summary"><p>Creates a combo box (drop down).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func&lt;string, IUIControl&gt; listItemFactory = null, IObject parent = null, bool addToUi = true, float defaultWidth = 500F, float defaultHeight = 40F, string watermark = &quot;&quot;, float dropDownPanelOffset = 0F)</code></pre>
+    <pre><code class="lang-csharp hljs">IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func&lt;string, IButton&gt; itemButtonFactory = null, IObject parent = null, bool addToUi = true, float defaultWidth = 500F, float defaultHeight = 40F, string watermark = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1178,9 +1173,9 @@ a contents panel with the original size, in which to put the scrolled contents.<
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IUIControl.html">IUIControl</a>&gt;</td>
-        <td><span class="parametername">listItemFactory</span></td>
-        <td><p>A function for creating a button for the drop down list. If not provided a default one will be created.</p>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IButton.html">IButton</a>&gt;</td>
+        <td><span class="parametername">itemButtonFactory</span></td>
+        <td><p>A function for creating a button for the drop down list. If not provided the a default one will be created.</p>
 </td>
       </tr>
       <tr>
@@ -1213,12 +1208,6 @@ a contents panel with the original size, in which to put the scrolled contents.<
         <td><p>An optional watermark text to show when there&apos;s no text and the textbox is out of focus (i.e explanation text, see example here: <a href="https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl">https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl</a>).</p>
 </td>
       </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">dropDownPanelOffset</span></td>
-        <td><p>An optional vertical offset for the dropdown panel from the combobox</p>
-</td>
-      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1239,102 +1228,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetForm_System_String_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetForm(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetLabel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L353">View Source</a>
-  </span>
-  <a id="AGS_API_IUIFactory_GetForm_" data-uid="AGS.API.IUIFactory.GetForm*"></a>
-  <h4 id="AGS_API_IUIFactory_GetForm_System_String_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Boolean_" data-uid="AGS.API.IUIFactory.GetForm(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Boolean)">GetForm(String, String, Single, Single, Single, Single, Single, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Creates a form.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">id</span></td>
-        <td><p>Identifier.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">title</span></td>
-        <td><p>Title.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">width</span></td>
-        <td><p>Width.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">titleHeight</span></td>
-        <td><p>Title height.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">contentsHeight</span></td>
-        <td><p>Contents height.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">x</span></td>
-        <td><p>The x coordinate.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">y</span></td>
-        <td><p>The y coordinate.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">addToUi</span></td>
-        <td><p>If set to <code>true</code> add to game&apos;s GUI list for rendering.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IForm.html">IForm</a></td>
-        <td><p>The form.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetLabel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L99">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L86">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetLabel_" data-uid="AGS.API.IUIFactory.GetLabel*"></a>
   <h4 id="AGS_API_IUIFactory_GetLabel_System_String_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetLabel(System.String,System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,System.Boolean)">GetLabel(String, String, Single, Single, Single, Single, IObject, ITextConfig, Boolean)</h4>
@@ -1429,102 +1326,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetListBox_System_String_AGS_API_IRenderLayer_System_Func_System_String_AGS_API_IUIControl__System_Single_System_Single_System_Boolean_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetListBox(System.String%2CAGS.API.IRenderLayer%2CSystem.Func%7BSystem.String%2CAGS.API.IUIControl%7D%2CSystem.Single%2CSystem.Single%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IObject_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CAGS.API.IImage%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L285">View Source</a>
-  </span>
-  <a id="AGS_API_IUIFactory_GetListBox_" data-uid="AGS.API.IUIFactory.GetListBox*"></a>
-  <h4 id="AGS_API_IUIFactory_GetListBox_System_String_AGS_API_IRenderLayer_System_Func_System_String_AGS_API_IUIControl__System_Single_System_Single_System_Boolean_System_Boolean_System_Boolean_" data-uid="AGS.API.IUIFactory.GetListBox(System.String,AGS.API.IRenderLayer,System.Func{System.String,AGS.API.IUIControl},System.Single,System.Single,System.Boolean,System.Boolean,System.Boolean)">GetListBox(String, IRenderLayer, Func&lt;String, IUIControl&gt;, Single, Single, Boolean, Boolean, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Creates a listbox (a list of items bound in a box).</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IListbox GetListBox(string id, IRenderLayer layer, Func&lt;string, IUIControl&gt; listItemFactory = null, float defaultWidth = 500F, float defaultHeight = 40F, bool addToUi = true, bool isVisible = true, bool withScrollBars = true)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">id</span></td>
-        <td><p>Identifier.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.IRenderLayer.html">IRenderLayer</a></td>
-        <td><span class="parametername">layer</span></td>
-        <td><p>Layer.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>, <a class="xref" href="AGS.API.IUIControl.html">IUIControl</a>&gt;</td>
-        <td><span class="parametername">listItemFactory</span></td>
-        <td><p>A function for creating an item in the list. If not provided a default one will be created.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">defaultWidth</span></td>
-        <td><p>The default width for a list item.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">defaultHeight</span></td>
-        <td><p>The default height for a list item.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">addToUi</span></td>
-        <td><p>If set to <code>true</code> add to game&apos;s GUI list for rendering.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">isVisible</span></td>
-        <td><p>If set to <code>true</code> set the listbox to be visible.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">withScrollBars</span></td>
-        <td><p>If set to <code>true</code> the listbox will have horizontal and vertical scrollbars to scroll the contents inside.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IListbox.html">IListbox</a></td>
-        <td><p>The list box.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IObject_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CAGS.API.IImage%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L21">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L21">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
   <h4 id="AGS_API_IUIFactory_GetPanel_System_String_AGS_API_IImage_System_Single_System_Single_AGS_API_IObject_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,AGS.API.IImage,System.Single,System.Single,AGS.API.IObject,System.Boolean)">GetPanel(String, IImage, Single, Single, IObject, Boolean)</h4>
@@ -1601,10 +1406,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L34">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L34">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
   <h4 id="AGS_API_IUIFactory_GetPanel_System_String_System_Single_System_Single_System_Single_System_Single_AGS_API_IObject_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,System.Single,System.Single,System.Single,System.Single,AGS.API.IObject,System.Boolean)">GetPanel(String, Single, Single, Single, Single, IObject, Boolean)</h4>
@@ -1687,10 +1492,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanel(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L47">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L47">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetPanel_" data-uid="AGS.API.IUIFactory.GetPanel*"></a>
   <h4 id="AGS_API_IUIFactory_GetPanel_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanel(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)">GetPanel(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)</h4>
@@ -1773,10 +1578,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanelAsync(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetPanelAsync(System.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L60">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L60">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetPanelAsync_" data-uid="AGS.API.IUIFactory.GetPanelAsync*"></a>
   <h4 id="AGS_API_IUIFactory_GetPanelAsync_System_String_System_String_System_Single_System_Single_AGS_API_IObject_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetPanelAsync(System.String,System.String,System.Single,System.Single,AGS.API.IObject,AGS.API.ILoadImageConfig,System.Boolean)">GetPanelAsync(String, String, Single, Single, IObject, ILoadImageConfig, Boolean)</h4>
@@ -1859,97 +1664,10 @@ a contents panel with the original size, in which to put the scrolled contents.<
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetScrollbar_System_String_AGS_API_SliderDirection_AGS_API_IObject_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetScrollbar(System.String%2CAGS.API.SliderDirection%2CAGS.API.IObject%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSlider(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L74">View Source</a>
-  </span>
-  <a id="AGS_API_IUIFactory_GetScrollbar_" data-uid="AGS.API.IUIFactory.GetScrollbar*"></a>
-  <h4 id="AGS_API_IUIFactory_GetScrollbar_System_String_AGS_API_SliderDirection_AGS_API_IObject_System_Single_System_Single_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetScrollbar(System.String,AGS.API.SliderDirection,AGS.API.IObject,System.Single,System.Single,System.Single,System.Single)">GetScrollbar(String, SliderDirection, IObject, Single, Single, Single, Single)</h4>
-  <div class="markdown level1 summary"><p>Creates a scrollbar. A scrollbar is a <a class="xref" href="AGS.API.ISlider.html">ISlider</a> with 2 buttons (left + right or up + down depending on which <a class="xref" href="AGS.API.SliderDirection.html">SliderDirection</a> is used) that can
-be clicked to modify the slider.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IScrollbar GetScrollbar(string idPrefix, SliderDirection direction, IObject parent = null, float width = 15F, float height = 15F, float step = 10F, float buttonBorderWidth = 1F)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">idPrefix</span></td>
-        <td><p>Identifier prefix which will be used to generate ids for the slider and buttons.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.SliderDirection.html">SliderDirection</a></td>
-        <td><span class="parametername">direction</span></td>
-        <td><p>Direction.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="AGS.API.IObject.html">IObject</a></td>
-        <td><span class="parametername">parent</span></td>
-        <td><p>Parent for the slider.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">width</span></td>
-        <td><p>Width of the slider.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">height</span></td>
-        <td><p>Height of the slider.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">step</span></td>
-        <td><p>Step to move the slider when clicking the button.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">buttonBorderWidth</span></td>
-        <td><p>Border width for the buttons.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="AGS.API.IScrollbar.html">IScrollbar</a></td>
-        <td><p>The scrollbar.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSlider(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L321">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L294">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetSlider_" data-uid="AGS.API.IUIFactory.GetSlider*"></a>
   <h4 id="AGS_API_IUIFactory_GetSlider_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetSlider(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)">GetSlider(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)</h4>
@@ -2050,10 +1768,10 @@ be clicked to modify the slider.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSliderAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetSliderAsync(System.String%2CSystem.String%2CSystem.String%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CAGS.API.ITextConfig%2CAGS.API.ILoadImageConfig%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L338">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L311">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetSliderAsync_" data-uid="AGS.API.IUIFactory.GetSliderAsync*"></a>
   <h4 id="AGS_API_IUIFactory_GetSliderAsync_System_String_System_String_System_String_System_Single_System_Single_System_Single_AGS_API_IObject_AGS_API_ITextConfig_AGS_API_ILoadImageConfig_System_Boolean_" data-uid="AGS.API.IUIFactory.GetSliderAsync(System.String,System.String,System.String,System.Single,System.Single,System.Single,AGS.API.IObject,AGS.API.ITextConfig,AGS.API.ILoadImageConfig,System.Boolean)">GetSliderAsync(String, String, String, Single, Single, Single, IObject, ITextConfig, ILoadImageConfig, Boolean)</h4>
@@ -2154,10 +1872,10 @@ be clicked to modify the slider.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetTextBox(System.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory.GetTextBox(System.String%2CSystem.Single%2CSystem.Single%2CAGS.API.IObject%2CSystem.String%2CAGS.API.ITextConfig%2CSystem.Boolean%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L190">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L177">View Source</a>
   </span>
   <a id="AGS_API_IUIFactory_GetTextBox_" data-uid="AGS.API.IUIFactory.GetTextBox*"></a>
   <h4 id="AGS_API_IUIFactory_GetTextBox_System_String_System_Single_System_Single_AGS_API_IObject_System_String_AGS_API_ITextConfig_System_Boolean_System_Single_System_Single_" data-uid="AGS.API.IUIFactory.GetTextBox(System.String,System.Single,System.Single,AGS.API.IObject,System.String,AGS.API.ITextConfig,System.Boolean,System.Single,System.Single)">GetTextBox(String, Single, Single, IObject, String, ITextConfig, Boolean, Single, Single)</h4>
@@ -2258,10 +1976,10 @@ be clicked to modify the slider.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IUIFactory.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IUIFactory.md&amp;value=---%0Auid%3A%20AGS.API.IUIFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Game/Factories/IUIFactory.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Game/Factories/IUIFactory.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

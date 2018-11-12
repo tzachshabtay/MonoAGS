@@ -114,10 +114,6 @@ border, background color (tint) or text rendering configuration (font, shadows, 
       <h4><a class="xref" href="AGS.API.Colors.html">Colors</a></h4>
       <section><p>A list of colors to choose from.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ConcreteImplementationAttribute.html">ConcreteImplementationAttribute</a></h4>
-      <section><p>This attribute can be assigned to concrete implementations of interfaces.
-This affects the inspector, when selecting implementations for interfaces (for example, when selecting a border you&apos;d want to look of implmentations of <a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>).</p>
-</section>
       <h4><a class="xref" href="AGS.API.CustomStringValueAttribute.html">CustomStringValueAttribute</a></h4>
       <section><p>An attribute to be placed on a method that will be used instead of ToString() to supply the string display value
 to the inspector.
@@ -128,11 +124,6 @@ The method must accept no arguments and return a string.</p>
 </section>
       <h4><a class="xref" href="AGS.API.FourCorners-1.html">FourCorners&lt;TValue&gt;</a></h4>
       <section><p>Represents four values of &quot;something&quot; that matches four corners of a bounding box (for example, four colors for a gradient border).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.HasFactoryAttribute.html">HasFactoryAttribute</a></h4>
-      <section><p>This attribute can be associated to an interface, to allow specifying factory methods that
-can be used to create a possible implementation. This is used by the inspector when selecting an implementation
-for an interface. For example, when selecting a border via <a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>, it can refer you to various methods in <a class="xref" href="AGS.API.IBorderFactory.html">IBorderFactory</a>.</p>
 </section>
       <h4><a class="xref" href="AGS.API.InventoryCombinationEventArgs.html">InventoryCombinationEventArgs</a></h4>
       <section><p>The event arguments for the inventory combination events.
@@ -147,21 +138,11 @@ The arguments contain the two combined items.</p>
       <h4><a class="xref" href="AGS.API.ListboxItemArgs.html">ListboxItemArgs</a></h4>
       <section><p>Event arguments for when a selected item changes in a listbox/combobox.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.ListboxItemChangingArgs.html">ListboxItemChangingArgs</a></h4>
-      <section><p>Event arguments for when a selected item is in the process of changing (before actually being changed) in a listbox/combobox.
-The event gives the ability to cancel the selection by settings <a class="xref" href="AGS.API.ListboxItemChangingArgs.html#AGS_API_ListboxItemChangingArgs_ShouldCancel">ShouldCancel</a> to true.</p>
-</section>
       <h4><a class="xref" href="AGS.API.MathHelper.html">MathHelper</a></h4>
       <section><p>Contains common mathematical functions and constants.</p>
 </section>
       <h4><a class="xref" href="AGS.API.MathUtils.html">MathUtils</a></h4>
       <section></section>
-      <h4><a class="xref" href="AGS.API.MethodParamAttribute.html">MethodParamAttribute</a></h4>
-      <section><p>An attribute to configure parameters for a method wizard (<a class="xref" href="AGS.API.MethodWizardAttribute.html">MethodWizardAttribute</a>).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.MethodWizardAttribute.html">MethodWizardAttribute</a></h4>
-      <section><p>An attribute to mark methods that can act as wizards in the editor (can show a window to let the user set the parameters for the method).</p>
-</section>
       <h4><a class="xref" href="AGS.API.MouseButtonEventArgs.html">MouseButtonEventArgs</a></h4>
       <section><p>Mouse button down/up event arguments.</p>
 </section>
@@ -171,8 +152,6 @@ The event gives the ability to cancel the selection by settings <a class="xref" 
       <h4><a class="xref" href="AGS.API.MousePositionEventArgs.html">MousePositionEventArgs</a></h4>
       <section><p>Event arguments for mouse move to indicate the mouse&apos;s position.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.NamedColorsMap.html">NamedColorsMap</a></h4>
-      <section></section>
       <h4><a class="xref" href="AGS.API.NodeEventArgs.html">NodeEventArgs</a></h4>
       <section><p>Event arguments which contain a tree node.</p>
 </section>
@@ -309,7 +288,10 @@ to make the object looks like it&apos;s animated).</p>
       <section><p>Control and query the animation current state.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IApproachComponent.html">IApproachComponent</a></h4>
-      <section></section>
+      <section><p>Allows a character to approach a hotspot. 
+When an interaction event is triggered for a hotspot, if this component is available for the player (which it is by default),
+then the character will approach the hotspot before the interaction logic code is triggered.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IApproachStyle.html">IApproachStyle</a></h4>
       <section><p>How to approach hotspots? Can be configured per verb.</p>
 </section>
@@ -370,16 +352,13 @@ Interested parties can subscribe to the event and be notified when it triggers (
       <h4><a class="xref" href="AGS.API.IBorderComponent.html">IBorderComponent</a></h4>
       <section><p>Allows drawing a border around the entity.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IBorderFactory.html">IBorderFactory</a></h4>
-      <section><p>A factory for creating borders (<a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a>).</p>
-</section>
       <h4><a class="xref" href="AGS.API.IBorderStyle.html">IBorderStyle</a></h4>
       <section><p>A border style will draw a border around an entity.
 It can draw both behind and in front of the entity.</p>
 <p>There are several borders that come built in:</p>
 <ol>
-<li>A solid color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_SolidColor_AGS_API_Color_System_Single_System_Boolean_">SolidColor(Color, Single, Boolean)</a>): allows to set a color, line width and optional rounded corners.</li>
-<li>A gradient color border (use <a class="xref" href="AGS.API.IBorderFactory.html#AGS_API_IBorderFactory_Gradient_AGS_API_FourCorners_AGS_API_Color__System_Single_System_Boolean_">Gradient(FourCorners&lt;Color&gt;, Single, Boolean)</a>): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.</li>
+<li>A solid color border (use AGSBorders.SolidColor): allows to set a color, line width and optional rounded corners.</li>
+<li>A gradient color border (use AGSBorders.Gradient): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.</li>
 <li>A 9-slice image border (use AGSSlicedImageBorder): this allows you to use an image, slice it to 9 pieces, and spread it in various ways to create a border.
 The 9-slice image border is heavily inspired by the border image used by CSS, so you can look at an example in CSS, to
 see what can be done with a 9-slice image: <a href="https://css-tricks.com/almanac/properties/b/border-image/">https://css-tricks.com/almanac/properties/b/border-image/</a></li>
@@ -597,13 +576,8 @@ to where the entity is. The follow settings can be configured to set how aggress
       <h4><a class="xref" href="AGS.API.IFont.html">IFont</a></h4>
       <section><p>Represents a font which is used when drawing text.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IFontFactory.html">IFontFactory</a></h4>
-      <section></section>
       <h4><a class="xref" href="AGS.API.IFontLoader.html">IFontLoader</a></h4>
       <section><p>Allows loading fonts.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IForm.html">IForm</a></h4>
-      <section><p>A form (a panel with a header).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IFrameBuffer.html">IFrameBuffer</a></h4>
       <section><p>Allows rendering into a texture instead of rendering to screen</p>
@@ -626,7 +600,11 @@ Factories are used to offer convience methods for creating game objects.</p>
       <section><p>Game settings (those can be set only once).</p>
 </section>
       <h4><a class="xref" href="AGS.API.IGameStarter.html">IGameStarter</a></h4>
-      <section></section>
+      <section><p>The game starter interface is the interface that a game project should implement so that it can be loaded
+by the editor.
+When loading a game from the editor, the editor searches for an implementation of this interface in the game,
+and calls the &quot;StartGame&quot; method with the game it created so that the editor and the game will have a shared interface to the game.</p>
+</section>
       <h4><a class="xref" href="AGS.API.IGameState.html">IGameState</a></h4>
       <section><p>The game state. This is the entry point for all &quot;changing&quot; things in the game.</p>
 </section>
@@ -707,9 +685,6 @@ This is also used by the engine for scrolling contents inside a scrolling panel.
       <h4><a class="xref" href="AGS.API.ILabel.html">ILabel</a></h4>
       <section><p>A pre-set entity with all of the UI control components, plus a text component for displaying text.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IListbox.html">IListbox</a></h4>
-      <section><p>Represents a listbox (a GUI view of a list of items).</p>
-</section>
       <h4><a class="xref" href="AGS.API.IListboxComponent.html">IListboxComponent</a></h4>
       <section><p>A component for displaying a list of items (as text), and allowing selecting an item from the list.</p>
 </section>
@@ -724,9 +699,6 @@ This is also used by the engine for scrolling contents inside a scrolling panel.
 </section>
       <h4><a class="xref" href="AGS.API.IMaskLoader.html">IMaskLoader</a></h4>
       <section><p>Allows loading a mask from an image.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IMessageBoxSettings.html">IMessageBoxSettings</a></h4>
-      <section><p>Settings for creating message boxes. Those are created from the &quot;AGSMessageBox&quot; class.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IModalWindowComponent.html">IModalWindowComponent</a></h4>
       <section><p>Adds the ability for a window to be modal (blocks input from other windows).
@@ -778,9 +750,6 @@ See: <a href="https://wiki.allegro.cc/index.php?title=Pixel_Perfect_Collision">h
       <h4><a class="xref" href="AGS.API.IPortraitConfig.html">IPortraitConfig</a></h4>
       <section><p>Configuration for how the speech portrait is rendered.</p>
 </section>
-      <h4><a class="xref" href="AGS.API.IRadioGroup.html">IRadioGroup</a></h4>
-      <section><p>Used to group multiple checkboxes together to guarantee that only one will be checked at any given time.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IRenderer.html">IRenderer</a></h4>
       <section><p>A renderer is an object which passes on drawing instructions on demand.
 All renderers which are subcribed to the rendering pipeline (for entities which are to be displayed),
@@ -817,12 +786,6 @@ It allows entities to subscribe their own renderers and pass on custom drawing i
 </section>
       <h4><a class="xref" href="AGS.API.IRepeatedlyExecuteEventArgs.html">IRepeatedlyExecuteEventArgs</a></h4>
       <section><p>Event arguments for the <a class="xref" href="AGS.API.IGameEvents.html#AGS_API_IGameEvents_OnRepeatedlyExecute">OnRepeatedlyExecute</a> event.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IResolver.html">IResolver</a></h4>
-      <section><p>The resolver is an object that allows you to retrieve various systems from the engine.
-It uses an inversion of control container (<a href="https://en.wikipedia.org/wiki/Inversion_of_control">https://en.wikipedia.org/wiki/Inversion_of_control</a>) in order
-to allow you to replace the built-in engine system implementations with your own implementations.
-For more details, see: <a href="https://tzachshabtay.github.io/MonoAGS/articles/customizations.html">https://tzachshabtay.github.io/MonoAGS/articles/customizations.html</a></p>
 </section>
       <h4><a class="xref" href="AGS.API.IResource.html">IResource</a></h4>
       <section><p>A resource is any asset which is loaded from a stream of data (could be from a file, or embedded in memory, or network stream,
@@ -905,7 +868,19 @@ when transitioning from room to room.</p>
       <section><p>Game settings.</p>
 </section>
       <h4><a class="xref" href="AGS.API.ISaturationEffectComponent.html">ISaturationEffectComponent</a></h4>
-      <section></section>
+      <section><p>Allows adjusting the saturation of an entity/screen.
+If added as a component to an entity, the saturation property will control the entity&apos;s saturation.
+If created separately (and initialized with a null entity), this can be use to control the saturation of the entire screen.
+<example><p>
+<pre><code class="lang-csharp">//to adjust saturation for an object:
+myObj.AddComponent&lt;ISaturationEffectComponent>().Saturation = 0.5f;
+
+//to adjust saturation for the screen:
+var effect = new SaturationEffect(game.Factory.Shaders, game.Events);
+effect.Init(null);
+effect.Saturation = 0.5f;</code></pre>
+<p></example></p>
+</section>
       <h4><a class="xref" href="AGS.API.ISaveLoad.html">ISaveLoad</a></h4>
       <section><p>Allows saving/loading a game.</p>
 </section>
@@ -935,10 +910,6 @@ The most common use is for faking perspective, so that when a character walks to
 (closer to the horizon), he will appear smaller and make quieter sounds.
 For that common use case, you&apos;ll want to scale on the Y axis (which is why Y axis is the default),
 and scale both the object x &amp;&amp; y (to keep the aspect ration in tact).</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IScrollbar.html">IScrollbar</a></h4>
-      <section><p>A scrollbar is a <a class="xref" href="AGS.API.ISlider.html">ISlider</a> with 2 buttons (left + right or up + down depending on which <a class="xref" href="AGS.API.SliderDirection.html">SliderDirection</a> is used) that can
-be clicked to modify the slider.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IScrollingComponent.html">IScrollingComponent</a></h4>
       <section><p>This component gives the ability to attach scrollbars to an entity, which will then
@@ -1160,9 +1131,6 @@ High priority subscribers will receive the event before normal priority (the def
 </section>
       <h4><a class="xref" href="AGS.API.ComboSuggest.html">ComboSuggest</a></h4>
       <section><p>Which mode to apply when typing text in the combo box&apos;s textbox?</p>
-</section>
-      <h4><a class="xref" href="AGS.API.CropFrom.html">CropFrom</a></h4>
-      <section><p>If the item was completely cropped, gets the direction the item was cropped from.</p>
 </section>
       <h4><a class="xref" href="AGS.API.CustomStringApplyWhen.html">CustomStringApplyWhen</a></h4>
       <section><p>Indicates when to apply a custom display string instead of using ToString().</p>
