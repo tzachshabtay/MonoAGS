@@ -86,12 +86,12 @@ A border can be drawn both behind and in front of the object it&#39;s assigned t
 <h3 id="solid-color">Solid Color</h3>
 <p>A solid color border will be drawn around the object.
 You can choose the color, the border width, and whether or not to make the corners rounded.
-You can create a solid border by calling <code>AGSBorders.Solid</code>.
+You can create a solid border by using the border factory: <code>factory.Graphics.Border.SolidColor(...)</code>.
 By default the border will be drawn in front of the object, but you can change it to be drawn behind the object by setting the <code>DrawBorderBehind</code> property of the border to <code>true</code>.</p>
 <h3 id="gradient-color">Gradient Color</h3>
 <p>A gradient color border will be drawn around the object.
 This gives you the same choices as the solid color border, only instead of selecting one color, you can select 4 colors, one for each corner of the border. The color along the edges will be interpolated, thus creating the gradient effect.
-You can create a gradient border by calling <code>AGSBorders.Gradient</code>.</p>
+You can create a gradient border by using the border factory: <code>factory.Graphics.Border.Gradient(...)</code>.</p>
 <h3 id="9-slice-image">9-slice Image</h3>
 <p>This allows you to use an image, slice it to 9 pieces, and spread it in various ways to create a border. This is similar to the <a href="http://www.adventuregamestudio.co.uk/wiki/Text_Window,_Customised">customized text window</a> feature that &quot;Classic&quot; AGS currently has, only more powerful and available for all objects, not just for text windows.
 The 9-slice image border is heavily inspired by the border image used by CSS, so you can look at a <a href="https://css-tricks.com/almanac/properties/b/border-image/">CSS example</a>, to see what can be done with a 9-slice image.</p>
@@ -106,7 +106,7 @@ Take a look at the existing implementation in the engine code to get an idea of 
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Docs/articles/borders.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Docs/articles/borders.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
