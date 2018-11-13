@@ -12,11 +12,11 @@ namespace AGS.Engine
             if (game != null)
             {
                 TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.SpeechFont,
-                  autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+                                                              autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomCenter);
                 LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (7f/10f), game.Settings.VirtualResolution.Height);
             }
 			TextDelay = 70;
-			SkipText = SkipText.ByTimeAndMouse;
+            SkipText = SkipText.ByTimeAndMouse;
 			BackgroundColor = Colors.Transparent;
 		}
 

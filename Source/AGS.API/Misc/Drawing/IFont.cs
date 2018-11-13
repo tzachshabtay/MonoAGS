@@ -29,8 +29,9 @@
         /// </summary>
         /// <returns>The size of the expected text.</returns>
         /// <param name="text">Text.</param>
+        /// <param name="alignment">The text alignment.</param>
         /// <param name="maxWidth">Max width if the text is expected to be wrapped, or int.MaxValue for unlimited width.</param>
-		SizeF MeasureString(string text, int maxWidth = int.MaxValue);
+        SizeF MeasureString(string text, Alignment alignment, int maxWidth = int.MaxValue);
 
         /// <summary>
         /// Returns a new font with the same properties as the current font, but with a new size.

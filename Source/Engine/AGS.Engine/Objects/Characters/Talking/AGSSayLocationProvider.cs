@@ -40,10 +40,13 @@ namespace AGS.Engine
 
         private PointF getTextLocation(string text, ISayConfig config, float x, float y)
         {
-            //todo: need to account for alignment
-            AGS.API.SizeF size = config.TextConfig.GetTextSize(text, config.LabelSize);
+            //todo: need to account for alignment (currently assumes center alignment always)
+            SizeF labelSize = (config.LabelSize.Width - config.TextConfig.PaddingLeft - config.TextConfig.PaddingRight,
+                               config.LabelSize.Height - config.TextConfig.PaddingTop - config.TextConfig.PaddingBottom);
+            AGS.API.SizeF size = config.TextConfig.GetTextSize(text, labelSize);
             float width = size.Width + config.TextConfig.PaddingLeft + config.TextConfig.PaddingRight;
             float height = size.Height + config.TextConfig.PaddingTop + config.TextConfig.PaddingBottom;
+            float horizontalGap = (config.LabelSize.Width - width)/2f;
 
             y = MathUtils.Clamp(y, 0f, Math.Min(_settings.VirtualResolution.Height,
                                 _settings.VirtualResolution.Height - height));
@@ -53,11 +56,12 @@ namespace AGS.Engine
             y += config.TextOffset.Y;
 
             float rightPortraitX = _settings.VirtualResolution.Width - 100;
-            x += config.PortraitConfig == null ? -(width / 2f) : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
+            x += config.PortraitConfig == null ? -(config.LabelSize.Width / 2f) : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
                                                        : config.PortraitConfig.TextOffset.X);
             float maxX = y > _settings.VirtualResolution.Height - 100 && x > rightPortraitX ? 
                                   Math.Min(x, _settings.VirtualResolution.Width) : _settings.VirtualResolution.Width;
-            x = MathUtils.Clamp(x, 0f, Math.Max(0f, maxX - width - 10f));
+            const float padding = 15f;
+            x = MathUtils.Clamp(x, -horizontalGap + padding, Math.Max(-horizontalGap, maxX - width - horizontalGap - padding));
             x += config.TextOffset.X;
 
             return new PointF(x, y);

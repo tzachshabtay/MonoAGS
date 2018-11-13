@@ -118,12 +118,12 @@ namespace AGS.Engine
             switch (config.AutoFit)
             {
                 case AutoFit.TextShouldFitLabel:
-                    var textSize = config.Font.MeasureString(text);
+                    var textSize = config.Font.MeasureString(text, config.Alignment);
                     return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height)).Scale(scaleBackX, scaleBackY);
                 case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
-                    return config.Font.MeasureString(text, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
                 default:
-                    return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment).Scale(scaleBackX, scaleBackY);
             }
         }
 
