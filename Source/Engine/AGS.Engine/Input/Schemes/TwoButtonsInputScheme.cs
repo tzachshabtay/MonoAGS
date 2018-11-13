@@ -11,20 +11,21 @@ namespace AGS.Engine
 	{
 		private readonly IGame _game;
         private int _handlingClick;
-        private IObject _inventoryCursor;
+        private IObject _inventoryCursor, _defaultCursor;
 
         public TwoButtonsInputScheme (IGame game, IObject defaultCursor = null)
 		{
             Trace.Assert(game != null, "Please pass in a valid game argument");
             this._game = game;
-            DefaultCursor = defaultCursor ?? game.State.Cursor;
+            _defaultCursor = defaultCursor ?? game.State.Cursor;
 		}
 
-        public IObject DefaultCursor { get; set; }
+        public IObject DefaultCursor { get => _defaultCursor; set { _defaultCursor = value; _game.State.Cursor = value; } }
 
 		public void Start()
 		{
             Trace.Assert(_game.Input != null, "Game input passed as argument is null, please make sure to only start the control scheme after the game is loaded (for example, in the game's OnLoad event");
+            if (DefaultCursor != null) _game.State.Cursor = DefaultCursor;
             _game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
 
