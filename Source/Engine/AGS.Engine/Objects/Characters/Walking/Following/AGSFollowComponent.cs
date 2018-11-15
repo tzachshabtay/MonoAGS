@@ -33,12 +33,16 @@ namespace AGS.Engine
 		public void Follow (IObject obj, IFollowSettings settings)
 		{
             var currentTarget = obj;
-            if (currentTarget != null)
+            var previosTarget = TargetBeingFollowed;
+            if (previosTarget != null)
             {
-                FollowTag.RemoveTag(currentTarget, _follower);
+                FollowTag.RemoveTag(previosTarget, _follower);
             }
             TargetBeingFollowed = obj;
-            FollowTag.AddTag(obj, _follower);
+            if (currentTarget != null)
+            {
+                FollowTag.AddTag(currentTarget, _follower);
+            }
 			_followSettings = settings ?? new AGSFollowSettings ();
 		}
 
