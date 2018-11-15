@@ -112,8 +112,15 @@ namespace AGS.Engine
 
 		private PointF wanderOff()
 		{
-			float x = (float)MathUtils.Random().Next(0, _game.Settings.VirtualResolution.Width);
-			float y = (float)MathUtils.Random ().Next (0, _game.Settings.VirtualResolution.Height);
+            var room = _game.State.Room;
+            bool isLimitlessRoom = MathUtils.FloatEquals(room?.Limits.Width ?? float.MaxValue, float.MaxValue);
+            var minX = isLimitlessRoom ? 0f : room.Limits.X;
+            var maxX = isLimitlessRoom ? _game.Settings.VirtualResolution.Width : room.Limits.X + room.Limits.Width;
+            var minY = isLimitlessRoom ? 0f : room.Limits.Y;
+            var maxY = isLimitlessRoom ? _game.Settings.VirtualResolution.Height : room.Limits.Y + room.Limits.Height;
+
+            float x = (float)MathUtils.Random().Next((int)minX, (int)maxX);
+			float y = (float)MathUtils.Random().Next((int)minY, (int)maxY);
 			return new PointF(x, y);
 		}
 
