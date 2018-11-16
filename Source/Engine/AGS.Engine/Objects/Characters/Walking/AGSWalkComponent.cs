@@ -192,6 +192,7 @@ namespace AGS.Engine
                 if (instruction != null)
                 {
                     onWalkLineCompleted(instruction, instruction.CurrentLine, false);
+                    instruction.OnCompletion.TrySetResult(false);
                 }
                 if (nextInstruction != null)
                 {

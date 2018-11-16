@@ -687,6 +687,11 @@ namespace AGS.Engine
             _followComponent.Follow(obj, settings);
         }
 
+        public Task StopFollowingAsync()
+        {
+            return _followComponent.StopFollowingAsync();
+        }
+
         #endregion
 
         #region IHotspotComponent implementation
