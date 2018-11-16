@@ -99,7 +99,7 @@
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_FollowBetweenRooms.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.FollowBetweenRooms%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L67">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L117">View Source</a>
   </span>
   <a id="AGS_API_IFollowSettings_FollowBetweenRooms_" data-uid="AGS.API.IFollowSettings.FollowBetweenRooms*"></a>
   <h4 id="AGS_API_IFollowSettings_FollowBetweenRooms" data-uid="AGS.API.IFollowSettings.FollowBetweenRooms">FollowBetweenRooms</h4>
@@ -196,6 +196,39 @@ each time between the minimum and maximum x.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MaxXOffsetForWanderOff.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MaxXOffsetForWanderOff%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L68">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_MaxXOffsetForWanderOff_" data-uid="AGS.API.IFollowSettings.MaxXOffsetForWanderOff*"></a>
+  <h4 id="AGS_API_IFollowSettings_MaxXOffsetForWanderOff" data-uid="AGS.API.IFollowSettings.MaxXOffsetForWanderOff">MaxXOffsetForWanderOff</h4>
+  <div class="markdown level1 summary"><p>An optional maximum x offset for when wandering off (behaves similarly to <a class="xref" href="AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxXOffset">MaxXOffset</a>, just for the &apos;wander off&apos; phase).
+If left out, the maximum x will be the right-most part of the room (regardless for where the target is).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float? MaxXOffsetForWanderOff { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><p>The maximum X Offset for wandering off.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MaxYOffset.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MaxYOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -225,6 +258,71 @@ each time between the minimum and maximum y.</p>
         <td><span class="xref">System.Single</span></td>
         <td><p>The maximum Y Offset.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MaxYOffsetForWanderOff.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MaxYOffsetForWanderOff%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L82">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_MaxYOffsetForWanderOff_" data-uid="AGS.API.IFollowSettings.MaxYOffsetForWanderOff*"></a>
+  <h4 id="AGS_API_IFollowSettings_MaxYOffsetForWanderOff" data-uid="AGS.API.IFollowSettings.MaxYOffsetForWanderOff">MaxYOffsetForWanderOff</h4>
+  <div class="markdown level1 summary"><p>An optional maximum y offset for when wandering off (behaves similarly to <a class="xref" href="AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffset">MaxYOffset</a>, just for the &apos;wander off&apos; phase).
+If left out, the maximum y will be the top-most part of the room (regardless for where the target is).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float? MaxYOffsetForWanderOff { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><p>The maximum Y Offset for wandering off.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MinimumWalkingDistance.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MinimumWalkingDistance%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L111">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_MinimumWalkingDistance_" data-uid="AGS.API.IFollowSettings.MinimumWalkingDistance*"></a>
+  <h4 id="AGS_API_IFollowSettings_MinimumWalkingDistance" data-uid="AGS.API.IFollowSettings.MinimumWalkingDistance">MinimumWalkingDistance</h4>
+  <div class="markdown level1 summary"><p>It might look silly for a character to walk just a few pixels. This allows you to set the minimum distance
+from its current position that the follower will walk. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MinimumWalkingDistance { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -298,6 +396,39 @@ each time between the minimum and maximum x.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MinXOffsetForWanderOff.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MinXOffsetForWanderOff%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L61">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_MinXOffsetForWanderOff_" data-uid="AGS.API.IFollowSettings.MinXOffsetForWanderOff*"></a>
+  <h4 id="AGS_API_IFollowSettings_MinXOffsetForWanderOff" data-uid="AGS.API.IFollowSettings.MinXOffsetForWanderOff">MinXOffsetForWanderOff</h4>
+  <div class="markdown level1 summary"><p>An optional minimum x offset for when wandering off (behaves similarly to <a class="xref" href="AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinXOffset">MinXOffset</a>, just for the &apos;wander off&apos; phase).
+If left out, the minimum x will be the left-most part of the room (regardless for where the target is).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float? MinXOffsetForWanderOff { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><p>The minimum X Offset for wandering off.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MinYOffset.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MinYOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -332,10 +463,137 @@ each time between the minimum and maximum y.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_MinYOffsetForWanderOff.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.MinYOffsetForWanderOff%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L75">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_MinYOffsetForWanderOff_" data-uid="AGS.API.IFollowSettings.MinYOffsetForWanderOff*"></a>
+  <h4 id="AGS_API_IFollowSettings_MinYOffsetForWanderOff" data-uid="AGS.API.IFollowSettings.MinYOffsetForWanderOff">MinYOffsetForWanderOff</h4>
+  <div class="markdown level1 summary"><p>An optional minimum y offset for when wandering off (behaves similarly to <a class="xref" href="AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffset">MinYOffset</a>, just for the &apos;wander off&apos; phase).
+If left out, the minimum y will be the bottom-most part of the room (regardless for where the target is).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float? MinYOffsetForWanderOff { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Single</span>&gt;</td>
+        <td><p>The minimum y Offset for wandering off.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L100">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage_" data-uid="AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage*"></a>
+  <h4 id="AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage" data-uid="AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage">StayOnTheSameSideForXPercentage</h4>
+  <div class="markdown level1 summary"><p>The probability (in percentage) that the character will stay on the same side of the target on the X axis (as opposed to getting around it)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int StayOnTheSameSideForXPercentage { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L105">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage_" data-uid="AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage*"></a>
+  <h4 id="AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage" data-uid="AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage">StayOnTheSameSideForYPercentage</h4>
+  <div class="markdown level1 summary"><p>The probability (in percentage) that the character will stay on the same side of the target on the Y axis (as opposed to getting around it)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int StayOnTheSameSideForYPercentage { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_StayPutPercentage.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.StayPutPercentage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L95">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowSettings_StayPutPercentage_" data-uid="AGS.API.IFollowSettings.StayPutPercentage*"></a>
+  <h4 id="AGS_API_IFollowSettings_StayPutPercentage" data-uid="AGS.API.IFollowSettings.StayPutPercentage">StayPutPercentage</h4>
+  <div class="markdown level1 summary"><p>The probability (in percentage) that the character will not move in the next walk, if she/he is already
+within allowed range of the target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int StayPutPercentage { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowSettings_WanderOffPercentage.md&amp;value=---%0Auid%3A%20AGS.API.IFollowSettings.WanderOffPercentage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L61">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowSettings.cs/#L89">View Source</a>
   </span>
   <a id="AGS_API_IFollowSettings_WanderOffPercentage_" data-uid="AGS.API.IFollowSettings.WanderOffPercentage*"></a>
   <h4 id="AGS_API_IFollowSettings_WanderOffPercentage" data-uid="AGS.API.IFollowSettings.WanderOffPercentage">WanderOffPercentage</h4>

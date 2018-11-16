@@ -8279,6 +8279,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MaxXOffset
   nameWithType: IFollowSettings.MaxXOffset
+- uid: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  name: MaxXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxXOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxXOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MaxXOffsetForWanderOff*
+  name: MaxXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxXOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxXOffsetForWanderOff
 - uid: AGS.API.IFollowSettings.MaxYOffset
   name: MaxYOffset
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffset
@@ -8292,6 +8305,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MaxYOffset
   nameWithType: IFollowSettings.MaxYOffset
+- uid: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  name: MaxYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MaxYOffsetForWanderOff*
+  name: MaxYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinimumWalkingDistance
+  name: MinimumWalkingDistance
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinimumWalkingDistance
+  commentId: P:AGS.API.IFollowSettings.MinimumWalkingDistance
+  fullName: AGS.API.IFollowSettings.MinimumWalkingDistance
+  nameWithType: IFollowSettings.MinimumWalkingDistance
+- uid: AGS.API.IFollowSettings.MinimumWalkingDistance*
+  name: MinimumWalkingDistance
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinimumWalkingDistance_
+  commentId: Overload:AGS.API.IFollowSettings.MinimumWalkingDistance
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinimumWalkingDistance
+  nameWithType: IFollowSettings.MinimumWalkingDistance
 - uid: AGS.API.IFollowSettings.MinWaitBetweenWalks
   name: MinWaitBetweenWalks
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinWaitBetweenWalks
@@ -8318,6 +8357,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MinXOffset
   nameWithType: IFollowSettings.MinXOffset
+- uid: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  name: MinXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinXOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  nameWithType: IFollowSettings.MinXOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinXOffsetForWanderOff*
+  name: MinXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinXOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  nameWithType: IFollowSettings.MinXOffsetForWanderOff
 - uid: AGS.API.IFollowSettings.MinYOffset
   name: MinYOffset
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffset
@@ -8331,6 +8383,58 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MinYOffset
   nameWithType: IFollowSettings.MinYOffset
+- uid: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  name: MinYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  nameWithType: IFollowSettings.MinYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinYOffsetForWanderOff*
+  name: MinYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  nameWithType: IFollowSettings.MinYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  name: StayOnTheSameSideForXPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage
+  commentId: P:AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForXPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage*
+  name: StayOnTheSameSideForXPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForXPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  name: StayOnTheSameSideForYPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage
+  commentId: P:AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForYPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage*
+  name: StayOnTheSameSideForYPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForYPercentage
+- uid: AGS.API.IFollowSettings.StayPutPercentage
+  name: StayPutPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayPutPercentage
+  commentId: P:AGS.API.IFollowSettings.StayPutPercentage
+  fullName: AGS.API.IFollowSettings.StayPutPercentage
+  nameWithType: IFollowSettings.StayPutPercentage
+- uid: AGS.API.IFollowSettings.StayPutPercentage*
+  name: StayPutPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayPutPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayPutPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayPutPercentage
+  nameWithType: IFollowSettings.StayPutPercentage
 - uid: AGS.API.IFollowSettings.WanderOffPercentage
   name: WanderOffPercentage
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_WanderOffPercentage
@@ -18839,6 +18943,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.MathUtils.DegreesToRadians
   nameWithType: MathUtils.DegreesToRadians
+- uid: AGS.API.MathUtils.Distance(AGS.API.PointF,AGS.API.PointF)
+  name: Distance(PointF, PointF)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Distance_AGS_API_PointF_AGS_API_PointF_
+  commentId: M:AGS.API.MathUtils.Distance(AGS.API.PointF,AGS.API.PointF)
+  fullName: AGS.API.MathUtils.Distance(AGS.API.PointF, AGS.API.PointF)
+  nameWithType: MathUtils.Distance(PointF, PointF)
+- uid: AGS.API.MathUtils.Distance*
+  name: Distance
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Distance_
+  commentId: Overload:AGS.API.MathUtils.Distance
+  isSpec: "True"
+  fullName: AGS.API.MathUtils.Distance
+  nameWithType: MathUtils.Distance
 - uid: AGS.API.MathUtils.FloatEquals(System.Single,System.Single)
   name: FloatEquals(Single, Single)
   href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_FloatEquals_System_Single_System_Single_
