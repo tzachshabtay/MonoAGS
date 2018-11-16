@@ -124,10 +124,10 @@ public interface IFollowComponent : IComponent, IDisposable, INotifyPropertyChan
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IFollowComponent_TargetBeingFollowed.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent.TargetBeingFollowed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowComponent_TargetBeingFollowed.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent.TargetBeingFollowed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L27">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L30">View Source</a>
   </span>
   <a id="AGS_API_IFollowComponent_TargetBeingFollowed_" data-uid="AGS.API.IFollowComponent.TargetBeingFollowed*"></a>
   <h4 id="AGS_API_IFollowComponent_TargetBeingFollowed" data-uid="AGS.API.IFollowComponent.TargetBeingFollowed">TargetBeingFollowed</h4>
@@ -158,10 +158,10 @@ public interface IFollowComponent : IComponent, IDisposable, INotifyPropertyChan
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IFollowComponent_Follow_AGS_API_IObject_AGS_API_IFollowSettings_.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent.Follow(AGS.API.IObject%2CAGS.API.IFollowSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowComponent_Follow_AGS_API_IObject_AGS_API_IFollowSettings_.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent.Follow(AGS.API.IObject%2CAGS.API.IFollowSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L21">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L24">View Source</a>
   </span>
   <a id="AGS_API_IFollowComponent_Follow_" data-uid="AGS.API.IFollowComponent.Follow*"></a>
   <h4 id="AGS_API_IFollowComponent_Follow_AGS_API_IObject_AGS_API_IFollowSettings_" data-uid="AGS.API.IFollowComponent.Follow(AGS.API.IObject,AGS.API.IFollowSettings)">Follow(IObject, IFollowSettings)</h4>
@@ -169,7 +169,8 @@ public interface IFollowComponent : IComponent, IDisposable, INotifyPropertyChan
 the object is at, where the follow settings can be configured to say how aggressively to follow,
 and to what distance from the target.
 Calling Follow with another object will stop following the current object and start following the new object.
-To stop following altogether, call the Follow again with null as the target object.</p>
+To stop following altogether, call the Follow again with null as the target object. Note however, that if you need to have the character
+walk after stopping following, you should use <a class="xref" href="AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_StopFollowingAsync">StopFollowingAsync()</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -200,6 +201,40 @@ To stop following altogether, call the Follow again with null as the target obje
       </tr>
     </tbody>
   </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowComponent_StopFollowingAsync.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent.StopFollowingAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L38">View Source</a>
+  </span>
+  <a id="AGS_API_IFollowComponent_StopFollowingAsync_" data-uid="AGS.API.IFollowComponent.StopFollowingAsync*"></a>
+  <h4 id="AGS_API_IFollowComponent_StopFollowingAsync" data-uid="AGS.API.IFollowComponent.StopFollowingAsync">StopFollowingAsync()</h4>
+  <div class="markdown level1 summary"><p>Stops following the current target.
+The task that is returned should be waited on, if you want to have the character walk somewhere after this
+(otherwise you might get a StopWalking command issues from the StopFollowing command which will stop your walk).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task StopFollowingAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>The following async.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -208,10 +243,10 @@ To stop following altogether, call the Follow again with null as the target obje
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/rider/apiSpec/new?filename=AGS_API_IFollowComponent.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/CatFixes2/apiSpec/new?filename=AGS_API_IFollowComponent.md&amp;value=---%0Auid%3A%20AGS.API.IFollowComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/rider/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L7" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/CatFixes2/Source/AGS.API/Objects/Characters/Walking/Follow/IFollowComponent.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
