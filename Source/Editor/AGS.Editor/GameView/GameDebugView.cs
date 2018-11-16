@@ -16,15 +16,17 @@ namespace AGS.Editor
         private readonly InspectorPanel _inspector;
         private readonly IInput _input;
         private readonly ActionManager _actions;
-        private readonly Size _resolution = (1800, 1200);
+        private readonly GameToolbar _toolbar;
+        private readonly Size _resolution = new Size(1800, 1200);
         private const string _panelId = "Game Debug Tree Panel";
         private IPanel _panel;
         private ISplitPanelComponent _splitPanel;
         private IDebugTab _currentTab;
         private IButton _panesButton;
 
-        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions)
+        public GameDebugView(AGSEditor editor, KeyboardBindings keyboardBindings, ActionManager actions, GameToolbar toolbar)
         {
+            _toolbar = toolbar;
             _actions = actions;
             _editor = editor;
             _layer = new AGSRenderLayer(AGSLayers.UI.Z - 1, independentResolution: _resolution);
@@ -51,19 +53,19 @@ namespace AGS.Editor
             _panel.Pivot = new PointF(0f, 0.5f);
             _panel.Visible = false;
             _panel.Tint = GameViewColors.Panel;
-            _panel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
+            _panel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             _panel.RenderLayer = _layer;
             _panel.ClickThrough = false;
             _editor.Editor.State.FocusedUI.CannotLoseFocus.Add(_panelId);
 
-            var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game Debug", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
-                                      _panel, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
+            var headerLabel = factory.UI.GetLabel("GameDebugTreeLabel", "Game View", _panel.Width, headerHeight, 0f, _panel.Height - headerHeight,
+                _panel, factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel));
             headerLabel.Tint = Colors.Transparent;
-            headerLabel.Border = AGSBorders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
+            headerLabel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, borderWidth, hasRoundCorners: true);
             headerLabel.RenderLayer = _layer;
 
             var xButton = factory.UI.GetButton("GameDebugTreeCloseButton", (IAnimation)null, null, null, 0f, _panel.Height - headerHeight + 5f, _panel, "X",
-                                               new AGSTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
+                                               factory.Fonts.GetTextConfig(factory.Graphics.Brushes.LoadSolidBrush(Colors.Red),
                                                                  autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter),
                                                                  width: 40f, height: 40f);
             xButton.Pivot = new PointF();
@@ -74,7 +76,7 @@ namespace AGS.Editor
             xButton.MouseClicked.Subscribe(_ => Hide());
 
             _panesButton = factory.UI.GetButton("GameDebugViewPanesButton", (IAnimation)null, null, null, _panel.Width, xButton.Y, _panel, "Display List",
-                                                   new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
+                                                   factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleRight),
                                                    width: 120f, height: 40f);
             _panesButton.Pivot = new PointF(1f, 0f);
             _panesButton.RenderLayer = _layer;
@@ -101,7 +103,7 @@ namespace AGS.Editor
 
             Tree.Load(topPanel);
             _displayList.Load(topPanel);
-            _inspector.Load(bottomPanel);
+            _inspector.Load(bottomPanel, null);
             _currentTab = Tree;
             _splitPanel = parentPanel.AddComponent<ISplitPanelComponent>();
             _splitPanel.TopPanel = topPanel;
@@ -164,8 +166,13 @@ namespace AGS.Editor
             return _currentTab.Show();
         }
 
-        private void onShortcutKeyPressed(string action)
+        private async void onShortcutKeyPressed(string action)
         {
+            if (action == KeyboardBindings.BreakDebugger)
+            {
+                await BreakDebuggerForm.Show(_editor);
+                return;
+            }
             if (!_panel?.Visible ?? false) return;
 
             if (action == KeyboardBindings.Undo)
@@ -179,9 +186,9 @@ namespace AGS.Editor
             else if (action == KeyboardBindings.Save)
             {
                 string baseFolder = Path.GetDirectoryName(_editor.Project.AGSProjectPath);
-                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor();
+                CSharpCodeGeneartor codeGeneartor = new CSharpCodeGeneartor(_editor.Project.Model);
                 _editor.Project.Model.GenerateCode(baseFolder, codeGeneartor);
-                _editor.Project.Model.Save(baseFolder);
+                _editor.Project.Model.Save(AGSEditor.Platform, _editor.Editor, baseFolder);
             }
         }
 
@@ -197,13 +204,13 @@ namespace AGS.Editor
             if (!MathUtils.FloatEquals(xOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.X));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.X), prop), translate.X + xOffset, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, null, nameof(ITranslateComponent.X), prop), translate.X + xOffset, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
             if (!MathUtils.FloatEquals(yOffset, 0f))
             {
                 PropertyInfo prop = translate.GetType().GetProperty(nameof(ITranslateComponent.Y));
-                PropertyAction action = new PropertyAction(new InspectorProperty(translate, nameof(ITranslateComponent.Y), prop), translate.Y + yOffset, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(translate, null, nameof(ITranslateComponent.Y), prop), translate.Y + yOffset, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
         }
@@ -218,7 +225,7 @@ namespace AGS.Editor
             }
             if (MathUtils.FloatEquals(angleOffset, 0f)) return;
             PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
-            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, nameof(IRotateComponent.Angle), prop), rotate.Angle + angleOffset, _editor.Project.Model);
+            PropertyAction action = new PropertyAction(new InspectorProperty(rotate, null, nameof(IRotateComponent.Angle), prop), rotate.Angle + angleOffset, _editor.Project.Model);
             _actions.RecordAction(action);
         }
 
@@ -231,12 +238,18 @@ namespace AGS.Editor
                 scaleOffset /= 10f;
             }
             PropertyInfo prop = scale.GetType().GetProperty(nameof(IScaleComponent.Scale));
-            PropertyAction action = new PropertyAction(new InspectorProperty(scale, nameof(IScaleComponent.Scale), prop), new PointF(scale.ScaleX + scaleOffset, scale.ScaleY + scaleOffset), _editor.Project.Model);
+            PropertyAction action = new PropertyAction(new InspectorProperty(scale, null, nameof(IScaleComponent.Scale), prop), new PointF(scale.ScaleX + scaleOffset, scale.ScaleY + scaleOffset), _editor.Project.Model);
             _actions.RecordAction(action);
         }
 
-        private void onRepeatedlyExecute()
+        private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs args)
         {
+            respondToKeyboard();
+        }
+
+        private void respondToKeyboard()
+        {
+            if (_editor.Editor.State.FocusedUI.HasKeyboardFocus != null || !_toolbar.IsPaused) return;
             var entity = _inspector.Inspector?.SelectedObject as IEntity;
             if (entity == null) return;
 

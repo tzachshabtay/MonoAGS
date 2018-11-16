@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
 {
     public class GLTextureCache : ITextureCache
     {
-        private readonly Dictionary<string, ITexture> _textures;
+        private readonly ConcurrentDictionary<string, ITexture> _textures;
 
         public GLTextureCache()
         {
-            _textures = new Dictionary<string, ITexture>(1024);
+            _textures = new ConcurrentDictionary<string, ITexture>();
         }
 
         public ITexture GetTexture(string id, Func<string, ITexture> factory)
@@ -25,7 +27,7 @@ namespace AGS.Engine
 
         public void RemoveTexture(string id)
         {
-            _textures.Remove(id);
+            _textures.TryRemove(id, out _);
         }
     }
 }

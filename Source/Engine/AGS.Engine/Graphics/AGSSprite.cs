@@ -16,6 +16,7 @@ namespace AGS.Engine
         private readonly IScale _scale;
         private readonly Resolver _resolver;
         private readonly int _id;
+        private readonly PropertyChangedEventHandler _propertyChangedCallback;
         private Action _unsubscribeBindToSize;
         private Lazy<IArea> _pixelPerfectArea;
         private static int _lastId;
@@ -26,6 +27,7 @@ namespace AGS.Engine
             _pixelPerfectArea = new Lazy<IArea>(generatePixelPerfectArea);
             _maskLoader = maskLoader;
             _resolver = resolver;
+            _propertyChangedCallback = onPropertyChanged;
 
             //todo: abstract it to the constructor
             _translate = new AGSTranslate();
@@ -35,9 +37,9 @@ namespace AGS.Engine
             _unsubscribeBindToSize = AGSScale.BindSizeToImage(_hasImage, _scale);
             _rotate = new AGSRotate();
 
-            _scale.PropertyChanged += onPropertyChanged;
-            _hasImage.PropertyChanged += onPropertyChanged;
-            _translate.PropertyChanged += onPropertyChanged;
+            _scale.PropertyChanged += _propertyChangedCallback;
+            _hasImage.PropertyChanged += _propertyChangedCallback;
+            _translate.PropertyChanged += _propertyChangedCallback;
         }
 
         private AGSSprite(AGSSprite sprite) : this(sprite._resolver, sprite._maskLoader)
@@ -59,17 +61,17 @@ namespace AGS.Engine
             var scale = _scale;
             if (scale != null)
             {
-                scale.PropertyChanged -= onPropertyChanged;
+                scale.PropertyChanged -= _propertyChangedCallback;
             }
             var image = _hasImage;
             if (image != null)
             {
-                image.PropertyChanged -= onPropertyChanged;
+                image.PropertyChanged -= _propertyChangedCallback;
             }
             var translate = _translate;
             if (translate != null)
             {
-                translate.PropertyChanged -= onPropertyChanged;
+                translate.PropertyChanged -= _propertyChangedCallback;
             }
             _pixelPerfectArea = null;
         }

@@ -37,10 +37,10 @@ namespace AGS.Engine.Desktop
 			_maxWidth = maxWidth;
 			IBrush outlineBrush = _config.OutlineBrush;
 
-            float left = xOffset + _config.AlignX(textSize.Width, baseSize);
-			float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
-			float centerX = left + _config.OutlineWidth / 2f;
-			float centerY = top + _config.OutlineWidth / 2f;
+            float centerX = xOffset + _config.AlignX(textSize.Width, baseSize);
+			float centerY = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
+			float left = centerX - _config.OutlineWidth / 2f;
+			float top = centerY - _config.OutlineWidth / 2f;
 			float right = left + _config.OutlineWidth;
 			float bottom = top + _config.OutlineWidth;
 
@@ -111,4 +111,3 @@ namespace AGS.Engine.Desktop
 		}
 	}
 }
-

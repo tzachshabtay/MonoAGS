@@ -33,6 +33,7 @@ namespace AGS.Engine
 			OnBeforeSay = onBeforeSay;
 		}
 
+        [Property(DisplayName = "Speech")]
 		public ISayConfig SpeechConfig { get; private set; }
 		public IBlockingEvent<BeforeSayEventArgs> OnBeforeSay { get; private set; }
 
@@ -62,7 +63,7 @@ namespace AGS.Engine
             var textLocation = textPosition ?? location.TextLocation;
             portraitPosition = portraitPosition ?? location.PortraitLocation;
             IObject portrait = showPortrait(portraitPosition);
-			ILabel label = _factory.UI.GetLabel($"Say: {text}", text, SpeechConfig.LabelSize.Width, 
+            ILabel label = _factory.UI.GetLabel($"Say: {text} {Guid.NewGuid().ToString()}", text, SpeechConfig.LabelSize.Width, 
                 SpeechConfig.LabelSize.Height, textLocation.X, textLocation.Y,
                 config: SpeechConfig.TextConfig, addToUi: false);
 			label.RenderLayer = AGSLayers.Speech;

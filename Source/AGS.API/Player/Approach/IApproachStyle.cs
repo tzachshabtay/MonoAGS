@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AGS.API
 {
@@ -30,7 +31,7 @@ namespace AGS.API
     /// <summary>
     /// How to approach hotspots? Can be configured per verb.
     /// </summary>
-	public interface IApproachStyle
+    public interface IApproachStyle : INotifyPropertyChanged
 	{
         /// <summary>
         /// Allows to set how the character will approach hotspots, whereas each interaction verb (look, interact, etc) 

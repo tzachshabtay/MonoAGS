@@ -46,6 +46,14 @@ namespace AGS.API
 		IObject Background  { get; set; }
 
         /// <summary>
+        /// Gets or sets the background color of the room.
+        /// If null (the default), then the screen will not be cleared with any color before rendering: this
+        /// is assuming that you'll cover the screen anyway with images.
+        /// </summary>
+        /// <value>The color of the background.</value>
+        Color? BackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets the room limits (a rectangle defining the room area)
         /// The room limits are used to limit the camera from moving too much to the left or to the right.
         /// By default the room limits are bound to the room background size and start from (0,0).

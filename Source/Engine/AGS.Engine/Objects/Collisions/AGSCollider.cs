@@ -9,6 +9,7 @@ namespace AGS.Engine
         private IScale _scale;
         private IPixelPerfectComponent _pixelPerfect;
         private IBoundingBoxComponent _boundingBox;
+        private ICropSelfComponent _crop;
 
 		public override void Init()
 		{
@@ -18,6 +19,7 @@ namespace AGS.Engine
             Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
             Entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
             Entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            Entity.Bind<ICropSelfComponent>(c => _crop = c, _ => _crop = null);
 		}
 
         [Property(Browsable = false)]
@@ -45,6 +47,12 @@ namespace AGS.Engine
 		{
 			var boundingBoxesComponent = _boundingBox;
             if (boundingBoxesComponent == null) return false;
+            if (_crop?.IsGuaranteedToFullyCrop() ?? false)
+            {
+                //This should not be needed as the bounding box should be cropped anyway.
+                //However, for a performance optimization if an entity is guaranteed to be fully cropped (like items in the bottom of a long listbox) the bounding box is not calculated, so we need to take it into account here.
+                return false;
+            }
             AGSBoundingBox boundingBox = boundingBoxesComponent.WorldBoundingBox;
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;

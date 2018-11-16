@@ -101,10 +101,22 @@
         bool RenderCaret { get; set; }
 
         /// <summary>
+        /// Horizontal offset in pixels for the caret.
+        /// </summary>
+        /// <value>The caret X offset.</value>
+        int CaretXOffset { get; set; }
+
+        /// <summary>
         /// Prepares the bounding boxes for the text. This is called repeatedly by the engine,
         /// but you can call it yourself if you need accurate measurements NOW.
         /// </summary>
         /// <seealso cref="TextBoundingBoxes"/>
         void PrepareTextBoundingBoxes();
+
+        /// <summary>
+        /// Allows locking the component from changing (to allow for changing multiple components "at once").
+        /// </summary>
+        /// <value>The lock step.</value>
+        ILockStep TextLockStep { get; }
     }
 }

@@ -23,7 +23,7 @@ namespace AGS.Engine
 			if (!BorderSupported) return null;
 			var color = Color.FromHexa(ColorValue);
 			var lineWidth = LineWidth;
-            IBorderStyle style = AGSBorders.SolidColor(context.GLUtils, context.Resolver.Container.Resolve<IRuntimeSettings>(), color, lineWidth);
+            IBorderStyle style = context.Factory.Graphics.Borders.SolidColor(color, lineWidth);
 
 			return style;
 		}

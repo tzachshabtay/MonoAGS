@@ -42,11 +42,8 @@ namespace AGS.API
 
         /// <summary>
         /// Sets the drop down panel which hosts the selection item.
-        /// The entity is expected to have the following components:
-        /// <see cref="IListboxComponent"/> , <see cref="IVisibleComponent"/> , <see cref="IDrawableInfoComponent"/>,
-        /// <see cref="IImageComponent"/> , <see cref="ITranslateComponent"/>   
         /// </summary>
-        IEntity DropDownPanel { get; set; }
+        IListbox DropDownPanel { get; set; }
 
         /// <summary>
         /// Gets the drop down panel list of items.

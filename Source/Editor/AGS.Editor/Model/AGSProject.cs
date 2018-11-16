@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
+using AGS.API;
 
 namespace AGS.Editor
 {
+    [DataContract]
     public class AGSProject
     {
         [DataMember]
@@ -16,8 +17,9 @@ namespace AGS.Editor
 
         public StateModel Model { get; private set; }
 
-        public static T LoadJson<T>(string path)
+        public static T LoadJson<T>(IEditorPlatform platform, IGame game, string path)
         {
+            var serializer = platform.GetSerialization(game);
             var stream = File.OpenRead(path);
             string json;
             using (stream)
@@ -25,13 +27,14 @@ namespace AGS.Editor
             {
                 json = reader.ReadToEnd();
             }
-            T obj = JsonConvert.DeserializeObject<T>(json);
+            T obj = serializer.Deserialize<T>(json);
             return obj;
         }
 
-        public static void SaveJson(string path, object model)
+        public static void SaveJson(IEditorPlatform platform, IGame game, string path, object model)
         {
-            string json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            var serializer = platform.GetSerialization(game);
+            string json = serializer.Serialize(model);
             File.WriteAllText(path, json);
         }
 
@@ -54,12 +57,12 @@ namespace AGS.Editor
         //https://stackoverflow.com/questions/146134/how-to-remove-illegal-characters-from-path-and-filenames
         private static string getSafeFilename(string filename) => string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
 
-        public static AGSProject Load(string path)
+        public static AGSProject Load(IEditorPlatform platform, IGame game, string path)
         {
-            var proj = LoadJson<AGSProject>(path);
+            var proj = LoadJson<AGSProject>(platform, game, path);
             proj.AGSProjectPath = path;
             proj.Model = new StateModel();
-            proj.Model.Load(Path.GetDirectoryName(path));
+            proj.Model.Load(platform, game, Path.GetDirectoryName(path));
             return proj;
         }
     }

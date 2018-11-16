@@ -5,7 +5,9 @@
     /// </summary>
 	public struct Point
 	{
-		private readonly int _x, _y;
+        public static Point Empty = new Point();
+
+        private readonly int _x, _y;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.Point"/> struct.

@@ -10,10 +10,10 @@ namespace AGS.Engine
 		private readonly IUIFactory _ui;
 		private readonly IObjectFactory _object;
         private readonly IBrushLoader _brushLoader;
-        private readonly IFontLoader _fontLoader;
+        private readonly IFontFactory _fontLoader;
 
         public AGSDialogFactory(Resolver resolver, IGameState gameState, IUIFactory ui, IObjectFactory obj,
-                                IBrushLoader brushloader, IFontLoader fontLoader)
+                                IBrushLoader brushloader, IFontFactory fontLoader)
 		{
 			_resolver = resolver;
             _brushLoader = brushloader;
@@ -27,11 +27,11 @@ namespace AGS.Engine
 			ITextConfig hasBeenChosenConfig = null, bool speakOption = true, bool showOnce = false)
 		{
             var game = _resolver.Container.Resolve<IGame>();
-			if (config == null) config = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
+            if (config == null) config = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
                 brush: _brushLoader.LoadSolidBrush(Colors.White), font: _fontLoader.LoadFont(null,10f));
-			if (hoverConfig == null) hoverConfig = new AGSTextConfig (autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
+			if (hoverConfig == null) hoverConfig = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
 				brush: _brushLoader.LoadSolidBrush(Colors.Yellow), font: _fontLoader.LoadFont(null, 10f));
-            if (hasBeenChosenConfig == null) hasBeenChosenConfig = new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
+            if (hasBeenChosenConfig == null) hasBeenChosenConfig = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
                 brush: _brushLoader.LoadSolidBrush(Colors.Gray), font: _fontLoader.LoadFont(null, 10f));
             ILabel label = _ui.GetLabel($"Dialog option: {text}", text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, 
                                         config: config, addToUi: false);
@@ -73,8 +73,5 @@ namespace AGS.Engine
 			}
 			return dialog;
 		}
-
-
 	}
 }
-

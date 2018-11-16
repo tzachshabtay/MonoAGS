@@ -83,7 +83,27 @@ namespace AGS.API
         /// <returns><c>true</c>, if it is a child of the node, <c>false</c> otherwise.</returns>
         /// <param name="child">Child.</param>
 		bool HasChild(TItem child);
-	}
+
+        /// <summary>
+        /// Find a descendant who matches a specific predicate.
+        /// </summary>
+        /// <example>
+        /// For example, to find a child with a specific id:
+        /// <code language="lang-csharp">
+        /// var child = tree.FindDescendant(item => item.Entity.ID == "My ID");
+        /// </code>
+        /// </example>
+        /// <returns>The descendant, or null if not found.</returns>
+        /// <param name="isMatch">The predicate.</param>
+        TItem FindDescendant(Predicate<TItem> isMatch);
+
+        /// <summary>
+        /// Finds the previous sibling which matches a specific predicate.
+        /// </summary>
+        /// <returns>The previous sibling.</returns>
+        /// <param name="isMatch">Is match.</param>
+        TItem FindPreviousSibling(Predicate<TItem> isMatch);
+    }
 
     /// <summary>
     /// A component which adds the ability for an entity to be a part of an entity's tree.

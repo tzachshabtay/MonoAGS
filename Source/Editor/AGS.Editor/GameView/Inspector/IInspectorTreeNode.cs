@@ -4,8 +4,10 @@ namespace AGS.Editor
 {
     public interface IInspectorTreeNode : ITreeStringNode
     {
-        InspectorProperty Property { get; }
+        IProperty Property { get; }
 
         IInspectorPropertyEditor Editor { get; }
+
+        bool IsCategory { get; }
     }
 }

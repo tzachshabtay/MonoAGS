@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
 	public class ALAudioClip : IAudioClip
 	{
 		private ISoundData _soundData;
@@ -76,6 +77,8 @@ namespace AGS.Engine
         public IBlockingEvent<ISound> OnSoundStarted { get; }
 
         public IBlockingEvent<ISound> OnSoundCompleted { get; }
+
+        public override string ToString() => ID;
 
         #endregion
 

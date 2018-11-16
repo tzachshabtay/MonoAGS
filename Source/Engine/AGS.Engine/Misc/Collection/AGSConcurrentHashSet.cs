@@ -87,9 +87,17 @@ namespace AGS.Engine
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-            foreach (var pair in _map)
+            var enumerator =  _map.GetEnumerator();
+            try
             {
-                yield return pair.Key;
+                while (enumerator.MoveNext())
+                {
+                    yield return enumerator.Current.Key;
+                }
+            }
+            finally
+            {
+                enumerator.Dispose();
             }
 		}
 

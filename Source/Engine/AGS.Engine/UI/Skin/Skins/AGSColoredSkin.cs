@@ -4,6 +4,13 @@ namespace AGS.Engine
 {
     public class AGSColoredSkin
     {
+        private readonly IGraphicsFactory _factory;
+
+        public AGSColoredSkin(IGraphicsFactory factory)
+        {
+            _factory = factory;            
+        }
+
         public ButtonAnimation ButtonIdleAnimation { get; set; }
         public ButtonAnimation ButtonHoverAnimation { get; set; }
         public ButtonAnimation ButtonPushedAnimation { get; set; }
@@ -22,10 +29,8 @@ namespace AGS.Engine
         private ButtonAnimation getAnimation(IBorderComponent container, ButtonAnimation animation)
         {
             if (animation.Border == null || container == null || container.Border == null) return animation;
-            ButtonAnimation newAnimation = new ButtonAnimation(AGSBorders.Multiple(container.Border, animation.Border),
+            ButtonAnimation newAnimation = new ButtonAnimation(animation.Animation, animation.Image, _factory.Borders.Multiple(container.Border, animation.Border),
                                                                animation.TextConfig, animation.Tint);
-            newAnimation.Animation = animation.Animation;
-            newAnimation.Image = animation.Image;
             return newAnimation;
         }
 

@@ -59,16 +59,32 @@ namespace AGS.API
         /// <param name="addToUi">If set to <c>true</c> add to the game's GUI list for rendering.</param>
 		Task<IPanel> GetPanelAsync(string id, string imagePath, float x, float y, IObject parent = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
 
-	    /// <summary>
-	    /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
-	    /// The scrollbars are only shown if the contents is bigger than panel.
-	    /// 
-	    /// The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
-	    /// a contents panel with the original size, in which to put the scrolled contents.
-	    /// </summary>
-	    /// <param name="panel">Panel.</param>
-	    /// <param name="gutterSize">The gutter size (which contains the scrollbars).</param>
-	    IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f);
+        /// <summary>
+        /// Creates a scrollbar. A scrollbar is a <see cref="ISlider"/> with 2 buttons (left + right or up + down depending on which <see cref="SliderDirection"/> is used) that can
+        /// be clicked to modify the slider.
+        /// </summary>
+        /// <returns>The scrollbar.</returns>
+        /// <param name="idPrefix">Identifier prefix which will be used to generate ids for the slider and buttons.</param>
+        /// <param name="direction">Direction.</param>
+        /// <param name="parent">Parent for the slider.</param>
+        /// <param name="width">Width of the slider.</param>
+        /// <param name="height">Height of the slider.</param>
+        /// <param name="step">Step to move the slider when clicking the button.</param>
+        /// <param name="buttonBorderWidth">Border width for the buttons.</param>
+        IScrollbar GetScrollbar(string idPrefix, SliderDirection direction, IObject parent = null, float width = 15f, float height = 15f, float step = 10f, float buttonBorderWidth = 1f);
+
+        /// <summary>
+        /// Adds horizontal and vertical scrollbars on the edges of the panel that allow to scroll the contents on the panel.
+        /// The scrollbars are only shown if the contents is bigger than panel.
+        /// 
+        /// The function expands the given panel by a gutter size which is used to display the scrollbars, and returns 
+        /// a contents panel with the original size, in which to put the scrolled contents.
+        /// </summary>
+        /// <param name="panel">Panel.</param>
+        /// <param name="gutterSize">The gutter size (which contains the scrollbars).</param>
+        /// <param name="stepHorizontal">The step when clicking the arrows on the horizontal scrollbar.</param>
+        /// <param name="stepVertical">The step when clicking the arrows on the vertical scrollbar.</param>
+        IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f, float stepHorizontal = 10f, float stepVertical = 10f);
 
         /// <summary>
         /// Creates a label.
@@ -261,6 +277,22 @@ namespace AGS.API
 	    Task<ICheckBox> GetCheckBoxAsync(string id, string notCheckedPath, string notCheckedHoveredPath, string checkedPath, string checkedHoveredPath,
             float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1f, float height = -1f, bool isCheckButton = false);
 
+        /// <summary>
+        /// Creates a listbox (a list of items bound in a box).
+        /// </summary>
+        /// <returns>The list box.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <param name="layer">Layer.</param>
+        /// <param name="listItemFactory">A function for creating an item in the list. If not provided a default one will be created.</param>
+        /// <param name="defaultWidth">The default width for a list item.</param>
+        /// <param name="defaultHeight">The default height for a list item.</param>
+        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+        /// <param name="isVisible">If set to <c>true</c> set the listbox to be visible.</param>
+        /// <param name="withScrollBars">If set to <c>true</c> the listbox will have horizontal and vertical scrollbars to scroll the contents inside.</param>
+        IListbox GetListBox(string id, IRenderLayer layer, Func<string, IUIControl> listItemFactory = null,
+                            float defaultWidth = 500f, float defaultHeight = 40f, bool addToUi = true, bool isVisible = true,
+                            bool withScrollBars = true);
+        
 		/// <summary>
 		/// Creates a combo box (drop down).
 		/// </summary>
@@ -268,14 +300,16 @@ namespace AGS.API
 		/// <param name="id">A unique identifer for the combo box (it has to be globally unique across all entities).</param>
 		/// <param name="dropDownButton">Drop down button. If not provided the a default one will be created.</param>
 		/// <param name="textBox">The text box for showing the selected choice. If not provided the a default one will be created.</param>
-		/// <param name="itemButtonFactory">A function for creating a button for the drop down list. If not provided the a default one will be created.</param>
+        /// <param name="listItemFactory">A function for creating a button for the drop down list. If not provided a default one will be created.</param>
 		/// <param name="parent">The UI control's parent.</param>
 		/// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		/// <param name="defaultWidth">If no textbox was provided, this will be the width of the textbox.</param>
 		/// <param name="defaultHeight">If no textbox or dropdown button was provided, this will be the height of the combobox.</param>
         /// <param name="watermark">An optional watermark text to show when there's no text and the textbox is out of focus (i.e explanation text, see example here: https://marketplace.visualstudio.com/items?itemName=havardhu.WatermarkTextBoxControl).</param>
-		IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IButton> itemButtonFactory = null,
-                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "");
+        /// <param name="dropDownPanelOffset">An optional vertical offset for the dropdown panel from the combobox</param>
+        IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null, Func<string, IUIControl> listItemFactory = null,
+                              IObject parent = null, bool addToUi = true, float defaultWidth = 500f, float defaultHeight = 40f, 
+                              string watermark = "", float dropDownPanelOffset = 0f);
 
         /// <summary>
         /// Creates a slider
@@ -310,6 +344,19 @@ namespace AGS.API
         /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
 		Task<ISlider> GetSliderAsync(string id, string imagePath, string handleImagePath, float value, float min, float max,
             IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true);
+
+        /// <summary>
+        /// Creates a form.
+        /// </summary>
+        /// <returns>The form.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <param name="title">Title.</param>
+        /// <param name="width">Width.</param>
+        /// <param name="titleHeight">Title height.</param>
+        /// <param name="contentsHeight">Contents height.</param>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="addToUi">If set to <c>true</c> add to game's GUI list for rendering.</param>
+        IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true);
 	}
 }
-

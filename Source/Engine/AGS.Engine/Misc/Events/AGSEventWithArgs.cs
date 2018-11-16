@@ -114,7 +114,7 @@ namespace AGS.Engine
             _invocationList.Remove(callback, priority);
         }
 
-        private class Callback
+        private struct Callback
         {
             private readonly Delegate _origObject;
             private string _methodName;
@@ -123,36 +123,67 @@ namespace AGS.Engine
             {
                 _origObject = callback;
                 Event = callback;
+                BlockingEvent = null;
+                _methodName = null;
+                EmptyEvent = null;
+                BlockingEventWithToken = null;
+                EmptyBlockingEvent = null;
             }
 
             public Callback(Action<TEventArgs> callback)
             {
                 _origObject = callback;
                 BlockingEvent = callback;
+                Event = null;
+                _methodName = null;
+                EmptyEvent = null;
+                BlockingEventWithToken = null;
+                EmptyBlockingEvent = null;
             }
 
             public Callback(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
             {
                 _origObject = condition;
                 Event = convert(condition, tcs);
+                BlockingEvent = null;
+                _methodName = null;
+                EmptyEvent = null;
+                BlockingEventWithToken = null;
+                EmptyBlockingEvent = null;
             }
 
             public Callback(Action callback)
             {
                 _origObject = callback;
                 EmptyBlockingEvent = callback;
+                BlockingEvent = null;
+                _methodName = null;
+                EmptyEvent = null;
+                BlockingEventWithToken = null;
+                Event = null;
             }
 
             public Callback(Func<Task> callback)
             {
                 _origObject = callback;
                 EmptyEvent = callback;
+                EmptyBlockingEvent = null;
+                BlockingEvent = null;
+                _methodName = null;
+                BlockingEventWithToken = null;
+                Event = null;
+
             }
 
             public Callback(ClaimableCallbackWithArgs<TEventArgs> callback)
             {
                 _origObject = callback;
                 BlockingEventWithToken = callback;
+                EmptyEvent = null;
+                EmptyBlockingEvent = null;
+                BlockingEvent = null;
+                _methodName = null;
+                Event = null;
             }
 
             public Func<TEventArgs, Task> Event { get; }
@@ -163,11 +194,13 @@ namespace AGS.Engine
 
             public override bool Equals(object obj)
             {
-                Callback other = obj as Callback;
-                if (other == null) return false;
-                if (other._origObject == _origObject) return true;
-                if (_origObject.Target != other._origObject.Target) return false;
-                return getMethodName() == other.getMethodName();
+                if (obj is Callback other)
+                {
+                    if (other._origObject == _origObject) return true;
+                    if (_origObject.Target != other._origObject.Target) return false;
+                    return getMethodName() == other.getMethodName();
+                }
+                else return false;
             }
 
             public override int GetHashCode()
@@ -190,7 +223,7 @@ namespace AGS.Engine
                 return _methodName;
             }
 
-            private Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
+            private static Func<TEventArgs, Task> convert(Predicate<TEventArgs> condition, TaskCompletionSource<object> tcs)
             {
                 return e => 
                 {

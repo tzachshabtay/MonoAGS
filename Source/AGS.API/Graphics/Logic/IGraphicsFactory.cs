@@ -8,6 +8,12 @@ namespace AGS.API
     public interface IGraphicsFactory
 	{
         /// <summary>
+        /// Factory for creating borders.
+        /// </summary>
+        /// <value>The borders.</value>
+        IBorderFactory Borders { get; }
+
+        /// <summary>
         /// Factory for creating icons.
         /// </summary>
         /// <value>The icons.</value>

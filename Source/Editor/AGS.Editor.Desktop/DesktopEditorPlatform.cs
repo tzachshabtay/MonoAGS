@@ -31,5 +31,10 @@ namespace AGS.Editor.Desktop
         {
             _windowSize.Window = windowSize;
         }
+
+        public ISerialization GetSerialization(IGame game)
+        {
+            return new DesktopSerialization(game);
+        }
     }
 }

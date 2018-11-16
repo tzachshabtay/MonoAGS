@@ -9,6 +9,7 @@
     /// Note that an audio clip is the template for the sound, whereas <see cref="ISound"/> is the actual
     /// playing sound instance.
     /// </summary>
+    [HasFactory(FactoryType = nameof(IAudioFactory), MethodName = nameof(IAudioFactory.LoadAudioClip), DisplayName = "Audio Clip")]
 	public interface IAudioClip : ISoundProperties, ISoundPlayer
 	{
         /// <summary>

@@ -9,5 +9,7 @@ namespace AGS.Engine
         public IFont TextFont { get; set; }  = AGSGame.Device.FontLoader.LoadFont(null, 14f);
 
         public ISkin Skin { get; set; }
+
+        public IMessageBoxSettings MessageBox { get; set; }
     }
 }

@@ -72,19 +72,18 @@ namespace AGS.Engine
 
         public static float AlignY(this ITextConfig config, float bitmapHeight, float height, SizeF baseSize)
         {
-            const float reducePadding = 2f;
             switch (config.Alignment)
             {
                 case Alignment.TopLeft:
                 case Alignment.TopCenter:
                 case Alignment.TopRight:
-                    return bitmapHeight - baseSize.Height - reducePadding + config.PaddingTop;
+                    return bitmapHeight - baseSize.Height + config.PaddingTop;
                 case Alignment.MiddleLeft:
                 case Alignment.MiddleCenter:
                 case Alignment.MiddleRight:
-                    return bitmapHeight - baseSize.Height / 2f - height / 2f - reducePadding / 2f;
+                    return bitmapHeight - baseSize.Height / 2f - height / 2f;
                 default:
-                    return bitmapHeight - height - reducePadding - config.PaddingBottom;
+                    return bitmapHeight - height - config.PaddingBottom;
             }
         }
 
@@ -98,7 +97,7 @@ namespace AGS.Engine
             return new Vector2(point.X, point.Y);
         }
 
-        public static IGLColor ToGLColor(this Color color)
+        public static GLColor ToGLColor(this Color color)
         {
             float r = color.R / 255f;
             float g = color.G / 255f;

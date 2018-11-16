@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace AGS.API
 {
     /// <summary>
     /// Represents a color.
     /// </summary>
-	public struct Color
+    [DataContract]
+    public struct Color : IEquatable<Color>
 	{
 		private const int SHIFT_A = 24;
 		private const int SHIFT_R = 16;
@@ -14,6 +17,7 @@ namespace AGS.API
 
 		private readonly uint _value;
 
+        [JsonConstructor]
 		private Color(uint argb)
 		{
 			_value = argb;
@@ -24,6 +28,7 @@ namespace AGS.API
         /// where the order is A (alpha)-R (red)-G (green)-B (blue).
         /// </summary>
         /// <value>The color value.</value>
+        [DataMember(Name = "Argb")]
 		public uint Value => _value;
 
         /// <summary>
@@ -50,7 +55,17 @@ namespace AGS.API
         /// <value>The alpha element of the color.</value>
         public byte A => (byte)((Value >> SHIFT_A));
 
-        public override string ToString() => $"[Color: Value={Value}, R={R}, G={G}, B={B}, A={A}]";
+        public override string ToString() => NamedColorsMap.NamedColorsReversed.TryGetValue(Value, out string name) ? name : $"{R},{G},{B},{A}";
+
+        /// <summary>
+        /// Gets a color from RGBA elements (red, green, blue, alpha).
+        /// </summary>
+        /// <returns>The color.</returns>
+        /// <param name="r">The red component.</param>
+        /// <param name="g">The green component.</param>
+        /// <param name="b">The blue component.</param>
+        /// <param name="a">The alpha component.</param>
+        public static Color FromRgba(byte r, byte g, byte b, byte a) => FromArgb(a, r, g, b);
 
         /// <summary>
         /// Gets a color from ARGB elements (alpha, red, green, blue).
@@ -67,16 +82,6 @@ namespace AGS.API
 									 b << SHIFT_B |
 									 a << SHIFT_A));
 		}
-
-        /// <summary>
-        /// Gets a color from RGBA elements (red, green, blue, alpha).
-        /// </summary>
-        /// <returns>The color.</returns>
-        /// <param name="r">The red component.</param>
-        /// <param name="g">The green component.</param>
-        /// <param name="b">The blue component.</param>
-        /// <param name="a">The alpha component.</param>
-		public static Color FromRgba(byte r, byte g, byte b, byte a) => FromArgb(a, r, g, b);
 
         /// <summary>
         /// Gets a color from a hexa value (in ARGB format).
@@ -204,6 +209,11 @@ namespace AGS.API
         /// <returns>The color.</returns>
         /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
         public Color WithAlpha(byte a) => FromArgb(a, R, G, B);
+
+        public override bool Equals(object obj) => obj is Color c && Equals(c);
+
+        public override int GetHashCode() => Value.GetHashCode();
+
+        public bool Equals(Color other) => Value == other.Value;
     }
 }
-

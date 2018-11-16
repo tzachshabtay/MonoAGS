@@ -10,9 +10,9 @@ namespace AGS.Engine
         void GenBuffers();
         void DrawQuad(int texture, AGSBoundingBox box, float r, float g, float b, float a);
         void DrawQuad(int texture, Vector3 bottomLeft, Vector3 bottomRight,
-            Vector3 topLeft, Vector3 topRight, IGLColor bottomLeftColor, IGLColor bottomRightColor,
-                      IGLColor topLeftColor, IGLColor topRightColor);
-        void DrawQuad(int texture, AGSBoundingBox box, IGLColor color, FourCorners<Vector2> texturePos);
+            Vector3 topLeft, Vector3 topRight, GLColor bottomLeftColor, GLColor bottomRightColor,
+                      GLColor topLeftColor, GLColor topRightColor);
+        void DrawQuad(int texture, AGSBoundingBox box, GLColor color, FourCorners<Vector2> texturePos);
         void DrawQuad(int texture, GLVertex[] vertices);
         bool DrawQuad(IFrameBuffer frameBuffer, AGSBoundingBox square, GLVertex[] vertices);
         IFrameBuffer BeginFrameBuffer(AGSBoundingBox square, IGameSettings settings);

@@ -12,7 +12,7 @@ namespace AGS.Engine
         {
             _graphicsFactory = graphicsFactory;
             _bitmapLoader = bitmapLoader;
-            _emptyTexture = initEmptyTexture();
+            _emptyTexture = _emptyTexture ?? initEmptyTexture();
         }
 
         public static ITexture EmptyTexture => _emptyTexture;
@@ -27,7 +27,8 @@ namespace AGS.Engine
         {
             var bitmap = _bitmapLoader.Load(1, 1);
             bitmap.SetPixel(Colors.White, 0, 0);
-            return _graphicsFactory.LoadImage(bitmap, new AGSLoadImageConfig(config: new AGSTextureConfig())).Texture;
+            var config = new AGSLoadImageConfig(config: new AGSTextureConfig(scaleUp: ScaleUpFilters.Nearest));
+            return _graphicsFactory.LoadImage(bitmap, config).Texture;
         }
     }
 }

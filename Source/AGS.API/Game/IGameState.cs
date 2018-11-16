@@ -42,6 +42,12 @@ namespace AGS.API
         List<IViewport> GetSortedViewports();
 
         /// <summary>
+        /// Gets or sets the mouse cursor.
+        /// </summary>
+        /// <value>The mouse cursor.</value>
+        IObject Cursor { get; set; }
+
+        /// <summary>
         /// All of the non-room objects in the game. Those are usually GUIs which stay on the screen
         /// even if you switch between rooms (like the top bar, a hotspot label, inventory window, menus, etc).
         /// </summary>

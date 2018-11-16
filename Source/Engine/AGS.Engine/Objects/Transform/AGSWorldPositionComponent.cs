@@ -24,6 +24,7 @@ namespace AGS.Engine
 		}
 
         [DoNotNotify]
+        [Property(Browsable = false)]
 		public float WorldX 
         { 
             get => _worldXY.X;
@@ -31,12 +32,14 @@ namespace AGS.Engine
         }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float WorldY 
         { 
             get => _worldXY.Y;
             //todo: set
         }
 
+        [Property(DisplayName = "Position")]
         public PointF WorldXY
         {
             get => _worldXY;

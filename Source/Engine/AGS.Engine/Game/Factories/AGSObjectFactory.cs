@@ -27,7 +27,9 @@ namespace AGS.Engine
             return obj;
 		}
 
-        public IObject GetAdventureObject(string id, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        [MethodWizard]
+        public IObject GetAdventureObject(string id, [MethodParam(Browsable = false)]IRoom room = null, 
+                                          string[] sayWhenLook = null, string[] sayWhenInteract = null)
         {
             IObject obj = GetObject(id);
             IHotspotComponent hotspot = obj.AddComponent<IHotspotComponent>();
@@ -37,7 +39,9 @@ namespace AGS.Engine
             return obj;
         }
 
-        public ICharacter GetCharacter(string id, IOutfit outfit, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null)
+        [MethodWizard]
+        public ICharacter GetCharacter(string id, IOutfit outfit, [MethodParam(Browsable = false)]IRoom room = null, 
+                                       string[] sayWhenLook = null, string[] sayWhenInteract = null)
 		{
 			ICharacter character = GetCharacter(id, outfit, _resolver.Container.Resolve<IAnimationComponent>());
 

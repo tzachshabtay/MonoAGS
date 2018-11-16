@@ -13,7 +13,7 @@ namespace AGS.Engine
 
 		#region IGLTextureRenderer implementation
 
-		public void Render(int texture, AGSBoundingBoxes boundingBoxes, IGLColor color)
+		public void Render(int texture, AGSBoundingBoxes boundingBoxes, GLColor color)
 		{
             if (boundingBoxes.TextureBox == null)
             {
@@ -28,4 +28,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-

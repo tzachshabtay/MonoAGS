@@ -1,4 +1,6 @@
-﻿using AGS.API;
+﻿using System;
+using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine.UI.Controls
 {
@@ -10,6 +12,7 @@ namespace AGS.Engine.UI.Controls
         private ITextComponent _text;
         private IImageComponent _image;
         private IBorderComponent _border;
+        private IRadioGroup _radioGroup;
 
         public AGSCheckboxComponent()
         {
@@ -60,6 +63,34 @@ namespace AGS.Engine.UI.Controls
 
         public IBlockingEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
 
+        public IRadioGroup RadioGroup
+        {
+            get => _radioGroup;
+            set 
+            {
+                var existing = _radioGroup;
+                if (existing != null)
+                {
+                    existing.PropertyChanged -= onRadioPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += onRadioPropertyChanged;
+                }
+                _radioGroup = value;
+            }
+        }
+
+        private void onRadioPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IRadioGroup.SelectedButton)) return;
+            var radioGroup = _radioGroup;
+            if (radioGroup == null) return;
+            bool isMe = radioGroup.SelectedButton == this || radioGroup.SelectedButton == Entity;
+            if (isMe && !_checked) Checked = true;
+            else if (!isMe && _checked) Checked = false;
+        }
+
         private void onMouseEnter(MousePositionEventArgs e)
         {
             startAnimation(Checked ? HoverCheckedAnimation ?? CheckedAnimation : HoverNotCheckedAnimation ?? NotCheckedAnimation);
@@ -82,6 +113,11 @@ namespace AGS.Engine.UI.Controls
 
         private void onCheckChange(bool userInitiated)
         {
+            var radio = _radioGroup;
+            if (radio != null && _checked)
+            {
+                radio.SelectedButton = this;
+            }
             var events = _events;
             startAnimation(events != null && events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
                                                           HoverNotCheckedAnimation ?? NotCheckedAnimation) :

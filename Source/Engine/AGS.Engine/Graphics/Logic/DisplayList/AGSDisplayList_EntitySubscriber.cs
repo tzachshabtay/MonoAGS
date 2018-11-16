@@ -10,14 +10,14 @@ namespace AGS.Engine
         private class EntitySubscriber
         {
             private Action<int> _onLayerChanged;
-            private int _layer;
+            private IDrawableInfoComponent _drawable;
             private List<IComponentBinding> _bindings;
             private IInObjectTreeComponent _tree;
 
             public EntitySubscriber(IEntity entity, Action<int> onLayerChanged)
             {
                 _onLayerChanged = onLayerChanged;
-                entity.Bind<IDrawableInfoComponent>(c => _layer = c.RenderLayer?.Z ?? 0, _ => _layer = 0);
+                entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
 
                 var vBinding = bind<IVisibleComponent>(entity, onObjVisibleChanged);
                 var tBinding = bind<ITranslateComponent>(entity, onObjTranslatePropertyChanged);
@@ -37,6 +37,7 @@ namespace AGS.Engine
             {
                 _tree?.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged);
                 foreach (var binding in _bindings) binding?.Unbind();
+                _drawable = null;
             }
 
             private void onObjVisibleChanged(object sender, PropertyChangedEventArgs args)
@@ -69,7 +70,7 @@ namespace AGS.Engine
 
             private void onSomethingChanged()
             {
-                _onLayerChanged(_layer);
+                _onLayerChanged(_drawable?.RenderLayer?.Z ?? 0);
             }
         }
     }

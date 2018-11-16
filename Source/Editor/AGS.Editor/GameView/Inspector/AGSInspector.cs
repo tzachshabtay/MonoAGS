@@ -13,33 +13,53 @@ namespace AGS.Editor
     [RequiredComponent(typeof(ITreeViewComponent))]
     public class AGSInspector : AGSComponent, IInspectorComponent
     {
-        private readonly Dictionary<Category, List<InspectorProperty>> _props;
+        private Dictionary<InspectorCategory, List<IProperty>> _props;
         private ITreeViewComponent _treeView;
         private readonly IGameFactory _factory;
-        private readonly IGameSettings _settings;
         private readonly IFont _font;
         private readonly IGameState _state;
         private readonly StateModel _model;
         private IEntity _currentEntity;
         private readonly ActionManager _actions;
         private List<Action> _cleanup;
+        private readonly EditorProvider _editorProvider;
+        private IEntity _scrollingContainer;
 
         public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, 
-                            ActionManager actions, StateModel model)
+                            ActionManager actions, StateModel model, AGSEditor editor, IForm parentForm)
         {
             _cleanup = new List<Action>(50);
             _actions = actions;
             _model = model;
             _state = state;
-            _props = new Dictionary<Category, List<InspectorProperty>>();
+            _props = new Dictionary<InspectorCategory, List<IProperty>>();
             _factory = factory;
-            _settings = gameSettings;
             _font = editorSettings.Defaults.TextFont;
+            _editorProvider = new EditorProvider(factory, actions, model, state, gameSettings, editor, parentForm);
         }
 
         public ITreeViewComponent Tree => _treeView;
 
         public object SelectedObject { get; private set; }
+
+        public bool SortValues { get; set; } = true;
+
+        public Dictionary<InspectorCategory, List<IProperty>> Properties => _props;
+
+        public IEntity ScrollingContainer 
+        {
+            get => _scrollingContainer;
+            set
+            {
+                _scrollingContainer = value;
+                var treeView = _treeView;
+                if (treeView == null)
+                {
+                    throw new NullReferenceException($"Can't set a scrolling container without a tree view already attached");
+                }
+                treeView.ScrollingContainer = value;
+            }
+        }
 
         public override void Init()
         {
@@ -47,106 +67,39 @@ namespace AGS.Editor
             Entity.Bind<ITreeViewComponent>(c => { _treeView = c; configureTree(); refreshTree(); }, _ => _treeView = null);
         }
 
-        public void Show(object obj)
+        public bool Show(object obj)
         {
             cleanup();
             SelectedObject = obj;
             _props.Clear();
             GC.Collect(2, GCCollectionMode.Forced);
-            var entity = obj as IEntity;
-            _currentEntity = entity;
-            if (entity == null)
-            {
-                Category cat = new Category("General");
-                addProps(cat, obj);
-                refreshTree();
-                return;
-            }
-
-            foreach (var component in entity)
-            {
-                Category cat = new Category(component.Name);
-                addProps(cat, component);
-            }
-            addEntityProps(entity);
+            var descriptor = getTypeDescriptor(obj);
+            _props = descriptor.GetProperties();
+            if (_props.Count == 0) return false;
             refreshTree();
+            return true;
         }
 
         public void Undo() => _actions.Undo();
 
         public void Redo() => _actions.Redo();
 
-        private void addEntityProps(IEntity entity)
+        private ITypeDescriptor getTypeDescriptor(object obj)
         {
-            Category cat = new Category("Hotspot");
-            var prop = entity.GetType().GetProperty(nameof(IEntity.DisplayName));
-            InspectorProperty property = addProp(entity, prop, ref cat);
-            if (property == null) return;
-            _props.GetOrAdd(cat, () => new List<InspectorProperty>()).Add(property);
-        }
-
-        private void addProps(Category defaultCategory, object obj)
-        {
-            var props = getProperties(obj.GetType());
-            foreach (var prop in props)
+            _currentEntity = null;
+            if (obj is ITypeDescriptor descriptor) return descriptor;
+            if (obj is IEntity entity)
             {
-                var cat = defaultCategory;
-                InspectorProperty property = addProp(obj, prop, ref cat);
-                if (property == null) continue;
-                _props.GetOrAdd(cat, () => new List<InspectorProperty>(props.Length)).Add(property);
+                _currentEntity = entity;
+                return new EntityTypeDescriptor(entity);
             }
-        }
-
-        private InspectorProperty addProp(object obj, PropertyInfo prop, ref Category cat)
-        {
-			var attr = prop.GetCustomAttribute<PropertyAttribute>();
-            Trace.Assert(prop.PropertyType.FullName != null, $"Property type's full name is null for {prop.Name}");
-			if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
-            if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
-			string name = prop.Name;
-			if (attr != null)
-			{
-				if (!attr.Browsable) return null;
-                if (attr.Category != null) cat = new Category(attr.Category, attr.CategoryZ, attr.CategoryExpand);
-				if (attr.DisplayName != null) name = attr.DisplayName;
-			}
-			InspectorProperty property = new InspectorProperty(obj, name, prop);
-            refreshChildrenProperties(property);
-            return property;
-        }
-
-        private void refreshChildrenProperties(InspectorProperty property)
-        {
-            property.Children.Clear();
-            var val = property.Prop.GetValue(property.Object);
-            if (val == null) return;
-            var objType = val.GetType();
-            if (objType.GetTypeInfo().GetCustomAttribute<PropertyFolderAttribute>(true) != null)
-            {
-                var props = getProperties(objType);
-                foreach (var childProp in props)
-                {
-                    Category dummyCat = null;
-                    var childProperty = addProp(val, childProp, ref dummyCat);
-                    if (childProperty == null) continue;
-                    property.Children.Add(childProperty);
-                }
-            }
-        }
-
-        private PropertyInfo[] getProperties(Type type)
-        {
-            return type.GetRuntimeProperties().Where(p => !p.GetMethod.IsStatic && p.GetMethod.IsPublic).ToArray();
-
-            //todo: if moving to dotnet standard 2.0, we can use this instead:
-            //return type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            return new ObjectTypeDescriptor(obj);
         }
 
         private void configureTree()
         {
 			var treeView = _treeView;
 			if (treeView == null) return;
-            treeView.HorizontalSpacing = 1f;
             treeView.VerticalSpacing = 40f;
         }
 
@@ -156,12 +109,23 @@ namespace AGS.Editor
             if (treeView == null) return;
             var root = new AGSTreeStringNode("", _font);
             List<ITreeStringNode> toExpand = new List<ITreeStringNode>();
+            bool skipCategories = _props.Count == 1;
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
-                ITreeStringNode cat = addToTree(pair.Key.Name, root);
-                foreach (var prop in pair.Value.OrderBy(p => p.Name))
+                ITreeStringNode cat = null;
+                if (!skipCategories && pair.Value.Count == 1)
                 {
-                    addToTree(cat, prop);
+                    //special case: category has only one child, let's "merge" them together
+                    cat = addToTree(root, pair.Value[0], true);
+                }
+                else
+                {
+                    cat = skipCategories ? root : addToTree(pair.Key.Name, root);
+                    IEnumerable<IProperty> values = SortValues ? pair.Value.OrderBy(p => p.DisplayName) : (IEnumerable<IProperty>)pair.Value;
+                    foreach (var prop in values)
+                    {
+                        addToTree(cat, prop, false);
+                    }
                 }
                 if (pair.Key.Expand)
                 {
@@ -176,17 +140,18 @@ namespace AGS.Editor
             }
         }
 
-        private void addToTree(ITreeStringNode parent, InspectorProperty prop)
+        private ITreeStringNode addToTree(ITreeStringNode parent, IProperty prop, bool isCategory)
         {
-            var node = addToTree(prop, parent);
+            var node = addToTree(prop, parent, isCategory);
             addChildrenToTree(node, prop);
+            return node;
         }
 
-        private void addChildrenToTree(ITreeStringNode node, InspectorProperty prop)
+        private void addChildrenToTree(ITreeStringNode node, IProperty prop)
         {
             foreach (var child in prop.Children)
             {
-                addToTree(node, child);
+                addToTree(node, child, false);
             }
         }
 
@@ -196,32 +161,58 @@ namespace AGS.Editor
             return addToTree(node, parent);
 		}
 
-        private ITreeStringNode addReadonlyNodeToTree(InspectorProperty property, ITreeStringNode parent)
+        private ITreeStringNode addReadonlyNodeToTree(IProperty property, ITreeStringNode parent, bool isCategory)
         {
             IInspectorPropertyEditor editor = new StringPropertyEditor(_factory, false, _actions, _model);
-            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font, isCategory);
             addToTree(node, parent);
             if (property.Object is INotifyPropertyChanged propertyChanged)
             {
                 PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != property.Name) return;
-                    bool isExpanded = _treeView.IsCollapsed(node) == false;
-                    if (isExpanded) _treeView.Collapse(node);
-                    refreshChildrenProperties(property);
-                    node.TreeNode.Children.Clear();
-                    addChildrenToTree(node, property);
-
-                    //todo: we'd like to enable expanding a node that was previously expanded however there's a bug that needs to be investigated before that, to reproduce:
-                    //In the demo game, show the inspector for the character and expand its current room. Then move to another room.
-                    //For some reason this results in endless boundin box/matrix changes until stack overflow is reached.
-                    //if (isExpanded)
-                      //  _treeView.Expand(node);
+                    refreshNode(node, property);
                 };
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 _cleanup.Add(() => propertyChanged.PropertyChanged -= onPropertyChanged);
             }
             return node;
+        }
+
+        private void refreshNode(ITreeStringNode node, IProperty property)
+        {
+            ObjectTypeDescriptor.RefreshChildrenProperties(property);
+            if (shouldRecreateTree(node, property))
+            {
+                node.TreeNode.Children.Clear();
+                addChildrenToTree(node, property);
+            }
+            else for(int i = 0; i < node.TreeNode.ChildrenCount; i++)
+            {
+                //todo: Do we really need to refresh the property and editor here? Not sure...
+                property.Children[i].Refresh();
+                if (node.TreeNode.Children[i] is InspectorTreeNode inspectorNode) inspectorNode.Editor.RefreshUI();
+
+                refreshNode(node.TreeNode.Children[i], property.Children[i]);
+            }
+        }
+
+        private bool shouldRecreateTree(ITreeStringNode node, IProperty property)
+        {
+            if (node.TreeNode.ChildrenCount != property.Children.Count)
+                return true;
+            for (int i = 0; i < node.TreeNode.ChildrenCount; i++)
+            {
+                if (node.TreeNode.Children[i].Text != property.Children[i].DisplayName)
+                {
+                    return true;
+                }
+                if (node is InspectorTreeNode inspectorNode && inspectorNode.Property != property.Children[i])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void cleanup()
@@ -230,54 +221,22 @@ namespace AGS.Editor
             _cleanup.Clear();
         }
 
-        private ITreeStringNode addToTree(InspectorProperty property, ITreeStringNode parent)
-		{
+        private ITreeStringNode addToTree(IProperty property, ITreeStringNode parent, bool isCategory)
+        {
             if (property.IsReadonly)
             {
-                return addReadonlyNodeToTree(property, parent);
-            }
-            IInspectorPropertyEditor editor;
-
-            var propType = property.Prop.PropertyType;
-            if (propType == typeof(bool)) editor = new BoolPropertyEditor(_factory, _actions, _model);
-            else if (propType == typeof(Color)) editor = new ColorPropertyEditor(_factory, _actions, _model);
-            else if (propType == typeof(int)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, true, false);
-            else if (propType == typeof(float)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, false, false);
-            else if (propType == typeof(SizeF)) editor = new SizeFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Size)) editor = new SizePropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(PointF)) editor = new PointFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Point)) editor = new PointPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector2)) editor = new Vector2PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector3)) editor = new Vector3PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Vector4)) editor = new Vector4PropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Position))
-            {
-                var entity = _currentEntity;
-                var drawable = entity == null ? null : entity.GetComponent<IDrawableInfoComponent>();
-                editor = new LocationPropertyEditor(_actions, _state, _factory, _model, false, _settings, drawable);
-            }
-            else if (propType == typeof(RectangleF)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(Rectangle)) editor = new RectanglePropertyEditor(_actions, _state, _factory, _model, false);
-            else if (propType == typeof(int?)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, true, true);
-            else if (propType == typeof(float?)) editor = new NumberPropertyEditor(_actions, _state, _factory, _model, false, true);
-            else if (propType == typeof(SizeF?)) editor = new SizeFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Size?)) editor = new SizePropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(PointF?)) editor = new PointFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Point?)) editor = new PointPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector2?)) editor = new Vector2PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector3?)) editor = new Vector3PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Vector4?)) editor = new Vector4PropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(RectangleF?)) editor = new RectangleFPropertyEditor(_actions, _state, _factory, _model, true);
-            else if (propType == typeof(Rectangle?)) editor = new RectanglePropertyEditor(_actions, _state, _factory, _model, true);
-            else
-            {
-                var typeInfo = propType.GetTypeInfo();
-                if (typeInfo.IsEnum)
-                    editor = new EnumPropertyEditor(_factory.UI, _actions, _model);
-                else editor = new StringPropertyEditor(_factory, propType == typeof(string), _actions, _model);
+                return addReadonlyNodeToTree(property, parent, isCategory);
             }
 
-            ITreeStringNode node = new InspectorTreeNode(property, editor, _font);
+            var propType = property.PropertyType;
+            var container = new NodeContainer();
+            var editor = _editorProvider.GetEditor(propType, _currentEntity, () =>
+            {
+                if (container.Node != null) refreshNode(container.Node, property);
+            });
+
+            ITreeStringNode node = new InspectorTreeNode(property, editor, _font, isCategory);
+            container.Node = node;
             return addToTree(node, parent);
 		}
 
@@ -287,36 +246,9 @@ namespace AGS.Editor
 			return node;
         }
 
-        private class Category
+        private class NodeContainer
         {
-            public Category(string name, int z = 0, bool expand = false)
-            {
-                Name = name;
-                Z = z;
-                Expand = expand;
-            }
-
-            public string Name { get; }
-
-            public int Z { get; }
-
-            public bool Expand { get; }
-
-            public override bool Equals(object obj)
-            {
-                return Equals(obj as Category);
-            }
-
-            public bool Equals(Category cat)
-            {
-                if (cat == null) return false;
-                return Name == cat.Name;
-            }
-
-            public override int GetHashCode()
-            {
-                return Name.GetHashCode();
-            }
+            public ITreeStringNode Node { get; set; }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace AGS.API
+﻿using System.ComponentModel;
+
+namespace AGS.API
 {
     /// <summary>
     /// How to skip the text?
@@ -29,7 +31,7 @@
     /// <summary>
     /// Configuration for how speech is rendered.
     /// </summary>
-    public interface ISayConfig
+    public interface ISayConfig : INotifyPropertyChanged
 	{
         /// <summary>
         /// Configuration for how the text is rendered (font, color, outlines, etc).

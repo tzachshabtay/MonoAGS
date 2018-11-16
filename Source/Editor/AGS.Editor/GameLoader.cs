@@ -136,14 +136,14 @@ namespace AGS.Editor
 
             EditorShouldBlockEngineInput blocker = gameResolver.Container.Resolve<EditorShouldBlockEngineInput>();
 
-            var toolbar = new GameToolbar(blocker, editor.Editor.Input, editor.Editor.Settings);
+            var toolbar = new GameToolbar(blocker, editor.Editor.Input, editor.Editor.State, editor.Editor.Settings);
             toolbar.Init(editor.Editor.Factory, editor);
 
             game.Events.OnLoad.Subscribe(() =>
             {
                 editor.Init();
 
-                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions);
+                var gameDebugView = new GameDebugView(editor, keyboardBindings, actions, toolbar);
                 toolbar.SetGame(game, editor.GameResolver.Container.Resolve<IWindowInfo>(), gameDebugView.Tree);
                 var canvas = new GameCanvas(editor, toolbar, gameDebugView.Tree);
                 canvas.Init();

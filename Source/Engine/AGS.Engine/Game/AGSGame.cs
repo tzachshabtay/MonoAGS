@@ -47,8 +47,6 @@ namespace AGS.Engine
 
         public static IShader Shader { get; set; }
 
-        public static Resolver Resolver => ((AGSGame)Game)._resolver;
-
         public static IGLUtils GLUtils { get; private set; }
 
         public static IGame Create(IGameSettings settings)
@@ -98,7 +96,7 @@ namespace AGS.Engine
 
         public ICoordinates Coordinates { get; private set; }
 
-        public Resolver GetResolver() => _resolver;
+        public IResolver Resolver => _resolver;
 
         public void Start()
         {
@@ -112,7 +110,7 @@ namespace AGS.Engine
             if (GameWindow == null)
             {
                 isNewWindow = true;
-                try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
+                try { GameWindow = _resolver.Container.Resolve<IGameWindow>(settingsParameter); }
                 catch (Exception ese)
                 {
                     Debug.WriteLine(ese.ToString());
@@ -208,7 +206,13 @@ namespace AGS.Engine
                 // render graphics
                 if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
                 {
-                    _graphics.ClearScreen();
+                    var bgColor = State.Room?.BackgroundColor;
+                    if (bgColor != null)
+                    {
+                        var color = bgColor.Value.ToGLColor();
+                        _graphics.ClearColor(color.R, color.G, color.B, color.A);
+                        _graphics.ClearScreen();
+                    }
                 }
                 Events.OnBeforeRender.Invoke();
 
@@ -254,17 +258,18 @@ namespace AGS.Engine
             TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
             Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
-            _graphics.ClearColor(0f, 0f, 0f, 1f);
-
             _graphics.Init();
             _glUtils.GenBuffers();
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
+            _resolver.Resolve<ITextureFactory>(); //Need to resolve this early in the rendering thread, as it creates the static empty texture and therefore need to be in the rendering thread
+
+            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+            Settings.Defaults.MessageBox = _resolver.Container.Resolve<IMessageBoxSettings>(gameParameter);
 
             var input = _resolver.Container.Resolve<IInput>();
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
             TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
             RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter,

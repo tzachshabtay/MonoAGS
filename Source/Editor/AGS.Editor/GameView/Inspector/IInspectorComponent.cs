@@ -10,8 +10,8 @@ namespace AGS.Editor
         /// <summary>
         /// Show the specified object's properties in a GUI.
         /// </summary>
-        /// <returns>The show.</returns>
+        /// <returns>True if there as anything to show, otherwise (if there were no properties to show) false.</returns>
         /// <param name="obj">Object.</param>
-        void Show(object obj);
+        bool Show(object obj);
     }
 }

@@ -128,7 +128,7 @@ namespace AGS.Editor
                 }
 
                 PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
-                PropertyAction action = new PropertyAction(new InspectorProperty(rotate, "Angle", prop), angle, _editor.Project.Model);
+                PropertyAction action = new PropertyAction(new InspectorProperty(rotate, null, nameof(IRotate.Angle), prop), angle, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
 

@@ -20,8 +20,10 @@ namespace AGS.Editor
             {
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
-                game.Factory.Fonts.InstallFonts("Fonts/Font Awesome 5 Free-Solid-900.otf");
+                game.Factory.Fonts.InstallFonts("Fonts/Font Awesome 5 Free-Solid-900.otf", "Fonts/Fira/FiraSans-Regular.ttf");
                 FontIcons.Init(game.Factory.Fonts);
+                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Fira/FiraSans-Regular.ttf", 14f, FontStyle.Regular);
+                game.Settings.Defaults.SpeechFont = game.Settings.Defaults.TextFont;
 
                 AGSEditor editor = resolver.Container.Resolve<AGSEditor>();
                 editor.Editor = game;
@@ -33,6 +35,7 @@ namespace AGS.Editor
                 screen.Show();
 
                 var room = game.Factory.Room.GetRoom("MainEditorRoom");
+                ReflectionCache.Refresh();
                 await game.State.ChangeRoomAsync(room);
             });
 

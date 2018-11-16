@@ -10,5 +10,7 @@ namespace AGS.Editor
         void SetResolverForGame(Resolver gameResolver, Resolver editorResolver);
 
         void SetHostedGameWindow(Rectangle windowSize);
+
+        ISerialization GetSerialization(IGame game);
     }
 }

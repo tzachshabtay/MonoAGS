@@ -4,22 +4,17 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public class AGSHitTest : IHitTest, IDisposable
+    public class AGSHitTest : IAGSHitTest
     {
         private readonly IGameState _state;
-        private readonly IGameEvents _events;
-        private readonly IInput _input;
         private readonly IDisplayList _displayList;
         private readonly ICoordinates _coordinates;
 
-        public AGSHitTest(IGameState state, IGameEvents events, IInput input, IDisplayList displayList, ICoordinates coordinates)
+        public AGSHitTest(IGameState state, IDisplayList displayList, ICoordinates coordinates)
         {
             _coordinates = coordinates;
             _displayList = displayList;
 			_state = state;
-            _events = events;
-            _input = input;
-            events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
 
         public IObject ObjectAtMousePosition { get; private set; }
@@ -30,9 +25,9 @@ namespace AGS.Engine
                                                  _coordinates), filter);
         }
 
-        public void Dispose()
+        public void Refresh(MousePosition position)
         {
-            _events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
+            ObjectAtMousePosition = getObjectAt(position);
         }
 
         private IObject getObjectAt(MousePosition position, Predicate<IObject> filter = null)
@@ -58,11 +53,6 @@ namespace AGS.Engine
 			return false;
 		}
 
-		private void onRepeatedlyExecute()
-        {
-            ObjectAtMousePosition = getObjectAt(_input.MousePosition);
-        }
-
         private IObject findObject(IViewport viewport, MousePosition position, Predicate<IObject> filter)
         {
             List<IObject> visibleObjects = _displayList.GetDisplayList(viewport);
@@ -75,14 +65,16 @@ namespace AGS.Engine
             for (int i = objects.Count - 1; i >= 0; i--)
 			{
                 IObject obj = objects[i];
-                if (!obj.Enabled || obj.ClickThrough)
-					continue;
+                if (filter == null)
+                {
+                    if (!obj.Enabled || obj.ClickThrough)
+                        continue;
+                }
+                else if (!filter(obj)) continue;
 
                 if (!obj.CollidesWith(x, y, viewport)) continue;
 
                 if (!hasFocus(obj) && (viewport.Parent == null || !hasFocus(viewport.Parent))) continue;
-
-                if (filter != null && !filter(obj)) continue;
 
 				return obj;
 			}

@@ -9,11 +9,13 @@ namespace AGS.Engine.Desktop
 	{
 		#region IBrushLoader implementation
 
+        [MethodWizard]
 		public IBrush LoadSolidBrush(Color color)
 		{
 			return DesktopBrush.Solid(color);
 		}
 
+        [MethodWizard]
 		public IBrush LoadLinearBrush(Point point1, Point point2, Color color1, Color color2)
 		{
 			return new DesktopBrush (new LinearGradientBrush (point1.Convert(), point2.Convert(), color1.Convert(), color2.Convert()));
@@ -62,4 +64,3 @@ namespace AGS.Engine.Desktop
 		#endregion
 	}
 }
-

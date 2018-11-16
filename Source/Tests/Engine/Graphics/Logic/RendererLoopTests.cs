@@ -100,8 +100,7 @@ namespace Tests
 
         private IDisplayList getDisplayList()
         {
-            return new AGSDisplayList(_mocks.GameState().Object, _mocks.Input().Object,
-                new Mock<IMatrixUpdater>().Object);
+            return new AGSDisplayList(_mocks.GameState().Object, new Mock<IMatrixUpdater>().Object);
         }
 
         private IAGSRenderPipeline getPipeline(IDisplayList displayList)

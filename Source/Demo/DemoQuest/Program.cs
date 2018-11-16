@@ -184,7 +184,7 @@ namespace DemoGame
 		private void addDebugLabels(IGame game)
 		{
             var resolution = new Size(1200, 800);
-            ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
+            ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Pivot = (1f, 0f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999, independentResolution: resolution);
@@ -195,7 +195,7 @@ namespace DemoGame
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
-            ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
             label.Tint = Colors.SlateBlue.WithAlpha(125);
 			label.Pivot = (1f, 0f);
@@ -203,7 +203,7 @@ namespace DemoGame
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
 
-            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopRight,
               autoFit: AutoFit.LabelShouldFitText));
             debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
             debugHotspotLabel.Pivot = (1f, 0f);

@@ -113,13 +113,13 @@ namespace AGS.Engine
             set { _comboBoxComponent.DropDownButton = value; } 
         }
 
-        public IEntity DropDownPanel 
+        public IListbox DropDownPanel 
         {  
             get { return _comboBoxComponent.DropDownPanel; }  
             set { _comboBoxComponent.DropDownPanel = value; } 
         }
 
-        public IListboxComponent DropDownPanelList 
+        public IListboxComponent DropDownPanelList
         {  
             get { return _comboBoxComponent.DropDownPanelList; } 
         }

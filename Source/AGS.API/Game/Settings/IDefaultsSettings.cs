@@ -22,5 +22,11 @@
         /// </summary>
         /// <value>The skin.</value>
         ISkin Skin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default settings for showing message boxes (like Display, Yes/No prompts, etc).
+        /// </summary>
+        /// <value>The message box.</value>
+        IMessageBoxSettings MessageBox { get; set; }
     }
 }

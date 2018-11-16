@@ -42,6 +42,7 @@ namespace AGS.Engine
 			_followSettings = settings ?? new AGSFollowSettings ();
 		}
 
+        [Property(DisplayName = "Following")]
         public IObject TargetBeingFollowed { get; private set; }
 
 		public override void Dispose ()

@@ -18,12 +18,12 @@ namespace DemoGame
             _game = game;
             var factory = game.Factory;
             _label = factory.UI.GetLabel("FeaturesLabel", LABEL_TEXT,
-                                         200f, 50f, 25f, parent.Height - 25f, parent, 
-                                         new AGSTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
+                                         200f, 50f, 25f, parent.Height - 25f, parent,
+                                         factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
             _label.Pivot = (0f, 1f);
             _label.Tint = Colors.DarkOliveGreen;
-            _label.Border = AGSBorders.SolidColor(Colors.LightSeaGreen, 3f);
+            _label.Border = factory.Graphics.Borders.SolidColor(Colors.LightSeaGreen, 3f);
             _label.MouseEnter.Subscribe(_ => _label.Tint = Colors.DarkGoldenrod);
             _label.MouseLeave.Subscribe(_ => _label.Tint = Colors.DarkOliveGreen);
             _label.Enabled = true;

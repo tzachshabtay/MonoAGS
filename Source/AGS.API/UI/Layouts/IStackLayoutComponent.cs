@@ -41,10 +41,27 @@
         float RelativeSpacing { get; set; }
 
         /// <summary>
-        /// Gets or sets the start location (the first item in the layout will be placed in that location).
+        /// Gets or sets the start location, which is the first item in the layout will be placed in that location,
+        /// unless <see cref="CenterLayout"/> is enabled (in which case it represents the center point of the layout).
         /// </summary>
         /// <value>The start location.</value>
         float StartLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the layout should account for any cropping made to the inner children.
+        /// A use-case for this is when laying out a child which crops its children (i.e "your" grandchildren).
+        /// A use-case for not enabling this (the default) is when you're laying out children inside a scrollable (and cropping) panel.
+        /// </summary>
+        /// <value><c>true</c> if layout after crop; otherwise, <c>false</c>.</value>
+        bool LayoutAfterCrop { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:AGS.API.IStackLayoutComponent"/> centers layout
+        /// around <see cref="StartLocation"/>.
+        /// The default is false, meaning that <see cref="StartLocation"/> will be used as the starting point and not as the center.
+        /// </summary>
+        /// <value><c>true</c> if center layout; otherwise, <c>false</c>.</value>
+        bool CenterLayout { get; set; }
 
         /// <summary>
         /// Starts applying the layout to its children (this needs to be called at least once).
@@ -55,6 +72,19 @@
         /// Stops applying the layout to its children.
         /// </summary>
         void StopLayout();
+
+        /// <summary>
+        /// Forces a layout refresh now (blocking), assuming layout was started.
+        /// This should only be done from the update thread.
+        /// </summary>
+        void ForceRefreshLayout();
+
+        /// <summary>
+        /// Performs the calculation of the layout without actually changing anything, and returns the width/height (depending if this is a horizontal/vertical layout)
+        /// of the potential layout.
+        /// </summary>
+        /// <returns>The width/height of the potential layout.</returns>
+        float DryRun();
 
         /// <summary>
         /// An event which fires whenever the layout changes.

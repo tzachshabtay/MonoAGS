@@ -30,7 +30,7 @@ namespace AGS.Editor
             _handle = handle;
             _handle.Visible = false;
             _handle.Enabled = true;
-            _handle.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 2f);
+            _handle.Border = editor.Editor.Factory.Graphics.Borders.SolidColor(Colors.WhiteSmoke, 2f);
             _handle.RenderLayer = AGSLayers.UI;
             _handle.IsPixelPerfect = false;
             _handle.AddComponent<IUIEvents>();
@@ -126,7 +126,7 @@ namespace AGS.Editor
             var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y, _drawable);
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
-            InspectorProperty property = new InspectorProperty(_translate, "Position", _translate.GetType().GetProperty(nameof(ITranslate.Position)));
+            InspectorProperty property = new InspectorProperty(_translate, null, nameof(ITranslate.Position), _translate.GetType().GetProperty(nameof(ITranslate.Position)));
             PropertyAction action = new PropertyAction(property, new Position(translateX, translateY), _editor.Project.Model);
             _actions.RecordAction(action);
         }

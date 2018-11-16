@@ -7,6 +7,8 @@ namespace AGS.API
     /// </summary>
 	public struct Size
     {
+        public static Size Empty = new Size();
+
         private readonly int _width, _height;
 
         public Size(int width, int height)

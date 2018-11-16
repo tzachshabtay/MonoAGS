@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using AGS.API;
@@ -31,6 +32,13 @@ namespace AGS.Engine
         private PointF? _customResolutionFactor;
         private readonly float? _nullFloat = null;
         private Dictionary<string, List<IComponentBinding>> _areaBindings;
+        private readonly PropertyChangedEventHandler _onScaleChangedCallback, _onTranslateChangedCallback, 
+            _onWorldPositionChangedCallback, _onJumpOffsetChangedCallback, _onRotateChangedCallback, _onImageChangedCallback,
+            _onDrawbaleChangedCallback, _onTextChangedCallback, _onRoomChangedCallback, _onSpriteChangeCallback,
+            _onAreaPropertyChangedCallback, _onScalingAreaChangedCallback, _onAreaRestrictionChangedCallback;
+        private readonly Action _onSomethingChangedCallback, _onParentChangedCallback;
+        private readonly Action<AGSListChangedEventArgs<IArea>> _onAreasChangedCallback;
+        private readonly Action<AGSHashSetChangedEventArgs<string>> _onAreaRestrictionListChangedCallback;
 
         public AGSModelMatrixComponent(IRuntimeSettings settings)
         {
@@ -39,6 +47,24 @@ namespace AGS.Engine
             _areaBindings = new Dictionary<string, List<IComponentBinding>>();
             _virtualResolution = settings.VirtualResolution;
             OnMatrixChanged = new AGSEvent();
+
+            _onScaleChangedCallback = onScaleChanged;
+            _onTranslateChangedCallback = onTranslateChanged;
+            _onWorldPositionChangedCallback = onWorldPositionChanged;
+            _onJumpOffsetChangedCallback = onJumpOffsetChanged;
+            _onRotateChangedCallback = onRotateChanged;
+            _onImageChangedCallback = onImageChanged;
+            _onDrawbaleChangedCallback = onDrawableChanged;
+            _onSomethingChangedCallback = onSomethingChanged;
+            _onParentChangedCallback = onParentChanged;
+            _onTextChangedCallback = onTextPropertyChanged;
+            _onRoomChangedCallback = onRoomPropertyChanged;
+            _onSpriteChangeCallback = onSpritePropertyChanged;
+            _onAreasChangedCallback = onAreasChanged;
+            _onAreaPropertyChangedCallback = onAreaPropertyChanged;
+            _onScalingAreaChangedCallback = onScalingAreaChanged;
+            _onAreaRestrictionChangedCallback = onAreaRestrictionChanged;
+            _onAreaRestrictionListChangedCallback = onAreaRestrictListChanged;
         }
 
         public static readonly PointF NoScaling = new PointF(1f, 1f);
@@ -48,63 +74,61 @@ namespace AGS.Engine
 
         public override void AfterInit()
         {
+            Entity.Bind<IDrawableInfoComponent>(
+                c =>
+                {
+                    _drawable = c;
+                    c.PropertyChanged += _onDrawbaleChangedCallback;
+                    onSomethingChanged();
+                }, c =>
+                {
+                    c.PropertyChanged -= _onDrawbaleChangedCallback;
+                    _drawable = null;
+                    onSomethingChanged();
+                });
             Entity.Bind<IHasRoomComponent>(
                 c => { _room = c; refreshAreaScaling(); subscribeRoom(); onSomethingChanged(); },
                 c => { unsubscribeRoom(c); _room = null; refreshAreaScaling(); onSomethingChanged(); });
-            
             Entity.Bind<IScaleComponent>(
-                c => { _scale = c; c.PropertyChanged += onScaleChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onScaleChanged; _scale = null; onSomethingChanged(); });
+                c => { _scale = c; c.PropertyChanged += _onScaleChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onScaleChangedCallback; _scale = null; onSomethingChanged(); });
             Entity.Bind<ITranslateComponent>(
-                c => { _translate = c; c.PropertyChanged += onTranslateChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onTranslateChanged; _translate = null; onSomethingChanged(); }
+                c => { _translate = c; c.PropertyChanged += _onTranslateChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onTranslateChangedCallback; _translate = null; onSomethingChanged(); }
             );
             Entity.Bind<IWorldPositionComponent>(
-                c => { _worldPosition = c; c.PropertyChanged += onWorldPositionChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onWorldPositionChanged; _translate = null; onSomethingChanged(); }
+                c => { _worldPosition = c; c.PropertyChanged += _onWorldPositionChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onWorldPositionChangedCallback; _translate = null; onSomethingChanged(); }
             );
             Entity.Bind<IJumpOffsetComponent>(
-                c => { _jump = c; c.PropertyChanged += onJumpOffsetChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onJumpOffsetChanged; _jump = null; onSomethingChanged(); }
+                c => { _jump = c; c.PropertyChanged += _onJumpOffsetChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onJumpOffsetChangedCallback; _jump = null; onSomethingChanged(); }
             );
             Entity.Bind<IRotateComponent>(
-                c => { _rotate = c; c.PropertyChanged += onRotateChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onRotateChanged; _rotate = null; onSomethingChanged(); }
+                c => { _rotate = c; c.PropertyChanged += _onRotateChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onRotateChangedCallback; _rotate = null; onSomethingChanged(); }
             );
             Entity.Bind<IImageComponent>(
-                c => { _image = c; c.PropertyChanged += onImageChanged; onSomethingChanged(); },
-                c => { c.PropertyChanged -= onImageChanged; _image = null; onSomethingChanged(); }
+                c => { _image = c; c.PropertyChanged += _onImageChangedCallback; onSomethingChanged(); },
+                c => { c.PropertyChanged -= _onImageChangedCallback; _image = null; onSomethingChanged(); }
 			);
             Entity.Bind<ITextComponent>(
                 c => { _text = c; subscribeTextComponent(); },
                 _ => { unsubscribeTextComponent(); _text = null; }
             );
 
-            Entity.Bind<IDrawableInfoComponent>(
-                c => 
-            {
-                _drawable = c;
-                c.PropertyChanged += onDrawableChanged;
-                onSomethingChanged();
-            },c =>
-            {
-                c.PropertyChanged -= onDrawableChanged;
-                _drawable = null;
-				onSomethingChanged();
-            });
-
             Entity.Bind<IInObjectTreeComponent>(
 				c =>
 			{
 				_tree = c;
 				_parent = _tree.TreeNode.Parent;
-				_tree.TreeNode.OnParentChanged.Subscribe(onParentChanged);
-				_parent?.OnMatrixChanged.Subscribe(onSomethingChanged);
+                _tree.TreeNode.OnParentChanged.Subscribe(_onParentChangedCallback);
+                _parent?.OnMatrixChanged.Subscribe(_onSomethingChangedCallback);
 				onSomethingChanged();
 			}, c =>
 			{
-				c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged);
-				c.TreeNode.Parent?.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+                c.TreeNode.OnParentChanged.Unsubscribe(_onParentChangedCallback);
+                c.TreeNode.Parent?.OnMatrixChanged.Unsubscribe(_onSomethingChangedCallback);
 				_tree = null;
 				_parent = null;
 				onSomethingChanged();
@@ -120,6 +144,7 @@ namespace AGS.Engine
 
         public ref ModelMatrices GetModelMatrices() 
         {
+            _parent?.GetModelMatrices();
             if (_pendingLocks > 0) return ref _preLockMatrices;
             if (!_isDirty)
             {
@@ -250,7 +275,7 @@ namespace AGS.Engine
         {
             _customImageSize = _text.CustomImageSize;
             _customResolutionFactor = _text.CustomImageResolutionFactor;
-            _text.PropertyChanged += onTextPropertyChanged;
+            _text.PropertyChanged += _onTextChangedCallback;
             onSomethingChanged();
         }
 
@@ -258,7 +283,7 @@ namespace AGS.Engine
         {
             _customImageSize = null;
             _customResolutionFactor = null;
-            _text.PropertyChanged -= onTextPropertyChanged;
+            _text.PropertyChanged -= _onTextChangedCallback;
             onSomethingChanged();
         }
 
@@ -286,6 +311,9 @@ namespace AGS.Engine
                 args.PropertyName != nameof(IDrawableInfoComponent.IgnoreScalingArea)) return;
             if (args.PropertyName == nameof(IDrawableInfoComponent.IgnoreScalingArea))
             {
+                if (_drawable?.IgnoreScalingArea ?? false) unsubscribeRoom(_room);
+                else subscribeRoom();
+
                 refreshAreaScaling();
             }
             onSomethingChanged();
@@ -298,22 +326,22 @@ namespace AGS.Engine
 
         private void onParentChanged()
         {
-            _parent?.OnMatrixChanged.Unsubscribe(onSomethingChanged);
+            _parent?.OnMatrixChanged.Unsubscribe(_onSomethingChangedCallback);
             _parent = _tree == null ? null : _tree.TreeNode.Parent;
-            _parent?.OnMatrixChanged.Subscribe(onSomethingChanged);
+            _parent?.OnMatrixChanged.Subscribe(_onSomethingChangedCallback);
             onSomethingChanged();
         }
 
         private void subscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
-            sprite.PropertyChanged += onSpritePropertyChanged;
+            sprite.PropertyChanged += _onSpriteChangeCallback;
         }
 
         private void unsubscribeSprite(ISprite sprite)
         {
             if (sprite == null) return;
-            sprite.PropertyChanged -= onSpritePropertyChanged;
+            sprite.PropertyChanged -= _onSpriteChangeCallback;
         }
 
         private ref ModelMatrices recalculateMatrices()
@@ -389,15 +417,19 @@ namespace AGS.Engine
 
         private void subscribeRoom()
         {
-            _room.PropertyChanged += onRoomPropertyChanged;
+            _room.PropertyChanged += _onRoomChangedCallback;
             subscribeRoomAreas();
         }
 
         private void subscribeRoomAreas()
         {
+            if (_drawable?.IgnoreScalingArea ?? false)
+            {
+                return;
+            }
             var room = _room?.Room;
             if (room == null) return;
-            room.Areas.OnListChanged.Subscribe(onAreasChanged);
+            room.Areas.OnListChanged.Subscribe(_onAreasChangedCallback);
             foreach (var area in room.Areas) subscribeArea(area);
         }
 
@@ -412,7 +444,10 @@ namespace AGS.Engine
 
         private void unsubscribeRoom(IHasRoomComponent room)
         {
-            room.PropertyChanged -= onRoomPropertyChanged;
+            if (room != null)
+            {
+                room.PropertyChanged -= _onRoomChangedCallback;
+            }
             unsubscribeRoomAreas();
         }
 
@@ -420,7 +455,7 @@ namespace AGS.Engine
         {
             var room = _lastRoom;
             if (room == null) return;
-            room.Areas.OnListChanged.Unsubscribe(onAreasChanged);
+            room.Areas.OnListChanged.Unsubscribe(_onAreasChangedCallback);
             foreach (var area in room.Areas) unsubscribeArea(area);
         }
 
@@ -436,16 +471,16 @@ namespace AGS.Engine
 
         private void subscribeArea(IArea area)
         {
-            var areaBinding = area.Bind<IAreaComponent>(c => c.PropertyChanged += onAreaPropertyChanged, c => c.PropertyChanged -= onAreaPropertyChanged);
-            var scaleBinding = area.Bind<IScalingArea>(c => c.PropertyChanged += onScalingAreaChanged, c => c.PropertyChanged -= onScalingAreaChanged);
+            var areaBinding = area.Bind<IAreaComponent>(c => c.PropertyChanged += _onAreaPropertyChangedCallback, c => c.PropertyChanged -= _onAreaPropertyChangedCallback);
+            var scaleBinding = area.Bind<IScalingArea>(c => c.PropertyChanged += _onScalingAreaChangedCallback, c => c.PropertyChanged -= _onScalingAreaChangedCallback);
             var restrictBinding = area.Bind<IAreaRestriction>(c =>
             {
-                c.RestrictionList.OnListChanged.Subscribe(onAreaRestrictListChanged);
-                c.PropertyChanged += onAreaRestrictionChanged;
+                c.RestrictionList.OnListChanged.Subscribe(_onAreaRestrictionListChangedCallback);
+                c.PropertyChanged += _onAreaRestrictionChangedCallback;
             }, c => 
             {
-                c.RestrictionList.OnListChanged.Unsubscribe(onAreaRestrictListChanged);
-                c.PropertyChanged -= onAreaRestrictionChanged;
+                c.RestrictionList.OnListChanged.Unsubscribe(_onAreaRestrictionListChangedCallback);
+                c.PropertyChanged -= _onAreaRestrictionChangedCallback;
             });
             var bindings = _areaBindings.GetOrAdd(area.ID, () => new List<IComponentBinding>());
             bindings.Add(scaleBinding);
@@ -471,14 +506,14 @@ namespace AGS.Engine
         private void unsubscribeArea(IArea area)
         {
             var areaComp = area.GetComponent<IAreaComponent>();
-            if (areaComp != null) areaComp.PropertyChanged -= onAreaPropertyChanged;
+            if (areaComp != null) areaComp.PropertyChanged -= _onAreaPropertyChangedCallback;
             var scale = area.GetComponent<IScalingArea>();
-            if (scale != null) scale.PropertyChanged -= onScalingAreaChanged;
+            if (scale != null) scale.PropertyChanged -= _onScalingAreaChangedCallback;
             var restriction = area.GetComponent<IAreaRestriction>();
             if (restriction != null)
             {
-                restriction.PropertyChanged -= onAreaRestrictionChanged;
-                restriction.RestrictionList.OnListChanged.Unsubscribe(onAreaRestrictListChanged);
+                restriction.PropertyChanged -= _onAreaRestrictionChangedCallback;
+                restriction.RestrictionList.OnListChanged.Unsubscribe(_onAreaRestrictionListChangedCallback);
             }
             _areaBindings.TryGetValue(area.ID, out var bindings);
             if (bindings == null) return;
@@ -503,8 +538,9 @@ namespace AGS.Engine
 
         private PointF getAreaScaling()
         {
+            if (_drawable?.IgnoreScalingArea ?? false) return NoScaling;
             var room = _room?.Room;
-            if (room == null || (_drawable?.IgnoreScalingArea ?? false)) return NoScaling;
+            if (room == null) return NoScaling;
 
             //Problem: we'd like to always use the world position when checking if the entity is standing
             //in a scaling area. However, the world position is calculated from the bounding box, which
@@ -517,7 +553,8 @@ namespace AGS.Engine
             foreach (IArea area in room.GetMatchingAreas(position, Entity.ID))
             {
                 IScalingArea scaleArea = area.GetComponent<IScalingArea>();
-                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY)) continue;
+                if (scaleArea == null || (!scaleArea.ScaleObjectsX && !scaleArea.ScaleObjectsY))
+                    continue;
                 float scale = scaleArea.GetScaling(scaleArea.Axis == ScalingAxis.X ? position.X : position.Y);
                 return new PointF(scaleArea.ScaleObjectsX ? scale : 1f, scaleArea.ScaleObjectsY ? scale : 1f);
             }

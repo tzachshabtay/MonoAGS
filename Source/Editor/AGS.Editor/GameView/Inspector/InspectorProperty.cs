@@ -3,39 +3,72 @@ using System.Collections.Generic;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
+using Humanizer;
 
 namespace AGS.Editor
 {
-    public class InspectorProperty
+    public class InspectorProperty : IProperty
     {
         private static Dictionary<Type, (MethodInfo, CustomStringValueAttribute)> _customValueProviders = 
             new Dictionary<Type, (MethodInfo, CustomStringValueAttribute)>();
 
-		public InspectorProperty(object obj, string name, PropertyInfo prop)
-		{
+        private MethodModel _initializer;
+
+        private bool _isDefault = true;
+
+		public InspectorProperty(IComponent obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+            : this(obj, obj, parent, name, prop, displayName)
+        {}
+
+        public InspectorProperty(IComponent component, object obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+        {
 			Prop = prop;
 			Name = name;
+            DisplayName = displayName ?? name.Humanize();
 			Object = obj;
-			Children = new List<InspectorProperty>();
+            Component = component;
+            Parent = parent;
+			Children = new List<IProperty>();
             IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
 		}
 
-		public string Name { get; private set; }
-		public string Value { get; private set; }
+		public string Name { get; }
+        public string DisplayName { get; }
+		public string ValueString { get; private set; }
 		public PropertyInfo Prop { get; private set; }
-		public object Object { get; private set; }
-		public List<InspectorProperty> Children { get; private set; }
-        public bool IsReadonly { get; private set; }
+		public object Object { get; }
+        public IComponent Component { get; }
+        public IProperty Parent { get; }
+        public List<IProperty> Children { get; }
+        public bool IsReadonly { get; }
 
-        public const string NullValue = "(null)";
+        public Type PropertyType => Prop.PropertyType;
+
+        public const string NullValue = "(None)";
+
+        public ValueModel Value
+        {
+            get => new ValueModel(Prop.GetValue(Object, null), _initializer, isDefault: _isDefault, type: PropertyType);
+            set
+            {
+                _isDefault = false;
+                Prop.SetValue(Object, value.Value, null);
+                _initializer = value.Initializer;
+            }
+        }
+
+        public TAttribute GetAttribute<TAttribute>() where TAttribute : Attribute
+        {
+            return Prop.GetCustomAttribute<TAttribute>();
+        }
 
 		public void Refresh()
 		{
             try
             {
                 object val = Prop.GetValue(Object);
-                if (val == null) Value = NullValue;
+                if (val == null) ValueString = NullValue;
                 else
                 {
                     var provider = _customValueProviders.GetOrAdd(Prop.PropertyType, () =>
@@ -49,7 +82,7 @@ namespace AGS.Editor
                         return default;
                     });
                     MethodInfo method = getCustomStringMethod(provider);
-                    Value = method == null ? val.ToString() : method.Invoke(val, null).ToString();
+                    ValueString = method == null ? val.ToString() : method.Invoke(val, null).ToString();
                 }
             }
             catch (Exception e)
@@ -57,6 +90,8 @@ namespace AGS.Editor
                 throw new Exception($"Failed to refresh property: {Name}", e);
             }
 		}
+
+        public override string ToString() => $"{DisplayName}: {ValueString}";
 
         private MethodInfo getCustomStringMethod((MethodInfo method, CustomStringValueAttribute attr)provider)
         {

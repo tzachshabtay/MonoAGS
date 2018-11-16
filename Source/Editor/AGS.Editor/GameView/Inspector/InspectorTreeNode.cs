@@ -7,14 +7,17 @@ namespace AGS.Editor
     {
 		private readonly IStringItem _item;
 
-		public InspectorTreeNode(InspectorProperty property, IInspectorPropertyEditor editor, IFont font)
+		public InspectorTreeNode(IProperty property, IInspectorPropertyEditor editor, IFont font, bool isCategory)
 		{
 			TreeNode = new AGSTreeNode<ITreeStringNode>(this);
 			_item = new AGSStringItem(font);
-            Text = property.Name;
+            Text = property.DisplayName;
             Property = property;
             Editor = editor;
-		}
+            IsCategory = isCategory;
+        }
+
+        public bool IsCategory { get; }
 
 		public ITextConfig HoverTextConfig { get => _item.HoverTextConfig; set => _item.HoverTextConfig = value; }
 
@@ -26,7 +29,7 @@ namespace AGS.Editor
 
         public ITreeNode<ITreeStringNode> TreeNode { get; }
 
-        public InspectorProperty Property { get; }
+        public IProperty Property { get; }
 
         public IInspectorPropertyEditor Editor { get; }
 
@@ -34,7 +37,7 @@ namespace AGS.Editor
         {
             string text = Text?.ToLowerInvariant() ?? "";
             if (text.Contains(searchText)) return true;
-            text = Property.Value?.ToLowerInvariant() ?? "";
+            text = Property.ValueString?.ToLowerInvariant() ?? "";
             return text.Contains(searchText);
         }
     }

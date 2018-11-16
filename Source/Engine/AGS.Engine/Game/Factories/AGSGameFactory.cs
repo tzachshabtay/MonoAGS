@@ -7,7 +7,7 @@ namespace AGS.Engine
 	{
 		public AGSGameFactory(IGraphicsFactory graphics, IInventoryFactory inventory, IUIFactory ui,
 			IRoomFactory room, IOutfitFactory outfit, IObjectFactory obj, IDialogFactory dialog, 
-            IAudioFactory sound, IFontLoader fontFactory, IResourceLoader resources, IShaderFactory shaders, 
+            IAudioFactory sound, IFontFactory fontFactory, IResourceLoader resources, IShaderFactory shaders, 
             Resolver resolver)
 		{
 			Graphics = graphics;
@@ -37,7 +37,7 @@ namespace AGS.Engine
 
 		public IUIFactory UI { get; private set; }
 
-        public IFontLoader Fonts { get; private set; }
+        public IFontFactory Fonts { get; private set; }
 
 		public IObjectFactory Object { get; private set; }
 
@@ -52,8 +52,5 @@ namespace AGS.Engine
 		public IAudioFactory Sound { get; private set; }
 
 		#endregion
-
-
 	}
 }
-

@@ -76,7 +76,7 @@ namespace AGS.Engine
 
         private void updateCursor()
         {
-            IObject cursor = _input.Cursor;
+            IObject cursor = _gameState.Cursor;
             if (cursor == null) return;
             var viewport = _gameState.Viewport;
             cursor.X = _input.MousePosition.XMainViewport;

@@ -19,8 +19,14 @@ namespace AGS.Engine
 			_object = obj;
 		}
 
-		public IInventoryWindow GetInventoryWindow(string id, float width, float height, float itemWidth, float itemHeight, float x, float y,
-			IInventory inventory = null, bool addToUi = true)
+        [MethodWizard]
+		public IInventoryWindow GetInventoryWindow(string id,
+            [MethodParam(Browsable = false, Default = 80f)]float width,
+            [MethodParam(Browsable = false, Default = 80f)]float height,
+            [MethodParam(Default = 25f)]float itemWidth,
+            [MethodParam(Default = 25)]float itemHeight, float x, float y,
+            IInventory inventory = null,
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
 		{
             IInventoryWindow inventoryWindow = GetInventoryWindow(id, new EmptyImage(width, height), itemWidth, itemHeight, inventory);
 			inventoryWindow.X = x;
@@ -43,6 +49,7 @@ namespace AGS.Engine
 			return inventoryWindow;
 		}
 
+        [MethodWizard]
 		public IInventoryItem GetInventoryItem(IObject graphics, IObject cursorGraphics, bool playerStartsWithItem = false)
 		{
 			IInventoryItem item = _resolver.Container.Resolve<IInventoryItem>();

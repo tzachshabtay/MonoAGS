@@ -2,6 +2,7 @@
 using AGS.API;
 using Autofac;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace AGS.Engine
@@ -11,16 +12,21 @@ namespace AGS.Engine
         private readonly Resolver _resolver;
         private readonly IGameState _gameState;
         private readonly IGraphicsFactory _graphics;
+        private readonly IBorderFactory _borders;
         private readonly IObjectFactory _object;
-        private readonly IGameSettings _settings;
+        private readonly IFocusedUI _focus;
+        private readonly IFontFactory _fonts;
 
-        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj, IGameSettings settings)
+        public AGSUIFactory(Resolver resolver, IGameState gameState, IGraphicsFactory graphics, IObjectFactory obj, 
+                            IFocusedUI focusedUI, IFontFactory fonts)
         {
-            _settings = settings;
+            _fonts = fonts;
             _resolver = resolver;
             _gameState = gameState;
             _graphics = graphics;
+            _borders = graphics.Borders;
             _object = obj;
+            _focus = focusedUI;
         }
 
         public IPanel GetPanel(string id, IImage image, float x, float y, IObject parent = null, bool addToUi = true)
@@ -37,7 +43,12 @@ namespace AGS.Engine
             return panel;
         }
 
-        public IPanel GetPanel(string id, float width, float height, float x, float y, IObject parent = null, bool addToUi = true)
+        [MethodWizard]
+        public IPanel GetPanel(string id, 
+                               [MethodParam(Default = 100f)]float width, [MethodParam(Default = 50f)]float height, 
+                               float x, float y, 
+                               [MethodParam(Browsable = false)]IObject parent = null, 
+                               [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             EmptyImage image = new EmptyImage(width, height);
             return GetPanel(id, image, x, y, parent, addToUi);
@@ -55,7 +66,52 @@ namespace AGS.Engine
             return GetPanel(id, image, x, y, parent, addToUi);
         }
 
-        public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f)
+        public IScrollbar GetScrollbar(string idPrefix, SliderDirection direction, 
+                                       IObject parent = null, float width = 15f, float height = 15f, float step = 10f, float buttonBorderWidth = 1f)
+        {
+            var slider = GetSlider($"{idPrefix}_{direction}Slider", null, null, 0f, 0f, 0f, parent);
+            slider.ShouldClampValuesWhenChangingMinMax = false;
+            slider.Direction = direction;
+            slider.HandleGraphics.Pivot = slider.IsHorizontal() ? new PointF(1f, 0f) : new PointF(0f, 1f);
+            slider.Graphics.Pivot = new PointF(0f, 0f);
+            slider.Graphics.Border = _borders.SolidColor(Colors.DarkGray, 0.5f, true);
+            slider.HandleGraphics.Border = _borders.SolidColor(Colors.White, 0.5f, true);
+            float gutterSize = slider.IsHorizontal() ? height : width;
+            HoverEffect.Add(slider.Graphics, Colors.Gray, Colors.LightGray);
+            HoverEffect.Add(slider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+
+            (var up, var down) = slider.IsHorizontal() ? (ArrowDirection.Left, ArrowDirection.Right) : (ArrowDirection.Up, ArrowDirection.Down);
+            PointF pivot = slider.IsHorizontal() ? (1f, 0f) : (0f, 1f);
+            (var upX, var upY) = slider.IsHorizontal() ? (0f, buttonBorderWidth / 2f) : (buttonBorderWidth / 2f, height - gutterSize * 2f);
+            (var idle, var hovered, var pushed) = getArrowButtonAnimations(up, buttonBorderWidth);
+            var upButton = GetButton($"{idPrefix}_Scroll{up}Button", idle, hovered, pushed, upX, upY, slider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
+            upButton.Pivot = pivot;
+            upButton.MouseClicked.Subscribe(args => 
+            {
+                if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)
+                    slider.Decrease(step);
+                else slider.Increase(step);
+                _focus.HasKeyboardFocus = slider;
+            });
+
+            (var downX, var downY) = slider.IsHorizontal() ? (width - gutterSize * 2f, buttonBorderWidth / 2f) : (buttonBorderWidth / 2f, 0f);
+            (idle, hovered, pushed) = getArrowButtonAnimations(down, buttonBorderWidth);
+            var downButton = GetButton($"{idPrefix}_Scroll{down}Button", idle, hovered, pushed, downX, downY, slider, width: gutterSize - buttonBorderWidth, height: gutterSize - buttonBorderWidth);
+            downButton.Pivot = pivot;
+            downButton.MouseClicked.Subscribe(args => 
+            {
+                if (direction == SliderDirection.TopToBottom || direction == SliderDirection.LeftToRight)   
+                    slider.Increase(step);
+                else slider.Decrease(step);
+                _focus.HasKeyboardFocus = slider;
+            });
+
+            var scrollbar = new AGSScrollbar(upButton, downButton, slider);
+            scrollbar.Step = step;
+            return scrollbar;
+        }
+
+        public IPanel CreateScrollingPanel(IPanel panel, float gutterSize = 15f, float stepHorizontal = 10f, float stepVertical = 10f)
         {
             var contentsPanel = GetPanel($"{panel.ID}_Contents", panel.Width, panel.Height, 0f, 0f, panel);
             contentsPanel.Opacity = 0;
@@ -63,74 +119,47 @@ namespace AGS.Engine
             contentsPanel.RenderLayer = panel.RenderLayer;
 
             contentsPanel.AddComponent<ICropChildrenComponent>();
-            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            var box = contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            box.IncludeSelf = false;
             IScrollingComponent scroll = contentsPanel.AddComponent<IScrollingComponent>();
 
-            var horizSlider = GetSlider($"{panel.ID}_HorizontalSlider", null, null, 0f, 0f, 0f, panel);
-			horizSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
-            horizSlider.Direction = SliderDirection.LeftToRight;
-			horizSlider.Graphics.Pivot = new PointF(0f, 0f);
-			horizSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-			horizSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
-            HoverEffect.Add(horizSlider.Graphics, Colors.Gray, Colors.LightGray);
-			HoverEffect.Add(horizSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
+            const float buttonBorderWidth = 1f;
 
-            var verSlider = GetSlider($"{panel.ID}_VerticalSlider", null, null, 0f, 0f, 0f, panel);
-			verSlider.HandleGraphics.Pivot = new PointF(0f, 0f);
-            verSlider.Direction = SliderDirection.TopToBottom;
-			verSlider.Graphics.Pivot = new PointF(0f, 0f);
-			verSlider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-			verSlider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
-            verSlider.MaxHandleOffset = gutterSize;
-			HoverEffect.Add(verSlider.Graphics, Colors.Gray, Colors.LightGray);
-            HoverEffect.Add(verSlider.HandleGraphics, Colors.DarkGray, Colors.WhiteSmoke);
-
-            (var idle, var hovered, var pushed) = getArrowButtonAnimations(ArrowDirection.Up, 1f);
-            var upButton = GetButton($"{panel.ID}_ScrollUpButton", idle, hovered, pushed, 0f, panel.Height - gutterSize * 2f, verSlider, width: gutterSize, height: gutterSize);
-            upButton.Pivot = new PointF(0f, 1f);
-            upButton.MouseClicked.Subscribe(args => verSlider.Value--);
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Down, 1f);
-            var downButton = GetButton($"{panel.ID}_ScrollDownButton", idle, hovered, pushed, 0f, 0f, verSlider, width: gutterSize, height: gutterSize);
-            downButton.Pivot = new PointF(0f, 1f);
-            downButton.MouseClicked.Subscribe(args => verSlider.Value++);
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Left, 1f);
-            var leftButton = GetButton($"{panel.ID}_ScrollUpLeft", idle, hovered, pushed, 0f, 0f, horizSlider, width: gutterSize, height: gutterSize);
-            leftButton.Pivot = new PointF(1f, 0f);
-            leftButton.MouseClicked.Subscribe(args => horizSlider.Value--);
-
-            (idle, hovered, pushed) = getArrowButtonAnimations(ArrowDirection.Right, 1f);
-            var rightButton = GetButton($"{panel.ID}_ScrollDownRight", idle, hovered, pushed, panel.Width - gutterSize * 2f, 0f, horizSlider, width: gutterSize, height: gutterSize);
-            rightButton.Pivot = new PointF(0f, 0f);
-            rightButton.MouseClicked.Subscribe(args => horizSlider.Value++);
+            var horizScrollbar = GetScrollbar(panel.ID, SliderDirection.LeftToRight, panel, panel.Width, gutterSize, buttonBorderWidth: buttonBorderWidth);
+            var verScrollbar = GetScrollbar(panel.ID, SliderDirection.TopToBottom, panel, gutterSize, panel.Height, buttonBorderWidth: buttonBorderWidth);
+            horizScrollbar.Slider.Y = -buttonBorderWidth;
 
             PropertyChangedEventHandler resize = (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Width) && args.PropertyName != nameof(IScaleComponent.Height)) return;
                 panel.BaseSize = new SizeF(contentsPanel.Width + gutterSize, contentsPanel.Height + gutterSize);
-                horizSlider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 2f, gutterSize);
-                horizSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
-                verSlider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
-                verSlider.HandleGraphics.Image = new EmptyImage(gutterSize, gutterSize);
-                horizSlider.X = -panel.Width * panel.Pivot.X + gutterSize;
-                verSlider.X = panel.Width - gutterSize;
-                verSlider.Y = gutterSize * 2f;
-                upButton.Y = panel.Height - gutterSize * 2f;
-                rightButton.X = panel.Width - gutterSize * 2f;
+                horizScrollbar.Slider.Graphics.Image = new EmptyImage(panel.Width - gutterSize * 3f, gutterSize);
+                horizScrollbar.Slider.HandleGraphics.Image = new EmptyImage(horizScrollbar.Slider.HandleGraphics.Image.Width, gutterSize);
+                verScrollbar.Slider.Graphics.Image = new EmptyImage(gutterSize, panel.Height - gutterSize * 3f);
+                verScrollbar.Slider.HandleGraphics.Image = new EmptyImage(gutterSize, verScrollbar.Slider.HandleGraphics.Image.Height);
+                horizScrollbar.Slider.X = -panel.Width * panel.Pivot.X + gutterSize;
+                verScrollbar.Slider.X = panel.Width - gutterSize + buttonBorderWidth;
+                verScrollbar.Slider.Y = gutterSize * 2f;
+                verScrollbar.UpButton.Y = panel.Height - gutterSize * 2f;
+                horizScrollbar.DownButton.X = panel.Width - gutterSize * 2f;
                 contentsPanel.Y = gutterSize;
             };
 
             resize(this, new PropertyChangedEventArgs(nameof(IScaleComponent.Width)));
-            scroll.HorizontalScrollBar = horizSlider;
-			scroll.VerticalScrollBar = verSlider;
+            scroll.HorizontalScrollBar = horizScrollbar;
+            scroll.VerticalScrollBar = verScrollbar;
 
             contentsPanel.Bind<IScaleComponent>(c => c.PropertyChanged += resize, c => c.PropertyChanged -= resize);
 
             return contentsPanel;
         }
 
-        public ILabel GetLabel(string id, string text, float width, float height, float x, float y, IObject parent = null, ITextConfig config = null, bool addToUi = true)
+        [MethodWizard]
+        public ILabel GetLabel(string id, [MethodParam(Default = "")]string text, 
+                               [MethodParam(Default = 80f)]float width, [MethodParam(Default = 30f)]float height, 
+                               float x, float y, 
+                               [MethodParam(Browsable = false)]IObject parent = null, ITextConfig config = null, 
+                               [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             SizeF baseSize = new SizeF(width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
@@ -140,16 +169,57 @@ namespace AGS.Engine
             label.X = x;
             label.Y = y;
             label.Tint = Colors.Transparent;
-            label.TextConfig = config ?? new AGSTextConfig(font: _settings.Defaults.TextFont);
+            label.TextConfig = config ?? _fonts.GetTextConfig();
             setParent(label, parent);
             if (addToUi)
                 _gameState.UI.Add(label);
             return label;
         }
 
-        public IButton GetButton(string id, ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed,
-            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true,
-            float width = -1f, float height = -1f)
+        public static ButtonAnimation GetDefaultIdleAnimation(Resolver resolver) 
+            => new ButtonAnimation(getDefaultBorder(resolver),
+                               resolver.Resolve<IFontFactory>().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, 
+                                                 brush: AGSGame.Game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.WhiteSmoke)), 
+                               Color.FromRgba(44, 51, 61, 255));
+
+        public static ButtonAnimation GetDefaultHoverAnimation(Resolver resolver)
+            => new ButtonAnimation(null, null, Colors.Gray);
+
+        public static ButtonAnimation GetDefaultPushedAnimation(Resolver resolver)
+            => new ButtonAnimation(null, null, Colors.DarkGray);
+
+        private static IBorderStyle getDefaultBorder(Resolver resolver)
+        {
+            var borders = resolver.Container.Resolve<IBorderFactory>();
+            return borders.SolidColor(Colors.Black, 1f);
+        }
+
+        public static List<object> ConvertListboxToEntities(IListbox listbox)
+        {
+            List<object> entities = new List<object>();
+            entities.Add(listbox.ContentsPanel);
+            if (listbox.ScrollingPanel != null) entities.Add(listbox.ScrollingPanel);
+            return entities;
+        }
+
+        public static List<object> ConvertCheckboxToEntities(ICheckBox checkbox)
+        {
+            List<object> entities = new List<object>();
+            entities.Add(checkbox);
+            if (checkbox.TextLabel != null) entities.Add(checkbox.TextLabel);
+            return entities;
+        }
+
+        [MethodWizard]
+        public IButton GetButton(string id, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultIdleAnimation))] ButtonAnimation idle, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultHoverAnimation))] ButtonAnimation hovered, 
+             [MethodParam(DefaultProvider = nameof(GetDefaultPushedAnimation))] ButtonAnimation pushed,
+             float x, float y, [MethodParam(Browsable = false)] IObject parent = null, string text = "", 
+             [MethodParam(Browsable = false)] ITextConfig config = null, 
+             [MethodParam(Browsable = false, Default = false)] bool addToUi = true,
+             [MethodParam(Browsable = false, Default = 25f)] float width = -1f,
+             [MethodParam(Browsable = false, Default = 25f)] float height = -1f)
         {
             bool pixelArtButton = idle?.Image != null || (idle?.Animation != null && idle.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
@@ -167,6 +237,7 @@ namespace AGS.Engine
 
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IButton button = _resolver.Container.Resolve<IButton>(idParam);
+
             button.LabelRenderSize = new SizeF(width, height);
             button.IdleAnimation = idle;
             button.HoverAnimation = hovered;
@@ -175,7 +246,7 @@ namespace AGS.Engine
             button.Tint = pixelArtButton ? Colors.White : Colors.Transparent;
             button.X = x;
             button.Y = y;
-            button.TextConfig = config ?? new AGSTextConfig(alignment: Alignment.MiddleCenter, font: _settings.Defaults.TextFont);
+            button.TextConfig = config ?? _fonts.GetTextConfig(alignment: Alignment.MiddleCenter);
             button.Text = text;
             setParent(button, parent);
 
@@ -184,7 +255,6 @@ namespace AGS.Engine
 
             if (addToUi)
                 _gameState.UI.Add(button);
-
             return button;
         }
 
@@ -218,24 +288,24 @@ namespace AGS.Engine
             return GetButton(id, idle, hovered, pushed, x, y, parent, text, config, addToUi, width, height);
         }
 
-        public ITextBox GetTextBox(string id, float x, float y, IObject parent = null, string watermark = "", ITextConfig config = null,
-            bool addToUi = true, float width = -1F, float height = -1F)
+        [MethodWizard]
+        public ITextBox GetTextBox(string id, float x, float y, 
+            [MethodParam(Browsable = false)]IObject parent = null, string watermark = "", ITextConfig config = null,
+            [MethodParam(Browsable = false, Default = false)] bool addToUi = true, 
+            [MethodParam(Browsable = false, Default = 80f)]float width = -1F, 
+            [MethodParam(Browsable = false, Default = 25f)]float height = -1F)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ITextBox textbox = _resolver.Container.Resolve<ITextBox>(idParam);
             textbox.LabelRenderSize = new SizeF(width, height);
             textbox.X = x;
             textbox.Y = y;
-            if (config == null)
-            {
-                config = new AGSTextConfig(autoFit: AutoFit.TextShouldCrop, font: _settings.Defaults.TextFont);
-            }
-            textbox.TextConfig = config;
+            textbox.TextConfig = config ?? _fonts.GetTextConfig(autoFit: AutoFit.TextShouldCrop);
             textbox.Text = "";
             setParent(textbox, parent);
             if (!string.IsNullOrEmpty(watermark))
             {
-                var watermarkConfig = AGSTextConfig.Clone(config);
+                var watermarkConfig = AGSTextConfig.Clone(textbox.TextConfig);
                 watermarkConfig.Brush = _graphics.Brushes.LoadSolidBrush(Colors.LightGray);
                 var watermarkLabel = GetLabel($"{id}_watermark", watermark, width, height, 0f, 0f, textbox, watermarkConfig, addToUi);
                 watermarkLabel.Opacity = 50;
@@ -248,8 +318,13 @@ namespace AGS.Engine
             return textbox;
         }
 
-        public ICheckBox GetCheckBox(string id, ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
-            float x, float y, IObject parent = null, string text = "", ITextConfig config = null, bool addToUi = true, float width = -1F, float height = -1F, bool isCheckButton = false)
+        [MethodWizard(EntitiesProvider = nameof(ConvertCheckboxToEntities))]
+        public ICheckBox GetCheckBox(string id, 
+            ButtonAnimation notChecked, ButtonAnimation notCheckedHovered, ButtonAnimation @checked, ButtonAnimation checkedHovered,
+            float x, float y, [MethodParam(Browsable = false)]IObject parent = null, string text = "", ITextConfig config = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
+            [MethodParam(Browsable = false, Default = 25f)] float width = -1f,
+            [MethodParam(Browsable = false, Default = 25f)] float height = -1f, bool isCheckButton = false)
         {
             bool pixelArtButton = notChecked?.Image != null || (notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0);
             if (width == -1f && pixelArtButton)
@@ -260,22 +335,23 @@ namespace AGS.Engine
             {
                 height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
             }
+            config = config ?? _fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText);
 
             var idleColor = Colors.White;
             var hoverColor = Colors.Yellow;
             const float lineWidth = 1f;
             const float padding = 300f;
-            Func<ButtonAnimation> notCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(idleColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> notCheckedDefault = () => new ButtonAnimation(_borders.SolidColor(idleColor, lineWidth), null, Colors.Black);
             Func<ButtonAnimation> checkedDefault = () =>
             {
                 var checkIcon = _graphics.Icons.GetXIcon(color: idleColor, padding: padding);
-                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(idleColor, lineWidth), checkIcon), null, Colors.Black);
+                return new ButtonAnimation(_borders.Multiple(_borders.SolidColor(idleColor, lineWidth), checkIcon), null, Colors.Black);
             };
-            Func<ButtonAnimation> hoverNotCheckedDefault = () => new ButtonAnimation(AGSBorders.SolidColor(hoverColor, lineWidth), null, Colors.Black);
+            Func<ButtonAnimation> hoverNotCheckedDefault = () => new ButtonAnimation(_borders.SolidColor(hoverColor, lineWidth), null, Colors.Black);
             Func<ButtonAnimation> hoverCheckedDefault = () =>
             {
                 var checkHoverIcon = _graphics.Icons.GetXIcon(color: hoverColor, padding: padding);
-                return new ButtonAnimation(AGSBorders.Multiple(AGSBorders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, Colors.Black);
+                return new ButtonAnimation(_borders.Multiple(_borders.SolidColor(hoverColor, lineWidth), checkHoverIcon), null, Colors.Black);
             }; 
 
             notChecked = validateAnimation(id, notChecked, notCheckedDefault, width, height);
@@ -284,10 +360,6 @@ namespace AGS.Engine
             checkedHovered = validateAnimation(id, checkedHovered, hoverCheckedDefault, width, height);
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             ICheckBox checkbox = _resolver.Container.Resolve<ICheckBox>(idParam);
-            if (!string.IsNullOrEmpty(text))
-            {
-                checkbox.TextLabel = GetLabel($"{id}_Label", text, 100f, 20f, x + width + 5f, y, parent, config, addToUi);
-            }
             if (!isCheckButton)
             {
                 checkbox.SkinTags.Add(AGSSkin.CheckBoxTag);
@@ -301,6 +373,12 @@ namespace AGS.Engine
             checkbox.X = x;
             checkbox.Y = y;
             setParent(checkbox, parent);
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                checkbox.TextLabel = GetLabel($"{id}_Label", text, 100f, 20f, width + 5f, height / 2f, checkbox, config, addToUi);
+                checkbox.TextLabel.Pivot = (0f, 0.5f);
+            }
 
             checkbox.Skin?.Apply(checkbox);
             checkbox.NotCheckedAnimation.StartAnimation(checkbox, checkbox.TextLabel, checkbox, checkbox);
@@ -341,9 +419,61 @@ namespace AGS.Engine
             return GetCheckBox(id, notChecked, notCheckedHovered, @checked, checkedHovered, x, y, parent, text, config, addToUi, width, height, isCheckButton);
         }
 
-        public IComboBox GetComboBox(string id, IButton dropDownButton = null, ITextBox textBox = null,
-            Func<string, IButton> itemButtonFactory = null, IObject parent = null, bool addToUi = true, 
-            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "")
+        [MethodWizard(EntitiesProvider = nameof(ConvertListboxToEntities))]
+        public IListbox GetListBox(string id, [MethodParam(Browsable = false)]IRenderLayer layer, 
+           [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null,
+           float defaultWidth = 500f, float defaultHeight = 40f, 
+           [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
+           bool isVisible = true, bool withScrollBars = true)
+        {
+            layer = layer ?? AGSLayers.UI;
+            if (listItemFactory == null)
+            {
+                var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
+                var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
+                var idle = new ButtonAnimation(null, _fonts.GetTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText), null);
+                var hovered = new ButtonAnimation(null, _fonts.GetTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText), null);
+                var pushed = new ButtonAnimation(null, _fonts.GetTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText), null);
+                listItemFactory = text =>
+                {
+                    var button = GetButton(id + "_" + text,
+                                           idle, hovered, pushed,
+                                           0f, 0f, width: defaultWidth, height: defaultHeight);
+                    button.Pivot = new PointF(0f, 1f);
+                    button.RenderLayer = layer;
+                    button.Text = text;
+                    return button;
+                };
+            }
+
+            var scrollingPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
+            scrollingPanel.Visible = isVisible;
+            scrollingPanel.Border = _borders.SolidColor(Colors.White, 3f);
+            scrollingPanel.Tint = Colors.Black;
+            scrollingPanel.RenderLayer = layer;
+            var contentsPanel = withScrollBars ? CreateScrollingPanel(scrollingPanel) : scrollingPanel;
+            var listBox = contentsPanel.AddComponent<IListboxComponent>();
+            listBox.ListItemFactory = listItemFactory;
+            listBox.MaxHeight = 300f;
+
+            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
+            contentsPanel.AddComponent<IStackLayoutComponent>();
+
+            if (addToUi)
+            {
+                _gameState.UI.Add(scrollingPanel);
+            }
+
+            return new AGSListbox(withScrollBars ? scrollingPanel : null, contentsPanel, listBox);
+        }
+
+        [MethodWizard]
+        public IComboBox GetComboBox(string id, [MethodParam(Browsable = false)]IButton dropDownButton = null, 
+            [MethodParam(Browsable = false)]ITextBox textBox = null,
+            [MethodParam(Browsable = false)]Func<string, IUIControl> listItemFactory = null, 
+            [MethodParam(Browsable = false)]IObject parent = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true, 
+            float defaultWidth = 500f, float defaultHeight = 40f, string watermark = "", float dropDownPanelOffset = 0f)
         {
             TypedParameter idParam = new TypedParameter(typeof(string), id);
             IComboBox comboBox = _resolver.Container.Resolve<IComboBox>(idParam);
@@ -353,9 +483,9 @@ namespace AGS.Engine
 
             if (textBox == null)
             {
-                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, new AGSTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, font: _settings.Defaults.TextFont),
+                textBox = GetTextBox(id + "_TextBox", 0f, 0f, comboBox, watermark, _fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel),
                                      false, itemWidth, defaultHeight);
-				textBox.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 3f);
+                textBox.Border = _borders.SolidColor(Colors.WhiteSmoke, 3f);
 				textBox.Tint = Colors.Transparent;
             }
             else setParent(textBox, comboBox);
@@ -375,51 +505,22 @@ namespace AGS.Engine
 			dropDownButton.Skin?.Apply(dropDownButton);
 
             var dropDownPanelLayer = new AGSRenderLayer(comboBox.RenderLayer.Z - 1, comboBox.RenderLayer.ParallaxSpeed, comboBox.RenderLayer.IndependentResolution); //Making sure that the drop-down layer is rendered before the combobox layer, so that it will appear in front of other ui elements that may be below.
-			if (itemButtonFactory == null)
-            {
-                var yellowBrush = _graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-				var whiteBrush = _graphics.Brushes.LoadSolidBrush(Colors.White);
-				itemButtonFactory = text =>
-				{
-					var button = GetButton(id + "_" + text,
-                                           new ButtonAnimation(null, new AGSTextConfig(whiteBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                           new ButtonAnimation(null, new AGSTextConfig(yellowBrush, outlineBrush: whiteBrush, outlineWidth: 0.5f, autoFit: AutoFit.LabelShouldFitText, font: _settings.Defaults.TextFont), null),
-                                                      0f, 0f, width: itemWidth, height: defaultHeight);
-                    button.Pivot = new PointF(0f, 1f);
-					button.RenderLayer = dropDownPanelLayer;
-					return button;
-				};
-            }
-
-            var dropDownPanel = GetPanel(id + "_DropDownPanel", new EmptyImage(1f, 1f), 0f, 0f, null, false);
-            dropDownPanel.Visible = false;
-            _gameState.UI.Add(dropDownPanel);
-            dropDownPanel.Border = AGSBorders.SolidColor(Colors.White, 3f);
-            dropDownPanel.Tint = Colors.Black;
-            dropDownPanel.RenderLayer = dropDownPanelLayer;
-            _gameState.FocusedUI.CannotLoseFocus.Add(dropDownPanel.ID);
-            var contentsPanel = CreateScrollingPanel(dropDownPanel);
-            var listBox = contentsPanel.AddComponent<IListboxComponent>();
-            listBox.ItemButtonFactory = itemButtonFactory;
-            listBox.MaxHeight = 300f;
+            var listbox = GetListBox(id, dropDownPanelLayer, listItemFactory, itemWidth, defaultHeight, isVisible: false);
+            _gameState.FocusedUI.CannotLoseFocus.Add(listbox.ScrollingPanel.ID);
 
             Action placePanel = () =>
             {
                 var box = textBox.GetBoundingBoxes(_gameState.Viewport)?.ViewportBox;
                 if (box == null) return;
-                dropDownPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y);
+                listbox.ScrollingPanel.Position = new Position(box.Value.BottomLeft.X, box.Value.BottomLeft.Y - dropDownPanelOffset);
             };
 
             textBox.OnBoundingBoxesChanged.Subscribe(placePanel);
             placePanel();
 
-            contentsPanel.AddComponent<IBoundingBoxWithChildrenComponent>();
-            contentsPanel.AddComponent<IStackLayoutComponent>();
-
             comboBox.DropDownButton = dropDownButton;
             comboBox.TextBox = textBox;
-            comboBox.DropDownPanel = contentsPanel;
+            comboBox.DropDownPanel = listbox;
 
             setParent(comboBox, parent);
 
@@ -433,8 +534,13 @@ namespace AGS.Engine
             return comboBox;
         }
 
-        public ISlider GetSlider(string id, string imagePath, string handleImagePath, float value, float min, float max,
-            IObject parent = null, ITextConfig config = null, ILoadImageConfig loadConfig = null, bool addToUi = true)
+        [MethodWizard]
+        public ISlider GetSlider(string id, 
+            [MethodParam(Browsable = false)]string imagePath, 
+            [MethodParam(Browsable = false)]string handleImagePath, float value, float min, float max,
+            [MethodParam(Browsable = false)]IObject parent = null, ITextConfig config = null, 
+            [MethodParam(Browsable = false)]ILoadImageConfig loadConfig = null, 
+            [MethodParam(Browsable = false, Default = false)]bool addToUi = true)
         {
             var image = imagePath == null ? null : _graphics.LoadImage(imagePath, loadConfig);
             var handleImage = handleImagePath == null ? null : _graphics.LoadImage(handleImagePath, loadConfig);
@@ -447,6 +553,18 @@ namespace AGS.Engine
             var image = imagePath == null ? null : await _graphics.LoadImageAsync(imagePath, loadConfig);
             var handleImage = handleImagePath == null ? null : await _graphics.LoadImageAsync(handleImagePath, loadConfig);
             return getSlider(id, image, handleImage, value, min, max, parent, config, addToUi);
+        }
+
+        public IForm GetForm(string id, string title, float width, float titleHeight, float contentsHeight, float x, float y, bool addToUi = true)
+        {
+            var config = _fonts.GetTextConfig(alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel);
+            var header = GetLabel($"{id}_TitleLabel", title, width, titleHeight, x, y + contentsHeight + titleHeight, config: config, addToUi: addToUi);
+            header.Enabled = true;
+            header.ClickThrough = true;
+            var contentsPanel = GetPanel($"{id}_ContentsPanel", width, contentsHeight, 0f, 0f, header, addToUi);
+            contentsPanel.Pivot = (0f, 1f);
+
+            return new AGSForm(header, contentsPanel);
         }
 
 		private ISlider getSlider(string id, IImage image, IImage handleImage, float value, float min, float max,
@@ -493,9 +611,9 @@ namespace AGS.Engine
 
         private (ButtonAnimation idle, ButtonAnimation hovered, ButtonAnimation pushed) getArrowButtonAnimations(ArrowDirection direction, float lineWidth)
         {
-            var whiteArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.WhiteSmoke, lineWidth),
+            var whiteArrow = _borders.Multiple(_borders.SolidColor(Colors.WhiteSmoke, lineWidth),
                                                  _graphics.Icons.GetArrowIcon(direction, Colors.WhiteSmoke));
-            var yellowArrow = AGSBorders.Multiple(AGSBorders.SolidColor(Colors.Yellow, lineWidth),
+            var yellowArrow = _borders.Multiple(_borders.SolidColor(Colors.Yellow, lineWidth),
                                                   _graphics.Icons.GetArrowIcon(direction, Colors.Yellow));
 
             return (new ButtonAnimation(whiteArrow, null, Colors.Transparent),
@@ -509,9 +627,9 @@ namespace AGS.Engine
             if (button.Animation != null || button.Image != null) return button;
             if (width == -1f || height == -1)
             {
-                throw new InvalidOperationException("No animation and no size was supplied for GUI control " + id);
+                throw new InvalidOperationException("No animation/image and no size was supplied for GUI control " + id);
             }
-            button.Image = new EmptyImage(width, height);
+            button = new ButtonAnimation(button.Animation, new EmptyImage(width, height), button.Border, button.TextConfig, button.Tint);
             return button;
         }
 

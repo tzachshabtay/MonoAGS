@@ -11,6 +11,7 @@ namespace AGS.Editor
         private readonly IObject _selectionMarker;
         private readonly GameToolbar _toolbar;
         private readonly GameDebugTree _tree;
+        private readonly CanvasMenu _menu;
         private DragHandle _dragHandle;
 
         public GameCanvas(AGSEditor editor, GameToolbar toolbar, GameDebugTree tree)
@@ -18,9 +19,12 @@ namespace AGS.Editor
             _toolbar = toolbar;
             _tree = tree;
             _editor = editor;
+            var canvasHitTest = new CanvasHitTest(editor);
+            editor.CanvasHitTest = canvasHitTest;
+            _menu = new CanvasMenu(editor, toolbar);
             _selectionMarker = editor.Editor.Factory.Object.GetObject("SelectionMarker");
             _selectionMarker.Visible = false;
-            _selectionMarker.Border = AGSBorders.SolidColor(GameViewColors.HoveredText, 2f);
+            _selectionMarker.Border = editor.Editor.Factory.Graphics.Borders.SolidColor(GameViewColors.HoveredText, 2f);
             _selectionMarker.RenderLayer = AGSLayers.UI;
 
             editor.Editor.State.UI.Add(_selectionMarker);
@@ -31,6 +35,7 @@ namespace AGS.Editor
             _editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
             _editor.Editor.Input.MouseDown.Subscribe(onMouseDown);
             _editor.Editor.Input.MouseUp.Subscribe(onMouseUp);
+            _menu.Load();
         }
 
         public static void ExpandAroundGameObject(AGSEditor editor, IBoundingBoxComponent boxComponent, IDrawableInfoComponent drawable,
@@ -62,7 +67,8 @@ namespace AGS.Editor
                 _selectionMarker.Visible = false;
                 return;
             }
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            _editor.CanvasHitTest.Refresh();
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null || obj.HasComponent<EntityDesigner>())
             {
                 _selectionMarker.Visible = false;
@@ -79,7 +85,7 @@ namespace AGS.Editor
         {
             if (args.Button != MouseButton.Left) return;
             if (!_selectionMarker.Visible) return;
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null) return;
 
             _dragHandle?.Dispose();
@@ -96,7 +102,7 @@ namespace AGS.Editor
         {
             if (args.Button != MouseButton.Left) return;
             if (!_selectionMarker.Visible) return;
-            var obj = _editor.Game.HitTest.ObjectAtMousePosition;
+            var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null) return;
             var dragHandle = _dragHandle;
             _dragHandle?.Dispose();

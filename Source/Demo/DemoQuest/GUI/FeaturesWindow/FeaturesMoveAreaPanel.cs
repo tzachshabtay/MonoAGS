@@ -13,9 +13,11 @@ namespace DemoGame
 
         private ILabel _label;
         private ICheckBox _checkbox;
+        private IObject _elevator;
         private bool _shouldAnimate, _shouldBindAreaToCharacter;
         private int _rotationStage;
         private PlayerAsFeature _playerAsFeature;
+        private IArea _area;
 
         private Tween _currentTween;
         private bool _stopped;
@@ -41,32 +43,32 @@ namespace DemoGame
             _shouldBindAreaToCharacter = true;
             _checkbox.OnCheckChanged.Subscribe(onBindChanged);
 
-            var parent = factory.Object.GetObject("Elevator Parent");
-            parent.TreeNode.SetParent(_parent.TreeNode);
-            parent.RenderLayer = _parent.RenderLayer;
-            parent.Image = new EmptyImage(1f, 1f);
-            parent.Opacity = 0;
-            parent.Position = (200f, 100f);
+            _elevator = factory.Object.GetObject("Elevator Parent");
+            _elevator.TreeNode.SetParent(_parent.TreeNode);
+            _elevator.RenderLayer = _parent.RenderLayer;
+            _elevator.Image = new EmptyImage(1f, 1f);
+            _elevator.Opacity = 0;
+            _elevator.Position = (200f, 100f);
 
 			var areaParent = factory.Object.GetObject("Elevator Area Parent");
-			areaParent.TreeNode.SetParent(parent.TreeNode);
+            areaParent.TreeNode.SetParent(_elevator.TreeNode);
 			areaParent.RenderLayer = _parent.RenderLayer;
 
-            _playerAsFeature.PlaceInFeatureWindow(parent);
+            _playerAsFeature.PlaceInFeatureWindow(_elevator);
 
             bool[,] maskArr = new bool[200, 200];
             var mask = factory.Masks.Load(maskArr, "Elevator Mask", true, Colors.GreenYellow.WithAlpha(150));
-            var area = factory.Room.GetArea("Elevator Area", mask, null, true);
-            area.Mask.DebugDraw.TreeNode.SetParent(areaParent.TreeNode);
-            area.Mask.DebugDraw.RenderLayer = _parent.RenderLayer;
-            var areaTranslate = area.AddComponent<ITranslateComponent>();
-            var areaRotate = area.AddComponent<IRotateComponent>();
-            player.Room.Areas.Add(area);
+            _area = factory.Room.GetArea("Elevator Area", mask, null, true);
+            _area.Mask.DebugDraw.TreeNode.SetParent(areaParent.TreeNode);
+            _area.Mask.DebugDraw.RenderLayer = _parent.RenderLayer;
+            var areaTranslate = _area.AddComponent<ITranslateComponent>();
+            var areaRotate = _area.AddComponent<IRotateComponent>();
+            player.Room.Areas.Add(_area);
             player.PlaceOnWalkableArea();
-            player.Z = area.Mask.DebugDraw.Z - 1;
+            player.Z = _area.Mask.DebugDraw.Z - 1;
             _scheme.CurrentMode = RotatingCursorScheme.WALK_MODE;
 
-            animate(parent, areaTranslate, areaRotate);
+            animate(_elevator, areaTranslate, areaRotate);
         }
 
         public async Task Close()
@@ -95,6 +97,9 @@ namespace DemoGame
 
             var playerAsFeature = _playerAsFeature;
             if (playerAsFeature != null) await playerAsFeature.Restore();
+
+            _elevator?.DestroyWithChildren();
+            _area?.Dispose();
 
             _scheme.CurrentMode = MouseCursors.POINT_MODE;
         }

@@ -42,17 +42,18 @@ namespace AGS.Engine
             _fileSelection = fileSelection;
             _fileFilter = fileFilter;
             _startPath = startPath ?? _device.FileSystem.GetCurrentDirectory() ?? "";
-            _buttonsTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
-                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f));
-            _filesTextConfig = new AGSTextConfig(alignment: Alignment.BottomCenter,
-                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(null, 10f),
+            _buttonsTextConfig = game.Factory.Fonts.GetTextConfig(alignment: Alignment.BottomCenter,
+                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(game.Settings.Defaults.TextFont.FontFamily, 10f));
+            _filesTextConfig = game.Factory.Fonts.GetTextConfig(alignment: Alignment.BottomCenter,
+                autoFit: AutoFit.TextShouldFitLabel, font: game.Factory.Fonts.LoadFont(game.Settings.Defaults.TextFont.FontFamily, 10f),
                 brush: _device.BrushLoader.LoadSolidBrush(Colors.White));
             _tcs = new TaskCompletionSource<bool>(false);
         }
 
         public static async Task<string> SelectFile(string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
-            var dialog = new AGSSelectFileDialog(AGSGame.Game, title, fileSelection, fileFilter, startPath);
+            var game = AGSGame.Game;
+            var dialog = new AGSSelectFileDialog(game, title, fileSelection, fileFilter, startPath);
             return await dialog.Run();
         }
 
@@ -81,8 +82,8 @@ namespace AGS.Engine
             float cancelButtonX = okButtonX + okButtonWidth + okButtonPaddingX;
             float panelX = _game.Settings.VirtualResolution.Width / 2f - panelWidth / 2f;
             float panelY = _game.Settings.VirtualResolution.Height / 2f - panelHeight / 2f;
-            ITextConfig textBoxConfig = new AGSTextConfig(alignment: Alignment.BottomLeft,
-                autoFit: AutoFit.TextShouldCrop, font: _game.Factory.Fonts.LoadFont(null, 10f));
+            ITextConfig textBoxConfig = factory.Fonts.GetTextConfig(alignment: Alignment.BottomLeft,
+                autoFit: AutoFit.TextShouldCrop, font: _game.Factory.Fonts.LoadFont(_game.Settings.Defaults.TextFont.FontFamily, 10f));
 
             IPanel panel = factory.UI.GetPanel("SelectFilePanel", panelWidth, panelHeight, panelX, panelY);
             panel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1);

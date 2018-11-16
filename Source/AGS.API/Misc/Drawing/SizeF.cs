@@ -5,7 +5,9 @@
     /// </summary>
 	public struct SizeF
 	{
-		private readonly float _width, _height;
+        public static SizeF Empty = new SizeF();
+
+        private readonly float _width, _height;
 
 		public SizeF(float width, float height)
 		{

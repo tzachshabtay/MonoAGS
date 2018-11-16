@@ -1,4 +1,7 @@
-﻿namespace AGS.Engine
+using System;
+using AGS.API;
+
+namespace AGS.Engine
 {
 	public enum SliceMeasurement
 	{
@@ -6,6 +9,7 @@
 		Percentage,
 	}
 
+    [PropertyFolder]
 	public class SliceMeasureUnit
 	{
 		public SliceMeasureUnit(float value, SliceMeasurement measureUnit)
@@ -24,4 +28,3 @@
         }
 	}
 }
-

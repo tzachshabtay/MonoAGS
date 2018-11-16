@@ -4,7 +4,7 @@ namespace AGS.Editor
 {
     public interface IInspectorPropertyEditor
     {
-        void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property);
+        void AddEditorUI(string id, ITreeNodeView view, IProperty property);
 
         void RefreshUI();
     }
