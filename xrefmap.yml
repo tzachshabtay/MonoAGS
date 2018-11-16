@@ -8239,6 +8239,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowComponent.Follow
   nameWithType: IFollowComponent.Follow
+- uid: AGS.API.IFollowComponent.StopFollowingAsync
+  name: StopFollowingAsync()
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_StopFollowingAsync
+  commentId: M:AGS.API.IFollowComponent.StopFollowingAsync
+  fullName: AGS.API.IFollowComponent.StopFollowingAsync()
+  nameWithType: IFollowComponent.StopFollowingAsync()
+- uid: AGS.API.IFollowComponent.StopFollowingAsync*
+  name: StopFollowingAsync
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_StopFollowingAsync_
+  commentId: Overload:AGS.API.IFollowComponent.StopFollowingAsync
+  isSpec: "True"
+  fullName: AGS.API.IFollowComponent.StopFollowingAsync
+  nameWithType: IFollowComponent.StopFollowingAsync
 - uid: AGS.API.IFollowComponent.TargetBeingFollowed
   name: TargetBeingFollowed
   href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_TargetBeingFollowed
