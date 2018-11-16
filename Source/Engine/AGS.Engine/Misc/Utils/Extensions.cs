@@ -214,5 +214,7 @@ namespace AGS.Engine
             var disposer = new Disposer(() => notifier.PropertyChanged -= handler);
             return disposer;
         }
+        
+        public static bool IsBetween(this float x, float min, float max) => x >= min && x <= max;
 	}
 }

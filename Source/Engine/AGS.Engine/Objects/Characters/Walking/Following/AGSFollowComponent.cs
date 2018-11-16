@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
@@ -10,14 +11,14 @@ namespace AGS.Engine
 		private IWalkComponent _walk;
 		private IHasRoomComponent _hasRoom;
 		private ITranslate _obj;
-		private IGame _game;
+		private readonly IGame _game;
 		private IObject _lastTarget;
 		private Task _currentWalk;
 		private int _counter = -1;
 		private IFollowSettings _followSettings;
 		private float? _newRoomX, _newRoomY;
         private IEntity _follower => Entity;
-        private ConcurrentQueue<TaskCompletionSource<object>> _stopFollowTasks = new ConcurrentQueue<TaskCompletionSource<object>>();
+        private readonly ConcurrentQueue<TaskCompletionSource<object>> _stopFollowTasks = new ConcurrentQueue<TaskCompletionSource<object>>();
 
         public AGSFollowComponent(IGame game)
 		{
@@ -97,7 +98,7 @@ namespace AGS.Engine
 				_counter--;
 				return;
 			}
-			_counter = MathUtils.Random ().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
+			_counter = MathUtils.Random().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
 			if (hasRoom?.Room != target.Room) 
 			{
 				if (_followSettings.FollowBetweenRooms) 
@@ -109,7 +110,7 @@ namespace AGS.Engine
 				}
 				return;
 			}
-			setNextWalk (target, followSettings, walk);
+			setNextWalk(target, followSettings, walk);
 		}
 
         private void releaseStopFollowTasks()
@@ -118,41 +119,89 @@ namespace AGS.Engine
                 tcs.TrySetResult(null);
         }
 
-        private void setNextWalk (IObject target, IFollowSettings settings, IWalkComponent walk)
+        private void setNextWalk(IObject target, IFollowSettings settings, IWalkComponent walk)
 		{
-			PointF targetPoint;
-			if (MathUtils.Random ().Next (100) <= settings.WanderOffPercentage) 
-			{
-				targetPoint = wanderOff ();
-			} 
-			else targetPoint = follow (target, settings);
+		    if (isInAllowedDistance(target, settings) && MathUtils.Random().Next(100) <= settings.StayPutPercentage)
+		    {
+		        return;
+		    }
 
-            _currentWalk = walk.WalkAsync (new Position(targetPoint.X, targetPoint.Y));
+		    PointF targetPoint = PointF.Empty;
+		    int retries = 3;
+		    while (retries > 0)
+		    {
+		        targetPoint = getFollowTargetPoint(target, settings);
+		        if (isWalkingDistanceValid(targetPoint, settings)) break;
+		        retries--;
+		    }
+
+		    if (retries <= 0)
+		    {
+		        Debug.WriteLine($"FollowComponent: Failed to get a target point which is not too close");
+		        return;
+		    }
+
+		    _currentWalk = walk.WalkAsync (new Position(targetPoint.X, targetPoint.Y));
 		}
 
-		private PointF wanderOff()
+	    private PointF getFollowTargetPoint(IObject target, IFollowSettings settings)
+	    {
+	        if (MathUtils.Random().Next(100) <= settings.WanderOffPercentage)
+	        {
+	            return wanderOff(target, settings);
+	        }
+
+	        return follow(target, settings);
+	    }
+
+	    private PointF wanderOff(IObject target, IFollowSettings settings)
 		{
             var room = _game.State.Room;
-            bool isLimitlessRoom = MathUtils.FloatEquals(room?.Limits.Width ?? float.MaxValue, float.MaxValue);
-            var minX = isLimitlessRoom ? 0f : room.Limits.X;
-            var maxX = isLimitlessRoom ? _game.Settings.VirtualResolution.Width : room.Limits.X + room.Limits.Width;
-            var minY = isLimitlessRoom ? 0f : room.Limits.Y;
-            var maxY = isLimitlessRoom ? _game.Settings.VirtualResolution.Height : room.Limits.Y + room.Limits.Height;
+            bool isLimitlessRoom = room == null || MathUtils.FloatEquals(room.Limits.Width, float.MaxValue);
+		    float minRoomX = isLimitlessRoom ? 0f : room.Limits.X;
+		    float maxRoomX = isLimitlessRoom ? _game.Settings.VirtualResolution.Width : room.Limits.X + room.Limits.Width;
+		    float minRoomY = isLimitlessRoom ? 0f : room.Limits.Y;
+		    float maxRoomY = isLimitlessRoom ? _game.Settings.VirtualResolution.Height : room.Limits.Y + room.Limits.Height;
+		    float x = getPointInRange(settings.MinXOffsetForWanderOff, settings.MaxXOffsetForWanderOff, _obj.X, target.X, minRoomX, maxRoomX, settings.StayOnTheSameSideForXPercentage);
+		    float y = getPointInRange(settings.MinYOffsetForWanderOff, settings.MaxYOffsetForWanderOff, _obj.Y, target.Y, minRoomY, maxRoomY, settings.StayOnTheSameSideForYPercentage);
 
-            float x = (float)MathUtils.Random().Next((int)minX, (int)maxX);
-			float y = (float)MathUtils.Random().Next((int)minY, (int)maxY);
 			return new PointF(x, y);
 		}
 
 		private PointF follow(IObject target, IFollowSettings settings)
 		{
-			float yOffset = MathUtils.Lerp (0f, settings.MinYOffset, 1f, settings.MaxYOffset, (float)MathUtils.Random ().NextDouble ());
-			float xOffset = MathUtils.Lerp (0f, settings.MinXOffset, 1f, settings.MaxXOffset, (float)MathUtils.Random ().NextDouble ());
-
-            var obj = _obj;
-			float x = obj != null && obj.X > target.X ? target.X + xOffset : target.X - xOffset;
-			float y = obj != null && obj.Y > target.Y ? target.Y + yOffset : target.Y - yOffset;
+		    float x = getPointInRange(settings.MinXOffset, settings.MaxXOffset, _obj.X, target.X, -1f, -1f, settings.StayOnTheSameSideForXPercentage); 
+		    float y = getPointInRange(settings.MinYOffset, settings.MaxYOffset, _obj.Y, target.Y, -1f, -1f, settings.StayOnTheSameSideForYPercentage); 
 			return new PointF (x, y);
 		}
+
+	    private float getPointInRange(float? minOffset, float? maxOffset, float current, float target, float minRoom, float maxRoom, int stayOnSameSidePercentage)
+	    {
+	        float factor = 1f;
+	        if (MathUtils.Random().Next(100) <= stayOnSameSidePercentage)
+	        {
+	            if (current < target) factor = -1f;
+	        }
+	        else if (current > target) factor = -1f;
+
+	        float min = minOffset == null ? minRoom : target + (minOffset.Value * factor);
+	        float max = maxOffset == null ? maxRoom : target + (maxOffset.Value * factor);
+	        if (min > max)
+	        {
+	            float tmp = min;
+	            min = max;
+	            max = tmp;
+	        }
+
+	        return MathUtils.Random().Next((int)min, (int)max);
+	    }
+
+	    private bool isInAllowedDistance(IObject target, IFollowSettings settings)
+	    {
+	        return _obj.X.IsBetween(target.X + settings.MinXOffset, target.X + settings.MaxXOffset) &&
+	               _obj.Y.IsBetween(target.Y + settings.MinYOffset, target.Y + settings.MaxYOffset);
+	    }
+
+	    private bool isWalkingDistanceValid(PointF targetPoint, IFollowSettings settings) => MathUtils.Distance((_obj.X, _obj.Y), targetPoint) >= settings.MinimumWalkingDistance;
 	}
 }
