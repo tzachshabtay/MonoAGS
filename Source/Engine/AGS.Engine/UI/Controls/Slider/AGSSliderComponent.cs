@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
-using GuiLabs.Undo;
 using Humanizer;
 
 namespace AGS.Editor

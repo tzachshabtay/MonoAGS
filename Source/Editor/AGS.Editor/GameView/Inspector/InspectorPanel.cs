@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using AGS.API;
-using AGS.Engine;
 using GuiLabs.Undo;
 
 namespace AGS.Editor

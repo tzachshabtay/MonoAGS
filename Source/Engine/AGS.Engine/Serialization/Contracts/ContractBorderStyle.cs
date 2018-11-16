@@ -1,6 +1,5 @@
 ﻿using ProtoBuf;
 using AGS.API;
-using Autofac;
 
 namespace AGS.Engine
 {

@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// A factory for creating borders (<see cref="IBorderStyle"/>).

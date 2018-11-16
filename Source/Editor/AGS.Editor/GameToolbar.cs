@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using AGS.API;
 using AGS.Engine;
-using Autofac;
 
 namespace AGS.Editor
 {

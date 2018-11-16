@@ -1,6 +1,4 @@
-﻿using System;
-using AGS.API;
-using AGS.Editor;
+﻿using AGS.API;
 using AGS.Editor.Desktop;
 using Newtonsoft.Json;
 using NUnit.Framework;

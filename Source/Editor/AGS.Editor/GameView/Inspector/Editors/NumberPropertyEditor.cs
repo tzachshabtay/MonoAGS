@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
-using System.Reflection;
 using System.ComponentModel;
 using AGS.Engine;
 using GuiLabs.Undo;

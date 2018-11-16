@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
-using Humanizer;
 
 namespace AGS.Editor
 {

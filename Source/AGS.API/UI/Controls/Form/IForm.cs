@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// A form (a panel with a header).
