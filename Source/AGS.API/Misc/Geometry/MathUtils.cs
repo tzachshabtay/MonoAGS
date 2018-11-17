@@ -5,7 +5,7 @@ namespace AGS.API
 {
 	public static class MathUtils
 	{
-		private static ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
+		private static readonly ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
 
         /// <summary>
         /// Performs a linear interpolation between values (https://en.wikipedia.org/wiki/Linear_interpolation).
@@ -121,6 +121,13 @@ namespace AGS.API
         {
             return Math.Abs(x - y) < 0.0001f;
         }
+
+	    /// <summary>
+	    /// Returns the distance between 2 points.
+	    /// </summary>
+	    /// <param name="p1">First point</param>
+	    /// <param name="p2">Second point</param>
+	    /// <returns>The distance between the points</returns>
+	    public static float Distance(PointF p1, PointF p2) => (float)Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
 	}
 }
-

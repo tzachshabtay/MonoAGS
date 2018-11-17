@@ -613,19 +613,9 @@ namespace AGS.Engine
             set { _faceDirectionComponent.CurrentDirectionalAnimation = value; } 
         }
 
-        public void FaceDirection(Direction direction)
-        {
-            _faceDirectionComponent.FaceDirection(direction);
-        }
-
         public Task FaceDirectionAsync(Direction direction)
         {
             return _faceDirectionComponent.FaceDirectionAsync(direction);
-        }
-
-        public void FaceDirection(IObject obj)
-        {
-            _faceDirectionComponent.FaceDirection(obj);
         }
 
         public Task FaceDirectionAsync(IObject obj)
@@ -633,19 +623,9 @@ namespace AGS.Engine
             return _faceDirectionComponent.FaceDirectionAsync(obj);
         }
 
-        public void FaceDirection(Single x, Single y)
-        {
-            _faceDirectionComponent.FaceDirection(x, y);
-        }
-
         public Task FaceDirectionAsync(Single x, Single y)
         {
             return _faceDirectionComponent.FaceDirectionAsync(x, y);
-        }
-
-        public void FaceDirection(Single fromX, Single fromY, Single toX, Single toY)
-        {
-            _faceDirectionComponent.FaceDirection(fromX, fromY, toX, toY);
         }
 
         public Task FaceDirectionAsync(Single fromX, Single fromY, Single toX, Single toY)
