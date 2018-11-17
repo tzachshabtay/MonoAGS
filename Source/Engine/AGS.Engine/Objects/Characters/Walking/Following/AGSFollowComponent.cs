@@ -22,7 +22,7 @@ namespace AGS.Engine
         public AGSFollowComponent(IGame game)
 		{
 			_game = game;
-            game.Events.OnRepeatedlyExecute.SubscribeToAsync(onRepeatedlyExecute);
+            game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
 		}
 
 		public override void Init ()
@@ -64,10 +64,10 @@ namespace AGS.Engine
 		public override void Dispose ()
 		{
 			base.Dispose ();
-            _game.Events.OnRepeatedlyExecute.UnsubscribeToAsync(onRepeatedlyExecute);
+            _game.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
 		}
 
-        private async Task onRepeatedlyExecute()
+        private async void onRepeatedlyExecute()
 		{
             var walk = _walk;
             if (walk == null) return;

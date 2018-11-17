@@ -54,13 +54,13 @@
         /// }
         /// </code>        
         /// </example>
-        IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; }
+        IBlockingEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; }
 
         /// <summary>
         /// This event is similar to the <see cref="OnRepeatedlyExecute"/> with the exception that it's always fired, even when the game is paused.
         /// </summary>
         /// <value>The on repeatedly execute always.</value>
-        IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; }
+        IBlockingEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; }
 
 		/// <summary>
 		/// This event is called on every render cycle before rendering starts.
