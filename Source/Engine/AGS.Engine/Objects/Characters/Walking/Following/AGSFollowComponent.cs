@@ -19,6 +19,7 @@ namespace AGS.Engine
 		private float? _newRoomX, _newRoomY;
         private IEntity _follower => Entity;
         private readonly ConcurrentQueue<TaskCompletionSource<object>> _stopFollowTasks = new ConcurrentQueue<TaskCompletionSource<object>>();
+        private int _inUpdate; //For preventing re-entrancy
 
         public AGSFollowComponent(IGame game)
 		{
@@ -70,47 +71,55 @@ namespace AGS.Engine
 
         private async void onRepeatedlyExecute()
 		{
-            var walk = _walk;
-            if (walk == null) return;
-            var hasRoom = _hasRoom;
-            var target = TargetBeingFollowed;
-			var currentWalk = _currentWalk;
-			var followSettings = _followSettings;
-			if (target == null || followSettings == null) 
-			{
-				if (currentWalk != null) await walk.StopWalkingAsync();
-                _currentWalk = null;
-                releaseStopFollowTasks();
-                return;
+            if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
+            try
+            {
+                var walk = _walk;
+                if (walk == null) return;
+                var hasRoom = _hasRoom;
+                var target = TargetBeingFollowed;
+    			var currentWalk = _currentWalk;
+    			var followSettings = _followSettings;
+    			if (target == null || followSettings == null) 
+    			{
+    				if (currentWalk != null) await walk.StopWalkingAsync();
+                    _currentWalk = null;
+                    releaseStopFollowTasks();
+                    return;
+                }
+    			if (target == _lastTarget) 
+    			{
+    				if (!currentWalk?.IsCompleted ?? false) return;
+    			}
+    			_lastTarget = target;
+    			if (_counter > 0) 
+    			{
+    				if (hasRoom?.Room != target.Room && _newRoomX == null) 
+    				{
+    					_newRoomX = target.X;
+    					_newRoomY = target.Y;
+    				}
+    				_counter--;
+    				return;
+    			}
+    			_counter = MathUtils.Random().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
+    			if (hasRoom?.Room != target.Room) 
+    			{
+    				if (_followSettings.FollowBetweenRooms) 
+    				{
+    					await hasRoom.ChangeRoomAsync(target.Room, _newRoomX, _newRoomY);
+    					walk.PlaceOnWalkableArea ();
+    					_newRoomX = null;
+    					_newRoomY = null;
+    				}
+    				return;
+    			}
+    			setNextWalk(target, followSettings, walk);
             }
-			if (target == _lastTarget) 
-			{
-				if (!currentWalk?.IsCompleted ?? false) return;
-			}
-			_lastTarget = target;
-			if (_counter > 0) 
-			{
-				if (hasRoom?.Room != target.Room && _newRoomX == null) 
-				{
-					_newRoomX = target.X;
-					_newRoomY = target.Y;
-				}
-				_counter--;
-				return;
-			}
-			_counter = MathUtils.Random().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
-			if (hasRoom?.Room != target.Room) 
-			{
-				if (_followSettings.FollowBetweenRooms) 
-				{
-					await hasRoom.ChangeRoomAsync(target.Room, _newRoomX, _newRoomY);
-					walk.PlaceOnWalkableArea ();
-					_newRoomX = null;
-					_newRoomY = null;
-				}
-				return;
-			}
-			setNextWalk(target, followSettings, walk);
+            finally
+            {
+                _inUpdate = 0;
+            }
 		}
 
         private void releaseStopFollowTasks()
