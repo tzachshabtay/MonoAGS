@@ -83,6 +83,26 @@ namespace AGS.Engine
             }
         }
 
+        private float getTextXOffsetPortrait(float gap, Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case Alignment.BottomCenter:
+                case Alignment.MiddleCenter:
+                case Alignment.TopCenter:
+                    return gap;
+                case Alignment.BottomLeft:
+                case Alignment.MiddleLeft:
+                case Alignment.TopLeft:
+                case Alignment.BottomRight:
+                case Alignment.MiddleRight:
+                case Alignment.TopRight:
+                    return 0f;
+                default:
+                    throw new NotSupportedException(alignment.ToString());
+            }
+        }
+
         private float clampX(float x, Alignment alignment, float horizontalGap, float maxX, float width)
         {
             const float padding = 15f;
@@ -122,8 +142,9 @@ namespace AGS.Engine
             y += config.TextOffset.Y;
 
             float rightPortraitX = _settings.VirtualResolution.Width - 100;
-            x += config.PortraitConfig == null ? getTextXOffset(config.LabelSize.Width, config.TextConfig.Alignment) : (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X
-                                                       : config.PortraitConfig.TextOffset.X);
+            x += config.PortraitConfig == null ? getTextXOffset(config.LabelSize.Width, config.TextConfig.Alignment) : 
+                       (x > rightPortraitX ? -config.PortraitConfig.TextOffset.X - getTextXOffsetPortrait(horizontalGap, config.TextConfig.Alignment)
+                                           : config.PortraitConfig.TextOffset.X - getTextXOffsetPortrait(horizontalGap, config.TextConfig.Alignment));
             float maxX = y > _settings.VirtualResolution.Height - 100 && x > rightPortraitX ? 
                                   Math.Min(x, _settings.VirtualResolution.Width) : _settings.VirtualResolution.Width;
             x += config.TextOffset.X;
