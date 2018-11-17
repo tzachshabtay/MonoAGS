@@ -4392,6 +4392,14 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
   name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
