@@ -18,7 +18,6 @@ namespace AGS.Engine
 		private IFollowSettings _followSettings;
 		private float? _newRoomX, _newRoomY;
         private IEntity _follower => Entity;
-        private readonly ConcurrentQueue<TaskCompletionSource<object>> _stopFollowTasks = new ConcurrentQueue<TaskCompletionSource<object>>();
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSFollowComponent(IGame game)
@@ -43,7 +42,6 @@ namespace AGS.Engine
             {
                 FollowTag.RemoveTag(previosTarget, _follower);
             }
-            else releaseStopFollowTasks(); //todo: this is not thread safe -> if StopFollowingAsync is called after Follow was called but before previousTarget was assigned
             TargetBeingFollowed = obj;
             if (currentTarget != null)
             {
@@ -54,10 +52,8 @@ namespace AGS.Engine
 
         public async Task StopFollowingAsync()
         {
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-            _stopFollowTasks.Enqueue(tcs);
             Follow(null, _followSettings);
-            await tcs.Task;
+            await (_walk?.StopWalkingAsync() ?? Task.CompletedTask);
         }
 
         [Property(DisplayName = "Following")]
@@ -82,9 +78,7 @@ namespace AGS.Engine
     			var followSettings = _followSettings;
     			if (target == null || followSettings == null) 
     			{
-                    if (currentWalk != null && !currentWalk.IsCompleted) await walk.StopWalkingAsync();
                     _currentWalk = null;
-                    releaseStopFollowTasks();
                     return;
                 }
     			if (target == _lastTarget) 
@@ -121,12 +115,6 @@ namespace AGS.Engine
                 _inUpdate = 0;
             }
 		}
-
-        private void releaseStopFollowTasks()
-        {
-            while (_stopFollowTasks.TryDequeue(out TaskCompletionSource<object> tcs))
-                tcs.TrySetResult(null);
-        }
 
         private void setNextWalk(IObject target, IFollowSettings settings, IWalkComponent walk)
 		{

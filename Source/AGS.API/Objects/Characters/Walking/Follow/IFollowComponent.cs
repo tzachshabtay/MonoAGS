@@ -16,8 +16,8 @@ namespace AGS.API
         /// the object is at, where the follow settings can be configured to say how aggressively to follow,
         /// and to what distance from the target.
         /// Calling Follow with another object will stop following the current object and start following the new object.
-        /// To stop following altogether, call the Follow again with null as the target object. Note however, that if you need to have the character
-        /// walk after stopping following, you should use <see cref="StopFollowingAsync"/>.
+        /// To stop following altogether, call the Follow again with null as the target object. Note however, that the character
+        /// will not stop its current walk. If you want to also stop the current walk, you should use <see cref="StopFollowingAsync"/>.
         /// </summary>
         /// <param name="obj">Object.</param>
         /// <param name="settings">Settings.</param>
@@ -30,9 +30,7 @@ namespace AGS.API
         IObject TargetBeingFollowed { get; }
 
         /// <summary>
-        /// Stops following the current target.
-        /// The task that is returned should be waited on, if you want to have the character walk somewhere after this
-        /// (otherwise you might get a StopWalking command issues from the StopFollowing command which will stop your walk).
+        /// Stops following the current target (and also stops the current walk).
         /// </summary>
         /// <returns>The following async.</returns>
         Task StopFollowingAsync();
