@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AGS.API;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -117,12 +118,12 @@ namespace AGS.Engine
             switch (config.AutoFit)
             {
                 case AutoFit.TextShouldFitLabel:
-                    var textSize = config.Font.MeasureString(text);
+                    var textSize = config.Font.MeasureString(text, config.Alignment);
                     return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height)).Scale(scaleBackX, scaleBackY);
                 case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
-                    return config.Font.MeasureString(text, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
                 default:
-                    return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment).Scale(scaleBackX, scaleBackY);
             }
         }
 
@@ -171,5 +172,49 @@ namespace AGS.Engine
                 obj.TreeNode.Children[i].DestroyWithChildren(state);
             obj.Dispose();
         }
+
+        private class Disposer : IDisposable
+        {
+            private Action _dispose;
+
+            public Disposer(Action dispose)
+            {
+                _dispose = dispose;
+            }
+
+            public void Dispose()
+            {
+                _dispose?.Invoke();
+                _dispose = null;
+            }
+        }
+
+        /// <summary>
+        /// Gives the ability to subscribe to property change event (i.e to react whenever a specific property changes its value).
+        /// </summary>
+        /// <example>
+        /// Let's say, for example, that you want that you're working in a two-buttons control scheme (left click to interact, right click to examine)
+        /// but you don't have an inventory window, but rather you want to change the cursor whenever the active inventory item for your player character changes.
+        /// You can do:
+        /// <code language="lang-csharp">
+        /// player.Inventory.OnPropertyChanged(nameof(IInventory.ActiveItem), () => twoButtonsScheme.SetInventoryCursor());
+        /// </code>
+        /// </example>
+        /// <returns>A disposable object is returned which allows you to unsubscribe from the event (by calling its Dispose method).</returns>
+        /// <param name="notifier">The object which contains the property which you want to track.</param>
+        /// <param name="propertyName">The property name you which to track.</param>
+        /// <param name="callback">The action to be performed whenever the property changes.</param>
+        public static IDisposable OnPropertyChanged(this INotifyPropertyChanged notifier, string propertyName, Action callback)
+        {
+            PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs e) => 
+            { 
+                if (e.PropertyName == propertyName) callback(); 
+            };
+            notifier.PropertyChanged += handler;
+            var disposer = new Disposer(() => notifier.PropertyChanged -= handler);
+            return disposer;
+        }
+        
+        public static bool IsBetween(this float x, float min, float max) => x >= min && x <= max;
 	}
 }

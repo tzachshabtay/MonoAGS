@@ -39,9 +39,9 @@ namespace AGS.Engine.Desktop
         [DataMember]
         public string Path { get; }
 
-        public AGS.API.SizeF MeasureString(string text, int maxWidth = 2147483647)
+        public AGS.API.SizeF MeasureString(string text, Alignment alignment, int maxWidth = 2147483647)
 		{
-			System.Drawing.SizeF size = text.Measure(InnerFont, maxWidth);
+			System.Drawing.SizeF size = text.Measure(InnerFont, alignment, maxWidth);
 			return new AGS.API.SizeF (size.Width, size.Height);
 		}
 

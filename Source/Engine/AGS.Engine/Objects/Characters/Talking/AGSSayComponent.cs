@@ -13,6 +13,7 @@ namespace AGS.Engine
 		private readonly FastFingerChecker _fastFingerChecker;
 		private IOutfitComponent _outfit;
 		private IFaceDirectionComponent _faceDirection;
+        private IWalkComponent _walkComponent;
         private readonly ISoundEmitter _emitter;
         private readonly ISpeechCache _speechCache;
         private string _characterName;
@@ -45,16 +46,36 @@ namespace AGS.Engine
             Entity.Bind<IHasRoomComponent>(c => _emitter.HasRoom = c, _ => _emitter.HasRoom = null);
             Entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
             Entity.Bind<IOutfitComponent>(c => _outfit = c, _ => _outfit = null);
+            Entity.Bind<IWalkComponent>(c => _walkComponent = c, _ => _walkComponent = null);
         }
 
         public async Task SayAsync(string text, PointF? textPosition = null, PointF? portraitPosition = null)
 		{
-			if (_state.Cutscene.IsSkipping)
+            var outfit = _outfit;
+            var walkComponent = _walkComponent;
+            var previousAnimation = _faceDirection.CurrentDirectionalAnimation;
+            var speakAnimation = outfit == null ? null : outfit.Outfit[AGSOutfit.Speak];
+            bool wasWalking = false;
+            if (walkComponent?.IsWalking ?? false)
+            {
+                if (outfit?.Outfit[AGSOutfit.SpeakAndWalk] == null)
+                {
+                    await walkComponent.StopWalkingAsync();
+                    previousAnimation = _outfit.Outfit[AGSOutfit.Idle];
+                }
+                else
+                {
+                    wasWalking = true;
+                    speakAnimation = outfit.Outfit[AGSOutfit.SpeakAndWalk];
+                }
+            }
+            if (_state.Cutscene.IsSkipping)
 			{
-                if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
+                if (outfit != null) await setAnimation(previousAnimation);
 				return;
 			}
-            if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Speak]);
+
+            if (speakAnimation != null) await setAnimation(speakAnimation);
 			await Task.Delay(1);
             var speech = await _speechCache.GetSpeechLineAsync(_characterName, text);
             text = speech.Text;
@@ -86,7 +107,11 @@ namespace AGS.Engine
             label.Dispose();
             if (portrait != null) portrait.Visible = false;
 
-            if (_outfit != null) await setAnimation(_outfit.Outfit[AGSOutfit.Idle]);
+            if (outfit != null)
+            {
+                if (wasWalking && !walkComponent.IsWalking) previousAnimation = outfit.Outfit[AGSOutfit.Idle]; //If we were in the middle of a walk but walk was completed before speech, then instead of revert to the previous animation (walk) we need to go to idle.
+                await setAnimation(previousAnimation);
+            }
 		}
 
         private IObject showPortrait(PointF? portraitLocation)

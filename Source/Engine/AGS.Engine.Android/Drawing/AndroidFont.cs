@@ -76,8 +76,9 @@ namespace AGS.Engine.Android
 
 		//http://egoco.de/post/19077604048/calculating-the-height-of-text-in-android
 		//http://stackoverflow.com/questions/16082359/how-to-auto-adjust-text-size-on-a-multi-line-textview-according-to-the-view-max
-		public SizeF MeasureString(string text, int maxWidth = 2147483647)
+        public SizeF MeasureString(string text, Alignment alignment, int maxWidth = 2147483647)
 		{
+            //todo: support alignment
             var key = new TextMeasureKey(text, InnerFont, SizeInPoints, maxWidth);
             return _measurements.GetOrAdd(key, k =>
             {

@@ -171,7 +171,7 @@ namespace AGS.Engine
                     if (currentPosition < 0) currentPosition = caretPosition + 1;
                 }
                 newText = textBuilder.ToString();
-                newTextSize = config.Font.MeasureString(newText, int.MaxValue);
+                newTextSize = config.Font.MeasureString(newText, config.Alignment, int.MaxValue);
             }
             text = result;
             return prevTextSize;
@@ -186,7 +186,7 @@ namespace AGS.Engine
             int maxWidth = _maxWidth == int.MaxValue ? _maxWidth : (int)(_maxWidth * _scaleUp.X - config.PaddingLeft - config.PaddingRight);
             string textToMeasure = text;
             if (_renderCaret && textToMeasure == "") textToMeasure = "|";
-            SizeF originalTextSize = config.Font.MeasureString(textToMeasure, _cropText ? int.MaxValue : maxWidth);
+            SizeF originalTextSize = config.Font.MeasureString(textToMeasure, config.Alignment, _cropText ? int.MaxValue : maxWidth);
             SizeF textSize = originalTextSize;
             if (_cropText && textSize.Width > maxWidth)
             {
@@ -228,7 +228,7 @@ namespace AGS.Engine
 
             if (caretPosition > text.Length) caretPosition = text.Length;
             string untilCaret = text.Substring(0, caretPosition);
-            AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, maxWidth);
+            AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, config.Alignment, maxWidth);
             float spaceOffset = 0f;
             if (untilCaret.EndsWith(" ", StringComparison.Ordinal)) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
             textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)heightF, caretOffset.Width + spaceOffset + _caretXOffset);
@@ -238,7 +238,7 @@ namespace AGS.Engine
         {
             //hack to measure the size of spaces. For some reason MeasureString returns bad results when string ends with a space.
             IFont font = _fonts.LoadFont(_config.Font.FontFamily, _config.Font.SizeInPoints * _scaleUp.X, _config.Font.Style);
-            return font.MeasureString(" a").Width - font.MeasureString("a").Width;
+            return font.MeasureString(" a", _config.Alignment).Width - font.MeasureString("a", _config.Alignment).Width;
         }
 
         private void uploadBitmapToOpenGl()

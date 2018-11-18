@@ -45,7 +45,7 @@ namespace DemoGame
 
             IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle", _room);
 			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = (140f, 50f);
-			await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room);
+            await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room, new[]{"I have something long and very important to say about this curb, and about how much this curb means to me!"});
 			await factory.Object.GetHotspotAsync(_baseFolder + "GapHotspot.png", "Gap", _room, new[]{"It's a gap!", "I wonder what's in there!"});
 
 			_bottle = factory.Object.GetAdventureObject(_bottleId, _room);

@@ -5,8 +5,8 @@ namespace AGS.Engine
 {
 	public class AGSGameEvents : IGameEvents
 	{
-        public AGSGameEvents(IBlockingEvent onLoad, IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecute,
-            IEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecuteAlways,
+        public AGSGameEvents(IBlockingEvent onLoad, IBlockingEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecute,
+            IBlockingEvent<IRepeatedlyExecuteEventArgs> onRepeatedlyExecuteAlways,
 			IBlockingEvent onBeforeRender, IBlockingEvent onScreenResize,
             IBlockingEvent<IGame> onSavedGameLoad, IBlockingEvent onRoomChanging, IDefaultInteractions defaultInteractions)
 		{
@@ -24,9 +24,9 @@ namespace AGS.Engine
 
         public IBlockingEvent OnLoad { get; private set; }
 
-        public IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; private set; }
+        public IBlockingEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecute { get; private set; }
 
-        public IEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; private set; }
+        public IBlockingEvent<IRepeatedlyExecuteEventArgs> OnRepeatedlyExecuteAlways { get; private set; }
 
 		public IBlockingEvent OnBeforeRender { get; private set; }
 
@@ -41,4 +41,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-
