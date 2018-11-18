@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using AGS.API;
+using Android.Content;
 using Android.Content.Res;
 using Android.Views;
 using Autofac;
@@ -17,10 +18,12 @@ namespace AGS.Engine.Android
 
         public static AndroidGameWindow Instance = new AndroidGameWindow();
 
-        private AndroidGameWindow()
+        public void Init(Context context, Action startGame)
         {
+            StartGame = startGame;
+
             AndroidSimpleGestures simpleGestures = new AndroidSimpleGestures();
-            _gestures = new GestureDetector(simpleGestures);
+            _gestures = new GestureDetector(context, simpleGestures);
 
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(this).As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterInstance(simpleGestures));
@@ -39,8 +42,8 @@ namespace AGS.Engine.Android
 
         public event EventHandler<AGSGameView> OnNewView;
 
-        public Action StartGame { get; set; }
-
+        public Action StartGame { get; private set; }
+        
         public int ClientWidth
         {
             get
