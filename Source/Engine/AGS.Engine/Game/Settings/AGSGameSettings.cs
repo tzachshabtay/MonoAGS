@@ -5,8 +5,8 @@ namespace AGS.Engine
 	public class AGSGameSettings : IGameSettings
 	{
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
-               AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.Adaptive, bool preserveAspectRatio = true,
-                               WindowBorder windowBorder = WindowBorder.Resizable)
+               AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On, bool preserveAspectRatio = true,
+               WindowBorder windowBorder = WindowBorder.Resizable)
 		{
             Title = title;
             VirtualResolution = virtualResolution;

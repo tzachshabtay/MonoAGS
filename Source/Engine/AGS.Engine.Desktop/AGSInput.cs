@@ -3,14 +3,13 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
-using OpenTK;
-using OpenTK.Input;
+using Veldrid.Sdl2;
 
 namespace AGS.Engine.Desktop
 {
     public class AGSInput : IInput
     {
-        private GameWindow _game;
+        private Sdl2Window _game;
         private float _mouseX, _mouseY;
         private readonly IShouldBlockInput _shouldBlockInput;
         private readonly IConcurrentHashSet<API.Key> _keysDown;
@@ -19,7 +18,7 @@ namespace AGS.Engine.Desktop
         private readonly IAGSCursor _cursor;
         private readonly IAGSHitTest _hitTest;
 
-        private MouseCursor _originalOSCursor;
+        private bool _originalOSCursor;
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
@@ -42,46 +41,56 @@ namespace AGS.Engine.Desktop
             KeyDown = keyDown;
             KeyUp = keyUp;
 
-            if (AGSGameWindow.GameWindow != null) init(AGSGameWindow.GameWindow);
-            else AGSGameWindow.OnInit = () => init(AGSGameWindow.GameWindow);
+            if (VeldridGameWindow.GameWindow != null) init(VeldridGameWindow.GameWindow);
+            else VeldridGameWindow.OnInit = () => init(VeldridGameWindow.GameWindow);
         }
 
-        private void init(GameWindow game)
+        private void init(Sdl2Window game)
         {
             if (_game != null) return;
             _game = game;
-            this._originalOSCursor = game.Cursor;
+            this._originalOSCursor = game.CursorVisible;
 
             _cursor.PropertyChanged += (sender, e) =>
             {
-                if (_cursor.Cursor != null) _game.Cursor = MouseCursor.Empty;
+                if (_cursor.Cursor != null) _game.CursorVisible = false;
             };
-            game.MouseDown += (sender, e) =>
+            game.MouseDown += (e) =>
             {
                 if (isInputBlocked()) return;
-                var button = convert(e.Button);
-                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
+                var button = convert(e.MouseButton);
+                _actions.Enqueue(() =>
+                {
+                    if (button == MouseButton.Left) LeftMouseButtonDown = true;
+                    else if (button == MouseButton.Right) RightMouseButtonDown = true;
+                    return MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition));
+                });
             };
-            game.MouseUp += (sender, e) =>
+            game.MouseUp += (e) =>
             {
                 if (isInputBlocked()) return;
-                var button = convert(e.Button);
-                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
+                var button = convert(e.MouseButton);
+                _actions.Enqueue(() => 
+                {
+                    if (button == MouseButton.Left) LeftMouseButtonDown = false;
+                    else if (button == MouseButton.Right) RightMouseButtonDown = false;
+                    return MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition));
+                });
             };
-            game.MouseMove += (sender, e) =>
+            game.MouseMove += (e) =>
             {
-                _mouseX = e.Mouse.X;
-                _mouseY = e.Mouse.Y;
+                _mouseX = e.MousePosition.X;
+                _mouseY = e.MousePosition.Y;
                 _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
             };
-            game.KeyDown += (sender, e) =>
+            game.KeyDown += (e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Add(key);
                 if (isInputBlocked()) return;
                 _actions.Enqueue(() => KeyDown.InvokeAsync(new KeyboardEventArgs(key)));
             };
-            game.KeyUp += (sender, e) =>
+            game.KeyUp += (e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Remove(key);
@@ -116,21 +125,21 @@ namespace AGS.Engine.Desktop
 
         public bool ShowHardwareCursor
         {
-            get => _game.Cursor != MouseCursor.Empty;
-            set => _game.Cursor = value ? _originalOSCursor : MouseCursor.Empty;
+            get => _game.CursorVisible;
+            set => _game.CursorVisible = value;
         }
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
-        private AGS.API.MouseButton convert(OpenTK.Input.MouseButton button)
+        private AGS.API.MouseButton convert(Veldrid.MouseButton button)
         {
             switch (button)
             {
-                case OpenTK.Input.MouseButton.Left:
+                case Veldrid.MouseButton.Left:
                     return AGS.API.MouseButton.Left;
-                case OpenTK.Input.MouseButton.Right:
+                case Veldrid.MouseButton.Right:
                     return AGS.API.MouseButton.Right;
-                case OpenTK.Input.MouseButton.Middle:
+                case Veldrid.MouseButton.Middle:
                     return AGS.API.MouseButton.Middle;
                 default:
                     throw new NotSupportedException();
@@ -140,13 +149,6 @@ namespace AGS.Engine.Desktop
         private void onRepeatedlyExecute()
         {
             _hitTest.Refresh(MousePosition);
-            if (!isInputBlocked())
-            {
-                var cursorState = Mouse.GetCursorState();
-                LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
-                RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
-            }
-
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
             {
@@ -161,6 +163,6 @@ namespace AGS.Engine.Desktop
             }
         }
 
-        private AGS.API.Key convert(OpenTK.Input.Key key) => (AGS.API.Key)(int)key;
+        private AGS.API.Key convert(Veldrid.Key key) => (AGS.API.Key)(int)key;
     }
 }

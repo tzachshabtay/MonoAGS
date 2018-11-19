@@ -21,7 +21,7 @@ namespace AGS.Engine.Desktop
 
             Resolver.Override(resolver => resolver.Builder.RegisterType<AGSInput>().SingleInstance().As<IInput>().As<AGSInput>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<DesktopGameWindowSize>().SingleInstance().As<IGameWindowSize>());
-            Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>().As<IWindowInfo>());
+            Resolver.Override(resolver => resolver.Builder.RegisterType<VeldridGameWindow>().SingleInstance().As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>());
             Resolver.Override(resolver => resolver.Builder.Register(_ => AGSGameWindow.GameWindow).As<OpenTK.INativeWindow>());
         }
