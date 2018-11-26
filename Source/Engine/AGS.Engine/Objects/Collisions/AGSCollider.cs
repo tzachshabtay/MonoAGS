@@ -57,9 +57,10 @@ namespace AGS.Engine
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            if (!(_drawableInfo?.IgnoreViewport ?? false))
+		    var drawable = _drawableInfo;
+            if (drawable != null && !drawable.IgnoreViewport)
 			{
-                var matrix = viewport.GetMatrix(_drawableInfo.RenderLayer);
+                var matrix = viewport.GetMatrix(drawable.RenderLayer);
                 matrix.Invert();
                 Vector3 xyz = new Vector3(x, y, 0f);
                 Vector3.Transform(ref xyz, ref matrix, out xyz);

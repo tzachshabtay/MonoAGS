@@ -140,7 +140,7 @@ namespace AGS.Editor
             public ResizeSubscriber(ITreeNodeView nodeView)
             {
                 _nodeView = nodeView;
-                _resizeCallback = new Action<float>(Resize);
+                _resizeCallback = Resize;
             }
 
             public void Subscribe(IBlockingEvent<float> resizeEvent)

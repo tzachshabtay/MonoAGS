@@ -60,7 +60,7 @@ namespace AGS.Engine
             foreach (var pack in _sortedResourcePacks)
             {
                 var resources = pack.LoadResources(folder);
-                if ((resources?.Count ?? 0) > 0) return resources.OrderBy(r => r.ID).ToList();
+                if (resources != null && resources.Count > 0) return resources.OrderBy(r => r.ID).ToList();
             }
             return _emptyResources;
 		}

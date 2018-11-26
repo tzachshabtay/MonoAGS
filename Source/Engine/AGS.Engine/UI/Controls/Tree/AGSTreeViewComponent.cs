@@ -398,8 +398,6 @@ namespace AGS.Engine
             public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
             public bool Visible { get; private set; }
-            public float XOffset { get; private set; }
-            public float YOffset { get; private set; }
             public float OverallYOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
 
@@ -467,7 +465,6 @@ namespace AGS.Engine
             {
                 bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
                 xOffset += skipRoot ? 0f : spacingX;
-                YOffset = yOffset;
                 OverallYOffset = overallYOffset;
                 if (overallYOffset < minY)
                 {

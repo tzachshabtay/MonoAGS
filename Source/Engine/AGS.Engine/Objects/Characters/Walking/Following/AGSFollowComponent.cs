@@ -80,7 +80,7 @@ namespace AGS.Engine
 				return;
 			}
 			_counter = MathUtils.Random ().Next (_followSettings.MinWaitBetweenWalks, _followSettings.MaxWaitBetweenWalks);
-			if (hasRoom?.Room != target.Room) 
+			if (hasRoom != null && hasRoom.Room != target.Room) 
 			{
 				if (_followSettings.FollowBetweenRooms) 
 				{

@@ -56,7 +56,7 @@ namespace AGS.Editor
                     {
                         throw new NullReferenceException($"Failed to find method with name: {attr.DefaultProvider ?? "null"}");
                     }
-                    overrideDefaults[param.Name] = provider.Invoke(null, new[] { resolver });
+                    overrideDefaults[param.Name] = provider.Invoke(null, new object[] { resolver });
                 }
                 else if (attr.Default != null) overrideDefaults[param.Name] = attr.Default;
             }

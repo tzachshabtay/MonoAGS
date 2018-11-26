@@ -63,12 +63,12 @@ namespace AGS.Engine
             set 
 			{ 
 				_background = value; 
-				if (_background?.RenderLayer == AGSLayers.Foreground)
-				{
-					_background.RenderLayer = AGSLayers.Background;
-				}
 				if (_background != null)
 				{
+				    if (_background.RenderLayer == AGSLayers.Foreground)
+				    {
+				        _background.RenderLayer = AGSLayers.Background;
+				    }
 					_background.Pivot = new PointF ();
                     _background.Enabled = false;
 				}

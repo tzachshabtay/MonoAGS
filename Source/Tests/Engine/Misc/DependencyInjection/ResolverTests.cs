@@ -61,6 +61,7 @@ namespace Tests
             var weakRef = alloc(myReference);
             await Task.Delay(5);
 
+            // ReSharper disable once RedundantAssignment
             myReference = null;
 
             GC.Collect(2, GCCollectionMode.Forced, true, true);

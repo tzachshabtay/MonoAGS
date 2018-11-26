@@ -169,7 +169,7 @@ namespace Tests
             if (_settings == null)
             {
                 _settings = new Mock<IRuntimeSettings>();
-                _settings.Setup(g => g.VirtualResolution).Returns(new AGS.API.Size(640, 480));
+                _settings.Setup(g => g.VirtualResolution).Returns(new Size(640, 480));
                 _settings.Setup(g => g.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
             }
             return _settings;
@@ -257,7 +257,7 @@ namespace Tests
 				_obj.Setup(m => m.Image).Returns(Image().Object);
 				_obj.Setup(m => m.Enabled).Returns(true);
 				_obj.Setup(m => m.Visible).Returns(true);
-				_obj.Setup(m => m.Pivot).Returns(new AGS.API.PointF ());
+				_obj.Setup(m => m.Pivot).Returns(new PointF ());
                 _obj.Setup(m => m.TreeNode).Returns(new AGSTreeNode<IObject>());
                 _obj.Setup(m => m.Position).Returns((0f, 0f));
                 _obj.Setup(m => m.Properties).Returns(new AGSCustomProperties());
@@ -281,7 +281,7 @@ namespace Tests
 			{
 				_sprite = new Mock<ISprite> ();
 				_sprite.Setup(m => m.Image).Returns(Image().Object);
-				_sprite.Setup(m => m.Pivot).Returns(new AGS.API.PointF ());
+				_sprite.Setup(m => m.Pivot).Returns(new PointF ());
 			}
 			return _sprite;
 		}

@@ -16,7 +16,6 @@ namespace AGS.Editor
         private IProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
-        private IButton _dropDownButton;
         private IComboBox _combobox;
 
         private static List<IStringItem> _colorList = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c }));
@@ -34,7 +33,6 @@ namespace AGS.Editor
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
             _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel, 200f);
-            _dropDownButton = _combobox.DropDownButton;
             _text = _combobox.TextBox;
             _combobox.DropDownPanelList.MinWidth = 200f;
             _combobox.DropDownPanelList.Items.AddRange(_colorList);

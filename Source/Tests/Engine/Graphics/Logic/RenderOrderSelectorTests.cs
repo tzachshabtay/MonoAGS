@@ -146,6 +146,8 @@ namespace Tests
 		private IObject getObject(int? renderLayerZ, float? z, float? spriteZ, IObject parent)
 		{
 			if (!objExists(z, spriteZ)) return null;
+		    Assert.IsNotNull(z);
+		    Assert.IsNotNull(spriteZ);
 			return getObject(renderLayerZ, z.Value, spriteZ.Value, parent);
 		}
 

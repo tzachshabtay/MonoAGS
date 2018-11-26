@@ -16,10 +16,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IRuntimeSettings _settings;
 
-        private readonly GLColor _color = Colors.Gold.ToGLColor();
-        private readonly GLColor _foldColor = Colors.DarkGoldenrod.ToGLColor();
-        private readonly GLColor _selectedColor = Colors.DeepSkyBlue.ToGLColor();
-        private readonly GLColor _selectedFoldColor = Colors.Blue.ToGLColor();
+        private readonly GLColor _color, _foldColor, _selectedColor, _selectedFoldColor;
 
         private readonly Vector2 _emptyVector = new Vector2();
         private IFrameBuffer _frameBuffer;

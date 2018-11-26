@@ -35,7 +35,8 @@ namespace AGS.Engine
             if (shouldIgnoreFile(path)) return null;
             path = getAbsolutePath(path);
             string folder = Path.GetDirectoryName(path);
-            string filename = Path.GetFileName(path).ToUpper();
+            string filename = Path.GetFileName(path)?.ToUpper();
+            Trace.Assert(filename != null);
             if (filename.Contains(".")) return path;
 
             //We're assuming we received a file name without the extension: let's try to find a matching resource/file.
@@ -91,7 +92,7 @@ namespace AGS.Engine
         private string findAssetsDir(IEnumerable<string> dirs)
         {
             var assetsDir = dirs.FirstOrDefault(
-                    p => Path.GetFileName(p).ToLowerInvariant() == EmbeddedResourcesPack.AssetsFolder.ToLowerInvariant());
+                    p => Path.GetFileName(p)?.ToLowerInvariant() == EmbeddedResourcesPack.AssetsFolder.ToLowerInvariant());
             if (assetsDir != null)
             {
                 Debug.WriteLine($"Found assets directory at: {assetsDir}");

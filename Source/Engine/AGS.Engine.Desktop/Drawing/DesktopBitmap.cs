@@ -21,7 +21,7 @@ namespace AGS.Engine.Desktop
 
         ~DesktopBitmap()
         {
-            dispose(false);
+            dispose();
         }
 
 		#region IBitmap implementation
@@ -165,7 +165,7 @@ namespace AGS.Engine.Desktop
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -175,7 +175,7 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        private void dispose(bool disposing)
+        private void dispose()
         { 
             _bitmap?.Dispose();
         }

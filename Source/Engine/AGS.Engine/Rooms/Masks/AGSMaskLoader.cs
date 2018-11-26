@@ -76,7 +76,7 @@ namespace AGS.Engine
             var mask = image.CreateMask(_factory, path, transparentMeansMasked, debugDrawColor, saveMaskToFile, id);
             if (mask.DebugDraw != null) mask.DebugDraw.Enabled = false;
 #if DEBUG
-            if (!hasColor) mask.DebugDraw.Visible = false;
+            if (!hasColor && mask.DebugDraw != null) mask.DebugDraw.Visible = false;
 #endif
             return mask;
 		}

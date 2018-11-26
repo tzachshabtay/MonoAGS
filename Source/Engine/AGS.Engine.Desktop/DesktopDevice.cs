@@ -4,6 +4,7 @@ namespace AGS.Engine.Desktop
 {
     public class DesktopDevice : IDevice
     {
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private static DesktopFontFamilyLoader _fontFamilyLoader; //Must stay in memory
 
 

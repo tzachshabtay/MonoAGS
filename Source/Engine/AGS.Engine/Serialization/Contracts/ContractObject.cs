@@ -138,7 +138,8 @@ namespace AGS.Engine
 			{
 				Parent = context.GetContract(item.TreeNode.Parent);
 			}
-            if (item.Width != 0f)
+		    // ReSharper disable once CompareOfFloatsByEqualityOperator
+		    if (item.Width != 0f)
             {
                 var scaleX = item.ScaleX;
                 var scaleY = item.ScaleY;

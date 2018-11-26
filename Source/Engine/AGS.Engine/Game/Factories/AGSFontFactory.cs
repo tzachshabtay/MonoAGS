@@ -71,7 +71,7 @@ namespace AGS.Engine
                 if (filePath != null && _device.FileSystem.FileExists(filePath)) return filePath;
                 var resource = _resources.LoadResource(resourcePath);
                 if (resource == null) throw new NullReferenceException($"Failed to find font in path: {resourcePath}, current directory: {Directory.GetCurrentDirectory()}");
-                filePath = Path.Combine(_device.FileSystem.StorageFolder, Path.GetFileName(resourcePath));
+                filePath = Path.Combine(_device.FileSystem.StorageFolder, Path.GetFileName(resourcePath) ?? throw new NullReferenceException($"file name for {resourcePath} returned null"));
                 try
                 {
                     if (_device.FileSystem.FileExists(filePath))

@@ -301,7 +301,6 @@ namespace AGS.Engine
             {
                 _customResolutionFactor = text.CustomImageResolutionFactor;
                 onSomethingChanged();
-                return;
             }
         }
 
@@ -353,12 +352,12 @@ namespace AGS.Engine
 
         private void recalculate()
         {
-            PointF resolutionFactor;
             _isDirty = false;
             bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
-                                                   out resolutionFactor, out Size _);
+                                                   out PointF resolutionFactor, out Size _);
 
             var renderMatrix = getMatrix(resolutionFactor);
+            // ReSharper disable once PossibleInvalidOperationException
             var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,
                                                                                                                              (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
             _matrices.InObjResolutionMatrix = renderMatrix;

@@ -114,7 +114,7 @@ namespace AGS.Engine
                     clicked == _scrolling?.HorizontalScrollBar?.Slider.Graphics || clicked == _scrolling?.HorizontalScrollBar?.Slider.HandleGraphics ||
                     clicked == _scrolling?.VerticalScrollBar?.DownButton || clicked == _scrolling?.VerticalScrollBar?.UpButton ||
                     clicked == _scrolling?.HorizontalScrollBar?.DownButton || clicked == _scrolling?.HorizontalScrollBar?.UpButton ||
-                    clicked == _dropDownPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
+                    clicked == _dropDownPanel?.ContentsPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
                 {
                     return;
                 }

@@ -12,7 +12,7 @@ namespace AGS.Editor
         private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
-        private string _idPrefix = "";
+        private readonly string _idPrefix;
 
         const float _padding = 28f;
         const float _gutterSize = 15f;
@@ -56,8 +56,7 @@ namespace AGS.Editor
 			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
 
-            Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, 
-                                         _editor.Editor.State, _actions, _editor.Project.Model, _editor, parentForm);
+            Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, _actions, _editor.Project.Model, _editor, parentForm);
             _treePanel.AddComponent<IInspectorComponent>(Inspector);
             Inspector.ScrollingContainer = _contentsPanel;
 

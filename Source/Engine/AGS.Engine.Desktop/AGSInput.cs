@@ -24,8 +24,8 @@ namespace AGS.Engine.Desktop
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, IAGSCursor cursor, IAGSHitTest hitTest,
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
+                        IEvent<API.MouseButtonEventArgs> mouseDown, 
+                        IEvent<API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
             _cursor = cursor;
@@ -33,8 +33,8 @@ namespace AGS.Engine.Desktop
             _hitTest = hitTest;
             _actions = new ConcurrentQueue<Func<Task>>();
             _coordinates = coordinates;
-            this._shouldBlockInput = shouldBlockInput;
-            this._keysDown = new AGSConcurrentHashSet<API.Key>();
+            _shouldBlockInput = shouldBlockInput;
+            _keysDown = new AGSConcurrentHashSet<API.Key>();
 
             MouseDown = mouseDown;
             MouseUp = mouseUp;
@@ -50,7 +50,7 @@ namespace AGS.Engine.Desktop
         {
             if (_game != null) return;
             _game = game;
-            this._originalOSCursor = game.Cursor;
+            _originalOSCursor = game.Cursor;
 
             _cursor.PropertyChanged += (sender, e) =>
             {
@@ -60,13 +60,13 @@ namespace AGS.Engine.Desktop
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseDown.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
+                _actions.Enqueue(() => MouseDown.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
             game.MouseUp += (sender, e) =>
             {
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
-                _actions.Enqueue(() => MouseUp.InvokeAsync(new AGS.API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
+                _actions.Enqueue(() => MouseUp.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
             game.MouseMove += (sender, e) =>
             {

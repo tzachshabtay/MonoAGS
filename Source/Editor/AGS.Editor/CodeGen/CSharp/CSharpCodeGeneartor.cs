@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -493,7 +494,8 @@ namespace {namespaceName}
                     bestMatchFactory = factory.getPrefix;
                 }
             }
-            var values = bestMatchParams.Select(p => getValueString(p));
+            Trace.Assert(bestMatchParams != null, "bestMatchParams is null");
+            var values = bestMatchParams.Select(getValueString);
             return $"{bestMatchFactory()}({string.Join(", ", values)})";
         }
 

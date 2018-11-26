@@ -197,6 +197,7 @@ namespace AGS.Engine
             }
             if (_currentWalk != instruction)
             {
+                // ReSharper disable once PossibleNullReferenceException
                 if (instruction.StopOnly)
                 {
                     instruction.OnCompletion.TrySetResult(false);
@@ -220,6 +221,7 @@ namespace AGS.Engine
 
         private float compensateForViewScrollIfNeeded(float currentViewport, float step, ref float compensateStep, ref float lastViewport)
         {
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (currentViewport == lastViewport) return 0f;
             float smoothStep = step / (_animation.Animation.Configuration.DelayBetweenFrames + _animation.Animation.Frames[_animation.Animation.State.CurrentFrame].Delay);
             compensateStep += smoothStep;
@@ -273,7 +275,7 @@ namespace AGS.Engine
                 return false;
             foreach (var point in walkPoints)
             {
-                if (point.X == _translate.X && point.Y == _translate.Y) continue;
+                if (MathUtils.FloatEquals(point.X, _translate.X) && MathUtils.FloatEquals(point.Y, _translate.Y)) continue;
                 if (!await walkStraightLine(currentWalk, point, debugRenderers))
                     return false;
             }
@@ -489,6 +491,7 @@ namespace AGS.Engine
                 var scalingArea = area.GetComponent<IScalingArea>();
                 if (scalingArea == null || (!scalingArea.ScaleObjectsX && !scalingArea.ScaleObjectsY)) continue;
                 float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (scale != 1f)
                 {
                     walkSpeed = new PointF(walkSpeed.X * (scalingArea.ScaleObjectsX ? scale : 1f),

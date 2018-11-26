@@ -332,7 +332,9 @@ namespace AGS.Engine
             updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
             if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, noFactor, true, false);
 
+            // ReSharper disable CompareOfFloatsByEqualityOperator
             if (_lastWidth != Width || _lastHeight != Height)
+            // ReSharper restore CompareOfFloatsByEqualityOperator
             {
                 OnLabelSizeChanged.Invoke();
             }

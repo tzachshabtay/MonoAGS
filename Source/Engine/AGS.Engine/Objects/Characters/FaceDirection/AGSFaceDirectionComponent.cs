@@ -207,7 +207,7 @@ namespace AGS.Engine
 		private float getAngle(float x1, float y1, float x2, float y2)
 		{
 			float deltaX = x2 - x1;
-			if (deltaX == 0f)
+			if (MathUtils.FloatEquals(deltaX, 0f))
 				deltaX = 0.001f;
 			float deltaY = y2 - y1;
 			float angle = ((float)Math.Atan2 (deltaY, deltaX)) * 180f / (float)Math.PI;

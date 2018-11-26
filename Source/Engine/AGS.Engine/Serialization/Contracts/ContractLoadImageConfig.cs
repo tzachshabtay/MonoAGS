@@ -17,14 +17,14 @@ namespace AGS.Engine
 
 		public ILoadImageConfig ToItem(AGSSerializationContext context)
 		{
-            return new AGSLoadImageConfig(TransparentColorSamplePointX == null ? (Point?)null :
+            return new AGSLoadImageConfig(TransparentColorSamplePointX == null || TransparentColorSamplePointY == null ? (Point?)null :
                                           new Point(TransparentColorSamplePointX.Value, TransparentColorSamplePointY.Value));
 		}
 
 		public void FromItem(AGSSerializationContext context, ILoadImageConfig item)
 		{
-			TransparentColorSamplePointX = item.TransparentColorSamplePoint == null ? (int?)null : item.TransparentColorSamplePoint.Value.X;
-			TransparentColorSamplePointY = item.TransparentColorSamplePoint == null ? (int?)null : item.TransparentColorSamplePoint.Value.Y;
+			TransparentColorSamplePointX = item.TransparentColorSamplePoint?.X;
+			TransparentColorSamplePointY = item.TransparentColorSamplePoint?.Y;
 		}
 
 		#endregion

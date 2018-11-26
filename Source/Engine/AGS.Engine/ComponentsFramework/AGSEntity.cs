@@ -41,7 +41,7 @@ namespace AGS.Engine
 
         ~AGSEntity()
         {
-            dispose(false);
+            dispose();
         }
 
         public string ID { get; private set; }
@@ -206,7 +206,7 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -259,7 +259,7 @@ namespace AGS.Engine
                                                           new AGSListItem<IComponent>(component, Count)));
         }
 
-        private void dispose(bool disposing)
+        private void dispose()
         {
             _ids.Remove(ID);
             var bindings = _bindings;

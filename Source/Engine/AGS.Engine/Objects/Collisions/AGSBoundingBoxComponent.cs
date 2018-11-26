@@ -244,7 +244,9 @@ namespace AGS.Engine
             {
                 var textureOffset = _textureOffset;
                 var image = sprite?.Image;
+                // ReSharper disable CompareOfFloatsByEqualityOperator
                 if (image != null && (width != image.Width || height != image.Height ||
+                // ReSharper restore CompareOfFloatsByEqualityOperator
                                       (!textureOffset?.TextureOffset.Equals(PointF.Empty) ?? false)))
                 {
                     var offset = textureOffset?.TextureOffset ?? PointF.Empty;

@@ -52,6 +52,7 @@ namespace AGS.Engine
         {
             get
             {
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (TargetUpdatePeriod == 0.0)
                 {
                     return 0.0;
@@ -112,6 +113,7 @@ namespace AGS.Engine
         {
             get
             {
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (update_period == 0.0)
                 {
                     return 1.0;
@@ -149,6 +151,7 @@ namespace AGS.Engine
                 throw new ArgumentOutOfRangeException("updates_per_second", updates_per_second,
                     "Parameter should be inside the range [0.0, 200.0]");
             }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (updates_per_second != 0)
             {
                 TargetUpdateFrequency = updates_per_second;
@@ -164,7 +167,7 @@ namespace AGS.Engine
             watch.Start();
             while (!_isExiting)
             {
-                DispatchUpdateFrame(this, EventArgs.Empty);
+                DispatchUpdateFrame();
             }
         }
 
@@ -173,13 +176,12 @@ namespace AGS.Engine
             return Math.Max(Math.Min(elapsed, 1.0), 0.0);
         }
 
-        private void DispatchUpdateFrame(object sender, EventArgs e)
+        private void DispatchUpdateFrame()
         {
             int is_running_slowly_retries = 4;
             double timestamp = watch.Elapsed.TotalSeconds;
-            double elapsed = 0;
 
-            elapsed = ClampElapsed(timestamp - update_timestamp);
+            double elapsed = ClampElapsed(timestamp - update_timestamp);
             while (elapsed > 0 && elapsed + update_epsilon >= TargetUpdatePeriod)
             {
                 RaiseUpdateFrame(elapsed, ref timestamp);

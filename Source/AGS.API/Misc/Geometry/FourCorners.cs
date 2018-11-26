@@ -109,7 +109,7 @@ namespace AGS.API
 
         public bool Equals(FourCorners<TValue> other)
         {
-            if (this == other) return true;
+            if (ReferenceEquals(this, other)) return true;
             if (other == null) return false;
             return BottomLeft.Equals(other.BottomLeft) && BottomRight.Equals(other.BottomRight)
                              && TopLeft.Equals(other.TopLeft) && TopRight.Equals(other.TopRight);

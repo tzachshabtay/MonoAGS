@@ -77,7 +77,7 @@ namespace AGS.Engine
         public float Width { get; private set; }
         public float Height { get; private set; }
 
-        public bool SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
+        public bool SetProperties(SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
               PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, int caretXOffset = 0, bool renderCaret = false,
               bool cropText = false, bool measureOnly = false)
         {
@@ -197,8 +197,10 @@ namespace AGS.Engine
             float heightOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetY));
             float widthF = textSize.Width + widthOffset + config.PaddingLeft + config.PaddingRight;
             float heightF = textSize.Height + heightOffset + config.PaddingTop + config.PaddingBottom;
+            // ReSharper disable CompareOfFloatsByEqualityOperator
             SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * _scaleUp.X,
                                        _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * _scaleUp.Y);
+            // ReSharper restore CompareOfFloatsByEqualityOperator
 
             Width = (widthF / _scaleUp.X);
             Height = (heightF / _scaleUp.Y);

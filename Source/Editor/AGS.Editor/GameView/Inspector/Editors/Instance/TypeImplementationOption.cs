@@ -28,7 +28,7 @@ namespace AGS.Editor
         public async Task<SelectEditor.ReturnValue> Create(IForm parentForm, string title)
         {
             var factoryWizard = new FactoryWizard(parentForm, title, _editor, null, null, null);
-            (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunConstructor(_type);
+            (object result, MethodModel model, _) = await factoryWizard.RunConstructor(_type);
             return new SelectEditor.ReturnValue(model == null ? null : new ValueModel(result, model, type: _type), model == null);
         }
     }

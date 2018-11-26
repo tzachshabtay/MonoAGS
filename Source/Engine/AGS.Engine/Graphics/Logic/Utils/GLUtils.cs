@@ -36,7 +36,7 @@ namespace AGS.Engine
 
         public void AdjustResolution(int width, int height)
         {
-            if (CurrentGlobalResolution.Width == width && CurrentGlobalResolution.Height == height) return;
+            if ((int)CurrentGlobalResolution.Width == width && (int)CurrentGlobalResolution.Height == height) return;
             CurrentGlobalResolution = new SizeF(width, height);
 
             _graphics.MatrixMode(MatrixType.Projection);

@@ -34,7 +34,6 @@ namespace AGS.Editor
 
         public void Load()
         {
-            Action noop = () => {};
             Menu guisMenu = new Menu(_editor.GameResolver, _editor.Editor.Settings, "GuisMenu", 180f,
                                      new MenuItem("Button", showButtonWizard),
                                      new MenuItem("Label", showLabelWizard),
@@ -53,7 +52,7 @@ namespace AGS.Editor
             _topMenu = new Menu(_editor.GameResolver, _editor.Editor.Settings, "CanvasMenu", 100f, new MenuItem("Create", presetsMenu));
             _topMenu.Load(_editor.Editor.Factory, _editor.Editor.Settings.Defaults);
 
-            _editor.Editor.Input.MouseUp.Subscribe((MouseButtonEventArgs args) => 
+            _editor.Editor.Input.MouseUp.Subscribe(args => 
             {
                 if (args.Button == MouseButton.Right)
                 {
@@ -108,15 +107,15 @@ namespace AGS.Editor
             return (List<object>)provider.Invoke(null, new[] { result });
         }
 
-        private EntityModel addToModel(IEntity entity, MethodModel initializer)
+        private void addToModel(IEntity entity, MethodModel initializer)
         {
-            if (_editor.Project.Model.Entities.TryGetValue(entity.ID, out var existingModel)) return existingModel;
+            if (_editor.Project.Model.Entities.ContainsKey(entity.ID)) return;
             var entityModel = EntityModel.FromEntity(entity);
             entityModel.Initializer = initializer;
 
             _editor.Project.Model.Entities.Add(entity.ID, entityModel);
             var tree = entity.GetComponent<IInObjectTreeComponent>();
-            if (tree == null) return entityModel;
+            if (tree == null) return;
 
             if (tree.TreeNode.Parent != null && 
                 _editor.Project.Model.Entities.TryGetValue(tree.TreeNode.Parent.ID, out var parent) &&
@@ -129,8 +128,6 @@ namespace AGS.Editor
             {
                 addToModel(child, null);
             }
-
-            return entityModel;
         }
 
         private void addNewEntities(List<object> entities, MethodModel methodModel)
@@ -174,7 +171,7 @@ namespace AGS.Editor
                     roomModel.Entities.Add(entity.ID);
                     if (entity is IObject obj) _editor.Game.State.Room.Objects.Add(obj);
                     else if (entity is IArea area) _editor.Game.State.Room.Areas.Add(area);
-                    else throw new Exception($"Unkown entity created: {entity?.GetType().Name ?? "null"}");
+                    else throw new Exception($"Unkown entity created: {entity.GetType().Name}");
                 }
             }
         }

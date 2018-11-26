@@ -204,7 +204,7 @@ namespace AGS.Engine
         private void onKeyUp(KeyboardEventArgs args)
         {
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = false; return; }
-            if (args.Key == Key.ShiftRight) { _rightShiftOn = false; return; }
+            if (args.Key == Key.ShiftRight) { _rightShiftOn = false; }
         }
 
         private void onKeyDown(KeyboardEventArgs args)

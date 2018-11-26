@@ -149,6 +149,7 @@ namespace AGS.Engine
         private AGSBoundingBox? getChildBox(IEntity child)
         {
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (_relativeSpacing == 0f) return null;
 #pragma warning restore RECS0018 // Comparison of floating point numbers with equality operator
             if (_layoutAfterCrop) return child.AddComponent<IBoundingBoxWithChildrenComponent>()?.BoundingBoxWithChildren;

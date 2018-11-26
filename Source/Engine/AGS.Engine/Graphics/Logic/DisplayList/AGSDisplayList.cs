@@ -10,7 +10,6 @@ namespace AGS.Engine
         private readonly IGameState _gameState;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
-        private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
         private readonly ConcurrentDictionary<IViewport, ViewportDisplayList> _cache;
