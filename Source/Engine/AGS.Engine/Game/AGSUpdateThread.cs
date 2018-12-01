@@ -142,7 +142,7 @@ namespace AGS.Engine
             }
         }
 
-        public void Run(double updates_per_second)
+        public void Run(double updates_per_second, bool spawnThread)
         {
             if (updates_per_second < 0.0 || updates_per_second > 200.0)
             {
@@ -154,7 +154,13 @@ namespace AGS.Engine
                 TargetUpdateFrequency = updates_per_second;
             }
             if (_thread != null) return;
-            _thread = Task.Factory.StartNew(threadLoop, TaskCreationOptions.LongRunning);
+            if (spawnThread)
+            {
+                _thread = Task.Factory.StartNew(threadLoop, TaskCreationOptions.LongRunning);
+            }
+            else {
+                threadLoop();
+            }
         }
 
         private void threadLoop()

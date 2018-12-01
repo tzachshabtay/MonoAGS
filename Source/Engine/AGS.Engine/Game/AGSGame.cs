@@ -144,7 +144,7 @@ namespace AGS.Engine
                     GameWindow.RenderFrame += onRenderFrame;
 
                     // Run the game at 60 updates per second
-                    _updateThread.Run(UPDATE_RATE);
+                    _updateThread.Run(UPDATE_RATE, true);
                     if (isNewWindow)
                     {
                         GameWindow.Run(UPDATE_RATE);

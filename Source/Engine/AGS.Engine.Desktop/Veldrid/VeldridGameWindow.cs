@@ -118,9 +118,9 @@ namespace AGS.Engine.Desktop
         public void Run(double updateRate)
         {
             _renderThread = new AGSUpdateThread(this);
-            _renderThread.Run(TargetUpdateFrequency);
             _renderThread.UpdateFrame += onRenderFrame;
             _window.Visible = true;
+            _renderThread.Run(TargetUpdateFrequency, false);
         }
 
         public void SetSize(Size size)
@@ -137,6 +137,11 @@ namespace AGS.Engine.Desktop
 
         private void updateWindowState() => _window.WindowState = _windowState.Convert(_hasBorder);
 
-        private void onRenderFrame(object sender, FrameEventArgs e) => RenderFrame(this, e);
+        private void onRenderFrame(object sender, FrameEventArgs e)
+        {
+            if (!_window.Exists) return;
+            _window.PumpEvents();
+            RenderFrame(this, e);
+        }
     }
 }
