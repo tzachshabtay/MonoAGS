@@ -12,7 +12,7 @@ namespace AGS.Engine.Desktop
             FileSystem = new DesktopFileSystem();
             Assemblies = new DesktopAssemblies();
             _fontFamilyLoader = new DesktopFontFamilyLoader();
-            GraphicsBackend = new OpenGLBackend();
+            GraphicsBackend = new VeldridGraphics();
             BitmapLoader = new DesktopBitmapLoader(GraphicsBackend);
             BrushLoader = new DesktopBrushLoader();
             FontLoader = new DesktopFontLoader(_fontFamilyLoader);
