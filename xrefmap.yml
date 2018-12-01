@@ -4392,6 +4392,14 @@ references:
   fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(AGS.API.ClaimableCallbackWithArgs(Of TEventArgs), AGS.API.CallbackPriority)
   nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(ClaimableCallbackWithArgs<TEventArgs>, CallbackPriority)
   nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(ClaimableCallbackWithArgs(Of TEventArgs), CallbackPriority)
+- uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  name: Unsubscribe(Action, CallbackPriority)
+  href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action_AGS_API_CallbackPriority_
+  commentId: M:AGS.API.IBlockingEvent`1.Unsubscribe(System.Action,AGS.API.CallbackPriority)
+  fullName: AGS.API.IBlockingEvent<TEventArgs>.Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  fullName.vb: AGS.API.IBlockingEvent(Of TEventArgs).Unsubscribe(System.Action, AGS.API.CallbackPriority)
+  nameWithType: IBlockingEvent<TEventArgs>.Unsubscribe(Action, CallbackPriority)
+  nameWithType.vb: IBlockingEvent(Of TEventArgs).Unsubscribe(Action, CallbackPriority)
 - uid: AGS.API.IBlockingEvent`1.Unsubscribe(System.Action{`0},AGS.API.CallbackPriority)
   name: Unsubscribe(Action<TEventArgs>, CallbackPriority)
   href: api/AGS.API.IBlockingEvent-1.html#AGS_API_IBlockingEvent_1_Unsubscribe_System_Action__0__AGS_API_CallbackPriority_
@@ -8113,37 +8121,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFaceDirectionComponent.Direction
   nameWithType: IFaceDirectionComponent.Direction
-- uid: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
-  name: FaceDirection(Direction)
-  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_Direction_
-  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
-  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.Direction)
-  nameWithType: IFaceDirectionComponent.FaceDirection(Direction)
-- uid: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
-  name: FaceDirection(IObject)
-  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_AGS_API_IObject_
-  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
-  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(AGS.API.IObject)
-  nameWithType: IFaceDirectionComponent.FaceDirection(IObject)
-- uid: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single)
-  name: FaceDirection(Single, Single)
-  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single, System.Single)
-  nameWithType: IFaceDirectionComponent.FaceDirection(Single, Single)
-- uid: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single,System.Single,System.Single)
-  name: FaceDirection(Single, Single, Single, Single)
-  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_System_Single_System_Single_System_Single_System_Single_
-  commentId: M:AGS.API.IFaceDirectionComponent.FaceDirection(System.Single,System.Single,System.Single,System.Single)
-  fullName: AGS.API.IFaceDirectionComponent.FaceDirection(System.Single, System.Single, System.Single, System.Single)
-  nameWithType: IFaceDirectionComponent.FaceDirection(Single, Single, Single, Single)
-- uid: AGS.API.IFaceDirectionComponent.FaceDirection*
-  name: FaceDirection
-  href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirection_
-  commentId: Overload:AGS.API.IFaceDirectionComponent.FaceDirection
-  isSpec: "True"
-  fullName: AGS.API.IFaceDirectionComponent.FaceDirection
-  nameWithType: IFaceDirectionComponent.FaceDirection
 - uid: AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)
   name: FaceDirectionAsync(Direction)
   href: api/AGS.API.IFaceDirectionComponent.html#AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction_
@@ -8239,6 +8216,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowComponent.Follow
   nameWithType: IFollowComponent.Follow
+- uid: AGS.API.IFollowComponent.StopFollowingAsync
+  name: StopFollowingAsync()
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_StopFollowingAsync
+  commentId: M:AGS.API.IFollowComponent.StopFollowingAsync
+  fullName: AGS.API.IFollowComponent.StopFollowingAsync()
+  nameWithType: IFollowComponent.StopFollowingAsync()
+- uid: AGS.API.IFollowComponent.StopFollowingAsync*
+  name: StopFollowingAsync
+  href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_StopFollowingAsync_
+  commentId: Overload:AGS.API.IFollowComponent.StopFollowingAsync
+  isSpec: "True"
+  fullName: AGS.API.IFollowComponent.StopFollowingAsync
+  nameWithType: IFollowComponent.StopFollowingAsync
 - uid: AGS.API.IFollowComponent.TargetBeingFollowed
   name: TargetBeingFollowed
   href: api/AGS.API.IFollowComponent.html#AGS_API_IFollowComponent_TargetBeingFollowed
@@ -8297,6 +8287,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MaxXOffset
   nameWithType: IFollowSettings.MaxXOffset
+- uid: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  name: MaxXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxXOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxXOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MaxXOffsetForWanderOff*
+  name: MaxXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxXOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MaxXOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxXOffsetForWanderOff
 - uid: AGS.API.IFollowSettings.MaxYOffset
   name: MaxYOffset
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffset
@@ -8310,6 +8313,32 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MaxYOffset
   nameWithType: IFollowSettings.MaxYOffset
+- uid: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  name: MaxYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MaxYOffsetForWanderOff*
+  name: MaxYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MaxYOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MaxYOffsetForWanderOff
+  nameWithType: IFollowSettings.MaxYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinimumWalkingDistance
+  name: MinimumWalkingDistance
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinimumWalkingDistance
+  commentId: P:AGS.API.IFollowSettings.MinimumWalkingDistance
+  fullName: AGS.API.IFollowSettings.MinimumWalkingDistance
+  nameWithType: IFollowSettings.MinimumWalkingDistance
+- uid: AGS.API.IFollowSettings.MinimumWalkingDistance*
+  name: MinimumWalkingDistance
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinimumWalkingDistance_
+  commentId: Overload:AGS.API.IFollowSettings.MinimumWalkingDistance
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinimumWalkingDistance
+  nameWithType: IFollowSettings.MinimumWalkingDistance
 - uid: AGS.API.IFollowSettings.MinWaitBetweenWalks
   name: MinWaitBetweenWalks
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinWaitBetweenWalks
@@ -8336,6 +8365,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MinXOffset
   nameWithType: IFollowSettings.MinXOffset
+- uid: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  name: MinXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinXOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  nameWithType: IFollowSettings.MinXOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinXOffsetForWanderOff*
+  name: MinXOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinXOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinXOffsetForWanderOff
+  nameWithType: IFollowSettings.MinXOffsetForWanderOff
 - uid: AGS.API.IFollowSettings.MinYOffset
   name: MinYOffset
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffset
@@ -8349,6 +8391,58 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFollowSettings.MinYOffset
   nameWithType: IFollowSettings.MinYOffset
+- uid: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  name: MinYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffsetForWanderOff
+  commentId: P:AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  fullName: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  nameWithType: IFollowSettings.MinYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.MinYOffsetForWanderOff*
+  name: MinYOffsetForWanderOff
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_MinYOffsetForWanderOff_
+  commentId: Overload:AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.MinYOffsetForWanderOff
+  nameWithType: IFollowSettings.MinYOffsetForWanderOff
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  name: StayOnTheSameSideForXPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage
+  commentId: P:AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForXPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage*
+  name: StayOnTheSameSideForXPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForXPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForXPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForXPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  name: StayOnTheSameSideForYPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage
+  commentId: P:AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForYPercentage
+- uid: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage*
+  name: StayOnTheSameSideForYPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayOnTheSameSideForYPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayOnTheSameSideForYPercentage
+  nameWithType: IFollowSettings.StayOnTheSameSideForYPercentage
+- uid: AGS.API.IFollowSettings.StayPutPercentage
+  name: StayPutPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayPutPercentage
+  commentId: P:AGS.API.IFollowSettings.StayPutPercentage
+  fullName: AGS.API.IFollowSettings.StayPutPercentage
+  nameWithType: IFollowSettings.StayPutPercentage
+- uid: AGS.API.IFollowSettings.StayPutPercentage*
+  name: StayPutPercentage
+  href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_StayPutPercentage_
+  commentId: Overload:AGS.API.IFollowSettings.StayPutPercentage
+  isSpec: "True"
+  fullName: AGS.API.IFollowSettings.StayPutPercentage
+  nameWithType: IFollowSettings.StayPutPercentage
 - uid: AGS.API.IFollowSettings.WanderOffPercentage
   name: WanderOffPercentage
   href: api/AGS.API.IFollowSettings.html#AGS_API_IFollowSettings_WanderOffPercentage
@@ -8381,12 +8475,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IFont.FontFamily
   nameWithType: IFont.FontFamily
-- uid: AGS.API.IFont.MeasureString(System.String,System.Int32)
-  name: MeasureString(String, Int32)
-  href: api/AGS.API.IFont.html#AGS_API_IFont_MeasureString_System_String_System_Int32_
-  commentId: M:AGS.API.IFont.MeasureString(System.String,System.Int32)
-  fullName: AGS.API.IFont.MeasureString(System.String, System.Int32)
-  nameWithType: IFont.MeasureString(String, Int32)
+- uid: AGS.API.IFont.MeasureString(System.String,AGS.API.Alignment,System.Int32)
+  name: MeasureString(String, Alignment, Int32)
+  href: api/AGS.API.IFont.html#AGS_API_IFont_MeasureString_System_String_AGS_API_Alignment_System_Int32_
+  commentId: M:AGS.API.IFont.MeasureString(System.String,AGS.API.Alignment,System.Int32)
+  fullName: AGS.API.IFont.MeasureString(System.String, AGS.API.Alignment, System.Int32)
+  nameWithType: IFont.MeasureString(String, Alignment, Int32)
 - uid: AGS.API.IFont.MeasureString*
   name: MeasureString
   href: api/AGS.API.IFont.html#AGS_API_IFont_MeasureString_
@@ -18857,6 +18951,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.MathUtils.DegreesToRadians
   nameWithType: MathUtils.DegreesToRadians
+- uid: AGS.API.MathUtils.Distance(AGS.API.PointF,AGS.API.PointF)
+  name: Distance(PointF, PointF)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Distance_AGS_API_PointF_AGS_API_PointF_
+  commentId: M:AGS.API.MathUtils.Distance(AGS.API.PointF,AGS.API.PointF)
+  fullName: AGS.API.MathUtils.Distance(AGS.API.PointF, AGS.API.PointF)
+  nameWithType: MathUtils.Distance(PointF, PointF)
+- uid: AGS.API.MathUtils.Distance*
+  name: Distance
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_Distance_
+  commentId: Overload:AGS.API.MathUtils.Distance
+  isSpec: "True"
+  fullName: AGS.API.MathUtils.Distance
+  nameWithType: MathUtils.Distance
 - uid: AGS.API.MathUtils.FloatEquals(System.Single,System.Single)
   name: FloatEquals(Single, Single)
   href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_FloatEquals_System_Single_System_Single_
@@ -22039,6 +22146,19 @@ references:
   commentId: T:AGS.API.PropertyFolderAttribute
   fullName: AGS.API.PropertyFolderAttribute
   nameWithType: PropertyFolderAttribute
+- uid: AGS.API.PropertyFolderAttribute.#ctor
+  name: PropertyFolderAttribute()
+  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor
+  commentId: M:AGS.API.PropertyFolderAttribute.#ctor
+  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute()
+  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute()
+- uid: AGS.API.PropertyFolderAttribute.#ctor*
+  name: PropertyFolderAttribute
+  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor_
+  commentId: Overload:AGS.API.PropertyFolderAttribute.#ctor
+  isSpec: "True"
+  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute
+  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute
 - uid: AGS.API.Quaternion
   name: Quaternion
   href: api/AGS.API.Quaternion.html
@@ -27486,12 +27606,6 @@ references:
   commentId: T:AGS.API.VsyncMode
   fullName: AGS.API.VsyncMode
   nameWithType: VsyncMode
-- uid: AGS.API.VsyncMode.Adaptive
-  name: Adaptive
-  href: api/AGS.API.VsyncMode.html#AGS_API_VsyncMode_Adaptive
-  commentId: F:AGS.API.VsyncMode.Adaptive
-  fullName: AGS.API.VsyncMode.Adaptive
-  nameWithType: VsyncMode.Adaptive
 - uid: AGS.API.VsyncMode.Off
   name: Off
   href: api/AGS.API.VsyncMode.html#AGS_API_VsyncMode_Off
