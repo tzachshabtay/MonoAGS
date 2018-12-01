@@ -16,12 +16,6 @@
         /// then this would not be a problem- triple buffering can be configured in the hardware driver, though using triple buffers mean more VRAM is being used).
         /// </summary>
 		On,
-        /// <summary>
-        /// Adaptive Vsync (the default behavior) turns Vsync on and off based on the frame rate. 
-        /// If the frame rate is below the screen refresh rate it is turned off, otherwise it is turned on.
-        /// So that should both reduce tearing but also not cause FPS drops.
-        /// </summary>
-		Adaptive,
 	}
 
     /// <summary>

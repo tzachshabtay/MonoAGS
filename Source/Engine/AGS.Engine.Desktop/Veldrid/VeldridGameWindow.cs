@@ -29,10 +29,6 @@ namespace AGS.Engine.Desktop
                 WindowTitle = settings.Title
             };
 
-            if (settings.Vsync == VsyncMode.Adaptive) //todo: https://github.com/mellinoe/veldrid/issues/132
-            {
-                throw new NotImplementedException("Adaptive vsync is not currently implemented");
-            }
             var options = new GraphicsDeviceOptions
             {
                 SyncToVerticalBlank = settings.Vsync == VsyncMode.On,
@@ -67,12 +63,7 @@ namespace AGS.Engine.Desktop
         public VsyncMode Vsync 
         { 
             get => _graphicsDevice.SyncToVerticalBlank ? VsyncMode.On : VsyncMode.Off;
-            set
-            {
-                //todo: https://github.com/mellinoe/veldrid/issues/132
-                if (value == VsyncMode.Adaptive) throw new NotImplementedException("Adaptive Vsync is not currently implemented");
-                _graphicsDevice.SyncToVerticalBlank = value == VsyncMode.On;
-            }
+            set => _graphicsDevice.SyncToVerticalBlank = value == VsyncMode.On;
         }
 
         public API.WindowState WindowState
