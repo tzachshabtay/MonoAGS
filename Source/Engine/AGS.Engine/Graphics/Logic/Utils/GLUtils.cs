@@ -62,7 +62,7 @@ namespace AGS.Engine
 		{
 			_vbo = _graphics.GenBuffer();
             _graphics.BindBuffer(_vbo, BufferType.ArrayBuffer);
-            _graphics.InitPointers(GLVertex.Size);
+            _graphics.InitPointers((int)GLVertex.Size);
 		
             _ebo = _graphics.GenBuffer();
             _graphics.BindBuffer(_ebo, BufferType.ElementArrayBuffer);
@@ -104,7 +104,7 @@ namespace AGS.Engine
             _graphics.BindTexture2D(texture);
 
             _graphics.BufferData(vertices, GLVertex.Size, BufferType.ArrayBuffer);
-            _graphics.InitPointers(GLVertex.Size);
+            _graphics.InitPointers((int)GLVertex.Size);
 
             _graphics.BufferData(_quadIndices, sizeof(short), BufferType.ElementArrayBuffer);
             _graphics.SetShaderAppVars();

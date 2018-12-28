@@ -42,6 +42,7 @@ namespace AGS.Engine.Desktop
             _window.Shown += onShown;
             _window.Closing += () => IsExiting = true;
             GameWindow = _window;
+            VeldridGraphics.Device = _graphicsDevice;
             OnInit?.Invoke();
         }
 

@@ -97,8 +97,8 @@ namespace AGS.Engine
 		                                 out int cellY, out int cellsToGrab, out Point mainStep, out Point secondStep, 
 		                                 out AGSAnimation animation)
 		{
-			cellsInRow = bitmap.Width / spriteSheet.CellWidth;
-			cellsInCol = bitmap.Height / spriteSheet.CellHeight;
+			cellsInRow = (int)bitmap.Width / spriteSheet.CellWidth;
+			cellsInCol = (int)bitmap.Height / spriteSheet.CellHeight;
 			cellsTotal = cellsInRow * cellsInCol;
 
 			int startRow, startCol;

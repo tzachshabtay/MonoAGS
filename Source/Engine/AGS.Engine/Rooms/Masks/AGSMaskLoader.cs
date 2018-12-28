@@ -32,7 +32,7 @@ namespace AGS.Engine
         public IMask Load(bool[,] mask, string id, bool inverseMask = false, Color? debugDrawColor = null, string saveMaskToFile = null)
         {
             IBitmap image = _bitmapLoader.Load(mask.GetLength(0), mask.GetLength(1));
-            List<Point> points = new List<Point>(image.Width * image.Height);
+            List<Point> points = new List<Point>((int)image.Width * (int)image.Height);
             for (int row = 0; row < mask.GetLength(1); row++)
             {
                 for (int col = 0; col < mask.GetLength(0); col++)

@@ -30,9 +30,9 @@ namespace AGS.Engine
         public void ClearScreen() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         public void BindTexture2D(int textureId) => GL.BindTexture(TextureTarget.Texture2D, textureId);
-        public void TexImage2D(int width, int height, IntPtr scan0)
+        public void TexImage2D(uint width, uint height, IntPtr scan0)
         {
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Bgra,
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, (int)width, (int)height, 0, PixelFormat.Bgra,
                           PixelType.UnsignedByte, scan0);
         }
         public int GenTexture() => GL.GenTexture();
@@ -48,7 +48,7 @@ namespace AGS.Engine
             var bufferTarget = getBufferTarget(bufferType);
             GL.BindBuffer(bufferTarget, bufferId); 
         }
-        public void BufferData<TBufferItem>(TBufferItem[] items, int itemSize, BufferType bufferType) where TBufferItem : struct
+        public void BufferData<TBufferItem>(TBufferItem[] items, uint itemSize, BufferType bufferType) where TBufferItem : struct
         {
             GL.BufferData(getBufferTarget(bufferType), (IntPtr)(itemSize * items.Length), 
                           items, BufferUsageHint.StreamDraw);

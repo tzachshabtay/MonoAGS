@@ -14,8 +14,8 @@ namespace AGS.Engine.Desktop
         public DesktopBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
-            Width = bitmap.Width;
-            Height = bitmap.Height;
+            Width = (uint)bitmap.Width;
+            Height = (uint)bitmap.Height;
             _graphics = graphics;
 		}
 
@@ -59,7 +59,7 @@ namespace AGS.Engine.Desktop
 
 		public void LoadTexture(int? textureToBind)
 		{
-			BitmapData data = _bitmap.LockBits(new System.Drawing.Rectangle(0, 0, Width, Height),
+			BitmapData data = _bitmap.LockBits(new System.Drawing.Rectangle(0, 0, (int)Width, (int)Height),
 				ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
             if (textureToBind != null)
@@ -74,14 +74,14 @@ namespace AGS.Engine.Desktop
 			//todo: performance can be improved by only creating a bitmap the size of the area, and not the entire background.
 			//This will require to change the rendering as well to offset the location
 			byte zero = (byte)0;
-			Bitmap output = new Bitmap(Width, Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+			Bitmap output = new Bitmap((int)Width, (int)Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 			using (FastBitmap inBmp = new FastBitmap (_bitmap, ImageLockMode.ReadOnly))
 			{
 				using (FastBitmap outBmp = new FastBitmap (output, ImageLockMode.WriteOnly, true))
 				{
 					for (int y = 0; y < Height; y++)
 					{
-						int bitmapY = Height - y - 1;
+						int bitmapY = (int)Height - y - 1;
 						for (int x = 0; x < Width; x++)
 						{
 							System.Drawing.Color color = inBmp.GetPixel(x, bitmapY);
@@ -105,8 +105,8 @@ namespace AGS.Engine.Desktop
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
-            int bitmapWidth = Width;
-            int bitmapHeight = Height;
+            int bitmapWidth = (int)Width;
+            int bitmapHeight = (int)Height;
 			if (saveMaskToFile != null || debugDrawColor != null)
 			{
 				debugMask = new Bitmap (bitmapWidth, bitmapHeight);
@@ -169,9 +169,9 @@ namespace AGS.Engine.Desktop
             GC.SuppressFinalize(this);
         }
 
-        public int Width { get; private set; }
+        public uint Width { get; private set; }
 
-        public int Height { get; private set; }
+        public uint Height { get; private set; }
 
         #endregion
 

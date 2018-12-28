@@ -11,13 +11,13 @@ namespace AGS.API
         /// Gets the width of the bitmap (in pixels).
         /// </summary>
         /// <value>The width.</value>
-		int Width { get; }
+		uint Width { get; }
 
         /// <summary>
         /// Gets the height of the bitmap (in pixels).
         /// </summary>
         /// <value>The height.</value>
-		int Height { get; }
+		uint Height { get; }
 
         /// <summary>
         /// Clears the bitmap.

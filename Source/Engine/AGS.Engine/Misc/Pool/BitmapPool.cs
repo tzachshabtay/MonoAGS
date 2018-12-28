@@ -29,7 +29,7 @@ namespace AGS.Engine
 			if (!MathUtils.IsPowerOf2(bitmap.Width) ||
 			    !MathUtils.IsPowerOf2(bitmap.Height)) return;
 
-			getPool(bitmap.Width, bitmap.Height).Release(bitmap);
+			getPool((int)bitmap.Width, (int)bitmap.Height).Release(bitmap);
 		}
 
 		private void initPool()

@@ -56,7 +56,7 @@ namespace AGS.API
         /// </summary>
         /// <returns><c>true</c>, if x is the power of 2, <c>false</c> otherwise.</returns>
         /// <param name="x">The x coordinate.</param>
-		public static bool IsPowerOf2(int x)
+		public static bool IsPowerOf2(uint x)
 		{
 			return ((x & (x - 1)) == 0);
 		}

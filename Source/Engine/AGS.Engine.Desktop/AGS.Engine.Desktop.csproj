@@ -13,6 +13,7 @@
     <PackageReference Include="Veldrid.SDL2" Version="4.4.0" />
     <PackageReference Include="Veldrid.Utilities" Version="4.4.0" />
     <PackageReference Include="Veldrid.StartupUtilities" Version="4.4.0" />
+    <PackageReference Include="Veldrid.SPIRV" Version="1.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj" />
@@ -35,8 +36,5 @@
       <Link>libopenal_64.so.1</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Veldrid\" />
   </ItemGroup>
 </Project>
