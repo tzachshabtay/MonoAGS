@@ -18990,12 +18990,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.MathUtils.GetNextPowerOf2
   nameWithType: MathUtils.GetNextPowerOf2
-- uid: AGS.API.MathUtils.IsPowerOf2(System.Int32)
-  name: IsPowerOf2(Int32)
-  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_System_Int32_
-  commentId: M:AGS.API.MathUtils.IsPowerOf2(System.Int32)
-  fullName: AGS.API.MathUtils.IsPowerOf2(System.Int32)
-  nameWithType: MathUtils.IsPowerOf2(Int32)
+- uid: AGS.API.MathUtils.IsPowerOf2(System.UInt32)
+  name: IsPowerOf2(UInt32)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_System_UInt32_
+  commentId: M:AGS.API.MathUtils.IsPowerOf2(System.UInt32)
+  fullName: AGS.API.MathUtils.IsPowerOf2(System.UInt32)
+  nameWithType: MathUtils.IsPowerOf2(UInt32)
 - uid: AGS.API.MathUtils.IsPowerOf2*
   name: IsPowerOf2
   href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_
