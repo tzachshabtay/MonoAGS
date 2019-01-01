@@ -36,8 +36,6 @@ namespace AGS.Editor
             _displayList = new GameDebugDisplayList(editor.Editor, editor.Game, _layer);
             _input = editor.Editor.Input;
             keyboardBindings.OnKeyboardShortcutPressed.Subscribe(onShortcutKeyPressed);
-            editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
-            editor.Editor.Events.OnScreenResize.Subscribe(onScreenResize);
         }
 
         public bool Visible => _panel.Visible;
@@ -126,6 +124,9 @@ namespace AGS.Editor
                 _inspector.Resize();
                 resizeGameWindow();
             };
+
+            _editor.Editor.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
+            _editor.Editor.Events.OnScreenResize.Subscribe(onScreenResize);
         }
 
         public Task Show()

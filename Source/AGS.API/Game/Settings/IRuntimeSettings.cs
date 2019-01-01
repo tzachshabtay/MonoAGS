@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
+
 namespace AGS.API
 {
     /// <summary>
     /// Game settings.
     /// </summary>
-    public interface IRuntimeSettings : IGameSettings
+    public interface IRuntimeSettings : IGameSettings, INotifyPropertyChanged
     {
         /// <summary>
         /// Gets the title (the name of the game): would appear on the game window's title bar.
@@ -43,5 +45,11 @@ namespace AGS.API
         /// </summary>
         /// <value>The vsync.</value>
         new VsyncMode Vsync { get; set; }
+
+        /// <summary>
+        /// Loads settings from the specified object.
+        /// </summary>
+        /// <param name="settings">Settings.</param>
+        void LoadFrom(IGameSettings settings);
     }
 }

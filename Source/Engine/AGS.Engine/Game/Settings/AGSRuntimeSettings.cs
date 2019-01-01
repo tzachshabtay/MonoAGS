@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -12,11 +13,20 @@ namespace AGS.Engine
         private VsyncMode _vsync;
         private Size _windowSize;
 
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
         public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
         {
             _glUtils = glUtils;
             _gameWindow = gameWindow;
             _messagePump = messagePump;
+            LoadFrom(settings);
+        }
+
+        public void LoadFrom(IGameSettings settings)
+        {
             Title = settings.Title;
             VirtualResolution = settings.VirtualResolution;
             Vsync = settings.Vsync;
@@ -37,7 +47,7 @@ namespace AGS.Engine
             } 
         }
         
-        public AGS.API.Size VirtualResolution { get; }
+        public AGS.API.Size VirtualResolution { get; private set; }
 
         public VsyncMode Vsync 
         { 
@@ -77,6 +87,6 @@ namespace AGS.Engine
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
 
-        public IDefaultsSettings Defaults { get; }
+        public IDefaultsSettings Defaults { get; private set; }
     }
 }
