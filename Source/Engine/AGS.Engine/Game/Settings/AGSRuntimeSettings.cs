@@ -9,6 +9,8 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
         private string _title;
+        private VsyncMode _vsync;
+        private Size _windowSize;
 
         public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
         {
@@ -21,6 +23,7 @@ namespace AGS.Engine
             PreserveAspectRatio = settings.PreserveAspectRatio;
             WindowState = settings.WindowState;
             WindowBorder = settings.WindowBorder;
+            _windowSize = new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
             Defaults = settings.Defaults;
         }
 
@@ -36,12 +39,24 @@ namespace AGS.Engine
         
         public AGS.API.Size VirtualResolution { get; }
 
-        public VsyncMode Vsync { get => _gameWindow.Vsync; set => _gameWindow.Vsync = value; }
+        public VsyncMode Vsync 
+        { 
+            get => _vsync; 
+            set
+            {
+                _vsync = value;
+                _messagePump.Post(_ => _gameWindow.Vsync = value, null);
+            }
+        }
 
         public AGS.API.Size WindowSize 
         {
-            get => new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
-            set => _messagePump.Post(_ => _gameWindow.SetSize(value), null);
+            get => _windowSize;
+            set
+            {
+                _windowSize = value;
+                _messagePump.Post(_ => _gameWindow.SetSize(value), null);
+            }
         }
 
         public bool PreserveAspectRatio 
