@@ -42,6 +42,7 @@ namespace AGS.Editor
         const string _objectsPrefix = "Objects";
         const string _areasPrefix = "Areas";
         const string _uiPrefix = "UI";
+        const string _settingsPrefix = "Settings";
 
         public GameDebugTree(AGSEditor editor, IRenderLayer layer, InspectorPanel inspector)
         {
@@ -254,6 +255,11 @@ namespace AGS.Editor
             if (args.Node == _lastSelectedNode) return;
             Unselect();
             _lastSelectedNode = args.Node;
+            if (args.Node.Text == _settingsPrefix)
+            {
+                _inspector.Show(_editor.Game.Settings);
+                return;
+            }
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)
@@ -326,6 +332,7 @@ namespace AGS.Editor
         {
             _addedObjects.Clear();
             var root = addToTree("Game", null);
+            addToTree(_settingsPrefix, root);
             var ui = addToTree(_uiPrefix, root);
 
             var state = _editor.Game.State;

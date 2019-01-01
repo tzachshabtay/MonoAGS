@@ -3,7 +3,8 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSMessageBoxSettings : IMessageBoxSettings
+    [PropertyFolder]
+    public class AGSMessageBoxSettings : IMessageBoxSettings
     {
         public AGSMessageBoxSettings(IGame game)
         {
