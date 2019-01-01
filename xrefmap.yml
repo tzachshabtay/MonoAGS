@@ -13046,6 +13046,19 @@ references:
   commentId: T:AGS.API.IRuntimeSettings
   fullName: AGS.API.IRuntimeSettings
   nameWithType: IRuntimeSettings
+- uid: AGS.API.IRuntimeSettings.LoadFrom(AGS.API.IGameSettings)
+  name: LoadFrom(IGameSettings)
+  href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_LoadFrom_AGS_API_IGameSettings_
+  commentId: M:AGS.API.IRuntimeSettings.LoadFrom(AGS.API.IGameSettings)
+  fullName: AGS.API.IRuntimeSettings.LoadFrom(AGS.API.IGameSettings)
+  nameWithType: IRuntimeSettings.LoadFrom(IGameSettings)
+- uid: AGS.API.IRuntimeSettings.LoadFrom*
+  name: LoadFrom
+  href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_LoadFrom_
+  commentId: Overload:AGS.API.IRuntimeSettings.LoadFrom
+  isSpec: "True"
+  fullName: AGS.API.IRuntimeSettings.LoadFrom
+  nameWithType: IRuntimeSettings.LoadFrom
 - uid: AGS.API.IRuntimeSettings.PreserveAspectRatio
   name: PreserveAspectRatio
   href: api/AGS.API.IRuntimeSettings.html#AGS_API_IRuntimeSettings_PreserveAspectRatio
