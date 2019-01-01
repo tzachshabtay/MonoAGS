@@ -60,15 +60,15 @@ namespace AGS.Engine.Desktop
             get => (API.WindowBorder)_gameWindow.WindowBorder;
             set => _gameWindow.WindowBorder = (OpenTK.WindowBorder)value;
         }
-        public int Width => _gameWindow.Width;
-        public int Height => _gameWindow.Height;
-        public int ClientWidth => _windowSize.GetWidth(_gameWindow);
-        public int ClientHeight => _windowSize.GetHeight(_gameWindow);
+        public int Width => Math.Max(1, _gameWindow.Width);
+        public int Height => Math.Max(1, _gameWindow.Height);
+        public int ClientWidth => Math.Max(1, _windowSize.GetWidth(_gameWindow));
+        public int ClientHeight => Math.Max(1, _windowSize.GetHeight(_gameWindow));
         public void SetSize(Size size) => _windowSize.SetSize(_gameWindow, size);
         public Rectangle GameSubWindow => _windowSize.GetWindow(_gameWindow);
-        public float AppWindowHeight => _windowSize.GetHeight(_gameWindow);
-        public float AppWindowWidth => _windowSize.GetWidth(_gameWindow);
-        public Rectangle ScreenViewport { get; set; }
+        public float AppWindowHeight => Math.Max(1, _windowSize.GetHeight(_gameWindow));
+        public float AppWindowWidth => Math.Max(1, _windowSize.GetWidth(_gameWindow));
+        public Rectangle ScreenViewport { get; set; } = new Rectangle(0, 0, 1, 1);
 
         public void Run(double updateRate) => _gameWindow.Run(updateRate);
         public void SwapBuffers() => _gameWindow.SwapBuffers();

@@ -8,15 +8,15 @@ namespace AGS.Editor.Desktop
 {
     public class HostingGameDesktopWindowSize : IGameWindowSize, INotifyPropertyChanged
     {
-        public Rectangle Window { get; set; }
+        public Rectangle Window { get; set; } = new Rectangle(0, 0, 1, 1);
 
 #pragma warning disable CS0067
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public int GetHeight(INativeWindow gameWindow) => gameWindow?.ClientSize.Height ?? 0;
+        public int GetHeight(INativeWindow gameWindow) => Math.Max(1, gameWindow?.ClientSize.Height ?? 1);
 
-        public int GetWidth(INativeWindow gameWindow) =>gameWindow?.ClientSize.Width ?? 0;
+        public int GetWidth(INativeWindow gameWindow) => Math.Max(1, gameWindow?.ClientSize.Width ?? 1);
 
         public Rectangle GetWindow(INativeWindow gameWindow) => Window;
 
