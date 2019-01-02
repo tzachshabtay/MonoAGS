@@ -12,6 +12,7 @@ namespace AGS.Engine
 
         public ISkin Skin { get; set; }
 
+        [Property(ForceReadonly = true)]
         public IMessageBoxSettings MessageBox { get; set; }
     }
 }

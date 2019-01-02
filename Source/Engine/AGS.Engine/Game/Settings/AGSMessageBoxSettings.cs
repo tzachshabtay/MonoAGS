@@ -20,6 +20,8 @@ namespace AGS.Engine
         public float ButtonWidth { get; set; } = 60f;
         public float ButtonHeight { get; set; } = 30f;
 
+        public override string ToString() => "Message Box Settings";
+
         private ISayConfig getDefaultConfig(IGame game)
         {
             AGSSayConfig config = new AGSSayConfig(game);
