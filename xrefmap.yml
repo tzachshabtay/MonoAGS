@@ -22153,6 +22153,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.PropertyAttribute.DisplayName
   nameWithType: PropertyAttribute.DisplayName
+- uid: AGS.API.PropertyAttribute.ForceReadonly
+  name: ForceReadonly
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_ForceReadonly
+  commentId: P:AGS.API.PropertyAttribute.ForceReadonly
+  fullName: AGS.API.PropertyAttribute.ForceReadonly
+  nameWithType: PropertyAttribute.ForceReadonly
+- uid: AGS.API.PropertyAttribute.ForceReadonly*
+  name: ForceReadonly
+  href: api/AGS.API.PropertyAttribute.html#AGS_API_PropertyAttribute_ForceReadonly_
+  commentId: Overload:AGS.API.PropertyAttribute.ForceReadonly
+  isSpec: "True"
+  fullName: AGS.API.PropertyAttribute.ForceReadonly
+  nameWithType: PropertyAttribute.ForceReadonly
 - uid: AGS.API.PropertyFolderAttribute
   name: PropertyFolderAttribute
   href: api/AGS.API.PropertyFolderAttribute.html
