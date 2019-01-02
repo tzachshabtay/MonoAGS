@@ -17,12 +17,8 @@ namespace AGS.Engine
             _resolver = resolver ?? AGSGame.Game.Resolver;
             _createMatrixFunc = _ => createMatrix(); //Creating a delegate in advance to avoid memory allocation in critical path
             _viewports = new Dictionary<int, IGLViewportMatrix>(10);
-			ScaleX = 1f;
-			ScaleY = 1f;
             Camera = camera;
-            ProjectionBox = new RectangleF(0f, 0f, 1f, 1f);
             DisplayListSettings = displayListSettings;
-            Interactive = true;
 		}
 
 		#region IViewport implementation
@@ -37,26 +33,26 @@ namespace AGS.Engine
 
         public float Z { get; set; }
 
-        public float ScaleX { get; set; }
+        public float ScaleX { get; set; } = 1f;
 
-        public float ScaleY { get; set; }
+        public float ScaleY { get; set; } = 1f;
 
         public float Angle { get; set; }
 
         public PointF Pivot { get; set; }
 
-        public bool Interactive { get; set; }
+        public bool Interactive { get; set; } = true;
 
-        public RectangleF ProjectionBox { get; set; }
+        public RectangleF ProjectionBox { get; set; } = new RectangleF(0f, 0f, 1f, 1f);
 
-		public ICamera Camera { get; set; }
+        public ICamera Camera { get; set; }
 
         public IObject Parent { get; set; }
 
         public IRoomProvider RoomProvider { get; set; }
         public IDisplayListSettings DisplayListSettings { get; set; }
 
-        public Rectangle ScreenArea { get; set; }
+        public Rectangle ScreenArea { get; set; } = new Rectangle(0, 0, 1, 1);
 
         public bool IsObjectVisible(IObject obj)
         {

@@ -3,7 +3,8 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-	public class AGSMessageBoxSettings : IMessageBoxSettings
+    [PropertyFolder]
+    public class AGSMessageBoxSettings : IMessageBoxSettings
     {
         public AGSMessageBoxSettings(IGame game)
         {
@@ -18,6 +19,8 @@ namespace AGS.Engine
         public float ButtonYPadding { get; set; } = 5f;
         public float ButtonWidth { get; set; } = 60f;
         public float ButtonHeight { get; set; } = 30f;
+
+        public override string ToString() => "Message Box Settings";
 
         private ISayConfig getDefaultConfig(IGame game)
         {

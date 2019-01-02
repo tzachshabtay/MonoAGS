@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace AGS.API
@@ -19,6 +20,7 @@ namespace AGS.API
 		public static float Lerp(float x1, float y1, float x2, float y2, float targetX)
 		{
 			float targetY = ((targetX - x1) * (y2 - y1) / (x2 - x1)) + y1;
+            Trace.Assert(!float.IsNaN(targetY), $"Can't lerp when x1 ({x1}) is equal to x2 ({x2})");
 			return targetY;
 		}
 
@@ -119,6 +121,7 @@ namespace AGS.API
         /// <param name="y">The y coordinate.</param>
         public static unsafe bool FloatEquals(float x, float y)
         {
+            if (float.IsNaN(x) && float.IsNaN(y)) return true;
             return Math.Abs(x - y) < 0.0001f;
         }
 

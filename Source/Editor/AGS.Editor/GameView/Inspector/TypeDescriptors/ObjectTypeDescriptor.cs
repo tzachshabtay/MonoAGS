@@ -45,13 +45,15 @@ namespace AGS.Editor
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             string name = prop.Name;
             string displayName = null;
+            bool forceReadonly = false;
             if (attr != null)
             {
                 if (!attr.Browsable) return null;
                 if (attr.Category != null) cat = new InspectorCategory(attr.Category, attr.CategoryZ, attr.CategoryExpand);
                 displayName = attr.DisplayName;
+                forceReadonly = attr.ForceReadonly;
             }
-            InspectorProperty property = new InspectorProperty(component, obj, parent, name, prop, displayName);
+            InspectorProperty property = new InspectorProperty(component, obj, parent, name, prop, displayName, forceReadonly);
             RefreshChildrenProperties(property);
             return property;
         }
