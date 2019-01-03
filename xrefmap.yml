@@ -22172,19 +22172,6 @@ references:
   commentId: T:AGS.API.PropertyFolderAttribute
   fullName: AGS.API.PropertyFolderAttribute
   nameWithType: PropertyFolderAttribute
-- uid: AGS.API.PropertyFolderAttribute.#ctor
-  name: PropertyFolderAttribute()
-  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor
-  commentId: M:AGS.API.PropertyFolderAttribute.#ctor
-  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute()
-  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute()
-- uid: AGS.API.PropertyFolderAttribute.#ctor*
-  name: PropertyFolderAttribute
-  href: api/AGS.API.PropertyFolderAttribute.html#AGS_API_PropertyFolderAttribute__ctor_
-  commentId: Overload:AGS.API.PropertyFolderAttribute.#ctor
-  isSpec: "True"
-  fullName: AGS.API.PropertyFolderAttribute.PropertyFolderAttribute
-  nameWithType: PropertyFolderAttribute.PropertyFolderAttribute
 - uid: AGS.API.Quaternion
   name: Quaternion
   href: api/AGS.API.Quaternion.html
