@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// A render instruction represents an instruction to draw something.

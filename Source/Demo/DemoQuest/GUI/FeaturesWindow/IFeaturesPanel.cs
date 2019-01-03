@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AGS.API;
 
 namespace DemoGame
 {

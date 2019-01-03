@@ -1,7 +1,6 @@
 ﻿using System;
 using ProtoBuf;
 using AGS.API;
-using System.Collections.Generic;
 
 namespace AGS.Engine
 {
@@ -15,11 +14,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(IObject), () => new ContractObject ());
 		}
 
-		public ContractObject()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IContract<IRenderLayer> RenderLayer { get; set; }
 
 		[ProtoMember(2)]
@@ -143,7 +138,8 @@ namespace AGS.Engine
 			{
 				Parent = context.GetContract(item.TreeNode.Parent);
 			}
-            if (item.Width != 0f)
+		    // ReSharper disable once CompareOfFloatsByEqualityOperator
+		    if (item.Width != 0f)
             {
                 var scaleX = item.ScaleX;
                 var scaleY = item.ScaleY;

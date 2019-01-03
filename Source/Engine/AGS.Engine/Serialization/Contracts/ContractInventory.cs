@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class ContractInventory : IContract<IInventory>
 	{
-		public ContractInventory()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		int ActiveItemIndex { get; set; }
 
 		[ProtoMember(2)]

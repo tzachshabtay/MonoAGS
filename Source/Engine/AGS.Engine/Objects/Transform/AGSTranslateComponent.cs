@@ -8,13 +8,12 @@ namespace AGS.Engine
     public class AGSTranslateComponent : AGSComponent, ITranslateComponent
     {
         private ITranslate _translate;
-        private PropertyChangedEventHandler _onPropertyChanged;
 
         public AGSTranslateComponent(ITranslate translate)
         {
             _translate = translate;
-            _onPropertyChanged = (sender, e) => OnPropertyChanged(e);
-            _translate.PropertyChanged += _onPropertyChanged;
+            PropertyChangedEventHandler onPropertyChanged = (sender, e) => OnPropertyChanged(e);
+            _translate.PropertyChanged += onPropertyChanged;
         }
 
         [Property(Category = "Transform", CategoryZ = -100, CategoryExpand = true)]

@@ -34,7 +34,7 @@ namespace AGS.Engine
         }
 
         [Property(DisplayName = "Current Room")]
-        public IRoom Room => _cachedRoom?.Value ?? null;
+        public IRoom Room => _cachedRoom?.Value;
 
         public IRoom PreviousRoom { get; private set; }
 
@@ -42,8 +42,7 @@ namespace AGS.Engine
 
         public async Task ChangeRoomAsync(IRoom newRoom, float? x = null, float? y = null)
 		{
-            bool firstRoom = _state.Room == null;
-            Action changeRoom = () => 
+		    Action changeRoom = () => 
             {
                 Room?.Objects.Remove(_obj);
                 if (x != null) _obj.X = x.Value;

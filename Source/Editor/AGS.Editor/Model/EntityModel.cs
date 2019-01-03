@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using AGS.API;
 using Newtonsoft.Json;
 
@@ -51,7 +50,7 @@ namespace AGS.Editor
                 Components = new Dictionary<Type, ComponentModel>(20),
                 IsDirty = true,
                 Parent = tree?.Parent?.ID,
-                Children = tree?.Children?.Select(c => c.ID)?.ToList() ?? new List<string>()
+                Children = tree?.Children?.Select(c => c.ID).ToList() ?? new List<string>()
             };
             return e;
         }
@@ -67,7 +66,7 @@ namespace AGS.Editor
             }
             catch (JsonReaderException e)
             {
-                Debug.WriteLine($"Exception while trying to read json from {path}.{Environment.NewLine}Exception: {e.ToString()}");
+                Debug.WriteLine($"Exception while trying to read json from {path}.{Environment.NewLine}Exception: {e}");
                 throw;
             }
         }

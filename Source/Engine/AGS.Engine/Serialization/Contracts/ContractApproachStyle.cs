@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractApproachStyle : IContract<IApproachStyle>
 	{
-		public ContractApproachStyle()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IDictionary<string, ApproachHotspots> ApproachWhenVerb { get; set; }
 
 		[ProtoMember(2)]

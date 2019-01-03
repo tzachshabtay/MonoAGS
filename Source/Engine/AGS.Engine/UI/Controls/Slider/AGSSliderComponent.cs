@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -261,8 +260,6 @@ namespace AGS.Engine
                 case Key.End:
                     if (Direction == SliderDirection.BottomToTop || Direction == SliderDirection.LeftToRight) Value = MaxValue;
                     else Value = MinValue;
-                    break;
-                default:
                     break;
             }
         }

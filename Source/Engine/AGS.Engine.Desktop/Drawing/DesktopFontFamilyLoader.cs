@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Drawing.Text;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
 using System.Drawing;
@@ -98,6 +97,7 @@ namespace AGS.Engine.Desktop
 		private FontFamily loadFontFamilyOnMac(string path, byte[] buffer, FontFamily family)
 		{
 			string filename = Path.GetFileName(path);
+		    Trace.Assert(filename != null);
 			path = Path.Combine(MAC_FONT_LIBRARY, filename);
 			if (!File.Exists(path))
 			{
@@ -112,6 +112,7 @@ namespace AGS.Engine.Desktop
         private FontFamily loadFontFamilyOnLinux(string path, byte[] buffer, FontFamily family)
         {
             string filename = Path.GetFileName(path);
+            Trace.Assert(filename != null);
             path = Path.Combine(LINUX_FONT_LIBRARY, filename);
             if (!Directory.Exists(LINUX_FONT_LIBRARY))
             {
@@ -124,6 +125,7 @@ namespace AGS.Engine.Desktop
                     Debug.WriteLine("Refreshing font cache");
                     ProcessStartInfo info = new ProcessStartInfo("fc-cache", $"-f -v {LINUX_FONT_LIBRARY}") { UseShellExecute = false };
                     var process = Process.Start(info);
+                    Trace.Assert(process != null);
                     process.WaitForExit();
                     Debug.WriteLine("Completed refreshing font cache, restarting...");
                     restart();

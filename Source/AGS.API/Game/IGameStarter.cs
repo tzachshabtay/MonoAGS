@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// The game starter interface is the interface that a game project should implement so that it can be loaded
@@ -20,7 +19,7 @@ namespace AGS.API
     ///         game.Events.OnLoad.Subscribe(onGameLoaded); //Here is where you create all of the rooms, characters, etc in the game.
     ///     }
     /// }
-    /// <code>
+    /// </code>
     /// </example>
     public interface IGameStarter
     {

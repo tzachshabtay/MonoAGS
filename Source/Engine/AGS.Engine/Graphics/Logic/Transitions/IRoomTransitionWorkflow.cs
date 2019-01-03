@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AGS.API;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
     public interface IRoomTransitionWorkflow
     {

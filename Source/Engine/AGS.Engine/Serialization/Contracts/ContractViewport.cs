@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractViewport : IContract<IViewport>
 	{
-		public ContractViewport()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float X { get; set; }
 
 		[ProtoMember(2)]

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -20,8 +22,10 @@ namespace AGS.Engine
 
         public int Compare(IObject s1, IObject s2)
 		{
+		    Trace.Assert(s1 != null);
+		    Trace.Assert(s2 != null);
             float resultF = compare(s1, s2);
-            int result = resultF > 0f ? 1 : resultF < 0 ? -1 : string.Compare(s1.ID, s2.ID);
+            int result = resultF > 0f ? 1 : resultF < 0 ? -1 : String.CompareOrdinal(s1.ID, s2.ID);
 #if DEBUG
             if (Printouts)
             {
@@ -53,7 +57,7 @@ namespace AGS.Engine
                 if (newParent1 != newParent2)
                 {
                     float result = compareObj(newParent1, newParent2);
-                    if (result != 0f) return result;
+                    if (!MathUtils.FloatEquals(result, 0f)) return result;
                 }
                 if (newParent1 == null || newParent2 == null || (newParent1 == s1 && newParent2 == s2))
                 {
@@ -71,7 +75,7 @@ namespace AGS.Engine
 
 			float z1 = getZ(o1);
 			float z2 = getZ(o2);
-            if (z1 != z2) return z2 - z1;
+            if (!MathUtils.FloatEquals(z1, z2)) return z2 - z1;
             return 0f;
         }
 
@@ -102,17 +106,6 @@ namespace AGS.Engine
                 obj = obj.TreeNode.Parent;
             }
         }
-
-		private float getZ(IObject parent, IObject obj, out IObject newParent)
-		{
-			newParent = obj;
-
-			while (newParent != null && newParent.TreeNode.Parent != (parent == null ? null : parent.TreeNode.Node))
-			{
-				newParent = newParent.TreeNode.Parent;
-			}
-			return getZ(newParent ?? obj);
-		}
 
 		private float getZ(IObject obj)
 		{

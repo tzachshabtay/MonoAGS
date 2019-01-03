@@ -6,7 +6,6 @@ namespace AGS.Editor
 {
     public class AGSSplitPanelComponent : AGSComponent, ISplitPanelComponent
     {
-        private readonly IInput _input;
         private readonly IGameState _state;
         private readonly IGameFactory _factory;
 
@@ -16,9 +15,8 @@ namespace AGS.Editor
 		private SizeF _startSizeTopPanel, _startSizeBottomPanel;
         private IComponentBinding _splitLineMoveBinding;
 
-        public AGSSplitPanelComponent(IInput input, IGameState state, IGameFactory factory)
+        public AGSSplitPanelComponent(IGameState state, IGameFactory factory)
         {
-            _input = input;
             _state = state;
             _factory = factory;
         }
@@ -112,7 +110,7 @@ namespace AGS.Editor
             DragLine = splitLine;
         }
 
-        private void onTopPanelVisibleChanged(object sender, PropertyChangedEventArgs args)
+        private void onTopPanelVisibleChanged(object _, PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IVisibleComponent.Visible)) return;
             var line = DragLine;

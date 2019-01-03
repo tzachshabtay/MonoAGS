@@ -103,7 +103,7 @@ namespace AGS.API
 		{
 			float h = hue / 60f;
 			byte r, g, b;
-			if (saturation == 0)
+			if (MathUtils.FloatEquals(saturation, 0f))
 			{
 				r = (byte)Math.Round(lightness * 255d);
 				g = (byte)Math.Round(lightness * 255d);
@@ -156,15 +156,15 @@ namespace AGS.API
         /// <returns>The hue.</returns>
 		public int GetHue()
 		{
-			decimal r = (decimal)R / 255m;
-			decimal g = (decimal)G / 255m;
-			decimal b = (decimal)B / 255m;
+			decimal r = R / 255m;
+			decimal g = G / 255m;
+			decimal b = B / 255m;
 			decimal cmax = Math.Max(r, Math.Max(g, b));
 			decimal cmin = Math.Min(r, Math.Min(g, b));
 			decimal delta = cmax - cmin;
 			if (delta == 0) return 0;
 
-			decimal hue = 0;
+			decimal hue;
 			if (cmax == r) hue = 60m * (((g - b) / delta));
 			else if (cmax == g) hue = 60m * (((b - r) / delta) + 2m);
 			else hue = 60m * (((r - g) / delta) + 4m);
@@ -179,9 +179,9 @@ namespace AGS.API
         /// <returns>The saturation.</returns>
 		public float GetSaturation()
 		{
-			decimal r = (decimal)R / 255m;
-			decimal g = (decimal)G / 255m;
-			decimal b = (decimal)B / 255m;
+			decimal r = R / 255m;
+			decimal g = G / 255m;
+			decimal b = B / 255m;
 			decimal cmax = Math.Max(r, Math.Max(g, b));
 			decimal cmin = Math.Min(r, Math.Min(g, b));
 			decimal delta = cmax - cmin;
@@ -195,9 +195,9 @@ namespace AGS.API
         /// <returns>The saturation.</returns>
 		public float GetLightness()
 		{
-			decimal r = (decimal)R / 255m;
-			decimal g = (decimal)G / 255m;
-			decimal b = (decimal)B / 255m;
+			decimal r = R / 255m;
+			decimal g = G / 255m;
+			decimal b = B / 255m;
 			decimal cmax = Math.Max(r, Math.Max(g, b));
 			decimal cmin = Math.Min(r, Math.Min(g, b));
 			return (float)(cmax + cmin) / 2f;
@@ -208,7 +208,7 @@ namespace AGS.API
         /// </summary>
         /// <returns>The color.</returns>
         /// <param name="a">The alpha component. 0 is fully transparent and 255 is fully opaque.</param>
-        public Color WithAlpha(byte a) => Color.FromArgb(a, R, G, B);
+        public Color WithAlpha(byte a) => FromArgb(a, R, G, B);
 
         public override bool Equals(object obj) => obj is Color c && Equals(c);
 

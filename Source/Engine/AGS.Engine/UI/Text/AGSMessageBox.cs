@@ -30,8 +30,7 @@ namespace AGS.Engine
                 args.Label.RenderLayer = settings.RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
-                var textConfig = sayComponent.SpeechConfig.TextConfig;
-
+                
                 float labelWidth = sayComponent.SpeechConfig.LabelSize.Width;
 
                 float buttonsWidth = buttons.Sum(b => b.Width) + settings.ButtonXPadding * (buttons.Length - 1);

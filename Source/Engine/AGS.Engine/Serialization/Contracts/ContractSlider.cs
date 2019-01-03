@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using Autofac;
 
@@ -13,11 +12,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(ISlider), () => new ContractSlider ());
 		}
 
-		public ContractSlider()
-		{
-		}
-			
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -30,7 +29,7 @@ namespace AGS.Engine
                 _table = value;
                 value.OnQueryLayout.Subscribe(onQueryLayout);
                 value.OnRefreshLayoutNeeded.Subscribe(onRefreshLayout);
-                value?.Rows.Add(this);
+                value.Rows.Add(this);
             }
         }
 
@@ -162,7 +161,7 @@ namespace AGS.Engine
 
         private void onQueryLayout(QueryLayoutEventArgs args)
         {
-            if (!_visible?.Visible ?? true || _columnSizes == null) return;
+            if (!(_visible?.Visible ?? true) || _columnSizes == null) return;
             if (_columnSizes.Count > args.ColumnSizes.Count)
             {
                 int diff = _columnSizes.Count - args.ColumnSizes.Count;

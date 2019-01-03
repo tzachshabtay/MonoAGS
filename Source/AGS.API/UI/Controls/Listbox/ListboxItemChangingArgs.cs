@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// Event arguments for when a selected item is in the process of changing (before actually being changed) in a listbox/combobox.

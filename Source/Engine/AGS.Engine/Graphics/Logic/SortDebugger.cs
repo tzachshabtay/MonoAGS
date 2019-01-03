@@ -60,8 +60,8 @@ namespace AGS.Engine
 					if (renderDebug && property.Key.Contains(backwardsWord)) continue;
 					if (!renderDebug && !property.Key.Contains(backwardsWord)) continue;
 
-					string comparedId = property.Key.Substring(renderDebug ? property.Key.IndexOf(sortWord) + sortWord.Length :
-						property.Key.IndexOf(backwardsWord) + backwardsWord.Length);
+					string comparedId = property.Key.Substring(renderDebug ? property.Key.IndexOf(sortWord, StringComparison.Ordinal) + sortWord.Length :
+						property.Key.IndexOf(backwardsWord, StringComparison.Ordinal) + backwardsWord.Length);
 
                     if (property.Value > 0) map.GetOrAdd(comparedId, () => new List<string>()).Add(obj.ID);
                     else map.GetOrAdd(obj.ID, () => new List<string>()).Add(comparedId);
@@ -98,9 +98,9 @@ namespace AGS.Engine
 					int result = comparer.Compare(displayList[i], displayList[j]);
 					if (result == 0)
 					{
-						continue;
+					    continue;
 					}
-					else if (result > 0) map.GetOrAdd(displayList[i].ID, () => new List<string>()).Add(displayList[j].ID);
+					if (result > 0) map.GetOrAdd(displayList[i].ID, () => new List<string>()).Add(displayList[j].ID);
 					else map.GetOrAdd(displayList[j].ID, () => new List<string>()).Add(displayList[i].ID);
 				}
 			}

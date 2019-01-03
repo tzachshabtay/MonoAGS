@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
 
 namespace AGS.Engine
 {
@@ -20,7 +19,6 @@ namespace AGS.Engine
         private readonly FileSelection _fileSelection;
         private readonly IGame _game;
         private readonly ITextConfig _buttonsTextConfig, _filesTextConfig;
-        private readonly IGLUtils _glUtils;
 
         private IInventory _inventory;
         private ITextBox _fileTextBox;
@@ -37,9 +35,8 @@ namespace AGS.Engine
         private IBorderStyle _fileIcon, _fileIconSelected, _folderIcon, _folderIconSelected;
         private Predicate<string> _fileFilter;
 
-        private AGSSelectFileDialog(IGame game, IGLUtils glUtils, string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
+        private AGSSelectFileDialog(IGame game, string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
-            _glUtils = glUtils;
             _game = game;
             _title = title;
             _fileSelection = fileSelection;
@@ -56,7 +53,7 @@ namespace AGS.Engine
         public static async Task<string> SelectFile(string title, FileSelection fileSelection, Predicate<string> fileFilter = null, string startPath = null)
         {
             var game = AGSGame.Game;
-            var dialog = new AGSSelectFileDialog(game, game.Resolver.Resolve<IGLUtils>(), title, fileSelection, fileFilter, startPath);
+            var dialog = new AGSSelectFileDialog(game, title, fileSelection, fileFilter, startPath);
             return await dialog.Run();
         }
 
@@ -93,7 +90,7 @@ namespace AGS.Engine
             panel.SkinTags.Add(AGSSkin.DialogBoxTag);
             panel.Skin?.Apply(panel);
             panel.AddComponent<IModalWindowComponent>().GrabFocus();
-            ILabel titleLabel = factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, panel, _buttonsTextConfig);
+            factory.UI.GetLabel("SelectFileTitle", _title, panelWidth, labelHeight, 0f, panelHeight - labelHeight, panel, _buttonsTextConfig);
             _fileTextBox = factory.UI.GetTextBox("SelectFileTextBox", 0f, panelHeight - labelHeight - textBoxHeight, panel, _startPath, textBoxConfig, width: panelWidth, height: textBoxHeight);
 
             _inventory = new AGSInventory();
@@ -329,8 +326,8 @@ namespace AGS.Engine
 
         private static int getFolderIndex(string path)
         {
-            int index = path.LastIndexOf("\\");
-            if (index < 0) index = path.LastIndexOf("/");
+            int index = path.LastIndexOf("\\", StringComparison.Ordinal);
+            if (index < 0) index = path.LastIndexOf("/", StringComparison.Ordinal);
             return index;
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractAnimation : IContract<IAnimation>
 	{
-		public ContractAnimation()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IList<IContract<IAnimationFrame>> Frames { get; set; }
 		 
 		[ProtoMember(2)]

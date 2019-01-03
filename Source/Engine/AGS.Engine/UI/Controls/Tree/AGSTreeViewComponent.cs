@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -280,7 +279,6 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var drawable = _drawable;
                     var newNode = new Node(actualChild, _state, () => _drawable, () => null, () => _box, () => _crop, 
                                            currentNode, this);
 					newNode = buildTree(newNode, actualChild);
@@ -400,8 +398,6 @@ namespace AGS.Engine
             public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
             public bool Visible { get; private set; }
-            public float XOffset { get; private set; }
-            public float YOffset { get; private set; }
             public float OverallYOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
 
@@ -469,7 +465,6 @@ namespace AGS.Engine
             {
                 bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
                 xOffset += skipRoot ? 0f : spacingX;
-                YOffset = yOffset;
                 OverallYOffset = overallYOffset;
                 if (overallYOffset < minY)
                 {
@@ -609,7 +604,7 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return null;
-                return (IUIEvents)view.ExpandButton ?? view.TreeItem;
+                return view.ExpandButton ?? view.TreeItem;
             }
 
             private void onMouseEnterExpandButton(MousePositionEventArgs args)

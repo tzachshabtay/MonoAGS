@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using AGS.API;
 using PropertyChanged;
 
@@ -14,7 +12,6 @@ namespace AGS.Engine
     {
         private AGSBindingList<IStringItem> _items;
         private List<(IUIControl control, IStringItem item)> _itemControls;
-        private IUIFactory _uiFactory;
         private int _selectedIndex;
         private float _minHeight, _maxHeight, _minWidth, _maxWidth;
         private SizeF _padding;
@@ -27,10 +24,9 @@ namespace AGS.Engine
         private string _searchFilter;
         private List<AGSListChangedEventArgs<IStringItem>> _incomingChanges = new List<AGSListChangedEventArgs<IStringItem>>();
 
-        public AGSListboxComponent(IUIFactory factory, IGameState state)
+        public AGSListboxComponent(IGameState state)
         {
             _state = state;
-            _uiFactory = factory;
             _itemControls = new List<(IUIControl, IStringItem)>();
             _items = new AGSBindingList<IStringItem>(10);
             _items.OnListChanged.Subscribe(onListChanged);

@@ -214,10 +214,10 @@ namespace AGS.Engine
                 return boundingBoxes.ViewportBox;
 
             float factorX = (textComponent?.CustomImageResolutionFactor?.X ?? 1f);
-            factorX /= ((_drawable?.RenderLayer?.IndependentResolution?.Width ?? _settings.VirtualResolution.Width) / _settings.VirtualResolution.Width);
+            factorX /= ((_drawable?.RenderLayer?.IndependentResolution?.Width ?? (float)_settings.VirtualResolution.Width) / _settings.VirtualResolution.Width);
 
             float factorY = (textComponent?.CustomImageResolutionFactor?.Y ?? 1f);
-            factorY /= ((_drawable?.RenderLayer?.IndependentResolution?.Height ?? _settings.VirtualResolution.Height) / _settings.VirtualResolution.Height);
+            factorY /= ((_drawable?.RenderLayer?.IndependentResolution?.Height ?? (float)_settings.VirtualResolution.Height) / _settings.VirtualResolution.Height);
 
             return boundingBoxes.ViewportBox.Multiply(factorX, factorY);
         }
@@ -242,7 +242,8 @@ namespace AGS.Engine
                     textCropSelf.Init(obj, typeof(ICropSelfComponent));
                     textCropSelf.AfterInit();
                     textComponent.CustomTextCrop = textCropSelf;
-                    obj.OnDisposed(() => textCropSelf.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
+                    var self = textCropSelf;
+                    obj.OnDisposed(() => self.OnBeforeCrop?.Unsubscribe(cropper.CropIfNeeded));
                 }
             }
             if (cropSelf == null)
@@ -269,7 +270,8 @@ namespace AGS.Engine
             private readonly Func<bool> _isDirty;
             private readonly ICropSelfComponent _crop;
             private readonly Func<AGSBoundingBox> _parentBox;
-            private readonly string _id;
+            // ReSharper disable once NotAccessedField.Local
+            private readonly string _id; //used for debugging purposes only
 
             public ChildCropper(string id, Func<bool> isDirty, ICropSelfComponent crop, Func<AGSBoundingBox> parentBox)
             {

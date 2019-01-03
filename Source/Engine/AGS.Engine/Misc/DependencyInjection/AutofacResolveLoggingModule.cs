@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using Autofac.Core;
 using System.Diagnostics;
 
@@ -11,7 +10,7 @@ namespace AGS.Engine
 	/// </summary>
 	public class AutofacResolveLoggingModule : Module
 	{
-		public int depth = 0;
+		public int depth;
 
 		protected override void AttachToComponentRegistration(IComponentRegistry componentRegistry,
 			IComponentRegistration registration)

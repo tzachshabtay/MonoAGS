@@ -78,7 +78,7 @@ namespace AGS.Engine
                 Room = newRoom;
             }));
             DuringRoomTransition = false;
-            await newRoom?.Events.OnAfterFadeIn.InvokeAsync();
+            await (newRoom?.Events.OnAfterFadeIn.InvokeAsync() ?? Task.CompletedTask);
         }
 
 		public void CopyFrom(IGameState state)

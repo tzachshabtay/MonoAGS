@@ -8,11 +8,7 @@ namespace AGS.Engine
     [ConcreteImplementation(DisplayName = "Directional Animation")]
 	public class AGSDirectionalAnimation : IDirectionalAnimation
 	{
-		public AGSDirectionalAnimation ()
-		{
-		}
-
-		#region IDirectionalAnimation implementation
+	    #region IDirectionalAnimation implementation
 
 		public IAnimation Left { get; set; }
 

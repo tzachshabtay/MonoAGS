@@ -6,7 +6,7 @@
     /// 
     /// There are several borders that come built in:
     /// 1. A solid color border (use <see cref="IBorderFactory.SolidColor"/>): allows to set a color, line width and optional rounded corners.
-    /// 2. A gradient color border (use <see cref="IBorderFactory.Gradient"/>): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.
+    /// 2. A gradient color border (use <see cref="o:IBorderFactory.Gradient"/>): allows to set 4 colors for the 4 corners which will be interpolated across, a line width and optional rounded corners.
     /// 3. A 9-slice image border (use AGSSlicedImageBorder): this allows you to use an image, slice it to 9 pieces, and spread it in various ways to create a border.
     /// The 9-slice image border is heavily inspired by the border image used by CSS, so you can look at an example in CSS, to
     /// see what can be done with a 9-slice image: https://css-tricks.com/almanac/properties/b/border-image/

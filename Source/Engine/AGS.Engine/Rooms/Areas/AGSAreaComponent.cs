@@ -1,8 +1,6 @@
 ﻿using System;
 using AGS.API;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -68,7 +66,7 @@ namespace AGS.Engine
                 y = height - 1;
             }
             float insideDistance;
-            PointF? result = findClosestPoint(x, y, width, height, out insideDistance);
+            PointF? result = findClosestPoint(x, y, out insideDistance);
             distance += insideDistance;
             return result;
         }
@@ -111,7 +109,7 @@ namespace AGS.Engine
             return transformation;
         }
 
-        private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
+        private PointF? findClosestPoint(int x, int y, out float distance)
         {
             //todo: This will not always give the real closest position.
             //It's "good enough" most of the time, taken from "classic" AGS code, first we scan every 2 pixels in a close vicinity, if didn't find then looking at every 5 pixels in the entire mask.

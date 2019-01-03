@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using AGS.API;
-using Autofac;
 using PropertyChanged;
 
 namespace AGS.Engine

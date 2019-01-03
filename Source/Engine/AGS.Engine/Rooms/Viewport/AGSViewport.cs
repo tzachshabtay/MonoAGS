@@ -87,8 +87,8 @@ namespace AGS.Engine
                 }
 
                 // set up the new viewport centered in the backbuffer
-                viewX = (screen.Width / 2) - (width / 2);
-                viewY = (screen.Height / 2) - (height / 2);
+                viewX = (screen.Width / 2f) - (width / 2);
+                viewY = (screen.Height / 2f) - (height / 2);
             }
 
             var projectionBox = ProjectionBox;
@@ -107,8 +107,8 @@ namespace AGS.Engine
                     viewY += parentY;
                 }
             }
-            int widthInt = (int)Math.Round((float)width * projectionBox.Width);
-            int heightInt = (int)Math.Round((float)height * projectionBox.Height);
+            int widthInt = (int)Math.Round(width * projectionBox.Width);
+            int heightInt = (int)Math.Round(height * projectionBox.Height);
             var viewXInt = (int)Math.Round(viewX + window.GameSubWindow.X);
             var viewYInt = (int)Math.Round(viewY + window.GameSubWindow.Y);
             var screenArea = new Rectangle(viewXInt, viewYInt, widthInt, heightInt);

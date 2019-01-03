@@ -1,7 +1,6 @@
 ﻿using AGS.API;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AGS.Engine
 {
@@ -88,7 +87,7 @@ namespace AGS.Engine
             var count = ChildrenCount;
             var countString = count == 0 ? "No children" : count == 1 ? "1 child" : $"{count} children";
             if (Parent == null) return countString;
-            return $"Child of {Parent.ToString()}, {countString}";
+            return $"Child of {Parent}, {countString}";
         }
 
         public TItem Node { get; set; }
@@ -156,4 +155,3 @@ namespace AGS.Engine
         }
     }
 }
-

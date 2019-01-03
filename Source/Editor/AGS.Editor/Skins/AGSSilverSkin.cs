@@ -1,12 +1,11 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 
 namespace AGS.Editor
 {
     public class AGSSilverSkin
     {
-        private AGSColoredSkin _skin;
+        private readonly AGSColoredSkin _skin;
 
         public AGSSilverSkin(IGraphicsFactory factory)
         {

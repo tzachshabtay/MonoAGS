@@ -31,7 +31,7 @@
 
         public override bool Equals(object obj) => obj is SizeF size && Equals(size);
 
-        public bool Equals(SizeF other) => other.Width == _width && other.Height == _height;
+        public bool Equals(SizeF other) => MathUtils.FloatEquals(other.Width, _width) && MathUtils.FloatEquals(other.Height, _height);
 
         public override int GetHashCode() => (_width.GetHashCode() * 397) ^ _height.GetHashCode();
 

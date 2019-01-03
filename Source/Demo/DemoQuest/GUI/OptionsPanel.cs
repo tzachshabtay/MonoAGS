@@ -40,7 +40,7 @@ namespace DemoGame
             _panel.Visible = false;
             _panel.AddComponent<IModalWindowComponent>();
 
-            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 
             ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", 
                _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, _panel, loadConfig: loadConfig);

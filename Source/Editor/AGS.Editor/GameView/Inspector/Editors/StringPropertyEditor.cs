@@ -1,6 +1,4 @@
-﻿using System;
-using AGS.API;
-using AGS.Engine;
+﻿using AGS.API;
 using GuiLabs.Undo;
 
 namespace AGS.Editor

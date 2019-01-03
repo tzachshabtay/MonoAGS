@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// A scrollbar is a <see cref="ISlider"/> with 2 buttons (left + right or up + down depending on which <see cref="SliderDirection"/> is used) that can

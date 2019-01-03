@@ -9,7 +9,6 @@ namespace AGS.Editor
     public class DragHandle
     {
         private IObject _handle;
-        private readonly IInput _input;
         private readonly IGameState _state;
         private readonly ActionManager _actions;
         private readonly AGSEditor _editor;
@@ -23,12 +22,11 @@ namespace AGS.Editor
 
         private float _offsetX, _offsetY;
 
-        public DragHandle(IObject handle, AGSEditor editor, IGameState state, IInput input, ActionManager actions, bool needMoveCursor)
+        public DragHandle(IObject handle, AGSEditor editor, IGameState state, ActionManager actions, bool needMoveCursor)
         {
             _editor = editor;
             _actions = actions;
             _state = state;
-            _input = input;
             _handle = handle;
             _handle.Visible = false;
             _handle.Enabled = true;
@@ -124,9 +122,6 @@ namespace AGS.Editor
             if (handle == null) return;
 
             LastDragged = DateTime.Now;
-
-            var handleBottomLeft = handle.WorldBoundingBox.BottomLeft;
-            var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y, _drawable);
 
             var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y, _drawable);
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);

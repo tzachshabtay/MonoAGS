@@ -10,8 +10,6 @@ namespace AGS.Engine
         private float _scaleX, _scaleY;
         private SizeF _baseSize;
 
-        private static readonly PropertyChangedEventArgs _widthArgs = new PropertyChangedEventArgs(nameof(Width));
-        private static readonly PropertyChangedEventArgs _heightArgs = new PropertyChangedEventArgs(nameof(Height));
         private static readonly PropertyChangedEventArgs _scaleXArgs = new PropertyChangedEventArgs(nameof(ScaleX));
         private static readonly PropertyChangedEventArgs _scaleYArgs = new PropertyChangedEventArgs(nameof(ScaleY));
         private static readonly PropertyChangedEventArgs _scaleArgs = new PropertyChangedEventArgs(nameof(Scale));

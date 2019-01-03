@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
-using System.Diagnostics;
 using System.Collections.Concurrent;
 
 namespace AGS.Engine
@@ -25,9 +24,8 @@ namespace AGS.Engine
         private IGameState _state;
         private IGameEvents _events;
         private IAnimationComponent _animation;
-        private readonly IGLUtils _glUtils;
 
-        public AGSWalkComponent(IPathFinder pathFinder, IObjectFactory objFactory, IGame game, IGLUtils glUtils)
+        public AGSWalkComponent(IPathFinder pathFinder, IObjectFactory objFactory, IGame game)
         {
             _incomingInstructions = new ConcurrentQueue<WalkInstruction>();
             _state = game.State;
@@ -35,7 +33,6 @@ namespace AGS.Engine
             _events = game.Events;
             _pathFinder = pathFinder;
             _objFactory = objFactory;
-            _glUtils = glUtils;
 
             _debugPath = new List<IObject>();
             AdjustWalkSpeedToScaleArea = true;
@@ -200,6 +197,7 @@ namespace AGS.Engine
             }
             if (_currentWalk != instruction)
             {
+                // ReSharper disable once PossibleNullReferenceException
                 if (instruction.StopOnly)
                 {
                     instruction.OnCompletion.TrySetResult(false);
@@ -223,6 +221,7 @@ namespace AGS.Engine
 
         private float compensateForViewScrollIfNeeded(float currentViewport, float step, ref float compensateStep, ref float lastViewport)
         {
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (currentViewport == lastViewport) return 0f;
             float smoothStep = step / (_animation.Animation.Configuration.DelayBetweenFrames + _animation.Animation.Frames[_animation.Animation.State.CurrentFrame].Delay);
             compensateStep += smoothStep;
@@ -254,8 +253,6 @@ namespace AGS.Engine
             var debugRenderers = DebugDrawWalkPath ? new List<IObject>() : null;
             _debugPath = debugRenderers;
             OnPropertyChanged(nameof(IsWalking));
-            float xSource = _translate.X;
-            float ySource = _translate.Y;
             bool completedWalk = false;
             try
             {
@@ -272,13 +269,13 @@ namespace AGS.Engine
 
         private async Task<bool> walkAsync(WalkInstruction currentWalk, Position location, bool straightLine, List<IObject> debugRenderers)
         {
-            IEnumerable<Position> walkPoints = straightLine ? new List<Position> { location } : getWalkPoints(location);
+            Position[] walkPoints = straightLine ? new [] { location } : getWalkPoints(location);
 
-            if (!walkPoints.Any())
+            if (walkPoints.Length == 0)
                 return false;
             foreach (var point in walkPoints)
             {
-                if (point.X == _translate.X && point.Y == _translate.Y) continue;
+                if (MathUtils.FloatEquals(point.X, _translate.X) && MathUtils.FloatEquals(point.Y, _translate.Y)) continue;
                 if (!await walkStraightLine(currentWalk, point, debugRenderers))
                     return false;
             }
@@ -312,11 +309,11 @@ namespace AGS.Engine
             return points.OrderBy(p => p.distance).Select(p => p.point).ToList();
         }
 
-        private IEnumerable<Position> getWalkPoints(Position destination)
+        private Position[] getWalkPoints(Position destination)
         {
             var from = _translate.Position;
             if (!isWalkable(from))
-                return new List<Position>();
+                return Array.Empty<Position>();
             List<PointF> closestPoints = new List<PointF>(_room.Room.Areas.Count + 1);
             if (isWalkable(destination))
             {
@@ -325,7 +322,7 @@ namespace AGS.Engine
 
             closestPoints.AddRange(getClosestWalkablePoints(destination.XY));
             if (closestPoints.Count == 0)
-                return new List<Position>();
+                return Array.Empty<Position>();
 
             Point offset;
             bool[][] mask = getWalkableMask(out offset);
@@ -334,10 +331,10 @@ namespace AGS.Engine
             foreach (var closest in closestPoints)
             {
                 destination = new Position(closest.X - offset.X, closest.Y - offset.Y);
-                var walkPoints = _pathFinder.GetWalkPoints(from, destination);
-                if (walkPoints.Any()) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y));
+                var walkPoints = _pathFinder.GetWalkPoints(from, destination).ToArray();
+                if (walkPoints.Length > 0) return walkPoints.Select(w => new Position(w.X + offset.X, w.Y + offset.Y)).ToArray();
             }
-            return new List<Position>();
+            return Array.Empty<Position>();
         }
 
         private bool isWalkable(Position location)
@@ -494,6 +491,7 @@ namespace AGS.Engine
                 var scalingArea = area.GetComponent<IScalingArea>();
                 if (scalingArea == null || (!scalingArea.ScaleObjectsX && !scalingArea.ScaleObjectsY)) continue;
                 float scale = scalingArea.GetScaling(scalingArea.Axis == ScalingAxis.X ? _translate.X : _translate.Y);
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (scale != 1f)
                 {
                     walkSpeed = new PointF(walkSpeed.X * (scalingArea.ScaleObjectsX ? scale : 1f),

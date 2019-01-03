@@ -287,7 +287,6 @@ namespace AGS.Editor
 
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
-            var borderComponent = obj.GetComponent<IBorderComponent>();
             var enabledComponent = obj.GetComponent<IEnabledComponent>();
             if (enabledComponent != null)
             {

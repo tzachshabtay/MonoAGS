@@ -7,7 +7,6 @@ namespace AGS.Engine
     {
         private readonly IGameWindow _gameWindow;
         private readonly IRenderMessagePump _messagePump;
-        private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
         private string _title;
         private VsyncMode _vsync;
@@ -17,9 +16,8 @@ namespace AGS.Engine
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
+        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump)
         {
-            _glUtils = glUtils;
             _gameWindow = gameWindow;
             _messagePump = messagePump;
             LoadFrom(settings);
@@ -47,7 +45,7 @@ namespace AGS.Engine
             } 
         }
         
-        public AGS.API.Size VirtualResolution { get; private set; }
+        public Size VirtualResolution { get; private set; }
 
         public VsyncMode Vsync 
         { 
@@ -59,7 +57,7 @@ namespace AGS.Engine
             }
         }
 
-        public AGS.API.Size WindowSize 
+        public Size WindowSize 
         {
             get => _windowSize;
             set
@@ -75,15 +73,15 @@ namespace AGS.Engine
             set => _preserveAspectRatio = value;
         }
 
-        public AGS.API.WindowState WindowState 
+        public WindowState WindowState 
         {
-            get => (AGS.API.WindowState)_gameWindow.WindowState;
+            get => _gameWindow.WindowState;
             set => _messagePump.Post(_ => _gameWindow.WindowState = value, null);
         }
 
-        public AGS.API.WindowBorder WindowBorder 
+        public WindowBorder WindowBorder 
         {
-            get => (AGS.API.WindowBorder)_gameWindow.WindowBorder;
+            get => _gameWindow.WindowBorder;
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
 

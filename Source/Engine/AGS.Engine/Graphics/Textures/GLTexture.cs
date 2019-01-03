@@ -24,7 +24,7 @@ namespace AGS.Engine
 
         ~GLTexture()
         {
-            dispose(false); 
+            dispose(); 
         }
 
         public ITextureConfig Config
@@ -47,7 +47,7 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -69,7 +69,7 @@ namespace AGS.Engine
 			_graphics.SetTextureWrapT(_config.WrapY);
 		}
 
-        private void dispose(bool disposing)
+        private void dispose()
         {
             if (ID != 0) _messagePump.Post(_ => _graphics.DeleteTexture(ID), null);
         }

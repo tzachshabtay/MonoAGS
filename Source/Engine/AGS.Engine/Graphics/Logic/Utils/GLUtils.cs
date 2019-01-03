@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
@@ -19,11 +18,9 @@ namespace AGS.Engine
         private readonly IGraphicsBackend _graphics;
         private readonly IRenderMessagePump _messagePump;
         private readonly GLVertex[] _quad, _line;
-        private readonly IGameState _state;
 
-        public GLUtils(IGraphicsBackend graphics, IRenderMessagePump messagePump, IGameState state)
+        public GLUtils(IGraphicsBackend graphics, IRenderMessagePump messagePump)
         {
-            _state = state;
             _graphics = graphics;
             _messagePump = messagePump;
             _quad = new GLVertex[4];
@@ -39,7 +36,7 @@ namespace AGS.Engine
 
         public void AdjustResolution(int width, int height)
         {
-            if (CurrentGlobalResolution.Width == width && CurrentGlobalResolution.Height == height) return;
+            if ((int)CurrentGlobalResolution.Width == width && (int)CurrentGlobalResolution.Height == height) return;
             CurrentGlobalResolution = new SizeF(width, height);
 
             _graphics.MatrixMode(MatrixType.Projection);

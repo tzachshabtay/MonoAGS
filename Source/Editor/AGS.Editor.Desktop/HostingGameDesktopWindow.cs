@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using AGS.API;
-using AGS.Engine;
-using AGS.Engine.Desktop;
 
 namespace AGS.Editor.Desktop
 {

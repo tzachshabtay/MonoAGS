@@ -21,6 +21,7 @@ namespace AGS.Editor
 
         public bool Equals(KeyboardShortcut other)
         {
+            if (other == null) return false;
             return IsPressed(other._keys);
         }
 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 using PropertyChanged;
@@ -271,7 +268,6 @@ namespace AGS.Engine
             var noFactor = AGSModelMatrixComponent.NoScaling;
             bool resolutionMatches;
             PointF hitTestResolutionFactor;
-            Size resolution;
             PointF textScaleFactor = new PointF(GLText.TextResolutionFactorX, GLText.TextResolutionFactorY);
             if (!textScaleFactor.Equals(_lastTextScaleFactor))
             {
@@ -280,7 +276,7 @@ namespace AGS.Engine
             }
             resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _virtualResolution, _drawable,
                                                                                   textScaleFactor, out hitTestResolutionFactor,
-                                                                                  out resolution);
+                                                                                  out Size _);
             var scaleUpText = hitTestResolutionFactor;
             var scaleDownText = noFactor;
             if (!textScaleFactor.Equals(hitTestResolutionFactor))
@@ -289,8 +285,6 @@ namespace AGS.Engine
                 scaleDownText = hitTestResolutionFactor;
             }
             AutoFit autoFit = getAutoFit();
-            float height = _scale.Height;
-            float width = _scale.Width;
 
             bool shouldUpdateBoundingBoxes = _shouldUpdateBoundingBoxes;
             _shouldUpdateBoundingBoxes = false;
@@ -338,7 +332,9 @@ namespace AGS.Engine
             updateBoundingBoxes(_glTextHitTest, autoFit, textHitTestMatrices, labelHitTestMatrices, scaleUpText, noFactor, hitTestResolutionFactor, resolutionMatches, true);
             if (!resolutionMatches) updateBoundingBoxes(_glTextRender, autoFit, textRenderMatrices, labelRenderMatrices, scaleUpText, scaleDownText, noFactor, true, false);
 
+            // ReSharper disable CompareOfFloatsByEqualityOperator
             if (_lastWidth != Width || _lastHeight != Height)
+            // ReSharper restore CompareOfFloatsByEqualityOperator
             {
                 OnLabelSizeChanged.Invoke();
             }
@@ -441,9 +437,8 @@ namespace AGS.Engine
             }
             if (buildRenderBox)
             {
-                PointF scale;
                 var viewportMatrix = matrices.ViewportMatrix;
-                boxes.ViewportBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out scale);
+                boxes.ViewportBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out PointF _);
             }
         }
 

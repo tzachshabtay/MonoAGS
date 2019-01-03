@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.API
+﻿namespace AGS.API
 {
 	/// <summary>
 	/// Allows changing the starting offset from which the texture will be rendered.

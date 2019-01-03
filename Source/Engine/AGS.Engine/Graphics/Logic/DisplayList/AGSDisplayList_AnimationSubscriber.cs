@@ -16,12 +16,12 @@ namespace AGS.Engine
             private IEntity _obj;
             private Action _onSomethingChanged;
 
-            private class BindingWrapper : API.IComponentBinding
+            private class BindingWrapper : IComponentBinding
             {
-                private API.IComponentBinding _binding;
+                private IComponentBinding _binding;
                 private Action _unsubscribe;
 
-                public BindingWrapper(API.IComponentBinding binding, Action unsubscribe)
+                public BindingWrapper(IComponentBinding binding, Action unsubscribe)
                 {
                     _binding = binding;
                     _unsubscribe = unsubscribe;
@@ -47,7 +47,7 @@ namespace AGS.Engine
                 _lastZ = float.MinValue;
             }
 
-            public API.IComponentBinding Bind()
+            public IComponentBinding Bind()
             {
                 subscribeAnimation();
                 return new BindingWrapper(bind<IAnimationComponent>(_obj, onObjAnimationPropertyChanged), unsubscribeAll);

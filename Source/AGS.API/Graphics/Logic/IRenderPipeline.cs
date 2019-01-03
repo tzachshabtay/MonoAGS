@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// The render pipeline is responsible for collecting all of the rendering information and passing it on

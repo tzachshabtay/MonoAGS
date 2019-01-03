@@ -11,11 +11,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(IPanel), () => new ContractPanel ());
 		}
 
-		public ContractPanel()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public ContractObject Object { get; set; }
 
 		public IObject ToItem(AGSSerializationContext context)

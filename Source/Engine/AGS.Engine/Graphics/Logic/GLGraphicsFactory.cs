@@ -1,9 +1,9 @@
 ﻿using System;
-using AGS.API;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Autofac;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using AGS.API;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -260,7 +260,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentException e)
                 {
-                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 }
             });
             return bitmap;
@@ -268,15 +268,15 @@ namespace AGS.Engine
 
         private async Task<IBitmap> loadBitmapAsync(IResource resource)
         {
+            if (resource == null)
+                return _bitmapLoader.Load(1, 1);
             try
             {
-                if (resource == null)
-                    return _bitmapLoader.Load(1, 1);
                 return await Task.Run(() => _bitmapLoader.Load(resource.Stream));
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 return null;
             }
         }
@@ -310,7 +310,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentException e)
                 {
-                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 }
             });
             return image;
@@ -318,15 +318,15 @@ namespace AGS.Engine
 
         private async Task<IImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
 		{
+		    if (resource == null) return new EmptyImage(1f, 1f);
             IBitmap bitmap;
 			try 
 			{
-                if (resource == null) return new EmptyImage(1f, 1f);
 				bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
 			} 
 			catch (ArgumentException e) 
 			{
-				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString ());
+				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
 				return null;
 			}
             IImage image = null;

@@ -64,7 +64,7 @@ namespace AGS.Editor
             {
                 OriginalPosition = value;
                 float minY = _height * _menuItems.Length;
-                float maxX = (_menu?.ContentsPanel?.RenderLayer?.IndependentResolution?.Width ?? _settings.VirtualResolution.Width) - _width;
+                float maxX = (_menu.ContentsPanel.RenderLayer?.IndependentResolution?.Width ?? _settings.VirtualResolution.Width) - _width;
                 float x = value.x;
                 if (value.x > maxX)
                 {
@@ -99,7 +99,7 @@ namespace AGS.Editor
             var idle = new ButtonAnimation(null, textConfig, Colors.Transparent);
             var hovered = new ButtonAnimation(null, textConfig, GameViewColors.HoveredMenuItem);
 
-            _menu.ListboxComponent.ListItemFactory = (string text) =>
+            _menu.ListboxComponent.ListItemFactory = text =>
             {
                 var menuItem = _menuItems.First(m => m.Text == text);
                 return menuItem.GetControl(factory, layer, idle, hovered, _width, _height);

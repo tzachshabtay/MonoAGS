@@ -42,7 +42,6 @@ namespace AGS.Editor
 
         private Task<SelectEditor.ReturnValue> getValue(IStringItem item, IProperty property, Action closeCombobox)
         {
-            Type enumType = property.PropertyType;
             var comboItem = (ComboItem)item;
             return Task.FromResult(new SelectEditor.ReturnValue(new ValueModel(comboItem.Value), false));
         }

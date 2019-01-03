@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
@@ -91,7 +90,6 @@ namespace AGS.Engine
                 var visibleComponent = scrollingContainer.GetComponent<IVisibleComponent>();
                 var listBoxComponent = panel.GetComponent<IListboxComponent>();
                 var scrollingImageComponent = scrollingContainer.GetComponent<IImageComponent>();
-                var imageComponent = panel.GetComponent<IImageComponent>();
                 _scrolling = panel.GetComponent<IScrollingComponent>();
                 _dropDownPanelVisible = visibleComponent;
 
@@ -116,7 +114,7 @@ namespace AGS.Engine
                     clicked == _scrolling?.HorizontalScrollBar?.Slider.Graphics || clicked == _scrolling?.HorizontalScrollBar?.Slider.HandleGraphics ||
                     clicked == _scrolling?.VerticalScrollBar?.DownButton || clicked == _scrolling?.VerticalScrollBar?.UpButton ||
                     clicked == _scrolling?.HorizontalScrollBar?.DownButton || clicked == _scrolling?.HorizontalScrollBar?.UpButton ||
-                    clicked == _dropDownPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
+                    clicked == _dropDownPanel?.ContentsPanel || _dropDownPanelList.ListItemUIControls.Any(c => c == clicked))
                 {
                     return;
                 }

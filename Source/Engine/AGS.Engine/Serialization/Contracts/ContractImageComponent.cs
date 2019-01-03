@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using Autofac;
 
@@ -8,10 +7,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractImageComponent : IContract<IImageComponent>
     {
-        public ContractImageComponent()
-        {
-        }
-        
         [ProtoMember(1)]
         public IContract<ISpriteProvider> SpriteProvider { get; set; }
 

@@ -15,7 +15,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
         public const double UPDATE_RATE = 60.0;
-        private int _renderFrameRetries = 0;
+        private int _renderFrameRetries;
         private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
@@ -103,7 +103,7 @@ namespace AGS.Engine
             _gameCount++;
             _gameIndex = _gameCount;
             var settings = _resolver.Container.Resolve<IGameSettings>();
-            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(AGS.API.Size), settings.VirtualResolution));
+            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
             bool isNewWindow = false;

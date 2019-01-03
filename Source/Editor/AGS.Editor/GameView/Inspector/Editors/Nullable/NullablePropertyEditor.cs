@@ -30,7 +30,9 @@ namespace AGS.Editor
 
             _nullBox.OnCheckChanged.Subscribe(args =>
             {
-                object val = args.Checked ? Activator.CreateInstance(Nullable.GetUnderlyingType(property.PropertyType)) : null;
+                Type underlying = Nullable.GetUnderlyingType(property.PropertyType) ??
+                                  throw new Exception($"Underlying type for {property.PropertyType.Name} returned null");
+                object val = args.Checked ? Activator.CreateInstance(underlying) : null;
 
                 if (args.UserInitiated) _actions.RecordAction(new PropertyAction(property, val, _model));
                 else property.Value = new ValueModel(val, type: property.PropertyType);

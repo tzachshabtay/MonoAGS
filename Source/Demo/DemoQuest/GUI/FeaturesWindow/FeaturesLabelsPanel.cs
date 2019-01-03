@@ -10,16 +10,15 @@ namespace DemoGame
         private ILabel _label;
         private IComboBox _featuresAutoFitCombobox;
         private IGame _game;
-        private IObject _parent;
+        private bool _isAnimating;
         private const string LABEL_TEXT = "The quick brown fox jumps over the lazy dog.";
 
         public FeaturesLabelsPanel(IGame game, IObject parent)
         {
             _game = game;
-            _parent = parent;
             var factory = game.Factory;
             _label = factory.UI.GetLabel("FeaturesLabel", LABEL_TEXT,
-                                         200f, 50f, 25f, _parent.Height - 25f, parent,
+                                         200f, 50f, 25f, parent.Height - 25f, parent,
                                          factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight), false);
             _label.RenderLayer = parent.RenderLayer;
             _label.Pivot = (0f, 1f);
@@ -42,7 +41,6 @@ namespace DemoGame
             }
 
             autoFitList.OnSelectedItemChanged.Subscribe(args => _label.TextConfig.AutoFit = (AutoFit)Enum.Parse(typeof(AutoFit), args.Item.Text));
-            animateText();
         }
 
         public void Show() 
@@ -51,10 +49,12 @@ namespace DemoGame
             _game.State.UI.Add(_featuresAutoFitCombobox.TextBox);
             _game.State.UI.Add(_featuresAutoFitCombobox.DropDownButton);
             _game.State.UI.Add(_featuresAutoFitCombobox);
+            animateText();
         }
 
-        public Task Close() 
+        public Task Close()
         {
+            _isAnimating = false;
             _game.State.UI.Remove(_label);
             _game.State.UI.Remove(_featuresAutoFitCombobox.TextBox);
             _game.State.UI.Remove(_featuresAutoFitCombobox.DropDownButton);
@@ -64,11 +64,14 @@ namespace DemoGame
 
         private async void animateText()
         {
-            var textLen = _label.Text.Length + 1;
-            if (textLen > LABEL_TEXT.Length) textLen = 0;
-            _label.Text = LABEL_TEXT.Substring(0, textLen);
-            await Task.Delay(200);
-            animateText();
+            _isAnimating = true;
+            while (_isAnimating)
+            {
+                var textLen = _label.Text.Length + 1;
+                if (textLen > LABEL_TEXT.Length) textLen = 0;
+                _label.Text = LABEL_TEXT.Substring(0, textLen);
+                await Task.Delay(200);
+            }
         }
     }
 }

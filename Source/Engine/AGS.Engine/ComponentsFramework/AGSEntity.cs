@@ -1,13 +1,10 @@
 ﻿using System;
-using AGS.API;
-using System.Collections.Generic;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using AGS.API;
 using Autofac;
-using System.Linq;
-using System.ComponentModel;
 using PropertyChanged;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -15,13 +12,13 @@ namespace AGS.Engine
     public abstract class AGSEntity : IEntity
     {
         //storing the components as lazy values to avoid having the component binding kick in more than once, see here: https://andrewlock.net/making-getoradd-on-concurrentdictionary-thread-safe-using-lazy/ 
-        private ConcurrentDictionary<Type, Lazy<API.IComponent>> _components;
-        private AGSConcurrentHashSet<API.IComponentBinding> _bindings;
+        private ConcurrentDictionary<Type, Lazy<IComponent>> _components;
+        private AGSConcurrentHashSet<IComponentBinding> _bindings;
         private Resolver _resolver;
         private string _displayName;
         private IBlockingEvent _onDisposed;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
         private static AGSConcurrentHashSet<string> _ids = new AGSConcurrentHashSet<string>(1000, false);
 
@@ -33,10 +30,10 @@ namespace AGS.Engine
                 throw new ArgumentException($"Duplicate entity: {id}");
             }
             _resolver = resolver;
-            _components = new ConcurrentDictionary<Type, Lazy<API.IComponent>>();
-            _bindings = new AGSConcurrentHashSet<API.IComponentBinding>(200, false);
+            _components = new ConcurrentDictionary<Type, Lazy<IComponent>>();
+            _bindings = new AGSConcurrentHashSet<IComponentBinding>(200, false);
             OnComponentsInitialized = new AGSEvent();
-            OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<API.IComponent>>();
+            OnComponentsChanged = new AGSEvent<AGSListChangedEventArgs<IComponent>>();
             _onDisposed = new AGSEvent();
         }
 
@@ -44,7 +41,7 @@ namespace AGS.Engine
 
         ~AGSEntity()
         {
-            dispose(false);
+            dispose();
         }
 
         public string ID { get; private set; }
@@ -56,7 +53,7 @@ namespace AGS.Engine
             {
                 if (_displayName == value) return;
                 _displayName = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DisplayName)));
+                PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(DisplayName)));
             }
         }
 
@@ -68,7 +65,7 @@ namespace AGS.Engine
 
         public IBlockingEvent OnComponentsInitialized { get; private set; }
 
-        public IBlockingEvent<AGSListChangedEventArgs<API.IComponent>> OnComponentsChanged { get; private set; }
+        public IBlockingEvent<AGSListChangedEventArgs<IComponent>> OnComponentsChanged { get; private set; }
 
         protected void InitComponents()
         {
@@ -82,30 +79,30 @@ namespace AGS.Engine
 
         #region API.IComponentsCollection implementation
 
-        public TComponent AddComponent<TComponent>() where TComponent : API.IComponent
+        public TComponent AddComponent<TComponent>() where TComponent : IComponent
         {
             return (TComponent)AddComponent(typeof(TComponent));
         }
 
-        public API.IComponent AddComponent(Type componentType)
+        public IComponent AddComponent(Type componentType)
         {
             var components = _components;
             if (components == null) return default;
-            return components.GetOrAdd(componentType, _ => new Lazy<API.IComponent>(() =>
+            return components.GetOrAdd(componentType, _ => new Lazy<IComponent>(() =>
             {
-                API.IComponent component = (API.IComponent)_resolver.Container.Resolve(componentType);
+                IComponent component = (IComponent)_resolver.Container.Resolve(componentType);
                 initComponentIfNeeded(component, componentType);
                 return component;
             })).Value;
         }
 
-        public bool AddComponent<TComponent>(API.IComponent component) where TComponent : API.IComponent
+        public bool AddComponent<TComponent>(IComponent component) where TComponent : IComponent
         {
 			var components = _components;
             if (components == null) return false;
             bool addedComponent = false;
             Type componentType = typeof(TComponent);
-            var _ = components.GetOrAdd(componentType, __ => new Lazy<API.IComponent>(() =>
+            var _ = components.GetOrAdd(componentType, __ => new Lazy<IComponent>(() =>
             {
                 addedComponent = true;
                 initComponentIfNeeded(component, componentType);
@@ -114,7 +111,7 @@ namespace AGS.Engine
             return addedComponent;
         }
 
-        public bool RemoveComponent<TComponent>() where TComponent : API.IComponent
+        public bool RemoveComponent<TComponent>() where TComponent : IComponent
         {
             return RemoveComponent(typeof(TComponent));
         }
@@ -127,13 +124,13 @@ namespace AGS.Engine
             if (!components.TryRemove(componentType, out var component)) return false;
 
             component.Value.Dispose();
-			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
-																  new AGSListItem<API.IComponent>(component.Value, count--)));
+			OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
+																  new AGSListItem<IComponent>(component.Value, count)));
             
             return true;
         }
 
-        public bool RemoveComponent(API.IComponent component)
+        public bool RemoveComponent(IComponent component)
         {
 			var components = _components;
 			if (components == null) return false;
@@ -141,7 +138,7 @@ namespace AGS.Engine
             return RemoveComponent(component.GetType());
         }
 
-        public TComponent PopComponent<TComponent>() where TComponent : API.IComponent
+        public TComponent PopComponent<TComponent>() where TComponent : IComponent
         {
             var components = _components;
             if (components == null)
@@ -150,13 +147,13 @@ namespace AGS.Engine
             if (!components.TryRemove(typeof(TComponent), out var component))
                 return default;
 
-            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Remove,
-                                                                  new AGSListItem<API.IComponent>(component.Value, count--)));
+            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Remove,
+                                                                  new AGSListItem<IComponent>(component.Value, count)));
 
             return (TComponent)component.Value;
         }
 
-        public bool HasComponent<TComponent>() where TComponent : API.IComponent
+        public bool HasComponent<TComponent>() where TComponent : IComponent
         {
             return HasComponent(typeof(TComponent));
         }
@@ -168,19 +165,19 @@ namespace AGS.Engine
             return components.ContainsKey(componentType);
         }
 
-        public bool HasComponent(API.IComponent component)
+        public bool HasComponent(IComponent component)
         {
 			var components = _components;
 			if (components == null) return false;
             return components.TryGetValue(component.GetType(), out var existing) && existing.Value == component;
         }
 
-        public TComponent GetComponent<TComponent>() where TComponent : API.IComponent
+        public TComponent GetComponent<TComponent>() where TComponent : IComponent
         {
             return (TComponent)GetComponent(typeof(TComponent));
         }
 
-        public API.IComponent GetComponent(Type componentType)
+        public IComponent GetComponent(Type componentType)
         {
 			var components = _components;
             if (components == null) return default;
@@ -188,7 +185,7 @@ namespace AGS.Engine
             return component.Value;
         }
 
-        public API.IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : API.IComponent
+        public IComponentBinding Bind<TComponent>(Action<TComponent> onAdded, Action<TComponent> onRemoved) where TComponent : IComponent
         {
             var bindings = _bindings;
             if (bindings == null) return null; //Entity was already disposed -> not binding
@@ -209,7 +206,7 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -217,7 +214,7 @@ namespace AGS.Engine
 
         #region IEnumerable implementation
 
-        public IEnumerator<API.IComponent> GetEnumerator()
+        public IEnumerator<IComponent> GetEnumerator()
         {
 			var components = _components;
             if (components == null)
@@ -241,7 +238,7 @@ namespace AGS.Engine
         IEnumerator IEnumerable.GetEnumerator()
         {
 			var components = _components;
-            if (components == null) return new List<API.IComponent>().GetEnumerator();
+            if (components == null) return new List<IComponent>().GetEnumerator();
             return ((IEnumerable)components.Values).GetEnumerator();
         }
 
@@ -253,16 +250,16 @@ namespace AGS.Engine
 
         #endregion
 
-        private void initComponentIfNeeded(API.IComponent component, Type componentType)
+        private void initComponentIfNeeded(IComponent component, Type componentType)
         {
             if (!ComponentsInitialized) return;
             component.Init(this, componentType);
             component.AfterInit();
-            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<API.IComponent>(ListChangeType.Add,
-                                                          new AGSListItem<API.IComponent>(component, Count)));
+            OnComponentsChanged.Invoke(new AGSListChangedEventArgs<IComponent>(ListChangeType.Add,
+                                                          new AGSListItem<IComponent>(component, Count)));
         }
 
-        private void dispose(bool disposing)
+        private void dispose()
         {
             _ids.Remove(ID);
             var bindings = _bindings;

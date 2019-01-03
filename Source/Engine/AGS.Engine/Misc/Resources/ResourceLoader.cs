@@ -21,7 +21,7 @@ namespace AGS.Engine
 
 		public IResource LoadResource(string path)
 		{
-            Debug.WriteLine("Loading resource from " + path ?? "null");
+            Debug.WriteLine("Loading resource from " + (path ?? "null"));
 			if (shouldIgnoreFile(path)) return null;
             foreach (var pack in _sortedResourcePacks)
             {
@@ -60,7 +60,7 @@ namespace AGS.Engine
             foreach (var pack in _sortedResourcePacks)
             {
                 var resources = pack.LoadResources(folder);
-                if ((resources?.Count ?? 0) > 0) return resources.OrderBy(r => r.ID).ToList();
+                if (resources != null && resources.Count > 0) return resources.OrderBy(r => r.ID).ToList();
             }
             return _emptyResources;
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -353,19 +354,19 @@ namespace {namespaceName}
                 case null:
                     return "null";
                 case float f:
-                    return $"{f.ToString()}f";
+                    return $"{f.ToString(CultureInfo.InvariantCulture)}f";
                 case double d1: //todo: currently we treat doubles as floats (using f suffix instead of d suffix): this is because json.net always deserializes as doubles and we use floats everywhere, so our floats are coming back as doubles. Waiting for this: https://github.com/JamesNK/Newtonsoft.Json/issues/1872
-                    return $"{d1.ToString()}f";
+                    return $"{d1.ToString(CultureInfo.InvariantCulture)}f";
                 case decimal d2:
-                    return $"{d2.ToString()}m";
-                case byte v1:
-                case int v2:
-                case uint v3:
-                case long v4:
-                case ulong v5:
-                case sbyte v6:
-                case short v7:
-                case ushort v8:
+                    return $"{d2.ToString(CultureInfo.InvariantCulture)}m";
+                case byte _:
+                case int _:
+                case uint _:
+                case long _:
+                case ulong _:
+                case sbyte _:
+                case short _:
+                case ushort _:
                     return val.ToString();
                 case string s:
                     return $"{'"'}{s}{'"'}";
@@ -493,7 +494,8 @@ namespace {namespaceName}
                     bestMatchFactory = factory.getPrefix;
                 }
             }
-            var values = bestMatchParams.Select(p => getValueString(p));
+            Trace.Assert(bestMatchParams != null, "bestMatchParams is null");
+            var values = bestMatchParams.Select(getValueString);
             return $"{bestMatchFactory()}({string.Join(", ", values)})";
         }
 

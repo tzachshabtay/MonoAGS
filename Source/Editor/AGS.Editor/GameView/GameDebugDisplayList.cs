@@ -14,14 +14,13 @@ namespace AGS.Editor
         private ITextBox _searchBox;
         private IStackLayoutComponent _layout;
         private readonly IRenderLayer _layer;
-        private readonly IGame _game, _editor;
+        private readonly IGame _editor;
 
         const float _gutterSize = 15f;
         const float _padding = 42f;
 
         public GameDebugDisplayList(IGame editor, IGame game, IRenderLayer layer)
         {
-            _game = game;
             _editor = editor;
             _layer = layer;
             game.RenderPipeline.OnBeforeProcessingDisplayList.Subscribe(onBeforeProcessingDisplayList);
