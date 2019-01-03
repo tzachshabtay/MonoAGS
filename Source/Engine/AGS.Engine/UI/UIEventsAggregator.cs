@@ -146,7 +146,10 @@ namespace AGS.Engine
                     subscriber.FireMouseEnter = mouseIn && !subscriber.Events.IsMouseIn;
                     subscriber.FireMouseLeave = !mouseIn && subscriber.Events.IsMouseIn;
                     subscriber.SetMouseIn(mouseIn);
-                    subscriber.WasClickedIn = mouseIn && anyButtonDown;
+                    if (anyButtonDown)
+                    {
+                        subscriber.WasClickedIn = mouseIn;
+                    }
                 }
 
                 _mousePosition = position;
