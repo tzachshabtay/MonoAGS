@@ -20,7 +20,8 @@ namespace AGS.Editor
             : this(obj, obj, parent, name, prop, displayName)
         {}
 
-        public InspectorProperty(IComponent component, object obj, IProperty parent, string name, PropertyInfo prop, string displayName = null)
+        public InspectorProperty(IComponent component, object obj, IProperty parent, string name, 
+            PropertyInfo prop, string displayName = null, bool forceReadonly = false)
         {
 			Prop = prop;
 			Name = name;
@@ -29,7 +30,7 @@ namespace AGS.Editor
             Component = component;
             Parent = parent;
 			Children = new List<IProperty>();
-            IsReadonly = prop.SetMethod == null || !prop.SetMethod.IsPublic;
+            IsReadonly = forceReadonly || prop.SetMethod == null || !prop.SetMethod.IsPublic;
             Refresh();
 		}
 

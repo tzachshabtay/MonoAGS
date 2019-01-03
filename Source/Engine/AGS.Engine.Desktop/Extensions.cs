@@ -21,17 +21,23 @@ namespace AGS.Engine.Desktop
 	{
         private static readonly ThreadLocal<Graphics> _graphics;
 
+        private static StringFormat _leftFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Near };
+        private static StringFormat _centerFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Center };
+        private static StringFormat _rightFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Far };
+
         private struct TextMeasureKey
         {
-            public TextMeasureKey(string text, Font font, int maxWidth)
+            public TextMeasureKey(string text, Font font, int maxWidth, API.Alignment alignment)
             {
                 Text = text;
                 Font = font;
                 MaxWidth = maxWidth;
+                Alignment = alignment;
             }
             public string Text;
             public Font Font;
             public int MaxWidth;
+            public API.Alignment Alignment;
         }
 
         private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements = 
@@ -68,17 +74,18 @@ namespace AGS.Engine.Desktop
 			bitmap.Clear(Color.White);
 		}
 
-        public static SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
+        public static System.Drawing.SizeF Measure(this string text, Font font, API.Alignment alignment, int maxWidth = int.MaxValue)
 		{
             try
             {
-                var key = new TextMeasureKey(text, font, maxWidth);
+                var key = new TextMeasureKey(text, font, maxWidth, alignment);
                 var size = _measurements.GetOrAdd(key,
                           k =>
                 {
+                    var format = alignment.GetFormat(maxWidth != int.MaxValue);
                     lock (DesktopBitmapTextDraw.GraphicsLocker)
                     {
-                        return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic);
+                        return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, format);
                     }
                 });
                 return size;
@@ -89,7 +96,29 @@ namespace AGS.Engine.Desktop
             }
 		}
 
-		public static Color Convert(this API.Color color)
+        public static StringFormat GetFormat(this API.Alignment alignment, bool wrap)
+        {
+            if (!wrap) return StringFormat.GenericTypographic;
+            switch (alignment)
+            {
+                case API.Alignment.BottomCenter:
+                case API.Alignment.MiddleCenter:
+                case API.Alignment.TopCenter:
+                    return _centerFormat;
+                case API.Alignment.BottomLeft:
+                case API.Alignment.MiddleLeft:
+                case API.Alignment.TopLeft:
+                    return _leftFormat;
+                case API.Alignment.BottomRight:
+                case API.Alignment.MiddleRight:
+                case API.Alignment.TopRight:
+                    return _rightFormat;
+                default:
+                    throw new NotSupportedException(alignment.ToString());
+            }
+        }
+
+		public static System.Drawing.Color Convert(this AGS.API.Color color)
 		{
 			return Color.FromArgb((int)color.Value);
 		}

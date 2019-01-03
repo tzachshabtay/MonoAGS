@@ -2,7 +2,8 @@
 
 namespace AGS.Engine
 {
-	public class AGSMessageBoxSettings : IMessageBoxSettings
+    [PropertyFolder]
+    public class AGSMessageBoxSettings : IMessageBoxSettings
     {
         public AGSMessageBoxSettings(IGame game)
         {
@@ -18,9 +19,11 @@ namespace AGS.Engine
         public float ButtonWidth { get; set; } = 60f;
         public float ButtonHeight { get; set; } = 30f;
 
+        public override string ToString() => "Message Box Settings";
+
         private ISayConfig getDefaultConfig(IGame game)
         {
-            AGSSayConfig config = new AGSSayConfig(game.Factory.Fonts, game.Settings.Defaults);
+            AGSSayConfig config = new AGSSayConfig(game);
             config.Border = game.Factory.Graphics.Borders.Gradient(new FourCorners<Color>(Colors.DarkOliveGreen,
                 Colors.LightGreen, Colors.LightGreen, Colors.DarkOliveGreen), 3f, true);
             config.TextConfig = game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.TopCenter

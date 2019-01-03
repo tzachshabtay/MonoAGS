@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using AGS.API;
 using GuiLabs.Undo;
 
@@ -83,6 +84,14 @@ namespace AGS.Editor
                 var oldDisplayName = entityModel.DisplayName;
                 entityModel.DisplayName = Value?.Value as string;
                 _undoModel = () => entity.DisplayName = oldDisplayName;
+            }
+            else if (Property.Object is IGameSettings settings)
+            {
+                PropertyInfo modelProperty = _model.Settings.GetType().GetProperty(Property.Name);
+                Trace.Assert(modelProperty != null);
+                var oldValue = modelProperty.GetValue(_model.Settings);
+                modelProperty.SetValue(_model.Settings, Property.Value.Value);
+                _undoModel = () => modelProperty.SetValue(_model.Settings, oldValue);
             }
             else
             {

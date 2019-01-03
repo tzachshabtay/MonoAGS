@@ -51,24 +51,13 @@ namespace AGS.API
         /// <example>
         /// <code language="lang-csharp">
         /// cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
-        /// cEgo.FaceDirection(Direction.Right); //character is facing right doing nothing (idle).
+        /// await cEgo.FaceDirectionAsync(Direction.Right); //character is facing right doing nothing (idle).
         /// cEgo.CurrentDirectionalAnimation = dancingAnimation;
-        /// cEgo.FaceDirection(Direction.Down); //character is now doing a dance right to our face!
+        /// awaut cEgo.FaceDirectionAsync(Direction.Down); //character is now doing a dance right to our face!
         /// </code>
         /// </example>
         IDirectionalAnimation CurrentDirectionalAnimation { get; set; }
 
-        /// <summary>
-        /// Changes the direction the character is facing to.
-        /// </summary>
-        /// <param name="direction">The direction to face.</param>
-        /// <example>
-        /// <code language="lang-csharp">
-        /// cEgo.FaceDirection(Direction.Up);
-        /// await cEgo.SayAsync("I'm standing with my back at you.");
-        /// </code>
-        /// </example>
-        void FaceDirection(Direction direction);
         /// <summary>
         /// Changes the direction the character is facing to asynchronously (without blocking the game).
         /// </summary>
@@ -94,17 +83,6 @@ namespace AGS.API
         Task FaceDirectionAsync(Direction direction);
 
         /// <summary>
-        /// Changes the direction the character is facing to, so it will face the specified object.
-        /// </summary>
-        /// <param name="obj">The object to face.</param>
-        /// <example>
-        /// <code language="lang-csharp">
-        /// cEgo.FaceDirection(oMirror);
-        /// await cEgo.SayAsync("Mirror mirror on the wall, I'm watching you!");
-        /// </code>
-        /// </example>
-        void FaceDirection(IObject obj);
-        /// <summary>
         /// Changes the direction the character is facing to asynchronously (without blocking the game), so it will face the specified object.
         /// </summary>
         /// <param name="obj">The object to face.</param>
@@ -113,7 +91,7 @@ namespace AGS.API
         /// <code language="lang-csharp">
         /// private async Task lookAtMirror()
         /// {
-        ///     await cEgo.FaceDirection(oMirror);
+        ///     await cEgo.FaceDirectionAsync(oMirror);
         /// }
         /// </code>
         /// <code language="lang-csharp">
@@ -129,17 +107,6 @@ namespace AGS.API
         Task FaceDirectionAsync(IObject obj);
 
         /// <summary>
-        /// Changes the direction the character is facing to, so it will face (x,y).
-        /// </summary>
-        /// <param name="x">The x position.</param>
-        /// <param name="y">The y position.</param>
-        /// <example>
-        /// <code language="lang-csharp">
-        /// cEgo.FaceDirection(100f,100f);
-        /// </code>
-        /// </example>
-        void FaceDirection(float x, float y);
-        /// <summary>
         /// Changes the direction the character is facing to asynchronously (without blocking the game), so it will face (x,y).
         /// </summary>
         /// <param name="x">The x position.</param>
@@ -149,30 +116,12 @@ namespace AGS.API
         /// <code language="lang-csharp">
         /// private async Task face100100()
         /// {
-        ///     await cEgo.FaceDirection(100f,100f);
+        ///     await cEgo.FaceDirectionAsync(100f,100f);
         /// }
         /// </code>
         /// </example>
         Task FaceDirectionAsync(float x, float y);
 
-        /// <summary>
-        /// Changes the direction the character is facing to, so it will face (toX,toY), assuming it is currently facing (fromX,fromY).
-        /// </summary>
-        /// <param name="fromX">From x.</param>
-        /// <param name="fromY">From y.</param>
-        /// <param name="toX">To x.</param>
-        /// <param name="toY">To y.</param>
-        /// <example>
-        /// <code language="lang-csharp">
-        /// await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
-        /// cGeneral.FaceDirection(150f, 150f);
-        /// foreach (var soldier in soldiers)
-        /// {
-        ///     soldier.FaceDirection(cGeneral.X, cGeneral.Y, 150f, 150f);
-        /// }
-        /// </code>
-        /// </example>
-        void FaceDirection(float fromX, float fromY, float toX, float toY);
         /// <summary>
         /// Changes the direction the character is facing to asynchronously (without blocking the game), so it will face (toX,toY), assuming it is currently facing (fromX,fromY).
         /// </summary>
@@ -185,7 +134,7 @@ namespace AGS.API
         /// private async Task armyLookOneByOne()
         /// {
         ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
-        ///     cGeneral.FaceDirection(150f, 150f);
+        ///     await cGeneral.FaceDirectionAsync(150f, 150f);
         ///     foreach (var soldier in soldiers)
         ///     {
         ///         await soldier.FaceDirectionAsync(cGeneral.X, cGeneral.Y, 150f, 150f); //Awaiting each soldier before going over to the next, meaning the will change directions one by one.
@@ -197,7 +146,7 @@ namespace AGS.API
         /// private async Task armyLookAtTheSameTime()
         /// {
         ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
-        ///     cGeneral.FaceDirection(150f, 150f);
+        ///     await cGeneral.FaceDirectionAsync(150f, 150f);
         ///     List{Task} tasks = new List{Task}(soldiers.Count);
         ///     foreach (var soldier in soldiers)
         ///     {
@@ -211,7 +160,7 @@ namespace AGS.API
         /// private async Task armyLookAtRandomTimes()
         /// {
         ///     await cGeneral.SayAsync("Everybody, look at the way I'm looking.");
-        ///     cGeneral.FaceDirection(150f, 150f);
+        ///     await cGeneral.FaceDirectionAsync(150f, 150f);
         ///     List{Task} tasks = new List{Task}(soldiers.Count);
         ///     foreach (var soldier in soldiers)
         ///     {
@@ -225,4 +174,3 @@ namespace AGS.API
 		Task FaceDirectionAsync(float fromX, float fromY, float toX, float toY);
 	}
 }
-

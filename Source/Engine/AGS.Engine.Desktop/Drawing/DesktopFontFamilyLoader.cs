@@ -123,7 +123,7 @@ namespace AGS.Engine.Desktop
                 File.WriteAllBytes(path, buffer);
                 _refreshFontCache = () => {
                     Debug.WriteLine("Refreshing font cache");
-                    ProcessStartInfo info = new ProcessStartInfo("fc-cache", "-f -v") { UseShellExecute = false };
+                    ProcessStartInfo info = new ProcessStartInfo("fc-cache", $"-f -v {LINUX_FONT_LIBRARY}") { UseShellExecute = false };
                     var process = Process.Start(info);
                     Trace.Assert(process != null);
                     process.WaitForExit();

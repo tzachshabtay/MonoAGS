@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace AGS.API
 {
 	public static class MathUtils
 	{
-		private static ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
+		private static readonly ThreadLocal<Random> _random = new ThreadLocal<Random>(() => new Random());
 
         /// <summary>
         /// Performs a linear interpolation between values (https://en.wikipedia.org/wiki/Linear_interpolation).
@@ -19,6 +20,7 @@ namespace AGS.API
 		public static float Lerp(float x1, float y1, float x2, float y2, float targetX)
 		{
 			float targetY = ((targetX - x1) * (y2 - y1) / (x2 - x1)) + y1;
+            Trace.Assert(!float.IsNaN(targetY), $"Can't lerp when x1 ({x1}) is equal to x2 ({x2})");
 			return targetY;
 		}
 
@@ -119,8 +121,16 @@ namespace AGS.API
         /// <param name="y">The y coordinate.</param>
         public static unsafe bool FloatEquals(float x, float y)
         {
+            if (float.IsNaN(x) && float.IsNaN(y)) return true;
             return Math.Abs(x - y) < 0.0001f;
         }
+
+	    /// <summary>
+	    /// Returns the distance between 2 points.
+	    /// </summary>
+	    /// <param name="p1">First point</param>
+	    /// <param name="p2">Second point</param>
+	    /// <returns>The distance between the points</returns>
+	    public static float Distance(PointF p1, PointF p2) => (float)Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
 	}
 }
-

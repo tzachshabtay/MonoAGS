@@ -199,7 +199,6 @@ namespace AGS.Engine
             }
             var crop = _crop;
 
-            _isCropDirty = false;
             _areViewportsDirty = false;
             viewportBoxes.IsDirty = false;
 
@@ -264,6 +263,7 @@ namespace AGS.Engine
                 hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, hitTestCropScale).BoundingBox;
                 boundingBoxes.WorldBox = hitTestBox;
             }
+            _isCropDirty = false;
 
             return boundingBoxes;
 		}

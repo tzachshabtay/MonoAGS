@@ -10,22 +10,37 @@ namespace AGS.Engine
 	{
 		private readonly IGame _game;
         private int _handlingClick;
-        private IObject _inventoryCursor;
-        private IObject _previousCursor;
+        private IObject _inventoryCursor, _defaultCursor;
 
-        public TwoButtonsInputScheme (IGame game)
+        public TwoButtonsInputScheme (IGame game, IObject defaultCursor = null)
 		{
             Trace.Assert(game != null, "Please pass in a valid game argument");
             this._game = game;
+            _defaultCursor = defaultCursor ?? game.State.Cursor;
 		}
+
+        public IObject DefaultCursor { get => _defaultCursor; set { _defaultCursor = value; _game.State.Cursor = value; } }
 
 		public void Start()
 		{
             Trace.Assert(_game.Input != null, "Game input passed as argument is null, please make sure to only start the control scheme after the game is loaded (for example, in the game's OnLoad event");
+            if (DefaultCursor != null) _game.State.Cursor = DefaultCursor;
             _game.Input.MouseDown.SubscribeToAsync(onMouseDown);
 		}
-			
-		private async Task onMouseDown(MouseButtonEventArgs e)
+
+        /// <summary>
+        /// Sets the cursor to the active inventory item.
+        /// </summary>
+        /// <param name="inventoryItem">Inventory item (optional, if not set we'll use the active inventory item of the player).</param>
+        public void SetInventoryCursor(IInventoryItem inventoryItem = null)
+        {
+            var state = _game.State;
+            inventoryItem = inventoryItem ?? state.Player.Inventory.ActiveItem;
+            _inventoryCursor = inventoryItem?.CursorGraphics ?? inventoryItem?.Graphics;
+            state.Cursor = _inventoryCursor ?? DefaultCursor;
+        }
+
+        private async Task onMouseDown(MouseButtonEventArgs e)
 		{
             if (Interlocked.CompareExchange(ref _handlingClick, 1, 0) != 0) return;
             try
@@ -75,9 +90,7 @@ namespace AGS.Engine
                         if (!inventoryItem.ShouldInteract)
                         {
                             state.Player.Inventory.ActiveItem = inventoryItem;
-                            _inventoryCursor = inventoryItem.CursorGraphics ?? inventoryItem.Graphics;
-                            _previousCursor = state.Cursor;
-                            state.Cursor = _inventoryCursor;
+                            SetInventoryCursor();
                             return;
                         }
                     }
@@ -87,6 +100,7 @@ namespace AGS.Engine
 
                 if (hotComp == null) return;
 
+                await state.Player.StopWalkingAsync();
                 await hotComp.Interactions.OnInteract(AGSInteractions.INTERACT).InvokeAsync(new ObjectEventArgs(hotspot));
             }
             else if (hotComp != null)
@@ -98,11 +112,13 @@ namespace AGS.Engine
                     if (inventoryItem != null)
                     {
                         var activeItem = state.Player.Inventory.ActiveItem;
+                        await state.Player.StopWalkingAsync();
                         await activeItem.OnCombination(inventoryItem).InvokeAsync(new InventoryCombinationEventArgs(activeItem, inventoryItem));
                     }
                     return;
                 }
 
+                await state.Player.StopWalkingAsync();
                 await hotComp.Interactions.OnInventoryInteract(AGSInteractions.INTERACT).InvokeAsync(new InventoryInteractEventArgs(hotspot,
                     state.Player.Inventory.ActiveItem));
             }
@@ -112,7 +128,7 @@ namespace AGS.Engine
         {
             if (state.Cursor == _inventoryCursor && _inventoryCursor != null)
             {
-                state.Cursor = _previousCursor;
+                state.Cursor = DefaultCursor;
                 state.Player.Inventory.ActiveItem = null;
                 return;
             }
@@ -124,6 +140,7 @@ namespace AGS.Engine
 
             if (hotComp == null) return;
 
+            await state.Player.StopWalkingAsync();
             await hotComp.Interactions.OnInteract(AGSInteractions.LOOK).InvokeAsync(new ObjectEventArgs(hotspot));
         }
     }

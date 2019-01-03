@@ -6,17 +6,17 @@ namespace AGS.Engine
     [PropertyFolder]
 	public class AGSSayConfig : ISayConfig
 	{ 
-        public AGSSayConfig(IFontFactory fonts, IDefaultsSettings defaults)
+        public AGSSayConfig(IGame game)
 		{
             //todo: should the factory provide speech config?
-            if (fonts != null)
+            if (game != null)
             {
-                TextConfig = fonts.GetTextConfig(font: defaults.SpeechFont,
-                  autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+                TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.SpeechFont,
+                                                              autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomCenter);
+                LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (7f/10f), game.Settings.VirtualResolution.Height);
             }
 			TextDelay = 70;
-			LabelSize = new SizeF (250f, 200f);
-			SkipText = SkipText.ByTimeAndMouse;
+            SkipText = SkipText.ByTimeAndMouse;
 			BackgroundColor = Colors.Transparent;
 		}
 
@@ -26,7 +26,7 @@ namespace AGS.Engine
 
         public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
 		{
-			AGSSayConfig sayConfig = new AGSSayConfig(null, null);
+			AGSSayConfig sayConfig = new AGSSayConfig(null);
             sayConfig.TextConfig = config.TextConfig;
             sayConfig.TextConfig.PaddingBottom += paddingBottomOffset;
 			sayConfig.TextDelay = config.TextDelay;

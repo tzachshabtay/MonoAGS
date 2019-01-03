@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using AGS.API;
+using AGS.Engine;
 
 namespace AGS.Editor
 {
@@ -13,6 +14,7 @@ namespace AGS.Editor
             Entities = new Dictionary<string, EntityModel>(500);
             Rooms = new List<RoomModel>(20);
             Guis = new HashSet<string>();
+            Settings = new AGSGameSettings("Game Title", new Size(1280, 800));
         }
 
         public Dictionary<string, EntityModel> Entities { get; }
@@ -21,26 +23,32 @@ namespace AGS.Editor
 
         public HashSet<string> Guis { get; }
 
+        public IGameSettings Settings { get; private set; }
+
         public void Load(IEditorPlatform platform, IGame game, string basePath)
         {
             loadGuis(platform, game, getGuisFolder(basePath));
             loadRooms(platform, game, getRoomsFolder(basePath));
+            loadGameSettings(platform, game, getSettingsPath(basePath));
         }
 
         public void GenerateCode(string basePath, ICodeGenerator codeGenerator)
         {
             generateGuiCode(getGuisFolder(basePath), codeGenerator);
             generateRoomsCode(getRoomsFolder(basePath), codeGenerator);
+            //todo: generate settings code
         }
 
         public void Save(IEditorPlatform platform, IGame game, string basePath)
         {
             saveGuis(platform, game, getGuisFolder(basePath));
             saveRooms(platform, game, getRoomsFolder(basePath));
+            saveGameSettings(platform, game, getSettingsPath(basePath));
         }
 
         private string getGuisFolder(string basePath) => Path.Combine(basePath, "GUIs");
         private string getRoomsFolder(string basePath) => Path.Combine(basePath, "Rooms");
+        private string getSettingsPath(string basePath) => Path.Combine(basePath, "game settings.json");
 
         private void generateGuiCode(string basePath, ICodeGenerator codeGenerator)
         {
@@ -160,6 +168,18 @@ namespace AGS.Editor
                         room.Entities.Add(entity.ID);
                 }
             }
+        }
+
+        private void saveGameSettings(IEditorPlatform platform, IGame game, string path)
+        {
+            AGSProject.SaveJson(platform, game, path, Settings);
+        }
+
+        private void loadGameSettings(IEditorPlatform platform, IGame game, string path)
+        {
+            if (!File.Exists(path)) return;
+            Settings = AGSProject.LoadJson<AGSGameSettings>(platform, game, path);
+            game.Settings.LoadFrom(Settings);
         }
     }
 }

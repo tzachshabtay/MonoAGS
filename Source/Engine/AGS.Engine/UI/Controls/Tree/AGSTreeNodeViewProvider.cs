@@ -29,9 +29,10 @@ namespace AGS.Engine
             var expandButton = nodeView.ExpandButton;
             if (expandButton != null)
             {
-                expandButton.TextConfig = textConfig;
+                var expandTextConfig = textConfig;
+                if (item.TreeNode.ChildrenCount == 0) expandTextConfig = AGSTextConfig.ChangeColor(textConfig, textConfig.Brush.Color.WithAlpha(0), textConfig.OutlineBrush.Color, textConfig.OutlineWidth);
+                expandButton.TextConfig = expandTextConfig;
                 expandButton.Text = isCollapsed ? "+" : "-";
-                expandButton.TextVisible = item.TreeNode.ChildrenCount > 0;
                 expandButton.Enabled = expandButton.TextVisible;
             }
         }

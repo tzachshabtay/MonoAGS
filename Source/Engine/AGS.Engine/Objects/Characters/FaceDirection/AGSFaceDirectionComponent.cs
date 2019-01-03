@@ -21,11 +21,6 @@ namespace AGS.Engine
 		public Direction Direction { get; private set; }
 		public IDirectionalAnimation CurrentDirectionalAnimation { get; set; }
 
-		public void FaceDirection(Direction direction)
-		{
-			Task.Run(async () => await FaceDirectionAsync(direction));
-		}
-
 		public async Task FaceDirectionAsync(Direction direction)
 		{
 			Direction = direction;
@@ -63,23 +58,10 @@ namespace AGS.Engine
 			}
 		}
 			
-		public void FaceDirection(IObject obj)
-		{
-            PointF? point = obj.CenterPoint ?? obj.Position.XY;
-			FaceDirection(point.Value.X, point.Value.Y);
-		}
-
 		public async Task FaceDirectionAsync(IObject obj)
 		{
             PointF? point = obj.CenterPoint ?? obj.Position.XY;
 			await FaceDirectionAsync(point.Value.X, point.Value.Y);
-		}
-
-		public void FaceDirection(float x, float y)
-		{
-            var translate = _translate;
-            if (translate == null) return;
-			FaceDirection(translate.X, translate.Y, x, y);
 		}
 
 		public async Task FaceDirectionAsync(float x, float y)
@@ -87,11 +69,6 @@ namespace AGS.Engine
 			var translate = _translate;
 			if (translate == null) return;
 			await FaceDirectionAsync(translate.X, translate.Y, x, y);
-		}
-
-		public void FaceDirection(float fromX, float fromY, float toX, float toY)
-		{
-			Task.Run(async () => await FaceDirectionAsync(fromX, fromY, toX, toY)).Wait();
 		}
 
 		public async Task FaceDirectionAsync(float fromX, float fromY, float toX, float toY)
