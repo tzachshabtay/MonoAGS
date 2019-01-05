@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface IFaceDirectionComponent
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.40.6.0">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -122,10 +122,10 @@ public interface IFaceDirectionComponent : IComponent, IDisposable, INotifyPrope
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L59">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L59">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation_" data-uid="AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation" data-uid="AGS.API.IFaceDirectionComponent.CurrentDirectionalAnimation">CurrentDirectionalAnimation</h4>
@@ -153,17 +153,17 @@ public interface IFaceDirectionComponent : IComponent, IDisposable, INotifyPrope
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_CurrentDirectionalAnimation_examples">Examples</h5>
-  <pre><code class="lang-csharp">cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
+  <pre><code class="lang-lang-csharp">cEgo.CurrentDirectionalAnimation = cEgo.Outfit.IdleAnimation;
 await cEgo.FaceDirectionAsync(Direction.Right); //character is facing right doing nothing (idle).
 cEgo.CurrentDirectionalAnimation = dancingAnimation;
 awaut cEgo.FaceDirectionAsync(Direction.Down); //character is now doing a dance right to our face!</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_Direction.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.Direction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_Direction.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.Direction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L44">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L44">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_Direction_" data-uid="AGS.API.IFaceDirectionComponent.Direction*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_Direction" data-uid="AGS.API.IFaceDirectionComponent.Direction">Direction</h4>
@@ -193,7 +193,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_Direction_examples">Examples</h5>
-  <pre><code class="lang-csharp">if (cEgo.Direction == Direction.Down)
+  <pre><code class="lang-lang-csharp">if (cEgo.Direction == Direction.Down)
 {
     await cEgo.SayAsync(&quot;I&apos;m looking right at you!&quot;);
 }</code></pre>
@@ -202,10 +202,10 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L83">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L83">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.Direction)">FaceDirectionAsync(Direction)</h4>
@@ -251,11 +251,11 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_Direction__examples">Examples</h5>
-  <pre><code class="lang-csharp">private async Task faceDown()
+  <pre><code class="lang-lang-csharp">private async Task faceDown()
 {
     await cEgo.FaceDirectionAsync(Direction.Down);
 }</code></pre>
-<pre><code class="lang-csharp">private async Task faceDownAndDoStuffInBetween()
+<pre><code class="lang-lang-csharp">private async Task faceDownAndDoStuffInBetween()
 {
     Task faceDirectionCompleted = cEgo.FaceDirectionAsync(Direction.Down);
     await cSomeOtherDude.SayAsync(&quot;Let me know when you finished turning around..&quot;);
@@ -265,10 +265,10 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L107">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L107">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync(AGS.API.IObject)">FaceDirectionAsync(IObject)</h4>
@@ -314,11 +314,11 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_AGS_API_IObject__examples">Examples</h5>
-  <pre><code class="lang-csharp">private async Task lookAtMirror()
+  <pre><code class="lang-lang-csharp">private async Task lookAtMirror()
 {
     await cEgo.FaceDirectionAsync(oMirror);
 }</code></pre>
-<pre><code class="lang-csharp">private async Task lookAtMirrorAndDoStuffInBetween()
+<pre><code class="lang-lang-csharp">private async Task lookAtMirrorAndDoStuffInBetween()
 {
     Task faceMirrorCompleted = cEgo.FaceDirectionAsync(oMirror);
     await cSomeOtherDude.SayAsync(&quot;Let me know when you see the mirror.&quot;);
@@ -328,10 +328,10 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L123">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L123">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single)">FaceDirectionAsync(Single, Single)</h4>
@@ -383,17 +383,17 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single__examples">Examples</h5>
-  <pre><code class="lang-csharp">private async Task face100100()
+  <pre><code class="lang-lang-csharp">private async Task face100100()
 {
     await cEgo.FaceDirectionAsync(100f,100f);
 }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L174">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L174">View Source</a>
   </span>
   <a id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync*"></a>
   <h4 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single_" data-uid="AGS.API.IFaceDirectionComponent.FaceDirectionAsync(System.Single,System.Single,System.Single,System.Single)">FaceDirectionAsync(Single, Single, Single, Single)</h4>
@@ -456,7 +456,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     </tbody>
   </table>
   <h5 id="AGS_API_IFaceDirectionComponent_FaceDirectionAsync_System_Single_System_Single_System_Single_System_Single__examples">Examples</h5>
-  <pre><code class="lang-csharp">private async Task armyLookOneByOne()
+  <pre><code class="lang-lang-csharp">private async Task armyLookOneByOne()
 {
     await cGeneral.SayAsync(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     await cGeneral.FaceDirectionAsync(150f, 150f);
@@ -466,7 +466,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     }    
     await cGeneral.SayAsync(&quot;Took you long enough!&quot;);    
 }</code></pre>
-<pre><code class="lang-csharp">private async Task armyLookAtTheSameTime()
+<pre><code class="lang-lang-csharp">private async Task armyLookAtTheSameTime()
 {
     await cGeneral.SayAsync(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     await cGeneral.FaceDirectionAsync(150f, 150f);
@@ -478,7 +478,7 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
     await Task.WhenAll(tasks);
     await cGeneral.SayAsync(&quot;Took you long enough!&quot;);
 }</code></pre>
-<pre><code class="lang-csharp">private async Task armyLookAtRandomTimes()
+<pre><code class="lang-lang-csharp">private async Task armyLookAtRandomTimes()
 {
     await cGeneral.SayAsync(&quot;Everybody, look at the way I&apos;m looking.&quot;);
     await cGeneral.FaceDirectionAsync(150f, 150f);
@@ -503,10 +503,10 @@ Up -&gt; The character&apos;s back is facing the camera.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/new/master/apiSpec/new?filename=AGS_API_IFaceDirectionComponent.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_IFaceDirectionComponent.md&amp;value=---%0Auid%3A%20AGS.API.IFaceDirectionComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/master/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L24" class="contribution-link">View Source</a>
+                    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/Objects/Characters/FaceDirection/IFaceDirectionComponent.cs/#L24" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

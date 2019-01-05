@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.40.6.0">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -814,7 +814,7 @@ UI layer is next, to ensure that it can always be seen (unless obstructed by tex
 This is followed by the Foreground layer, which is the default for all non UI objects.
 And lastly the Background layer, which is the default for the room&apos;s background graphics.
 You can assign those layers yourself, using AGSLayers static class:<br><example><p>
-<pre><code class="lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
+<pre><code class="lang-lang-csharp">cEgo.RenderLayer = AGSLayers.UI; //The player is now on the UI layer!</code></pre>
 <p></example></p>
 </section>
       <h4><a class="xref" href="AGS.API.IRenderPipeline.html">IRenderPipeline</a></h4>
@@ -916,7 +916,7 @@ when transitioning from room to room.</p>
 If added as a component to an entity, the saturation property will control the entity&apos;s saturation.
 If created separately (and initialized with a null entity), this can be use to control the saturation of the entire screen.
 <example><p>
-<pre><code class="lang-csharp">//to adjust saturation for an object:
+<pre><code class="lang-lang-csharp">//to adjust saturation for an object:
 myObj.AddComponent&lt;ISaturationEffectComponent>().Saturation = 0.5f;
 
 //to adjust saturation for the screen:
@@ -1257,7 +1257,7 @@ High priority subscribers will receive the event before normal priority (the def
       <h4><a class="xref" href="AGS.API.ClaimableCallback.html">ClaimableCallback</a></h4>
       <section><p>This allows you to subscribe to an event with the option of claiming the event, so that other subscribers in the list will not receive the event.</p>
 <example>
-<pre><code class="lang-csharp">myEvent.Subscribe(onEvent1);
+<pre><code class="lang-lang-csharp">myEvent.Subscribe(onEvent1);
 myEvent.Subscribe(onEvent2);
 
 void onEvent1(ref ClaimEventToken token)
