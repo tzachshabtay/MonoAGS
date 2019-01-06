@@ -194,7 +194,7 @@ namespace AGS.Engine
             if (root != null)
             {
                 float minY = 0f;
-                root.ResetOffsets(0f, 0f, 0f, HorizontalSpacing, -VerticalSpacing, ref minY);
+                root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing, ref minY);
                 if (_scrolling != null)
                 {
                     _scrolling.ContentsHeight = Math.Abs(minY) + VerticalSpacing;
@@ -461,10 +461,10 @@ namespace AGS.Engine
                 }
             }
 
-            public float ResetOffsets(float xOffset, float yOffset, float overallYOffset, float spacingX, float spacingY, ref float minY)
+            public float ResetOffsets(float yOffset, float overallYOffset, float spacingX, float spacingY, ref float minY)
             {
                 bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
-                xOffset += skipRoot ? 0f : spacingX;
+                float xOffset = skipRoot ? 0f : spacingX;
                 OverallYOffset = overallYOffset;
                 if (overallYOffset < minY)
                 {
@@ -480,7 +480,7 @@ namespace AGS.Engine
                 var childYOffset = skipRoot ? 0f : spacingY;
                 foreach (var child in Children)
                 {
-                    childYOffset = child.ResetOffsets(xOffset, childYOffset, overallYOffset + childYOffset, spacingX, spacingY, ref minY);
+                    childYOffset = child.ResetOffsets(childYOffset, overallYOffset + childYOffset, spacingX, spacingY, ref minY);
                 }
 
                 if (!Visible) return yOffset;
