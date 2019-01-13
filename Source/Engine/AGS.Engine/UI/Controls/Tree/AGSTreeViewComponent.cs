@@ -408,6 +408,7 @@ namespace AGS.Engine
                 view.TreeItem.MouseEnter.Unsubscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Unsubscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Unsubscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
@@ -576,6 +577,7 @@ namespace AGS.Engine
                 view.TreeItem.MouseEnter.Subscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Subscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Subscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Subscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {

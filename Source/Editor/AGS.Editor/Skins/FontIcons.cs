@@ -60,5 +60,8 @@ namespace AGS.Editor
 
         public const string RadioUnchecked = "\uf111";
         public const string RadioChecked = "\uf192";
+
+        public const string Folder = "\uf07b";
+        public const string FolderOpen = "\uf07c";
     }
 }

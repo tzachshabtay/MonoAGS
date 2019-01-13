@@ -37,5 +37,11 @@
         /// </summary>
         /// <value>The horizontal panel.</value>
         IPanel HorizontalPanel { get; }
+
+        /// <summary>
+        /// An event that can be triggered to notify the tree view that this node needs to be re-rendered on screen.
+        /// </summary>
+        /// <value>The on refresh display needed event.</value>
+        IBlockingEvent OnRefreshDisplayNeeded { get; }
     }
 }
