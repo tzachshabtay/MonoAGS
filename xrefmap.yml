@@ -16253,6 +16253,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.ITreeNodeView.HorizontalPanel
   nameWithType: ITreeNodeView.HorizontalPanel
+- uid: AGS.API.ITreeNodeView.OnRefreshDisplayNeeded
+  name: OnRefreshDisplayNeeded
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_OnRefreshDisplayNeeded
+  commentId: P:AGS.API.ITreeNodeView.OnRefreshDisplayNeeded
+  fullName: AGS.API.ITreeNodeView.OnRefreshDisplayNeeded
+  nameWithType: ITreeNodeView.OnRefreshDisplayNeeded
+- uid: AGS.API.ITreeNodeView.OnRefreshDisplayNeeded*
+  name: OnRefreshDisplayNeeded
+  href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_OnRefreshDisplayNeeded_
+  commentId: Overload:AGS.API.ITreeNodeView.OnRefreshDisplayNeeded
+  isSpec: "True"
+  fullName: AGS.API.ITreeNodeView.OnRefreshDisplayNeeded
+  nameWithType: ITreeNodeView.OnRefreshDisplayNeeded
 - uid: AGS.API.ITreeNodeView.ParentPanel
   name: ParentPanel
   href: api/AGS.API.ITreeNodeView.html#AGS_API_ITreeNodeView_ParentPanel
