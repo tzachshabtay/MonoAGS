@@ -28,6 +28,14 @@ namespace AGS.Engine
             else child.TreeNode.SetParent(this);
 		}
 
+        public void InsertChild(int index, TItem child)
+        {
+            if (HasChild(child))
+                throw new InvalidOperationException($"Can't insert child at index {index}, child is already in the collection");
+            _children.Insert(index, child);
+            ((AGSTreeNode<TItem>)child.TreeNode).setParentOneWay(this);
+        }
+
         public void AddChildren(List<TItem> children)
         {
             foreach (var child in children)

@@ -388,6 +388,7 @@ namespace AGS.Engine
                 get => _isCollapsed;
                 set
                 {
+                    if (_isCollapsed == value) return;
                     _isCollapsed = value;
                     updateVisibilityWithChildren();
                     _tree.RefreshLayout();
