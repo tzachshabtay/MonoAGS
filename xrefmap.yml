@@ -16117,6 +16117,23 @@ references:
   fullName.vb: AGS.API.ITreeNode(Of TItem).HasChild
   nameWithType: ITreeNode<TItem>.HasChild
   nameWithType.vb: ITreeNode(Of TItem).HasChild
+- uid: AGS.API.ITreeNode`1.InsertChild(System.Int32,`0)
+  name: InsertChild(Int32, TItem)
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_InsertChild_System_Int32__0_
+  commentId: M:AGS.API.ITreeNode`1.InsertChild(System.Int32,`0)
+  fullName: AGS.API.ITreeNode<TItem>.InsertChild(System.Int32, TItem)
+  fullName.vb: AGS.API.ITreeNode(Of TItem).InsertChild(System.Int32, TItem)
+  nameWithType: ITreeNode<TItem>.InsertChild(Int32, TItem)
+  nameWithType.vb: ITreeNode(Of TItem).InsertChild(Int32, TItem)
+- uid: AGS.API.ITreeNode`1.InsertChild*
+  name: InsertChild
+  href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_InsertChild_
+  commentId: Overload:AGS.API.ITreeNode`1.InsertChild
+  isSpec: "True"
+  fullName: AGS.API.ITreeNode<TItem>.InsertChild
+  fullName.vb: AGS.API.ITreeNode(Of TItem).InsertChild
+  nameWithType: ITreeNode<TItem>.InsertChild
+  nameWithType.vb: ITreeNode(Of TItem).InsertChild
 - uid: AGS.API.ITreeNode`1.Node
   name: Node
   href: api/AGS.API.ITreeNode-1.html#AGS_API_ITreeNode_1_Node
