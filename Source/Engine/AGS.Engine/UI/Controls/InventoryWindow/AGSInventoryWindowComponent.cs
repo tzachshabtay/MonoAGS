@@ -9,13 +9,14 @@ namespace AGS.Engine
 	{
 		private IList<IObject> _inventoryItems;
 		private volatile bool _refreshNeeded;
-		private SizeF _itemSize;
+		private SizeF _itemSize, _paddingBetweenItems;
         private IInventory _inventory;
 		private int _topItem;
 		private IGameState _state;
 		private IGameEvents _gameEvents;
 		private IScale _scale;
 		private IInObjectTreeComponent _tree;
+        private float _paddingLeft, _paddingRight, _paddingTop, _paddingBottom;
 
 		public AGSInventoryWindowComponent(IGameState state, IGameEvents gameEvents)
 		{
@@ -80,9 +81,59 @@ namespace AGS.Engine
 			}
 		}
 
-        public int ItemsPerRow => (int)(_scale.Width / ItemSize.Width);
+        public int ItemsPerRow => (int)((_scale.Width - _paddingLeft - _paddingRight) / (_itemSize.Width + _paddingBetweenItems.Width));
 
-        public int RowCount => (int)(_scale.Height / ItemSize.Height);
+        public int RowCount => (int)((_scale.Height - _paddingTop - _paddingBottom) / (_itemSize.Height + _paddingBetweenItems.Height));
+
+        public float PaddingLeft
+        {
+            get => _paddingLeft;
+            set 
+            {
+                _paddingLeft = value;
+                _refreshNeeded = true;
+            }
+        }
+
+        public float PaddingRight
+        {
+            get => _paddingRight;
+            set
+            {
+                _paddingRight = value;
+                _refreshNeeded = true;
+            }
+        }
+
+        public float PaddingTop
+        {
+            get => _paddingTop;
+            set
+            {
+                _paddingTop = value;
+                _refreshNeeded = true;
+            }
+        }
+
+        public float PaddingBottom
+        {
+            get => _paddingBottom;
+            set
+            {
+                _paddingBottom = value;
+                _refreshNeeded = true;
+            }
+        }
+
+        public SizeF PaddingBetweenItems
+        {
+            get => _paddingBetweenItems;
+            set
+            {
+                _paddingBetweenItems = value;
+                _refreshNeeded = true;
+            }
+        }
 
         #endregion
 
@@ -108,10 +159,12 @@ namespace AGS.Engine
 
 			int topItem = TopItem;
 			int count = Math.Min(topItem + RowCount * ItemsPerRow, items.Count);
-			float stepX = ItemSize.Width;
-			float stepY = ItemSize.Height;
-			float x = stepX/2f;
-			float y = _scale.Height - stepY/2;
+			float stepX = _itemSize.Width + _paddingBetweenItems.Width;
+			float stepY = _itemSize.Height + _paddingBetweenItems.Height;
+			float left = _itemSize.Width/2f + _paddingLeft;
+            float right = _scale.Width - _paddingRight - _itemSize.Width / 2f;
+            float x = left;
+			float y = _scale.Height - _itemSize.Height / 2 - _paddingTop;
 			for (int item = topItem; item < count; item++)
 			{
 				IObject obj = items[item];
@@ -126,9 +179,9 @@ namespace AGS.Engine
                 obj.Visible = true;
 
 				x += stepX;
-				if (x + stepX/2f >= _scale.Width)
+				if (x >= right)
 				{
-					x = stepX/2f;
+                    x = left;
 					y -= stepY;
 				}
 			}
