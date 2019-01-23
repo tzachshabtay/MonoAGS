@@ -126,7 +126,7 @@ namespace AGS.Engine
                 obj.Visible = true;
 
 				x += stepX;
-				if (x >= _scale.Width)
+				if (x + stepX/2f >= _scale.Width)
 				{
 					x = stepX/2f;
 					y -= stepY;
@@ -148,4 +148,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

@@ -127,6 +127,8 @@ namespace AGS.Engine
             }
         }
 
+        public static void StartAnimation(this ButtonAnimation button, IObject obj) => button.StartAnimation(obj, obj.GetComponent<ITextComponent>(), obj, obj);
+
         public static void StartAnimation(this ButtonAnimation button, IAnimationComponent animationComponent,
                                           ITextComponent textComponent, IImageComponent imageComponent, IBorderComponent borderComponent)
         {
