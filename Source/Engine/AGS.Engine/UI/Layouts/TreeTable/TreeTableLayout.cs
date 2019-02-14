@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
@@ -11,13 +13,14 @@ namespace AGS.Engine
 
         private bool _isDirty;
         private int _inUpdate; //For preventing re-entrancy
+        private ConcurrentQueue<ITreeTableRowLayoutComponent> _newRows = new ConcurrentQueue<ITreeTableRowLayoutComponent>();
 
         public TreeTableLayout(IGameEvents gameEvents)
         {
             _events = gameEvents;
             ColumnSizes = new AGSBindingList<float>(10);
             Rows = new AGSBindingList<ITreeTableRowLayoutComponent>(10);
-            OnRefreshLayoutNeeded = new AGSEvent();
+            OnRefreshLayoutNeeded = new AGSEvent<ITreeTableRowLayoutComponent>();
             OnQueryLayout = new AGSEvent<QueryLayoutEventArgs>();
             Rows.OnListChanged.Subscribe(onRowsChanged);
             gameEvents.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
@@ -29,7 +32,7 @@ namespace AGS.Engine
             set 
             {
                 _columnPadding = value;
-                OnRefreshLayoutNeeded.Invoke();
+                OnRefreshLayoutNeeded.Invoke(null);
             } 
         }
 
@@ -39,7 +42,7 @@ namespace AGS.Engine
             set
             {
                 _startX = value;
-                OnRefreshLayoutNeeded.Invoke();
+                OnRefreshLayoutNeeded.Invoke(null);
             }
         }
 
@@ -47,7 +50,7 @@ namespace AGS.Engine
 
         public IAGSBindingList<ITreeTableRowLayoutComponent> Rows { get; private set; }
 
-        public IBlockingEvent OnRefreshLayoutNeeded { get; private set; }
+        public IBlockingEvent<ITreeTableRowLayoutComponent> OnRefreshLayoutNeeded { get; private set; }
 
         public IBlockingEvent<QueryLayoutEventArgs> OnQueryLayout { get; private set; }
 
@@ -62,8 +65,12 @@ namespace AGS.Engine
             _isDirty = true;
         }
 
-        private void onRowsChanged(AGSListChangedEventArgs<ITreeTableRowLayoutComponent> obj)
+        private void onRowsChanged(AGSListChangedEventArgs<ITreeTableRowLayoutComponent> args)
         {
+            foreach (var row in args.Items)
+            {
+                _newRows.Enqueue(row.Item); 
+            }
             PerformLayout();
         }
 
@@ -84,6 +91,15 @@ namespace AGS.Engine
 
         private void performLayout()
         {
+            List<ITreeTableRowLayoutComponent> newRows = null;
+            if (_newRows.Count > 0)
+            {
+                newRows = new List<ITreeTableRowLayoutComponent>(_newRows.Count);
+                while (_newRows.TryDequeue(out var row))
+                {
+                    newRows.Add(row);
+                }
+            }
             QueryLayoutEventArgs args = new QueryLayoutEventArgs();
             OnQueryLayout.Invoke(args);
             bool isDirty = false;
@@ -104,8 +120,17 @@ namespace AGS.Engine
                 isDirty = true;
                 ColumnSizes[index] = args.ColumnSizes[index];
             }
-            if (!isDirty) return;
-            OnRefreshLayoutNeeded.Invoke();
+            if (isDirty)
+            {
+                OnRefreshLayoutNeeded.Invoke(null);
+            }
+            else if (newRows != null)
+            {
+                foreach (var row in newRows)
+                {
+                    OnRefreshLayoutNeeded.Invoke(row); 
+                }
+            }
         }
     }
 }
