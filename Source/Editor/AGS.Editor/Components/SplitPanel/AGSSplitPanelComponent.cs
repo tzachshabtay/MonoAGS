@@ -142,11 +142,11 @@ namespace AGS.Editor
 
             if (IsHorizontal)
             {
-                float delta = _startPositionDragLine.X - dragLine.X;
-                topPanel.Image = new EmptyImage(_startSizeTopPanel.Width - delta, topPanel.Height);
+                float delta = dragLine.X - _startPositionDragLine.X;
+                topPanel.Image = new EmptyImage(_startSizeTopPanel.Width + delta, topPanel.Height);
                 if (bottomPanel != null)
                 {
-                    bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Height + delta, bottomPanel.Height);
+                    bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Width - delta, bottomPanel.Height);
                     bottomPanel.X = _startPositionBottomPanel.X + delta;
                 }
             }
