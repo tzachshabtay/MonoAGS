@@ -130,6 +130,13 @@ namespace AGS.API
         /// <param name="id">The entity's unique identifier.</param>
         /// <typeparam name="TEntity">The entity's type.</typeparam>
 		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
-	}
+
+        /// <summary>
+        /// Returns all entities of the specified type.
+        /// </summary>
+        /// <returns>All entities of the specified type.</returns>
+        /// <typeparam name="TEntity">The entity type.</typeparam>
+        IEnumerable<TEntity> All<TEntity>() where TEntity : class, IEntity;
+    }
 }
 

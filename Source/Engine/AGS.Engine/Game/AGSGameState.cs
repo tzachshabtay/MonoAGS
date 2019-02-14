@@ -115,7 +115,22 @@ namespace AGS.Engine
 			}
 		}
 
-		private TEntity findUi<TEntity>(string id) where TEntity : class, IEntity
+        public IEnumerable<TEntity> All<TEntity>() where TEntity : class, IEntity
+        {
+            foreach (var room in Rooms)
+            {
+                foreach (var obj in room.Objects)
+                {
+                    if (obj is TEntity entity) yield return entity;
+                }
+            }
+            foreach (var obj in UI)
+            {
+                if (obj is TEntity entity) yield return entity; 
+            }
+        }
+
+        private TEntity findUi<TEntity>(string id) where TEntity : class, IEntity
 		{
 			return (UI.FirstOrDefault(o => o.ID == id)) as TEntity;
 		}
