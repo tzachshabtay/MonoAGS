@@ -17,6 +17,7 @@ namespace AGS.Engine
 		private IScale _scale;
 		private IInObjectTreeComponent _tree;
         private float _paddingLeft, _paddingRight, _paddingTop, _paddingBottom;
+        private float _lastWidth, _lastHeight;
 
 		public AGSInventoryWindowComponent(IGameState state, IGameEvents gameEvents)
 		{
@@ -190,7 +191,13 @@ namespace AGS.Engine
 		private bool isRefreshNeeded()
 		{
 			if (_refreshNeeded) return true;
-			if (_inventoryItems.Count != Inventory.Items.Count) return true;
+            if (!MathUtils.FloatEquals(_lastWidth, _scale.Width) || !MathUtils.FloatEquals(_lastHeight, _scale.Height))
+            {
+                _lastWidth = _scale.Width;
+                _lastHeight = _scale.Height;
+                return true; 
+            }
+            if (_inventoryItems.Count != Inventory.Items.Count) return true;
 			for (int i = 0; i < _inventoryItems.Count; i++)
 			{
 				var item = _inventoryItems[i];
