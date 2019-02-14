@@ -102,6 +102,7 @@ namespace AGS.Editor
         {
             if (args.Button != MouseButton.Left) return;
             if (!_selectionMarker.Visible) return;
+            if (_editor.Editor.State.FocusedUI.FocusedWindow != null) return;
             var obj = _editor.CanvasHitTest.ObjectAtMousePosition;
             if (obj == null) return;
             var dragHandle = _dragHandle;
