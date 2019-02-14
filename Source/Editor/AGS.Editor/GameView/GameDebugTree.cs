@@ -20,7 +20,7 @@ namespace AGS.Editor
         private readonly List<RoomSubscriber> _roomSubscribers;
         private readonly InspectorPanel _inspector;
         private readonly ConcurrentDictionary<string, ITreeStringNode> _entitiesToNodes;
-        private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
+        private IPanel _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
         private IEnabledComponent _lastSelectedEnabled;
@@ -34,7 +34,6 @@ namespace AGS.Editor
         private bool _lastEnabled;
         private bool _lastClickThrough;
 
-        const float _padding = 42f;
         const float _gutterSize = 15f;
 
         const string _moreRoomsPrefix = "More Rooms";
@@ -75,17 +74,14 @@ namespace AGS.Editor
             _scrollingPanel.Tint = Colors.Transparent;
             _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
-            _treePanel.Tint = Colors.Transparent;
-            _treePanel.RenderLayer = _layer;
-            _treePanel.Pivot = new PointF(0f, 1f);
-            _treeView = _treePanel.AddComponent<ITreeViewComponent>();
+            _treeView = _contentsPanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
+            _treeView.TopPadding = 30f;
+            _treeView.LeftPadding = 5f;
             parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, parent.Height - _searchBox.Height - _gutterSize);
-                _treePanel.Y = _contentsPanel.Height - _padding;
                 _searchBox.Y = _parent.Height;
             };
         }

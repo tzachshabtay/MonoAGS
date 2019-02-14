@@ -58,6 +58,7 @@ namespace AGS.Engine
             expandButton.RenderLayer = layer;
             label.RenderLayer = layer;
             expandButton.Z = label.Z - 1;
+            parentPanel.Pivot = (0f, 1f);
             horizontalPanel.Tint = Colors.Transparent;
             parentPanel.Tint = Colors.Transparent;
             verticalPanel.Tint = Colors.Transparent;
