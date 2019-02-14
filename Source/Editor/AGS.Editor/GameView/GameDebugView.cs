@@ -174,6 +174,11 @@ namespace AGS.Editor
                 await BreakDebuggerForm.Show(_editor);
                 return;
             }
+            if (action == KeyboardBindings.FindObject)
+            {
+                await FindObjectForm.Show(_editor);
+                return; 
+            }
             if (!_panel?.Visible ?? false) return;
 
             if (action == KeyboardBindings.Undo)
