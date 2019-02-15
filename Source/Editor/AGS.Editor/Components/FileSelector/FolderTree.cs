@@ -22,7 +22,10 @@ namespace AGS.Editor
         {
             _device = device;
             _factory = factory;
+            OnFolderSelected = new AGSEvent<string>();
         }
+
+        public IBlockingEvent<string> OnFolderSelected { get; }
 
         public string DefaultFolder
         {
@@ -44,6 +47,7 @@ namespace AGS.Editor
         {
             base.Dispose();
             _treeView?.OnNodeExpanded.Unsubscribe(onNodeExpanded);
+            _treeView?.OnNodeSelected.Unsubscribe(onNodeSelected);
         }
 
         private async void buildTreeModel()
@@ -75,6 +79,15 @@ namespace AGS.Editor
             var tree = _treeView;
             if (tree == null) return;
             tree.NodeViewProvider = new FolderNodeViewProvider(tree.NodeViewProvider, _factory);
+            tree.OnNodeSelected.Subscribe(onNodeSelected);
+        }
+
+        private void onNodeSelected(NodeEventArgs args)
+        {
+            if (args.Node is FolderNode folder)
+            {
+                OnFolderSelected.Invoke(folder.FullPath);
+            }
         }
 
         private void refreshTreeUI()
