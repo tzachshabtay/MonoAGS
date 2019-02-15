@@ -71,6 +71,11 @@ namespace AGS.Editor
             var invWindow = _invWindow;
             if (folder == null || invWindow == null) return;
             var files = await Task.Run(() => _files.GetFiles(folder));
+            foreach (var item in invWindow.Inventory.Items)
+            {
+                item.Graphics?.DestroyWithChildren();
+            }
+            invWindow.Inventory.Items.Clear();
             foreach (var file in files)
             {
                 IObject graphics = await getGraphics(file);
