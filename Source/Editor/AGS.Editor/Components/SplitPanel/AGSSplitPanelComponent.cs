@@ -126,8 +126,8 @@ namespace AGS.Editor
 			float width = IsHorizontal ? lineWidth : box.Width;
 			float height = IsHorizontal ? box.Height : lineWidth;
 			splitLine.Image = new EmptyImage(width, height);
-            float pivotX = -topPanel.Width * topPanel.Pivot.X;
-			splitLine.X = IsHorizontal ? pivotX + topPanel.X + box.Width - lineWidth / 2f : pivotX;
+            float pivotX = -box.Width * topPanel.Pivot.X;
+			splitLine.X = IsHorizontal ? pivotX + box.MinX + box.Width - lineWidth / 2f : pivotX;
 			splitLine.Y = box.MinY;
         }
 
