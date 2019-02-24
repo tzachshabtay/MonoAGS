@@ -32,7 +32,12 @@ namespace AGS.Engine
             WindowState = settings.WindowState;
             WindowBorder = settings.WindowBorder;
             _windowSize = new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
+            var messageBoxSettings = Defaults?.MessageBox;
             Defaults = settings.Defaults;
+            if (Defaults.MessageBox == null)
+            {
+                Defaults.MessageBox = messageBoxSettings; 
+            }
         }
 
         public string Title 

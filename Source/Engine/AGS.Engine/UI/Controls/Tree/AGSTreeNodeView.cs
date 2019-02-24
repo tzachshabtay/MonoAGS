@@ -11,16 +11,19 @@ namespace AGS.Engine
             ParentPanel = parentPanel;
             VerticalPanel = verticalPanel;
             HorizontalPanel = horizontalPanel;
+            OnRefreshDisplayNeeded = new AGSEvent();
         }
 
-        public IUIControl TreeItem { get; private set; }
+        public IUIControl TreeItem { get; }
 
-        public IButton ExpandButton { get; private set; }
+        public IButton ExpandButton { get; }
 
-        public IPanel ParentPanel { get; private set; }
+        public IPanel ParentPanel { get; }
 
-        public IPanel VerticalPanel { get; private set; }
+        public IPanel VerticalPanel { get; }
 
-        public IPanel HorizontalPanel { get; private set; }
+        public IPanel HorizontalPanel { get; }
+
+        public IBlockingEvent OnRefreshDisplayNeeded { get; }
     }
 }

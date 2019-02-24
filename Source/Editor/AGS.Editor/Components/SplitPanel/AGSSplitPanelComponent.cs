@@ -11,6 +11,8 @@ namespace AGS.Editor
 
         private IPanel _topPanel, _bottomPanel;
         private bool _isHorizontal;
+        private PointF _splitLineOffset;
+        private float _lineWidth = 5f;
         private Vector2 _startPositionDragLine, _startPositionBottomPanel;
 		private SizeF _startSizeTopPanel, _startSizeBottomPanel;
         private IComponentBinding _splitLineMoveBinding;
@@ -53,6 +55,9 @@ namespace AGS.Editor
         public bool IsHorizontal { get => _isHorizontal; set { _isHorizontal = value; createNewSplitLine(); } }
         public IObject DragLine { get; private set; }
 
+        public PointF SplitLineOffset { get => _splitLineOffset; set { _splitLineOffset = value; positionSplitLine(DragLine, TopPanel); }}
+        public float SplitLineWidth { get => _lineWidth; set { _lineWidth = value; positionSplitLine(DragLine, TopPanel); } }
+
         private void disposeExistingSplitLine()
         {
             var existing = DragLine;
@@ -77,7 +82,6 @@ namespace AGS.Editor
 			var topPanel = TopPanel;
 			if (topPanel == null) return;
 
-            const float lineWidth = 5f;
             string suffix = IsHorizontal ? "Horiz" : "Vert";
             var splitLine = _factory.Object.GetObject($"{topPanel.ID}_SplitLine_{suffix}");
             _state.FocusedUI.CannotLoseFocus.Add(splitLine.ID);
@@ -86,11 +90,11 @@ namespace AGS.Editor
 			crop?.EntitiesToSkipCrop.Add(splitLine.ID);
             HoverEffect.Add(splitLine, Colors.Transparent, Colors.Yellow.WithAlpha(100));
 			splitLine.Pivot = new PointF(0f, 0f);
-            positionSplitLine(splitLine, topPanel, lineWidth);
+            positionSplitLine(splitLine, topPanel);
             splitLine.Z = -1f;
             topPanel.OnBoundingBoxesChanged.Subscribe(() => 
             {
-                positionSplitLine(splitLine, topPanel, lineWidth);    
+                positionSplitLine(splitLine, topPanel);    
             });
             topPanel.Bind<IVisibleComponent>(c => c.PropertyChanged += onTopPanelVisibleChanged, c => c.PropertyChanged -= onTopPanelVisibleChanged);
             _startPositionDragLine = new Vector2(splitLine.X, splitLine.Y);
@@ -119,16 +123,17 @@ namespace AGS.Editor
             line.Visible = panel != null && panel.Visible;
         }
 
-        private void positionSplitLine(IObject splitLine, IPanel topPanel, float lineWidth)
+        private void positionSplitLine(IObject splitLine, IPanel topPanel)
         {
+            if (splitLine == null || topPanel == null) return;
 			var boundingBoxes = topPanel.GetBoundingBoxes(_state.Viewport);
 			var box = boundingBoxes.ViewportBox;
-			float width = IsHorizontal ? lineWidth : box.Width;
-			float height = IsHorizontal ? box.Height : lineWidth;
+			float width = IsHorizontal ? _lineWidth : box.Width + _splitLineOffset.X;
+			float height = IsHorizontal ? box.Height + _splitLineOffset.Y : _lineWidth;
 			splitLine.Image = new EmptyImage(width, height);
-            float pivotX = -topPanel.Width * topPanel.Pivot.X;
-			splitLine.X = IsHorizontal ? pivotX + topPanel.X + box.Width - lineWidth / 2f : pivotX;
-			splitLine.Y = box.MinY;
+            float pivotX = -box.Width * topPanel.Pivot.X;
+			splitLine.X = IsHorizontal ? pivotX + box.MinX + box.Width - _lineWidth / 2f + _splitLineOffset.X : pivotX + _splitLineOffset.X;
+			splitLine.Y = box.MinY - _splitLineOffset.Y;
         }
 
         private void onSplitLineMoved(object sender, PropertyChangedEventArgs args)
@@ -142,11 +147,11 @@ namespace AGS.Editor
 
             if (IsHorizontal)
             {
-                float delta = _startPositionDragLine.X - dragLine.X;
-                topPanel.Image = new EmptyImage(_startSizeTopPanel.Width - delta, topPanel.Height);
+                float delta = dragLine.X - _startPositionDragLine.X;
+                topPanel.Image = new EmptyImage(_startSizeTopPanel.Width + delta, topPanel.Height);
                 if (bottomPanel != null)
                 {
-                    bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Height + delta, bottomPanel.Height);
+                    bottomPanel.Image = new EmptyImage(_startSizeBottomPanel.Width - delta, bottomPanel.Height);
                     bottomPanel.X = _startPositionBottomPanel.X + delta;
                 }
             }

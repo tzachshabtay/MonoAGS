@@ -31,6 +31,36 @@
 		int TopItem { get; set; }
 
         /// <summary>
+        /// Optional padding from the left side of the inventory window containing panel.
+        /// </summary>
+        /// <value>The left padding.</value>
+        float PaddingLeft { get; set; }
+
+        /// <summary>
+        /// Optional padding from the right side of the inventory window containing panel.
+        /// </summary>
+        /// <value>The right padding.</value>
+        float PaddingRight { get; set; }
+
+        /// <summary>
+        /// Optional padding from the bottom side of the inventory window containing panel.
+        /// </summary>
+        /// <value>The bottom padding.</value>
+        float PaddingBottom { get; set; }
+
+        /// <summary>
+        /// Optional padding from the top side of the inventory window containing panel.
+        /// </summary>
+        /// <value>The top padding.</value>
+        float PaddingTop { get; set; }
+
+        /// <summary>
+        /// Optional padding to apply between the inventory items.
+        /// </summary>
+        /// <value>The padding between the inventory items.</value>
+        SizeF PaddingBetweenItems { get; set; }
+
+        /// <summary>
         /// Scrolls the inventory window up one row if possible (<see cref="TopItem"/> will change accordingly).
         /// </summary>
 		void ScrollUp();

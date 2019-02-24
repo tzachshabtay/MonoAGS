@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -99,10 +101,11 @@ namespace AGS.Editor
             treeView.VerticalSpacing = 40f;
         }
 
-        private void refreshTree()
+        private async void refreshTree()
         {
             var treeView = _treeView;
             if (treeView == null) return;
+            treeView.LayoutPaused = true;
             var root = new AGSTreeStringNode("", _font);
             List<ITreeStringNode> toExpand = new List<ITreeStringNode>();
             bool skipCategories = _props.Count == 1;
@@ -134,6 +137,7 @@ namespace AGS.Editor
             {
                 treeView.Expand(node);
             }
+            treeView.LayoutPaused = false;
         }
 
         private ITreeStringNode addToTree(ITreeStringNode parent, IProperty prop, bool isCategory)

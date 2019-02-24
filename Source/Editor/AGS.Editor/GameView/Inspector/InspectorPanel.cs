@@ -9,12 +9,11 @@ namespace AGS.Editor
 		private readonly IRenderLayer _layer;
 		private readonly AGSEditor _editor;
         private readonly ActionManager _actions;
-        private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
+        private IPanel _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
         private InspectorTreeNodeProvider _inspectorNodeView;
         private readonly string _idPrefix;
 
-        const float _padding = 28f;
         const float _gutterSize = 15f;
 
         public InspectorPanel(AGSEditor editor, IRenderLayer layer, ActionManager actions, string idPrefix = "")
@@ -49,21 +48,19 @@ namespace AGS.Editor
             _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
 
-            _treePanel = factory.UI.GetPanel($"{_idPrefix}_InspectorPanel", 0f, 0f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
-			_treePanel.Tint = Colors.Transparent;
-            _treePanel.RenderLayer = _layer;
-            _treePanel.Pivot = new PointF(0f, 1f);
-			var treeView = _treePanel.AddComponent<ITreeViewComponent>();
+			var treeView = _contentsPanel.AddComponent<ITreeViewComponent>();
             treeView.SkipRenderingRoot = true;
+            treeView.LayoutPaused = true;
 
             Inspector = new AGSInspector(_editor.Editor.Factory, _editor.Game.Settings, _editor.Editor.Settings, _actions, _editor.Project.Model, _editor, parentForm);
-            _treePanel.AddComponent<IInspectorComponent>(Inspector);
+            _contentsPanel.AddComponent<IInspectorComponent>(Inspector);
             Inspector.ScrollingContainer = _contentsPanel;
 
             _inspectorNodeView = new InspectorTreeNodeProvider(treeView.NodeViewProvider,
-                                                               _editor.Editor.Events, _treePanel);
+                                                               _editor.Editor.Events, _contentsPanel);
             _inspectorNodeView.Resize(_contentsPanel.Width);
             treeView.NodeViewProvider = _inspectorNodeView;
+            treeView.TopPadding = 30f;
 
             _parent.Bind<IScaleComponent>(c => c.PropertyChanged += onParentPanelScaleChanged,
                                           c => c.PropertyChanged -= onParentPanelScaleChanged);
@@ -96,7 +93,6 @@ namespace AGS.Editor
             _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, _parent.Height - _searchBox.Height - _gutterSize);
             _scrollingPanel.Y = _parent.Height - _searchBox.Height;
             _searchBox.Y = _parent.Height;
-            _treePanel.Y = _contentsPanel.Height - _padding;
         }
 
         private void onSearchPropertyChanged(object sender, PropertyChangedEventArgs e)

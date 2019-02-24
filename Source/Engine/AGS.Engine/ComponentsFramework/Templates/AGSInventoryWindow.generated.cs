@@ -613,6 +613,36 @@ namespace AGS.Engine
             get { return _inventoryWindowComponent.RowCount; } 
         }
 
+        public float PaddingLeft
+        {
+            get { return _inventoryWindowComponent.PaddingLeft; }
+            set { _inventoryWindowComponent.PaddingLeft = value; }
+        }
+
+        public float PaddingRight
+        {
+            get { return _inventoryWindowComponent.PaddingRight; }
+            set { _inventoryWindowComponent.PaddingRight = value; }
+        }
+
+        public float PaddingTop
+        {
+            get { return _inventoryWindowComponent.PaddingTop; }
+            set { _inventoryWindowComponent.PaddingTop = value; }
+        }
+
+        public float PaddingBottom
+        {
+            get { return _inventoryWindowComponent.PaddingBottom; }
+            set { _inventoryWindowComponent.PaddingBottom = value; }
+        }
+
+        public SizeF PaddingBetweenItems
+        {
+            get { return _inventoryWindowComponent.PaddingBetweenItems; }
+            set { _inventoryWindowComponent.PaddingBetweenItems = value; }
+        }
+
         public void ScrollUp()
         {
             _inventoryWindowComponent.ScrollUp();

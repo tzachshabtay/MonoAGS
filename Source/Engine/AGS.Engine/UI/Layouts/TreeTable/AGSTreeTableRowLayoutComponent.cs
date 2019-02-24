@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -106,7 +107,7 @@ namespace AGS.Engine
             var tree = _tree;
             if (tree == null)
             { 
-                return; 
+                return;
             }
             if (tree.TreeNode.ChildrenCount > _columnSizes.Count)
             {
@@ -180,8 +181,12 @@ namespace AGS.Engine
             }
         }
 
-        private void onRefreshLayout()
+        private void onRefreshLayout(ITreeTableRowLayoutComponent specificRow)
         {
+            if (specificRow != null && specificRow != this)
+            {
+                return; 
+            }
             var table = Table;
             var tree = _tree;
             if (table == null || tree == null) return;
