@@ -25,5 +25,18 @@ namespace AGS.Editor
         /// </summary>
         /// <value><c>true</c> if is horizonal; otherwise, <c>false</c>.</value>
         bool IsHorizontal { get; set;}
+
+        /// <summary>
+        /// By default the split line is located at the bottom of the top panel (or at the right of the left panel).
+        /// You can add an offset that will move and/or adjust the size of the split line.
+        /// </summary>
+        /// <value>The split line offset.</value>
+        PointF SplitLineOffset { get; set; }
+
+        /// <summary>
+        /// Gets or sets the width of the visible split line.
+        /// </summary>
+        /// <value>The width of the line.</value>
+        float SplitLineWidth { get; set; }
     }
 }

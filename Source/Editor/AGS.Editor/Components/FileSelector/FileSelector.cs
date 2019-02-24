@@ -33,24 +33,25 @@ namespace AGS.Editor
         {
             _splitter.IsHorizontal = true;
 
-            var leftPanel = _factory.UI.GetPanel("FolderTree", 300f, 600f, 100f, 100f);
-            leftPanel.AddComponent<ICropChildrenComponent>();
-            //var contentsPanel = _factory.UI.CreateScrollingPanel(leftPanel);
-            leftPanel.Tint = GameViewColors.Panel;
-            leftPanel.Border = _factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
-            leftPanel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1000);
+            var leftScrollingPanel = _factory.UI.GetPanel("FolderTree", 300f, 600f, 100f, 100f);
+            leftScrollingPanel.Tint = GameViewColors.Panel;
+            leftScrollingPanel.Border = _factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
+            leftScrollingPanel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1000);
+            var leftPanel = _factory.UI.CreateScrollingPanel(leftScrollingPanel);
             var tree = leftPanel.AddComponent<ITreeViewComponent>();
             tree.LeftPadding = 10f;
             tree.TopPadding = 30f;
             _folderTree = leftPanel.AddComponent<FolderTree>();
             _folderTree.DefaultFolder = "../../../../../Demo";
 
+            _splitter.SplitLineOffset = (15f, 15f); //Offsetting for the scrollbar
             _splitter.TopPanel = leftPanel;
 
-            var rightPanel = _factory.UI.GetPanel("FilesView", 800f, 600f, 400f, 100f);
-            rightPanel.Tint = GameViewColors.Panel;
-            rightPanel.Border = _factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
-            rightPanel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1000);
+            var rightScrollingPanel = _factory.UI.GetPanel("FilesView", 800f, 600f, 400f, 100f);
+            rightScrollingPanel.Tint = GameViewColors.Panel;
+            rightScrollingPanel.Border = _factory.Graphics.Borders.SolidColor(GameViewColors.Border, 3f);
+            rightScrollingPanel.RenderLayer = new AGSRenderLayer(AGSLayers.UI.Z - 1000);
+            var rightPanel = _factory.UI.CreateScrollingPanel(rightScrollingPanel);
             var inv = rightPanel.AddComponent<IInventoryWindowComponent>();
             inv.Inventory = new AGSInventory();
             inv.ItemSize = (120f, 120f);
