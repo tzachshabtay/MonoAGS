@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Interface ITreeTableLayout
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.40.7.0">
+    <meta name="generator" content="docfx 2.40.11.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -204,17 +204,18 @@ length needed for each column.</p>
     <a href="https://github.com/tzachshabtay/MonoAGS/new/ResourceSelector/apiSpec/new?filename=AGS_API_ITreeTableLayout_OnRefreshLayoutNeeded.md&amp;value=---%0Auid%3A%20AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/UI/Layouts/TreeTable/ITreeTableLayout.cs/#L53">View Source</a>
+    <a href="https://github.com/tzachshabtay/MonoAGS/blob/ResourceSelector/Source/AGS.API/UI/Layouts/TreeTable/ITreeTableLayout.cs/#L54">View Source</a>
   </span>
   <a id="AGS_API_ITreeTableLayout_OnRefreshLayoutNeeded_" data-uid="AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded*"></a>
   <h4 id="AGS_API_ITreeTableLayout_OnRefreshLayoutNeeded" data-uid="AGS.API.ITreeTableLayout.OnRefreshLayoutNeeded">OnRefreshLayoutNeeded</h4>
   <div class="markdown level1 summary"><p>Once the table layout calculates new column sizes it fires this event, for which all the rows should
-listen and readjust their columns accordingly.</p>
+listen and readjust their columns accordingly.
+If a specific row is passed, only that row needs to recalculate. If the passed row is null, all rows need to recalculate.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IBlockingEvent OnRefreshLayoutNeeded { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">IBlockingEvent&lt;ITreeTableRowLayoutComponent&gt; OnRefreshLayoutNeeded { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -226,7 +227,7 @@ listen and readjust their columns accordingly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="AGS.API.IBlockingEvent.html">IBlockingEvent</a></td>
+        <td><a class="xref" href="AGS.API.IBlockingEvent-1.html">IBlockingEvent</a>&lt;<a class="xref" href="AGS.API.ITreeTableRowLayoutComponent.html">ITreeTableRowLayoutComponent</a>&gt;</td>
         <td><p>The refresh layout event.</p>
 </td>
       </tr>
