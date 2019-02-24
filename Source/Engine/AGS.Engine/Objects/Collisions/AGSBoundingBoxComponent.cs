@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -200,14 +199,11 @@ namespace AGS.Engine
             }
             var crop = _crop;
 
-            _isCropDirty = false;
             _areViewportsDirty = false;
             viewportBoxes.IsDirty = false;
 
-			Size resolution;
-			PointF resolutionFactor;
-			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
-                                                 drawable, null, out resolutionFactor, out resolution);
+            bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
+                                                 drawable, null, out PointF _, out Size _);
 
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : viewport.GetMatrix(drawable.RenderLayer);
             AGSBoundingBox intermediateBox, hitTestBox;
@@ -227,8 +223,7 @@ namespace AGS.Engine
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             }
 
-            PointF renderCropScale;
-            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out renderCropScale);
+            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out PointF renderCropScale);
 
             PointF hitTestCropScale = renderCropScale;
             if (MathUtils.FloatEquals(hitTestCropScale.X, 1f) && MathUtils.FloatEquals(hitTestCropScale.Y, 1f))
@@ -248,8 +243,10 @@ namespace AGS.Engine
             {
                 var textureOffset = _textureOffset;
                 var image = sprite?.Image;
+                // ReSharper disable CompareOfFloatsByEqualityOperator
                 if (image != null && (width != image.Width || height != image.Height ||
-                                      (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false)))
+                // ReSharper restore CompareOfFloatsByEqualityOperator
+                                      (!textureOffset?.TextureOffset.Equals(PointF.Empty) ?? false)))
                 {
                     var offset = textureOffset?.TextureOffset ?? PointF.Empty;
                     setProportionalTextureSize(boundingBoxes, image, width, height, offset);
@@ -266,6 +263,7 @@ namespace AGS.Engine
                 hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, hitTestCropScale).BoundingBox;
                 boundingBoxes.WorldBox = hitTestBox;
             }
+            _isCropDirty = false;
 
             return boundingBoxes;
 		}
@@ -286,10 +284,8 @@ namespace AGS.Engine
             var modelMatrices = matrix.GetModelMatrices();
             var modelMatrix = modelMatrices.InVirtualResolutionMatrix;
 
-			Size resolution;
-			PointF resolutionFactor;
-			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
-												 drawable, null, out resolutionFactor, out resolution);
+            AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
+                drawable, null, out PointF resolutionFactor, out Size _);
 
             float width = size.Width / resolutionFactor.X;
             float height = size.Height / resolutionFactor.Y;

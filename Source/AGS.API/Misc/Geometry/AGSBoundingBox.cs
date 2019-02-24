@@ -123,13 +123,14 @@ namespace AGS.API
         /// <value><c>true</c> if is empty; otherwise, <c>false</c>.</value>
         public bool IsValid { get; }
 
-        /// <summary>
-        /// Create a cropped bounding box.
-        /// </summary>
-        /// <returns>The crop info.</returns>
-        /// <param name="crop">Crop.</param>
-        /// <param name="adjustedScale">Adjusted scale.</param>
-        public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF adjustedScale)
+	    /// <summary>
+	    /// Create a cropped bounding box.
+	    /// </summary>
+	    /// <returns>The crop info.</returns>
+	    /// <param name="boundingBoxType">The type of the bounding box to be cropped.</param>
+	    /// <param name="crop">Crop.</param>
+	    /// <param name="adjustedScale">Adjusted scale.</param>
+	    public AGSCropInfo Crop(BoundingBoxType boundingBoxType, ICropSelfComponent crop, PointF adjustedScale)
 		{
             if (crop == null) return new AGSCropInfo(this, null, CropFrom.None);
             return crop.Crop(ref this, boundingBoxType, adjustedScale);

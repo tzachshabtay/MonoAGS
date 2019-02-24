@@ -1,8 +1,7 @@
 ﻿using System;
-using NUnit.Framework;
-using AGS.Engine;
-using Moq;
 using AGS.API;
+using AGS.Engine;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -55,7 +54,7 @@ namespace Tests
 		{
 			bool[][] array = GetArray(width, height, true, pointsInMask);
 			AGSMask mask = new AGSMask(array, null);
-			return mask.IsMasked(new AGS.API.PointF (x, y));
+			return mask.IsMasked(new PointF (x, y));
 		}
 
 		//Not masked
@@ -100,7 +99,7 @@ namespace Tests
 			Vector2 topRight = new Vector2 (projectionLeft + width * Math.Abs(scaleX), projectionBottom + height * Math.Abs(scaleY));
             AGSBoundingBox square = new AGSBoundingBox(bottomLeft, bottomRight, topLeft, topRight);
 			
-			return mask.IsMasked(new AGS.API.PointF (x, y), square, scaleX, scaleY);
+			return mask.IsMasked(new PointF (x, y), square, scaleX, scaleY);
 		}
 
 		[TestCase(100,100, 0,0, Result=true)]

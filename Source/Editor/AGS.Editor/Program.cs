@@ -8,8 +8,8 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            Resolver resolver = new Resolver(AGSGame.Device, new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
-               windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
+            Resolver resolver = new Resolver(AGSGame.Device, new AGSGameSettings("MonoAGS Editor", new Size(1280, 800),
+               windowSize: new Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
             IGame game = AGSGame.Create(resolver);
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.

@@ -6,11 +6,7 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractRectangleF : IContract<RectangleF>
     {
-        public ContractRectangleF()
-        {
-        }
-
-		[ProtoMember(1)]
+        [ProtoMember(1)]
 		public float X { get; set; }
 
 		[ProtoMember(2)]

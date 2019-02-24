@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

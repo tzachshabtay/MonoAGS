@@ -49,5 +49,11 @@ namespace AGS.API
         /// </summary>
         /// <value>Expand Category?</value>
         public bool CategoryExpand { get; set; }
+
+        /// <summary>
+        /// Forces the property to be shown as readonly in the inspector (even if it can be set by script).
+        /// </summary>
+        /// <value><c>true</c> to force readonly; otherwise, <c>false</c>.</value>
+        public bool ForceReadonly { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractAnimationComponent : IContract<IAnimationComponent>
 	{
-		public ContractAnimationComponent()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IContract<IAnimation> Animation { get; set; }
 
 		#region IContract implementation

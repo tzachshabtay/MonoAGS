@@ -9,7 +9,6 @@ namespace AGS.Engine
     {
         private class EntitySubscriber
         {
-            private IEntity _entity;
             private Action<int> _onLayerChanged;
             private IDrawableInfoComponent _drawable;
             private List<IComponentBinding> _bindings;
@@ -17,20 +16,21 @@ namespace AGS.Engine
 
             public EntitySubscriber(IEntity entity, Action<int> onLayerChanged)
             {
-                _entity = entity;
                 _onLayerChanged = onLayerChanged;
                 entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
 
                 var vBinding = bind<IVisibleComponent>(entity, onObjVisibleChanged);
                 var tBinding = bind<ITranslateComponent>(entity, onObjTranslatePropertyChanged);
                 var dBinding = bind<IDrawableInfoComponent>(entity, onObjDrawablePropertyChanged);
+                var eBinding = bind<IAreaComponent>(entity, onAreaPropertyChanged);
+                var bBinding = bind<IWalkBehindArea>(entity, onWalkBehindPropertyChanged);
 
                 AnimationSubscriber animSubscriber = new AnimationSubscriber(entity, onSomethingChanged);
                 var aBinding = animSubscriber.Bind();
 
                 var trBinding = entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onSomethingChanged); onSomethingChanged(); }, c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged); onSomethingChanged(); });
 
-                _bindings = new List<API.IComponentBinding> { vBinding, tBinding, dBinding, aBinding, trBinding };
+                _bindings = new List<IComponentBinding> { vBinding, tBinding, dBinding, aBinding, trBinding, eBinding, bBinding };
             }
 
             public void Unsubscribe()
@@ -38,7 +38,6 @@ namespace AGS.Engine
                 _tree?.TreeNode.OnParentChanged.Unsubscribe(onSomethingChanged);
                 foreach (var binding in _bindings) binding?.Unbind();
                 _drawable = null;
-                _entity = null;
             }
 
             private void onObjVisibleChanged(object sender, PropertyChangedEventArgs args)

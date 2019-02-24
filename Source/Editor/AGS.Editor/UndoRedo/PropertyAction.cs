@@ -85,6 +85,14 @@ namespace AGS.Editor
                 entityModel.DisplayName = Value?.Value as string;
                 _undoModel = () => entity.DisplayName = oldDisplayName;
             }
+            else if (Property.Object is IGameSettings settings)
+            {
+                PropertyInfo modelProperty = _model.Settings.GetType().GetProperty(Property.Name);
+                Trace.Assert(modelProperty != null);
+                var oldValue = modelProperty.GetValue(_model.Settings);
+                modelProperty.SetValue(_model.Settings, Property.Value.Value);
+                _undoModel = () => modelProperty.SetValue(_model.Settings, oldValue);
+            }
             else
             {
                 Debug.WriteLine($"No component associated with property {Property.DisplayName} of {Property.Object?.ToString() ?? "null"}, can't update model.");

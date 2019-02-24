@@ -14,17 +14,15 @@ namespace AGS.Engine
 		private IAudioErrors _errors;
         private IAudioBackend _backend;
         private readonly Action modifierChangeCallback;
-        private readonly Action<AGSListChangedEventArgs<ISoundModifier>> modifiersChangedCallback;
 
-        public ALSound(int source, float duration, float volume, float pitch, bool isLooping, float panning,
+	    public ALSound(int source, float duration, float volume, float pitch, bool isLooping, float panning,
             IConcurrentHashSet<string> tags, IAudioErrors errors, IAudioBackend backend)
 		{
             //Using delegates to avoid heap allocations
-            modifierChangeCallback = onModifierChanged;
-            modifiersChangedCallback = onModifiersChanged;
+		    modifierChangeCallback = onModifierChanged;
 
-            SoundModifiers = new AGSBindingList<ISoundModifier>(3);
-            SoundModifiers.OnListChanged.Subscribe(modifiersChangedCallback);
+		    SoundModifiers = new AGSBindingList<ISoundModifier>(3);
+            SoundModifiers.OnListChanged.Subscribe(onModifiersChanged);
             Tags = tags;
 			_tcs = new TaskCompletionSource<object> (null);
             _backend = backend;

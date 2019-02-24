@@ -10,19 +10,20 @@ namespace AGS.Engine
     public class AGSTreeViewComponent : AGSComponent, ITreeViewComponent
     {
         private Node _root;
-        private IGameState _state;
+        private readonly IGameState _state;
+        private readonly IGameSettings _settings;
         private IInObjectTreeComponent _treeComponent;
         private ITreeStringNode _tree;
         private IDrawableInfoComponent _drawable;
         private ICropChildrenComponent _crop;
         private IScrollingComponent _scrolling;
-        private IBoundingBoxComponent _box;
+        private IBoundingBoxComponent _scrollingBox, _box;
         private string _searchFilter;
         private TaskCompletionSource<object> _currentSearchToken;
-        private bool _skipRenderingRoot;
+        private bool _skipRenderingRoot, _layoutPaused;
         private IEntity _scrollingContainer;
 
-        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
+        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state, IGameSettings settings)
         {
             HorizontalSpacing = 10f;
             VerticalSpacing = 30f;
@@ -31,6 +32,7 @@ namespace AGS.Engine
             OnNodeCollapsed = new AGSEvent<NodeEventArgs>();
             AllowSelection = SelectionType.Single;
             _state = state;
+            _settings = settings;
             NodeViewProvider = provider;
         }
 
@@ -52,6 +54,10 @@ namespace AGS.Engine
         public float HorizontalSpacing { get; set; }
 
         public float VerticalSpacing { get; set; }
+
+        public float TopPadding { get; set; }
+
+        public float LeftPadding { get; set; }
 
         public SelectionType AllowSelection { get; set; }
 
@@ -76,6 +82,16 @@ namespace AGS.Engine
             }
         }
 
+        public bool LayoutPaused
+        {
+            get => _layoutPaused;
+            set
+            {
+                _layoutPaused = value;
+                RefreshLayout(); 
+            }
+        }
+
         public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
         public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
@@ -91,7 +107,7 @@ namespace AGS.Engine
                 if (value != null)
                 {
                     value.Bind<ICropChildrenComponent>(c => { _crop = c; c.PropertyChanged += onCropPropertyChanged; }, c => { _crop = null; c.PropertyChanged -= onCropPropertyChanged; });
-                    value.Bind<IBoundingBoxComponent>(c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(refreshTree); }, c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(refreshTree); });
+                    value.Bind<IBoundingBoxComponent>(c => { _scrollingBox = c; c.OnBoundingBoxesChanged.Subscribe(refreshTree); refreshTree(); }, c => { _scrollingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refreshTree); });
                     value.Bind<IScrollingComponent>(c => _scrolling = c, _ => _scrolling = null);
                 }
             }
@@ -101,7 +117,8 @@ namespace AGS.Engine
         {
             base.Init();
             Entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
-            Entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            Entity.Bind<IDrawableInfoComponent>(c => { _drawable = c; refreshTree(); }, _ => _drawable = null);
+            Entity.Bind<IBoundingBoxComponent>(c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(refreshTree); refreshTree(); }, c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(refreshTree); });
         }
 
         public override void Dispose()
@@ -191,14 +208,22 @@ namespace AGS.Engine
 
         private void refreshTree()
         {
+            if (_layoutPaused) return;
             var root = _root;
-            if (root != null)
+            var box = _box;
+            var drawable = _drawable;
+            if (root != null && box != null && drawable != null)
             {
                 float minY = 0f;
-                root.ResetOffsets(0f, 0f, 0f, HorizontalSpacing, -VerticalSpacing, ref minY);
+                var worldHeight = _settings.VirtualResolution.Height;
+                var layerHeight = drawable.RenderLayer.IndependentResolution?.Height ?? worldHeight;
+                float startY = MathUtils.Lerp(0f, 0f, worldHeight, layerHeight, box.WorldBoundingBox.Height) - TopPadding;
+                root.ResetOffsets(startY, startY, HorizontalSpacing, -VerticalSpacing, ref minY);
+                if (root.View?.ParentPanel != null)
+                    root.View.ParentPanel.X = LeftPadding;
                 if (_scrolling != null)
                 {
-                    _scrolling.ContentsHeight = Math.Abs(minY) + VerticalSpacing;
+                    _scrolling.ContentsHeight = startY - minY + VerticalSpacing;
                 }
                 List<IObject> uiObjectsToAdd = new List<IObject>();
                 processTree(root, uiObjectsToAdd);
@@ -269,8 +294,8 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                currentNode = new Node(actualNode, _state, () => _drawable, () => _treeComponent, () => _box, () => _crop,
-                                       null, this);
+                currentNode = new Node(actualNode, _state, () => _drawable, () => _treeComponent, () => _scrollingBox, () => _crop,
+                                       null, this, _settings);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -280,9 +305,8 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var drawable = _drawable;
-                    var newNode = new Node(actualChild, _state, () => _drawable, () => null, () => _box, () => _crop, 
-                                           currentNode, this);
+                    var newNode = new Node(actualChild, _state, () => _drawable, () => null, () => _scrollingBox, () => _crop, 
+                                           currentNode, this, _settings);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;
@@ -353,6 +377,7 @@ namespace AGS.Engine
             private readonly Func<IBoundingBoxComponent> _box;
             private readonly Func<ICropChildrenComponent> _crop;
             private readonly IGameState _state;
+            private readonly IGameSettings _settings;
 
             public enum SearchFilterMode
             {
@@ -364,12 +389,13 @@ namespace AGS.Engine
 
             public Node(ITreeStringNode item, IGameState state, Func<IDrawableInfoComponent> drawable, 
                         Func<IInObjectTreeComponent> treeObj, Func<IBoundingBoxComponent> box, Func<ICropChildrenComponent> crop, 
-                        Node parentNode, ITreeViewComponent tree)
+                        Node parentNode, ITreeViewComponent tree, IGameSettings settings)
             {
                 _tree = tree;
                 _state = state;
                 _drawable = drawable;
                 _treeObj = treeObj;
+                _settings = settings;
                 _box = box;
                 _crop = crop;
                 Item = item;
@@ -390,6 +416,7 @@ namespace AGS.Engine
                 get => _isCollapsed;
                 set
                 {
+                    if (_isCollapsed == value) return;
                     _isCollapsed = value;
                     updateVisibilityWithChildren();
                     _tree.RefreshLayout();
@@ -400,8 +427,6 @@ namespace AGS.Engine
             public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
             public bool Visible { get; private set; }
-            public float XOffset { get; private set; }
-            public float YOffset { get; private set; }
             public float OverallYOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
 
@@ -412,6 +437,7 @@ namespace AGS.Engine
                 view.TreeItem.MouseEnter.Unsubscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Unsubscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Unsubscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
@@ -465,11 +491,10 @@ namespace AGS.Engine
                 }
             }
 
-            public float ResetOffsets(float xOffset, float yOffset, float overallYOffset, float spacingX, float spacingY, ref float minY)
+            public float ResetOffsets(float yOffset, float overallYOffset, float spacingX, float spacingY, ref float minY)
             {
                 bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
-                xOffset += skipRoot ? 0f : spacingX;
-                YOffset = yOffset;
+                float xOffset = skipRoot ? 0f : spacingX;
                 OverallYOffset = overallYOffset;
                 if (overallYOffset < minY)
                 {
@@ -485,7 +510,7 @@ namespace AGS.Engine
                 var childYOffset = skipRoot ? 0f : spacingY;
                 foreach (var child in Children)
                 {
-                    childYOffset = child.ResetOffsets(xOffset, childYOffset, overallYOffset + childYOffset, spacingX, spacingY, ref minY);
+                    childYOffset = child.ResetOffsets(childYOffset, overallYOffset + childYOffset, spacingX, spacingY, ref minY);
                 }
 
                 if (!Visible) return yOffset;
@@ -552,18 +577,22 @@ namespace AGS.Engine
 
             private void initView()
             {
-                if (View != null) return;
+                if (View != null || _tree.LayoutPaused) return;
                 var crop = _crop();
                 var box = _box();
-                if (crop != null && box != null)
+                var drawable = _drawable();
+                if (crop != null && box != null && drawable != null)
                 {
-                    if (OverallYOffset > crop.StartPoint.Y || OverallYOffset < crop.StartPoint.Y - box.GetBoundingBoxes(_state.Viewport).ViewportBox.Height)
+                    var worldHeight = _settings.VirtualResolution.Height;
+                    var layerHeight = drawable.RenderLayer.IndependentResolution?.Height ?? worldHeight;
+
+                    var height = box.GetBoundingBoxes(_state.Viewport).ViewportBox.Height;
+                    if (OverallYOffset > crop.StartPoint.Y + height || OverallYOffset < crop.StartPoint.Y)
                     {
                         return;
                     }
                 }
                 if (View != null) return; //The GetBoundingBoxes call above might trigger a bounding box change event, which can trigger another initView call. So we need to check again that view is not null so to not create two GUIs for the same node.
-                var drawable = _drawable();
                 var parentNode = Parent;
                 if (parentNode != null)
                 {
@@ -581,6 +610,7 @@ namespace AGS.Engine
                 view.TreeItem.MouseEnter.Subscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Subscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Subscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Subscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
@@ -609,7 +639,7 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return null;
-                return (IUIEvents)view.ExpandButton ?? view.TreeItem;
+                return view.ExpandButton ?? view.TreeItem;
             }
 
             private void onMouseEnterExpandButton(MousePositionEventArgs args)

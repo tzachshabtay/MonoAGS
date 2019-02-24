@@ -9,10 +9,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractClippingPlane : IContract<IClippingPlane>
     {
-        public ContractClippingPlane()
-        {
-        }
-
         [ProtoMember(1)]
         public bool IsPlaneObjectClipped { get; set; }
 

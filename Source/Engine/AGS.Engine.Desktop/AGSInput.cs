@@ -23,8 +23,8 @@ namespace AGS.Engine.Desktop
         private int _inUpdate; //For preventing re-entrancy
 
         public AGSInput(IGameEvents events, IShouldBlockInput shouldBlockInput, IAGSCursor cursor, IAGSHitTest hitTest,
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseDown, 
-                        IEvent<AGS.API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
+                        IEvent<API.MouseButtonEventArgs> mouseDown, 
+                        IEvent<API.MouseButtonEventArgs> mouseUp, IEvent<MousePositionEventArgs> mouseMove,
                         IEvent<KeyboardEventArgs> keyDown, IEvent<KeyboardEventArgs> keyUp, ICoordinates coordinates)
         {
             _cursor = cursor;
@@ -32,8 +32,8 @@ namespace AGS.Engine.Desktop
             _hitTest = hitTest;
             _actions = new ConcurrentQueue<Func<Task>>();
             _coordinates = coordinates;
-            this._shouldBlockInput = shouldBlockInput;
-            this._keysDown = new AGSConcurrentHashSet<API.Key>();
+            _shouldBlockInput = shouldBlockInput;
+            _keysDown = new AGSConcurrentHashSet<API.Key>();
 
             MouseDown = mouseDown;
             MouseUp = mouseUp;
@@ -103,9 +103,9 @@ namespace AGS.Engine.Desktop
 
         #region IInputEvents implementation
 
-        public IEvent<AGS.API.MouseButtonEventArgs> MouseDown { get; private set; }
+        public IEvent<API.MouseButtonEventArgs> MouseDown { get; private set; }
 
-        public IEvent<AGS.API.MouseButtonEventArgs> MouseUp { get; private set; }
+        public IEvent<API.MouseButtonEventArgs> MouseUp { get; private set; }
 
         public IEvent<MousePositionEventArgs> MouseMove { get; private set; }
 
@@ -115,7 +115,7 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        public bool IsKeyDown(AGS.API.Key key) => _keysDown.Contains(key);
+        public bool IsKeyDown(API.Key key) => _keysDown.Contains(key);
 
         public MousePosition MousePosition => new MousePosition(_mouseX, _mouseY, _coordinates);
 

@@ -38,7 +38,7 @@ namespace AGS.Editor
                     }
                     else
                     {
-                        oldProperties.Add((componentModel, propertyName, false, oldValue, null));
+                        oldProperties.Add((componentModel, propertyName, false, null, null));
                     }
                     componentModel.Properties[propertyName] = value;
                 }
@@ -51,7 +51,7 @@ namespace AGS.Editor
                     }
                     else
                     {
-                        oldProperties.Add((componentModel, propertyName, false, oldValue, parentValue));
+                        oldProperties.Add((componentModel, propertyName, false, null, parentValue));
                     }
                     parentValue.Children[propertyName] = value;
                 }

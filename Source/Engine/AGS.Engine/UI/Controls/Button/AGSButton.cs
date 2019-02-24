@@ -1,12 +1,12 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 
 namespace AGS.Engine
 {
 	public partial class AGSButton
 	{
-		partial void afterInitComponents(Resolver resolver)
+	    // ReSharper disable once UnusedParameterInPartialMethod
+	    partial void afterInitComponents(Resolver resolver)
 		{
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;

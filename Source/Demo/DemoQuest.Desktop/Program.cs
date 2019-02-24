@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.Engine.Desktop;
+﻿using AGS.Engine.Desktop;
 using DemoGame;
 
 namespace DemoQuest.Desktop

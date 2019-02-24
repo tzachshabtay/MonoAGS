@@ -8,12 +8,10 @@ namespace AGS.Engine
     {
         private struct ViewportSubscriber
         {
-            private IViewport _viewport;
             private Action _onSomethingChanged;
 
             public ViewportSubscriber(IViewport viewport, Action onSomethingChanged)
             {
-                _viewport = viewport;
                 _onSomethingChanged = onSomethingChanged;
                 viewport.DisplayListSettings.PropertyChanged += onDisplayListPropertyChanged;
                 viewport.DisplayListSettings.RestrictionList.PropertyChanged += onDisplayListPropertyChanged;

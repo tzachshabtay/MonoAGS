@@ -2,7 +2,6 @@
 using AGS.API;
 using Autofac;
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -223,10 +222,12 @@ namespace AGS.Engine
              [MethodParam(Browsable = false, Default = 25f)] float height = -1f)
         {
             bool pixelArtButton = idle?.Image != null || (idle?.Animation != null && idle.Animation.Frames.Count > 0);
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (width == -1f && pixelArtButton)
             {
                 width = idle.Image?.Width ?? idle.Animation.Frames[0].Sprite.Width;
             }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (height == -1f && pixelArtButton)
             {
                 height = idle.Image?.Height ?? idle.Animation.Frames[0].Sprite.Height;
@@ -328,10 +329,12 @@ namespace AGS.Engine
             [MethodParam(Browsable = false, Default = 25f)] float height = -1f, bool isCheckButton = false)
         {
             bool pixelArtButton = notChecked?.Image != null || (notChecked?.Animation != null && notChecked.Animation.Frames.Count > 0);
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (width == -1f && pixelArtButton)
             {
                 width = notChecked.Image?.Width ?? notChecked.Animation.Frames[0].Sprite.Width;
             }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (height == -1f && pixelArtButton)
             {
                 height = notChecked.Image?.Height ?? notChecked.Animation.Frames[0].Sprite.Height;
@@ -626,7 +629,9 @@ namespace AGS.Engine
         {
             button = button ?? defaultAnimation();
             if (button.Animation != null || button.Image != null) return button;
+            // ReSharper disable CompareOfFloatsByEqualityOperator
             if (width == -1f || height == -1)
+            // ReSharper restore CompareOfFloatsByEqualityOperator
             {
                 throw new InvalidOperationException("No animation/image and no size was supplied for GUI control " + id);
             }

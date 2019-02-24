@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Drawing;
 
 namespace AGS.Engine.Desktop
@@ -16,7 +15,7 @@ namespace AGS.Engine.Desktop
         [Property(Browsable = false)]
 		public Brush InnerBrush { get; private set; }
 
-		public static DesktopBrush Solid(AGS.API.Color color)
+		public static DesktopBrush Solid(API.Color color)
 		{
 			DesktopBrush brush = new DesktopBrush (new SolidBrush (color.Convert()));
 			brush.Type = BrushType.Solid;
@@ -36,27 +35,27 @@ namespace AGS.Engine.Desktop
 
 		public BrushType Type { get; private set; }
 
-		public AGS.API.Color Color { get; private set; }
+		public API.Color Color { get; private set; }
 
-		public IBlend Blend { get; private set; }
+		public IBlend Blend => default;
 
-		public bool GammaCorrection { get; private set; }
+	    public bool GammaCorrection => default;
 
-		public IColorBlend InterpolationColors { get; private set; }
+	    public IColorBlend InterpolationColors => default;
 
-		public AGS.API.Color[] LinearColors { get; private set; }
+	    public API.Color[] LinearColors => default;
 
-		public ITransformMatrix Transform { get; private set; }
+	    public ITransformMatrix Transform => default;
 
-		public WrapMode WrapMode { get; private set; }
+	    public WrapMode WrapMode => default;
 
-		public AGS.API.Color BackgroundColor { get; private set; }
+	    public API.Color BackgroundColor => default;
 
-		public HatchStyle HatchStyle { get; private set; }
+	    public HatchStyle HatchStyle => default;
 
-		public AGS.API.PointF CenterPoint { get; private set; }
+	    public API.PointF CenterPoint => default;
 
-		public AGS.API.PointF FocusScales { get; private set; }
+		public API.PointF FocusScales => default;
 
         #endregion
 

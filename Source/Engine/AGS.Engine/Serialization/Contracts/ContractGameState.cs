@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 using Autofac;
@@ -9,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class ContractGameState : IContract<IGameState>
 	{
-		public ContractGameState()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
         public ContractCharacter Player { get; set; }
 
 		[ProtoMember(2)]

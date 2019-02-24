@@ -39,12 +39,8 @@ namespace AGS.Engine
                     if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.WalkIfHaveWalkPoint:
-                    if (walkPt == null && faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
-                    else
-                    {
-                        if (walk != null && !await walk.WalkAsync(new Position(walkPt.Value))) return false;
-                        if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
-                    }
+                    if (walk != null && walkPt != null && !await walk.WalkAsync(new Position(walkPt.Value))) return false;
+                    if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.AlwaysWalk:
                     PointF? walkPoint = walkPt ?? obj.CenterPoint ?? obj.Position.XY;

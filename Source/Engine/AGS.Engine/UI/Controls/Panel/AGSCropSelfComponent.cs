@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using AGS.API;
 
 namespace AGS.Engine
 { 
     public class AGSCropSelfComponent : AGSComponent, ICropSelfComponent
     {
-        private IImageComponent _image;
         private IInObjectTreeComponent _tree;
 
         public AGSCropSelfComponent()
@@ -30,7 +28,6 @@ namespace AGS.Engine
         public override void Init()
         {
             base.Init();
-            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
             Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
         }
 

@@ -171,7 +171,7 @@ namespace AGS.Engine
                     return getPortraitLocation(portraitConfig);
                 case PortraitPositioning.SpeakerPosition:
                     portrait.Pivot = new PointF(0f, 0f);
-                    if (_obj.X < _settings.VirtualResolution.Width / 2) _lastSpeakerOnLeft = true;
+                    if (_obj.X < _settings.VirtualResolution.Width / 2f) _lastSpeakerOnLeft = true;
                     else _lastSpeakerOnLeft = false;
                     return getPortraitLocation(portraitConfig);
                 default: throw new NotSupportedException(portraitConfig.Positioning.ToString());

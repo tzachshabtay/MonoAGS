@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractOutfit : IContract<IOutfit>
 	{
-		public ContractOutfit()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IDictionary<string, IDirectionalAnimation> Outfit { get; set; }
 
 		#region IContract implementation
@@ -33,13 +28,6 @@ namespace AGS.Engine
 		}
 
 		#endregion
-
-		private Contract<IDirectionalAnimation> fromItem(AGSSerializationContext context, IDirectionalAnimation animation)
-		{
-			Contract<IDirectionalAnimation> item = new Contract<IDirectionalAnimation> ();
-			item.FromItem(context, animation);
-			return item;
-		}
 	}
 }
 

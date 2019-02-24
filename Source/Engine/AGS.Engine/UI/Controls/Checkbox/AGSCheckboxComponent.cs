@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using AGS.API;
 
 namespace AGS.Engine.UI.Controls

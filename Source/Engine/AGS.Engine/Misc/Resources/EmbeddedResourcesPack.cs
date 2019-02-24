@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,7 +26,8 @@ namespace AGS.Engine
         public string ResolvePath(string path)
         {
             string folder = Path.GetDirectoryName(path);
-            string filename = Path.GetFileName(path).ToUpper();
+            string filename = Path.GetFileName(path)?.ToUpper();
+            Trace.Assert(filename != null);
             if (filename.Contains(".")) return path;
 
             //We're assuming we received a file/resource name without the extension: let's try to find a matching resource/file.
@@ -79,7 +81,7 @@ namespace AGS.Engine
             }
             catch (Exception e)
             {
-                throw new ArgumentException("Invalid resource name: " + path ?? "null", e);
+                throw new ArgumentException("Invalid resource name: " + (path ?? "null"), e);
             }
         }
 

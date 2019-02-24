@@ -36,18 +36,15 @@ namespace AGS.Engine
 				throw new InvalidOperationException ("Failed to load sprite sheet from " + filePath);
 			}
 			IBitmap bitmap = _bitmapLoader.Load (resource.Stream);
-			int cellsInRow, cellsInCol, cellsTotal, cellX, cellY, cellsToGrab, cellsGrabbed = 0;
-			Point mainStep, secondStep;
-			AGSAnimation animation;
-			getSpriteSheetData (bitmap, spriteSheet, animationConfig, out cellsInRow, out cellsInCol,
-			                    out cellsTotal, out cellX, out cellY, out cellsToGrab, out mainStep, out secondStep, 
-			                    out animation);
+			int cellsGrabbed = 0;
+		    getSpriteSheetData (bitmap, spriteSheet, animationConfig, out int cellsInRow, out int cellsInCol,
+			                    out int _, out int cellX, out int cellY, out int cellsToGrab, out Point mainStep, out Point secondStep, 
+			                    out AGSAnimation animation);
 			for (int currentCell = 0; cellsGrabbed < cellsToGrab; currentCell++) 
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
 				{
-                    Rectangle rect; IBitmap clone; string path; ITexture tex;
-                    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
+				    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out Rectangle _, out IBitmap clone, out string path, out ITexture tex);
                     IImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
@@ -69,18 +66,15 @@ namespace AGS.Engine
 				throw new InvalidOperationException ("Failed to load sprite sheet from " + filePath);
 			}
 			IBitmap bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
-			int cellsInRow, cellsInCol, cellsTotal, cellX, cellY, cellsToGrab, cellsGrabbed = 0;
-			Point mainStep, secondStep;
-			AGSAnimation animation;
-			getSpriteSheetData (bitmap, spriteSheet, animationConfig, out cellsInRow, out cellsInCol,
-								out cellsTotal, out cellX, out cellY, out cellsToGrab, out mainStep, out secondStep,
-								out animation);
+			int cellsGrabbed = 0;
+		    getSpriteSheetData (bitmap, spriteSheet, animationConfig, out int cellsInRow, out int cellsInCol,
+								out int _, out int cellX, out int cellY, out int cellsToGrab, out Point mainStep, out Point secondStep,
+								out AGSAnimation animation);
 			for (int currentCell = 0; cellsGrabbed < cellsToGrab; currentCell++) 
 			{
 				if (currentCell >= spriteSheet.StartFromCell) 
 				{
-                    Rectangle rect; IBitmap clone; string path; ITexture tex;
-                    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out rect, out clone, out path, out tex);
+				    getImageInfo (bitmap, cellX, cellY, spriteSheet, loadConfig, filePath, out Rectangle _, out IBitmap clone, out string path, out ITexture tex);
                     IImage image = _loadImage (tex, clone, path, loadConfig, spriteSheet);
 					_addAnimationFrame (image, animation);
 					cellsGrabbed++;
@@ -197,4 +191,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

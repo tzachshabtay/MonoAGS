@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AGS.Engine.Desktop
 {
@@ -75,7 +71,7 @@ namespace AGS.Engine.Desktop
 
             if (e == null)
                 return;
-            Debug.WriteLine($"Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {e.ToString()}");
+            Debug.WriteLine($"Failed to copy OpenAL Soft dll, audio will not be played if OpenAL is not installed. Exception: {e}");
         }
     }
 }

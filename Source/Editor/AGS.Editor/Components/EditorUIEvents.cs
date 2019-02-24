@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.Engine;
+﻿using AGS.Engine;
 
 namespace AGS.Editor
 {

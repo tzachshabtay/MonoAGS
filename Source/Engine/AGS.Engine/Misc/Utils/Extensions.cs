@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using AGS.API;
 using System.Reflection;
+using AGS.API;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
@@ -53,7 +53,7 @@ namespace AGS.Engine
             }
         }
 
-        public static float AlignX(this ITextConfig config, float width, AGS.API.SizeF baseSize)
+        public static float AlignX(this ITextConfig config, float width, SizeF baseSize)
         {
             switch (config.Alignment)
             {
@@ -72,7 +72,7 @@ namespace AGS.Engine
             }
         }
 
-        public static float AlignY(this ITextConfig config, float bitmapHeight, float height, AGS.API.SizeF baseSize)
+        public static float AlignY(this ITextConfig config, float bitmapHeight, float height, SizeF baseSize)
         {
             switch (config.Alignment)
             {
@@ -126,6 +126,8 @@ namespace AGS.Engine
                     return config.Font.MeasureString(text, config.Alignment).Scale(scaleBackX, scaleBackY);
             }
         }
+
+        public static void StartAnimation(this ButtonAnimation button, IObject obj) => button.StartAnimation(obj, obj.GetComponent<ITextComponent>(), obj, obj);
 
         public static void StartAnimation(this ButtonAnimation button, IAnimationComponent animationComponent,
                                           ITextComponent textComponent, IImageComponent imageComponent, IBorderComponent borderComponent)

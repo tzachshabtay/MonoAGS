@@ -40,7 +40,7 @@ namespace AGS.API
 		ITextConfig TextConfig { get; set; }
 
         /// <summary>
-        /// When <see cref="SkipText"/> is configured to be either <see cref="SkipText.ByTime"/> or <see cref="SkipText.ByTimeAndMouse"/> 
+        /// When <see cref="SkipText"/> is configured to be either <see cref="AGS.API.SkipText.ByTime"/> or <see cref="AGS.API.SkipText.ByTimeAndMouse"/> 
         /// then the engine estimates how long to keep the said text on the screen before moving on. This property determines
         /// how long (in milliseconds) should the engine wait for each character in the text (and 40 milliseconds overall are added on top of that to avoid
         /// too short sentences ending abruptly). The default for this value is 70 milliseconds.

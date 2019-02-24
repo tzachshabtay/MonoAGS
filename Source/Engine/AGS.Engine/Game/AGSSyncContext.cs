@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Threading;
 
 namespace AGS.Engine
@@ -16,7 +15,7 @@ namespace AGS.Engine
 
 		public void SetSyncContext ()
 		{
-			SynchronizationContext.SetSynchronizationContext (this);
+			SetSynchronizationContext (this);
 		}
 
 		public void PumpMessages ()

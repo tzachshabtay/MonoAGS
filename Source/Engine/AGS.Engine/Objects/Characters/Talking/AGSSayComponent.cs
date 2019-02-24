@@ -53,7 +53,7 @@ namespace AGS.Engine
 		{
             var outfit = _outfit;
             var walkComponent = _walkComponent;
-            var previousAnimation = _faceDirection.CurrentDirectionalAnimation;
+            var previousAnimation = _faceDirection?.CurrentDirectionalAnimation;
             var speakAnimation = outfit == null ? null : outfit.Outfit[AGSOutfit.Speak];
             bool wasWalking = false;
             if (walkComponent?.IsWalking ?? false)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
@@ -52,6 +51,25 @@ namespace AGS.Editor
             _combobox = factory.UI.GetComboBox($"{Name}_SimpleCombobox", parent: parent);
             _combobox.Position = position;
             _combobox.DropDownPanelList.Items.AddRange(_values.Select(v => new AGSStringItem { Text = v}).Cast<IStringItem>().ToList());
+        }
+    }
+
+    public class CheckboxField : ISimpleField
+    {
+        private ICheckBox _checkbox;
+
+        public CheckboxField(string name)
+        {
+            Name = name; 
+        }
+
+        public string Name { get; }
+
+        public bool Value => _checkbox.Checked;
+
+        public void Add(Position position, IObject parent, IGameFactory factory)
+        {
+            _checkbox = factory.UI.GetCheckBox($"{Name}_SimpleCheckbox", (ButtonAnimation)null, null, null, null, position.X, position.Y, parent, width: 40f, height: 40f);
         }
     }
 

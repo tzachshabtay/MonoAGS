@@ -24,6 +24,7 @@ namespace AGS.API
         /// Initializes a new instance of the <see cref="T:AGS.API.ButtonAnimation"/> class.
         /// </summary>
         /// <param name="image">Image.</param>
+        /// <param name="tint">Tint.</param>
         public ButtonAnimation(IImage image, Color? tint = null)
         {
             Image = image;

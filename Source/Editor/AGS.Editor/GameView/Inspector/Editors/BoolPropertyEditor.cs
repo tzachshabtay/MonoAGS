@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
 

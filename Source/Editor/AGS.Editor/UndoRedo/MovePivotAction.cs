@@ -1,6 +1,5 @@
 ﻿using System;
 using AGS.API;
-using AGS.Engine;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -26,7 +25,7 @@ namespace AGS.Editor
             _toPivotY = toPivotY;
             _toX = toX;
             _toY = toY;
-            _actionDisplayName = $"{entityName?.ToString() ?? "Null"}.Pivot = ({toPivotX},{toPivotY})";
+            _actionDisplayName = $"{entityName ?? "Null"}.Pivot = ({toPivotX},{toPivotY})";
         }
 
         public override string ToString() => _actionDisplayName;

@@ -211,7 +211,7 @@ namespace AGS.Engine
 
             public override string ToString()
             {
-                return $"[Event on {_origObject.Target.ToString()} ({getMethodName()})]";
+                return $"[Event on {_origObject.Target} ({getMethodName()})]";
             }
 
             private string getMethodName()

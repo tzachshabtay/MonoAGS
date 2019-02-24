@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using AGS.API;
 
 namespace AGS.Engine
@@ -14,7 +10,6 @@ namespace AGS.Engine
         private readonly IGameState _gameState;
         private readonly IComparer<IObject> _comparer;
         private readonly List<IObject> _emptyList = new List<IObject>(1);
-        private readonly IRoomTransitions _roomTransitions;
         private readonly IMatrixUpdater _matrixUpdater;
 
         private readonly ConcurrentDictionary<IViewport, ViewportDisplayList> _cache;
@@ -26,10 +21,9 @@ namespace AGS.Engine
         private bool _isDirty;
         private IObject _cursor;
 
-        public AGSDisplayList(IGameState gameState, IMatrixUpdater matrixUpdater, IRoomTransitions roomTransitions)
+        public AGSDisplayList(IGameState gameState, IMatrixUpdater matrixUpdater)
         {
             _matrixUpdater = matrixUpdater;
-            _roomTransitions = roomTransitions;
             _gameState = gameState;
             _cache = new ConcurrentDictionary<IViewport, ViewportDisplayList>();
             _viewportSubscribers = new ConcurrentDictionary<IViewport, ViewportSubscriber>();
@@ -226,7 +220,7 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void onRoomPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onRoomPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (args.PropertyName != nameof(IRoom.Background) && args.PropertyName != nameof(IRoom.RoomLimitsProvider)
                 && args.PropertyName != nameof(IRoom.ShowPlayer)) return;
@@ -270,7 +264,7 @@ namespace AGS.Engine
             unsubscribeAreas(lastRoom.Areas);
         }
 
-        private static API.IComponentBinding bind<TComponent>(IEntity entity, PropertyChangedEventHandler ev) where TComponent : API.IComponent
+        private static IComponentBinding bind<TComponent>(IEntity entity, System.ComponentModel.PropertyChangedEventHandler ev) where TComponent : IComponent
         {
             return entity.Bind<TComponent>(c => c.PropertyChanged += ev, c => c.PropertyChanged -= ev);
         }

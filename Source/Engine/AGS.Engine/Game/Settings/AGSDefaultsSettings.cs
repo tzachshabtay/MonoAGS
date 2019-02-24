@@ -1,8 +1,8 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
+    [PropertyFolder]
     public class AGSDefaultsSettings : IDefaultsSettings
     {
         public IFont SpeechFont { get; set; } = AGSGame.Device.FontLoader.LoadFont(null, 10f);
@@ -11,6 +11,7 @@ namespace AGS.Engine
 
         public ISkin Skin { get; set; }
 
+        [Property(ForceReadonly = true)]
         public IMessageBoxSettings MessageBox { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using AGS.Engine;
+﻿using NUnit.Framework;
 using AGS.API;
 
 namespace Tests

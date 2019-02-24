@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace AGS.API
+﻿namespace AGS.API
 {
     /// <summary>
     /// The game loop, which updates the game state on every tick.

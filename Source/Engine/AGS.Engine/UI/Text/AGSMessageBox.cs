@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AGS.API;
 using Autofac;
 
 namespace AGS.Engine
 {
-	public static class AGSMessageBox
+    public static class AGSMessageBox
 	{
         public static Task<IButton> DisplayAsync(string text, params IButton[] buttons)
         {
@@ -20,6 +21,7 @@ namespace AGS.Engine
         public static async Task<IButton> DisplayAsync(string text, IGame game, IMessageBoxSettings settings = null, params IButton[] buttons)
 		{
             settings = settings ?? game.Settings.Defaults.MessageBox;
+            Trace.Assert(settings != null);
 			float maxHeight = buttons.Length > 0 ? buttons.Max(b => b.Height) + (settings.ButtonYPadding * 2f) : 0f;
             var sayComponent = getSayComponent(maxHeight, game, settings);
 			sayComponent.SpeechConfig.SkipText = buttons.Length > 0 ? SkipText.External : SkipText.ByMouse;
@@ -30,8 +32,7 @@ namespace AGS.Engine
                 args.Label.RenderLayer = settings.RenderLayer;
 				args.Label.Enabled = true;
                 args.Label.AddComponent<IModalWindowComponent>().GrabFocus();
-                var textConfig = sayComponent.SpeechConfig.TextConfig;
-
+                
                 float labelWidth = sayComponent.SpeechConfig.LabelSize.Width;
 
                 float buttonsWidth = buttons.Sum(b => b.Width) + settings.ButtonXPadding * (buttons.Length - 1);

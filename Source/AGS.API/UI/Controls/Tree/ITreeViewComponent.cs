@@ -40,6 +40,24 @@
         float VerticalSpacing { get; set; }
 
         /// <summary>
+        /// Gets or sets the top padding for the tree view.
+        /// </summary>
+        /// <value>The top padding.</value>
+        float TopPadding { get; set; }
+
+        /// <summary>
+        /// Gets or sets the left padding for the tree view.
+        /// </summary>
+        /// <value>The left padding.</value>
+        float LeftPadding { get; set; }
+
+        /// <summary>
+        /// Allow pausing/resuming the tree layout.
+        /// </summary>
+        /// <value><c>true</c> if layout paused; otherwise, <c>false</c>.</value>
+        bool LayoutPaused { get; set; }
+
+        /// <summary>
         /// Gets or sets whether to allow selecting nodes in the tree.
         /// </summary>
         /// <value>The allow selection.</value>

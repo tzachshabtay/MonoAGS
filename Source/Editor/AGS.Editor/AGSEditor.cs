@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using Autofac;
 using GuiLabs.Undo;
@@ -95,8 +94,9 @@ namespace AGS.Editor
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
-                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().Except<EditorUIEvents>().AsImplementedInterfaces().ExternallyOwned());
+                              Except<EditorShouldBlockEngineInput>().Except<EditorUIEvents>().AsImplementedInterfaces().ExternallyOwned());
             Resolver.Override(resolver => { var editor = new AGSEditor(resolver); resolver.Builder.RegisterInstance(editor); });
+            Resolver.Override(resolver => resolver.RegisterType<AGSTreeNodeViewProvider, ITreeNodeViewProvider>());
         }
 
         public static IEditorPlatform Platform { get; set; }

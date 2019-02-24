@@ -48,8 +48,9 @@ namespace AGS.API
         /// <summary>
         /// Once the table layout calculates new column sizes it fires this event, for which all the rows should
         /// listen and readjust their columns accordingly.
+        /// If a specific row is passed, only that row needs to recalculate. If the passed row is null, all rows need to recalculate.
         /// </summary>
         /// <value>The refresh layout event.</value>
-        IBlockingEvent OnRefreshLayoutNeeded { get; }
+        IBlockingEvent<ITreeTableRowLayoutComponent> OnRefreshLayoutNeeded { get; }
     }
 }

@@ -89,7 +89,7 @@ namespace AGS.Engine
         public bool Equals(ITextConfig config)
         {
             if (config == null) return false;
-            if (config == this) return true;
+            if (ReferenceEquals(config, this)) return true;
             return Brush == config.Brush && Font == config.Font && Alignment == config.Alignment
                   && OutlineBrush == config.OutlineBrush && MathUtils.FloatEquals(OutlineWidth, config.OutlineWidth)
                   && ShadowBrush == config.ShadowBrush && MathUtils.FloatEquals(ShadowOffsetX, config.ShadowOffsetX)
@@ -98,7 +98,7 @@ namespace AGS.Engine
                   && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
-        public override int GetHashCode() => Font?.GetHashCode() ?? 0;
+        public override int GetHashCode() => 0; //We don't have any immutable field which can be used for the hash code, unfortunately.
 
         public override string ToString() => "Text Configuration";
     }

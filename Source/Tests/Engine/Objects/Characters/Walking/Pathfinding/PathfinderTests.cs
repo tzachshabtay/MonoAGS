@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,10 +90,11 @@ namespace Tests
 			if (array != null) pathFinder.Init(array);
             Position from = new Position (fromX, fromY);
             Position to = new Position (toX, toY);
-            IEnumerable<Position> points = pathFinder.GetWalkPoints(from, to);
-			if (!points.Any()) return false;
+            List<Position> points = pathFinder.GetWalkPoints(from, to).ToList();
+			if (points.Count == 0) return false;
             foreach (Position point in points)
 			{
+			    Assert.IsNotNull(array);
 				Assert.IsTrue(array[(int)point.X][(int)point.Y]);
 			}
 			return true;

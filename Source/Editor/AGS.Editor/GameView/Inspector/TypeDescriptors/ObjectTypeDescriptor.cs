@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Reflection;
 using AGS.API;
 using AGS.Engine;
-using Humanizer;
 
 namespace AGS.Editor
 {
@@ -41,17 +40,20 @@ namespace AGS.Editor
         public static InspectorProperty AddProperty(object obj, IComponent component, IProperty parent, PropertyInfo prop, ref InspectorCategory cat)
         {
             var attr = prop.GetCustomAttribute<PropertyAttribute>();
+            Trace.Assert(prop.PropertyType.FullName != null, $"prop.PropertyType.FullName was null for {prop.PropertyType}");
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             if (attr == null && prop.PropertyType.FullName.StartsWith("AGS.API.IBlockingEvent", StringComparison.Ordinal)) return null; //filtering all events from the inspector by default
             string name = prop.Name;
             string displayName = null;
+            bool forceReadonly = false;
             if (attr != null)
             {
                 if (!attr.Browsable) return null;
                 if (attr.Category != null) cat = new InspectorCategory(attr.Category, attr.CategoryZ, attr.CategoryExpand);
                 displayName = attr.DisplayName;
+                forceReadonly = attr.ForceReadonly;
             }
-            InspectorProperty property = new InspectorProperty(component, obj, parent, name, prop, displayName);
+            InspectorProperty property = new InspectorProperty(component, obj, parent, name, prop, displayName, forceReadonly);
             RefreshChildrenProperties(property);
             return property;
         }

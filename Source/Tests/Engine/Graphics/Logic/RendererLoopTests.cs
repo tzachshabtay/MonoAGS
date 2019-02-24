@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
-using Autofac;
 using Moq;
 using NUnit.Framework;
 
@@ -12,7 +10,6 @@ namespace Tests
     public class RendererLoopTests
     {
         private Mocks _mocks;
-        private Mock<IRoomTransitions> _transitions;
         private AGSBindingList<IArea> _areas;
         private AGSConcurrentHashSet<IObject> _roomObjects, _uiObjects;
         private Resolver _resolver;
@@ -21,7 +18,6 @@ namespace Tests
         public void Init()
         {
             _mocks = Mocks.Init();
-            _transitions = new Mock<IRoomTransitions>();
             _resolver = Mocks.GetResolver();
             _resolver.Build();
 
@@ -104,8 +100,7 @@ namespace Tests
 
         private IDisplayList getDisplayList()
         {
-            return new AGSDisplayList(_mocks.GameState().Object,
-                new Mock<IMatrixUpdater>().Object, new Mock<IRoomTransitions>().Object);
+            return new AGSDisplayList(_mocks.GameState().Object, new Mock<IMatrixUpdater>().Object);
         }
 
         private IAGSRenderPipeline getPipeline(IDisplayList displayList)

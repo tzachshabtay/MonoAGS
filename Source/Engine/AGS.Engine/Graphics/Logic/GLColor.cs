@@ -18,13 +18,13 @@ namespace AGS.Engine
 
 		#region IGLColor implementation
 
-		public float R { get; private set; }
+		public float R { get; }
 
-		public float G { get; private set; }
+		public float G { get; }
 
-		public float B { get; private set; }
+		public float B { get; }
 
-		public float A { get; private set; }
+		public float A { get; }
 
 		#endregion
 
@@ -64,10 +64,7 @@ namespace AGS.Engine
                    MathUtils.FloatEquals(other.B, B) && MathUtils.FloatEquals(other.A, A);
         }
 
-		public override int GetHashCode()
-		{
-            return R.GetHashCode();
-		}
+		public override int GetHashCode() => R.GetHashCode();
 
 		#endregion
 

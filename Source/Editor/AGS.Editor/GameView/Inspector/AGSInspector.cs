@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
+using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -17,7 +17,6 @@ namespace AGS.Editor
         private ITreeViewComponent _treeView;
         private readonly IGameFactory _factory;
         private readonly IFont _font;
-        private readonly IGameState _state;
         private readonly StateModel _model;
         private IEntity _currentEntity;
         private readonly ActionManager _actions;
@@ -25,17 +24,16 @@ namespace AGS.Editor
         private readonly EditorProvider _editorProvider;
         private IEntity _scrollingContainer;
 
-        public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, IGameState state, 
+        public AGSInspector(IGameFactory factory, IGameSettings gameSettings, IGameSettings editorSettings, 
                             ActionManager actions, StateModel model, AGSEditor editor, IForm parentForm)
         {
             _cleanup = new List<Action>(50);
             _actions = actions;
             _model = model;
-            _state = state;
             _props = new Dictionary<InspectorCategory, List<IProperty>>();
             _factory = factory;
             _font = editorSettings.Defaults.TextFont;
-            _editorProvider = new EditorProvider(factory, actions, model, state, gameSettings, editor, parentForm);
+            _editorProvider = new EditorProvider(factory, actions, model, gameSettings, editor, parentForm);
         }
 
         public ITreeViewComponent Tree => _treeView;
@@ -103,16 +101,17 @@ namespace AGS.Editor
             treeView.VerticalSpacing = 40f;
         }
 
-        private void refreshTree()
+        private async void refreshTree()
         {
             var treeView = _treeView;
             if (treeView == null) return;
+            treeView.LayoutPaused = true;
             var root = new AGSTreeStringNode("", _font);
             List<ITreeStringNode> toExpand = new List<ITreeStringNode>();
             bool skipCategories = _props.Count == 1;
             foreach (var pair in _props.OrderBy(p => p.Key.Z).ThenBy(p => p.Key.Name))
             {
-                ITreeStringNode cat = null;
+                ITreeStringNode cat;
                 if (!skipCategories && pair.Value.Count == 1)
                 {
                     //special case: category has only one child, let's "merge" them together
@@ -138,6 +137,7 @@ namespace AGS.Editor
             {
                 treeView.Expand(node);
             }
+            treeView.LayoutPaused = false;
         }
 
         private ITreeStringNode addToTree(ITreeStringNode parent, IProperty prop, bool isCategory)

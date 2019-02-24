@@ -56,7 +56,7 @@ namespace AGS.Engine
 
         public void PlayAndWait(float volume)
         {
-            ISound sound = AudioClip.Play(volume, false);
+            ISound sound = AudioClip.Play(volume);
             OnSoundStarted.Invoke(sound);
             EmittedSound emittedSound = new EmittedSound(sound);
             _playingSounds.TryAdd(emittedSound.ID, emittedSound);
@@ -130,8 +130,7 @@ namespace AGS.Engine
 			{
 				if (sound.Value.Sound.HasCompleted)
 				{
-					EmittedSound value;
-					_playingSounds.TryRemove(sound.Key, out value);
+				    _playingSounds.TryRemove(sound.Key, out EmittedSound _);
 					continue;
 				}
 				if (pos == null) continue;

@@ -50,12 +50,12 @@ namespace AGS.Engine
         public static void StartTag(string key)
         {
             _tags[key] = new ConcurrentDictionary<string, List<Stopwatch>>();
-            Measure.Start(key);
+            Start(key);
         }
 
         public static void EndTag(string key)
         {
-            Measure.End(key);
+            End(key);
             if (!_tags.TryRemove(key, out var stopwatchesMap))
             {
                 throw new Exception($"Missing key for tag measurement: {key}");

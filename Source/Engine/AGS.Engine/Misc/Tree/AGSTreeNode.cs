@@ -1,7 +1,6 @@
 ﻿using AGS.API;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AGS.Engine
 {
@@ -28,6 +27,14 @@ namespace AGS.Engine
             }
             else child.TreeNode.SetParent(this);
 		}
+
+        public void InsertChild(int index, TItem child)
+        {
+            if (HasChild(child))
+                throw new InvalidOperationException($"Can't insert child at index {index}, child is already in the collection");
+            _children.Insert(index, child);
+            ((AGSTreeNode<TItem>)child.TreeNode).setParentOneWay(this);
+        }
 
         public void AddChildren(List<TItem> children)
         {
@@ -88,7 +95,7 @@ namespace AGS.Engine
             var count = ChildrenCount;
             var countString = count == 0 ? "No children" : count == 1 ? "1 child" : $"{count} children";
             if (Parent == null) return countString;
-            return $"Child of {Parent.ToString()}, {countString}";
+            return $"Child of {Parent}, {countString}";
         }
 
         public TItem Node { get; set; }
@@ -156,4 +163,3 @@ namespace AGS.Engine
         }
     }
 }
-

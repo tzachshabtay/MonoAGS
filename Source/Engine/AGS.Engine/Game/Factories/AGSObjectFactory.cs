@@ -20,7 +20,7 @@ namespace AGS.Engine
 
 		public IObject GetObject(string id, IRoom room = null)
 		{
-            Debug.WriteLine("Getting object: " + id ?? "null");
+            Debug.WriteLine("Getting object: " + (id ?? "null"));
 			TypedParameter idParam = new TypedParameter (typeof(string), id);
 			var obj = _resolver.Container.Resolve<IObject>(idParam);
             room?.Objects.Add(obj);

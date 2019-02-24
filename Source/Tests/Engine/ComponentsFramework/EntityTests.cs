@@ -19,11 +19,10 @@ namespace Tests
         private class OnlyOneComponent : AGSComponent, IOnlyOneComponent
         {
             public static int LastID;
-            private int _id;
 
             public OnlyOneComponent()
             {
-                _id = LastID++;
+                LastID++;
             }
 
             public void AssertOne()

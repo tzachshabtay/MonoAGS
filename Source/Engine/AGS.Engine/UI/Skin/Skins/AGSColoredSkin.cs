@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
     public class AGSColoredSkin
     {
-        private IGraphicsFactory _factory;
+        private readonly IGraphicsFactory _factory;
 
         public AGSColoredSkin(IGraphicsFactory factory)
         {

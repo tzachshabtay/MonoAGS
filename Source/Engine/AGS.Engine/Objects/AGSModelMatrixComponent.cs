@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 
@@ -115,7 +114,7 @@ namespace AGS.Engine
 			);
             Entity.Bind<ITextComponent>(
                 c => { _text = c; subscribeTextComponent(); },
-                c => { unsubscribeTextComponent(c); _text = null; }
+                _ => { unsubscribeTextComponent(); _text = null; }
             );
 
             Entity.Bind<IInObjectTreeComponent>(
@@ -280,7 +279,7 @@ namespace AGS.Engine
             onSomethingChanged();
         }
 
-        private void unsubscribeTextComponent(ITextComponent text)
+        private void unsubscribeTextComponent()
         {
             _customImageSize = null;
             _customResolutionFactor = null;
@@ -302,7 +301,6 @@ namespace AGS.Engine
             {
                 _customResolutionFactor = text.CustomImageResolutionFactor;
                 onSomethingChanged();
-                return;
             }
         }
 
@@ -354,13 +352,12 @@ namespace AGS.Engine
 
         private void recalculate()
         {
-            PointF resolutionFactor;
-            Size resolution;
             _isDirty = false;
             bool resolutionMatches = GetVirtualResolution(true, _virtualResolution, _drawable, _customResolutionFactor,
-                                                   out resolutionFactor, out resolution);
+                                                   out PointF resolutionFactor, out Size _);
 
             var renderMatrix = getMatrix(resolutionFactor);
+            // ReSharper disable once PossibleInvalidOperationException
             var hitTestMatrix = resolutionMatches ? renderMatrix : resolutionFactor.Equals(NoScaling) ? getMatrix(new PointF((float)_virtualResolution.Width/_drawable.RenderLayer.IndependentResolution.Value.Width,
                                                                                                                              (float)_virtualResolution.Height/_drawable.RenderLayer.IndependentResolution.Value.Height)) : getMatrix(NoScaling);
             _matrices.InObjResolutionMatrix = renderMatrix;

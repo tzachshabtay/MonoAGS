@@ -66,6 +66,13 @@ namespace AGS.API
 		void AddChild(TItem child);
 
         /// <summary>
+        /// Inserts the child to the node at the specified index.
+        /// </summary>
+        /// <param name="index">Index.</param>
+        /// <param name="child">Child.</param>
+        void InsertChild(int index, TItem child);
+
+        /// <summary>
         /// Adds the list of children to the node.
         /// </summary>
         /// <param name="children">Children.</param>

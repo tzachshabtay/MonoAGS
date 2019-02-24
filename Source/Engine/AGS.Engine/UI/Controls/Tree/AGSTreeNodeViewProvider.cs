@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading;
 using AGS.API;
 
@@ -30,9 +29,10 @@ namespace AGS.Engine
             var expandButton = nodeView.ExpandButton;
             if (expandButton != null)
             {
-                expandButton.TextConfig = textConfig;
+                var expandTextConfig = textConfig;
+                if (item.TreeNode.ChildrenCount == 0) expandTextConfig = AGSTextConfig.ChangeColor(textConfig, textConfig.Brush.Color.WithAlpha(0), textConfig.OutlineBrush.Color, textConfig.OutlineWidth);
+                expandButton.TextConfig = expandTextConfig;
                 expandButton.Text = isCollapsed ? "+" : "-";
-                expandButton.TextVisible = item.TreeNode.ChildrenCount > 0;
                 expandButton.Enabled = expandButton.TextVisible;
             }
         }
@@ -58,6 +58,7 @@ namespace AGS.Engine
             expandButton.RenderLayer = layer;
             label.RenderLayer = layer;
             expandButton.Z = label.Z - 1;
+            parentPanel.Pivot = (0f, 1f);
             horizontalPanel.Tint = Colors.Transparent;
             parentPanel.Tint = Colors.Transparent;
             verticalPanel.Tint = Colors.Transparent;

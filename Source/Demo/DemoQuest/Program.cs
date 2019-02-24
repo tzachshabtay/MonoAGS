@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
 using DemoQuest;
-using System;
 
 namespace DemoGame
 {
@@ -25,8 +24,8 @@ namespace DemoGame
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly, CustomAssemblyName), 1));
                 game.Factory.Fonts.InstallFonts("Fonts/pf_ronda_seven.ttf", "Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f);
+                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f);
                 game.Settings.Defaults.Skin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
@@ -154,36 +153,25 @@ namespace DemoGame
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.EmptyStreet);
-			//addRoomWhenLoaded(game, Rooms.EmptyStreet);
             Debug.WriteLine("Startup: Loaded empty street");
 
 			BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet();
 			Rooms.BrokenCurbStreet = brokenCurbStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.BrokenCurbStreet);
-			//addRoomWhenLoaded(game, Rooms.BrokenCurbStreet);
             Debug.WriteLine("Startup: Loaded broken curb street");
 
 			TrashcanStreet trashcanStreet = new TrashcanStreet();
 			Rooms.TrashcanStreet = trashcanStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.TrashcanStreet);
-			//addRoomWhenLoaded (game, Rooms.TrashcanStreet);
             Debug.WriteLine("Startup: Loaded trashcan street");
 
 			DarsStreet darsStreet = new DarsStreet();
 			Rooms.DarsStreet = darsStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.DarsStreet);
-			//addRoomWhenLoaded(game, Rooms.DarsStreet);
             Debug.WriteLine("Startup: Loaded Dars street");
 
 			Rooms.Init(game);
             Debug.WriteLine("Startup: Initialized rooms");
-
-			//await Rooms.DarsStreet;
-		}
-
-		private void addRoomWhenLoaded (IGame game, Task<IRoom> task)
-		{
-			task.ContinueWith(room => game.State.Rooms.Add (room.Result));
 		}
 
         private async Task waitForRoom(IGame game, Task<IRoom> task)

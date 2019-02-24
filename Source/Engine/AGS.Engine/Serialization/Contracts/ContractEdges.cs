@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 namespace AGS.Engine
@@ -7,11 +6,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractEdges : IContract<IAGSEdges>
 	{
-		public ContractEdges()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public Contract<IEdge> Left { get; set; }
 
 		[ProtoMember(2)]

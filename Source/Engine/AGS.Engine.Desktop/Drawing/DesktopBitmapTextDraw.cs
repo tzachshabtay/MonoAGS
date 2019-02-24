@@ -34,7 +34,6 @@ namespace AGS.Engine.Desktop
 			_text = text;
 			_config = config;
 			_maxWidth = maxWidth;
-			IFont font = _config.Font;
 			IBrush outlineBrush = _config.OutlineBrush;
 
             float centerX = xOffset + (!shouldWrap() ? _config.PaddingLeft : _config.AlignX(textSize.Width, baseSize));

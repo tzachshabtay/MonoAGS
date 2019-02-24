@@ -15,8 +15,8 @@ namespace AGS.Engine
                                    Action<TComponent> onRemoved)
         {
             _collection = collection;
-            _componentChangedCallback = new Action<AGSListChangedEventArgs<IComponent>>(onComponentsChanged);
-            _componentsInitializedCallback = new Action(onComponentsInitialized);
+            _componentChangedCallback = onComponentsChanged;
+            _componentsInitializedCallback = onComponentsInitialized;
             this.onAdded = onAdded;
             this.onRemoved = onRemoved;
             collection.OnComponentsChanged.Subscribe(_componentChangedCallback);

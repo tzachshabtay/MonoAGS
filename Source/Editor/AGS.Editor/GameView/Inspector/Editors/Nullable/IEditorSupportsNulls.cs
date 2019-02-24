@@ -1,5 +1,4 @@
-﻿using System;
-namespace AGS.Editor
+﻿namespace AGS.Editor
 {
     public interface IEditorSupportsNulls : IInspectorPropertyEditor
     {

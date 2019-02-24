@@ -7,6 +7,6 @@ namespace AGS.Engine.Desktop
         Rectangle GetWindow(OpenTK.INativeWindow gameWindow);
         int GetWidth(OpenTK.INativeWindow gameWindow);
         int GetHeight(OpenTK.INativeWindow gameWindow);
-        void SetSize(OpenTK.INativeWindow gameWindow, AGS.API.Size size);
+        void SetSize(OpenTK.INativeWindow gameWindow, Size size);
     }
 }

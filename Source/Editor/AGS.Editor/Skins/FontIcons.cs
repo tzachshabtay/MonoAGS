@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 
 namespace AGS.Editor
@@ -22,9 +21,19 @@ namespace AGS.Editor
                                                  paddingLeft: -1f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
 
             TinyButtonConfigHovered = AGSTextConfig.ChangeColor(TinyButtonConfig, Colors.Black, Colors.White, 0f);
+
+            var largeFont = fontLoader.LoadFontFromPath(path, 56f, FontStyle.Regular);
+            LargeIconConfig = fontLoader.GetTextConfig(font: largeFont, autoFit: AutoFit.TextShouldFitLabel, alignment: Alignment.MiddleCenter,
+                                                 paddingLeft: -1f, paddingTop: 0f, paddingBottom: 0f, paddingRight: 0f, outlineWidth: 1f);
+
+            LargeIconConfigHovered = AGSTextConfig.ChangeColor(LargeIconConfig, GameViewColors.HoveredText, Colors.White, 0f);
         }
 
         public static IFont Font { get; private set; }
+
+        public static ITextConfig LargeIconConfig { get; private set; }
+
+        public static ITextConfig LargeIconConfigHovered { get; private set; }
 
         public static ITextConfig IconConfig { get; private set; }
 
@@ -61,5 +70,11 @@ namespace AGS.Editor
 
         public const string RadioUnchecked = "\uf111";
         public const string RadioChecked = "\uf192";
+
+        public const string Folder = "\uf07b";
+        public const string FolderOpen = "\uf07c";
+
+        public const string File = "\uf15b";
+        public const string AudioFile = "\uf1c7";
     }
 }

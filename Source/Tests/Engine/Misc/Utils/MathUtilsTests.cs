@@ -31,6 +31,20 @@ namespace Tests
 		{
 			return MathUtils.IsPowerOf2(num);
 		}
-	}
-}
 
+        [TestCase(1f, 1f, true)]
+        [TestCase(1f, 0f, false)]
+        [TestCase(-1f, -1f, true)]
+        [TestCase(-1f, 1f, false)]
+        [TestCase(float.NaN, float.NaN, true)]
+        [TestCase(float.NaN, 0f, false)]
+        [TestCase(-1f, -1.000000001f, true)]
+        [TestCase(float.MinValue, float.MinValue, true)]
+        [TestCase(float.MaxValue, float.MaxValue, true)]
+        [TestCase(float.MaxValue, float.MinValue, false)]
+        public void FloatEqualsTest(float x, float y, bool shouldEqual)
+        {
+            Assert.AreEqual(shouldEqual, MathUtils.FloatEquals(x, y));
+        }
+    }
+}

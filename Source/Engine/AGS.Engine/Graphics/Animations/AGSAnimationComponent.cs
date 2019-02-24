@@ -38,6 +38,7 @@ namespace AGS.Engine
 		{
             if (animation == null) throw new NullReferenceException("Animation is null");
             var scale = _scale;
+		    // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (scale?.Width == 0f && animation.Frames.Count > 0) 
 			{
                 scale.BaseSize = new SizeF(animation.Frames[0].Sprite.Width, animation.Frames[0].Sprite.Height);

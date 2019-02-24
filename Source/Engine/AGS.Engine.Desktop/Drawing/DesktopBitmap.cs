@@ -21,7 +21,7 @@ namespace AGS.Engine.Desktop
 
         ~DesktopBitmap()
         {
-            dispose(false);
+            dispose();
         }
 
 		#region IBitmap implementation
@@ -31,17 +31,17 @@ namespace AGS.Engine.Desktop
 			_bitmap.Clear();
 		}
 
-		public AGS.API.Color GetPixel(int x, int y)
+		public API.Color GetPixel(int x, int y)
 		{
 			return _bitmap.GetPixel(x, y).Convert();
 		}
 
-        public void SetPixel(AGS.API.Color color, int x, int y)
+        public void SetPixel(API.Color color, int x, int y)
         {
             _bitmap.SetPixel(x, y, color.Convert());
         }
 
-        public void SetPixels(AGS.API.Color color, List<API.Point> points)
+        public void SetPixels(API.Color color, List<API.Point> points)
         {
             using (FastBitmap bmp = new FastBitmap(_bitmap, ImageLockMode.WriteOnly))
             {
@@ -52,7 +52,7 @@ namespace AGS.Engine.Desktop
             }
         }
 
-		public void MakeTransparent(AGS.API.Color color)
+		public void MakeTransparent(API.Color color)
 		{
 			_bitmap.MakeTransparent(color.Convert());
 		}
@@ -85,7 +85,7 @@ namespace AGS.Engine.Desktop
 						for (int x = 0; x < Width; x++)
 						{
 							System.Drawing.Color color = inBmp.GetPixel(x, bitmapY);
-							byte alpha = area.IsInArea(new AGS.API.PointF(x, y)) ? color.A : zero;
+							byte alpha = area.IsInArea(new API.PointF(x, y)) ? color.A : zero;
 							outBmp.SetPixel(x, bitmapY, System.Drawing.Color.FromArgb(alpha, color));
 						}
 					}
@@ -95,13 +95,13 @@ namespace AGS.Engine.Desktop
             return new DesktopBitmap(output, _graphics);
 		}
 
-		public IBitmap Crop(AGS.API.Rectangle cropRect)
+		public IBitmap Crop(API.Rectangle cropRect)
 		{
             return new DesktopBitmap(_bitmap.Clone (cropRect.Convert(), _bitmap.PixelFormat), _graphics); //todo: improve performance by using FastBitmap
 		}
 
 		public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, 
-			AGS.API.Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+			API.Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
@@ -147,7 +147,7 @@ namespace AGS.Engine.Desktop
 			{
 				debugDraw = factory.Object.GetAdventureObject(id ?? path ?? "Mask Drawable");
                 debugDraw.Image = factory.Graphics.LoadImage(new DesktopBitmap(debugMask, _graphics), null, path);
-				debugDraw.Pivot = new AGS.API.PointF ();
+				debugDraw.Pivot = new API.PointF ();
 			}
 
 			return new AGSMask (mask, debugDraw);
@@ -165,7 +165,7 @@ namespace AGS.Engine.Desktop
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -175,7 +175,7 @@ namespace AGS.Engine.Desktop
 
         #endregion
 
-        private void dispose(bool disposing)
+        private void dispose()
         { 
             _bitmap?.Dispose();
         }

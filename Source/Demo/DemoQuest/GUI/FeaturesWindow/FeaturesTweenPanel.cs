@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -17,7 +16,6 @@ namespace DemoGame
         private IObject _parent;
         private IPanel _tweensListScrollingPanel, _tweensListContentsPanel, _window;
         private readonly Dictionary<string, List<(string propertyName, Func<Tween> getTween)>> _tweens;
-        private readonly Dictionary<string, Func<float, float>> _eases;
         private readonly List<RunningTween> _runningTweens;
 
         public FeaturesTweenPanel(IGame game, IObject parent, IPanel window)
@@ -33,9 +31,9 @@ namespace DemoGame
 
             Type easesType = typeof(Ease);
             var easeMethods = easesType.GetTypeInfo().GetMethods(BindingFlags.Public | BindingFlags.Static);
-            _eases = easeMethods.ToDictionary(k => k.Name, v => (Func<float, float>)v.CreateDelegate(typeof(Func<float, float>)));
+            Dictionary<string, Func<float, float>> eases = easeMethods.ToDictionary(k => k.Name, v => (Func<float, float>)v.CreateDelegate(typeof(Func<float, float>)));
 
-            Func<Func<float, float>> ease = () => _eases[_easeCombobox.DropDownPanelList.SelectedItem.Text];
+            Func<Func<float, float>> ease = () => eases[_easeCombobox.DropDownPanelList.SelectedItem.Text];
 
             Func<IObject, List<(string, Func<Tween>)>> getObjTweens = o =>
             {
@@ -114,16 +112,16 @@ namespace DemoGame
                     }
                 },
                 { "Music", new List<(string, Func<Tween>)>{
-                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease()) ?? null;}),
-                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease()) ?? null;}),
-                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease()) ?? null;}),
+                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease());}),
+                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease());}),
+                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease());}),
                     }
                 },
             };
 
             var y = _parent.Height - 60f;
             _targetCombobox = addCombobox("FeaturesTweenTargetComboBox", 40f, y, "Select Target", onTargetSelected, _tweens.Keys.ToArray());
-            _easeCombobox = addCombobox("FeaturesTweenEaseComboBox", 320f, y, "Select Ease", onItemSelected, _eases.Keys.ToArray());
+            _easeCombobox = addCombobox("FeaturesTweenEaseComboBox", 320f, y, "Select Ease", onItemSelected, eases.Keys.ToArray());
             _easeCombobox.SuggestMode = ComboSuggest.Enforce;
             _tweenCombobox = addCombobox("FeaturesTweenTweenComboBox", 40f, y - 50f, "Select Tween", onItemSelected);
             _tweenCombobox.TextBox.Opacity = 100;

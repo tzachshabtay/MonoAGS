@@ -2,13 +2,13 @@
 
 namespace AGS.API
 {
-    [RequiredComponent(typeof(IFaceDirectionComponent))]
-    [RequiredComponent(typeof(IWalkComponent))]
     /// <summary>
     /// Allows a character to approach a hotspot. 
     /// When an interaction event is triggered for a hotspot, if this component is available for the player (which it is by default),
     /// then the character will approach the hotspot before the interaction logic code is triggered.
     /// </summary>
+    [RequiredComponent(typeof(IFaceDirectionComponent))]
+    [RequiredComponent(typeof(IWalkComponent))]
     public interface IApproachComponent : IComponent
     {
         /// <summary>

@@ -4,6 +4,7 @@ namespace AGS.Engine
 {
     public partial class AGSComboBox
     {
+        // ReSharper disable once UnusedParameterInPartialMethod
         partial void afterInitComponents(Resolver resolver)
         {
             RenderLayer = AGSLayers.UI;

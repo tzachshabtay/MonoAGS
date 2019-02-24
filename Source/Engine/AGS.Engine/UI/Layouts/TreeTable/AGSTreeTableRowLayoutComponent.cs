@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -30,7 +30,7 @@ namespace AGS.Engine
                 _table = value;
                 value.OnQueryLayout.Subscribe(onQueryLayout);
                 value.OnRefreshLayoutNeeded.Subscribe(onRefreshLayout);
-                value?.Rows.Add(this);
+                value.Rows.Add(this);
             }
         }
 
@@ -107,7 +107,7 @@ namespace AGS.Engine
             var tree = _tree;
             if (tree == null)
             { 
-                return; 
+                return;
             }
             if (tree.TreeNode.ChildrenCount > _columnSizes.Count)
             {
@@ -162,7 +162,7 @@ namespace AGS.Engine
 
         private void onQueryLayout(QueryLayoutEventArgs args)
         {
-            if (!_visible?.Visible ?? true || _columnSizes == null) return;
+            if (!(_visible?.Visible ?? true) || _columnSizes == null) return;
             if (_columnSizes.Count > args.ColumnSizes.Count)
             {
                 int diff = _columnSizes.Count - args.ColumnSizes.Count;
@@ -181,8 +181,12 @@ namespace AGS.Engine
             }
         }
 
-        private void onRefreshLayout()
+        private void onRefreshLayout(ITreeTableRowLayoutComponent specificRow)
         {
+            if (specificRow != null && specificRow != this)
+            {
+                return; 
+            }
             var table = Table;
             var tree = _tree;
             if (table == null || tree == null) return;

@@ -61,7 +61,7 @@ namespace AGS.Engine
                 onSomethingChanged();
             }, c => { c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _boundingBox = null; });
             Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; subscribeTree(c.TreeNode); onSomethingChanged(); },
-                                       c => { unsubscribeTree(c.TreeNode); _tree = null; });
+                                       c => { unsubscribeTree(); _tree = null; });
         }
 
         public override void Dispose()
@@ -137,10 +137,10 @@ namespace AGS.Engine
                 c.OnLabelSizeChanged.Unsubscribe(onObjLabelSizeChanged);
             });
             _subscriptions = new EntityListSubscriptions<IObject>(node.Children, true, onSomethingChanged, 
-                                                                  visibleSubscription, boundingBoxSubscription);
+                                                                  visibleSubscription, boundingBoxSubscription, textSubscription);
         }
 
-        private void unsubscribeTree(ITreeNode<IObject> node)
+        private void unsubscribeTree()
         {
             _subscriptions?.Unsubscribe();
         }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
@@ -18,7 +16,6 @@ namespace AGS.Editor
         private IProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
-        private IButton _dropDownButton;
         private IComboBox _combobox;
 
         private static List<IStringItem> _colorList = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c }));
@@ -36,7 +33,6 @@ namespace AGS.Editor
             var label = view.TreeItem;
             var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
             _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel, 200f);
-            _dropDownButton = _combobox.DropDownButton;
             _text = _combobox.TextBox;
             _combobox.DropDownPanelList.MinWidth = 200f;
             _combobox.DropDownPanelList.Items.AddRange(_colorList);
@@ -124,17 +120,17 @@ namespace AGS.Editor
             return true;
         }
 
-        private bool parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
+        private void parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
         {
             var tokens = text.Split(',');
-            if (tokens.Length != 3 && tokens.Length != 4) return false;
-            if (!byte.TryParse(tokens[0], out byte r)) return false;
-            if (!byte.TryParse(tokens[1], out byte g)) return false;
-            if (!byte.TryParse(tokens[2], out byte b)) return false;
+            if (tokens.Length != 3 && tokens.Length != 4) return;
+            if (!byte.TryParse(tokens[0], out byte r)) return;
+            if (!byte.TryParse(tokens[1], out byte g)) return;
+            if (!byte.TryParse(tokens[2], out byte b)) return;
             byte a = 255;
             if (tokens.Length == 4)
             {
-                if (!byte.TryParse(tokens[3], out a)) return false;
+                if (!byte.TryParse(tokens[3], out a)) return;
             }
 
             var color = Color.FromRgba(r, g, b, a);
@@ -146,7 +142,6 @@ namespace AGS.Editor
                 else args.IntendedState.Text = $"{color.R},{color.G},{color.B}";
             }
             setColor(color);
-            return true;
         }
 
         private Color? manipulateRgb(Color color, string[] tokens, string text, TextBoxKeyPressingEventArgs args)

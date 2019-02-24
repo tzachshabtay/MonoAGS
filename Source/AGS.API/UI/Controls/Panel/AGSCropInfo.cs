@@ -37,6 +37,7 @@
         /// </summary>
         /// <param name="boundingBox">Bounding box.</param>
         /// <param name="textureBox">Texture box.</param>
+        /// <param name="cropFrom">The direction the item was cropped from, if fully cropped.</param>
         public AGSCropInfo(AGSBoundingBox boundingBox, FourCorners<Vector2> textureBox, CropFrom cropFrom)
         {
             TextureBox = textureBox;

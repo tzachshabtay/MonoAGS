@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AGS.API;
 using Humanizer;
 
@@ -24,7 +23,7 @@ namespace AGS.Editor
         public async Task<SelectEditor.ReturnValue> Create(IForm parentForm, string title)
         {
             var factoryWizard = new FactoryWizard(parentForm, title, _editor, null, null, null);
-            (object result, MethodModel model, MethodWizardAttribute attr) = await factoryWizard.RunMethod(_factory, _methodName);
+            (object result, MethodModel model, _) = await factoryWizard.RunMethod(_factory, _methodName);
             return new SelectEditor.ReturnValue(model == null ? null : new ValueModel(result, model), model == null);
         }
     }

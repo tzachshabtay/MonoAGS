@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using AGS.API;
 using System.Text;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -13,7 +13,7 @@ namespace AGS.Engine
         private int _texture;
         private bool _renderChanged;
         private BitmapPool _bitmapPool;
-        private AGS.API.SizeF _baseSize;
+        private SizeF _baseSize;
         private int _caretPosition;
         private float _spaceWidth;
         private bool _cropText, _renderCaret, _measureOnly;
@@ -55,9 +55,9 @@ namespace AGS.Engine
             _fonts = fonts;
             _graphics = graphics;
             _alwaysMeasureOnly = alwaysMeasureOnly;
-            this._maxWidth = maxWidth;
-            this._text = text;
-            this._bitmapPool = pool;
+            _maxWidth = maxWidth;
+            _text = text;
+            _bitmapPool = pool;
             _config = fonts.GetTextConfig(font: defaultFont);
 
             prepareBitmapDraw();
@@ -68,7 +68,7 @@ namespace AGS.Engine
             disposeTexture();
         }
 
-        public static AGS.API.SizeF EmptySize = new AGS.API.SizeF(0f, 0f);
+        public static SizeF EmptySize = new SizeF(0f, 0f);
 
         public int Texture => _texture;
 
@@ -77,7 +77,7 @@ namespace AGS.Engine
         public float Width { get; private set; }
         public float Height { get; private set; }
 
-        public bool SetProperties(AGS.API.SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
+        public bool SetProperties(SizeF baseSize, string text = null, ITextConfig config = null, int? maxWidth = null,
               PointF? scaleUp = null, PointF? scaleDown = null, int caretPosition = 0, int caretXOffset = 0, bool renderCaret = false,
               bool cropText = false, bool measureOnly = false)
         {
@@ -197,8 +197,10 @@ namespace AGS.Engine
             float heightOffset = Math.Max(config.OutlineWidth, Math.Abs(config.ShadowOffsetY));
             float widthF = textSize.Width + widthOffset + config.PaddingLeft + config.PaddingRight;
             float heightF = textSize.Height + heightOffset + config.PaddingTop + config.PaddingBottom;
+            // ReSharper disable CompareOfFloatsByEqualityOperator
             SizeF baseSize = new SizeF(_baseSize.Width == EmptySize.Width ? widthF : _baseSize.Width * _scaleUp.X,
                                        _baseSize.Height == EmptySize.Height ? heightF : _baseSize.Height * _scaleUp.Y);
+            // ReSharper restore CompareOfFloatsByEqualityOperator
 
             Width = (widthF / _scaleUp.X);
             Height = (heightF / _scaleUp.Y);
@@ -228,7 +230,7 @@ namespace AGS.Engine
 
             if (caretPosition > text.Length) caretPosition = text.Length;
             string untilCaret = text.Substring(0, caretPosition);
-            AGS.API.SizeF caretOffset = config.Font.MeasureString(untilCaret, config.Alignment, maxWidth);
+            SizeF caretOffset = config.Font.MeasureString(untilCaret, config.Alignment, maxWidth);
             float spaceOffset = 0f;
             if (untilCaret.EndsWith(" ", StringComparison.Ordinal)) spaceOffset = _spaceWidth * (untilCaret.Length - untilCaret.TrimEnd().Length);
             textDraw.DrawText("|", config, textSize, baseSize, maxWidth, (int)heightF, caretOffset.Width + spaceOffset + _caretXOffset);
@@ -250,7 +252,7 @@ namespace AGS.Engine
             try
             {
                 IBitmapTextDraw textDraw = bitmap.GetTextDraw();
-                using (var context = textDraw.CreateContext())
+                using (textDraw.CreateContext())
                 {
                     textDraw.DrawText(_draw.Text, _draw.Config, _draw.TextSize, _draw.BaseSize, _draw.MaxWidth, (int)_draw.HeightF, 0f);
                     drawCaret(_draw.OriginalText, _draw.TextSize, _draw.HeightF, _draw.BaseSize, textDraw, _draw.Config, _draw.MaxWidth);

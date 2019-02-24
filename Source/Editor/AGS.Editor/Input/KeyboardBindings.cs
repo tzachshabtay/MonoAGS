@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using AGS.API;
 using AGS.Engine;
 
@@ -27,6 +25,7 @@ namespace AGS.Editor
         public const string GameView = "Game View";
         public const string Save = "Save";
         public const string BreakDebugger = "Break Debugger Form";
+        public const string FindObject = "Find Object";
 
         public IBlockingEvent<string> OnKeyboardShortcutPressed { get; private set; }
 
@@ -53,11 +52,12 @@ namespace AGS.Editor
             Bind(new KeyboardShortcut(Key.ControlRight, Key.S), Save);
 
             Bind(new KeyboardShortcut(Key.ControlLeft, Key.AltLeft, Key.B), BreakDebugger);
+            Bind(new KeyboardShortcut(Key.ControlLeft, Key.AltLeft, Key.F), FindObject);
         }
 
         private void removeBinding(KeyboardShortcut keyboardShortcut)
         {
-            if (!_bindings.TryRemove(keyboardShortcut, out string currentAction)) return;
+            _bindings.TryRemove(keyboardShortcut, out string _);
         }
 
         private Key convert(Key key)

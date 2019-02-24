@@ -46,7 +46,7 @@ namespace AGS.Engine
 
 		public SkipText SkipText { get; set; }
 
-		public AGS.API.SizeF LabelSize { get; set; }
+		public SizeF LabelSize { get; set; }
 
 		public IBorderStyle Border { get; set; }
 

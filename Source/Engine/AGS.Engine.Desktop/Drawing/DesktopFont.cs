@@ -1,8 +1,9 @@
-﻿using System;
-using AGS.API;
+﻿using System.Diagnostics;
 using System.Drawing;
-using System.Diagnostics;
 using System.Runtime.Serialization;
+using AGS.API;
+using FontStyle = AGS.API.FontStyle;
+using SizeF = AGS.API.SizeF;
 
 namespace AGS.Engine.Desktop
 {
@@ -31,7 +32,7 @@ namespace AGS.Engine.Desktop
         public string FontFamily => InnerFont.FontFamily.Name;
 
         [DataMember]
-        public AGS.API.FontStyle Style => (AGS.API.FontStyle)InnerFont.Style;
+        public FontStyle Style => (FontStyle)InnerFont.Style;
 
         [DataMember]
         public float SizeInPoints => InnerFont.SizeInPoints;

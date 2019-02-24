@@ -1,22 +1,15 @@
-﻿using System.Diagnostics;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSCollider : AGSComponent, IColliderComponent
 	{
-		private IGameState _state;
-		private IDrawableInfoComponent _drawableInfo;
+	    private IDrawableInfoComponent _drawableInfo;
 		private IImageComponent _obj;
         private IScale _scale;
         private IPixelPerfectComponent _pixelPerfect;
         private IBoundingBoxComponent _boundingBox;
         private ICropSelfComponent _crop;
-
-        public AGSCollider(IGameState state)
-		{
-			_state = state;
-		}
 
 		public override void Init()
 		{
@@ -64,9 +57,10 @@ namespace AGS.Engine
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            if (!(_drawableInfo?.IgnoreViewport ?? false))
+		    var drawable = _drawableInfo;
+            if (drawable != null && !drawable.IgnoreViewport)
 			{
-                var matrix = viewport.GetMatrix(_drawableInfo.RenderLayer);
+                var matrix = viewport.GetMatrix(drawable.RenderLayer);
                 matrix.Invert();
                 Vector3 xyz = new Vector3(x, y, 0f);
                 Vector3.Transform(ref xyz, ref matrix, out xyz);

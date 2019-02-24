@@ -27,7 +27,6 @@ namespace DemoGame
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
 			_room.Background = bg;
 
-            var device = AGSGame.Device;
 			await factory.Room.GetAreaAsync(_baseFolder + "walkable1.png", _room, isWalkable: true);
             await factory.Room.GetAreaAsync(_baseFolder + "walkable2.png", _room, isWalkable: true);
             await factory.Room.GetAreaAsync(_baseFolder + "walkable3.png", _room, isWalkable: true);

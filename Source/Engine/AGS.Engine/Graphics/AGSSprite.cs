@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 using PropertyChanged;
@@ -20,8 +19,7 @@ namespace AGS.Engine
         private readonly PropertyChangedEventHandler _propertyChangedCallback;
         private Action _unsubscribeBindToSize;
         private Lazy<IArea> _pixelPerfectArea;
-        private static readonly SizeF _emptySize = new SizeF(1f, 1f);
-        private static int _lastId = 0;
+        private static int _lastId;
 
 		public AGSSprite (Resolver resolver, IMaskLoader maskLoader)
 		{

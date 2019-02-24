@@ -91,14 +91,12 @@ namespace AGS.API
         /// Is there a component of the specified type in the collection?
         /// </summary>
         /// <returns><c>true</c>, if component exists, <c>false</c> otherwise.</returns>
-        /// <typeparam name="TComponent">The component type.</typeparam>
 		bool HasComponent(Type componentType);
 
         /// <summary>
         /// Is the specified component in the collection?
         /// </summary>
         /// <returns><c>true</c>, if component exists, <c>false</c> otherwise.</returns>
-        /// <typeparam name="TComponent">The component.</typeparam>
 		bool HasComponent(IComponent component);
 
         /// <summary>
@@ -112,7 +110,6 @@ namespace AGS.API
         /// Gets the component of the specified type.
         /// </summary>
         /// <returns>The component if found, null if no components of this type in the collection.</returns>
-        /// <typeparam name="TComponent">The component type.</typeparam>
         IComponent GetComponent(Type componentType);
 
         /// <summary>

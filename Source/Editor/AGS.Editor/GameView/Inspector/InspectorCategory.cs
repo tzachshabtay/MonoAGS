@@ -9,11 +9,11 @@
             Expand = expand;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public int Z { get; private set; }
+        public int Z { get; }
 
-        public bool Expand { get; private set; }
+        public bool Expand { get; }
 
         public override bool Equals(object obj)
         {

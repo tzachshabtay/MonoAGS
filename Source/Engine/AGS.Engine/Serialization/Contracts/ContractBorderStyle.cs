@@ -1,17 +1,12 @@
 ﻿using ProtoBuf;
 using AGS.API;
-using Autofac;
 
 namespace AGS.Engine
 {
 	[ProtoContract]
 	public class ContractBorderStyle : IContract<IBorderStyle>
 	{
-		public ContractBorderStyle()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float LineWidth { get; set; }
 
 		[ProtoMember(2)]

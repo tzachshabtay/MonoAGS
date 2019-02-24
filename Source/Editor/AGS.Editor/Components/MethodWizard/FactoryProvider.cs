@@ -32,7 +32,7 @@ namespace AGS.Editor
             if (factory == game.Factory.Fonts) return "_factory.Fonts";
             if (factory == game.Factory.Inventory) return "_factory.Inventory";
             if (factory == game.Factory.Sound) return "_factory.Sound";
-            throw new NotSupportedException($"Unsupported factory of type {factory?.GetType().ToString() ?? "null"}");
+            throw new NotSupportedException($"Unsupported factory of type {factory.GetType()}");
         }
     }
 }

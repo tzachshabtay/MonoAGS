@@ -2,18 +2,13 @@
 using ProtoBuf;
 
 using AGS.API;
-using System.Collections.Generic;
 
 namespace AGS.Engine
 {
 	[ProtoContract]
 	public class ContractSprite : IContract<ISprite>
 	{
-		public ContractSprite()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public Tuple<float, float, float> Location { get; set; }
 
 		[ProtoMember(2)]
