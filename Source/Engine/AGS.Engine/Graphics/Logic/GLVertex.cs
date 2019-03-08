@@ -4,9 +4,6 @@ namespace AGS.Engine
 {
 	public struct GLVertex
 	{
-		//private readonly Vector2 _position, _texCoord;
-		//private readonly Vector4 _color;
-
 		public GLVertex(Vector2 position, Vector2 texCoord, Color color)
 			:	this(position, texCoord, color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f)
 		{
@@ -24,15 +21,14 @@ namespace AGS.Engine
 
 		public GLVertex(Vector2 position, Vector2 texCoord, Vector4 color)
 		{
-            /*_position = position;
-			_texCoord = texCoord;
-			_color = color;*/
-
             PosX = position.X;
             PosY = position.Y;
-            PosZ = 0f;
             TexU = texCoord.X;
             TexV = texCoord.Y;
+            ColR = color.X;
+            ColG = color.Y;
+            ColB = color.Z;
+            ColA = color.W;
 		}
 
         static GLVertex()
@@ -47,13 +43,13 @@ namespace AGS.Engine
 
         public float PosX;
         public float PosY;
-        public float PosZ;
 
         public float TexU;
         public float TexV;
 
-        /*public Vector2 Position => _position;
-        public Vector2 TexCoord => _texCoord;
-        public Vector4 Color => _color;*/
+        public float ColR;
+        public float ColG;
+        public float ColB;
+        public float ColA;
     }
 }

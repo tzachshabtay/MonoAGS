@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 using AGS.API;
 using Veldrid;
+using Veldrid.SPIRV;
 using Veldrid.Utilities;
 
 namespace AGS.Engine.Desktop
@@ -19,14 +21,15 @@ namespace AGS.Engine.Desktop
     {
         private GraphicsDevice _graphicsDevice;
         private readonly Dictionary<int, TextureContainer> _textures = new Dictionary<int, TextureContainer>(1000);
-        private readonly Dictionary<(int, BufferType), DeviceBuffer> _buffers = new Dictionary<(int, BufferType), DeviceBuffer>();
+        private readonly Dictionary<(uint, BufferType), DeviceBuffer> _buffers = new Dictionary<(uint, BufferType), DeviceBuffer>();
         private DisposeCollectorResourceFactory _factory;
         private Pipeline _pipeline;
-        private ResourceLayout _projViewLayout, _worldTextureLayout;
+        private ResourceLayout _worldTextureLayout;
         private int _boundTexture;
-        private DeviceBuffer _currentVertexBuffer, _currentIndexBuffer, _worldBuffer, _projectionBuffer, _viewBuffer;
-        private ResourceSet _projViewSet;
+        private DeviceBuffer _currentVertexBuffer, _currentIndexBuffer, _mvpBuffer;
         private CommandList _cl;
+        private Matrix4x4 _ortho, _view;
+        private Veldrid.Viewport _viewport, _lastViewport;
         static int _lastTexture = 0;
 
         public void ActiveTexture(int paramIndex)
@@ -54,8 +57,9 @@ namespace AGS.Engine.Desktop
 
         public void BufferData<TBufferItem>(TBufferItem[] items, uint itemSize, BufferType bufferType) where TBufferItem : struct
         {
-            var buffer = _buffers.GetOrAdd(((int)itemSize, bufferType), () =>
-                   _factory.CreateBuffer(new BufferDescription(itemSize, getBufferUsage(bufferType))));
+            var totalSize = (uint)(itemSize * items.Length);
+            var buffer = _buffers.GetOrAdd((totalSize, bufferType), () =>
+                   _factory.CreateBuffer(new BufferDescription(totalSize, getBufferUsage(bufferType))));
             _graphicsDevice.UpdateBuffer(buffer, 0, items);
             switch (bufferType)
             {
@@ -115,28 +119,15 @@ namespace AGS.Engine.Desktop
             var worldTextureSet = _textures[_boundTexture].WorldTextureSet;
             _cl.Begin();
 
-            /*var projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(
-                1.0f,
-                (float)Window.Width / Window.Height,
-                0.5f, //-1?
-                100f);*/
-            var projectionMatrix = Matrix4x4.CreateOrthographic(GLUtils.CurrentGlobalResolution.Width, GLUtils.CurrentGlobalResolution.Height, -1f, 1f);
-            _cl.UpdateBuffer(_projectionBuffer, 0, projectionMatrix); //1?
-
-            //var viewMatrix = Matrix4x4.CreateLookAt(Vector3.UnitZ * 2.5f, Vector3.Zero, Vector3.UnitY);
-            var viewMatrix = Matrix4x4.Identity;
-            _cl.UpdateBuffer(_viewBuffer, 0, viewMatrix);
-            var matrix = Matrix4x4.Identity;
-            _cl.UpdateBuffer(_worldBuffer, 0, ref matrix);
+            _cl.UpdateBuffer(_mvpBuffer, 0, ref _ortho);
 
             _cl.SetFramebuffer(_graphicsDevice.MainSwapchain.Framebuffer);
             _cl.ClearColorTarget(0, RgbaFloat.Black);
-            _cl.ClearDepthStencil(1f);
             _cl.SetPipeline(_pipeline);
             _cl.SetVertexBuffer(0, _currentVertexBuffer);
             _cl.SetIndexBuffer(_currentIndexBuffer, IndexFormat.UInt16);
-            _cl.SetGraphicsResourceSet(0, _projViewSet);
-            _cl.SetGraphicsResourceSet(1, worldTextureSet);
+            _cl.SetGraphicsResourceSet(0, worldTextureSet);
+            _cl.SetViewport(0, _viewport);
             _cl.DrawIndexed(6, 1, 0, 0, 0);
 
             _cl.End();
@@ -194,12 +185,39 @@ namespace AGS.Engine.Desktop
 
         public string GetStandardFragmentShader()
         {
-            return "";
+            return @"
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+void main()
+{
+    fsout_color =  texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords) * fsin_color;
+}";
         }
 
         public string GetStandardVertexShader()
         {
-            return "";
+            return @"
+#version 450
+layout(set = 0, binding = 0) uniform MvpBuffer
+{
+    mat4 Mvp;
+};
+layout(location = 0) in vec2 Position;
+layout(location = 1) in vec2 TexCoords;
+layout(location = 2) in vec4 Color;
+layout(location = 0) out vec2 fsin_texCoords;
+layout(location = 1) out vec4 fsin_color;
+void main()
+{
+    vec4 pos = vec4(Position, 1., 1.);
+    gl_Position = Mvp * pos;
+    fsin_texCoords = TexCoords;
+    fsin_color = Color;
+}";
         }
 
         public int GetUniformLocation(int programId, string varName)
@@ -211,50 +229,39 @@ namespace AGS.Engine.Desktop
 
         public void Init()
         {
+            _view = Matrix4x4.CreateLookAt(System.Numerics.Vector3.UnitZ, System.Numerics.Vector3.Zero, System.Numerics.Vector3.UnitY);
             _graphicsDevice = Device;
             _factory = new DisposeCollectorResourceFactory(_graphicsDevice.ResourceFactory);
             _cl = _factory.CreateCommandList();
 
             ShaderSetDescription shaderSet = new ShaderSetDescription(
-            new[]
-            {
-                new VertexLayoutDescription(
-                    new VertexElementDescription("Position", VertexElementSemantic.Position, VertexElementFormat.Float3),
-                    new VertexElementDescription("TexCoords", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2))
-            },
-            new[]
-            {
-                loadShader(_factory, "Cube", ShaderStages.Vertex, "VS"),
-                loadShader(_factory, "Cube", ShaderStages.Fragment, "FS")
-            });
-
-            _projViewLayout = _factory.CreateResourceLayout(
-                new ResourceLayoutDescription(
-                    new ResourceLayoutElementDescription("Projection", ResourceKind.UniformBuffer, ShaderStages.Vertex),
-                    new ResourceLayoutElementDescription("View", ResourceKind.UniformBuffer, ShaderStages.Vertex)));
+                new[]
+                {
+                    new VertexLayoutDescription(
+                        new VertexElementDescription("Position", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
+                        new VertexElementDescription("TexCoords", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
+                        new VertexElementDescription("Color", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float4))
+                },
+                _factory.CreateFromSpirv(
+                    new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(GetStandardVertexShader()), "main"),
+                    new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(GetStandardFragmentShader()), "main")));
 
             _worldTextureLayout = _factory.CreateResourceLayout(
                 new ResourceLayoutDescription(
-                    new ResourceLayoutElementDescription("World", ResourceKind.UniformBuffer, ShaderStages.Vertex),
+                    new ResourceLayoutElementDescription("Mvp", ResourceKind.UniformBuffer, ShaderStages.Vertex),
                     new ResourceLayoutElementDescription("SurfaceTexture", ResourceKind.TextureReadOnly, ShaderStages.Fragment),
                     new ResourceLayoutElementDescription("SurfaceSampler", ResourceKind.Sampler, ShaderStages.Fragment)));
 
             _pipeline = _factory.CreateGraphicsPipeline(new GraphicsPipelineDescription(
                 BlendStateDescription.SingleOverrideBlend,
-                DepthStencilStateDescription.DepthOnlyLessEqual,
-                RasterizerStateDescription.Default,
+                DepthStencilStateDescription.Disabled,
+                new RasterizerStateDescription(FaceCullMode.Back, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
                 PrimitiveTopology.TriangleList,
                 shaderSet,
-                new[] { _projViewLayout, _worldTextureLayout },
+                new[] { _worldTextureLayout },
                 _graphicsDevice.MainSwapchain.Framebuffer.OutputDescription));
 
-            _projectionBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
-            _viewBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
-
-            _projViewSet = _factory.CreateResourceSet(new ResourceSetDescription(
-                _projViewLayout,
-                _projectionBuffer,
-                _viewBuffer));
+            _mvpBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
         }
 
         public void InitPointers(int size)
@@ -279,6 +286,10 @@ namespace AGS.Engine.Desktop
 
         public void Ortho(double left, double right, double bottom, double top, double zNear, double zFar)
         {
+            var projection = Matrix4x4.CreateOrthographicOffCenter((float)left, (float)right,
+                                                                     (float)bottom, (float)top,
+                                                                     (float)zNear, (float)zFar);
+            _ortho = _view * projection;
         }
 
         public void SetActiveShader(IShader shader)
@@ -320,13 +331,10 @@ namespace AGS.Engine.Desktop
             var size = width * height * 4;
             _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 0, 0, 0);
 
-            _worldBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
-
             CommandList cl = _factory.CreateCommandList();
             var identity = Matrix4x4.Identity;
             cl.Begin();
             cl.CopyTexture(staging, texture);
-            cl.UpdateBuffer(_worldBuffer, 0, ref identity);
             cl.End();
             _graphicsDevice.SubmitCommands(cl);
 
@@ -334,7 +342,7 @@ namespace AGS.Engine.Desktop
             
             var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(
                 _worldTextureLayout,
-                _worldBuffer,
+                _mvpBuffer,
                 textureView,
                 _graphicsDevice.Aniso4xSampler));
 
@@ -343,6 +351,7 @@ namespace AGS.Engine.Desktop
 
         public void UndoLastViewport()
         {
+            _viewport = _lastViewport;
         }
 
         public void Uniform1(int varLocation, int x)
@@ -371,6 +380,8 @@ namespace AGS.Engine.Desktop
 
         public void Viewport(int x, int y, int width, int height)
         {
+            _lastViewport = _viewport;
+            _viewport = new Veldrid.Viewport(x, y, width, height, -1f, 1f);
         }
 
         private Shader loadShader(ResourceFactory factory, string set, ShaderStages stage, string entryPoint)
