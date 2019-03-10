@@ -242,9 +242,18 @@ namespace AGS.Engine
 
         private bool render()
         {
-            if (State.DuringRoomTransition) return _roomTransitionWorkflow.Render();
-            RenderLoop.Tick();
-            return true;
+            _graphics.BeginTick();
+            try
+            {
+                if (State.DuringRoomTransition)
+                    return _roomTransitionWorkflow.Render();
+                RenderLoop.Tick();
+                return true;
+            }
+            finally 
+            {
+                _graphics.EndTick();
+            }
         }
 
         private void onGameWindowLoaded(TypedParameter settingsParameter, IGameSettings settings)

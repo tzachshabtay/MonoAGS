@@ -63,6 +63,8 @@ namespace AGS.Engine
         void Init();
         void ClearColor(float r, float g, float b, float a);
         void ClearScreen();
+        void BeginTick();
+        void EndTick();
 
         void BindTexture2D(int textureId);
         void TexImage2D(uint width, uint height, IntPtr scan0);

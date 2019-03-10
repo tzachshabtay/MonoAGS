@@ -30,7 +30,20 @@ namespace AGS.Engine.Desktop
         private CommandList _cl;
         private Matrix4x4 _ortho, _view;
         private Veldrid.Viewport _viewport, _lastViewport;
+        private RgbaFloat _clearColor = RgbaFloat.Black;
         static int _lastTexture = 0;
+
+        public void BeginTick()
+        {
+            _cl.Begin();
+            _cl.SetFramebuffer(_graphicsDevice.MainSwapchain.Framebuffer);
+        }
+
+        public void EndTick()
+        {
+            _cl.End();
+            _graphicsDevice.SubmitCommands(_cl);
+        }
 
         public void ActiveTexture(int paramIndex)
         {
@@ -74,10 +87,12 @@ namespace AGS.Engine.Desktop
 
         public void ClearColor(float r, float g, float b, float a)
         {
+            _clearColor = new RgbaFloat(r, g, b, a);
         }
 
         public void ClearScreen()
         {
+            _cl.ClearColorTarget(0, _clearColor);
         }
 
         public void CompileShader(int shaderId)
@@ -117,21 +132,15 @@ namespace AGS.Engine.Desktop
         public void DrawElements(PrimitiveMode primitiveType, int count, short[] indices)
         {
             var worldTextureSet = _textures[_boundTexture].WorldTextureSet;
-            _cl.Begin();
 
             _cl.UpdateBuffer(_mvpBuffer, 0, ref _ortho);
 
-            _cl.SetFramebuffer(_graphicsDevice.MainSwapchain.Framebuffer);
-            _cl.ClearColorTarget(0, RgbaFloat.Black);
             _cl.SetPipeline(_pipeline);
             _cl.SetVertexBuffer(0, _currentVertexBuffer);
             _cl.SetIndexBuffer(_currentIndexBuffer, IndexFormat.UInt16);
             _cl.SetGraphicsResourceSet(0, worldTextureSet);
             _cl.SetViewport(0, _viewport);
             _cl.DrawIndexed(6, 1, 0, 0, 0);
-
-            _cl.End();
-            _graphicsDevice.SubmitCommands(_cl);
         }
 
         public bool DrawFrameBuffer()
@@ -150,6 +159,7 @@ namespace AGS.Engine.Desktop
 
         public int GenFrameBuffer()
         {
+            //_factory.CreateFramebuffer(new FramebufferDescription())
             return 0;
         }
 
@@ -329,15 +339,15 @@ void main()
                 width, height, 1, 1, 1, PixelFormat.R8_G8_B8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
 
             var size = width * height * 4;
-            _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 0, 0, 0);
-
-            CommandList cl = _factory.CreateCommandList();
-            var identity = Matrix4x4.Identity;
+            if (scan0 != IntPtr.Zero)
+            {
+                _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 0, 0, 0);
+            }
+            var cl = _factory.CreateCommandList();
             cl.Begin();
             cl.CopyTexture(staging, texture);
             cl.End();
             _graphicsDevice.SubmitCommands(cl);
-
             var textureView = _factory.CreateTextureView(texture);
             
             var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(

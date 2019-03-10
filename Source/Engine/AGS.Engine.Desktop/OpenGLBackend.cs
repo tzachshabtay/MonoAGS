@@ -26,6 +26,9 @@ namespace AGS.Engine
             Debug.WriteLine($"GLSL Version: {GL.GetString(StringName.ShadingLanguageVersion)}");
         }
 
+        public void BeginTick() { }
+        public void EndTick() { }
+
         public void ClearColor(float r, float g, float b, float a) => GL.ClearColor(r, g, b, a);
         public void ClearScreen() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
