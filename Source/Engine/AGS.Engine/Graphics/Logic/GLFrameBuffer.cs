@@ -14,6 +14,7 @@ namespace AGS.Engine
             _height = size.Height;
             Texture = new GLTexture(null, graphics, messagePump);
             _graphics = graphics;
+            _graphics.BindTexture2D(Texture.ID);
             _graphics.TexImage2D((uint)_width, (uint)_height, IntPtr.Zero);
 
 			_fbo = _graphics.GenFrameBuffer();
@@ -55,4 +56,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-

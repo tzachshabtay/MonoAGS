@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Numerics;
-using System.Runtime.InteropServices;
 using System.Text;
 using AGS.API;
 using Veldrid;
@@ -17,26 +15,35 @@ namespace AGS.Engine.Desktop
         public ResourceSet WorldTextureSet { get; set; }
     }
 
-	public class VeldridGraphics : IGraphicsBackend
+    public class FramebufferContainer
+    {
+        public Framebuffer Framebuffer { get; set; }
+        public Texture RenderTarget { get; set; }
+        public TextureContainer Output { get; set; }
+        public Pipeline Pipeline { get; set; }
+    }
+
+    public class VeldridGraphics : IGraphicsBackend
     {
         private GraphicsDevice _graphicsDevice;
         private readonly Dictionary<int, TextureContainer> _textures = new Dictionary<int, TextureContainer>(1000);
         private readonly Dictionary<(uint, BufferType), DeviceBuffer> _buffers = new Dictionary<(uint, BufferType), DeviceBuffer>();
+        private readonly Dictionary<int, FramebufferContainer> _frameBuffers = new Dictionary<int, FramebufferContainer>(100);
         private DisposeCollectorResourceFactory _factory;
-        private Pipeline _pipeline;
         private ResourceLayout _worldTextureLayout;
-        private int _boundTexture;
+        private int _boundTexture, _boundFrameBuffer;
         private DeviceBuffer _currentVertexBuffer, _currentIndexBuffer, _mvpBuffer;
         private CommandList _cl;
         private Matrix4x4 _ortho, _view;
         private Veldrid.Viewport _viewport, _lastViewport;
         private RgbaFloat _clearColor = RgbaFloat.Black;
-        static int _lastTexture = 0;
+        private ShaderSetDescription _shaderSet;
+        static int _lastTexture = 0, _lastFramebuffer = 0;
 
         public void BeginTick()
         {
             _cl.Begin();
-            _cl.SetFramebuffer(_graphicsDevice.MainSwapchain.Framebuffer);
+            BindFrameBuffer(0);
         }
 
         public void EndTick()
@@ -61,6 +68,30 @@ namespace AGS.Engine.Desktop
 
         public void BindFrameBuffer(int frameBufferId)
         {
+            var newContainer = _frameBuffers[frameBufferId];
+            if (_boundFrameBuffer != 0)
+            {
+                var fb = _frameBuffers[_boundFrameBuffer];
+                var cl = _factory.CreateCommandList();
+                cl.Begin();
+                cl.CopyTexture(fb.RenderTarget, fb.Output.Texture);
+                cl.End();
+                _graphicsDevice.SubmitCommands(cl);
+                var textureView = _factory.CreateTextureView(fb.Output.Texture);
+
+                var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(
+                    _worldTextureLayout,
+                    _mvpBuffer,
+                    textureView,
+                    _graphicsDevice.Aniso4xSampler));
+                fb.Output.WorldTextureSet = worldTextureSet;
+            }
+            if (newContainer.Framebuffer != null)
+            {
+                _cl.SetFramebuffer(newContainer.Framebuffer);
+                _cl.SetPipeline(newContainer.Pipeline);
+            }
+            _boundFrameBuffer = frameBufferId;
         }
 
         public void BindTexture2D(int textureId)
@@ -135,21 +166,15 @@ namespace AGS.Engine.Desktop
 
             _cl.UpdateBuffer(_mvpBuffer, 0, ref _ortho);
 
-            _cl.SetPipeline(_pipeline);
             _cl.SetVertexBuffer(0, _currentVertexBuffer);
             _cl.SetIndexBuffer(_currentIndexBuffer, IndexFormat.UInt16);
             _cl.SetGraphicsResourceSet(0, worldTextureSet);
-            _cl.SetViewport(0, _viewport);
             _cl.DrawIndexed(6, 1, 0, 0, 0);
         }
 
         public bool DrawFrameBuffer()
         {
             return true;
-        }
-
-        public void FrameBufferTexture2D(int textureId)
-        {
         }
 
         public int GenBuffer()
@@ -159,8 +184,26 @@ namespace AGS.Engine.Desktop
 
         public int GenFrameBuffer()
         {
-            //_factory.CreateFramebuffer(new FramebufferDescription())
-            return 0;
+            var id = _lastFramebuffer++;
+            _frameBuffers[id] = new FramebufferContainer();
+            return id;
+        }
+
+        public void FrameBufferTexture2D(int textureId)
+        {
+            var texture = _textures[textureId];
+            var width = texture.Texture.Width;
+            var height = texture.Texture.Height;
+            var renderTarget = _factory.CreateTexture(new TextureDescription(
+                width, height, 1, 1, 1, PixelFormat.R8_G8_B8_A8_UNorm, Veldrid.TextureUsage.Sampled, TextureType.Texture2D));
+            var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, renderTarget));
+            var container = _frameBuffers[_boundFrameBuffer];
+            container.Framebuffer = framebuffer;
+            container.RenderTarget = renderTarget;
+            container.Output = texture;
+            container.Pipeline = createPipeline(framebuffer);
+            _cl.SetFramebuffer(framebuffer);
+            _cl.SetPipeline(container.Pipeline);
         }
 
         public int GenTexture()
@@ -244,7 +287,7 @@ void main()
             _factory = new DisposeCollectorResourceFactory(_graphicsDevice.ResourceFactory);
             _cl = _factory.CreateCommandList();
 
-            ShaderSetDescription shaderSet = new ShaderSetDescription(
+            _shaderSet = new ShaderSetDescription(
                 new[]
                 {
                     new VertexLayoutDescription(
@@ -262,14 +305,8 @@ void main()
                     new ResourceLayoutElementDescription("SurfaceTexture", ResourceKind.TextureReadOnly, ShaderStages.Fragment),
                     new ResourceLayoutElementDescription("SurfaceSampler", ResourceKind.Sampler, ShaderStages.Fragment)));
 
-            _pipeline = _factory.CreateGraphicsPipeline(new GraphicsPipelineDescription(
-                BlendStateDescription.SingleOverrideBlend,
-                DepthStencilStateDescription.Disabled,
-                new RasterizerStateDescription(FaceCullMode.Back, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
-                PrimitiveTopology.TriangleList,
-                shaderSet,
-                new[] { _worldTextureLayout },
-                _graphicsDevice.MainSwapchain.Framebuffer.OutputDescription));
+            var framebuffer = _graphicsDevice.MainSwapchain.Framebuffer;
+            _frameBuffers[0] = new FramebufferContainer { Framebuffer = framebuffer, Pipeline = createPipeline(framebuffer) };
 
             _mvpBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
         }
@@ -362,6 +399,7 @@ void main()
         public void UndoLastViewport()
         {
             _viewport = _lastViewport;
+            _cl.SetViewport(0, _viewport);
         }
 
         public void Uniform1(int varLocation, int x)
@@ -392,43 +430,20 @@ void main()
         {
             _lastViewport = _viewport;
             _viewport = new Veldrid.Viewport(x, y, width, height, -1f, 1f);
+            _cl.SetViewport(0, _viewport);
         }
 
-        private Shader loadShader(ResourceFactory factory, string set, ShaderStages stage, string entryPoint)
+        private Pipeline createPipeline(Framebuffer framebuffer)
         {
-            string name = $"{set}-{stage.ToString().ToLower()}.{getExtension(factory.BackendType)}";
-            return factory.CreateShader(new ShaderDescription(stage, readEmbeddedAssetBytes(name), entryPoint));
+            return _factory.CreateGraphicsPipeline(new GraphicsPipelineDescription(
+                BlendStateDescription.SingleOverrideBlend,
+                DepthStencilStateDescription.Disabled,
+                new RasterizerStateDescription(FaceCullMode.Back, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
+                PrimitiveTopology.TriangleList,
+                _shaderSet,
+                new[] { _worldTextureLayout },
+                framebuffer.OutputDescription));
         }
-
-        private static string getExtension(GraphicsBackend backendType)
-        {
-            bool isMacOS = RuntimeInformation.OSDescription.Contains("Darwin");
-
-            return (backendType == GraphicsBackend.Direct3D11)
-                ? "hlsl.bytes"
-                : (backendType == GraphicsBackend.Vulkan)
-                    ? "450.glsl.spv"
-                    : (backendType == GraphicsBackend.Metal)
-                        ? isMacOS ? "metallib" : "ios.metallib"
-                        : (backendType == GraphicsBackend.OpenGL)
-                            ? "330.glsl"
-                            : "300.glsles";
-        }
-
-        private byte[] readEmbeddedAssetBytes(string name)
-        {
-            using (Stream stream = openEmbeddedAssetStream(name))
-            {
-                byte[] bytes = new byte[stream.Length];
-                using (MemoryStream ms = new MemoryStream(bytes))
-                {
-                    stream.CopyTo(ms);
-                    return bytes;
-                }
-            }
-        }
-
-        private Stream openEmbeddedAssetStream(string name) => GetType().Assembly.GetManifestResourceStream(name);
 
         private BufferUsage getBufferUsage(BufferType type)
         {
