@@ -196,21 +196,31 @@ namespace AGS.Engine
             if (RenderLoop == null || _renderFrameRetries > 3) return;
             try
             {
-                _renderMessagePump.PumpMessages();
-                // render graphics
-                if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
+                bool rendered = false;
+                try
                 {
-                    var bgColor = State.Room?.BackgroundColor;
-                    if (bgColor != null)
+                    _graphics.BeginTick();
+                    _renderMessagePump.PumpMessages();
+                    // render graphics
+                    if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
                     {
-                        var color = bgColor.Value.ToGLColor();
-                        _graphics.ClearColor(color.R, color.G, color.B, color.A);
-                        _graphics.ClearScreen();
+                        var bgColor = State.Room?.BackgroundColor;
+                        if (bgColor != null)
+                        {
+                            var color = bgColor.Value.ToGLColor();
+                            _graphics.ClearColor(color.R, color.G, color.B, color.A);
+                            _graphics.ClearScreen();
+                        }
                     }
-                }
-                Events.OnBeforeRender.Invoke();
+                    Events.OnBeforeRender.Invoke();
 
-                if (render())
+                    rendered = render();
+                }
+                finally 
+                {
+                    _graphics.EndTick();
+                }
+                if (rendered)
                 {
                     if (_gameIndex == 1) //if we have 2 games (editor + game) editor is game index 1 and should be drawn last, so only the editor should swap buffers
                     {
@@ -242,18 +252,10 @@ namespace AGS.Engine
 
         private bool render()
         {
-            _graphics.BeginTick();
-            try
-            {
-                if (State.DuringRoomTransition)
-                    return _roomTransitionWorkflow.Render();
-                RenderLoop.Tick();
-                return true;
-            }
-            finally 
-            {
-                _graphics.EndTick();
-            }
+            if (State.DuringRoomTransition)
+                return _roomTransitionWorkflow.Render();
+            RenderLoop.Tick();
+            return true;
         }
 
         private void onGameWindowLoaded(TypedParameter settingsParameter, IGameSettings settings)
