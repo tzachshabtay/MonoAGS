@@ -28,7 +28,6 @@ namespace AGS.Engine
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
             try
             {
-                if (_gameState.Room == null) return;
                 updateViewports(resetCamera);
                 _displayList.Update(resetCamera);
                 updateCursor();
@@ -56,13 +55,13 @@ namespace AGS.Engine
 
         private void updateViewport (IViewport viewport, bool resetCamera)
 		{
+            if (viewport.RoomProvider.Room == null) return;
             runAnimations(viewport.RoomProvider.Room);
             viewport.Camera?.Tick(viewport, viewport.RoomProvider.Room.Limits, _virtualResolution, resetCamera);
 		}
 
 		private void runAnimations(IRoom room)
 		{
-            if (room == null) return;
 			if (room.Background != null) runAnimation(room.Background.Animation);
 			foreach (var obj in room.Objects)
 			{
