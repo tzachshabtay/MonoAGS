@@ -195,7 +195,7 @@ namespace AGS.Engine.Desktop
             var width = texture.Texture.Width;
             var height = texture.Texture.Height;
             var renderTarget = _factory.CreateTexture(new TextureDescription(
-                width, height, 1, 1, 1, PixelFormat.R8_G8_B8_A8_UNorm, Veldrid.TextureUsage.Sampled, TextureType.Texture2D));
+                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, Veldrid.TextureUsage.Sampled, TextureType.Texture2D));
             var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, renderTarget));
             var container = _frameBuffers[_boundFrameBuffer];
             container.Framebuffer = framebuffer;
@@ -370,10 +370,10 @@ void main()
         public void TexImage2D(uint width, uint height, IntPtr scan0)
         {
             Texture texture = _factory.CreateTexture(new TextureDescription(
-                width, height, 1, 1, 1, PixelFormat.R8_G8_B8_A8_UNorm, TextureUsage.Sampled, TextureType.Texture2D));
+                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Sampled, TextureType.Texture2D));
 
             Texture staging = _factory.CreateTexture(new TextureDescription(
-                width, height, 1, 1, 1, PixelFormat.R8_G8_B8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
+                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
 
             var size = width * height * 4;
             if (scan0 != IntPtr.Zero)
