@@ -16,6 +16,7 @@ namespace AGS.Engine.Desktop
         private API.WindowState _windowState = API.WindowState.Normal;
         private AGSUpdateThread _renderThread;
         private double _targetUpdateFrequency;
+        private bool _resized;
 
         public VeldridGameWindow(IGameSettings settings, IGameWindowSize windowSize)
         {
@@ -30,14 +31,16 @@ namespace AGS.Engine.Desktop
             };
 
             var options = new GraphicsDeviceOptions
-            {
-                SyncToVerticalBlank = settings.Vsync == VsyncMode.On,
-                ResourceBindingModel = ResourceBindingModel.Improved,
-            };
+            (
+                debug: false,
+                swapchainDepthFormat: PixelFormat.R16_UNorm,
+                syncToVerticalBlank: settings.Vsync == VsyncMode.On,
+                resourceBindingModel: ResourceBindingModel.Improved
+            );
 #if DEBUG
             options.Debug = true;
 #endif
-            VeldridStartup.CreateWindowAndGraphicsDevice(wci, options, GraphicsBackend.OpenGL, out _window, out _graphicsDevice);
+            VeldridStartup.CreateWindowAndGraphicsDevice(wci, options, GraphicsBackend.Metal, out _window, out _graphicsDevice);
             _window.Resized += onResized;
             _window.Shown += onShown;
             _window.Closing += () => IsExiting = true;
@@ -102,7 +105,7 @@ namespace AGS.Engine.Desktop
 
         public float AppWindowWidth => _window.Width;
 
-        public API.Rectangle GameSubWindow => _window.Bounds.Convert();
+        public API.Rectangle GameSubWindow => new API.Rectangle(0, 0, _window.Bounds.Width, _window.Bounds.Height);
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<EventArgs> Resize;
@@ -125,23 +128,37 @@ namespace AGS.Engine.Desktop
         }
 
         public void SetSize(Size size)
-        {
+        { 
             _window.Width = size.Width;
             _window.Height = size.Height;
+            _resized = true;
         }
 
         public void SwapBuffers() => _graphicsDevice.SwapBuffers();
 
-        private void onResized() => Resize(this, new EventArgs());
+        private void onResized()
+        {
+            _resized = true;
+        }
 
         private void onShown() => Load(this, new EventArgs());
 
-        private void updateWindowState() => _window.WindowState = _windowState.Convert(_hasBorder);
+        private void updateWindowState()
+        {
+            _window.WindowState = _windowState.Convert(_hasBorder);
+            _resized = true;
+        }
 
         private void onRenderFrame(object sender, FrameEventArgs e)
         {
-            if (!_window.Exists) return;
             _window.PumpEvents();
+            if (!_window.Exists) return;
+            if (_resized)
+            {
+                _resized = false;
+                _graphicsDevice.ResizeMainWindow((uint)_window.Width, (uint)_window.Height);
+                Resize(this, new EventArgs());
+            }
             RenderFrame(this, e);
         }
     }
