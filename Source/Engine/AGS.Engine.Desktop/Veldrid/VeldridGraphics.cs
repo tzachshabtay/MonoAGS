@@ -349,6 +349,8 @@ void main()
 
         public void SetTextureMagFilter(ScaleUpFilters filter)
         {
+            //var t = _textures[_boundTexture];
+            //_factory.CreateSampler(new SamplerDescription())
         }
 
         public void SetTextureMinFilter(ScaleDownFilters filter)
@@ -375,10 +377,12 @@ void main()
             Texture staging = _factory.CreateTexture(new TextureDescription(
                 width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
 
+            var sampler = _factory.CreateSampler(new SamplerDescription(SamplerAddressMode.Clamp, SamplerAddressMode.Clamp, SamplerAddressMode.Clamp, SamplerFilter.MinPoint_MagPoint_MipPoint, null, 0, 0, int.MaxValue, 0, SamplerBorderColor.TransparentBlack));
+
             var size = width * height * 4;
             if (scan0 != IntPtr.Zero)
             {
-                _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 0, 0, 0);
+                _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 1, 0, 0);
             }
             var cl = _factory.CreateCommandList();
             cl.Begin();
@@ -391,7 +395,7 @@ void main()
                 _worldTextureLayout,
                 _mvpBuffer,
                 textureView,
-                _graphicsDevice.Aniso4xSampler));
+                sampler));
 
             _textures[_boundTexture] = new TextureContainer { Texture = texture, WorldTextureSet = worldTextureSet };
         }
