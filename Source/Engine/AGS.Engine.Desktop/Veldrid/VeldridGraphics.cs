@@ -15,6 +15,11 @@ namespace AGS.Engine.Desktop
     {
         public Texture Texture { get; set; }
         public ResourceSet WorldTextureSet { get; set; }
+        public TextureView TextureView { get; set; }
+        public ScaleUpFilters UpFilters { get; set; }
+        public ScaleDownFilters DownFilters { get; set; }
+        public TextureWrap WrapX { get; set; }
+        public TextureWrap WrapY { get; set; }
     }
 
     public class FramebufferContainer
@@ -210,7 +215,15 @@ namespace AGS.Engine.Desktop
 
         public int GenTexture()
         {
-            return _lastTexture++;
+            int texture = _lastTexture++;
+            _textures[texture] = new TextureContainer
+            {
+                WrapX = TextureWrap.Clamp,
+                WrapY = TextureWrap.Clamp,
+                UpFilters = ScaleUpFilters.Nearest,
+                DownFilters = ScaleDownFilters.Nearest,
+            };
+            return texture;
         }
 
         public int GetMaxTextureUnits()
@@ -351,20 +364,30 @@ void main()
 
         public void SetTextureMagFilter(ScaleUpFilters filter)
         {
-            //var t = _textures[_boundTexture];
-            //_factory.CreateSampler(new SamplerDescription())
+            var tex = _textures[_boundTexture];
+            tex.UpFilters = filter;
+            refreshTexture(tex);
         }
 
         public void SetTextureMinFilter(ScaleDownFilters filter)
         {
+            var tex = _textures[_boundTexture];
+            tex.DownFilters = filter;
+            refreshTexture(tex);
         }
 
         public void SetTextureWrapS(TextureWrap wrap)
         {
+            var tex = _textures[_boundTexture];
+            tex.WrapX = wrap;
+            refreshTexture(tex);
         }
 
         public void SetTextureWrapT(TextureWrap wrap)
         {
+            var tex = _textures[_boundTexture];
+            tex.WrapY = wrap;
+            refreshTexture(tex);
         }
 
         public void ShaderSource(int shaderId, string sourceCode)
@@ -379,8 +402,6 @@ void main()
             Texture staging = _factory.CreateTexture(new TextureDescription(
                 width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
 
-            var sampler = _factory.CreateSampler(new SamplerDescription(SamplerAddressMode.Clamp, SamplerAddressMode.Clamp, SamplerAddressMode.Clamp, SamplerFilter.MinPoint_MagPoint_MipPoint, null, 0, 0, int.MaxValue, 0, SamplerBorderColor.TransparentBlack));
-
             var size = width * height * 4;
             if (scan0 != IntPtr.Zero)
             {
@@ -392,14 +413,11 @@ void main()
             cl.End();
             _graphicsDevice.SubmitCommands(cl);
             var textureView = _factory.CreateTextureView(texture);
-            
-            var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(
-                _worldTextureLayout,
-                _mvpBuffer,
-                textureView,
-                sampler));
 
-            _textures[_boundTexture] = new TextureContainer { Texture = texture, WorldTextureSet = worldTextureSet };
+            var container = _textures[_boundTexture];
+            container.Texture = texture;
+            container.TextureView = textureView;
+            refreshTexture(container);
         }
 
         public void UndoLastViewport()
@@ -463,6 +481,61 @@ void main()
                 default:
                     throw new NotSupportedException(type.ToString());
             }
+        }
+
+        private SamplerAddressMode getAddress(TextureWrap wrap)
+        {
+            switch (wrap)
+            {
+                case TextureWrap.Clamp:
+                    return SamplerAddressMode.Clamp;
+                case TextureWrap.Repeat:
+                    return SamplerAddressMode.Wrap;
+                case TextureWrap.MirroredRepeat:
+                    return SamplerAddressMode.Mirror;
+                default:
+                    throw new NotSupportedException(wrap.ToString());
+            }
+        }
+
+        private SamplerFilter getFilter(ScaleUpFilters upFilters, ScaleDownFilters downFilters)
+        {
+            switch (downFilters)
+            {
+                case ScaleDownFilters.Linear:
+                case ScaleDownFilters.LinearMipmapLinear:
+                    if (upFilters == ScaleUpFilters.Linear) return SamplerFilter.MinLinear_MagLinear_MipLinear;
+                    return SamplerFilter.MinLinear_MagPoint_MipLinear;
+                case ScaleDownFilters.Nearest:
+                case ScaleDownFilters.NearestMipmapNearest:
+                    if (upFilters == ScaleUpFilters.Linear) return SamplerFilter.MinPoint_MagLinear_MipPoint;
+                    return SamplerFilter.MinPoint_MagPoint_MipPoint;
+                case ScaleDownFilters.LinearMipmapNearest:
+                    if (upFilters == ScaleUpFilters.Linear) return SamplerFilter.MinLinear_MagLinear_MipPoint;
+                    return SamplerFilter.MinLinear_MagPoint_MipPoint;
+                case ScaleDownFilters.NearestMipmapLinear:
+                    if (upFilters == ScaleUpFilters.Linear) return SamplerFilter.MinPoint_MagLinear_MipLinear;
+                    return SamplerFilter.MinPoint_MagPoint_MipLinear;
+                default:
+                    throw new NotSupportedException(downFilters.ToString());
+            }
+        }
+
+        private void refreshTexture(TextureContainer container)
+        {
+            if (container.TextureView == null)
+                return;
+            var samplerDesc = new SamplerDescription(getAddress(container.WrapX), getAddress(container.WrapY), SamplerAddressMode.Clamp, 
+                getFilter(container.UpFilters, container.DownFilters), null, 0, 0, int.MaxValue, 0, SamplerBorderColor.TransparentBlack);
+            var sampler = _factory.CreateSampler(samplerDesc);
+
+            var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(
+                _worldTextureLayout,
+                _mvpBuffer,
+                container.TextureView,
+                sampler));
+
+            container.WorldTextureSet = worldTextureSet;
         }
     }
 }
