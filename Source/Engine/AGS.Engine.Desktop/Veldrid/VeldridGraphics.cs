@@ -458,7 +458,7 @@ void main()
             var desc = new GraphicsPipelineDescription(
                 BlendStateDescription.SingleAlphaBlend,
                 DepthStencilStateDescription.Disabled,
-                new RasterizerStateDescription(FaceCullMode.Back, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
+                new RasterizerStateDescription(FaceCullMode.None, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
                 PrimitiveTopology.TriangleList,
                 _shaderSet,
                 new[] { _worldTextureLayout },
