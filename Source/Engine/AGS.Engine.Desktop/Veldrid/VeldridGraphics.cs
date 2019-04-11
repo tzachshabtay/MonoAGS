@@ -40,7 +40,7 @@ namespace AGS.Engine.Desktop
         private Veldrid.Viewport _viewport, _lastViewport;
         private RgbaFloat _clearColor = RgbaFloat.Black;
         private ShaderSetDescription _shaderSet;
-        static int _lastTexture = 0, _lastFramebuffer = 0, _lastBuffer = 0;
+        static int _lastTexture = 1, _lastFramebuffer = 1, _lastBuffer = 1;
 
         public void BeginTick()
         {
