@@ -29,11 +29,11 @@ namespace AGS.Engine.Desktop
     {
         private GraphicsDevice _graphicsDevice;
         private readonly Dictionary<int, TextureContainer> _textures = new Dictionary<int, TextureContainer>(1000);
-        private readonly Dictionary<int, DeviceBuffer> _buffers = new Dictionary<int, DeviceBuffer>();
+        private readonly Dictionary<(uint, BufferType), DeviceBuffer> _buffers = new Dictionary<(uint, BufferType), DeviceBuffer>();
         private readonly Dictionary<int, FramebufferContainer> _frameBuffers = new Dictionary<int, FramebufferContainer>(100);
         private DisposeCollectorResourceFactory _factory;
         private ResourceLayout _worldTextureLayout;
-        private int _boundTexture, _boundFrameBuffer, _boundIndexBuffer, _boundVertexBuffer;
+        private int _boundTexture, _boundFrameBuffer;
         private DeviceBuffer _currentVertexBuffer, _currentIndexBuffer, _mvpBuffer;
         private CommandList _cl;
         private Matrix4x4 _ortho, _view;
@@ -66,17 +66,6 @@ namespace AGS.Engine.Desktop
 
         public void BindBuffer(int bufferId, BufferType bufferType)
         {
-            switch (bufferType)
-            {
-                case BufferType.ArrayBuffer:
-                    _boundVertexBuffer = bufferId;
-                    break;
-                case BufferType.ElementArrayBuffer:
-                    _boundIndexBuffer = bufferId;
-                    break;
-                default:
-                    throw new NotSupportedException(bufferType.ToString());
-            }
         }
 
         public void BindFrameBuffer(int frameBufferId)
@@ -115,19 +104,16 @@ namespace AGS.Engine.Desktop
         public void BufferData<TBufferItem>(TBufferItem[] items, uint itemSize, BufferType bufferType) where TBufferItem : struct
         {
             var totalSize = (uint)(itemSize * items.Length);
+            var buffer = _buffers.GetOrAdd((totalSize, bufferType), () =>
+                        _factory.CreateBuffer(new BufferDescription(totalSize, getBufferUsage(bufferType))));
+            _cl.UpdateBuffer(buffer, 0, items);
             switch (bufferType)
             {
                 case BufferType.ArrayBuffer:
-                    var vertexBuffer = _buffers.GetOrAdd(_boundVertexBuffer, () =>
-                        _factory.CreateBuffer(new BufferDescription(totalSize, getBufferUsage(bufferType))));
-                    _cl.UpdateBuffer(vertexBuffer, 0, items);
-                    _currentVertexBuffer = vertexBuffer;
+                    _currentVertexBuffer = buffer;
                     break;
                 case BufferType.ElementArrayBuffer:
-                    var indexBuffer = _buffers.GetOrAdd(_boundIndexBuffer, () =>
-                        _factory.CreateBuffer(new BufferDescription(totalSize, getBufferUsage(bufferType))));
-                    _cl.UpdateBuffer(indexBuffer, 0, items);
-                    _currentIndexBuffer = indexBuffer;
+                    _currentIndexBuffer = buffer;
                     break;
             }
         }
