@@ -15,6 +15,7 @@ namespace AGS.Engine
 			TopRight = new Vector3 (game.Settings.VirtualResolution.Width, 0f, 0f);
 			BottomRight = new Vector3 (game.Settings.VirtualResolution.Width, game.Settings.VirtualResolution.Height, 0f);
             _box = new AGSBoundingBox(BottomLeft, BottomRight, TopLeft, TopRight);
+            if (shouldFlipY()) _box = _box.FlipVertical();
 		}
 
         public QuadVectors(float x, float y, float width, float height, IGLUtils glUtils)
@@ -25,6 +26,7 @@ namespace AGS.Engine
 			TopRight = new Vector3 (x + width, y, 0f);
 			BottomRight = new Vector3 (x + width, y + height, 0f);
             _box = new AGSBoundingBox(BottomLeft, BottomRight, TopLeft, TopRight);
+            if (shouldFlipY()) _box = _box.FlipVertical();
 		}
 
 		public Vector3 BottomLeft { get; private set; }
@@ -36,6 +38,9 @@ namespace AGS.Engine
 		{
             _glUtils.DrawQuad(texture == null ? 0 : texture.ID, _box, r, g, b, a);
 		}
+
+        //https://github.com/mellinoe/veldrid/issues/35
+        private bool shouldFlipY() => _glUtils.Backend != GraphicsBackend.OpenGL && _glUtils.Backend != GraphicsBackend.OpenGLES;
 	}
 }
 

@@ -5,6 +5,7 @@ namespace AGS.Engine
     public interface IGLUtils
     {
         SizeF CurrentResolution { get; }
+        GraphicsBackend Backend { get; }
         void AdjustResolution(int width, int height);
         void RefreshViewport(IGameSettings settings, IWindowInfo window, IViewport viewport, bool updateViewportScreenArea);
         void GenBuffers();

@@ -165,6 +165,12 @@ namespace AGS.API
         /// <returns>The new flipped square.</returns>
         public AGSBoundingBox FlipHorizontal() => new AGSBoundingBox(BottomRight, BottomLeft, TopRight, TopLeft);
 
+        /// <summary>
+        /// Create a new square which is flipped vertically from the current square.
+        /// </summary>
+        /// <returns>The new flipped square.</returns>
+        public AGSBoundingBox FlipVertical() => new AGSBoundingBox(TopLeft, TopRight, BottomLeft, BottomRight);
+
         public override string ToString() => $"[A={BottomLeft}, B={BottomRight}, C={TopLeft}, D={TopRight}]";
 
         public override bool Equals(object obj)

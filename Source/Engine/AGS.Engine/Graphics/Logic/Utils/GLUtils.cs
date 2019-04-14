@@ -34,6 +34,8 @@ namespace AGS.Engine
 
         public static SizeF CurrentGlobalResolution { get; private set; }
 
+        public GraphicsBackend Backend => _graphics.Backend;
+
         public void AdjustResolution(int width, int height)
         {
             if ((int)CurrentGlobalResolution.Width == width && (int)CurrentGlobalResolution.Height == height) return;
@@ -112,6 +114,11 @@ namespace AGS.Engine
         public bool DrawQuad(IFrameBuffer frameBuffer, AGSBoundingBox square, GLVertex[] vertices)
         {
             if (frameBuffer == null) return false;
+            if (Backend != GraphicsBackend.OpenGL && Backend != GraphicsBackend.OpenGLES)
+            {
+                //https://github.com/mellinoe/veldrid/issues/35
+                square = square.FlipVertical();
+            }
             vertices[0] = new GLVertex(square.BottomLeft.Xy, _bottomLeft, Colors.White);
             vertices[1] = new GLVertex(square.BottomRight.Xy, _bottomRight, Colors.White);
             vertices[2] = new GLVertex(square.TopRight.Xy, _topRight, Colors.White);
@@ -191,5 +198,5 @@ namespace AGS.Engine
         {
             return texture == 0 ? GLTextureFactory.EmptyTexture.ID : texture;
         }
-	}
+    }
 }

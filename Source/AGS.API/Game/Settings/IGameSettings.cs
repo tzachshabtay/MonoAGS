@@ -66,6 +66,33 @@
     }
 
     /// <summary>
+    /// The graphics backend used to render the game.
+    /// </summary>
+    public enum GraphicsBackend : byte
+    {
+        /// <summary>
+        /// Direct3D 11.
+        /// </summary>
+        Direct3D11,
+        /// <summary>
+        /// Vulkan.
+        /// </summary>
+        Vulkan,
+        /// <summary>
+        /// OpenGL.
+        /// </summary>
+        OpenGL,
+        /// <summary>
+        /// Metal.
+        /// </summary>
+        Metal,
+        /// <summary>
+        /// OpenGL ES.
+        /// </summary>
+        OpenGLES
+    }
+
+    /// <summary>
     /// Game settings (those can be set only once).
     /// </summary>
 	public interface IGameSettings
@@ -119,5 +146,10 @@
         /// </summary>
         /// <value>The defaults.</value>
         IDefaultsSettings Defaults { get; }
-	}
+        /// <summary>
+        /// The graphics backend that renders the game.
+        /// </summary>
+        /// <value>The backend.</value>
+        GraphicsBackend Backend { get; }
+    }
 }

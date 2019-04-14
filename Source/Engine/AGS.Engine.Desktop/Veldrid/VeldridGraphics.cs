@@ -7,6 +7,7 @@ using System.Text;
 using AGS.API;
 using Veldrid;
 using Veldrid.SPIRV;
+using Veldrid.StartupUtilities;
 using Veldrid.Utilities;
 
 namespace AGS.Engine.Desktop
@@ -25,7 +26,6 @@ namespace AGS.Engine.Desktop
     public class FramebufferContainer
     {
         public Framebuffer Framebuffer { get; set; }
-        public Texture RenderTarget { get; set; }
         public TextureContainer Output { get; set; }
         public Pipeline Pipeline { get; set; }
     }
@@ -50,7 +50,7 @@ namespace AGS.Engine.Desktop
         public void BeginTick()
         {
             _cl.Begin();
-            BindFrameBuffer(0);
+            BindFrameBuffer(_boundFrameBuffer);
         }
 
         public void EndTick()
@@ -58,6 +58,8 @@ namespace AGS.Engine.Desktop
             _cl.End();
             _graphicsDevice.SubmitCommands(_cl);
         }
+
+        public API.GraphicsBackend Backend => _graphicsDevice.BackendType.Convert();
 
         public void ActiveTexture(int paramIndex)
         {
@@ -76,23 +78,6 @@ namespace AGS.Engine.Desktop
         public void BindFrameBuffer(int frameBufferId)
         {
             var newContainer = _frameBuffers[frameBufferId];
-            if (_boundFrameBuffer != 0)
-            {
-                var fb = _frameBuffers[_boundFrameBuffer];
-                var cl = _factory.CreateCommandList();
-                cl.Begin();
-                cl.CopyTexture(fb.RenderTarget, fb.Output.Texture);
-                cl.End();
-                _graphicsDevice.SubmitCommands(cl);
-                var textureView = _factory.CreateTextureView(fb.Output.Texture);
-
-                var worldTextureSet = _factory.CreateResourceSet(new ResourceSetDescription(
-                    _worldTextureLayout,
-                    _mvpBuffer,
-                    textureView,
-                    _graphicsDevice.Aniso4xSampler));
-                fb.Output.WorldTextureSet = worldTextureSet;
-            }
             if (newContainer.Framebuffer != null)
             {
                 _cl.SetFramebuffer(newContainer.Framebuffer);
@@ -201,12 +186,10 @@ namespace AGS.Engine.Desktop
             var texture = _textures[textureId];
             var width = texture.Texture.Width;
             var height = texture.Texture.Height;
-            var renderTarget = _factory.CreateTexture(new TextureDescription(
-                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, Veldrid.TextureUsage.Sampled, TextureType.Texture2D));
-            var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, renderTarget));
+
+            var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, texture.Texture));
             var container = _frameBuffers[_boundFrameBuffer];
             container.Framebuffer = framebuffer;
-            container.RenderTarget = renderTarget;
             container.Output = texture;
             container.Pipeline = createPipeline(framebuffer);
             _cl.SetFramebuffer(framebuffer);
@@ -326,6 +309,8 @@ void main()
             _mvpBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
         }
 
+        public API.GraphicsBackend AutoDetect() => VeldridStartup.GetPlatformDefaultBackend().Convert();
+
         public void InitPointers(int size)
         {
         }
@@ -397,21 +382,22 @@ void main()
         public void TexImage2D(uint width, uint height, IntPtr scan0)
         {
             Texture texture = _factory.CreateTexture(new TextureDescription(
-                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Sampled, TextureType.Texture2D));
+                width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, scan0 == IntPtr.Zero ?
+                TextureUsage.RenderTarget | TextureUsage.Sampled : TextureUsage.Sampled, TextureType.Texture2D));
 
             Texture staging = _factory.CreateTexture(new TextureDescription(
                 width, height, 1, 1, 1, PixelFormat.B8_G8_R8_A8_UNorm, TextureUsage.Staging, TextureType.Texture2D));
 
-            var size = width * height * 4;
             if (scan0 != IntPtr.Zero)
             {
+                var size = width * height * 4;
                 _graphicsDevice.UpdateTexture(staging, scan0, size, 0, 0, 0, width, height, 1, 0, 0);
+                var cl = _factory.CreateCommandList();
+                cl.Begin();
+                cl.CopyTexture(staging, texture);
+                cl.End();
+                _graphicsDevice.SubmitCommands(cl);
             }
-            var cl = _factory.CreateCommandList();
-            cl.Begin();
-            cl.CopyTexture(staging, texture);
-            cl.End();
-            _graphicsDevice.SubmitCommands(cl);
             var textureView = _factory.CreateTextureView(texture);
 
             var container = _textures[_boundTexture];

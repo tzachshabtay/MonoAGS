@@ -6,7 +6,7 @@ namespace AGS.Engine
 	{
 		public AGSGameSettings(string title, AGS.API.Size virtualResolution, WindowState windowState = WindowState.Maximized,
                AGS.API.Size? windowSize = null, VsyncMode vsync = VsyncMode.On, bool preserveAspectRatio = true,
-               WindowBorder windowBorder = WindowBorder.Resizable)
+               WindowBorder windowBorder = WindowBorder.Resizable, GraphicsBackend? backend = null)
 		{
             Title = title;
             VirtualResolution = virtualResolution;
@@ -15,6 +15,7 @@ namespace AGS.Engine
             Vsync = vsync;
             PreserveAspectRatio = preserveAspectRatio;
             WindowBorder = windowBorder;
+            Backend = backend ?? AGSGame.Device.GraphicsBackend.AutoDetect();
             Defaults = new AGSDefaultsSettings();
 		}
 
@@ -33,5 +34,7 @@ namespace AGS.Engine
         public WindowBorder WindowBorder { get; }
 
         public IDefaultsSettings Defaults { get; }
+
+        public GraphicsBackend Backend { get; }
     }
 }

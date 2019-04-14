@@ -7,7 +7,6 @@ namespace AGS.Engine
     {
         private readonly IGameWindow _gameWindow;
         private readonly IRenderMessagePump _messagePump;
-        private bool _preserveAspectRatio;
         private string _title;
         private VsyncMode _vsync;
         private Size _windowSize;
@@ -31,6 +30,7 @@ namespace AGS.Engine
             PreserveAspectRatio = settings.PreserveAspectRatio;
             WindowState = settings.WindowState;
             WindowBorder = settings.WindowBorder;
+            Backend = settings.Backend;
             _windowSize = new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
             var messageBoxSettings = Defaults?.MessageBox;
             Defaults = settings.Defaults;
@@ -72,11 +72,7 @@ namespace AGS.Engine
             }
         }
 
-        public bool PreserveAspectRatio 
-        {
-            get => _preserveAspectRatio;
-            set => _preserveAspectRatio = value;
-        }
+        public bool PreserveAspectRatio { get; set; }
 
         public WindowState WindowState 
         {
@@ -89,6 +85,8 @@ namespace AGS.Engine
             get => _gameWindow.WindowBorder;
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
+
+        public GraphicsBackend Backend { get; private set; }
 
         public IDefaultsSettings Defaults { get; private set; }
     }

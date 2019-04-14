@@ -122,5 +122,8 @@ namespace AGS.Engine
         void SetActiveShader(IShader shader);
         string GetStandardVertexShader();
         string GetStandardFragmentShader();
+
+        GraphicsBackend AutoDetect();
+        GraphicsBackend Backend { get; }
     }
 }

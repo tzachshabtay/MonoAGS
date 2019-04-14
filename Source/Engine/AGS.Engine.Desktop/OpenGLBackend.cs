@@ -10,6 +10,8 @@ namespace AGS.Engine
         private Rectangle _lastViewport, _currentViewport;
         private string glVersion;
 
+        public GraphicsBackend Backend => GraphicsBackend.OpenGL;
+
         public void Init()
         {
             GL.Enable(EnableCap.Blend);
@@ -72,7 +74,10 @@ namespace AGS.Engine
         }
 
         public int GenFrameBuffer() => GL.GenFramebuffer();
-        public void BindFrameBuffer(int frameBufferId) { GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, frameBufferId); }
+        public void BindFrameBuffer(int frameBufferId)
+        { 
+            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, frameBufferId);
+        }
         public void FrameBufferTexture2D(int textureId)
         {
             GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0,
@@ -272,5 +277,7 @@ namespace AGS.Engine
                 default: throw new NotSupportedException(bufferType.ToString());
             }
         }
+
+        public GraphicsBackend AutoDetect() => GraphicsBackend.OpenGL;
     }
 }

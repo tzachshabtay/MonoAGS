@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
 using Veldrid;
 using Veldrid.Sdl2;
@@ -40,7 +41,7 @@ namespace AGS.Engine.Desktop
 #if DEBUG
             options.Debug = true;
 #endif
-            VeldridStartup.CreateWindowAndGraphicsDevice(wci, options, GraphicsBackend.Metal, out _window, out _graphicsDevice);
+            VeldridStartup.CreateWindowAndGraphicsDevice(wci, options, settings.Backend.Convert(), out _window, out _graphicsDevice);
             _window.Resized += onResized;
             _window.Shown += onShown;
             _window.Closing += () => IsExiting = true;
@@ -53,7 +54,7 @@ namespace AGS.Engine.Desktop
 
         public static Action OnInit { get; set; }
 
-        public double TargetUpdateFrequency 
+        public double TargetUpdateFrequency
         { 
             get => _targetUpdateFrequency;
             set 
