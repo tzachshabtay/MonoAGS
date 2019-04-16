@@ -9,144 +9,113 @@ namespace DemoQuest
     {
         private static IShaderFactory _shaders => AGSGame.Game.Factory.Shaders;
 
-        const string FRAGMENT_SHADER_GRAYSCALE = 
+        const string FRAGMENT_SHADER_GRAYSCALE =
 @"
-#ifdef GL_ES
-            precision mediump float;
-#endif        
-            uniform sampler2D uTexture;
-            varying vec4 vColor;
-#ifdef GL_ES
-            varying vec2 vTexCoord;
-#endif
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+void main()
+{
+    vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords) * fsin_color;
+    float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+    fsout_color =  vec4(gray, gray, gray, col.a);
+}";
 
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
-            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-            	gl_FragColor = vec4(gray, gray, gray, col.a);
-            }";
-
-		const string FRAGMENT_SHADER_SEPIA = 
+		const string FRAGMENT_SHADER_SEPIA =
 @"
-#ifdef GL_ES
-            precision mediump float;
-#endif        
-            uniform sampler2D uTexture;
-            varying vec4 vColor;
-#ifdef GL_ES    
-            varying vec2 vTexCoord;
-#endif
-            const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+const vec3 SEPIA = vec3(1.2, 1.0, 0.8);
+void main()
+{
+    vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords) * fsin_color;
+    float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+    fsout_color =  vec4(vec3(gray) * SEPIA, col.a);
+}";
 
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
-            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-            	gl_FragColor = vec4(vec3(gray) * SEPIA, col.a);
-            }";
-
-		const string FRAGMENT_SHADER_SOFT_SEPIA = 
-			@"
-#ifdef GL_ES
-            precision mediump float;
-#endif        
-            uniform sampler2D uTexture;
-            varying vec4 vColor;
-#ifdef GL_ES
-            varying vec2 vTexCoord;
-#endif
-            const vec3 SEPIA = vec3(1.2, 1.0, 0.8); 
-
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-            	vec4 col = texture2D(uTexture, vTexCoord);
-            	float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-            	vec3 sepiaColor = vec3(gray) * SEPIA;
-            	col.rgb = mix(col.rgb, sepiaColor, 0.75);
-            	gl_FragColor = col * vColor;
-            }";
+		const string FRAGMENT_SHADER_SOFT_SEPIA =
+@"
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+const vec3 SEPIA = vec3(1.2, 1.0, 0.8);
+void main()
+{
+    vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords);
+    float gray = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+    vec3 sepiaColor = vec3(gray) * SEPIA;
+    col.rgb = mix(col.rgb, sepiaColor, 0.75);
+    fsout_color =  col * fsin_color;
+}";
 
         const string FRAGMENT_SHADER_VIGNETTE =
+@"
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+
+//The resolution needs to be set whenever the screen resizes
+uniform vec2 resolution;
+
+//RADIUS of our vignette, where 0.5 results in a circle fitting the screen
+const float RADIUS = 0.75;
+
+//softness of our vignette, between 0.0 and 1.0
+const float SOFTNESS = 0.45;
+
+void main()
+{
+    vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords);
+
+    //determine center position
+    vec2 position = (gl_FragCoord.xy / resolution.xy) - vec2(0.5);
+
+    //determine the vector length of the center position
+    float len = length(position);
+
+    //use smoothstep to create a smooth vignette
+    float vignette = smoothstep(RADIUS, RADIUS-SOFTNESS, len);
+
+    //apply the vignette with 50% opacity
+    col.rgb = mix(col.rgb, col.rgb * vignette, 0.5);
+    fsout_color =  col * fsin_color;
+}";
+
+        const string FRAGMENT_SHADER_BLUR =
             @"
-#ifdef GL_ES
-            precision mediump float;
-#endif        
-            uniform sampler2D uTexture;
-            varying vec4 vColor;
-#ifdef GL_ES
-            varying vec2 vTexCoord;
-#endif
-            //The resolution needs to be set whenever the screen resizes
-            uniform vec2 resolution;
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
 
-            //RADIUS of our vignette, where 0.5 results in a circle fitting the screen
-            const float RADIUS = 0.75;
-
-            //softness of our vignette, between 0.0 and 1.0
-            const float SOFTNESS = 0.45;
-
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-            	vec4 col = texture2D(uTexture, vTexCoord);
-
-            	//determine center position
-                vec2 position = (gl_FragCoord.xy / resolution.xy) - vec2(0.5);
-
-                //determine the vector length of the center position
-                float len = length(position);
-
-                //use smoothstep to create a smooth vignette
-                float vignette = smoothstep(RADIUS, RADIUS-SOFTNESS, len);
-
-                //apply the vignette with 50% opacity
-                col.rgb = mix(col.rgb, col.rgb * vignette, 0.5);
-
-            	gl_FragColor = col * vColor;
-            }
-            ";
-        const string FRAGMENT_SHADER_BLUR = 
-			@"
-#ifdef GL_ES
-            precision mediump float;
-#endif        
-            uniform sampler2D uTexture;
-            varying vec4 vColor;
-#ifdef GL_ES
-            varying vec2 vTexCoord;
-#endif
-
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-            	vec4 col = texture2D(uTexture, vTexCoord) * vColor;
-
-            	int i, j;
-            	vec4 sum = vec4(0);
-            	for (i = -2; i <= 2; i++)
-            		for (j = -2; j <= 2; j++)
-            		{
-            			vec2 offset = vec2(i, j) * 0.01;
-            			vec4 currentCol = texture2D(uTexture, vTexCoord + offset);
-            			sum += currentCol;
-            		}
-            	
-            	gl_FragColor = (sum / vec4(25));	
-            }";
+void main()
+{
+    int i, j;
+    vec4 sum = vec4(0);
+    for (i = -2; i <= 2; i++)
+        for (j = -2; j <= 2; j++)
+        {
+            vec2 offset = vec2(i, j) * 0.01;
+            vec4 currentCol = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords + offset);
+            sum += currentCol;
+        }
+    fsout_color =  (sum / vec4(25));
+}";
 
 		public static void SetStandardShader()
 		{
@@ -230,4 +199,3 @@ namespace DemoQuest
 		}
 	}
 }
-

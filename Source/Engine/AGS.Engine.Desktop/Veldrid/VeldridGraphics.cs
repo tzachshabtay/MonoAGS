@@ -23,11 +23,27 @@ namespace AGS.Engine.Desktop
         public TextureWrap WrapY { get; set; }
     }
 
-    public class FramebufferContainer
+    public class PipelineContainer
     {
         public Framebuffer Framebuffer { get; set; }
         public TextureContainer Output { get; set; }
         public Pipeline Pipeline { get; set; }
+    }
+
+    public class ShaderSource
+    {
+        public string Source { get; set; }
+        public ShaderMode Mode { get; set; }
+    }
+
+    public class ShaderProgram
+    {
+        public ShaderProgram()
+        {
+            Sources = new List<ShaderSource>(); 
+        }
+        public List<ShaderSource> Sources { get; }
+        public ShaderSetDescription Set { get; set; }
     }
 
     public class VeldridGraphics : IGraphicsBackend
@@ -35,7 +51,10 @@ namespace AGS.Engine.Desktop
         private GraphicsDevice _graphicsDevice;
         private readonly Dictionary<int, TextureContainer> _textures = new Dictionary<int, TextureContainer>(1000);
         private readonly Dictionary<(uint, BufferType), DeviceBuffer> _buffers = new Dictionary<(uint, BufferType), DeviceBuffer>();
-        private readonly Dictionary<int, FramebufferContainer> _frameBuffers = new Dictionary<int, FramebufferContainer>(100);
+        private readonly Dictionary<(int,int), PipelineContainer> _pipelines = new Dictionary<(int,int), PipelineContainer>(100);
+        private readonly Dictionary<int, Framebuffer> _frameBuffers = new Dictionary<int, Framebuffer>();
+        private readonly Dictionary<int, ShaderSource> _shaderSources = new Dictionary<int, ShaderSource>();
+        private readonly Dictionary<int, ShaderProgram> _shaders = new Dictionary<int, ShaderProgram>();
         private DisposeCollectorResourceFactory _factory;
         private ResourceLayout _worldTextureLayout;
         private int _boundTexture, _boundFrameBuffer;
@@ -44,13 +63,15 @@ namespace AGS.Engine.Desktop
         private Matrix4x4 _ortho, _view;
         private Veldrid.Viewport _viewport, _lastViewport;
         private RgbaFloat _clearColor = RgbaFloat.Black;
-        private ShaderSetDescription _shaderSet;
-        static int _lastTexture = 1, _lastFramebuffer = 1, _lastBuffer = 1;
+        private int _currentProgram;
+        static int _lastTexture = 1, _lastFramebuffer = 1, _lastBuffer = 1,
+            _lastShaderSource = 1, _lastShaderProgram = 1;
 
         public void BeginTick()
         {
             _cl.Begin();
             BindFrameBuffer(_boundFrameBuffer);
+            UseProgram(0);
         }
 
         public void EndTick()
@@ -65,10 +86,16 @@ namespace AGS.Engine.Desktop
         {
         }
 
-        public bool AreShadersSupported() => false;
+        public bool AreShadersSupported() => true;
 
         public void AttachShader(int programId, int shaderId)
         {
+            var program = _shaders[programId];
+            var source = _shaderSources[shaderId];
+            if (!program.Sources.Contains(source))
+            {
+                program.Sources.Add(source); 
+            }
         }
 
         public void BindBuffer(int bufferId, BufferType bufferType)
@@ -77,10 +104,14 @@ namespace AGS.Engine.Desktop
 
         public void BindFrameBuffer(int frameBufferId)
         {
-            var newContainer = _frameBuffers[frameBufferId];
-            if (newContainer.Framebuffer != null)
+            if (_frameBuffers.TryGetValue(frameBufferId, out var frameBuffer))
             {
+                var newContainer = _pipelines.GetOrAdd((frameBufferId, _currentProgram), () => new PipelineContainer { Framebuffer = frameBuffer });
                 _cl.SetFramebuffer(newContainer.Framebuffer);
+                if (newContainer.Pipeline == null)
+                {
+                    newContainer.Pipeline = createPipeline(newContainer.Framebuffer); 
+                }
                 _cl.SetPipeline(newContainer.Pipeline);
             }
             _boundFrameBuffer = frameBufferId;
@@ -124,12 +155,16 @@ namespace AGS.Engine.Desktop
 
         public int CreateProgram()
         {
-            return 0;
+            int id = _lastShaderProgram++;
+            _shaders[id] = new ShaderProgram();
+            return id;
         }
 
         public int CreateShader(ShaderMode shaderType)
         {
-            return 0;
+            int id = _lastShaderSource++;
+            _shaderSources[id] = new ShaderSource { Mode = shaderType };
+            return id;
         }
 
         public void DeleteFrameBuffer(int frameBufferId)
@@ -177,7 +212,7 @@ namespace AGS.Engine.Desktop
         public int GenFrameBuffer()
         {
             var id = _lastFramebuffer++;
-            _frameBuffers[id] = new FramebufferContainer();
+            _pipelines[(id, _currentProgram)] = new PipelineContainer();
             return id;
         }
 
@@ -188,7 +223,8 @@ namespace AGS.Engine.Desktop
             var height = texture.Texture.Height;
 
             var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, texture.Texture));
-            var container = _frameBuffers[_boundFrameBuffer];
+            _frameBuffers[_boundFrameBuffer] = framebuffer;
+            var container = _pipelines[(_boundFrameBuffer, _currentProgram)];
             container.Framebuffer = framebuffer;
             container.Output = texture;
             container.Pipeline = createPipeline(framebuffer);
@@ -221,12 +257,12 @@ namespace AGS.Engine.Desktop
 
         public int GetProgramLinkErrorCode(int programId)
         {
-            return 0;
+            return 1;
         }
 
         public int GetShaderCompilationErrorCode(int shaderId)
         {
-            return 0;
+            return 1;
         }
 
         public string GetShaderInfoLog(int shaderId)
@@ -285,17 +321,20 @@ void main()
             _factory = new DisposeCollectorResourceFactory(_graphicsDevice.ResourceFactory);
             _cl = _factory.CreateCommandList();
 
-            _shaderSet = new ShaderSetDescription(
-                new[]
-                {
-                    new VertexLayoutDescription(
-                        new VertexElementDescription("Position", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
-                        new VertexElementDescription("TexCoords", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
-                        new VertexElementDescription("Color", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float4))
-                },
-                _factory.CreateFromSpirv(
-                    new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(GetStandardVertexShader()), "main"),
-                    new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(GetStandardFragmentShader()), "main")));
+            var vertexShader = _lastShaderSource++;
+            _shaderSources[vertexShader] = new ShaderSource { Source = GetStandardVertexShader(), Mode = ShaderMode.VertexShader };
+            var fragmentShader = _lastShaderSource++;
+            _shaderSources[fragmentShader] = new ShaderSource { Source = GetStandardFragmentShader(), Mode = ShaderMode.FragmentShader };
+            var program = new ShaderProgram();
+            _shaders[0] = new ShaderProgram();
+            AttachShader(0, vertexShader);
+            AttachShader(0, fragmentShader);
+            LinkProgram(0);
+
+            var framebuffer = _graphicsDevice.MainSwapchain.Framebuffer;
+            _frameBuffers[0] = framebuffer;
+            var pipeline = new PipelineContainer { Framebuffer = framebuffer };
+            _pipelines[(0, 0)] = pipeline;
 
             _worldTextureLayout = _factory.CreateResourceLayout(
                 new ResourceLayoutDescription(
@@ -303,10 +342,9 @@ void main()
                     new ResourceLayoutElementDescription("SurfaceTexture", ResourceKind.TextureReadOnly, ShaderStages.Fragment),
                     new ResourceLayoutElementDescription("SurfaceSampler", ResourceKind.Sampler, ShaderStages.Fragment)));
 
-            var framebuffer = _graphicsDevice.MainSwapchain.Framebuffer;
-            _frameBuffers[0] = new FramebufferContainer { Framebuffer = framebuffer, Pipeline = createPipeline(framebuffer) };
-
             _mvpBuffer = _factory.CreateBuffer(new BufferDescription(64, BufferUsage.UniformBuffer));
+
+            pipeline.Pipeline = createPipeline(framebuffer);
         }
 
         public API.GraphicsBackend AutoDetect() => VeldridStartup.GetPlatformDefaultBackend().Convert();
@@ -321,6 +359,21 @@ void main()
 
         public void LinkProgram(int programId)
         {
+            var program = _shaders[programId];
+            var vertex = program.Sources.First(s => s.Mode == ShaderMode.VertexShader).Source;
+            var fragment = program.Sources.First(s => s.Mode == ShaderMode.FragmentShader).Source;
+            var shaderSet = new ShaderSetDescription(
+                new[]
+                {
+                    new VertexLayoutDescription(
+                        new VertexElementDescription("Position", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
+                        new VertexElementDescription("TexCoords", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float2),
+                        new VertexElementDescription("Color", VertexElementSemantic.TextureCoordinate, VertexElementFormat.Float4))
+                },
+                _factory.CreateFromSpirv(
+                    new ShaderDescription(ShaderStages.Vertex, Encoding.UTF8.GetBytes(vertex), "main"),
+                    new ShaderDescription(ShaderStages.Fragment, Encoding.UTF8.GetBytes(fragment), "main")));
+            program.Set = shaderSet;
         }
 
         public void LoadIdentity()
@@ -377,6 +430,7 @@ void main()
 
         public void ShaderSource(int shaderId, string sourceCode)
         {
+            _shaderSources[shaderId].Source = sourceCode;
         }
 
         public void TexImage2D(uint width, uint height, IntPtr scan0)
@@ -434,6 +488,13 @@ void main()
 
         public void UseProgram(int programId)
         {
+            _currentProgram = programId;
+            var pipeline = _pipelines.GetOrAdd((_boundFrameBuffer, _currentProgram), () => new PipelineContainer { Framebuffer = _frameBuffers[_boundFrameBuffer] });
+            if (pipeline.Pipeline == null)
+            {
+                pipeline.Pipeline = createPipeline(pipeline.Framebuffer); 
+            }
+            _cl.SetPipeline(pipeline.Pipeline);
         }
 
         public void Viewport(int x, int y, int width, int height)
@@ -450,7 +511,7 @@ void main()
                 DepthStencilStateDescription.Disabled,
                 new RasterizerStateDescription(FaceCullMode.None, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
                 PrimitiveTopology.TriangleList,
-                _shaderSet,
+                _shaders[_currentProgram].Set,
                 new[] { _worldTextureLayout },
                 framebuffer.OutputDescription);
             return _factory.CreateGraphicsPipeline(desc);

@@ -8,8 +8,7 @@ namespace AGS.Engine
     [ConcreteImplementation(DisplayName = "OpenGL Shader")]
 	public class GLShader : IShader, IDisposable
 	{
-		private int _program;
-		private string _vertexSource, _fragmentSource;
+        private string _vertexSource, _fragmentSource;
 		private Dictionary<string, int> _variables;
 		private Dictionary<int, int> _textures;
 		private bool _isCompiled;
@@ -28,7 +27,7 @@ namespace AGS.Engine
             _queryVariableLocationFunc = queryVariableLocation; //Caching delegate to avoid memory allocations on critical path
 		}
 
-        public int ProgramId => _program;
+        public int ProgramId { get; private set; }
 
         public IShader Compile()
 		{
@@ -41,7 +40,7 @@ namespace AGS.Engine
 				return null;
 			}
 
-			_program = _graphics.CreateProgram();
+            ProgramId = _graphics.CreateProgram();
             if (!compileShader(_fragmentSource, ShaderMode.FragmentShader) ||
 			    !compileShader(_vertexSource, ShaderMode.VertexShader))
 			{
@@ -61,7 +60,7 @@ namespace AGS.Engine
 			
 		public void Bind()
 		{
-			_graphics.UseProgram(_program);
+			_graphics.UseProgram(ProgramId);
 			bindTextures();
             _graphics.SetActiveShader(this);
         }
@@ -150,7 +149,7 @@ namespace AGS.Engine
 
         public void Dispose()
 		{
-			int program = _program;
+			int program = ProgramId;
 			if (program == 0) return;
 			_graphics.DeleteProgram(program);
 		}
@@ -159,13 +158,13 @@ namespace AGS.Engine
 
 		private int getVariableLocation(string name)
 		{
-			if (_program == 0) return -1;
+			if (ProgramId == 0) return -1;
             return _variables.GetOrAdd(name, _queryVariableLocationFunc);
 		}
 
         private int queryVariableLocation(string name)
         {
-            int location = _graphics.GetUniformLocation(_program, name);
+            int location = _graphics.GetUniformLocation(ProgramId, name);
             Debug.WriteLineIf(location == -1, $"Variable name {name} not found in shader program.");
             return location;
         }
@@ -185,26 +184,26 @@ namespace AGS.Engine
 				Debug.WriteLine($@"Failed to compile {shaderType}.{Environment.NewLine}Error code: {errorCode}.{Environment.NewLine}
                     Error message(s): {info ?? "null"}.{Environment.NewLine}Shader Source: {source}{Environment.NewLine}");
 				_graphics.DeleteShader(shader);
-				_program = 0;
+                ProgramId = 0;
 				return false;
 			}
 
-			_graphics.AttachShader(_program, shader);
+			_graphics.AttachShader(ProgramId, shader);
 			_graphics.DeleteShader(shader);
 			return true;
 		}
 
 		private bool linkProgram()
 		{
-			_graphics.LinkProgram(_program);
-			string info = _graphics.GetProgramInfoLog(_program);
-            int errorCode = _graphics.GetProgramLinkErrorCode(_program);
+			_graphics.LinkProgram(ProgramId);
+			string info = _graphics.GetProgramInfoLog(ProgramId);
+            int errorCode = _graphics.GetProgramLinkErrorCode(ProgramId);
 			if (errorCode != 1)
 			{
 				Debug.WriteLine($@"Failed to link shader program. Error code: {errorCode}.{Environment.NewLine}
                     Error message(s): {info ?? "null"}{Environment.NewLine}");
-				_graphics.DeleteProgram(_program);
-				_program = 0;
+				_graphics.DeleteProgram(ProgramId);
+                ProgramId = 0;
 				return false;
 			}
 			return true;

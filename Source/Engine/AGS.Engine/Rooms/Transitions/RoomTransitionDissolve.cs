@@ -8,35 +8,27 @@ namespace AGS.Engine
 	{
 		//shader code inspired by: http://developer.playcanvas.com/en/tutorials/advanced/custom-shaders/
         const string FRAGMENT_SHADER = @"
-#ifdef GL_ES
-            precision mediump float;
-#endif
-            uniform sampler2D uTexture;
-            uniform float time;
-            varying vec4 vColor;
-#ifdef GL_ES
-            varying vec2 vTexCoord;
-#endif
-
-            void main()
-            {
-#ifndef GL_ES
-                vec2 vTexCoord = gl_TexCoord[0].xy;
-#endif
-                vec4 col = texture2D(uTexture, vTexCoord);
-                float height = col.r;
-                if (height < time) 
-                {
-                    discard;
-                }
-                /*else if (height < time +0.04) add this if we want a 'burn' color
-                {
-                    gl_FragColor = vec4(0, 0.2, 1, 1.0);
-                }*/
-                else gl_FragColor = col * vColor;
-                //gl_FragColor = vec4(1.0,0.0,0.0,1.0);
-            }
-";
+#version 450
+layout(location = 0) in vec2 fsin_texCoords;
+layout(location = 1) in vec4 fsin_color;
+layout(location = 0) out vec4 fsout_color;
+layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
+layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
+uniform float time;
+void main()
+{
+    vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords);
+    float height = col.r;
+    if (height < time) 
+    {
+        discard;
+    }
+    /*else if (height < time +0.04) add this if we want a 'burn' color
+    {
+        fsout_color = vec4(0, 0.2, 1, 1.0);
+    }*/
+    else fsout_color = col * fsin_color;
+}"; 
 
         private readonly float _timeInSeconds;
 		private readonly Func<float, float> _easing;
@@ -99,4 +91,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-
