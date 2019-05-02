@@ -20,6 +20,16 @@
 			ITextConfig hasBeenChosenConfig = null, bool speakOption = true, bool showOnce = false);
 
         /// <summary>
+        /// Creates a dialog option.
+        /// </summary>
+        /// <returns>The new dialog option.</returns>
+        /// <param name="text">The text that appears in the dialog option.</param>
+        /// <param name="font">Font for rendering the text.</param>
+        /// <param name="speakOption">Should the character say the option after the user selects it?</param>
+        /// <param name="showOnce">Should the engine hide the option after selecting it once?</param>
+        IDialogOption GetDialogOption(string text, IFont font, bool speakOption = true, bool showOnce = false);
+
+        /// <summary>
         /// Creates a new dialog.
         /// </summary>
         /// <returns>The new dialog.</returns>
