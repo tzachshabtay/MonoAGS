@@ -7097,6 +7097,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogFactory.GetDialog
   nameWithType: IDialogFactory.GetDialog
+- uid: AGS.API.IDialogFactory.GetDialogOption(System.String,AGS.API.IFont,System.Boolean,System.Boolean)
+  name: GetDialogOption(String, IFont, Boolean, Boolean)
+  href: api/AGS.API.IDialogFactory.html#AGS_API_IDialogFactory_GetDialogOption_System_String_AGS_API_IFont_System_Boolean_System_Boolean_
+  commentId: M:AGS.API.IDialogFactory.GetDialogOption(System.String,AGS.API.IFont,System.Boolean,System.Boolean)
+  fullName: AGS.API.IDialogFactory.GetDialogOption(System.String, AGS.API.IFont, System.Boolean, System.Boolean)
+  nameWithType: IDialogFactory.GetDialogOption(String, IFont, Boolean, Boolean)
 - uid: AGS.API.IDialogFactory.GetDialogOption(System.String,AGS.API.ITextConfig,AGS.API.ITextConfig,AGS.API.ITextConfig,System.Boolean,System.Boolean)
   name: GetDialogOption(String, ITextConfig, ITextConfig, ITextConfig, Boolean, Boolean)
   href: api/AGS.API.IDialogFactory.html#AGS_API_IDialogFactory_GetDialogOption_System_String_AGS_API_ITextConfig_AGS_API_ITextConfig_AGS_API_ITextConfig_System_Boolean_System_Boolean_
