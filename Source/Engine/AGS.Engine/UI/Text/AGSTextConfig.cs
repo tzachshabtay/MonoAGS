@@ -63,7 +63,7 @@ namespace AGS.Engine
 
         public IFont Font { get; set; }
 
-        public Alignment Alignment { get; set; }
+        public Alignment Alignment { get; set; } = Alignment.TopLeft;
 
         public IBrush OutlineBrush { get; set; }
 
@@ -74,11 +74,11 @@ namespace AGS.Engine
         public float ShadowOffsetX { get; set; }
         public float ShadowOffsetY { get; set; }
 
-        public AutoFit AutoFit { get; set; }
-        public float PaddingLeft { get; set; }
-        public float PaddingRight { get; set; }
-        public float PaddingTop { get; set; }
-        public float PaddingBottom { get; set; }
+        public AutoFit AutoFit { get; set; } = AutoFit.NoFitting;
+        public float PaddingLeft { get; set; } = 2f;
+        public float PaddingRight { get; set; } = 2f;
+        public float PaddingTop { get; set; } = 2f;
+        public float PaddingBottom { get; set; } = 2f;
 
         public SizeF? LabelMinSize { get; set; }
 
