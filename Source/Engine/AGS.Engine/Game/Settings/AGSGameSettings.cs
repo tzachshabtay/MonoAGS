@@ -6,7 +6,7 @@ namespace AGS.Engine
 	{
 		public AGSGameSettings(string title, Size virtualResolution, WindowState windowState = WindowState.Maximized,
                Size? windowSize = null, VsyncMode vsync = VsyncMode.Adaptive, bool preserveAspectRatio = true,
-                               WindowBorder windowBorder = WindowBorder.Resizable)
+               WindowBorder windowBorder = WindowBorder.Resizable)
 		{
             Title = title;
             VirtualResolution = virtualResolution;
@@ -15,7 +15,9 @@ namespace AGS.Engine
             Vsync = vsync;
             PreserveAspectRatio = preserveAspectRatio;
             WindowBorder = windowBorder;
-            Defaults = new AGSDefaultsSettings();
+            var fonts = new AGSDefaultFonts();
+            var dialogs = new AGSDialogSettings(AGSGame.Device, fonts);
+            Defaults = new AGSDefaultsSettings(fonts, dialogs);
 		}
 
         public string Title { get; }

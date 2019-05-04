@@ -396,7 +396,7 @@ namespace AGS.Editor
 
         private ITreeStringNode addToTree(string text, ITreeStringNode parent)
         {
-            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.TextFont);
+            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.Fonts.Text);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             return node;
         }

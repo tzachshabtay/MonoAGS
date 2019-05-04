@@ -184,7 +184,7 @@ namespace AGS.Editor
             var buttonsPanel = factory.UI.GetPanel("MethodWizardTargetPanel", 100f, 45f, MethodWizard.MARGIN_HORIZONTAL, 50f, panel);
             buttonsPanel.Tint = Colors.Transparent;
 
-            var font = _editor.Editor.Settings.Defaults.TextFont;
+            var font = _editor.Editor.Settings.Defaults.Fonts.Text;
             var labelConfig = factory.Fonts.GetTextConfig(font: factory.Fonts.LoadFont(font.FontFamily, font.SizeInPoints, FontStyle.Underline));
             factory.UI.GetLabel("AddToLabel", "Add To:", 50f, 20f, 0f, 0f, buttonsPanel, labelConfig);
 

@@ -32,7 +32,7 @@ namespace AGS.Editor
             _model = model;
             _props = new Dictionary<InspectorCategory, List<IProperty>>();
             _factory = factory;
-            _font = editorSettings.Defaults.TextFont;
+            _font = editorSettings.Defaults.Fonts.Text;
             _editorProvider = new EditorProvider(factory, actions, model, gameSettings, editor, parentForm);
         }
 

@@ -245,8 +245,8 @@ namespace AGS.Engine
                 return false;
             }
 
-            _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, false);
-            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.TextFont, _bitmapPool, true);
+            _glTextHitTest = _glTextHitTest ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.Fonts.Text, _bitmapPool, false);
+            _glTextRender = _glTextRender ?? new GLText(_graphics, _messagePump, _fonts, _settings.Defaults.Fonts.Text, _bitmapPool, true);
 
             if (!updateBoundingBoxes(viewport))
             {

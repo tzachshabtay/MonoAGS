@@ -27,7 +27,7 @@ namespace AGS.Editor
             _editorState = editorState;
             _editorInput.MouseMove.Subscribe(onMouseMove);
             _blocker = blocker;
-            _font = settings.Defaults.TextFont;
+            _font = settings.Defaults.Fonts.Text;
         }
 
         public bool IsPaused => _playPauseButton.Text == FontIcons.Play;

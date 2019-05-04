@@ -33,10 +33,20 @@ namespace AGS.Engine
             WindowBorder = settings.WindowBorder;
             _windowSize = new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
             var messageBoxSettings = Defaults?.MessageBox;
+            var fontSettings = Defaults?.Fonts;
+            var dialogSettings = Defaults?.Dialog;
             Defaults = settings.Defaults;
             if (Defaults.MessageBox == null)
             {
                 Defaults.MessageBox = messageBoxSettings; 
+            }
+            if (Defaults.Fonts == null)
+            {
+                Defaults.Fonts = fontSettings;
+            }
+            if (Defaults.Dialog == null)
+            {
+                Defaults.Dialog = dialogSettings;
             }
         }
 
