@@ -5,13 +5,21 @@ namespace AGS.Engine
     [PropertyFolder]
     public class AGSDefaultsSettings : IDefaultsSettings
     {
-        public IFont SpeechFont { get; set; } = AGSGame.Device.FontLoader.LoadFont(null, 10f);
+        public AGSDefaultsSettings(IDefaultFonts fonts, IDialogSettings dialog)
+        {
+            Fonts = fonts;
+            Dialog = dialog;
+        }
 
-        public IFont TextFont { get; set; }  = AGSGame.Device.FontLoader.LoadFont(null, 14f);
+        [Property(ForceReadonly = true)]
+        public IDefaultFonts Fonts { get; set; }
 
         public ISkin Skin { get; set; }
 
         [Property(ForceReadonly = true)]
         public IMessageBoxSettings MessageBox { get; set; }
+
+        [Property(ForceReadonly = true)]
+        public IDialogSettings Dialog { get; set; }
     }
 }

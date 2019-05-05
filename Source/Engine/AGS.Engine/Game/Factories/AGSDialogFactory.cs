@@ -11,9 +11,10 @@ namespace AGS.Engine
 		private readonly IObjectFactory _object;
         private readonly IBrushLoader _brushLoader;
         private readonly IFontFactory _fontLoader;
+        private readonly IDialogSettings _defaults;
 
         public AGSDialogFactory(Resolver resolver, IGameState gameState, IUIFactory ui, IObjectFactory obj,
-                                IBrushLoader brushloader, IFontFactory fontLoader)
+                                IBrushLoader brushloader, IFontFactory fontLoader, IDialogSettings defaults)
 		{
 			_resolver = resolver;
             _brushLoader = brushloader;
@@ -21,20 +22,19 @@ namespace AGS.Engine
 			_gameState = gameState;
 			_ui = ui;
 			_object = obj;
+            _defaults = defaults;
 		}
 			
 		public IDialogOption GetDialogOption(string text, ITextConfig config = null, ITextConfig hoverConfig = null,
 			ITextConfig hasBeenChosenConfig = null, bool speakOption = true, bool showOnce = false)
 		{
             var game = _resolver.Container.Resolve<IGame>();
-            if (config == null) config = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-                brush: _brushLoader.LoadSolidBrush(Colors.White), font: _fontLoader.LoadFont(null,10f));
-			if (hoverConfig == null) hoverConfig = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-				brush: _brushLoader.LoadSolidBrush(Colors.Yellow), font: _fontLoader.LoadFont(null, 10f));
-            if (hasBeenChosenConfig == null) hasBeenChosenConfig = _fontLoader.GetTextConfig(autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight,
-                brush: _brushLoader.LoadSolidBrush(Colors.Gray), font: _fontLoader.LoadFont(null, 10f));
+            config = config ?? _defaults.Idle;
+            hoverConfig = hoverConfig ?? _defaults.Hovered;
+            hasBeenChosenConfig = hasBeenChosenConfig ?? _defaults.Chosen;
             ILabel label = _ui.GetLabel($"Dialog option: {text}", text, game.Settings.VirtualResolution.Width, 20f, 0f, 0f, 
                                         config: config, addToUi: false);
+            label.RenderLayer = _defaults.RenderLayer;
 			label.Enabled = true;
 			TypedParameter labelParam = new TypedParameter (typeof(ILabel), label);
 			NamedParameter speakParam = new NamedParameter ("speakOption", speakOption);
@@ -49,13 +49,14 @@ namespace AGS.Engine
 			return option;
 		}
 
-		public IDialog GetDialog(string id, float x = 0f, float y = 0f, IObject graphics = null, bool showWhileOptionsAreRunning = false, 
+        public IDialog GetDialog(string id, float x = 0f, float y = 0f, IObject graphics = null, bool showWhileOptionsAreRunning = false, 
 			params IDialogOption[] options)
 		{
 			TypedParameter showParam = new TypedParameter (typeof(bool), showWhileOptionsAreRunning);
 			if (graphics == null)
 			{
 				graphics = _object.GetObject(id);
+                graphics.RenderLayer = _defaults.RenderLayer;
 				graphics.Tint =  Colors.Black;
 				graphics.Pivot = new PointF ();
                 graphics.IgnoreViewport = true;

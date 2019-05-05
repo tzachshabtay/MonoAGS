@@ -117,6 +117,8 @@ namespace AGS.Engine
 			Builder.RegisterInstance(checker);
             Builder.RegisterInstance(settings).As<IGameSettings>();
             Builder.RegisterInstance(settings.Defaults).As<IDefaultsSettings>();
+            Builder.RegisterInstance(settings.Defaults.Fonts).As<IDefaultFonts>();
+            Builder.RegisterInstance(settings.Defaults.Dialog).As<IDialogSettings>();
 
             Builder.RegisterSource(new ResolveAnythingSource());
 

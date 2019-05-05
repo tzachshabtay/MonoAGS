@@ -43,7 +43,7 @@ namespace AGS.Editor
         public static ITextConfig ButtonTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush);
         public static ITextConfig TextboxTextConfig = fonts().GetTextConfig(autoFit: AutoFit.TextShouldCrop, brush: TextBrush);
         public static ITextConfig ReadonlyTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: ReadonlyTextBrush,
-             font: _game.Factory.Fonts.LoadFont(_game.Settings.Defaults.TextFont.FontFamily, 12f));
+             font: _game.Factory.Fonts.LoadFont(_game.Settings.Defaults.Fonts.Text.FontFamily, 12f));
         public static ITextConfig ButtonHoverTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: HoveredTextBrush);
         public static ITextConfig TextboxHoverTextConfig = fonts().GetTextConfig(autoFit: AutoFit.TextShouldCrop, brush: HoveredTextBrush);
         public static ITextConfig ComboboxTextConfig = fonts().GetTextConfig(autoFit: AutoFit.LabelShouldFitText, brush: TextBrush, alignment: Alignment.MiddleLeft, labelMinSize: (100f, 25f));
