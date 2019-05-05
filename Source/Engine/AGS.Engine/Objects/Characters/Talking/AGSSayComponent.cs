@@ -107,7 +107,7 @@ namespace AGS.Engine
             label.Dispose();
             if (portrait != null) portrait.Visible = false;
 
-            if (outfit != null)
+            if (outfit != null && _faceDirection?.CurrentDirectionalAnimation == speakAnimation) //if the animation is not speakAnimation, somebody switched the animations during speak (perhaps the character is now walking), so we shouldn't revert the animation to what it was before
             {
                 if (wasWalking && !walkComponent.IsWalking) previousAnimation = outfit.Outfit[AGSOutfit.Idle]; //If we were in the middle of a walk but walk was completed before speech, then instead of revert to the previous animation (walk) we need to go to idle.
                 await setAnimation(previousAnimation);
