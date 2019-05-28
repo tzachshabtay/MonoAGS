@@ -13,7 +13,11 @@ layout(location = 1) in vec4 fsin_color;
 layout(location = 0) out vec4 fsout_color;
 layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
 layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
-uniform float adjustment;
+layout(set = 2, binding = 1) uniform SaturationBuffer
+{
+    float adjustment;
+};
+
 void main()
 {
     vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords) * fsin_color;
@@ -61,7 +65,7 @@ void main()
 		private void onBeforeRender()
         {
             var shader = _shader;
-            if (shader != null) shader = shader.Compile();
+            if (shader != null) shader = shader.Compile(new ShaderVar(ShaderMode.FragmentShader, ShaderVarType.Float, "SaturationBuffer"));
             if (shader == null || shader != getActiveShader())
             {
                 _shader = null;
@@ -69,7 +73,7 @@ void main()
                 return;
             }
             shader.Bind();
-            shader.SetVariable("adjustment", Saturation);
+            shader.SetVariable("SaturationBuffer", Saturation);
             shader.Unbind();
         }
     }
