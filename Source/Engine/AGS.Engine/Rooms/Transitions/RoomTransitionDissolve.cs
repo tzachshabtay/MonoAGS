@@ -14,12 +14,16 @@ layout(location = 1) in vec4 fsin_color;
 layout(location = 0) out vec4 fsout_color;
 layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
 layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
-uniform float time;
+layout(set = 2, binding = 1) uniform TimeBuffer
+{
+    float time;
+};
+
 void main()
 {
     vec4 col = texture(sampler2D(SurfaceTexture, SurfaceSampler), fsin_texCoords);
     float height = col.r;
-    if (height < time) 
+    if (height < time)
     {
         discard;
     }
@@ -64,13 +68,13 @@ void main()
 			_visitTween();
 			var oldShader = AGSGame.Shader;
 			_screenVectors.Render(to.Texture);
-            var shader = _game.Factory.Shaders.FromText(null, FRAGMENT_SHADER).Compile();
+            var shader = _game.Factory.Shaders.FromText(null, FRAGMENT_SHADER).Compile(new ShaderVar(ShaderMode.FragmentShader, ShaderVarType.Float, "TimeBuffer"));
 			if (shader == null)
 			{
 				return false;
 			}
 			shader.Bind();
-			if (!shader.SetVariable("time", _time))
+			if (!shader.SetVariable("TimeBuffer", _time))
 			{
 				shader.Unbind();
 				return false;

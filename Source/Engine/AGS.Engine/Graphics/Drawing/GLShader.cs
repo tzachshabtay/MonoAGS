@@ -29,7 +29,7 @@ namespace AGS.Engine
 
         public int ProgramId { get; private set; }
 
-        public IShader Compile()
+        public IShader Compile(params ShaderVar[] shaderVars)
 		{
 			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;
@@ -40,7 +40,7 @@ namespace AGS.Engine
 				return null;
 			}
 
-            ProgramId = _graphics.CreateProgram();
+            ProgramId = _graphics.CreateProgram(shaderVars);
             if (!compileShader(_fragmentSource, ShaderMode.FragmentShader) ||
 			    !compileShader(_vertexSource, ShaderMode.VertexShader))
 			{

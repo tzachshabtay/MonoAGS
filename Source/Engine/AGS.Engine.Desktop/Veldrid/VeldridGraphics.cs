@@ -44,6 +44,10 @@ namespace AGS.Engine.Desktop
         }
         public List<ShaderSource> Sources { get; }
         public ShaderSetDescription Set { get; set; }
+        public ResourceLayout VarsLayout { get; set; }
+        public ResourceSet VarsSet { get; set; }
+        public BindableResource[] Vars { get; set; }
+        public string[] VarNames { get; set; }
     }
 
     public class VeldridGraphics : IGraphicsBackend
@@ -153,10 +157,34 @@ namespace AGS.Engine.Desktop
         {
         }
 
-        public int CreateProgram()
+        public int CreateProgram(params ShaderVar[] vars)
         {
             int id = _lastShaderProgram++;
-            _shaders[id] = new ShaderProgram();
+            var program = new ShaderProgram();
+            _shaders[id] = program;
+            if (vars.Length > 0)
+            {
+                var descriptors = new ResourceLayoutElementDescription[vars.Length];
+                program.Vars = new BindableResource[vars.Length];
+                program.VarNames = new string[vars.Length];
+                for (int i = 0; i < vars.Length; i++)
+                {
+                    var v = vars[i];
+                    descriptors[i] = new ResourceLayoutElementDescription(v.Name, ResourceKind.UniformBuffer, v.Stage.Convert());
+                    program.VarNames[i] = v.Name;
+                    switch (v.VarType)
+                    {
+                        case ShaderVarType.Float:
+                        case ShaderVarType.Int:
+                            program.Vars[i] = _factory.CreateBuffer(new BufferDescription(16, BufferUsage.UniformBuffer));
+                            break;
+                        default:
+                            throw new NotSupportedException(v.VarType.ToString());
+                    }
+                }
+                program.VarsLayout = _factory.CreateResourceLayout(new ResourceLayoutDescription(descriptors));
+                program.VarsSet = _factory.CreateResourceSet(new ResourceSetDescription(program.VarsLayout, program.Vars));
+            }
             return id;
         }
 
@@ -196,6 +224,12 @@ namespace AGS.Engine.Desktop
             _cl.SetVertexBuffer(0, _currentVertexBuffer);
             _cl.SetIndexBuffer(_currentIndexBuffer, IndexFormat.UInt16);
             _cl.SetGraphicsResourceSet(0, worldTextureSet);
+            var program = _shaders[_currentProgram];
+            if (program.VarsSet != null)
+            {
+                _cl.SetGraphicsResourceSet(1, program.VarsSet);
+            }
+
             _cl.DrawIndexed(6, 1, 0, 0, 0);
         }
 
@@ -309,7 +343,8 @@ void main()
 
         public int GetUniformLocation(int programId, string varName)
         {
-            return 0;
+            var shader = _shaders[programId];
+            return Array.IndexOf(shader.VarNames, varName);
         }
 
         public static GraphicsDevice Device;
@@ -325,7 +360,7 @@ void main()
             _shaderSources[vertexShader] = new ShaderSource { Source = GetStandardVertexShader(), Mode = ShaderMode.VertexShader };
             var fragmentShader = _lastShaderSource++;
             _shaderSources[fragmentShader] = new ShaderSource { Source = GetStandardFragmentShader(), Mode = ShaderMode.FragmentShader };
-            var program = new ShaderProgram();
+
             _shaders[0] = new ShaderProgram();
             AttachShader(0, vertexShader);
             AttachShader(0, fragmentShader);
@@ -472,6 +507,10 @@ void main()
 
         public void Uniform1(int varLocation, float x)
         {
+            var shader = _shaders[_currentProgram];
+            float[] buffer = new float[] { x }; //todo: avoid this allocation
+            var deviceBuffer = (DeviceBuffer)shader.Vars[varLocation];
+            _cl.UpdateBuffer(deviceBuffer, 0, buffer);
         }
 
         public void Uniform2(int varLocation, float x, float y)
@@ -506,13 +545,15 @@ void main()
 
         private Pipeline createPipeline(Framebuffer framebuffer)
         {
+            var shader = _shaders[_currentProgram];
+            var vars = shader.VarsLayout;
             var desc = new GraphicsPipelineDescription(
                 BlendStateDescription.SingleAlphaBlend,
                 DepthStencilStateDescription.Disabled,
                 new RasterizerStateDescription(FaceCullMode.None, PolygonFillMode.Solid, FrontFace.CounterClockwise, false, false),
                 PrimitiveTopology.TriangleList,
-                _shaders[_currentProgram].Set,
-                new[] { _worldTextureLayout },
+                shader.Set,
+                vars == null ? new[] { _worldTextureLayout } : new[] { _worldTextureLayout, vars },
                 framebuffer.OutputDescription);
             return _factory.CreateGraphicsPipeline(desc);
         }

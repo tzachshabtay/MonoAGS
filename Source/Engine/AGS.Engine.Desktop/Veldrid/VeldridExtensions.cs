@@ -1,4 +1,6 @@
 ﻿using System;
+using AGS.API;
+
 namespace AGS.Engine.Desktop
 {
     public static class VeldridExtensions
@@ -55,6 +57,28 @@ namespace AGS.Engine.Desktop
                     return Veldrid.GraphicsBackend.Vulkan;
                 default:
                     throw new NotSupportedException(backend.ToString());
+            }
+        }
+
+        public static Veldrid.ShaderStages Convert(this ShaderMode mode)
+        { 
+            switch (mode)
+            {
+                case ShaderMode.FragmentShader:
+                    return Veldrid.ShaderStages.Fragment;
+                case ShaderMode.VertexShader:
+                    return Veldrid.ShaderStages.Vertex;
+                case ShaderMode.ComputeShader:
+                    return Veldrid.ShaderStages.Compute;
+                case ShaderMode.GeometryShader:
+                case ShaderMode.GeometryShaderExt:
+                    return Veldrid.ShaderStages.Geometry;
+                case ShaderMode.TessControlShader:
+                    return Veldrid.ShaderStages.TessellationControl;
+                case ShaderMode.TessEvaluationShader:
+                    return Veldrid.ShaderStages.TessellationEvaluation;
+                default:
+                    throw new NotSupportedException(mode.ToString());
             }
         }
     }

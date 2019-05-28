@@ -3,17 +3,6 @@ using AGS.API;
 
 namespace AGS.Engine
 {
-    public enum ShaderMode
-    {
-        FragmentShader,
-        VertexShader,
-        GeometryShader,
-        GeometryShaderExt,
-        TessEvaluationShader,
-        TessControlShader,
-        ComputeShader,
-    }
-
     public enum MatrixType
     {
         Color,
@@ -96,7 +85,7 @@ namespace AGS.Engine
         void LineWidth(float lineWidth);
 
         bool AreShadersSupported();
-        int CreateProgram();
+        int CreateProgram(params ShaderVar[] shaderVars);
         void UseProgram(int programId);
         void Uniform1(int varLocation, int x);
         void Uniform1(int varLocation, float x);

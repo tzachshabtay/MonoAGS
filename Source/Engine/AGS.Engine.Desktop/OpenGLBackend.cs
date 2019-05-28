@@ -117,7 +117,7 @@ namespace AGS.Engine
         }
         public void LineWidth(float lineWidth) => GL.LineWidth(lineWidth);
 
-        public int CreateProgram() => GL.CreateProgram();
+        public int CreateProgram(params ShaderVar[] vars) => GL.CreateProgram();
         public void UseProgram(int programId) => GL.UseProgram(programId);
         public void Uniform1(int varLocation, int x) => GL.Uniform1(varLocation, x);
         public void Uniform1(int varLocation, float x) => GL.Uniform1(varLocation, x);

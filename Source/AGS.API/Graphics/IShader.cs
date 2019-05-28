@@ -1,6 +1,64 @@
 ﻿namespace AGS.API
 {
     /// <summary>
+    /// Shader mode (currently only fragment and vertex shaders are supported).
+    /// </summary>
+    public enum ShaderMode
+    {
+        FragmentShader,
+        VertexShader,
+        GeometryShader,
+        GeometryShaderExt,
+        TessEvaluationShader,
+        TessControlShader,
+        ComputeShader,
+    }
+
+    /// <summary>
+    /// Shader variable type.
+    /// </summary>
+    public enum ShaderVarType
+    {
+        Float,
+        Int, 
+    }
+
+    /// <summary>
+    /// A shader variable.
+    /// </summary>
+    public struct ShaderVar
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:AGS.API.ShaderVar"/> struct.
+        /// </summary>
+        /// <param name="stage">The shader mode that the variable will be passed to.</param>
+        /// <param name="varType">The variable type.</param>
+        /// <param name="name">Name of the variable.</param>
+        public ShaderVar(ShaderMode stage, ShaderVarType varType, string name)
+        {
+            Stage = stage;
+            VarType = varType;
+            Name = name;
+        }
+
+        /// <summary>
+        /// Gets the shader mode that the variable will be passed to.
+        /// </summary>
+        /// <value>The stage.</value>
+        public ShaderMode Stage { get; private set; }
+        /// <summary>
+        /// Gets the type of the variable.
+        /// </summary>
+        /// <value>The type of the variable.</value>
+        public ShaderVarType VarType { get; private set; }
+        /// <summary>
+        /// Gets the name of the variable.
+        /// </summary>
+        /// <value>The name.</value>
+        public string Name { get; private set; }
+    }
+
+    /// <summary>
     /// Represents a shader which is a user defined program that can be written to directly affect what's rendered on the screen.
     /// See here: https://www.opengl.org/wiki/Shader
     /// We're currently supporting vertex &amp; fragment shaders.
@@ -15,6 +73,7 @@
         /// <summary>
         /// Compiles this shader. 
         /// </summary>
+        /// <param name="shaderVars">The variables that the shader accepts (in the order they are written in the shader).</param>
         /// <returns>Will return itself if compiled successfully or null if there are compilation errors (those will be logged to the screen).</returns>
         /// <example>
         /// A common pattern will look like this:
@@ -32,7 +91,7 @@
         /// IShader shader = await GLShader.FromResource("vertexShader.glsl", "fragmentShader.glsl");
         /// </code>
         /// </example>
-        IShader Compile();
+        IShader Compile(params ShaderVar[] shaderVars);
         /// <summary>
         /// Binds the shader. This must be performed from the rendering thread.
         /// Once the shader is bound, all rendering activities will run through the shader until it is unbound (or when another shader is bound).
