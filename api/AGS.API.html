@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace AGS.API
    | MonoAGS Documentation ">
-    <meta name="generator" content="docfx 2.42.1.0">
+    <meta name="generator" content="docfx 2.42.4.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -270,6 +270,9 @@ Allows to get the position in either window coordinates or viewport coordinates.
       <section><p>A resource pack to be registered with the resource loader. It carries both the resource pack implementation,
 and a priority which used to decide which resource pack takes precedence in the resource loader (higher is better).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.ShaderVarsBuffer.html">ShaderVarsBuffer</a></h4>
+      <section><p>A buffer containing shader variables.</p>
+</section>
       <h4><a class="xref" href="AGS.API.Size.html">Size</a></h4>
       <section><p>Represents an integer size (width and height).</p>
 </section>
@@ -498,9 +501,6 @@ so the entities will not get out of the boundaries of the TV (giving the appeara
       <section><p>A cutscene is used to wrap a portion of the game together. This portion can then be skipped by the user.
 This is useful for things like introduction sequences, where you want the player to be able to skip over an intro that they&apos;ve seen before. </p>
 </section>
-      <h4><a class="xref" href="AGS.API.IDefaultFonts.html">IDefaultFonts</a></h4>
-      <section><p>Allows to set the default fonts to be used in the game.</p>
-</section>
       <h4><a class="xref" href="AGS.API.IDefaultInteractions.html">IDefaultInteractions</a></h4>
       <section><p>Default interactions (when no specific interaction callback is subscribed) are defined here.
 This is where you define generic responses (like the famous &quot;this doesn&apos;t work&quot;) that cover all of the interactions for which 
@@ -538,9 +538,6 @@ The default will show them at the bottom of the screen.</p>
       <h4><a class="xref" href="AGS.API.IDialogOption.html">IDialogOption</a></h4>
       <section><p>Represents a dialog option that is shown on the screen as part of a list of options,
 where the user needs to choose one of the options.</p>
-</section>
-      <h4><a class="xref" href="AGS.API.IDialogSettings.html">IDialogSettings</a></h4>
-      <section><p>Allows to set default settings to control how dialogs look and behave.</p>
 </section>
       <h4><a class="xref" href="AGS.API.IDirectionalAnimation.html">IDirectionalAnimation</a></h4>
       <section><p>Allows grouping animations for different directions together (for example, walking left and right).
@@ -1198,6 +1195,9 @@ High priority subscribers will receive the event before normal priority (the def
       <h4><a class="xref" href="AGS.API.FontStyle.html">FontStyle</a></h4>
       <section><p>Font style (regular, bold, italic, underline or strikeout).</p>
 </section>
+      <h4><a class="xref" href="AGS.API.GraphicsBackend.html">GraphicsBackend</a></h4>
+      <section><p>The graphics backend used to render the game.</p>
+</section>
       <h4><a class="xref" href="AGS.API.HatchStyle.html">HatchStyle</a></h4>
       <section></section>
       <h4><a class="xref" href="AGS.API.Key.html">Key</a></h4>
@@ -1231,6 +1231,9 @@ High priority subscribers will receive the event before normal priority (the def
 </section>
       <h4><a class="xref" href="AGS.API.SelectionType.html">SelectionType</a></h4>
       <section></section>
+      <h4><a class="xref" href="AGS.API.ShaderMode.html">ShaderMode</a></h4>
+      <section><p>Shader mode (currently only fragment and vertex shaders are supported).</p>
+</section>
       <h4><a class="xref" href="AGS.API.SkipCutsceneTrigger.html">SkipCutsceneTrigger</a></h4>
       <section><p>Different options of how to trigger skipping a cutscene.</p>
 </section>
