@@ -6,36 +6,33 @@ namespace AGS.Engine
 {
 	public class ShakeEffect
 	{
-		const string VERTEX_SHADER_SHAKE = 
-			@"
-#ifdef GL_ES
-    uniform mat4    uMvp;
-    attribute vec2 aPosition;
+		const string VERTEX_SHADER_SHAKE =
+            @"
+#version 450
+layout(set = 0, binding = 0) uniform MvpBuffer
+{
+    mat4 Mvp;
+};
+layout(location = 0) in vec2 Position;
+layout(location = 1) in vec2 TexCoords;
+layout(location = 2) in vec4 Color;
+layout(location = 0) out vec2 fsin_texCoords;
+layout(location = 1) out vec4 fsin_color;
+layout(set = 2, binding = 1) uniform ShakeBuffer
+{
+    float time;
+    float strength;
+};
 
-    attribute vec2 aTexCoord;
-    varying vec2 vTexCoord;
-
-    attribute vec4 aColor;
-#endif
-    varying vec4 vColor;
-
-    uniform float time;
-    uniform float strength;
-    void main() 
-    {
-#ifdef GL_ES
-       vec4 position = vec4(aPosition.xy, 1., 1.);
-       gl_Position = uMvp * position;
-       vTexCoord = aTexCoord;
-       vColor = aColor;
-#else
-       vColor = gl_Color;
-       gl_TexCoord[0] = gl_MultiTexCoord0;
-       gl_Position = ftransform();
-#endif
-       gl_Position.x += cos(time * 10.0) * strength;        
-       gl_Position.y += cos(time * 15.0) * strength;
-    }
+void main()
+{
+    vec4 pos = vec4(Position, 1., 1.);
+    gl_Position = Mvp * pos;
+    fsin_texCoords = TexCoords;
+    fsin_color = Color;
+    gl_Position.x += cos(time * 10.0) * strength;        
+    gl_Position.y += cos(time * 15.0) * strength;
+}
 ";
 
         private readonly IShaderComponent _target;
@@ -79,17 +76,17 @@ namespace AGS.Engine
 		private void onBeforeRender()
 		{
 			var shader = _shakeShader;
-			if (shader != null) shader = shader.Compile();
-			if (shader == null || shader != getActiveShader())
+			if (shader != null) shader = shader.Compile(new ShaderVarsBuffer(ShaderMode.VertexShader, "ShakeBuffer", 2));
+
+            if (shader == null || shader != getActiveShader())
 			{
 				_shakeShader = null;
 				AGSGame.Game.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
 				return;
 			}
 			shader.Bind();
-            shader.SetVariable("time", Repeat.Do("ShakeEffect"));
-			var currentStrength = _strength + MathUtils.Random().Next(1000) / 1000000f; //Adding a little jerkiness
-			shader.SetVariable("strength", currentStrength);
+            var currentStrength = _strength + MathUtils.Random().Next(1000) / 1000000f; //Adding a little jerkiness
+            shader.SetVariable("ShakeBuffer", Repeat.Do("ShakeEffect"), currentStrength);
             shader.Unbind();
 			_strength = _strength * _decay;
 		}
@@ -110,4 +107,3 @@ namespace AGS.Engine
 		}
 	}
 }
-
