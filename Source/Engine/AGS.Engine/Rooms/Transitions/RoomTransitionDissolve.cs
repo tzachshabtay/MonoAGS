@@ -68,7 +68,7 @@ void main()
 			_visitTween();
 			var oldShader = AGSGame.Shader;
 			_screenVectors.Render(to.Texture);
-            var shader = _game.Factory.Shaders.FromText(null, FRAGMENT_SHADER).Compile(new ShaderVar(ShaderMode.FragmentShader, ShaderVarType.Float, "TimeBuffer"));
+            var shader = _game.Factory.Shaders.FromText(null, FRAGMENT_SHADER).Compile(new ShaderVarsBuffer(ShaderMode.FragmentShader, "TimeBuffer"));
 			if (shader == null)
 			{
 				return false;

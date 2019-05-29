@@ -68,7 +68,10 @@ layout(set = 1, binding = 1) uniform texture2D SurfaceTexture;
 layout(set = 1, binding = 2) uniform sampler SurfaceSampler;
 
 //The resolution needs to be set whenever the screen resizes
-uniform vec2 resolution;
+layout(set = 2, binding = 1) uniform ResolutionBuffer
+{
+    vec2 resolution;
+};
 
 //RADIUS of our vignette, where 0.5 results in a circle fitting the screen
 const float RADIUS = 0.75;
@@ -170,9 +173,9 @@ void main()
 		private static void setVignetteResolution()
 		{
             var resolution = AGSGame.Game.Settings.WindowSize;
-			_vignetteShader.Compile();
+			_vignetteShader.Compile(new ShaderVarsBuffer(ShaderMode.FragmentShader, "ResolutionBuffer", 2));
 			_vignetteShader.Bind();
-			_vignetteShader.SetVariable("resolution", resolution.Width, resolution.Height);
+			_vignetteShader.SetVariable("ResolutionBuffer", resolution.Width, resolution.Height);
             _vignetteShader.Unbind();
 		}
 

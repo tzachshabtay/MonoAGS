@@ -85,7 +85,7 @@ namespace AGS.Engine
         void LineWidth(float lineWidth);
 
         bool AreShadersSupported();
-        int CreateProgram(params ShaderVar[] shaderVars);
+        int CreateProgram(params ShaderVarsBuffer[] shaderVars);
         void UseProgram(int programId);
         void Uniform1(int varLocation, int x);
         void Uniform1(int varLocation, float x);

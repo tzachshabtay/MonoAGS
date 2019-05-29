@@ -29,7 +29,7 @@ namespace AGS.Engine
 
         public int ProgramId { get; private set; }
 
-        public IShader Compile(params ShaderVar[] shaderVars)
+        public IShader Compile(params ShaderVarsBuffer[] shaderVars)
 		{
 			if (_hadCompilationErrors) return null;
 			if (_isCompiled) return this;

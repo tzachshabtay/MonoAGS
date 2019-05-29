@@ -15,29 +15,20 @@
     }
 
     /// <summary>
-    /// Shader variable type.
+    /// A buffer containing shader variables.
     /// </summary>
-    public enum ShaderVarType
-    {
-        Float,
-        Int, 
-    }
-
-    /// <summary>
-    /// A shader variable.
-    /// </summary>
-    public struct ShaderVar
+    public struct ShaderVarsBuffer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AGS.API.ShaderVar"/> struct.
         /// </summary>
         /// <param name="stage">The shader mode that the variable will be passed to.</param>
-        /// <param name="varType">The variable type.</param>
         /// <param name="name">Name of the variable.</param>
-        public ShaderVar(ShaderMode stage, ShaderVarType varType, string name)
+        /// <param name="numVars">Number of variables in the buffer (all variables are of type float).</param>
+        public ShaderVarsBuffer(ShaderMode stage, string name, int numVars = 1)
         {
             Stage = stage;
-            VarType = varType;
+            Vars = new float[numVars];
             Name = name;
         }
 
@@ -50,7 +41,7 @@
         /// Gets the type of the variable.
         /// </summary>
         /// <value>The type of the variable.</value>
-        public ShaderVarType VarType { get; private set; }
+        public float[] Vars { get; private set; }
         /// <summary>
         /// Gets the name of the variable.
         /// </summary>
@@ -91,7 +82,7 @@
         /// IShader shader = await GLShader.FromResource("vertexShader.glsl", "fragmentShader.glsl");
         /// </code>
         /// </example>
-        IShader Compile(params ShaderVar[] shaderVars);
+        IShader Compile(params ShaderVarsBuffer[] shaderVars);
         /// <summary>
         /// Binds the shader. This must be performed from the rendering thread.
         /// Once the shader is bound, all rendering activities will run through the shader until it is unbound (or when another shader is bound).

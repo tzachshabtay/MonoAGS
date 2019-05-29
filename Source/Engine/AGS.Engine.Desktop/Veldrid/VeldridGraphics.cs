@@ -46,8 +46,8 @@ namespace AGS.Engine.Desktop
         public ShaderSetDescription Set { get; set; }
         public ResourceLayout VarsLayout { get; set; }
         public ResourceSet VarsSet { get; set; }
-        public BindableResource[] Vars { get; set; }
-        public string[] VarNames { get; set; }
+        public BindableResource[] GpuVars { get; set; }
+        public ShaderVarsBuffer[] VarBuffers { get; set; }
     }
 
     public class VeldridGraphics : IGraphicsBackend
@@ -157,7 +157,7 @@ namespace AGS.Engine.Desktop
         {
         }
 
-        public int CreateProgram(params ShaderVar[] vars)
+        public int CreateProgram(params ShaderVarsBuffer[] vars)
         {
             int id = _lastShaderProgram++;
             var program = new ShaderProgram();
@@ -165,25 +165,17 @@ namespace AGS.Engine.Desktop
             if (vars.Length > 0)
             {
                 var descriptors = new ResourceLayoutElementDescription[vars.Length];
-                program.Vars = new BindableResource[vars.Length];
-                program.VarNames = new string[vars.Length];
+                program.GpuVars = new BindableResource[vars.Length];
+                program.VarBuffers = vars;
                 for (int i = 0; i < vars.Length; i++)
                 {
                     var v = vars[i];
                     descriptors[i] = new ResourceLayoutElementDescription(v.Name, ResourceKind.UniformBuffer, v.Stage.Convert());
-                    program.VarNames[i] = v.Name;
-                    switch (v.VarType)
-                    {
-                        case ShaderVarType.Float:
-                        case ShaderVarType.Int:
-                            program.Vars[i] = _factory.CreateBuffer(new BufferDescription(16, BufferUsage.UniformBuffer));
-                            break;
-                        default:
-                            throw new NotSupportedException(v.VarType.ToString());
-                    }
+                    uint bufLength = (uint)((v.Vars.Length / 16 + 1) * 16); //buffer length must be a multiplication of 16
+                    program.GpuVars[i] = _factory.CreateBuffer(new BufferDescription(bufLength, BufferUsage.UniformBuffer));
                 }
                 program.VarsLayout = _factory.CreateResourceLayout(new ResourceLayoutDescription(descriptors));
-                program.VarsSet = _factory.CreateResourceSet(new ResourceSetDescription(program.VarsLayout, program.Vars));
+                program.VarsSet = _factory.CreateResourceSet(new ResourceSetDescription(program.VarsLayout, program.GpuVars));
             }
             return id;
         }
@@ -344,7 +336,12 @@ void main()
         public int GetUniformLocation(int programId, string varName)
         {
             var shader = _shaders[programId];
-            return Array.IndexOf(shader.VarNames, varName);
+            for (int i = 0; i < shader.VarBuffers.Length; i++)
+            {
+                if (shader.VarBuffers[i].Name == varName)
+                    return i; 
+            }
+            return -1;
         }
 
         public static GraphicsDevice Device;
@@ -501,28 +498,48 @@ void main()
             _cl.SetViewport(0, _viewport);
         }
 
-        public void Uniform1(int varLocation, int x)
-        {
-        }
+        public void Uniform1(int varLocation, int x) => Uniform1(varLocation, (float)x);
 
         public void Uniform1(int varLocation, float x)
         {
             var shader = _shaders[_currentProgram];
-            float[] buffer = new float[] { x }; //todo: avoid this allocation
-            var deviceBuffer = (DeviceBuffer)shader.Vars[varLocation];
-            _cl.UpdateBuffer(deviceBuffer, 0, buffer);
+            var memBuffer = shader.VarBuffers[varLocation].Vars;
+            memBuffer[0] = x;
+            var deviceBuffer = (DeviceBuffer)shader.GpuVars[varLocation];
+            _cl.UpdateBuffer(deviceBuffer, 0, memBuffer);
         }
 
         public void Uniform2(int varLocation, float x, float y)
         {
+            var shader = _shaders[_currentProgram];
+            var memBuffer = shader.VarBuffers[varLocation].Vars;
+            memBuffer[0] = x;
+            memBuffer[1] = y;
+            var deviceBuffer = (DeviceBuffer)shader.GpuVars[varLocation];
+            _cl.UpdateBuffer(deviceBuffer, 0, memBuffer);
         }
 
         public void Uniform3(int varLocation, float x, float y, float z)
         {
+            var shader = _shaders[_currentProgram];
+            var memBuffer = shader.VarBuffers[varLocation].Vars;
+            memBuffer[0] = x;
+            memBuffer[1] = y;
+            memBuffer[2] = z;
+            var deviceBuffer = (DeviceBuffer)shader.GpuVars[varLocation];
+            _cl.UpdateBuffer(deviceBuffer, 0, memBuffer);
         }
 
         public void Uniform4(int varLocation, float x, float y, float z, float w)
         {
+            var shader = _shaders[_currentProgram];
+            var memBuffer = shader.VarBuffers[varLocation].Vars;
+            memBuffer[0] = x;
+            memBuffer[1] = y;
+            memBuffer[2] = z;
+            memBuffer[3] = w;
+            var deviceBuffer = (DeviceBuffer)shader.GpuVars[varLocation];
+            _cl.UpdateBuffer(deviceBuffer, 0, memBuffer);
         }
 
         public void UseProgram(int programId)

@@ -65,7 +65,7 @@ void main()
 		private void onBeforeRender()
         {
             var shader = _shader;
-            if (shader != null) shader = shader.Compile(new ShaderVar(ShaderMode.FragmentShader, ShaderVarType.Float, "SaturationBuffer"));
+            if (shader != null) shader = shader.Compile(new ShaderVarsBuffer(ShaderMode.FragmentShader, "SaturationBuffer"));
             if (shader == null || shader != getActiveShader())
             {
                 _shader = null;
