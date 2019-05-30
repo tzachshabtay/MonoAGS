@@ -10,11 +10,11 @@
     <Reference Include="System.Configuration" />
     <PackageReference Include="Autofac" Version="4.4.0" />
     <PackageReference Include="OpenTK" Version="3.0.0" />
-    <PackageReference Include="Veldrid" Version="4.5.0" />
-    <PackageReference Include="Veldrid.SDL2" Version="4.5.0" />
-    <PackageReference Include="Veldrid.Utilities" Version="4.5.0" />
-    <PackageReference Include="Veldrid.StartupUtilities" Version="4.5.0" />
-    <PackageReference Include="Veldrid.SPIRV" Version="1.0.7" />
+    <PackageReference Include="Veldrid" Version="4.6.1" />
+    <PackageReference Include="Veldrid.SDL2" Version="4.6.1" />
+    <PackageReference Include="Veldrid.Utilities" Version="4.6.1" />
+    <PackageReference Include="Veldrid.StartupUtilities" Version="4.6.1" />
+    <PackageReference Include="Veldrid.SPIRV" Version="1.0.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AGS.Engine\AGS.Engine.csproj" />
