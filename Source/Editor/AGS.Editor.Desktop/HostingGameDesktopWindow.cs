@@ -6,9 +6,9 @@ namespace AGS.Editor.Desktop
     public class HostingGameDesktopWindow : IWindowInfo
     {
         private readonly HostingGameDesktopWindowSize _windowSize;
-        private readonly OpenTK.INativeWindow _nativeWindow;
+        private readonly IWindowInfo _nativeWindow;
 
-        public HostingGameDesktopWindow(HostingGameDesktopWindowSize windowSize, OpenTK.INativeWindow nativeWindow)
+        public HostingGameDesktopWindow(HostingGameDesktopWindowSize windowSize, IWindowInfo nativeWindow)
         {
             _windowSize = windowSize;
             _nativeWindow = nativeWindow;
@@ -16,8 +16,8 @@ namespace AGS.Editor.Desktop
         }
 
         public Rectangle GameSubWindow => _windowSize.Window;
-        public float AppWindowHeight => _windowSize.GetHeight(_nativeWindow);
-        public float AppWindowWidth => _windowSize.GetWidth(_nativeWindow);
+        public float AppWindowHeight => _nativeWindow.AppWindowHeight;
+        public float AppWindowWidth => _nativeWindow.AppWindowWidth;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

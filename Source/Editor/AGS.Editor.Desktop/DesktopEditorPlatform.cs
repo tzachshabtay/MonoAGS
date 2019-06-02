@@ -20,7 +20,7 @@ namespace AGS.Editor.Desktop
 
         public void SetResolverForGame(Resolver gameResolver, Resolver editorResolver)
         {
-            var nativeWindw = editorResolver.Container.Resolve<OpenTK.INativeWindow>();
+            var nativeWindw = editorResolver.Container.Resolve<IWindowInfo>();
             HostingGameDesktopWindow hostedGame = new HostingGameDesktopWindow(_windowSize, nativeWindw);
             gameResolver.Builder.RegisterInstance(_windowSize).As<IGameWindowSize>();
             gameResolver.Builder.RegisterInstance(hostedGame).As<IWindowInfo>();

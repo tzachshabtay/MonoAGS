@@ -14,14 +14,12 @@ namespace AGS.Editor.Desktop
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public int GetHeight(INativeWindow gameWindow) => Math.Max(1, gameWindow?.ClientSize.Height ?? 1);
+        public int GetHeight(int height) => height;
 
-        public int GetWidth(INativeWindow gameWindow) => Math.Max(1, gameWindow?.ClientSize.Width ?? 1);
+        public int GetWidth(int width) => width;
 
-        public Rectangle GetWindow(INativeWindow gameWindow) => Window;
+        public Rectangle GetWindow(Rectangle window) => Window;
 
-        public void SetSize(INativeWindow gameWindow, Size size)
-        {
-        }
+        public bool AllowSetSize => false;
     }
 }

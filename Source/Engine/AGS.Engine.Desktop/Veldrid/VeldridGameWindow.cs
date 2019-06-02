@@ -96,17 +96,17 @@ namespace AGS.Engine.Desktop
 
         public int Height => _window.Height;
 
-        public int ClientWidth => _window.Width;
+        public int ClientWidth => Math.Max(1, _windowSize.GetWidth(_window.Width));
 
-        public int ClientHeight => _window.Height;
+        public int ClientHeight => Math.Max(1, _windowSize.GetHeight(_window.Height));
 
         public bool IsExiting { get; private set; }
 
-        public float AppWindowHeight => _window.Height;
+        public float AppWindowHeight => ClientHeight;
 
-        public float AppWindowWidth => _window.Width;
+        public float AppWindowWidth => ClientWidth;
 
-        public API.Rectangle GameSubWindow => new API.Rectangle(0, 0, _window.Bounds.Width, _window.Bounds.Height);
+        public API.Rectangle GameSubWindow => _windowSize.GetWindow(new API.Rectangle(0, 0, _window.Bounds.Width, _window.Bounds.Height));
 
         public event EventHandler<EventArgs> Load;
         public event EventHandler<EventArgs> Resize;
@@ -129,7 +129,11 @@ namespace AGS.Engine.Desktop
         }
 
         public void SetSize(Size size)
-        { 
+        {
+            if (!_windowSize.AllowSetSize)
+            {
+                return;
+            }
             _window.Width = size.Width;
             _window.Height = size.Height;
             _resized = true;

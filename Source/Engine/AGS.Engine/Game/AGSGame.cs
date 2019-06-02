@@ -125,6 +125,7 @@ namespace AGS.Engine
                 {
                     GameWindow.Load += (sender, e) =>
                     {
+                        _graphics.Init();
                         onGameWindowLoaded(settingsParameter, settings);
                     };
                     if (!isNewWindow) onGameWindowLoaded(settingsParameter, settings);
@@ -204,13 +205,10 @@ namespace AGS.Engine
                     // render graphics
                     if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
                     {
-                        var bgColor = State.Room?.BackgroundColor;
-                        if (bgColor != null)
-                        {
-                            var color = bgColor.Value.ToGLColor();
-                            _graphics.ClearColor(color.R, color.G, color.B, color.A);
-                            _graphics.ClearScreen();
-                        }
+                        var bgColor = State.Room?.BackgroundColor ?? Colors.Black;
+                        var color = bgColor.ToGLColor();
+                        _graphics.ClearColor(color.R, color.G, color.B, color.A);
+                        _graphics.ClearScreen();
                     }
                     Events.OnBeforeRender.Invoke();
 
@@ -263,7 +261,6 @@ namespace AGS.Engine
             TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
             Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
-            _graphics.Init();
             _glUtils.GenBuffers();
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
