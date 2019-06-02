@@ -245,8 +245,6 @@ namespace AGS.Engine.Desktop
         public void FrameBufferTexture2D(int textureId)
         {
             var texture = _textures[textureId];
-            var width = texture.Texture.Width;
-            var height = texture.Texture.Height;
 
             var framebuffer = _factory.CreateFramebuffer(new FramebufferDescription(null, texture.Texture));
             _frameBuffers[_boundFrameBuffer] = framebuffer;
@@ -556,7 +554,9 @@ void main()
         public void Viewport(int x, int y, int width, int height)
         {
             _lastViewport = _viewport;
-            _viewport = new Veldrid.Viewport(x, y, width, height, -1f, 1f);
+            var fbHeight = _frameBuffers[_boundFrameBuffer].Height;
+            float top = fbHeight - (y + height);
+            _viewport = new Viewport(x, top, width, height, -1f, 1f);
             _cl.SetViewport(0, _viewport);
         }
 
