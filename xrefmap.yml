@@ -6746,6 +6746,51 @@ references:
   isSpec: "True"
   fullName: AGS.API.ICutscene.Start
   nameWithType: ICutscene.Start
+- uid: AGS.API.IDefaultFonts
+  name: IDefaultFonts
+  href: api/AGS.API.IDefaultFonts.html
+  commentId: T:AGS.API.IDefaultFonts
+  fullName: AGS.API.IDefaultFonts
+  nameWithType: IDefaultFonts
+- uid: AGS.API.IDefaultFonts.Dialogs
+  name: Dialogs
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Dialogs
+  commentId: P:AGS.API.IDefaultFonts.Dialogs
+  fullName: AGS.API.IDefaultFonts.Dialogs
+  nameWithType: IDefaultFonts.Dialogs
+- uid: AGS.API.IDefaultFonts.Dialogs*
+  name: Dialogs
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Dialogs_
+  commentId: Overload:AGS.API.IDefaultFonts.Dialogs
+  isSpec: "True"
+  fullName: AGS.API.IDefaultFonts.Dialogs
+  nameWithType: IDefaultFonts.Dialogs
+- uid: AGS.API.IDefaultFonts.Speech
+  name: Speech
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Speech
+  commentId: P:AGS.API.IDefaultFonts.Speech
+  fullName: AGS.API.IDefaultFonts.Speech
+  nameWithType: IDefaultFonts.Speech
+- uid: AGS.API.IDefaultFonts.Speech*
+  name: Speech
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Speech_
+  commentId: Overload:AGS.API.IDefaultFonts.Speech
+  isSpec: "True"
+  fullName: AGS.API.IDefaultFonts.Speech
+  nameWithType: IDefaultFonts.Speech
+- uid: AGS.API.IDefaultFonts.Text
+  name: Text
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Text
+  commentId: P:AGS.API.IDefaultFonts.Text
+  fullName: AGS.API.IDefaultFonts.Text
+  nameWithType: IDefaultFonts.Text
+- uid: AGS.API.IDefaultFonts.Text*
+  name: Text
+  href: api/AGS.API.IDefaultFonts.html#AGS_API_IDefaultFonts_Text_
+  commentId: Overload:AGS.API.IDefaultFonts.Text
+  isSpec: "True"
+  fullName: AGS.API.IDefaultFonts.Text
+  nameWithType: IDefaultFonts.Text
 - uid: AGS.API.IDefaultInteractions
   name: IDefaultInteractions
   href: api/AGS.API.IDefaultInteractions.html
@@ -6771,6 +6816,32 @@ references:
   commentId: T:AGS.API.IDefaultsSettings
   fullName: AGS.API.IDefaultsSettings
   nameWithType: IDefaultsSettings
+- uid: AGS.API.IDefaultsSettings.Dialog
+  name: Dialog
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Dialog
+  commentId: P:AGS.API.IDefaultsSettings.Dialog
+  fullName: AGS.API.IDefaultsSettings.Dialog
+  nameWithType: IDefaultsSettings.Dialog
+- uid: AGS.API.IDefaultsSettings.Dialog*
+  name: Dialog
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Dialog_
+  commentId: Overload:AGS.API.IDefaultsSettings.Dialog
+  isSpec: "True"
+  fullName: AGS.API.IDefaultsSettings.Dialog
+  nameWithType: IDefaultsSettings.Dialog
+- uid: AGS.API.IDefaultsSettings.Fonts
+  name: Fonts
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Fonts
+  commentId: P:AGS.API.IDefaultsSettings.Fonts
+  fullName: AGS.API.IDefaultsSettings.Fonts
+  nameWithType: IDefaultsSettings.Fonts
+- uid: AGS.API.IDefaultsSettings.Fonts*
+  name: Fonts
+  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_Fonts_
+  commentId: Overload:AGS.API.IDefaultsSettings.Fonts
+  isSpec: "True"
+  fullName: AGS.API.IDefaultsSettings.Fonts
+  nameWithType: IDefaultsSettings.Fonts
 - uid: AGS.API.IDefaultsSettings.MessageBox
   name: MessageBox
   href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_MessageBox
@@ -6797,32 +6868,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDefaultsSettings.Skin
   nameWithType: IDefaultsSettings.Skin
-- uid: AGS.API.IDefaultsSettings.SpeechFont
-  name: SpeechFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_SpeechFont
-  commentId: P:AGS.API.IDefaultsSettings.SpeechFont
-  fullName: AGS.API.IDefaultsSettings.SpeechFont
-  nameWithType: IDefaultsSettings.SpeechFont
-- uid: AGS.API.IDefaultsSettings.SpeechFont*
-  name: SpeechFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_SpeechFont_
-  commentId: Overload:AGS.API.IDefaultsSettings.SpeechFont
-  isSpec: "True"
-  fullName: AGS.API.IDefaultsSettings.SpeechFont
-  nameWithType: IDefaultsSettings.SpeechFont
-- uid: AGS.API.IDefaultsSettings.TextFont
-  name: TextFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_TextFont
-  commentId: P:AGS.API.IDefaultsSettings.TextFont
-  fullName: AGS.API.IDefaultsSettings.TextFont
-  nameWithType: IDefaultsSettings.TextFont
-- uid: AGS.API.IDefaultsSettings.TextFont*
-  name: TextFont
-  href: api/AGS.API.IDefaultsSettings.html#AGS_API_IDefaultsSettings_TextFont_
-  commentId: Overload:AGS.API.IDefaultsSettings.TextFont
-  isSpec: "True"
-  fullName: AGS.API.IDefaultsSettings.TextFont
-  nameWithType: IDefaultsSettings.TextFont
 - uid: AGS.API.IDepthClipping
   name: IDepthClipping
   href: api/AGS.API.IDepthClipping.html
@@ -7291,6 +7336,64 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDialogOption.SpeakOption
   nameWithType: IDialogOption.SpeakOption
+- uid: AGS.API.IDialogSettings
+  name: IDialogSettings
+  href: api/AGS.API.IDialogSettings.html
+  commentId: T:AGS.API.IDialogSettings
+  fullName: AGS.API.IDialogSettings
+  nameWithType: IDialogSettings
+- uid: AGS.API.IDialogSettings.Chosen
+  name: Chosen
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Chosen
+  commentId: P:AGS.API.IDialogSettings.Chosen
+  fullName: AGS.API.IDialogSettings.Chosen
+  nameWithType: IDialogSettings.Chosen
+- uid: AGS.API.IDialogSettings.Chosen*
+  name: Chosen
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Chosen_
+  commentId: Overload:AGS.API.IDialogSettings.Chosen
+  isSpec: "True"
+  fullName: AGS.API.IDialogSettings.Chosen
+  nameWithType: IDialogSettings.Chosen
+- uid: AGS.API.IDialogSettings.Hovered
+  name: Hovered
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Hovered
+  commentId: P:AGS.API.IDialogSettings.Hovered
+  fullName: AGS.API.IDialogSettings.Hovered
+  nameWithType: IDialogSettings.Hovered
+- uid: AGS.API.IDialogSettings.Hovered*
+  name: Hovered
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Hovered_
+  commentId: Overload:AGS.API.IDialogSettings.Hovered
+  isSpec: "True"
+  fullName: AGS.API.IDialogSettings.Hovered
+  nameWithType: IDialogSettings.Hovered
+- uid: AGS.API.IDialogSettings.Idle
+  name: Idle
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Idle
+  commentId: P:AGS.API.IDialogSettings.Idle
+  fullName: AGS.API.IDialogSettings.Idle
+  nameWithType: IDialogSettings.Idle
+- uid: AGS.API.IDialogSettings.Idle*
+  name: Idle
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_Idle_
+  commentId: Overload:AGS.API.IDialogSettings.Idle
+  isSpec: "True"
+  fullName: AGS.API.IDialogSettings.Idle
+  nameWithType: IDialogSettings.Idle
+- uid: AGS.API.IDialogSettings.RenderLayer
+  name: RenderLayer
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_RenderLayer
+  commentId: P:AGS.API.IDialogSettings.RenderLayer
+  fullName: AGS.API.IDialogSettings.RenderLayer
+  nameWithType: IDialogSettings.RenderLayer
+- uid: AGS.API.IDialogSettings.RenderLayer*
+  name: RenderLayer
+  href: api/AGS.API.IDialogSettings.html#AGS_API_IDialogSettings_RenderLayer_
+  commentId: Overload:AGS.API.IDialogSettings.RenderLayer
+  isSpec: "True"
+  fullName: AGS.API.IDialogSettings.RenderLayer
+  nameWithType: IDialogSettings.RenderLayer
 - uid: AGS.API.IDirectionalAnimation
   name: IDirectionalAnimation
   href: api/AGS.API.IDirectionalAnimation.html

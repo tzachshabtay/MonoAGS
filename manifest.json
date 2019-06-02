@@ -1106,6 +1106,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IDefaultFonts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IDefaultFonts.html",
+          "hash": "IrgX1kLzj12JMBw2tUlrLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/AGS.API.IDefaultInteractions.yml",
       "output": {
         ".html": {
@@ -1122,7 +1134,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.IDefaultsSettings.html",
-          "hash": "SxRFgEVAsqh9V4dlCrYrhA=="
+          "hash": "HQaFlAshhONvAe/57lMsPQ=="
         }
       },
       "is_incremental": false,
@@ -1207,6 +1219,18 @@
         ".html": {
           "relative_path": "api/AGS.API.IDialogOption.html",
           "hash": "Up4E0jFqh+YK6R96ik8JDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/AGS.API.IDialogSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/AGS.API.IDialogSettings.html",
+          "hash": "PV6dlci6syOyWAYuBUzNrg=="
         }
       },
       "is_incremental": false,
@@ -3819,7 +3843,7 @@
       "output": {
         ".html": {
           "relative_path": "api/AGS.API.html",
-          "hash": "7jMhTWsWuJAgPsLvrTId3Q=="
+          "hash": "8ArLAyuYd8Pr9vCfWyND0w=="
         }
       },
       "is_incremental": false,
@@ -3831,7 +3855,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Oj3bBAf2RJhWUBlfoifjaw=="
+          "hash": "TiM9Puc87N+pmjESEi+Oyw=="
         }
       },
       "is_incremental": false,
@@ -4277,9 +4301,9 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ResourceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
@@ -4290,9 +4314,9 @@
           "total_file_count": 30,
           "skipped_file_count": 0
         },
-        "TocDocumentProcessor": {
+        "ResourceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
@@ -4300,7 +4324,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 317,
+          "total_file_count": 319,
           "skipped_file_count": 0
         }
       }
