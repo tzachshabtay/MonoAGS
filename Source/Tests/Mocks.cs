@@ -95,8 +95,11 @@ namespace Tests
             Mock<IKeyboardState> keyboard = new Mock<IKeyboardState>();
             device.Setup(d => d.KeyboardState).Returns(keyboard.Object);
 
+            Mock<IDefaultsSettings> defaults = new Mock<IDefaultsSettings>();
+            defaults.Setup(s => s.Fonts).Returns(new Mock<IDefaultFonts>().Object);
+            defaults.Setup(s => s.Dialog).Returns(new Mock<IDialogSettings>().Object);
             Mock<IGameSettings> settings = new Mock<IGameSettings>();
-            settings.Setup(s => s.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
+            settings.Setup(s => s.Defaults).Returns(defaults.Object);
 
             var resolver = new Resolver(device.Object, settings.Object);
 
@@ -170,7 +173,10 @@ namespace Tests
             {
                 _settings = new Mock<IRuntimeSettings>();
                 _settings.Setup(g => g.VirtualResolution).Returns(new Size(640, 480));
-                _settings.Setup(g => g.Defaults).Returns(new Mock<IDefaultsSettings>().Object);
+                Mock<IDefaultsSettings> defaults = new Mock<IDefaultsSettings>();
+                defaults.Setup(s => s.Fonts).Returns(new Mock<IDefaultFonts>().Object);
+                defaults.Setup(s => s.Dialog).Returns(new Mock<IDialogSettings>().Object);
+                _settings.Setup(g => g.Defaults).Returns(defaults.Object);
             }
             return _settings;
         }

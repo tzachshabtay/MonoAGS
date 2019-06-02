@@ -11,7 +11,7 @@ namespace AGS.Engine
             //todo: should the factory provide speech config?
             if (game != null)
             {
-                TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.SpeechFont,
+                TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.Fonts.Speech,
                                                               autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomCenter);
                 LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (7f/10f), game.Settings.VirtualResolution.Height);
             }

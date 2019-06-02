@@ -11,13 +11,13 @@ namespace AGS.Engine
         private readonly IResourceLoader _resources;
         private readonly ConcurrentDictionary<string, string> _installedFonts;
         private readonly IDevice _device;
-        private readonly IGameSettings _settings;
+        private readonly IDefaultFonts _defaultFonts;
 
-        public AGSFontFactory(IResourceLoader resources, IDevice device, IGameSettings settings)
+        public AGSFontFactory(IResourceLoader resources, IDevice device, IDefaultFonts defaultFonts)
         {
             _device = device;
             _resources = resources;
-            _settings = settings;
+            _defaultFonts = defaultFonts;
             _installedFonts = new ConcurrentDictionary<string, string>();
         }
 
@@ -47,7 +47,7 @@ namespace AGS.Engine
             return new AGSTextConfig
             {
                 Brush = brush ?? _device.BrushLoader.LoadSolidBrush(Colors.White),
-                Font = font ?? _settings.Defaults.TextFont,
+                Font = font ?? _defaultFonts.Text,
                 OutlineBrush = outlineBrush ?? _device.BrushLoader.LoadSolidBrush(Colors.White),
                 OutlineWidth = outlineWidth,
                 ShadowBrush = shadowBrush,
