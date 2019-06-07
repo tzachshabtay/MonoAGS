@@ -14,8 +14,8 @@ namespace AGS.Engine.Android
         public AndroidBitmap(Bitmap bitmap, IGraphicsBackend graphics)
 		{
 			_bitmap = bitmap;
-            Width = _bitmap.Width;
-            Height = _bitmap.Height;
+            Width = (uint)_bitmap.Width;
+            Height = (uint)_bitmap.Height;
             _graphics = graphics;
 		}
 
@@ -85,14 +85,15 @@ namespace AGS.Engine.Android
 			//todo: performance can be improved by only creating a bitmap the size of the area, and not the entire background.
 			//This will require to change the rendering as well to offset the location
 			byte zero = (byte)0;
-            Bitmap output = Bitmap.CreateBitmap(Width, Height, Bitmap.Config.Argb8888);
+            int height = (int)Height;
+            Bitmap output = Bitmap.CreateBitmap((int)Width, height, Bitmap.Config.Argb8888);
 			using (FastBitmap inBmp = new FastBitmap (_bitmap))
 			{
 				using (FastBitmap outBmp = new FastBitmap (output, true))
 				{
 					for (int y = 0; y < Height; y++)
 					{
-						int bitmapY = Height - y - 1;
+						int bitmapY = height - y - 1;
 						for (int x = 0; x < Width; x++)
 						{
 							global::Android.Graphics.Color color = inBmp.GetPixel(x, bitmapY);
@@ -116,8 +117,8 @@ namespace AGS.Engine.Android
 		{
 			Bitmap debugMask = null;
 			FastBitmap debugMaskFast = null;
-            int bitmapWidth = Width;
-            int bitmapHeight = Height;
+            int bitmapWidth = (int)Width;
+            int bitmapHeight = (int)Height;
 			if (saveMaskToFile != null || debugDrawColor != null)
 			{
                 debugMask = Bitmap.CreateBitmap (bitmapWidth, bitmapHeight, Bitmap.Config.Argb8888);
@@ -180,9 +181,9 @@ namespace AGS.Engine.Android
                 _bitmap.Compress(Bitmap.CompressFormat.Png, 85, stream);
         }
 
-        public int Width { get; private set; }
+        public uint Width { get; private set; }
 
-        public int Height { get; private set; }
+        public uint Height { get; private set; }
 
         #endregion
 

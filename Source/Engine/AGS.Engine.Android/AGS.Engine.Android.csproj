@@ -11,7 +11,6 @@
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>AGS.Engine.Android</AssemblyName>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidTlsProvider>
@@ -55,6 +54,60 @@
     <Reference Include="Autofac">
       <HintPath>..\..\..\packages\Autofac.4.4.0\lib\netstandard1.1\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>..\..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions">
+      <HintPath>..\..\..\packages\Microsoft.DotNet.PlatformAbstractions.2.0.3\lib\netstandard1.3\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel">
+      <HintPath>..\..\..\packages\Microsoft.Extensions.DependencyModel.2.0.3\lib\netstandard1.6\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="NativeLibraryLoader">
+      <HintPath>..\..\..\packages\NativeLibraryLoader.1.0.10\lib\netstandard2.0\NativeLibraryLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\..\packages\SharpDX.4.0.1\lib\netstandard1.1\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler">
+      <HintPath>..\..\..\packages\SharpDX.D3DCompiler.4.0.1\lib\netstandard1.1\SharpDX.D3DCompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI">
+      <HintPath>..\..\..\packages\SharpDX.DXGI.4.0.1\lib\netstandard1.1\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11">
+      <HintPath>..\..\..\packages\SharpDX.Direct3D11.4.0.1\lib\netstandard1.1\SharpDX.Direct3D11.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.MetalBindings">
+      <HintPath>..\..\..\packages\Veldrid.MetalBindings.4.6.1\lib\netstandard2.0\Veldrid.MetalBindings.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.OpenGLBindings">
+      <HintPath>..\..\..\packages\Veldrid.OpenGLBindings.4.6.1\lib\netstandard2.0\Veldrid.OpenGLBindings.dll</HintPath>
+    </Reference>
+    <Reference Include="vk">
+      <HintPath>..\..\..\packages\Vk.1.0.21\lib\netstandard1.4\vk.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid">
+      <HintPath>..\..\..\packages\Veldrid.4.6.1\lib\netstandard2.0\Veldrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.Utilities">
+      <HintPath>..\..\..\packages\Veldrid.Utilities.4.6.1\lib\netstandard2.0\Veldrid.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.SPIRV">
+      <HintPath>..\..\..\packages\Veldrid.SPIRV.1.0.9\lib\netstandard2.0\Veldrid.SPIRV.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.SDL2">
+      <HintPath>..\..\..\packages\Veldrid.SDL2.4.6.1\lib\netstandard2.0\Veldrid.SDL2.dll</HintPath>
+    </Reference>
+    <Reference Include="Veldrid.StartupUtilities">
+      <HintPath>..\..\..\packages\Veldrid.StartupUtilities.4.6.1\lib\netstandard2.0\Veldrid.StartupUtilities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -79,7 +132,12 @@
     <Compile Include="..\AGS.Engine.Desktop\ALAudioBackend.cs">
       <Link>ALAudioBackend.cs</Link>
     </Compile>
-    <Compile Include="OpenGLESBackend.cs" />
+    <Compile Include="..\AGS.Engine.Desktop\Veldrid\VeldridGraphics.cs">
+      <Link>VeldridGraphics.cs</Link>
+    </Compile>
+    <Compile Include="..\AGS.Engine.Desktop\Veldrid\VeldridExtensions.cs">
+      <Link>VeldridExtensions.cs</Link>
+    </Compile>
     <Compile Include="AndroidGameWindow.cs" />
     <Compile Include="Drawing\AndroidTextLayout.cs" />
     <Compile Include="AndroidAssemblies.cs" />
@@ -128,4 +186,5 @@
       <Link>Embedded\x86\libopenal32.so</Link>
     </EmbeddedNativeLibrary>
   </ItemGroup>
+  <Import Project="..\..\..\packages\Veldrid.SPIRV.1.0.9\build\MonoAndroid10\Veldrid.SPIRV.targets" Condition="Exists('..\..\..\packages\Veldrid.SPIRV.1.0.9\build\MonoAndroid10\Veldrid.SPIRV.targets')" />
 </Project>

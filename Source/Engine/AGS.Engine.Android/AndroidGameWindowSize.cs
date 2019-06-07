@@ -7,35 +7,31 @@ namespace AGS.Engine.Android
 {
 	public class AndroidGameWindowSize : IGameWindowSize
 	{
-        private readonly IGameWindow _gameWindow;
         private readonly float _density;
 
-        public AndroidGameWindowSize(IGameWindow gameWindow)
+        public AndroidGameWindowSize()
         {
-            _gameWindow = gameWindow;
             _density = Resources.System.DisplayMetrics.Density;
         }
 
 		#region IGameWindowSize implementation
 
-        public int GetWidth(OpenTK.INativeWindow gameWindow)
+        public int GetWidth(int width)
 		{
-            return convertPixelsToDp(_gameWindow.Width);
+            return convertPixelsToDp(width);
 		}
 
-		public int GetHeight(OpenTK.INativeWindow gameWindow)
+		public int GetHeight(int height)
 		{
-            return convertPixelsToDp(_gameWindow.Height);
+            return convertPixelsToDp(height);
 		}
 
-		public void SetSize(OpenTK.INativeWindow gameWindow, AGS.API.Size size)
-		{
-		}
+        public bool AllowSetSize => false;
 
-        public Rectangle GetWindow(INativeWindow gameWindow)
+        public Rectangle GetWindow(Rectangle gameWindow)
         {
-            return new Rectangle(0, 0, (int)(GetWidth(gameWindow) - ((GLUtils.ScreenViewport.X * 2) / _density)), 
-                                       (int)(GetHeight(gameWindow) - ((GLUtils.ScreenViewport.Y * 2) / _density)));
+            return new Rectangle(0, 0, (int)(GetWidth(gameWindow.Width) - ((GLUtils.ScreenViewport.X * 2) / _density)), 
+                                       (int)(GetHeight(gameWindow.Height) - ((GLUtils.ScreenViewport.Y * 2) / _density)));
         }
 
 		#endregion

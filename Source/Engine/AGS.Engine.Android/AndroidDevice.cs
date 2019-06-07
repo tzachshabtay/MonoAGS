@@ -1,4 +1,5 @@
 ﻿using AGS.API;
+using AGS.Engine.Desktop;
 using Android.Content.Res;
 
 namespace AGS.Engine.Android
@@ -8,7 +9,7 @@ namespace AGS.Engine.Android
         public AndroidDevice(IAssemblies assemblies)
         {
             DisplayDensity = Resources.System.DisplayMetrics.Density;
-            GraphicsBackend = new OpenGLESBackend();
+            GraphicsBackend = new VeldridGraphics();
             BitmapLoader = new AndroidBitmapLoader(GraphicsBackend);
             BrushLoader = new AndroidBrushLoader();
             FontLoader = new AndroidFontLoader();
