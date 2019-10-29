@@ -643,6 +643,12 @@ namespace AGS.Engine
             set { _outfitComponent.Outfit = value; } 
         }
 
+        public bool SwitchToIdleWhenSwitchingOutfit
+        {
+            get { return _outfitComponent.SwitchToIdleWhenSwitchingOutfit; }
+            set { _outfitComponent.SwitchToIdleWhenSwitchingOutfit = value; }
+        }
+
         #endregion
 
         #region IInventoryComponent implementation

@@ -50,7 +50,6 @@ namespace DemoGame
 			Characters.RandomAnimationDelay(speakAnimation.Down);
 			Characters.RandomAnimationDelay(speakAnimation.Up);
 
-            _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.DisplayName = "Beman";
             _character.IsPixelPerfect = true;
 

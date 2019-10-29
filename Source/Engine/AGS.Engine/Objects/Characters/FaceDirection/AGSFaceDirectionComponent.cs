@@ -128,38 +128,13 @@ namespace AGS.Engine
 
 		private async Task faceDirectionAsync(params Direction[] directions)
 		{
-			IDirectionalAnimation animation = CurrentDirectionalAnimation;
-			if (animation == null) return;
+			IDirectionalAnimation dirAnimation = CurrentDirectionalAnimation;
+			if (dirAnimation == null) return;
 
 			foreach (Direction dir in directions)
 			{
-				switch (dir)
-				{
-					case Direction.Down:
-						if (await animateAsync(animation.Down)) return;
-						break;
-					case Direction.Up:
-						if (await animateAsync(animation.Up)) return;
-						break;
-					case Direction.Left:
-						if (await animateAsync(animation.Left)) return;
-						break;
-					case Direction.Right:
-						if (await animateAsync(animation.Right)) return;
-						break;
-					case Direction.DownLeft:
-						if (await animateAsync(animation.DownLeft)) return;
-						break;
-					case Direction.DownRight:
-						if (await animateAsync(animation.DownRight)) return;
-						break;
-					case Direction.UpLeft:
-						if (await animateAsync(animation.UpLeft)) return;
-						break;
-					case Direction.UpRight:
-						if (await animateAsync(animation.UpRight)) return;
-						break;
-				}
+                var animation = dirAnimation.GetAnimation(dir);
+                if (await animateAsync(animation)) return;
 			}
 		}
 

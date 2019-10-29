@@ -22,6 +22,13 @@
         /// <seealso cref="IOutfit"/>
         /// <value>The outfit.</value>
 		IOutfit Outfit { get; set; }
+
+        /// <summary>
+        /// If set to true (which is the default), switching to a new outfit will automatically start the idle animation for the new outfit,
+        /// if the new outfit has an idle animation.
+        /// You can turn this off to set your own behavior instead.
+        /// </summary>
+        bool SwitchToIdleWhenSwitchingOutfit { get; set; }
 	}
 }
 
