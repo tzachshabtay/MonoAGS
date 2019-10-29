@@ -7403,6 +7403,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IDirectionalAnimation.GetAllDirections
   nameWithType: IDirectionalAnimation.GetAllDirections
+- uid: AGS.API.IDirectionalAnimation.GetAnimation(AGS.API.Direction)
+  name: GetAnimation(Direction)
+  href: api/AGS.API.IDirectionalAnimation.html#AGS_API_IDirectionalAnimation_GetAnimation_AGS_API_Direction_
+  commentId: M:AGS.API.IDirectionalAnimation.GetAnimation(AGS.API.Direction)
+  fullName: AGS.API.IDirectionalAnimation.GetAnimation(AGS.API.Direction)
+  nameWithType: IDirectionalAnimation.GetAnimation(Direction)
+- uid: AGS.API.IDirectionalAnimation.GetAnimation*
+  name: GetAnimation
+  href: api/AGS.API.IDirectionalAnimation.html#AGS_API_IDirectionalAnimation_GetAnimation_
+  commentId: Overload:AGS.API.IDirectionalAnimation.GetAnimation
+  isSpec: "True"
+  fullName: AGS.API.IDirectionalAnimation.GetAnimation
+  nameWithType: IDirectionalAnimation.GetAnimation
 - uid: AGS.API.IDirectionalAnimation.Left
   name: Left
   href: api/AGS.API.IDirectionalAnimation.html#AGS_API_IDirectionalAnimation_Left
@@ -12187,6 +12200,19 @@ references:
   isSpec: "True"
   fullName: AGS.API.IOutfitComponent.Outfit
   nameWithType: IOutfitComponent.Outfit
+- uid: AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+  name: SwitchToIdleWhenSwitchingOutfit
+  href: api/AGS.API.IOutfitComponent.html#AGS_API_IOutfitComponent_SwitchToIdleWhenSwitchingOutfit
+  commentId: P:AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+  fullName: AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+  nameWithType: IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+- uid: AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit*
+  name: SwitchToIdleWhenSwitchingOutfit
+  href: api/AGS.API.IOutfitComponent.html#AGS_API_IOutfitComponent_SwitchToIdleWhenSwitchingOutfit_
+  commentId: Overload:AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+  isSpec: "True"
+  fullName: AGS.API.IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
+  nameWithType: IOutfitComponent.SwitchToIdleWhenSwitchingOutfit
 - uid: AGS.API.IOutfitFactory
   name: IOutfitFactory
   href: api/AGS.API.IOutfitFactory.html
