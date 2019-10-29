@@ -122,19 +122,6 @@ references:
   isSpec: "True"
   fullName: AGS.API.AGSBoundingBox.FlipHorizontal
   nameWithType: AGSBoundingBox.FlipHorizontal
-- uid: AGS.API.AGSBoundingBox.FlipVertical
-  name: FlipVertical()
-  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_FlipVertical
-  commentId: M:AGS.API.AGSBoundingBox.FlipVertical
-  fullName: AGS.API.AGSBoundingBox.FlipVertical()
-  nameWithType: AGSBoundingBox.FlipVertical()
-- uid: AGS.API.AGSBoundingBox.FlipVertical*
-  name: FlipVertical
-  href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_FlipVertical_
-  commentId: Overload:AGS.API.AGSBoundingBox.FlipVertical
-  isSpec: "True"
-  fullName: AGS.API.AGSBoundingBox.FlipVertical
-  nameWithType: AGSBoundingBox.FlipVertical
 - uid: AGS.API.AGSBoundingBox.GetHashCode
   name: GetHashCode()
   href: api/AGS.API.AGSBoundingBox.html#AGS_API_AGSBoundingBox_GetHashCode
@@ -2779,42 +2766,6 @@ references:
   fullName.vb: AGS.API.FourCorners(Of TValue).ToString
   nameWithType: FourCorners<TValue>.ToString
   nameWithType.vb: FourCorners(Of TValue).ToString
-- uid: AGS.API.GraphicsBackend
-  name: GraphicsBackend
-  href: api/AGS.API.GraphicsBackend.html
-  commentId: T:AGS.API.GraphicsBackend
-  fullName: AGS.API.GraphicsBackend
-  nameWithType: GraphicsBackend
-- uid: AGS.API.GraphicsBackend.Direct3D11
-  name: Direct3D11
-  href: api/AGS.API.GraphicsBackend.html#AGS_API_GraphicsBackend_Direct3D11
-  commentId: F:AGS.API.GraphicsBackend.Direct3D11
-  fullName: AGS.API.GraphicsBackend.Direct3D11
-  nameWithType: GraphicsBackend.Direct3D11
-- uid: AGS.API.GraphicsBackend.Metal
-  name: Metal
-  href: api/AGS.API.GraphicsBackend.html#AGS_API_GraphicsBackend_Metal
-  commentId: F:AGS.API.GraphicsBackend.Metal
-  fullName: AGS.API.GraphicsBackend.Metal
-  nameWithType: GraphicsBackend.Metal
-- uid: AGS.API.GraphicsBackend.OpenGL
-  name: OpenGL
-  href: api/AGS.API.GraphicsBackend.html#AGS_API_GraphicsBackend_OpenGL
-  commentId: F:AGS.API.GraphicsBackend.OpenGL
-  fullName: AGS.API.GraphicsBackend.OpenGL
-  nameWithType: GraphicsBackend.OpenGL
-- uid: AGS.API.GraphicsBackend.OpenGLES
-  name: OpenGLES
-  href: api/AGS.API.GraphicsBackend.html#AGS_API_GraphicsBackend_OpenGLES
-  commentId: F:AGS.API.GraphicsBackend.OpenGLES
-  fullName: AGS.API.GraphicsBackend.OpenGLES
-  nameWithType: GraphicsBackend.OpenGLES
-- uid: AGS.API.GraphicsBackend.Vulkan
-  name: Vulkan
-  href: api/AGS.API.GraphicsBackend.html#AGS_API_GraphicsBackend_Vulkan
-  commentId: F:AGS.API.GraphicsBackend.Vulkan
-  fullName: AGS.API.GraphicsBackend.Vulkan
-  nameWithType: GraphicsBackend.Vulkan
 - uid: AGS.API.HasFactoryAttribute
   name: HasFactoryAttribute
   href: api/AGS.API.HasFactoryAttribute.html
@@ -9405,19 +9356,6 @@ references:
   commentId: T:AGS.API.IGameSettings
   fullName: AGS.API.IGameSettings
   nameWithType: IGameSettings
-- uid: AGS.API.IGameSettings.Backend
-  name: Backend
-  href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_Backend
-  commentId: P:AGS.API.IGameSettings.Backend
-  fullName: AGS.API.IGameSettings.Backend
-  nameWithType: IGameSettings.Backend
-- uid: AGS.API.IGameSettings.Backend*
-  name: Backend
-  href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_Backend_
-  commentId: Overload:AGS.API.IGameSettings.Backend
-  isSpec: "True"
-  fullName: AGS.API.IGameSettings.Backend
-  nameWithType: IGameSettings.Backend
 - uid: AGS.API.IGameSettings.Defaults
   name: Defaults
   href: api/AGS.API.IGameSettings.html#AGS_API_IGameSettings_Defaults
@@ -14094,15 +14032,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.IShader.Bind
   nameWithType: IShader.Bind
-- uid: AGS.API.IShader.Compile(AGS.API.ShaderVarsBuffer[])
-  name: Compile(ShaderVarsBuffer[])
-  href: api/AGS.API.IShader.html#AGS_API_IShader_Compile_AGS_API_ShaderVarsBuffer___
-  commentId: M:AGS.API.IShader.Compile(AGS.API.ShaderVarsBuffer[])
-  name.vb: Compile(ShaderVarsBuffer())
-  fullName: AGS.API.IShader.Compile(AGS.API.ShaderVarsBuffer[])
-  fullName.vb: AGS.API.IShader.Compile(AGS.API.ShaderVarsBuffer())
-  nameWithType: IShader.Compile(ShaderVarsBuffer[])
-  nameWithType.vb: IShader.Compile(ShaderVarsBuffer())
+- uid: AGS.API.IShader.Compile
+  name: Compile()
+  href: api/AGS.API.IShader.html#AGS_API_IShader_Compile
+  commentId: M:AGS.API.IShader.Compile
+  fullName: AGS.API.IShader.Compile()
+  nameWithType: IShader.Compile()
 - uid: AGS.API.IShader.Compile*
   name: Compile
   href: api/AGS.API.IShader.html#AGS_API_IShader_Compile_
@@ -19321,12 +19256,12 @@ references:
   isSpec: "True"
   fullName: AGS.API.MathUtils.GetNextPowerOf2
   nameWithType: MathUtils.GetNextPowerOf2
-- uid: AGS.API.MathUtils.IsPowerOf2(System.UInt32)
-  name: IsPowerOf2(UInt32)
-  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_System_UInt32_
-  commentId: M:AGS.API.MathUtils.IsPowerOf2(System.UInt32)
-  fullName: AGS.API.MathUtils.IsPowerOf2(System.UInt32)
-  nameWithType: MathUtils.IsPowerOf2(UInt32)
+- uid: AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  name: IsPowerOf2(Int32)
+  href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_System_Int32_
+  commentId: M:AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  fullName: AGS.API.MathUtils.IsPowerOf2(System.Int32)
+  nameWithType: MathUtils.IsPowerOf2(Int32)
 - uid: AGS.API.MathUtils.IsPowerOf2*
   name: IsPowerOf2
   href: api/AGS.API.MathUtils.html#AGS_API_MathUtils_IsPowerOf2_
@@ -23628,112 +23563,6 @@ references:
   commentId: F:AGS.API.SelectionType.Single
   fullName: AGS.API.SelectionType.Single
   nameWithType: SelectionType.Single
-- uid: AGS.API.ShaderMode
-  name: ShaderMode
-  href: api/AGS.API.ShaderMode.html
-  commentId: T:AGS.API.ShaderMode
-  fullName: AGS.API.ShaderMode
-  nameWithType: ShaderMode
-- uid: AGS.API.ShaderMode.ComputeShader
-  name: ComputeShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_ComputeShader
-  commentId: F:AGS.API.ShaderMode.ComputeShader
-  fullName: AGS.API.ShaderMode.ComputeShader
-  nameWithType: ShaderMode.ComputeShader
-- uid: AGS.API.ShaderMode.FragmentShader
-  name: FragmentShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_FragmentShader
-  commentId: F:AGS.API.ShaderMode.FragmentShader
-  fullName: AGS.API.ShaderMode.FragmentShader
-  nameWithType: ShaderMode.FragmentShader
-- uid: AGS.API.ShaderMode.GeometryShader
-  name: GeometryShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_GeometryShader
-  commentId: F:AGS.API.ShaderMode.GeometryShader
-  fullName: AGS.API.ShaderMode.GeometryShader
-  nameWithType: ShaderMode.GeometryShader
-- uid: AGS.API.ShaderMode.GeometryShaderExt
-  name: GeometryShaderExt
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_GeometryShaderExt
-  commentId: F:AGS.API.ShaderMode.GeometryShaderExt
-  fullName: AGS.API.ShaderMode.GeometryShaderExt
-  nameWithType: ShaderMode.GeometryShaderExt
-- uid: AGS.API.ShaderMode.TessControlShader
-  name: TessControlShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_TessControlShader
-  commentId: F:AGS.API.ShaderMode.TessControlShader
-  fullName: AGS.API.ShaderMode.TessControlShader
-  nameWithType: ShaderMode.TessControlShader
-- uid: AGS.API.ShaderMode.TessEvaluationShader
-  name: TessEvaluationShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_TessEvaluationShader
-  commentId: F:AGS.API.ShaderMode.TessEvaluationShader
-  fullName: AGS.API.ShaderMode.TessEvaluationShader
-  nameWithType: ShaderMode.TessEvaluationShader
-- uid: AGS.API.ShaderMode.VertexShader
-  name: VertexShader
-  href: api/AGS.API.ShaderMode.html#AGS_API_ShaderMode_VertexShader
-  commentId: F:AGS.API.ShaderMode.VertexShader
-  fullName: AGS.API.ShaderMode.VertexShader
-  nameWithType: ShaderMode.VertexShader
-- uid: AGS.API.ShaderVarsBuffer
-  name: ShaderVarsBuffer
-  href: api/AGS.API.ShaderVarsBuffer.html
-  commentId: T:AGS.API.ShaderVarsBuffer
-  fullName: AGS.API.ShaderVarsBuffer
-  nameWithType: ShaderVarsBuffer
-- uid: AGS.API.ShaderVarsBuffer.#ctor(AGS.API.ShaderMode,System.String,System.Int32)
-  name: ShaderVarsBuffer(ShaderMode, String, Int32)
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer__ctor_AGS_API_ShaderMode_System_String_System_Int32_
-  commentId: M:AGS.API.ShaderVarsBuffer.#ctor(AGS.API.ShaderMode,System.String,System.Int32)
-  fullName: AGS.API.ShaderVarsBuffer.ShaderVarsBuffer(AGS.API.ShaderMode, System.String, System.Int32)
-  nameWithType: ShaderVarsBuffer.ShaderVarsBuffer(ShaderMode, String, Int32)
-- uid: AGS.API.ShaderVarsBuffer.#ctor*
-  name: ShaderVarsBuffer
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer__ctor_
-  commentId: Overload:AGS.API.ShaderVarsBuffer.#ctor
-  isSpec: "True"
-  fullName: AGS.API.ShaderVarsBuffer.ShaderVarsBuffer
-  nameWithType: ShaderVarsBuffer.ShaderVarsBuffer
-- uid: AGS.API.ShaderVarsBuffer.Name
-  name: Name
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Name
-  commentId: P:AGS.API.ShaderVarsBuffer.Name
-  fullName: AGS.API.ShaderVarsBuffer.Name
-  nameWithType: ShaderVarsBuffer.Name
-- uid: AGS.API.ShaderVarsBuffer.Name*
-  name: Name
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Name_
-  commentId: Overload:AGS.API.ShaderVarsBuffer.Name
-  isSpec: "True"
-  fullName: AGS.API.ShaderVarsBuffer.Name
-  nameWithType: ShaderVarsBuffer.Name
-- uid: AGS.API.ShaderVarsBuffer.Stage
-  name: Stage
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Stage
-  commentId: P:AGS.API.ShaderVarsBuffer.Stage
-  fullName: AGS.API.ShaderVarsBuffer.Stage
-  nameWithType: ShaderVarsBuffer.Stage
-- uid: AGS.API.ShaderVarsBuffer.Stage*
-  name: Stage
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Stage_
-  commentId: Overload:AGS.API.ShaderVarsBuffer.Stage
-  isSpec: "True"
-  fullName: AGS.API.ShaderVarsBuffer.Stage
-  nameWithType: ShaderVarsBuffer.Stage
-- uid: AGS.API.ShaderVarsBuffer.Vars
-  name: Vars
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Vars
-  commentId: P:AGS.API.ShaderVarsBuffer.Vars
-  fullName: AGS.API.ShaderVarsBuffer.Vars
-  nameWithType: ShaderVarsBuffer.Vars
-- uid: AGS.API.ShaderVarsBuffer.Vars*
-  name: Vars
-  href: api/AGS.API.ShaderVarsBuffer.html#AGS_API_ShaderVarsBuffer_Vars_
-  commentId: Overload:AGS.API.ShaderVarsBuffer.Vars
-  isSpec: "True"
-  fullName: AGS.API.ShaderVarsBuffer.Vars
-  nameWithType: ShaderVarsBuffer.Vars
 - uid: AGS.API.Size
   name: Size
   href: api/AGS.API.Size.html
@@ -28043,6 +27872,12 @@ references:
   commentId: T:AGS.API.VsyncMode
   fullName: AGS.API.VsyncMode
   nameWithType: VsyncMode
+- uid: AGS.API.VsyncMode.Adaptive
+  name: Adaptive
+  href: api/AGS.API.VsyncMode.html#AGS_API_VsyncMode_Adaptive
+  commentId: F:AGS.API.VsyncMode.Adaptive
+  fullName: AGS.API.VsyncMode.Adaptive
+  nameWithType: VsyncMode.Adaptive
 - uid: AGS.API.VsyncMode.Off
   name: Off
   href: api/AGS.API.VsyncMode.html#AGS_API_VsyncMode_Off
