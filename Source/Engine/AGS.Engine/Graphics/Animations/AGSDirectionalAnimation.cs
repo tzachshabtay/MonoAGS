@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AGS.API;
 
@@ -36,6 +37,22 @@ namespace AGS.Engine
             if (UpRight != null) yield return UpRight;
             if (DownLeft != null) yield return DownLeft;
             if (DownRight != null) yield return DownRight;
+        }
+
+        public IAnimation GetAnimation(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up: return Up;
+                case Direction.Down: return Down;
+                case Direction.Left: return Left;
+                case Direction.Right: return Right;
+                case Direction.UpLeft: return UpLeft;
+                case Direction.UpRight: return UpRight;
+                case Direction.DownLeft: return DownLeft;
+                case Direction.DownRight: return DownRight;
+                default: throw new NotSupportedException(direction.ToString());
+            }
         }
 
         #endregion

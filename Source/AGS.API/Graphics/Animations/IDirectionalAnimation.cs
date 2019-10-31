@@ -64,6 +64,12 @@ namespace AGS.API
         /// </summary>
         /// <returns>All assigned directions.</returns>
         IEnumerable<IAnimation> GetAllDirections();
-	}
-}
 
+        /// <summary>
+        /// Gets the animation matching with a specific direction.
+        /// </summary>
+        /// <param name="direction">Direction for which we want the matching animation.</param>
+        /// <returns>The matching animation</returns>
+        IAnimation GetAnimation(Direction direction);
+    }
+}
