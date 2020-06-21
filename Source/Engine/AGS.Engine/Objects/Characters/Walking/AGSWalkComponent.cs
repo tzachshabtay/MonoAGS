@@ -385,7 +385,7 @@ namespace AGS.Engine
 
             if (debugRenderers != null)
             {
-                IObject renderer = _objFactory.GetObject("Debug Line");
+                IObject renderer = _objFactory.GetObject($"Debug Line {this.Entity.ID} {debugRenderers.Count}");
                 var line = renderer.AddComponent<GLLineRenderer>();
                 if (line != null)
                 {

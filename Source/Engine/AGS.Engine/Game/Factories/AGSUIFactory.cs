@@ -484,6 +484,7 @@ namespace AGS.Engine
             if (parent != null) comboBox.RenderLayer = parent.RenderLayer;
             defaultHeight = dropDownButton?.Height ?? textBox?.Height ?? defaultHeight;
             float itemWidth = textBox?.Width ?? defaultWidth;
+            comboBox.BaseSize = (itemWidth, defaultHeight);
 
             if (textBox == null)
             {
