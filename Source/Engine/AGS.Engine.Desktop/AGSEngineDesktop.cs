@@ -4,6 +4,7 @@ using System.Reflection;
 using System.IO;
 using Autofac;
 using AGS.API;
+using OpenToolkit.Windowing.Common;
 
 namespace AGS.Engine.Desktop
 {
@@ -11,7 +12,6 @@ namespace AGS.Engine.Desktop
     {
 		public static void Init()
 		{                        
-			OpenTK.Toolkit.Init();
             OpenALSoftLoader.Load();
 		    string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 		    Trace.Assert(currentDir != null);
@@ -26,7 +26,7 @@ namespace AGS.Engine.Desktop
             Resolver.Override(resolver => resolver.Builder.RegisterType<DesktopGameWindowSize>().SingleInstance().As<IGameWindowSize>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<AGSGameWindow>().SingleInstance().As<IGameWindow>().As<IWindowInfo>());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ALAudioBackend>().SingleInstance().As<IAudioBackend>());
-            Resolver.Override(resolver => resolver.Builder.Register(_ => AGSGameWindow.GameWindow).As<OpenTK.INativeWindow>());
+            Resolver.Override(resolver => resolver.Builder.Register(_ => AGSGameWindow.GameWindow).As<INativeWindow>());
         }
 	}
 }

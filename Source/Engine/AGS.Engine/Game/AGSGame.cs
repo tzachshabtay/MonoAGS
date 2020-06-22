@@ -123,7 +123,7 @@ namespace AGS.Engine
             {
                 try
                 {
-                    GameWindow.Load += (sender, e) =>
+                    GameWindow.Load += () =>
                     {
                         onGameWindowLoaded(settingsParameter, settings);
                     };
@@ -200,13 +200,10 @@ namespace AGS.Engine
                 // render graphics
                 if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
                 {
-                    var bgColor = State.Room?.BackgroundColor;
-                    if (bgColor != null)
-                    {
-                        var color = bgColor.Value.ToGLColor();
-                        _graphics.ClearColor(color.R, color.G, color.B, color.A);
-                        _graphics.ClearScreen();
-                    }
+                    var bgColor = State.Room?.BackgroundColor ?? Colors.Black;
+                    var color = bgColor.ToGLColor();
+                    _graphics.ClearColor(color.R, color.G, color.B, color.A);
+                    _graphics.ClearScreen();
                 }
                 Events.OnBeforeRender.Invoke();
 

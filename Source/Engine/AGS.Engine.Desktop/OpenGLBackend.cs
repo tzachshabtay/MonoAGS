@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using AGS.API;
-using OpenTK.Graphics.OpenGL;
+using OpenToolkit.Graphics.OpenGL;
 
 namespace AGS.Engine
 {
@@ -236,11 +236,11 @@ namespace AGS.Engine
         {
             switch (matrix)
             {
-                case MatrixType.Color: return OpenTK.Graphics.OpenGL.MatrixMode.Color;
-                case MatrixType.ModelView: return OpenTK.Graphics.OpenGL.MatrixMode.Modelview;
-                case MatrixType.ModelView0Ext: return OpenTK.Graphics.OpenGL.MatrixMode.Modelview0Ext;
-                case MatrixType.Projection: return OpenTK.Graphics.OpenGL.MatrixMode.Projection;
-                case MatrixType.Texture: return OpenTK.Graphics.OpenGL.MatrixMode.Texture;
+                case MatrixType.Color: return OpenToolkit.Graphics.OpenGL.MatrixMode.Color;
+                case MatrixType.ModelView: return OpenToolkit.Graphics.OpenGL.MatrixMode.Modelview;
+                case MatrixType.ModelView0Ext: return OpenToolkit.Graphics.OpenGL.MatrixMode.Modelview0Ext;
+                case MatrixType.Projection: return OpenToolkit.Graphics.OpenGL.MatrixMode.Projection;
+                case MatrixType.Texture: return OpenToolkit.Graphics.OpenGL.MatrixMode.Texture;
                 default: throw new NotSupportedException(matrix.ToString());
             }
         }

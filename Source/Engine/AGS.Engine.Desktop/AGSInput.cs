@@ -3,8 +3,9 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
-using OpenTK;
-using OpenTK.Input;
+using OpenToolkit.Windowing.Common;
+using OpenToolkit.Windowing.Common.Input;
+using OpenToolkit.Windowing.Desktop;
 
 namespace AGS.Engine.Desktop
 {
@@ -12,6 +13,7 @@ namespace AGS.Engine.Desktop
     {
         private GameWindow _game;
         private float _mouseX, _mouseY;
+        private bool _isLeftMouseButtonDown, _isRightMouseButtonDown;
         private readonly IShouldBlockInput _shouldBlockInput;
         private readonly IConcurrentHashSet<API.Key> _keysDown;
         private readonly IGameEvents _events;
@@ -56,32 +58,36 @@ namespace AGS.Engine.Desktop
             {
                 if (_cursor.Cursor != null) _game.Cursor = MouseCursor.Empty;
             };
-            game.MouseDown += (sender, e) =>
+            game.MouseDown += (e) =>
             {
+                _isLeftMouseButtonDown = e.Button == OpenToolkit.Windowing.Common.Input.MouseButton.Left;
+                _isRightMouseButtonDown = e.Button == OpenToolkit.Windowing.Common.Input.MouseButton.Right;
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
                 _actions.Enqueue(() => MouseDown.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
-            game.MouseUp += (sender, e) =>
+            game.MouseUp += (e) =>
             {
+                if (e.Button == OpenToolkit.Windowing.Common.Input.MouseButton.Left) _isLeftMouseButtonDown = false;
+                if (e.Button == OpenToolkit.Windowing.Common.Input.MouseButton.Right) _isRightMouseButtonDown = false;
                 if (isInputBlocked()) return;
                 var button = convert(e.Button);
                 _actions.Enqueue(() => MouseUp.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
             };
-            game.MouseMove += (sender, e) =>
+            game.MouseMove += (e) =>
             {
-                _mouseX = e.Mouse.X;
-                _mouseY = e.Mouse.Y;
+                _mouseX = e.X;
+                _mouseY = e.Y;
                 _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
             };
-            game.KeyDown += (sender, e) =>
+            game.KeyDown += (e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Add(key);
                 if (isInputBlocked()) return;
                 _actions.Enqueue(() => KeyDown.InvokeAsync(new KeyboardEventArgs(key)));
             };
-            game.KeyUp += (sender, e) =>
+            game.KeyUp += (e) =>
             {
                 API.Key key = convert(e.Key);
                 _keysDown.Remove(key);
@@ -122,15 +128,15 @@ namespace AGS.Engine.Desktop
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
-        private API.MouseButton convert(OpenTK.Input.MouseButton button)
+        private API.MouseButton convert(OpenToolkit.Windowing.Common.Input.MouseButton button)
         {
             switch (button)
             {
-                case OpenTK.Input.MouseButton.Left:
+                case OpenToolkit.Windowing.Common.Input.MouseButton.Left:
                     return API.MouseButton.Left;
-                case OpenTK.Input.MouseButton.Right:
+                case OpenToolkit.Windowing.Common.Input.MouseButton.Right:
                     return API.MouseButton.Right;
-                case OpenTK.Input.MouseButton.Middle:
+                case OpenToolkit.Windowing.Common.Input.MouseButton.Middle:
                     return API.MouseButton.Middle;
                 default:
                     throw new NotSupportedException();
@@ -142,9 +148,8 @@ namespace AGS.Engine.Desktop
             _hitTest.Refresh(MousePosition);
             if (!isInputBlocked())
             {
-                var cursorState = Mouse.GetCursorState();
-                LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
-                RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+                LeftMouseButtonDown = _isLeftMouseButtonDown;
+                RightMouseButtonDown = _isRightMouseButtonDown;
             }
 
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
@@ -161,6 +166,6 @@ namespace AGS.Engine.Desktop
             }
         }
 
-        private API.Key convert(OpenTK.Input.Key key) => (API.Key)(int)key;
+        private API.Key convert(OpenToolkit.Windowing.Common.Input.Key key) => (API.Key)(int)key;
     }
 }

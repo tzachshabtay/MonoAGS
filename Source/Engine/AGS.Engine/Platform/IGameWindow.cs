@@ -8,10 +8,16 @@ namespace AGS.Engine
         public double Time { get; set; }
     }
 
+    public class ResizeEventArgs : EventArgs
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
+
     public interface IGameWindow : IDisposable
     {
-        event EventHandler<EventArgs> Load;
-        event EventHandler<EventArgs> Resize;
+        event Action Load;
+        event EventHandler<ResizeEventArgs> Resize;
         event EventHandler<FrameEventArgs> UpdateFrame;
         event EventHandler<FrameEventArgs> RenderFrame;
 

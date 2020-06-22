@@ -1,12 +1,13 @@
 ﻿using AGS.API;
+using OpenToolkit.Windowing.Common;
 
 namespace AGS.Engine.Desktop
 {
     public interface IGameWindowSize
     {
-        Rectangle GetWindow(OpenTK.INativeWindow gameWindow);
-        int GetWidth(OpenTK.INativeWindow gameWindow);
-        int GetHeight(OpenTK.INativeWindow gameWindow);
-        void SetSize(OpenTK.INativeWindow gameWindow, Size size);
+        Rectangle GetWindow(INativeWindow gameWindow);
+        int GetWidth(INativeWindow gameWindow);
+        int GetHeight(INativeWindow gameWindow);
+        void SetSize(INativeWindow gameWindow, Size size);
     }
 }
