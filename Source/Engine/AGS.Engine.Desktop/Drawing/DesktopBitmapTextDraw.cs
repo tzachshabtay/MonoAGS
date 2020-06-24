@@ -7,7 +7,6 @@ namespace AGS.Engine.Desktop
 	public class DesktopBitmapTextDraw : IBitmapTextDraw
 	{
 		private ITextConfig _config;
-        private StringFormat _wrapFormat = new StringFormat(StringFormat.GenericTypographic);
         private Bitmap _bitmap;
 		private int _maxWidth, _height;
 		private string _text;
@@ -35,13 +34,12 @@ namespace AGS.Engine.Desktop
 			_text = text;
 			_config = config;
 			_maxWidth = maxWidth;
-			IFont font = _config.Font;
 			IBrush outlineBrush = _config.OutlineBrush;
 
-            float left = xOffset + _config.AlignX(textSize.Width, baseSize);
-			float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
-			float centerX = left + _config.OutlineWidth / 2f;
-			float centerY = top + _config.OutlineWidth / 2f;
+            float centerX = xOffset + (!shouldWrap() ? _config.PaddingLeft : _config.AlignX(textSize.Width, baseSize));
+			float centerY = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
+			float left = centerX - _config.OutlineWidth / 2f;
+			float top = centerY - _config.OutlineWidth / 2f;
 			float right = left + _config.OutlineWidth;
 			float bottom = top + _config.OutlineWidth;
 
@@ -90,16 +88,17 @@ namespace AGS.Engine.Desktop
 			if (brush == null)
 				return;
 			Font font = getFont(_config.Font);
-			if (_maxWidth == int.MaxValue)
+			if (shouldWrap())
 			{
-                gfx.DrawString(_text, font, brush, x, y, StringFormat.GenericTypographic);                
+                gfx.DrawString(_text, font, brush, x, y, _config.Alignment.GetFormat(false));
 			}
 			else
 			{
-				gfx.DrawString(_text, font, brush, new System.Drawing.RectangleF(x, y, _maxWidth, _height),
-					_wrapFormat);
+				gfx.DrawString(_text, font, brush, new System.Drawing.RectangleF(x, y, _maxWidth, _height), _config.Alignment.GetFormat(true));
 			}
 		}
+
+        private bool shouldWrap() => _maxWidth == int.MaxValue;
 
 		private Brush getBrush(IBrush brush)
 		{
@@ -112,4 +111,3 @@ namespace AGS.Engine.Desktop
 		}
 	}
 }
-

@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using System.Collections.Generic;
 using Autofac;
@@ -9,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract(AsReferenceDefault = true)]
 	public class ContractRoom : IContract<IRoom>
 	{
-		public ContractRoom()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public string ID { get; set; }
 
 		[ProtoMember(2)]
@@ -33,6 +28,9 @@ namespace AGS.Engine
 
 		[ProtoMember(7)]
 		public IContract<IAGSEdges> Edges { get; set; }
+
+        [ProtoMember(8)]
+        public uint? BackgroundColor { get; set; }
 
 		#region IContract implementation
 
@@ -61,6 +59,7 @@ namespace AGS.Engine
 			{
 				edges.FromEdges(Edges.ToItem(context));
 			}
+            room.BackgroundColor = BackgroundColor == null ? (Color?)null : Color.FromHexa(BackgroundColor.Value);
 			return room;
 		}
 
@@ -87,6 +86,7 @@ namespace AGS.Engine
 			}
 
 			Edges = context.GetContract((IAGSEdges)item.Edges);
+            BackgroundColor = item.BackgroundColor?.Value;
 		}
 
 		#endregion

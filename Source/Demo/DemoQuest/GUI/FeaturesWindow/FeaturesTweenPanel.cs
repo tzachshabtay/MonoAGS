@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -17,7 +16,6 @@ namespace DemoGame
         private IObject _parent;
         private IPanel _tweensListScrollingPanel, _tweensListContentsPanel, _window;
         private readonly Dictionary<string, List<(string propertyName, Func<Tween> getTween)>> _tweens;
-        private readonly Dictionary<string, Func<float, float>> _eases;
         private readonly List<RunningTween> _runningTweens;
 
         public FeaturesTweenPanel(IGame game, IObject parent, IPanel window)
@@ -33,9 +31,9 @@ namespace DemoGame
 
             Type easesType = typeof(Ease);
             var easeMethods = easesType.GetTypeInfo().GetMethods(BindingFlags.Public | BindingFlags.Static);
-            _eases = easeMethods.ToDictionary(k => k.Name, v => (Func<float, float>)v.CreateDelegate(typeof(Func<float, float>)));
+            Dictionary<string, Func<float, float>> eases = easeMethods.ToDictionary(k => k.Name, v => (Func<float, float>)v.CreateDelegate(typeof(Func<float, float>)));
 
-            Func<Func<float, float>> ease = () => _eases[_easeCombobox.DropDownPanelList.SelectedItem.Text];
+            Func<Func<float, float>> ease = () => eases[_easeCombobox.DropDownPanelList.SelectedItem.Text];
 
             Func<IObject, List<(string, Func<Tween>)>> getObjTweens = o =>
             {
@@ -108,22 +106,22 @@ namespace DemoGame
                         ( "Saturation", () => //maybe we should a "Screen" target and put the saturation tween there
                             {
                                 SaturationEffectComponent effect = new SaturationEffectComponent(game.Factory.Shaders, game.Events);
-                                effect.Init(null);
+                                effect.Init(null, typeof(SaturationEffectComponent));
                                 return effect.TweenSaturation(0f, time, ease());
                         })
                     }
                 },
                 { "Music", new List<(string, Func<Tween>)>{
-                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease()) ?? null;}),
-                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease()) ?? null;}),
-                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease()) ?? null;}),
+                        ( "Volume", () => { var music = getMusic(); return music?.TweenVolume(0f, time, ease());}),
+                        ( "Pitch", () => { var music = getMusic(); return music?.TweenPitch(2f, time, ease());}),
+                        ( "Panning", () => { var music = getMusic(); return music?.TweenPanning(-1f, time, ease());}),
                     }
                 },
             };
 
             var y = _parent.Height - 60f;
             _targetCombobox = addCombobox("FeaturesTweenTargetComboBox", 40f, y, "Select Target", onTargetSelected, _tweens.Keys.ToArray());
-            _easeCombobox = addCombobox("FeaturesTweenEaseComboBox", 320f, y, "Select Ease", onItemSelected, _eases.Keys.ToArray());
+            _easeCombobox = addCombobox("FeaturesTweenEaseComboBox", 320f, y, "Select Ease", onItemSelected, eases.Keys.ToArray());
             _easeCombobox.SuggestMode = ComboSuggest.Enforce;
             _tweenCombobox = addCombobox("FeaturesTweenTweenComboBox", 40f, y - 50f, "Select Tween", onItemSelected);
             _tweenCombobox.TextBox.Opacity = 100;
@@ -248,11 +246,12 @@ namespace DemoGame
 
         private IButton addButton(string id, string text, float x, float y, Action onClick)
         {
-            AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
-            AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
-            var idle = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 5f), idleConfig, Colors.Transparent);
-            var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 5f), hoverConfig, Colors.Yellow);
-            var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 7f), idleConfig, Colors.Transparent);
+            ITextConfig idleConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
+            ITextConfig hoverConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
+            var borders = _game.Factory.Graphics.Borders;
+            var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 5f), idleConfig, Colors.Transparent);
+            var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 5f), hoverConfig, Colors.Yellow);
+            var pushed = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 7f), idleConfig, Colors.Transparent);
             var button = _game.Factory.UI.GetButton(id, idle, hovered, pushed, x, y, _parent, text, null, false, 150f, 50f);
             button.MouseClicked.Subscribe(m => onClick());
             return button;
@@ -321,6 +320,7 @@ namespace DemoGame
                 _game = game;
                 _tween = tween;
                 var factory = game.Factory.UI;
+                var borders = game.Factory.Graphics.Borders;
                 var tweenId = ++id;
                 _panel = factory.GetPanel($"FeaturesTweenPanel_{tweenId}", 300f, 20f, 0f, 0f, null, false);
                 _panel.Visible = false;
@@ -334,22 +334,22 @@ namespace DemoGame
                 _slider.Direction = SliderDirection.LeftToRight;
                 _slider.Graphics.Pivot = (0f, 0.5f);
                 _slider.Graphics.Image = new EmptyImage(_panel.Width - 100f, 10f);
-                _slider.Graphics.Border = AGSBorders.SolidColor(Colors.DarkGray, 0.5f, true);
-                _slider.HandleGraphics.Border = AGSBorders.SolidColor(Colors.White, 0.5f, true);
+                _slider.Graphics.Border = borders.SolidColor(Colors.DarkGray, 0.5f, true);
+                _slider.HandleGraphics.Border = borders.SolidColor(Colors.White, 0.5f, true);
                 HoverEffect.Add(_slider.Graphics, Colors.Green, Colors.LightGray);
                 HoverEffect.Add(_slider.HandleGraphics, Colors.DarkGreen, Colors.WhiteSmoke);
 
                 _label = factory.GetLabel($"FeaturesTweenLabel_{tweenId}", name, 100f, 20f,
                                           _slider.X + _slider.Graphics.Width / 2f, _slider.Y + 10f, _panel,
-                                          new AGSTextConfig(autoFit: AutoFit.TextShouldFitLabel));
+                                          _game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.TextShouldFitLabel));
                 _label.Pivot = (0.5f, 0f);
 
-                AGSTextConfig idleConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
-                AGSTextConfig hoverConfig = new AGSTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
+                ITextConfig idleConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.White));
+                ITextConfig hoverConfig = _game.Factory.Fonts.GetTextConfig(alignment: Alignment.MiddleCenter, brush: _game.Factory.Graphics.Brushes.LoadSolidBrush(Colors.Black));
 
-                var idle = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 2f), idleConfig, Colors.Transparent);
-                var hovered = new ButtonAnimation(AGSBorders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
-                var pushed = new ButtonAnimation(AGSBorders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
+                var idle = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 2f), idleConfig, Colors.Transparent);
+                var hovered = new ButtonAnimation(borders.SolidColor(Colors.Goldenrod, 2f), hoverConfig, Colors.Yellow);
+                var pushed = new ButtonAnimation(borders.SolidColor(Colors.AliceBlue, 4f), idleConfig, Colors.Transparent);
 
                 _rewindButton = factory.GetButton($"FeaturesTweenRewindButton_{tweenId}", idle, hovered, pushed, 235f, 0f, _panel, "Rewind", width: 100f, height: 30f);
                 _playPauseButton = factory.GetButton($"FeaturesTweenPlayPauseButton_{tweenId}", idle, hovered, pushed, 345f, 0f, _panel, "Pause", width: 100f, height: 30f);

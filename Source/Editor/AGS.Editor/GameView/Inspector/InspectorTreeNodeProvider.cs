@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading;
 using AGS.API;
 using AGS.Engine;
@@ -11,7 +10,6 @@ namespace AGS.Editor
     public class InspectorTreeNodeProvider : ITreeNodeViewProvider
     {
         private ITreeNodeViewProvider _provider;
-        private IGameFactory _factory;
         private float _rowWidth;
         private readonly Dictionary<string, ITreeTableLayout> _layouts;
         private readonly IGameEvents _gameEvents;
@@ -21,13 +19,13 @@ namespace AGS.Editor
 
         private static int _nextNodeId;
 
-        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameFactory factory,
-                                         IGameEvents gameEvents, IObject inspectorPanel)
+        public const string EDITOR_PREFIX = "InspectorEditor_";
+
+        public InspectorTreeNodeProvider(ITreeNodeViewProvider provider, IGameEvents gameEvents, IObject inspectorPanel)
         {
             _inspectorPanel = inspectorPanel;
             _onResize = new AGSEvent<float>();
             _provider = provider;
-            _factory = factory;
             _gameEvents = gameEvents;
             _layouts = new Dictionary<string, ITreeTableLayout>();
             _resizeSubscribers = new Dictionary<ITreeNodeView, ResizeSubscriber>();
@@ -37,10 +35,9 @@ namespace AGS.Editor
         {
             _provider.BeforeDisplayingNode(item, nodeView, isCollapsed, isHovered, isSelected);
             var parent = item.TreeNode.Parent;
-            if (parent != null && parent.TreeNode.Parent == null)
-            {
-                displayCategoryRow(nodeView, isSelected);
-            }
+            if (parent == null) return;
+            if (item is IInspectorTreeNode node && !node.IsCategory) return;
+            displayCategoryRow(nodeView, isSelected);
         }
 
         public void Resize(float width)
@@ -49,40 +46,57 @@ namespace AGS.Editor
             _onResize.Invoke(width);
         }
 
-        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer)
+        public ITreeNodeView CreateNode(ITreeStringNode item, IRenderLayer layer, IObject parentObj)
         {
-            var view = _provider.CreateNode(item, layer);
+            var view = _provider.CreateNode(item, layer, parentObj);
             var parent = item.TreeNode.Parent;
-            if (parent != null && parent.TreeNode.Parent == null)
+            var node = item as IInspectorTreeNode;
+            if (parent != null && (node == null || node.IsCategory))
             {
                 setupCategoryRow(view);
             }
-            else if (parent != null && parent.TreeNode.Parent != null)
+            if (parent != null && node != null)
             {
                 var layoutId = parent.Properties.Strings.GetValue("LayoutID", Guid.NewGuid().ToString());
                 var tableLayout = _layouts.GetOrAdd(layoutId, () => new TreeTableLayout(_gameEvents) { ColumnPadding = 20f });
-                view.ParentPanel.OnDisposed(() => tableLayout.Dispose());
+                view.ParentPanel.OnDisposed(() => { tableLayout.Dispose(); _layouts.Remove(layoutId); });
                 view.HorizontalPanel.RemoveComponent<IStackLayoutComponent>();
                 var rowLayout = view.HorizontalPanel.AddComponent<ITreeTableRowLayoutComponent>();
+                rowLayout.FixedWidthOverrides[0] = 15f; //fixed width for the expand button, as the column padding is too much for it
                 rowLayout.Table = tableLayout;
             }
-            var node = item as IInspectorTreeNode;
             if (node == null) return view;
 
 			int nodeId = Interlocked.Increment(ref _nextNodeId);
 			var itemTextId = (item.Text ?? "") + "_" + nodeId;
-            node.Editor.AddEditorUI("InspectorEditor_" + itemTextId, view, node.Property);
+            node.Editor.AddEditorUI($"{EDITOR_PREFIX}{itemTextId}", view, node.Property);
 
             if (node.Property.Object is INotifyPropertyChanged propertyChanged)
             {
                 PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
                 {
                     if (e.PropertyName != node.Property.Name) return;
-                    node.Property.Refresh();
-                    node.Editor.RefreshUI();
+                    IInspectorTreeNode inspectorNode = node;
+                    do
+                    {
+                        inspectorNode.Property.Refresh();
+                        inspectorNode.Editor.RefreshUI();
+                        inspectorNode = inspectorNode.TreeNode.Parent as IInspectorTreeNode;
+                    } while (inspectorNode != null);
                 };
                 propertyChanged.PropertyChanged += onPropertyChanged;
                 view.ParentPanel.OnDisposed(() => propertyChanged.PropertyChanged -= onPropertyChanged);
+            }
+            else if (node.Property is INotifyPropertyChanged propertyValueChanged)
+            {
+                PropertyChangedEventHandler onPropertyChanged = (sender, e) =>
+                {
+                    if (e.PropertyName != nameof(IProperty.Value)) return;
+                    node.Property.Refresh();
+                    node.Editor.RefreshUI();
+                };
+                propertyValueChanged.PropertyChanged += onPropertyChanged;
+                view.ParentPanel.OnDisposed(() => propertyValueChanged.PropertyChanged -= onPropertyChanged);
             }
 
             return view;
@@ -113,7 +127,7 @@ namespace AGS.Editor
         {
             nodeView.TreeItem.Tint = Colors.Transparent;
             nodeView.HorizontalPanel.Tint = isSelected ? Colors.DarkSlateBlue : Colors.Gray.WithAlpha(50);
-            var subscriber = _resizeSubscribers.GetOrAdd(nodeView, () => new ResizeSubscriber(nodeView));
+            var subscriber = _resizeSubscribers.GetOrAdd(nodeView, view => new ResizeSubscriber(view));
             subscriber.Subscribe(_onResize);
             subscriber.Resize(_rowWidth);
         }
@@ -121,21 +135,23 @@ namespace AGS.Editor
         private class ResizeSubscriber
         {
             private ITreeNodeView _nodeView;
+            private readonly Action<float> _resizeCallback;
 
             public ResizeSubscriber(ITreeNodeView nodeView)
             {
                 _nodeView = nodeView;
+                _resizeCallback = Resize;
             }
 
             public void Subscribe(IBlockingEvent<float> resizeEvent)
             {
-                resizeEvent.Unsubscribe(Resize);
-                resizeEvent.Subscribe(Resize);
+                resizeEvent.Unsubscribe(_resizeCallback);
+                resizeEvent.Subscribe(_resizeCallback);
             }
 
             public void Unsubscribe(IBlockingEvent<float> resizeEvent)
             {
-                resizeEvent.Unsubscribe(Resize);
+                resizeEvent.Unsubscribe(_resizeCallback);
             }
 
             public void Resize(float rowWidth)

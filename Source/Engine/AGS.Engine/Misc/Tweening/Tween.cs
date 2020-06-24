@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
 
@@ -325,7 +323,6 @@ namespace AGS.Engine
         private void stop(TweenCompletion completion)
         {
             _gameEvents.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            var repeat = RepeatInfo;
             if (completion == TweenCompletion.Complete)
             {
                 Setter(To);

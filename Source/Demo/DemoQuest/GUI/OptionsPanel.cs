@@ -13,12 +13,13 @@ namespace DemoGame
         private IPanel _panel, _buttonsPanel;
         private IGame _game;
 
-        AGSTextConfig _textConfig = new AGSTextConfig(font: AGSGame.Game.Factory.Fonts.LoadFont(null, 10f),
+        private static IFontFactory _fonts = AGSGame.Game.Factory.Fonts;
+        ITextConfig _textConfig = _fonts.GetTextConfig(font: _fonts.LoadFont(null, 10f),
             brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.DarkOliveGreen),
             alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel,
             outlineBrush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen), outlineWidth: 1f);
 
-        AGSTextConfig _buttonTextConfig = new AGSTextConfig(font: AGSGame.Game.Factory.Fonts.LoadFont(null, 7f, FontStyle.Bold),
+        ITextConfig _buttonTextConfig = _fonts.GetTextConfig(font: _fonts.LoadFont(null, 7f, FontStyle.Bold),
             brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
             alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingLeft: 0f);
 
@@ -39,7 +40,7 @@ namespace DemoGame
             _panel.Visible = false;
             _panel.AddComponent<IModalWindowComponent>();
 
-            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 
             ISlider volumeSlider = await factory.UI.GetSliderAsync("Volume Slider", _sliderFolder + "slider.bmp", 
                _sliderFolder + "handle.bmp", 0.5f, 0f, 1f, _panel, loadConfig: loadConfig);
@@ -129,7 +130,7 @@ namespace DemoGame
 
 		private async void save()
 		{
-            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils, _game.Settings).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to save", FileSelection.FileOnly);
             _game.Settings.Defaults.Skin = null;
             if (file == null) return;
@@ -139,7 +140,7 @@ namespace DemoGame
 
 		private async void load()
 		{
-            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics, AGSGame.GLUtils, _game.Settings).CreateSkin();
+            _game.Settings.Defaults.Skin = new AGSBlueSkin(_game.Factory.Graphics).CreateSkin();
             string file = await AGSSelectFileDialog.SelectFile("Select file to load", FileSelection.FileOnly);
             _game.Settings.Defaults.Skin = null;
             if (file == null) return;

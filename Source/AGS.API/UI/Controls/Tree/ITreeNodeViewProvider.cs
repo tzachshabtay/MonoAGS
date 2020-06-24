@@ -11,7 +11,8 @@
         /// <returns>The node view.</returns>
         /// <param name="node">The text node.</param>
         /// <param name="layer">The rendering layer which all of the tree UI controls should use.</param>
-        ITreeNodeView CreateNode(ITreeStringNode node, IRenderLayer layer);
+        /// <param name="parent">The parent for the node.</param>
+        ITreeNodeView CreateNode(ITreeStringNode node, IRenderLayer layer, IObject parent);
 
         /// <summary>
         /// Called before displaying the node view, and allows for changing the display

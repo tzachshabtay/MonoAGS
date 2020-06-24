@@ -8,8 +8,8 @@ namespace AGS.Editor
     {
         public static void Run()
         {
-            Resolver resolver = new Resolver(AGSGame.Device, new AGSGameSettings("MonoAGS Editor", new AGS.API.Size(1280, 800),
-               windowSize: new AGS.API.Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
+            Resolver resolver = new Resolver(AGSGame.Device, new AGSGameSettings("MonoAGS Editor", new Size(1280, 800),
+               windowSize: new Size(1280, 800), windowState: WindowState.Normal, preserveAspectRatio: false));
             IGame game = AGSGame.Create(resolver);
 
             //Rendering the text at a 4 time higher resolution than the actual game, so it will still look sharp when maximizing the window.
@@ -20,8 +20,11 @@ namespace AGS.Editor
             {
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly), 1));
-                game.Factory.Fonts.InstallFonts("Fonts/Font Awesome 5 Free-Solid-900.otf");
+                game.Factory.Fonts.InstallFonts("Fonts/Font Awesome 5 Free-Solid-900.otf", "Fonts/Fira/FiraSans-Regular.ttf");
                 FontIcons.Init(game.Factory.Fonts);
+                var font = game.Factory.Fonts.LoadFontFromPath("Fonts/Fira/FiraSans-Regular.ttf", 14f, FontStyle.Regular);
+                game.Settings.Defaults.Fonts.Text = font;
+                game.Settings.Defaults.Fonts.Speech = font;
 
                 AGSEditor editor = resolver.Container.Resolve<AGSEditor>();
                 editor.Editor = game;
@@ -33,6 +36,7 @@ namespace AGS.Editor
                 screen.Show();
 
                 var room = game.Factory.Room.GetRoom("MainEditorRoom");
+                ReflectionCache.Refresh();
                 await game.State.ChangeRoomAsync(room);
             });
 

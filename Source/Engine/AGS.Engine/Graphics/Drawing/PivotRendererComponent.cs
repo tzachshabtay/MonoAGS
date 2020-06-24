@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -11,7 +10,6 @@ namespace AGS.Engine
         private readonly ObjectPool<Instruction> _pool;
         private IBoundingBoxComponent _boundingBox;
         private IImageComponent _image;
-        private IEntity _entity;
 
         public PivotRendererComponent(IGLUtils utils, IAGSRenderPipeline pipeline)
         {
@@ -19,22 +17,20 @@ namespace AGS.Engine
             _pool = new ObjectPool<Instruction>(pool => new Instruction(pool, utils), 2);
         }
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
-            entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            _pipeline.Subscribe(entity.ID, this, -200);
+            base.Init();
+            Entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            _pipeline.Subscribe(Entity.ID, this, -200);
 		}
 
 		public override void Dispose()
 		{
-            base.Dispose();
-            var entity = _entity;
+            var entity = Entity;
             if (entity == null) return;
             _pipeline.Unsubscribe(entity.ID, this);
-            _entity = null;
+            base.Dispose();
 		}
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)

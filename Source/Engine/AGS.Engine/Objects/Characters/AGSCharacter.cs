@@ -19,7 +19,8 @@ namespace AGS.Engine
             AddComponent<ISayComponent>(_sayComponent);
         }
 
-        partial void afterInitComponents(Resolver resolver, IOutfit outfit)
+	    // ReSharper disable once UnusedParameterInPartialMethod
+	    partial void afterInitComponents(Resolver resolver, IOutfit outfit)
 		{
 			RenderLayer = AGSLayers.Foreground;
 			IgnoreScalingArea = false;

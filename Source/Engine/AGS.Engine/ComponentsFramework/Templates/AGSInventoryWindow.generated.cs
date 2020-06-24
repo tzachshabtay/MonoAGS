@@ -87,7 +87,9 @@ namespace AGS.Engine
 
         public string Name { get { return ID; } }
         public bool AllowMultiple { get { return false; } }
-        public void Init(IEntity entity) {}
+        public IEntity Entity { get => this; }
+        public Type RegistrationType { get => typeof(IEntity); }
+        public void Init(IEntity entity, Type registrationType) { }
 
         public override string ToString()
         {
@@ -609,6 +611,36 @@ namespace AGS.Engine
         public Int32 RowCount 
         {  
             get { return _inventoryWindowComponent.RowCount; } 
+        }
+
+        public float PaddingLeft
+        {
+            get { return _inventoryWindowComponent.PaddingLeft; }
+            set { _inventoryWindowComponent.PaddingLeft = value; }
+        }
+
+        public float PaddingRight
+        {
+            get { return _inventoryWindowComponent.PaddingRight; }
+            set { _inventoryWindowComponent.PaddingRight = value; }
+        }
+
+        public float PaddingTop
+        {
+            get { return _inventoryWindowComponent.PaddingTop; }
+            set { _inventoryWindowComponent.PaddingTop = value; }
+        }
+
+        public float PaddingBottom
+        {
+            get { return _inventoryWindowComponent.PaddingBottom; }
+            set { _inventoryWindowComponent.PaddingBottom = value; }
+        }
+
+        public SizeF PaddingBetweenItems
+        {
+            get { return _inventoryWindowComponent.PaddingBetweenItems; }
+            set { _inventoryWindowComponent.PaddingBetweenItems = value; }
         }
 
         public void ScrollUp()

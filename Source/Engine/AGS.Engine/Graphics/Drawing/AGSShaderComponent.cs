@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -8,4 +7,3 @@ namespace AGS.Engine
 		public IShader Shader { get; set; }
 	}
 }
-

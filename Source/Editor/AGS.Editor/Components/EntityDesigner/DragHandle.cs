@@ -9,7 +9,6 @@ namespace AGS.Editor
     public class DragHandle
     {
         private IObject _handle;
-        private readonly IInput _input;
         private readonly IGameState _state;
         private readonly ActionManager _actions;
         private readonly AGSEditor _editor;
@@ -23,16 +22,15 @@ namespace AGS.Editor
 
         private float _offsetX, _offsetY;
 
-        public DragHandle(IObject handle, AGSEditor editor, IGameState state, IInput input, ActionManager actions, bool needMoveCursor)
+        public DragHandle(IObject handle, AGSEditor editor, IGameState state, ActionManager actions, bool needMoveCursor)
         {
             _editor = editor;
             _actions = actions;
             _state = state;
-            _input = input;
             _handle = handle;
             _handle.Visible = false;
             _handle.Enabled = true;
-            _handle.Border = AGSBorders.SolidColor(Colors.WhiteSmoke, 2f);
+            _handle.Border = editor.Editor.Factory.Graphics.Borders.SolidColor(Colors.WhiteSmoke, 2f);
             _handle.RenderLayer = AGSLayers.UI;
             _handle.IsPixelPerfect = false;
             _handle.AddComponent<IUIEvents>();
@@ -41,11 +39,12 @@ namespace AGS.Editor
 
             if (needMoveCursor)
             {
-                _moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
-                _moveCursor.Pivot = new PointF(0.5f, 0.5f);
-                _moveCursor.Text = FontIcons.Move;
+                var moveCursor = editor.Editor.Factory.UI.GetLabel("MoveCursor", "", 25f, 25f, 0f, 0f, config: FontIcons.IconConfig, addToUi: false);
+                _moveCursor = moveCursor;
+                moveCursor.Pivot = new PointF(0.5f, 0.5f);
+                moveCursor.Text = FontIcons.Move;
 
-                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = _moveCursor;
+                _handle.AddComponent<IHasCursorComponent>().SpecialCursor = moveCursor;
             }
 
             state.UI.Add(_handle);
@@ -124,14 +123,11 @@ namespace AGS.Editor
 
             LastDragged = DateTime.Now;
 
-            var handleBottomLeft = handle.WorldBoundingBox.BottomLeft;
-            var (entityBottomLeftX, entityBottomLeftY) = _editor.ToGameResolution(handleBottomLeft.X, handleBottomLeft.Y, _drawable);
-
             var (translateX, translateY) = _editor.ToGameResolution(handle.X, handle.Y, _drawable);
             (translateX, translateY) = (translateX + _offsetX, translateY + _offsetY);
 
-            InspectorProperty property = new InspectorProperty(_translate, "Position", _translate.GetType().GetProperty(nameof(ITranslate.Position)));
-            PropertyAction action = new PropertyAction(property, new Position(translateX, translateY));
+            InspectorProperty property = new InspectorProperty(_translate, null, nameof(ITranslate.Position), _translate.GetType().GetProperty(nameof(ITranslate.Position)));
+            PropertyAction action = new PropertyAction(property, new Position(translateX, translateY), _editor.Project.Model);
             _actions.RecordAction(action);
         }
     }

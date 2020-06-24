@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine.UI.Controls
 {
@@ -10,20 +11,21 @@ namespace AGS.Engine.UI.Controls
         private ITextComponent _text;
         private IImageComponent _image;
         private IBorderComponent _border;
+        private IRadioGroup _radioGroup;
 
         public AGSCheckboxComponent()
         {
             OnCheckChanged = new AGSEvent<CheckBoxEventArgs>();
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
-			entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
-			entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
-            entity.Bind<IBorderComponent>(c => _border = c, _ => _border = null);
-			entity.Bind<IUIEvents>(c =>
+            base.Init();
+            Entity.Bind<IAnimationComponent>(c => _animation = c, _ => _animation = null);
+            Entity.Bind<ITextComponent>(c => _text = c, _ => _text = null);
+            Entity.Bind<IImageComponent>(c => _image = c, _ => _image = null);
+            Entity.Bind<IBorderComponent>(c => _border = c, _ => _border = null);
+            Entity.Bind<IUIEvents>(c =>
 			{
 				_events = c;
 				c.MouseEnter.Subscribe(onMouseEnter);
@@ -44,7 +46,7 @@ namespace AGS.Engine.UI.Controls
             set
             {
                 _checked = value;
-                onCheckChange();
+                onCheckChange(false);
             }
         }
 
@@ -59,6 +61,34 @@ namespace AGS.Engine.UI.Controls
         public ILabel TextLabel { get; set; }
 
         public IBlockingEvent<CheckBoxEventArgs> OnCheckChanged { get; private set; }
+
+        public IRadioGroup RadioGroup
+        {
+            get => _radioGroup;
+            set 
+            {
+                var existing = _radioGroup;
+                if (existing != null)
+                {
+                    existing.PropertyChanged -= onRadioPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += onRadioPropertyChanged;
+                }
+                _radioGroup = value;
+            }
+        }
+
+        private void onRadioPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(IRadioGroup.SelectedButton)) return;
+            var radioGroup = _radioGroup;
+            if (radioGroup == null) return;
+            bool isMe = radioGroup.SelectedButton == this || radioGroup.SelectedButton == Entity;
+            if (isMe && !_checked) Checked = true;
+            else if (!isMe && _checked) Checked = false;
+        }
 
         private void onMouseEnter(MousePositionEventArgs e)
         {
@@ -76,17 +106,22 @@ namespace AGS.Engine.UI.Controls
             if (events?.IsMouseIn ?? false)
             {
                 _checked = !_checked;
-                onCheckChange();
+                onCheckChange(true);
             }
         }
 
-        private void onCheckChange()
+        private void onCheckChange(bool userInitiated)
         {
+            var radio = _radioGroup;
+            if (radio != null && _checked)
+            {
+                radio.SelectedButton = this;
+            }
             var events = _events;
             startAnimation(events != null && events.IsMouseIn ? (Checked ? HoverCheckedAnimation ?? CheckedAnimation : 
                                                           HoverNotCheckedAnimation ?? NotCheckedAnimation) :
                 (Checked ? CheckedAnimation : NotCheckedAnimation));
-            OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked));
+            OnCheckChanged.Invoke(new CheckBoxEventArgs(Checked, userInitiated));
         }
 
         private void startAnimation(ButtonAnimation button)

@@ -1,10 +1,9 @@
-﻿using System;
-
-namespace AGS.Engine
+﻿namespace AGS.Engine
 {
 	public partial class AGSObject
 	{
-		partial void afterInitComponents(Resolver resolver)
+	    // ReSharper disable once UnusedParameterInPartialMethod
+	    partial void afterInitComponents(Resolver resolver)
 		{
 			RenderLayer = AGSLayers.Foreground;
 			IgnoreScalingArea = true;

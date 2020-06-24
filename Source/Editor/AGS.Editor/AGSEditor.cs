@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using Autofac;
 using GuiLabs.Undo;
@@ -21,12 +20,16 @@ namespace AGS.Editor
 
         public UIEventsAggregator UIEventsAggregator { get; private set; }
 
+        public AGSProject Project { get; set; }
+
+        public CanvasHitTest CanvasHitTest { get; set; }
+
         public void Init()
         {
             UIEventsAggregator = new UIEventsAggregator(Editor.Input, Game.HitTest, Editor.Events, Editor.State.FocusedUI);
         }
 
-        public (float, float) ToGameResolution(float x, float y, IDrawableInfoComponent drawable)
+        public (float x, float y) ToGameResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
             x = MathUtils.Lerp(0f, 0f, Editor.Settings.VirtualResolution.Width, Game.Settings.WindowSize.Width, x);
@@ -45,7 +48,7 @@ namespace AGS.Editor
             return (x, y);
         }
 
-        public (float, float) ToEditorResolution(float x, float y, IDrawableInfoComponent drawable)
+        public (float x, float y) ToEditorResolution(float x, float y, IDrawableInfoComponent drawable)
         {
             var viewport = Game.State.Viewport;
             if (drawable != null && !drawable.IgnoreViewport)
@@ -78,13 +81,22 @@ namespace AGS.Editor
             return (width, height);
         }
 
+        public bool IsEditorPositionInGameWindow(float x, float y)
+        {
+            (x, y) = ToGameResolution(x, y, null);
+            if (x < 0 || x > Game.Settings.VirtualResolution.Width) return false;
+            if (y < 0 || y > Game.Settings.VirtualResolution.Height) return false;
+            return true;
+        }
+
         public static void SetupResolver()
         {
             Resolver.Override(resolver => resolver.Builder.RegisterType<KeyboardBindings>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterType<ActionManager>().SingleInstance());
             Resolver.Override(resolver => resolver.Builder.RegisterAssemblyTypes(typeof(GameLoader).Assembly).
-                              Except<InspectorTreeNodeProvider>().Except<EditorShouldBlockEngineInput>().Except<EditorUIEvents>().AsImplementedInterfaces().ExternallyOwned());
+                              Except<EditorShouldBlockEngineInput>().Except<EditorUIEvents>().AsImplementedInterfaces().ExternallyOwned());
             Resolver.Override(resolver => { var editor = new AGSEditor(resolver); resolver.Builder.RegisterInstance(editor); });
+            Resolver.Override(resolver => resolver.RegisterType<AGSTreeNodeViewProvider, ITreeNodeViewProvider>());
         }
 
         public static IEditorPlatform Platform { get; set; }

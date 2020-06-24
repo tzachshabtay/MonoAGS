@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AGS.API;
@@ -9,15 +10,20 @@ namespace AGS.Engine
     public class AGSTreeViewComponent : AGSComponent, ITreeViewComponent
     {
         private Node _root;
-        private IGameState _state;
+        private readonly IGameState _state;
+        private readonly IGameSettings _settings;
         private IInObjectTreeComponent _treeComponent;
         private ITreeStringNode _tree;
         private IDrawableInfoComponent _drawable;
+        private ICropChildrenComponent _crop;
+        private IScrollingComponent _scrolling;
+        private IBoundingBoxComponent _scrollingBox, _box;
         private string _searchFilter;
         private TaskCompletionSource<object> _currentSearchToken;
-        private bool _skipRenderingRoot;
+        private bool _skipRenderingRoot, _layoutPaused;
+        private IEntity _scrollingContainer;
 
-        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state)
+        public AGSTreeViewComponent(ITreeNodeViewProvider provider, IGameState state, IGameSettings settings)
         {
             HorizontalSpacing = 10f;
             VerticalSpacing = 30f;
@@ -26,6 +32,7 @@ namespace AGS.Engine
             OnNodeCollapsed = new AGSEvent<NodeEventArgs>();
             AllowSelection = SelectionType.Single;
             _state = state;
+            _settings = settings;
             NodeViewProvider = provider;
         }
 
@@ -47,6 +54,10 @@ namespace AGS.Engine
         public float HorizontalSpacing { get; set; }
 
         public float VerticalSpacing { get; set; }
+
+        public float TopPadding { get; set; }
+
+        public float LeftPadding { get; set; }
 
         public SelectionType AllowSelection { get; set; }
 
@@ -71,17 +82,43 @@ namespace AGS.Engine
             }
         }
 
+        public bool LayoutPaused
+        {
+            get => _layoutPaused;
+            set
+            {
+                _layoutPaused = value;
+                RefreshLayout(); 
+            }
+        }
+
         public IBlockingEvent<NodeEventArgs> OnNodeSelected { get; }
 
         public IBlockingEvent<NodeEventArgs> OnNodeExpanded { get; }
 
         public IBlockingEvent<NodeEventArgs> OnNodeCollapsed { get; }
 
-        public override void Init(IEntity entity)
+        public IEntity ScrollingContainer
         {
-            base.Init(entity);
-            entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
-            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            get => _scrollingContainer;
+            set
+            {
+                _scrollingContainer = value;
+                if (value != null)
+                {
+                    value.Bind<ICropChildrenComponent>(c => { _crop = c; c.PropertyChanged += onCropPropertyChanged; }, c => { _crop = null; c.PropertyChanged -= onCropPropertyChanged; });
+                    value.Bind<IBoundingBoxComponent>(c => { _scrollingBox = c; c.OnBoundingBoxesChanged.Subscribe(refreshTree); refreshTree(); }, c => { _scrollingBox = null; c.OnBoundingBoxesChanged.Unsubscribe(refreshTree); });
+                    value.Bind<IScrollingComponent>(c => _scrolling = c, _ => _scrolling = null);
+                }
+            }
+        }
+
+        public override void Init()
+        {
+            base.Init();
+            Entity.Bind<IInObjectTreeComponent>(c => _treeComponent = c, _ => _treeComponent = null);
+            Entity.Bind<IDrawableInfoComponent>(c => { _drawable = c; refreshTree(); }, _ => _drawable = null);
+            Entity.Bind<IBoundingBoxComponent>(c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(refreshTree); refreshTree(); }, c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(refreshTree); });
         }
 
         public override void Dispose()
@@ -128,6 +165,12 @@ namespace AGS.Engine
             nodeView?.Select();
         }
 
+        private void onCropPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof (ICropChildrenComponent.StartPoint)) return;
+            refreshTree();
+        }
+
         private async void applySearchOnIdle()
         {
             _currentSearchToken?.TrySetResult(null);
@@ -165,10 +208,23 @@ namespace AGS.Engine
 
         private void refreshTree()
         {
+            if (_layoutPaused) return;
             var root = _root;
-            if (root != null)
+            var box = _box;
+            var drawable = _drawable;
+            if (root != null && box != null && drawable != null)
             {
-                root.ResetOffsets(0f, 0f, HorizontalSpacing, -VerticalSpacing);
+                float minY = 0f;
+                var worldHeight = _settings.VirtualResolution.Height;
+                var layerHeight = drawable.RenderLayer.IndependentResolution?.Height ?? worldHeight;
+                float startY = MathUtils.Lerp(0f, 0f, worldHeight, layerHeight, box.WorldBoundingBox.Height) - TopPadding;
+                root.ResetOffsets(startY, startY, HorizontalSpacing, -VerticalSpacing, ref minY);
+                if (root.View?.ParentPanel != null)
+                    root.View.ParentPanel.X = LeftPadding;
+                if (_scrolling != null)
+                {
+                    _scrolling.ContentsHeight = startY - minY + VerticalSpacing;
+                }
                 List<IObject> uiObjectsToAdd = new List<IObject>();
                 processTree(root, uiObjectsToAdd);
                 if (uiObjectsToAdd.Count > 0)
@@ -238,7 +294,8 @@ namespace AGS.Engine
             if (currentNode == null || currentNode.Item != actualNode)
             {
                 if (currentNode != null) removeFromUI(currentNode);
-                currentNode = new Node(actualNode, () => _drawable, () => _treeComponent, null, this);
+                currentNode = new Node(actualNode, _state, () => _drawable, () => _treeComponent, () => _scrollingBox, () => _crop,
+                                       null, this, _settings);
             }
             int maxChildren = Math.Max(currentNode.Children.Count, actualNode.TreeNode.Children.Count);
             for (int i = 0; i < maxChildren; i++)
@@ -248,8 +305,8 @@ namespace AGS.Engine
                 if (nodeChild == null && actualChild == null) continue;
                 if (nodeChild == null)
                 {
-                    var drawable = _drawable;
-                    var newNode = new Node(actualChild, () => _drawable, () => null, currentNode, this);
+                    var newNode = new Node(actualChild, _state, () => _drawable, () => null, () => _scrollingBox, () => _crop, 
+                                           currentNode, this, _settings);
 					newNode = buildTree(newNode, actualChild);
                     currentNode.Children.Add(newNode);
                     continue;
@@ -315,8 +372,12 @@ namespace AGS.Engine
         {
             private ITreeViewComponent _tree;
             private bool _isCollapsed, _isExpandButtonHovered, _isNodeHovered;
-            private Func<IDrawableInfoComponent> _drawable;
-            private Func<IInObjectTreeComponent> _treeObj;
+            private readonly Func<IDrawableInfoComponent> _drawable;
+            private readonly Func<IInObjectTreeComponent> _treeObj;
+            private readonly Func<IBoundingBoxComponent> _box;
+            private readonly Func<ICropChildrenComponent> _crop;
+            private readonly IGameState _state;
+            private readonly IGameSettings _settings;
 
             public enum SearchFilterMode
             {
@@ -326,20 +387,22 @@ namespace AGS.Engine
                 NotVisible
             }
 
-            public Node(ITreeStringNode item, Func<IDrawableInfoComponent> drawable, Func<IInObjectTreeComponent> treeObj, Node parentNode, ITreeViewComponent tree)
+            public Node(ITreeStringNode item, IGameState state, Func<IDrawableInfoComponent> drawable, 
+                        Func<IInObjectTreeComponent> treeObj, Func<IBoundingBoxComponent> box, Func<ICropChildrenComponent> crop, 
+                        Node parentNode, ITreeViewComponent tree, IGameSettings settings)
             {
                 _tree = tree;
+                _state = state;
                 _drawable = drawable;
                 _treeObj = treeObj;
+                _settings = settings;
+                _box = box;
+                _crop = crop;
                 Item = item;
                 Parent = parentNode;
                 Children = new List<Node>();
                 _isCollapsed = true;
                 IsNew = true;
-                if (parentNode == null)
-                {
-                    initView();
-                }
             }
 
             public ITreeStringNode Item { get; }
@@ -353,21 +416,18 @@ namespace AGS.Engine
                 get => _isCollapsed;
                 set
                 {
+                    if (_isCollapsed == value) return;
                     _isCollapsed = value;
+                    updateVisibilityWithChildren();
+                    _tree.RefreshLayout();
                     if (value) _tree.OnNodeCollapsed.Invoke(new NodeEventArgs(Item));
-                    else
-                    {
-                        foreach (var child in Children)
-                        {
-                            child.initView();
-                        }
-                        _tree.OnNodeExpanded.Invoke(new NodeEventArgs(Item));
-                    }
+                    else _tree.OnNodeExpanded.Invoke(new NodeEventArgs(Item));
                 }
             }
             public bool IsHovered { get => _isNodeHovered || _isExpandButtonHovered; }
             public bool IsSelected { get; private set; }
-            public float XOffset { get; private set; }
+            public bool Visible { get; private set; }
+            public float OverallYOffset { get; private set; }
             public SearchFilterMode FilterMode { get; private set; }
 
             public void Dispose()
@@ -377,6 +437,7 @@ namespace AGS.Engine
                 view.TreeItem.MouseEnter.Unsubscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Unsubscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Unsubscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Unsubscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
@@ -430,10 +491,16 @@ namespace AGS.Engine
                 }
             }
 
-            public float ResetOffsets(float xOffset, float yOffset, float spacingX, float spacingY)
+            public float ResetOffsets(float yOffset, float overallYOffset, float spacingX, float spacingY, ref float minY)
             {
                 bool skipRoot = _tree.SkipRenderingRoot && Parent == null;
-                xOffset += skipRoot ? 0f : spacingX;
+                float xOffset = skipRoot ? 0f : spacingX;
+                OverallYOffset = overallYOffset;
+                if (overallYOffset < minY)
+                {
+                    minY = overallYOffset;
+                }
+                initView();
                 var view = View;
                 if (view != null)
                 {
@@ -443,10 +510,10 @@ namespace AGS.Engine
                 var childYOffset = skipRoot ? 0f : spacingY;
                 foreach (var child in Children)
                 {
-                    childYOffset = child.ResetOffsets(xOffset, childYOffset, spacingX, spacingY);
+                    childYOffset = child.ResetOffsets(childYOffset, overallYOffset + childYOffset, spacingX, spacingY, ref minY);
                 }
 
-                if (view == null || !view.ParentPanel.Visible) return yOffset;
+                if (!Visible) return yOffset;
                 return yOffset + childYOffset;
             }
 
@@ -466,13 +533,11 @@ namespace AGS.Engine
             public void Expand()
             {
                 IsCollapsed = false;
-                refreshCollapseExpand();
             }
 
             public void Collapse()
             {
                 IsCollapsed = true;
-                refreshCollapseExpand();
             }
 
             public void RefreshDisplay()
@@ -512,21 +577,40 @@ namespace AGS.Engine
 
             private void initView()
             {
-                if (View != null) return;
+                if (View != null || _tree.LayoutPaused) return;
+                var crop = _crop();
+                var box = _box();
                 var drawable = _drawable();
-                var view = _tree.NodeViewProvider.CreateNode(Item,
-                                     drawable == null ? AGSLayers.UI : drawable.RenderLayer);
+                if (crop != null && box != null && drawable != null)
+                {
+                    var worldHeight = _settings.VirtualResolution.Height;
+                    var layerHeight = drawable.RenderLayer.IndependentResolution?.Height ?? worldHeight;
+
+                    var height = box.GetBoundingBoxes(_state.Viewport).ViewportBox.Height;
+                    if (OverallYOffset > crop.StartPoint.Y + height || OverallYOffset < crop.StartPoint.Y)
+                    {
+                        return;
+                    }
+                }
+                if (View != null) return; //The GetBoundingBoxes call above might trigger a bounding box change event, which can trigger another initView call. So we need to check again that view is not null so to not create two GUIs for the same node.
                 var parentNode = Parent;
                 if (parentNode != null)
                 {
                     parentNode.initView();
-                    view.ParentPanel.TreeNode.SetParent(parentNode.View.VerticalPanel.TreeNode);
-                    view.ParentPanel.Visible = !parentNode.IsCollapsed;
+                    if (parentNode.View == null) return;
+                    Visible = !parentNode.IsCollapsed;
                 }
+                else Visible = true;
+                if (!Visible) return;
+                var view = _tree.NodeViewProvider.CreateNode(Item,
+                                 drawable == null ? AGSLayers.UI : drawable.RenderLayer,
+                                 parentNode?.View.VerticalPanel);
+                view.ParentPanel.Visible = Visible;
 
                 view.TreeItem.MouseEnter.Subscribe(onMouseEnterNode);
                 view.TreeItem.MouseLeave.Subscribe(onMouseLeaveNode);
                 view.TreeItem.MouseClicked.Subscribe(onItemSelected);
+                view.OnRefreshDisplayNeeded.Subscribe(RefreshDisplay);
                 var expandButton = view.ExpandButton;
                 if (expandButton != null)
                 {
@@ -555,7 +639,7 @@ namespace AGS.Engine
             {
                 var view = View;
                 if (view == null) return null;
-                return (IUIEvents)view.ExpandButton ?? view.TreeItem;
+                return view.ExpandButton ?? view.TreeItem;
             }
 
             private void onMouseEnterExpandButton(MousePositionEventArgs args)
@@ -586,21 +670,14 @@ namespace AGS.Engine
 
             private void onMouseClicked(MouseButtonEventArgs args)
             {
-                IsCollapsed = !IsCollapsed;
-                refreshCollapseExpand();
-            }
 
-            private void refreshCollapseExpand()
-            {
-				foreach (var child in Children)
-				{
-                    child.updateVisibility();
-				}
-                _tree.RefreshLayout();
+                IsCollapsed = !IsCollapsed;
             }
 
             private void updateVisibility()
             {
+                Visible = !(Parent?.IsCollapsed ?? false) && FilterMode != SearchFilterMode.NotVisible;
+                initView();
                 var view = View;
                 if (view == null) return;
                 if (_tree.SkipRenderingRoot && Parent == null)
@@ -608,7 +685,7 @@ namespace AGS.Engine
                     view.HorizontalPanel.Visible = false;
                     return;
                 }
-                view.ParentPanel.Visible = !(Parent?.IsCollapsed ?? false) && FilterMode != SearchFilterMode.NotVisible;
+                view.ParentPanel.Visible = Visible;
             }
 
             private void onItemSelected(MouseButtonEventArgs args)

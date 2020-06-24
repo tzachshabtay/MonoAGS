@@ -3,6 +3,7 @@
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
 	public class AGSInventoryItem : IInventoryItem
 	{
         private readonly InventorySubscriptions _subscriptions;

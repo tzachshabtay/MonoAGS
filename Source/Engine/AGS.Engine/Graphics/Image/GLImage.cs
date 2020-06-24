@@ -28,7 +28,7 @@ namespace AGS.Engine
 
         ~GLImage()
         {
-            dispose(false);
+            dispose();
         }
 
         [Property(Browsable = false)]
@@ -52,11 +52,11 @@ namespace AGS.Engine
 
         public void Dispose()
         {
-            dispose(true);
+            dispose();
             GC.SuppressFinalize(this);
         }
 
-        private void dispose(bool disposing)
+        private void dispose()
         {
             Texture = null;
             OnImageDisposed?.Invoke();

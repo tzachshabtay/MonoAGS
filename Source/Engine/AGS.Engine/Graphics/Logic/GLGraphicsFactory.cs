@@ -1,9 +1,9 @@
 ﻿using System;
-using AGS.API;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Autofac;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using AGS.API;
+using Autofac;
 
 namespace AGS.Engine
 {
@@ -16,13 +16,14 @@ namespace AGS.Engine
 		private readonly SpriteSheetLoader _spriteSheetLoader;
         private readonly IRenderThread _renderThread;
 
-        public GLGraphicsFactory (ITextureCache textures, Resolver resolver, IGLUtils glUtils, 
+        public GLGraphicsFactory (ITextureCache textures, Resolver resolver,
                                   IGraphicsBackend graphics, IBitmapLoader bitmapLoader, IRenderThread renderThread,
                                   IResourceLoader resources, IIconFactory icons, IBrushLoader brushes, 
-                                  IRenderMessagePump messagePump, IGameSettings settings)
+                                  IRenderMessagePump messagePump, IGameSettings settings, IBorderFactory borders)
 		{
             Icons = icons;
             Brushes = brushes;
+            Borders = borders;
             _renderThread = renderThread;
 			_textures = textures;
 			_resolver = resolver;
@@ -30,12 +31,14 @@ namespace AGS.Engine
 			_bitmapLoader = bitmapLoader;
             _spriteSheetLoader = new SpriteSheetLoader (_resources, _bitmapLoader, addAnimationFrame, loadImage, graphics, messagePump);
             
-            settings.Defaults.Skin = new AGSBlueSkin(this, glUtils, settings).CreateSkin();
+            settings.Defaults.Skin = new AGSBlueSkin(this).CreateSkin();
 		}
 
-        public IIconFactory Icons { get; private set; }
+        public IBorderFactory Borders { get; }
 
-        public IBrushLoader Brushes { get; private set; }
+        public IIconFactory Icons { get; }
+
+        public IBrushLoader Brushes { get; }
 
 		public ISprite GetSprite()
 		{
@@ -257,7 +260,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentException e)
                 {
-                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 }
             });
             return bitmap;
@@ -265,15 +268,15 @@ namespace AGS.Engine
 
         private async Task<IBitmap> loadBitmapAsync(IResource resource)
         {
+            if (resource == null)
+                return _bitmapLoader.Load(1, 1);
             try
             {
-                if (resource == null)
-                    return _bitmapLoader.Load(1, 1);
                 return await Task.Run(() => _bitmapLoader.Load(resource.Stream));
             }
             catch (ArgumentException e)
             {
-                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 return null;
             }
         }
@@ -307,7 +310,7 @@ namespace AGS.Engine
                 }
                 catch (ArgumentException e)
                 {
-                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString());
+                    Debug.WriteLine("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
                 }
             });
             return image;
@@ -315,15 +318,15 @@ namespace AGS.Engine
 
         private async Task<IImage> loadImageAsync (IResource resource, ILoadImageConfig config = null)
 		{
+		    if (resource == null) return new EmptyImage(1f, 1f);
             IBitmap bitmap;
 			try 
 			{
-                if (resource == null) return new EmptyImage(1f, 1f);
 				bitmap = await Task.Run(() => _bitmapLoader.Load (resource.Stream));
 			} 
 			catch (ArgumentException e) 
 			{
-				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e.ToString ());
+				Debug.WriteLine ("Failed to load image from {0}, is it really an image?\r\n{1}", resource.ID, e);
 				return null;
 			}
             IImage image = null;

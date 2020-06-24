@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractTextConfig : IContract<ITextConfig>
 	{
-		public ContractTextConfig()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public IContract<IBrush> Brush { get; set; }
 
 		[ProtoMember(2)]
@@ -55,7 +50,7 @@ namespace AGS.Engine
 
 		public ITextConfig ToItem(AGSSerializationContext context)
 		{
-			AGSTextConfig config = new AGSTextConfig (Brush.ToItem(context), Font.ToItem(context), OutlineBrush.ToItem(context), OutlineWidth,
+            var config = context.Factory.Fonts.GetTextConfig(Brush.ToItem(context), Font.ToItem(context), OutlineBrush.ToItem(context), OutlineWidth,
 				                       ShadowBrush.ToItem(context), ShadowOffsetX, ShadowOffsetY, Alignment, AutoFit, PaddingLeft,
 				                       PaddingRight, PaddingTop, PaddingBottom);
 			return config;
@@ -81,4 +76,3 @@ namespace AGS.Engine
 		#endregion
 	}
 }
-

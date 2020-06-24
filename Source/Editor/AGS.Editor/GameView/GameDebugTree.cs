@@ -20,7 +20,7 @@ namespace AGS.Editor
         private readonly List<RoomSubscriber> _roomSubscribers;
         private readonly InspectorPanel _inspector;
         private readonly ConcurrentDictionary<string, ITreeStringNode> _entitiesToNodes;
-        private IPanel _treePanel, _scrollingPanel, _contentsPanel, _parent;
+        private IPanel _scrollingPanel, _contentsPanel, _parent;
         private ITextBox _searchBox;
 
         private IEnabledComponent _lastSelectedEnabled;
@@ -34,7 +34,6 @@ namespace AGS.Editor
         private bool _lastEnabled;
         private bool _lastClickThrough;
 
-        const float _padding = 42f;
         const float _gutterSize = 15f;
 
         const string _moreRoomsPrefix = "More Rooms";
@@ -42,6 +41,7 @@ namespace AGS.Editor
         const string _objectsPrefix = "Objects";
         const string _areasPrefix = "Areas";
         const string _uiPrefix = "UI";
+        const string _settingsPrefix = "Settings";
 
         public GameDebugTree(AGSEditor editor, IRenderLayer layer, InspectorPanel inspector)
         {
@@ -63,7 +63,7 @@ namespace AGS.Editor
 
             _searchBox = factory.UI.GetTextBox("GameDebugTreeSearchBox", 0f, parent.Height, parent, "Search...", width: parent.Width, height: 30f);
             _searchBox.RenderLayer = _layer;
-            _searchBox.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _searchBox.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _searchBox.Tint = GameViewColors.Textbox;
             _searchBox.Pivot = new PointF(0f, 1f);
             _searchBox.GetComponent<ITextComponent>().PropertyChanged += onSearchPropertyChanged;
@@ -72,19 +72,16 @@ namespace AGS.Editor
             _scrollingPanel.RenderLayer = _layer;
             _scrollingPanel.Pivot = new PointF(0f, 0f);
             _scrollingPanel.Tint = Colors.Transparent;
-            _scrollingPanel.Border = AGSBorders.SolidColor(GameViewColors.Border, 2f);
+            _scrollingPanel.Border = factory.Graphics.Borders.SolidColor(GameViewColors.Border, 2f);
             _contentsPanel = factory.UI.CreateScrollingPanel(_scrollingPanel);
-            _treePanel = factory.UI.GetPanel("GameDebugTreePanel", 1f, 1f, 0f, _contentsPanel.Height - _padding, _contentsPanel);
-            _treePanel.Tint = Colors.Transparent;
-            _treePanel.RenderLayer = _layer;
-            _treePanel.Pivot = new PointF(0f, 1f);
-            _treeView = _treePanel.AddComponent<ITreeViewComponent>();
+            _treeView = _contentsPanel.AddComponent<ITreeViewComponent>();
             _treeView.OnNodeSelected.Subscribe(onTreeNodeSelected);
+            _treeView.TopPadding = 30f;
+            _treeView.LeftPadding = 5f;
             parent.GetComponent<IScaleComponent>().PropertyChanged += (_, args) =>
             {
                 if (args.PropertyName != nameof(IScaleComponent.Height)) return;
                 _contentsPanel.BaseSize = new SizeF(_contentsPanel.Width, parent.Height - _searchBox.Height - _gutterSize);
-                _treePanel.Y = _contentsPanel.Height - _padding;
                 _searchBox.Y = _parent.Height;
             };
         }
@@ -254,6 +251,11 @@ namespace AGS.Editor
             if (args.Node == _lastSelectedNode) return;
             Unselect();
             _lastSelectedNode = args.Node;
+            if (args.Node.Text == _settingsPrefix)
+            {
+                _inspector.Show(_editor.Game.Settings);
+                return;
+            }
             string nodeType = args.Node.Properties.Strings.GetValue(Fields.Type);
             if (nodeType == null) return;
             switch (nodeType)
@@ -273,7 +275,7 @@ namespace AGS.Editor
             _inspector.Show(obj);
             _lastSelectedEntity = obj;
             var host = new AGSComponentHost(_editor.EditorResolver);
-            host.Init(obj);
+            host.Init(obj, typeof(AGSComponentHost));
             TypedParameter uiEventsAggParam = new TypedParameter(typeof(UIEventsAggregator), _editor.UIEventsAggregator);
             var uiEvents = _editor.EditorResolver.Container.Resolve<EditorUIEvents>(uiEventsAggParam);
             obj.AddComponent<EditorUIEvents>(uiEvents);
@@ -281,7 +283,6 @@ namespace AGS.Editor
 
             var visibleComponent = obj.GetComponent<IVisibleComponent>();
             var image = obj.GetComponent<IImageComponent>();
-            var borderComponent = obj.GetComponent<IBorderComponent>();
             var enabledComponent = obj.GetComponent<IEnabledComponent>();
             if (enabledComponent != null)
             {
@@ -326,6 +327,7 @@ namespace AGS.Editor
         {
             _addedObjects.Clear();
             var root = addToTree("Game", null);
+            addToTree(_settingsPrefix, root);
             var ui = addToTree(_uiPrefix, root);
 
             var state = _editor.Game.State;
@@ -394,7 +396,7 @@ namespace AGS.Editor
 
         private ITreeStringNode addToTree(string text, ITreeStringNode parent)
         {
-            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.TextFont);
+            var node = new AGSTreeStringNode(text, _editor.Editor.Settings.Defaults.Fonts.Text);
             if (parent != null) node.TreeNode.SetParent(parent.TreeNode);
             return node;
         }

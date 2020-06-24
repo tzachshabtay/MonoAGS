@@ -13,10 +13,10 @@ namespace AGS.Engine
             MaxScaling = 1f;
         }
 
-		public override void Init(IEntity entity)
+		public override void Init()
         {
-            base.Init(entity);
-            _area = entity.GetComponent<IAreaComponent>();
+            base.Init();
+            _area = Entity.GetComponent<IAreaComponent>();
         }
 
         #region IScalingArea implementation

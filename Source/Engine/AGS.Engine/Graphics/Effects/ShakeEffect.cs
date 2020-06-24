@@ -87,7 +87,7 @@ namespace AGS.Engine
 				return;
 			}
 			shader.Bind();
-            shader.SetVariable("time", (float)Repeat.Do("ShakeEffect"));
+            shader.SetVariable("time", Repeat.Do("ShakeEffect"));
 			var currentStrength = _strength + MathUtils.Random().Next(1000) / 1000000f; //Adding a little jerkiness
 			shader.SetVariable("strength", currentStrength);
             shader.Unbind();

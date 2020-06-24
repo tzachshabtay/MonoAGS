@@ -45,26 +45,26 @@ namespace AGS.Editor
             _rotateHandles = new List<RotateHandle>(4);
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            addResizeHandles(entity, Direction.Right, Direction.Left, Direction.Up, Direction.Down,
+            base.Init();
+            addResizeHandles(Entity, Direction.Right, Direction.Left, Direction.Up, Direction.Down,
                              Direction.UpRight, Direction.UpLeft, Direction.DownRight, Direction.DownLeft);
-            addRotateHandles(entity, Direction.UpRight, Direction.UpLeft, Direction.DownRight, Direction.DownLeft);
-            addPivotHandle(entity);
-            addDragHandle(entity);
+            addRotateHandles(Entity, Direction.UpRight, Direction.UpLeft, Direction.DownRight, Direction.DownLeft);
+            addPivotHandle(Entity);
+            addDragHandle(Entity);
 
-            entity.Bind<IScaleComponent>(setScale, _ => setScale(null));
-            entity.Bind<IRotateComponent>(setRotate, _ => setRotate(null));
-            entity.Bind<IImageComponent>(setImage, _ => setImage(null));
-            entity.Bind<ITranslateComponent>(setTranslate, _ => setTranslate(null));
-            entity.Bind<IDrawableInfoComponent>(setDrawable, _ => setDrawable(null));
+            Entity.Bind<IScaleComponent>(setScale, _ => setScale(null));
+            Entity.Bind<IRotateComponent>(setRotate, _ => setRotate(null));
+            Entity.Bind<IImageComponent>(setImage, _ => setImage(null));
+            Entity.Bind<ITranslateComponent>(setTranslate, _ => setTranslate(null));
+            Entity.Bind<IDrawableInfoComponent>(setDrawable, _ => setDrawable(null));
 
-            entity.Bind<IBoundingBoxComponent>(
+            Entity.Bind<IBoundingBoxComponent>(
                 c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(onBoundingBoxChanged); _pivotHandle?.SetBox(c); _dragHandle?.SetBox(c); updatePositions(); },
                 c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(onBoundingBoxChanged); _pivotHandle?.SetBox(null); _dragHandle?.SetBox(null); });
 
-            entity.Bind<EditorUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
+            Entity.Bind<EditorUIEvents>(c => c.MouseClicked.Subscribe(onMouseClicked), c => c.MouseClicked.Unsubscribe(onMouseClicked));
 
             _events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
@@ -164,10 +164,10 @@ namespace AGS.Editor
         private void addDragHandle(IEntity entity)
         {
             var obj = _factory.Object.GetObject($"{entity.ID}_DragHandle");
-            _dragHandle = new DragHandle(obj, _editor, _state, _input, _actions, true);
+            _dragHandle = new DragHandle(obj, _editor, _state, _actions, true);
         }
 
-        private void onRepeatedlyExecute(IRepeatedlyExecuteEventArgs obj)
+        private void onRepeatedlyExecute()
         {
             foreach (var handle in _resizeHandles) handle.Visit();
             foreach (var handle in _rotateHandles) handle.Visit();

@@ -1,20 +1,18 @@
 ﻿using System;
-using System.ComponentModel;
 using AGS.API;
 using PropertyChanged;
 
 namespace AGS.Engine
 {
     [DoNotNotify]
-    public abstract class AGSObjectBoolParentProperty<TComponent> : AGSComponent where TComponent : API.IComponent
+    public abstract class AGSObjectBoolParentProperty<TComponent> : AGSComponent where TComponent : IComponent
     {
         private readonly Predicate<IObject> _getProperty;
         private readonly string _valuePropertyName, _underlyingPropertyName;
         private IInObjectTreeComponent _tree;
         private bool _underlyingValue, _lastValue, _initializedValue;
-        private API.IComponent _lastParentComponent;
-        private API.IComponentBinding _lastParentBinding;
-        private IEntity _entity;
+        private IComponent _lastParentComponent;
+        private IComponentBinding _lastParentBinding;
 
         public AGSObjectBoolParentProperty(Predicate<IObject> getProperty,
                                            string valuePropertyName, string underlyingPropertyName)
@@ -25,16 +23,10 @@ namespace AGS.Engine
             UnderlyingValue = true;
         }
 
-        public override void Init(IEntity entity)
-        {
-            _entity = entity;
-            base.Init(entity);
-        }
-
         public override void AfterInit()
         {
             base.AfterInit();
-            _entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
+            Entity.Bind<IInObjectTreeComponent>(c => { _tree = c; c.TreeNode.OnParentChanged.Subscribe(onParentChanged); onParentChanged(); },
                                        c => { _tree = null; c.TreeNode.OnParentChanged.Unsubscribe(onParentChanged); });
         }
 
@@ -44,7 +36,6 @@ namespace AGS.Engine
             _lastParentBinding?.Unbind();
             _lastParentBinding = null;
             _lastParentComponent = null;
-            _entity = null;
         }
 
         [Property(Browsable = false)]
@@ -90,7 +81,7 @@ namespace AGS.Engine
             refreshValue();
         }
 
-        private void onParentPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void onParentPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
         {
             if (args.PropertyName != _valuePropertyName) return;
             refreshValue();

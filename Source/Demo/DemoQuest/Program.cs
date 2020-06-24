@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AGS.API;
 using System.Diagnostics;
 using DemoQuest;
-using System;
 
 namespace DemoGame
 {
@@ -25,8 +24,10 @@ namespace DemoGame
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new FileSystemResourcePack(AGSGame.Device.FileSystem, AGSGame.Device.Assemblies.EntryAssembly), 0));
                 game.Factory.Resources.ResourcePacks.Add(new ResourcePack(new EmbeddedResourcesPack(AGSGame.Device.Assemblies.EntryAssembly, CustomAssemblyName), 1));
                 game.Factory.Fonts.InstallFonts("Fonts/pf_ronda_seven.ttf", "Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF");
-                game.Settings.Defaults.SpeechFont = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f, FontStyle.Regular);
-                game.Settings.Defaults.TextFont = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f, FontStyle.Regular);
+                game.Settings.Defaults.Fonts.Speech = game.Factory.Fonts.LoadFontFromPath("Fonts/pf_ronda_seven.ttf", 14f);
+                var font = game.Factory.Fonts.LoadFontFromPath("Fonts/Pixel_Berry_08_84_Ltd.Edition.TTF", 14f);
+                game.Settings.Defaults.Fonts.Text = font;
+                game.Settings.Defaults.Fonts.Dialogs = game.Factory.Fonts.LoadFont(font.FontFamily, 6f, font.Style);
                 game.Settings.Defaults.Skin = null;
                 game.State.RoomTransitions.Transition = AGSRoomTransitions.Fade();
                 setKeyboardEvents(game);
@@ -154,36 +155,25 @@ namespace DemoGame
 			EmptyStreet emptyStreet = new EmptyStreet (game.State.Player);
 			Rooms.EmptyStreet = emptyStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.EmptyStreet);
-			//addRoomWhenLoaded(game, Rooms.EmptyStreet);
             Debug.WriteLine("Startup: Loaded empty street");
 
 			BrokenCurbStreet brokenCurbStreet = new BrokenCurbStreet();
 			Rooms.BrokenCurbStreet = brokenCurbStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.BrokenCurbStreet);
-			//addRoomWhenLoaded(game, Rooms.BrokenCurbStreet);
             Debug.WriteLine("Startup: Loaded broken curb street");
 
 			TrashcanStreet trashcanStreet = new TrashcanStreet();
 			Rooms.TrashcanStreet = trashcanStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.TrashcanStreet);
-			//addRoomWhenLoaded (game, Rooms.TrashcanStreet);
             Debug.WriteLine("Startup: Loaded trashcan street");
 
 			DarsStreet darsStreet = new DarsStreet();
 			Rooms.DarsStreet = darsStreet.LoadAsync(game);
             await waitForRoom(game, Rooms.DarsStreet);
-			//addRoomWhenLoaded(game, Rooms.DarsStreet);
             Debug.WriteLine("Startup: Loaded Dars street");
 
 			Rooms.Init(game);
             Debug.WriteLine("Startup: Initialized rooms");
-
-			//await Rooms.DarsStreet;
-		}
-
-		private void addRoomWhenLoaded (IGame game, Task<IRoom> task)
-		{
-			task.ContinueWith(room => game.State.Rooms.Add (room.Result));
 		}
 
         private async Task waitForRoom(IGame game, Task<IRoom> task)
@@ -196,7 +186,7 @@ namespace DemoGame
 		private void addDebugLabels(IGame game)
 		{
             var resolution = new Size(1200, 800);
-            ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: new AGSTextConfig(alignment: Alignment.TopLeft,
+            ILabel fpsLabel = game.Factory.UI.GetLabel("FPS Label", "", 30, 25, resolution.Width, 2, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopLeft,
 				autoFit: AutoFit.LabelShouldFitText));
 			fpsLabel.Pivot = (1f, 0f);
             fpsLabel.RenderLayer = new AGSRenderLayer(-99999, independentResolution: resolution);
@@ -207,7 +197,7 @@ namespace DemoGame
 			FPSCounter fps = new FPSCounter(game, fpsLabel);
 			fps.Start();
 
-            ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            ILabel label = game.Factory.UI.GetLabel("Mouse Position Label", "", 1, 1, resolution.Width, 32, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopRight,
 				autoFit: AutoFit.LabelShouldFitText));
             label.Tint = Colors.SlateBlue.WithAlpha(125);
 			label.Pivot = (1f, 0f);
@@ -215,7 +205,7 @@ namespace DemoGame
             MousePositionLabel mouseLabel = new MousePositionLabel(game, label);
 			mouseLabel.Start();
 
-            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: new AGSTextConfig(alignment: Alignment.TopRight,
+            ILabel debugHotspotLabel = game.Factory.UI.GetLabel("Debug Hotspot Label", "", 1f, 1f, resolution.Width, 62, config: game.Factory.Fonts.GetTextConfig(alignment: Alignment.TopRight,
               autoFit: AutoFit.LabelShouldFitText));
             debugHotspotLabel.Tint = Colors.DarkSeaGreen.WithAlpha(125);
             debugHotspotLabel.Pivot = (1f, 0f);

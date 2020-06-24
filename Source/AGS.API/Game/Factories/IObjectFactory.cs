@@ -37,14 +37,15 @@ namespace AGS.API
         /// <param name="sayWhenInteract">An optional list of things that the player will say (one after the other) when interacting with the character.</param>
 		ICharacter GetCharacter(string id, IOutfit outfit, IRoom room = null, string[] sayWhenLook = null, string[] sayWhenInteract = null);
 
-        /// <summary>
-        /// Creates a new character
-        /// </summary>
-        /// <returns>The character.</returns>
-        /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities).</param>
-        /// <param name="innerContainer">An animation container for the character</param>
-        /// <param name="room">The room to place the character in.</param>
-		ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent innerContainer, IRoom room = null);
+	    /// <summary>
+	    /// Creates a new character
+	    /// </summary>
+	    /// <returns>The character.</returns>
+	    /// <param name="id">A unique identifier for the object (this has to be globally unique across all entities).</param>
+	    /// <param name="outfit">An animation outfit for the character (this can be created from the outfit factory).</param>
+	    /// <param name="innerContainer">An animation container for the character</param>
+	    /// <param name="room">The room to place the character in.</param>
+	    ICharacter GetCharacter(string id, IOutfit outfit, IAnimationComponent innerContainer, IRoom room = null);
 
         /// <summary>
         /// Creates a new hotspot object from a bitmap mask (the hotspot text will be shown when the mouse is hovering the object if a hotspot label is in the game).

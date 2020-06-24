@@ -2,12 +2,13 @@
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(Browsable = false)]
     public class XIcon : IBorderStyle
     {
         private readonly IGLUtils _glUtils;
         private readonly IRuntimeSettings _settings;
 
-        private readonly IGLColor _color;
+        private readonly GLColor _color;
 
         private IFrameBuffer _frameBuffer;
         private readonly GLVertex[] _quad = new GLVertex[4];

@@ -34,6 +34,7 @@ namespace AGS.Engine
 
         #region ISoundFactory implementation
 
+        [MethodWizard]
         public IAudioClip LoadAudioClip(string filePath, string id = null)
         {
             Debug.WriteLine("Loading AudioClip: " + filePath);
@@ -57,8 +58,10 @@ namespace AGS.Engine
 		{
 			IResource resource = _loader.LoadResource(filePath);
             if (resource == null) return null;
-			string fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
-            if (fileExtension == "") fileExtension = Path.GetExtension(resource.ID).ToUpperInvariant();
+			string fileExtension = Path.GetExtension(filePath)?.ToUpperInvariant();
+		    Trace.Assert(fileExtension != null);
+            if (fileExtension == "") fileExtension = Path.GetExtension(resource.ID)?.ToUpperInvariant();
+		    Trace.Assert(fileExtension != null);
 			var stream = resource.Stream;
 
 			try

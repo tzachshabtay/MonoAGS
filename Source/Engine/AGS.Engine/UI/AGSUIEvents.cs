@@ -5,7 +5,6 @@ namespace AGS.Engine
 	public class AGSUIEvents : AGSComponent, IUIEvents
 	{
         private readonly UIEventsAggregator _aggregator;
-        private IEntity _entity;
 
         public AGSUIEvents(UIEventsAggregator aggregator)
 		{
@@ -21,19 +20,17 @@ namespace AGS.Engine
             LostFocus = new AGSEvent<MouseButtonEventArgs>();
         }
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            _entity = entity;
-			var enabled = entity.GetComponent<IEnabledComponent>();
-			var visible = entity.GetComponent<IVisibleComponent>();
-            _aggregator.Subscribe(entity, mouseIn => IsMouseIn = mouseIn, this, enabled, visible);
+			base.Init();
+			var enabled = Entity.GetComponent<IEnabledComponent>();
+            var visible = Entity.GetComponent<IVisibleComponent>();
+            _aggregator.Subscribe(Entity, mouseIn => IsMouseIn = mouseIn, this, enabled, visible);
 		}
 
         public override void Dispose()
         {
-            base.Dispose();
-            _aggregator.Unsubscribe(_entity);
+            _aggregator.Unsubscribe(Entity);
             MouseEnter?.Dispose();
             MouseLeave?.Dispose();
             MouseMove?.Dispose();
@@ -42,7 +39,7 @@ namespace AGS.Engine
             MouseDown?.Dispose();
             MouseUp?.Dispose();
             LostFocus?.Dispose();
-            _entity = null;
+            base.Dispose();
         }
 
 		public IEvent<MousePositionEventArgs> MouseEnter { get; private set; }
@@ -61,6 +58,7 @@ namespace AGS.Engine
 
         public IEvent<MouseButtonEventArgs> LostFocus { get; private set; }
 
+        [Property(Browsable = false)]
         public bool IsMouseIn { get; private set; }
 	}
 }

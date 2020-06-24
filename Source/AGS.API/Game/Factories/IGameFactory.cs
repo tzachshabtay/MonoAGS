@@ -53,7 +53,7 @@
         /// Gets the fonts factory (for loading fonts).
         /// </summary>
         /// <value>The fonts factory.</value>
-        IFontLoader Fonts { get; }
+        IFontFactory Fonts { get; }
 
         /// <summary>
         /// Gets the object factory (for creating objects and characters).
@@ -80,4 +80,3 @@
 		IDialogFactory Dialog { get; }
 	}
 }
-

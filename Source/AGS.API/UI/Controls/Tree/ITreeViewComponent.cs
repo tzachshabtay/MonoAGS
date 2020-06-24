@@ -40,6 +40,24 @@
         float VerticalSpacing { get; set; }
 
         /// <summary>
+        /// Gets or sets the top padding for the tree view.
+        /// </summary>
+        /// <value>The top padding.</value>
+        float TopPadding { get; set; }
+
+        /// <summary>
+        /// Gets or sets the left padding for the tree view.
+        /// </summary>
+        /// <value>The left padding.</value>
+        float LeftPadding { get; set; }
+
+        /// <summary>
+        /// Allow pausing/resuming the tree layout.
+        /// </summary>
+        /// <value><c>true</c> if layout paused; otherwise, <c>false</c>.</value>
+        bool LayoutPaused { get; set; }
+
+        /// <summary>
         /// Gets or sets whether to allow selecting nodes in the tree.
         /// </summary>
         /// <value>The allow selection.</value>
@@ -59,6 +77,14 @@
         /// </summary>
         /// <value><c>true</c> if skip rendering root; otherwise, <c>false</c>.</value>
         bool SkipRenderingRoot { get; set; }
+
+        /// <summary>
+        /// If the tree view is contained in a scrolling panel (<see cref="IUIFactory.CreateScrollingPanel"/>), you can set
+        /// the containing contents panel here, which the tree view will then use to optimize performance by only loading the tree node views when 
+        /// they're inside the scrolling range.
+        /// </summary>
+        /// <value>The scrolling container.</value>
+        IEntity ScrollingContainer { get; set; }
 
         /// <summary>
         /// An event which fires every time a node is selected (if <see cref="AllowSelection"/> is set to allow selection).

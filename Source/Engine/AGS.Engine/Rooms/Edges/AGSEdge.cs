@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -19,7 +20,12 @@ namespace AGS.Engine
 
         public bool Enabled { get; set; }
 
-		#endregion
-	}
-}
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
 
+        #endregion
+
+        public override string ToString() => Enabled ? $"{Value:0.##}" : "N/A";
+    }
+}

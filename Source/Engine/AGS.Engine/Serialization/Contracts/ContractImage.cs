@@ -8,11 +8,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractImage : IContract<IImage>
 	{
-		public ContractImage()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public float Width { get; set; } 
 
 		[ProtoMember(2)]
@@ -53,7 +49,7 @@ namespace AGS.Engine
 			}
 			catch (ArgumentException e)
 			{
-				Debug.WriteLine($"Failed to load image: {ID}. Exception: {e.ToString()}");
+				Debug.WriteLine($"Failed to load image: {ID}. Exception: {e}");
 				return new EmptyImage (Width, Height);
 			}
 		}

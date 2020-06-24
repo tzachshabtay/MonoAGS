@@ -47,15 +47,16 @@ namespace AGS.Engine
         }
 
         [NumberEditorSlider(sliderMin: -2f, sliderMax: 2f, step: 0.1f)]
+        [Property(Category = "Image")]
         public float Saturation { get; set; } = 1f;
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-            base.Init(entity);
+            base.Init();
             _shader = _factory.FromText(null, SATURATION_FRAGMENT_SHADER);
-            if (entity != null)
+            if (Entity != null)
             {
-                entity.Bind<IShaderComponent>(c => { _target = c; c.Shader = _shader; }, _ => _shader = null);
+                Entity.Bind<IShaderComponent>(c => { _target = c; c.Shader = _shader; }, _ => _shader = null);
             }
             else AGSGame.Shader = _shader;
             _events.OnBeforeRender.Subscribe(onBeforeRender);

@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -10,13 +9,14 @@ namespace AGS.Engine
 			Background = new AGSRenderLayer (100);
 			Foreground = new AGSRenderLayer (0);
 			UI = new AGSRenderLayer (-100);
-			Speech = new AGSRenderLayer (-200);
+            Dialogs = new AGSRenderLayer(-200);
+            Speech = new AGSRenderLayer (-300);
 		}
 
 		public static IRenderLayer Background { get; private set; }
 		public static IRenderLayer Foreground { get; private set; }
 		public static IRenderLayer UI { get; private set; }
-		public static IRenderLayer Speech { get; private set; }
+        public static IRenderLayer Dialogs { get; private set; }
+        public static IRenderLayer Speech { get; private set; }
 	}
 }
-

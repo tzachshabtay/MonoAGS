@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -12,10 +11,10 @@ namespace AGS.Engine
             ZoomCamera = true;
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IAreaComponent>(c => _area = c, _ => _area = null);
+            base.Init();
+            Entity.Bind<IAreaComponent>(c => _area = c, _ => _area = null);
         }
 
         public float MinZoom { get; set; }

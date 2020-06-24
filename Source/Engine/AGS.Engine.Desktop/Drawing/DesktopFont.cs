@@ -1,33 +1,48 @@
-﻿using System;
-using AGS.API;
+﻿using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.Serialization;
+using AGS.API;
+using FontStyle = AGS.API.FontStyle;
+using SizeF = AGS.API.SizeF;
 
 namespace AGS.Engine.Desktop
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
+    [DataContract]
 	public class DesktopFont : IFont
 	{
         private readonly IFontLoader _fontLoader;
 
-        public DesktopFont(Font font, IFontLoader fontLoader)
+        public DesktopFont(Font font, IFontLoader fontLoader, string path)
 		{
-			InnerFont = font;
+            Trace.Assert(font != null, "font is null");
+            Trace.Assert(font.FontFamily != null, "font.FontFamily is null");
+            InnerFont = font;
             _fontLoader = fontLoader;
+            Path = path;
 		}
 
+        [Property(Browsable = false)]
 		public Font InnerFont { get; }
 
         #region IFont implementation
 
+        [DataMember]
         public string FontFamily => InnerFont.FontFamily.Name;
 
-        public AGS.API.FontStyle Style => (AGS.API.FontStyle)InnerFont.Style;
+        [DataMember]
+        public FontStyle Style => (FontStyle)InnerFont.Style;
 
+        [DataMember]
         public float SizeInPoints => InnerFont.SizeInPoints;
 
-        public AGS.API.SizeF MeasureString(string text, int maxWidth = 2147483647)
+        [DataMember]
+        public string Path { get; }
+
+        public AGS.API.SizeF MeasureString(string text, Alignment alignment, int maxWidth = 2147483647)
 		{
-			System.Drawing.SizeF size = text.Measure(InnerFont, maxWidth);
+			System.Drawing.SizeF size = text.Measure(InnerFont, alignment, maxWidth);
 			return new AGS.API.SizeF (size.Width, size.Height);
 		}
 

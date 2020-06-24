@@ -9,22 +9,17 @@ namespace AGS.Engine
 		private IAnimationComponent _obj;
         private ITranslate _translate;
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-			base.Init(entity);
-            entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
-            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+			base.Init();
+            Entity.Bind<IAnimationComponent>(c => _obj = c, _ => _obj = null);
+            Entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
 		}
 
 		#region IFaceDirectionBehavior implementation
 
 		public Direction Direction { get; private set; }
 		public IDirectionalAnimation CurrentDirectionalAnimation { get; set; }
-
-		public void FaceDirection(Direction direction)
-		{
-			Task.Run(async () => await FaceDirectionAsync(direction));
-		}
 
 		public async Task FaceDirectionAsync(Direction direction)
 		{
@@ -63,23 +58,10 @@ namespace AGS.Engine
 			}
 		}
 			
-		public void FaceDirection(IObject obj)
-		{
-            PointF? point = obj.CenterPoint ?? obj.Position.XY;
-			FaceDirection(point.Value.X, point.Value.Y);
-		}
-
 		public async Task FaceDirectionAsync(IObject obj)
 		{
             PointF? point = obj.CenterPoint ?? obj.Position.XY;
 			await FaceDirectionAsync(point.Value.X, point.Value.Y);
-		}
-
-		public void FaceDirection(float x, float y)
-		{
-            var translate = _translate;
-            if (translate == null) return;
-			FaceDirection(translate.X, translate.Y, x, y);
 		}
 
 		public async Task FaceDirectionAsync(float x, float y)
@@ -87,11 +69,6 @@ namespace AGS.Engine
 			var translate = _translate;
 			if (translate == null) return;
 			await FaceDirectionAsync(translate.X, translate.Y, x, y);
-		}
-
-		public void FaceDirection(float fromX, float fromY, float toX, float toY)
-		{
-			Task.Run(async () => await FaceDirectionAsync(fromX, fromY, toX, toY)).Wait();
 		}
 
 		public async Task FaceDirectionAsync(float fromX, float fromY, float toX, float toY)
@@ -151,38 +128,13 @@ namespace AGS.Engine
 
 		private async Task faceDirectionAsync(params Direction[] directions)
 		{
-			IDirectionalAnimation animation = CurrentDirectionalAnimation;
-			if (animation == null) return;
+			IDirectionalAnimation dirAnimation = CurrentDirectionalAnimation;
+			if (dirAnimation == null) return;
 
 			foreach (Direction dir in directions)
 			{
-				switch (dir)
-				{
-					case Direction.Down:
-						if (await animateAsync(animation.Down)) return;
-						break;
-					case Direction.Up:
-						if (await animateAsync(animation.Up)) return;
-						break;
-					case Direction.Left:
-						if (await animateAsync(animation.Left)) return;
-						break;
-					case Direction.Right:
-						if (await animateAsync(animation.Right)) return;
-						break;
-					case Direction.DownLeft:
-						if (await animateAsync(animation.DownLeft)) return;
-						break;
-					case Direction.DownRight:
-						if (await animateAsync(animation.DownRight)) return;
-						break;
-					case Direction.UpLeft:
-						if (await animateAsync(animation.UpLeft)) return;
-						break;
-					case Direction.UpRight:
-						if (await animateAsync(animation.UpRight)) return;
-						break;
-				}
+                var animation = dirAnimation.GetAnimation(dir);
+                if (await animateAsync(animation)) return;
 			}
 		}
 
@@ -207,7 +159,7 @@ namespace AGS.Engine
 		private float getAngle(float x1, float y1, float x2, float y2)
 		{
 			float deltaX = x2 - x1;
-			if (deltaX == 0f)
+			if (MathUtils.FloatEquals(deltaX, 0f))
 				deltaX = 0.001f;
 			float deltaY = y2 - y1;
 			float angle = ((float)Math.Atan2 (deltaY, deltaX)) * 180f / (float)Math.PI;

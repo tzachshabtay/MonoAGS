@@ -9,7 +9,7 @@ namespace AGS.Engine
 	public class AGSConcurrentHashSet<TItem> : IConcurrentHashSet<TItem>
 	{
 		//We're using a concurrent dictionary with a value we don't care about to simulate a hash set.
-		private ConcurrentDictionary<TItem, byte> _map = new ConcurrentDictionary<TItem, byte>();
+		private ConcurrentDictionary<TItem, byte> _map;
 
 		public AGSConcurrentHashSet(int capacity = 5, bool fireListChangedEvent = true)
 		{
@@ -61,8 +61,7 @@ namespace AGS.Engine
 
 		public bool Remove(TItem item)
 		{
-			byte weDontCare;
-			bool removed = _map.TryRemove(item, out weDontCare);
+		    bool removed = _map.TryRemove(item, out byte _);
             if (removed) onListChanged(item, ListChangeType.Remove);
             return removed;
 		}
@@ -88,9 +87,17 @@ namespace AGS.Engine
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-            foreach (var pair in _map)
+            var enumerator =  _map.GetEnumerator();
+            try
             {
-                yield return pair.Key;
+                while (enumerator.MoveNext())
+                {
+                    yield return enumerator.Current.Key;
+                }
+            }
+            finally
+            {
+                enumerator.Dispose();
             }
 		}
 

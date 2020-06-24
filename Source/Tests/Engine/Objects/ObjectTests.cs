@@ -1,11 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
-using AGS.API;
 using System.Collections.Generic;
-using AGS.Engine;
-using Moq;
-using Autofac;
 using System.Threading.Tasks;
+using AGS.API;
+using AGS.Engine;
+using Autofac;
+using Moq;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -43,8 +43,8 @@ namespace Tests
 				IRoom room = _mocks.Room(true).Object;
 				rooms.Add(room);
 				await obj.ChangeRoomAsync(room);
-				Assert.AreEqual(room, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
-				Assert.IsNull(obj.PreviousRoom, "Prev room not null for " + obj.DisplayName ?? "null");
+				Assert.AreEqual(room, obj.Room, $"Room not changed for {(obj.DisplayName ?? "null")}");
+				Assert.IsNull(obj.PreviousRoom, $"Prev room not null for {(obj.DisplayName ?? "null")}");
 			}
 		}
 
@@ -63,10 +63,7 @@ namespace Tests
 				IRoom newRoom = _mocks.Room(true).Object;
 				rooms.Add(oldRoom);
 				rooms.Add(newRoom);
-				await obj.ChangeRoomAsync(oldRoom);
-				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
+			    await testChangeRoom(obj, oldRoom, newRoom);
 			}
 		}
 
@@ -85,10 +82,7 @@ namespace Tests
 				IRoom newRoom = oldRoom;
 				rooms.Add(oldRoom);
 				rooms.Add(newRoom);
-				await obj.ChangeRoomAsync(oldRoom);
-				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
+			    await testChangeRoom(obj, oldRoom, newRoom);
 			}
 		}
 
@@ -104,16 +98,20 @@ namespace Tests
 			{
 				rooms.Clear();
 				IRoom oldRoom = _mocks.Room(true).Object;
-				IRoom newRoom = null;
 				rooms.Add(oldRoom);
-				await obj.ChangeRoomAsync(oldRoom);
-				await obj.ChangeRoomAsync(newRoom);
-				Assert.AreEqual(newRoom, obj.Room, "Room not changed for " + obj.DisplayName ?? "null");
-				Assert.AreEqual(oldRoom, obj.PreviousRoom, "Prev room incorrect for " + obj.DisplayName ?? "null");
+			    await testChangeRoom(obj, oldRoom, null);
 			}
 		}
 
-		[TestCase("Visible", false, null, null, false)]
+	    private async Task testChangeRoom(IObject obj, IRoom oldRoom, IRoom newRoom)
+	    {
+	        await obj.ChangeRoomAsync(oldRoom);
+	        await obj.ChangeRoomAsync(newRoom);
+	        Assert.AreEqual(newRoom, obj.Room, $"Room not changed for {(obj.DisplayName ?? "null")}");
+	        Assert.AreEqual(oldRoom, obj.PreviousRoom, $"Prev room incorrect for {(obj.DisplayName ?? "null")}");
+	    }
+
+	    [TestCase("Visible", false, null, null, false)]
 		[TestCase("Visible", true, null, null, true)]
 		[TestCase("Visible", false, false, null, false)]
 		[TestCase("Visible", false, true, null, false)]
@@ -205,6 +203,7 @@ namespace Tests
             Resolver resolver = GetResolver();
             input.Setup(i => i.KeyUp).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
             input.Setup(i => i.KeyDown).Returns(new Mock<IEvent<KeyboardEventArgs>>().Object);
+            input.Setup(i => i.MouseDown).Returns(new Mock<IEvent<MouseButtonEventArgs>>().Object);
             if (stateMock != null) stateMock.Setup(s => s.Cutscene).Returns(mocks.Cutscene().Object);
 
             Mock<IUIEvents> uiEvents = new Mock<IUIEvents>();
@@ -226,9 +225,11 @@ namespace Tests
 
             Mock<IImage> image = new Mock<IImage>();
             Mock<IButtonComponent> buttonComponent = new Mock<IButtonComponent>();
-            buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
-            buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
-            buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(new AGSSingleFrameAnimation(getSprite())));
+            var animation = new AGSAnimation(new AGSAnimationConfiguration { Loops = 1 }, new AGSAnimationState(), 1);
+            animation.Frames.Add(new AGSAnimationFrame(getSprite()) { Delay = -1 });
+            buttonComponent.Setup(b => b.HoverAnimation).Returns(new ButtonAnimation(animation));
+            buttonComponent.Setup(b => b.IdleAnimation).Returns(new ButtonAnimation(animation));
+            buttonComponent.Setup(b => b.PushedAnimation).Returns(new ButtonAnimation(animation));
             Mock<IALAudioSystem> audioSystem = new Mock<IALAudioSystem>();
             Mock<IRuntimeSettings> settings = mocks.Settings();
             Mock<IRenderThread> renderThread = new Mock<IRenderThread>();
@@ -263,8 +264,8 @@ namespace Tests
             Mock<IOutfit> outfit = new Mock<IOutfit>();
 
             Func<IPanel> basePanel = () => new AGSPanel("Panel" + Guid.NewGuid(), resolver) { Image = image.Object};
-            Func<ILabel> baseLabel = () => new AGSLabel("Label" + Guid.NewGuid(), resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
-            var button = new AGSButton("Button" + Guid.NewGuid().ToString(), resolver) { LabelRenderSize = new AGS.API.SizeF(100f, 50f) };
+            Func<ILabel> baseLabel = () => new AGSLabel("Label" + Guid.NewGuid(), resolver) { LabelRenderSize = new SizeF(100f, 50f) };
+            var button = new AGSButton("Button" + Guid.NewGuid(), resolver) { LabelRenderSize = new SizeF(100f, 50f) };
 
             List<IObject> implmentors = new List<IObject>
             {
@@ -277,7 +278,7 @@ namespace Tests
                 (new AGSSlider("Slider" + Guid.NewGuid(), resolver) { Image = image.Object}).Hotspot("Slider"),
                 new AGSCheckBox("Checkbox" + Guid.NewGuid(), resolver),
                 new AGSTextbox("Textbox" + Guid.NewGuid(), resolver),
-                new AGSComboBox("Combobox" + Guid.NewGuid(), resolver),
+                new AGSComboBox("Combobox" + Guid.NewGuid(), resolver)
 			};
 
 			return implmentors;

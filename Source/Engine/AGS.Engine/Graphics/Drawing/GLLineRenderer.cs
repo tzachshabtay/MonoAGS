@@ -8,7 +8,6 @@ namespace AGS.Engine
         private readonly ObjectPool<Instruction> _pool;
         private IDrawableInfoComponent _drawable;
         private readonly IRenderPipeline _pipeline;
-        private IEntity _entity;
 
         public GLLineRenderer (IGLUtils glUtils, IRenderPipeline pipeline)
 		{
@@ -16,21 +15,19 @@ namespace AGS.Engine
             _pool = new ObjectPool<Instruction>(pool => new Instruction(pool, glUtils), 2);
 		}
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
-            _pipeline.Subscribe(entity.ID, this);
+            base.Init();
+            Entity.Bind<IDrawableInfoComponent>(c => _drawable = c, _ => _drawable = null);
+            _pipeline.Subscribe(Entity.ID, this);
 		}
 
 		public override void Dispose()
 		{
-            base.Dispose();
-            var entity = _entity;
+            var entity = Entity;
             if (entity == null) return;
             _pipeline.Unsubscribe(entity.ID, this);
-            _entity = null;
+            base.Dispose();
 		}
 
 		public IRenderInstruction GetNextInstruction(IViewport viewport)

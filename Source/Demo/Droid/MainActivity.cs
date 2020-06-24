@@ -21,7 +21,7 @@ namespace DemoQuest.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            AndroidGameWindow.Instance.StartGame = DemoStarter.Run;
+            AndroidGameWindow.Instance.Init(this, DemoStarter.Run);
             AGSEngineAndroid.SetAssembly();
 
             // Inflate our UI from its XML layout description

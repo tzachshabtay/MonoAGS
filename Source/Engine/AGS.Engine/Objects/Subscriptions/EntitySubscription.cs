@@ -3,15 +3,17 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq;
 using AGS.API;
+using IComponent = AGS.API.IComponent;
 
 namespace AGS.Engine
 {
-    public class EntitySubscription<TComponent> : IEntitySubscription where TComponent : API.IComponent
+    public class EntitySubscription<TComponent> : IEntitySubscription where TComponent : IComponent
     {
         private readonly string[] _propertyNames;
         private readonly Action _onPropertyChanged;
         private readonly Action<TComponent> _onAdd, _onRemove;
-        private readonly ConcurrentDictionary<string, API.IComponentBinding> _bindings;
+        private readonly ConcurrentDictionary<string, IComponentBinding> _bindings;
+        private readonly PropertyChangedEventHandler _onPropertyChangedCallback;
 
         public EntitySubscription(Action onPropertyChanged, Action<TComponent> onAdd = null, 
                                   Action<TComponent> onRemove = null, params string[] propertyNames)
@@ -20,7 +22,8 @@ namespace AGS.Engine
             _onAdd = onAdd;
             _onRemove = onRemove;
             _propertyNames = propertyNames;
-            _bindings = new ConcurrentDictionary<string, API.IComponentBinding>();
+            _onPropertyChangedCallback = this.onPropertyChanged;
+            _bindings = new ConcurrentDictionary<string, IComponentBinding>();
         }
 
         public void Subscribe(IEntity entity)
@@ -41,7 +44,7 @@ namespace AGS.Engine
             _onAdd?.Invoke(component);
             if (_propertyNames.Length > 0)
             {
-                component.PropertyChanged += onPropertyChanged;
+                component.PropertyChanged += _onPropertyChangedCallback;
             }
         }
 
@@ -53,7 +56,7 @@ namespace AGS.Engine
             _onRemove?.Invoke(component);
             if (_propertyNames.Length > 0)
             {
-                component.PropertyChanged -= onPropertyChanged;
+                component.PropertyChanged -= _onPropertyChangedCallback;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
 
 namespace AGS.API
 {
@@ -6,7 +6,7 @@ namespace AGS.API
     /// The character's inventory. Those are the items that the character holds in his/her (usually) imaginary bag.
     /// It is composed of a list of inventory items, and one active item that the character holds in his/her hand.
     /// </summary>
-    public interface IInventory
+    public interface IInventory : INotifyPropertyChanged
 	{
         /// <summary>
         /// Gets/sets the character's current active inventory item (for example the item that character currently holds in his/her hand). Setting it will update the mouse cursor if appropriate.
@@ -45,4 +45,3 @@ namespace AGS.API
         IAGSBindingList<IInventoryItem> Items { get; }
 	}
 }
-

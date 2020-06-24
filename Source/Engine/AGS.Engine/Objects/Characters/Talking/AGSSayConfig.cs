@@ -1,22 +1,32 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
     [PropertyFolder]
 	public class AGSSayConfig : ISayConfig
 	{ 
-		public AGSSayConfig()
+        public AGSSayConfig(IGame game)
 		{
-            TextConfig = new AGSTextConfig(font : AGSGame.Game?.Settings.Defaults.SpeechFont, autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomLeft);
+            //todo: should the factory provide speech config?
+            if (game != null)
+            {
+                TextConfig = game.Factory.Fonts.GetTextConfig(font: game.Settings.Defaults.Fonts.Speech,
+                                                              autoFit: AutoFit.TextShouldWrapAndLabelShouldFitHeight, alignment: Alignment.BottomCenter);
+                LabelSize = new AGS.API.SizeF(game.Settings.VirtualResolution.Width * (7f/10f), game.Settings.VirtualResolution.Height);
+            }
 			TextDelay = 70;
-			LabelSize = new AGS.API.SizeF (250f, 200f);
-			SkipText = SkipText.ByTimeAndMouse;
+            SkipText = SkipText.ByTimeAndMouse;
 			BackgroundColor = Colors.Transparent;
 		}
 
-		public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public static AGSSayConfig FromConfig(ISayConfig config, float paddingBottomOffset = 0f)
 		{
-			AGSSayConfig sayConfig = new AGSSayConfig();
+			AGSSayConfig sayConfig = new AGSSayConfig(null);
             sayConfig.TextConfig = config.TextConfig;
             sayConfig.TextConfig.PaddingBottom += paddingBottomOffset;
 			sayConfig.TextDelay = config.TextDelay;
@@ -36,7 +46,7 @@ namespace AGS.Engine
 
 		public SkipText SkipText { get; set; }
 
-		public AGS.API.SizeF LabelSize { get; set; }
+		public SizeF LabelSize { get; set; }
 
 		public IBorderStyle Border { get; set; }
 
@@ -46,7 +56,8 @@ namespace AGS.Engine
 
         public IPortraitConfig PortraitConfig { get; set; }
 
-		#endregion
-	}
-}
+        #endregion
 
+        public override string ToString() => TextConfig?.Brush?.Color.ToString() ?? "No color set";
+    }
+}

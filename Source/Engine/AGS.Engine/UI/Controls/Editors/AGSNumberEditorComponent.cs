@@ -12,7 +12,6 @@ namespace AGS.Engine
         private IButton _upButton, _downButton;
         private bool _editWholeNumbers;
 
-        private ITextBoxComponent _textBox;
         private ITextComponent _text;
 
         public AGSNumberEditorComponent(IBlockingEvent<NumberValueChangedArgs> onValueChanged)
@@ -73,12 +72,13 @@ namespace AGS.Engine
 
         public IBlockingEvent<NumberValueChangedArgs> OnValueChanged { get; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITextBoxComponent>(c => { _textBox = c; refreshValue(false); c.OnPressingKey.Subscribe(onPressingKey); },
-                                           c => { c.OnPressingKey.Unsubscribe(onPressingKey); });
-            entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
+            base.Init();
+            Entity.Bind<ITextBoxComponent>(
+                c => { refreshValue(false); c.OnPressingKey.Subscribe(onPressingKey); },
+                c => { c.OnPressingKey.Unsubscribe(onPressingKey); });
+            Entity.Bind<ITextComponent>(c => { _text = c; c.Text = valueToString(); }, _ => { _text = null; });
         }
 
         public override void Dispose()

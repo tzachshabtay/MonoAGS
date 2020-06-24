@@ -29,6 +29,13 @@
         IBlockingEvent OnBoundingBoxWithChildrenChanged { get; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the bounding box calculation
+        /// includes the entity's size as well (true by default).
+        /// </summary>
+        /// <value><c>true</c> if include self; otherwise, <c>false</c>.</value>
+        bool IncludeSelf { get; set; }
+
+        /// <summary>
         /// Allows excluding entities from the bounding box calculation.
         /// </summary>
         /// <value>The entities to skip.</value>

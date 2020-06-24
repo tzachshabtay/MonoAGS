@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AGS.API;
 using System.Reflection;
+using AGS.API;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -52,7 +53,7 @@ namespace AGS.Engine
             }
         }
 
-        public static float AlignX(this ITextConfig config, float width, AGS.API.SizeF baseSize)
+        public static float AlignX(this ITextConfig config, float width, SizeF baseSize)
         {
             switch (config.Alignment)
             {
@@ -71,21 +72,20 @@ namespace AGS.Engine
             }
         }
 
-        public static float AlignY(this ITextConfig config, float bitmapHeight, float height, AGS.API.SizeF baseSize)
+        public static float AlignY(this ITextConfig config, float bitmapHeight, float height, SizeF baseSize)
         {
-            const float reducePadding = 2f;
             switch (config.Alignment)
             {
                 case Alignment.TopLeft:
                 case Alignment.TopCenter:
                 case Alignment.TopRight:
-                    return bitmapHeight - baseSize.Height - reducePadding + config.PaddingTop;
+                    return bitmapHeight - baseSize.Height + config.PaddingTop;
                 case Alignment.MiddleLeft:
                 case Alignment.MiddleCenter:
                 case Alignment.MiddleRight:
-                    return bitmapHeight - baseSize.Height / 2f - height / 2f - reducePadding / 2f;
+                    return bitmapHeight - baseSize.Height / 2f - height / 2f;
                 default:
-                    return bitmapHeight - height - reducePadding - config.PaddingBottom;
+                    return bitmapHeight - height - config.PaddingBottom;
             }
         }
 
@@ -99,7 +99,7 @@ namespace AGS.Engine
             return new Vector2(point.X, point.Y);
         }
 
-        public static IGLColor ToGLColor(this Color color)
+        public static GLColor ToGLColor(this Color color)
         {
             float r = color.R / 255f;
             float g = color.G / 255f;
@@ -118,14 +118,16 @@ namespace AGS.Engine
             switch (config.AutoFit)
             {
                 case AutoFit.TextShouldFitLabel:
-                    var textSize = config.Font.MeasureString(text);
+                    var textSize = config.Font.MeasureString(text, config.Alignment);
                     return new SizeF(Math.Min(textSize.Width, labelSize.Width), Math.Min(textSize.Height, labelSize.Height)).Scale(scaleBackX, scaleBackY);
                 case AutoFit.TextShouldWrapAndLabelShouldFitHeight:
-                    return config.Font.MeasureString(text, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment, (int)labelSize.Width).Scale(scaleBackX, scaleBackY);
                 default:
-                    return config.Font.MeasureString(text).Scale(scaleBackX, scaleBackY);
+                    return config.Font.MeasureString(text, config.Alignment).Scale(scaleBackX, scaleBackY);
             }
         }
+
+        public static void StartAnimation(this ButtonAnimation button, IObject obj) => button.StartAnimation(obj, obj.GetComponent<ITextComponent>(), obj, obj);
 
         public static void StartAnimation(this ButtonAnimation button, IAnimationComponent animationComponent,
                                           ITextComponent textComponent, IImageComponent imageComponent, IBorderComponent borderComponent)
@@ -172,5 +174,49 @@ namespace AGS.Engine
                 obj.TreeNode.Children[i].DestroyWithChildren(state);
             obj.Dispose();
         }
+
+        private class Disposer : IDisposable
+        {
+            private Action _dispose;
+
+            public Disposer(Action dispose)
+            {
+                _dispose = dispose;
+            }
+
+            public void Dispose()
+            {
+                _dispose?.Invoke();
+                _dispose = null;
+            }
+        }
+
+        /// <summary>
+        /// Gives the ability to subscribe to property change event (i.e to react whenever a specific property changes its value).
+        /// </summary>
+        /// <example>
+        /// Let's say, for example, that you want that you're working in a two-buttons control scheme (left click to interact, right click to examine)
+        /// but you don't have an inventory window, but rather you want to change the cursor whenever the active inventory item for your player character changes.
+        /// You can do:
+        /// <code language="lang-csharp">
+        /// player.Inventory.OnPropertyChanged(nameof(IInventory.ActiveItem), () => twoButtonsScheme.SetInventoryCursor());
+        /// </code>
+        /// </example>
+        /// <returns>A disposable object is returned which allows you to unsubscribe from the event (by calling its Dispose method).</returns>
+        /// <param name="notifier">The object which contains the property which you want to track.</param>
+        /// <param name="propertyName">The property name you which to track.</param>
+        /// <param name="callback">The action to be performed whenever the property changes.</param>
+        public static IDisposable OnPropertyChanged(this INotifyPropertyChanged notifier, string propertyName, Action callback)
+        {
+            PropertyChangedEventHandler handler = (object sender, PropertyChangedEventArgs e) => 
+            { 
+                if (e.PropertyName == propertyName) callback(); 
+            };
+            notifier.PropertyChanged += handler;
+            var disposer = new Disposer(() => notifier.PropertyChanged -= handler);
+            return disposer;
+        }
+        
+        public static bool IsBetween(this float x, float min, float max) => x >= min && x <= max;
 	}
 }

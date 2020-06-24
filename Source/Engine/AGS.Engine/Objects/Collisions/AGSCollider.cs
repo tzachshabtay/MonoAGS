@@ -1,39 +1,26 @@
-﻿using System.Diagnostics;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
 	public class AGSCollider : AGSComponent, IColliderComponent
 	{
-		private IGameState _state;
-		private IDrawableInfoComponent _drawableInfo;
+	    private IDrawableInfoComponent _drawableInfo;
 		private IImageComponent _obj;
         private IScale _scale;
         private IPixelPerfectComponent _pixelPerfect;
-        private IEntity _entity;
         private IBoundingBoxComponent _boundingBox;
+        private ICropSelfComponent _crop;
 
-        public AGSCollider(IGameState state)
+		public override void Init()
 		{
-			_state = state;
+			base.Init();
+            Entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
+            Entity.Bind<IImageComponent>(c => _obj = c, _ => _obj = null);
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
+            Entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
+            Entity.Bind<ICropSelfComponent>(c => _crop = c, _ => _crop = null);
 		}
-
-		public override void Init(IEntity entity)
-		{
-			base.Init(entity);
-            _entity = entity;
-            entity.Bind<IDrawableInfoComponent>(c => _drawableInfo = c, _ => _drawableInfo = null);
-            entity.Bind<IImageComponent>(c => _obj = c, _ => _obj = null);
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IPixelPerfectComponent>(c => _pixelPerfect = c, _ => _pixelPerfect = null);
-            entity.Bind<IBoundingBoxComponent>(c => _boundingBox = c, _ => _boundingBox = null);
-		}
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
-        }
 
         [Property(Browsable = false)]
 		public PointF? CenterPoint
@@ -60,13 +47,20 @@ namespace AGS.Engine
 		{
 			var boundingBoxesComponent = _boundingBox;
             if (boundingBoxesComponent == null) return false;
+            if (_crop?.IsGuaranteedToFullyCrop() ?? false)
+            {
+                //This should not be needed as the bounding box should be cropped anyway.
+                //However, for a performance optimization if an entity is guaranteed to be fully cropped (like items in the bottom of a long listbox) the bounding box is not calculated, so we need to take it into account here.
+                return false;
+            }
             AGSBoundingBox boundingBox = boundingBoxesComponent.WorldBoundingBox;
             var pixelPerfectComponent = _pixelPerfect;
             IArea pixelPerfect = pixelPerfectComponent == null || !pixelPerfectComponent.IsPixelPerfect ? null : pixelPerfectComponent.PixelPerfectHitTestArea;
 
-            if (!(_drawableInfo?.IgnoreViewport ?? false))
+		    var drawable = _drawableInfo;
+            if (drawable != null && !drawable.IgnoreViewport)
 			{
-                var matrix = viewport.GetMatrix(_drawableInfo.RenderLayer);
+                var matrix = viewport.GetMatrix(drawable.RenderLayer);
                 matrix.Invert();
                 Vector3 xyz = new Vector3(x, y, 0f);
                 Vector3.Transform(ref xyz, ref matrix, out xyz);

@@ -4,7 +4,8 @@ namespace AGS.Engine
 {
 	public partial class AGSInventoryWindow
 	{
-		partial void afterInitComponents(Resolver resolver, IImage image)
+	    // ReSharper disable once UnusedParameterInPartialMethod
+	    partial void afterInitComponents(Resolver resolver, IImage image)
 		{
 			RenderLayer = AGSLayers.UI;
 			IgnoreScalingArea = true;

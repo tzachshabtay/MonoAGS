@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -27,9 +26,13 @@ namespace AGS.Engine
         private readonly IBoundingBoxBuilder _boundingBoxBuilder;
         private readonly IGameState _state;
         private readonly IGameEvents _events;
-        private IEntity _entity;
         private readonly AGSCropInfo _defaultCropInfo = default;
         private readonly Func<IViewport, ViewportBoundingBoxes> _createNewViewportBoundingBoxes;
+        private readonly Action _onHitTextBoxShouldChangeCallback;
+        private readonly PropertyChangedEventHandler _onCropShouldChangeCallback;
+        private readonly PropertyChangedEventHandler _onImageChangedCallback;
+        private readonly PropertyChangedEventHandler _onDrawableChangedCallback;
+        private readonly PropertyChangedEventHandler _onTextureOffsetChangedCallback;
 
         public AGSBoundingBoxComponent(IRuntimeSettings settings,
                                        IBoundingBoxBuilder boundingBoxBuilder, IGameState state, IGameEvents events,
@@ -43,8 +46,15 @@ namespace AGS.Engine
             _state = state;
             OnBoundingBoxesChanged = onBoundingBoxChanged;
             _boundingBoxBuilder = boundingBoxBuilder;
-            boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(onHitTextBoxShouldChange);
-            events.OnRoomChanging.Subscribe(onHitTextBoxShouldChange);
+
+            _onHitTextBoxShouldChangeCallback = onHitTextBoxShouldChange;
+            _onCropShouldChangeCallback = onCropShouldChange;
+            _onImageChangedCallback = onImageChanged;
+            _onDrawableChangedCallback = onDrawableChanged;
+            _onTextureOffsetChangedCallback = onTextureOffsetChanged;
+
+            boundingBoxBuilder.OnNewBoxBuildRequired.Subscribe(_onHitTextBoxShouldChangeCallback);
+            events.OnRoomChanging.Subscribe(_onHitTextBoxShouldChangeCallback);
             onHitTextBoxShouldChange();
         }
 
@@ -53,25 +63,24 @@ namespace AGS.Engine
         [Property(Browsable = false)]
         public ILockStep BoundingBoxLockStep => this;
 
+        [Property(Category = "World position")]
         public AGSBoundingBox WorldBoundingBox => _pendingLocks > 0 ? GetBoundingBoxes(_state.Viewport).WorldBox : _hitTestBox; 
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            _entity = entity;
-            base.Init(entity);
+            base.Init();
 
-            entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(onHitTextBoxShouldChange); _matrix = c; },
-                                               c => { c.OnMatrixChanged.Unsubscribe(onHitTextBoxShouldChange); _matrix = null; });
-            entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += onCropShouldChange; _crop = c; },
-                                            c => { c.PropertyChanged -= onCropShouldChange; _crop = null; });
-            entity.Bind<IImageComponent>(c => { _image = c; c.PropertyChanged += onImageChanged; },
-                                         c => { _image = null; c.PropertyChanged -= onImageChanged; });
-            entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
-            entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += onDrawableChanged; _drawable = c; },
-                                       c => { c.PropertyChanged -= onDrawableChanged; _drawable = null; });
-            entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += onTextureOffsetChanged; _textureOffset = c; onAllViewportsShouldChange(); },
-                                                 c => { c.PropertyChanged -= onTextureOffsetChanged; _textureOffset = null; onAllViewportsShouldChange(); });
-
+            Entity.Bind<IModelMatrixComponent>(c => { c.OnMatrixChanged.Subscribe(_onHitTextBoxShouldChangeCallback); _matrix = c; },
+                                               c => { c.OnMatrixChanged.Unsubscribe(_onHitTextBoxShouldChangeCallback); _matrix = null; });
+            Entity.Bind<ICropSelfComponent>(c => { c.PropertyChanged += _onCropShouldChangeCallback; _crop = c; },
+                                            c => { c.PropertyChanged -= _onCropShouldChangeCallback; _crop = null; });
+            Entity.Bind<IImageComponent>(c => { _image = c; c.PropertyChanged += _onImageChangedCallback; },
+                                         c => { _image = null; c.PropertyChanged -= _onImageChangedCallback; });
+            Entity.Bind<IScaleComponent>(c => _scale = c, _ => _scale = null);
+            Entity.Bind<IDrawableInfoComponent>(c => { c.PropertyChanged += _onDrawableChangedCallback; _drawable = c; },
+                                                c => { c.PropertyChanged -= _onDrawableChangedCallback; _drawable = null; });
+            Entity.Bind<ITextureOffsetComponent>(c => { c.PropertyChanged += _onTextureOffsetChangedCallback; _textureOffset = c; onAllViewportsShouldChange(); },
+                                                 c => { c.PropertyChanged -= _onTextureOffsetChangedCallback; _textureOffset = null; onAllViewportsShouldChange(); });
         }
 
         public override void Dispose()
@@ -82,9 +91,8 @@ namespace AGS.Engine
             {
                 viewportBox?.Dispose();
             }
-            _boundingBoxBuilder?.OnNewBoxBuildRequired?.Unsubscribe(onHitTextBoxShouldChange);
-            _events?.OnRoomChanging?.Unsubscribe(onHitTextBoxShouldChange);
-            _entity = null;
+            _boundingBoxBuilder?.OnNewBoxBuildRequired?.Unsubscribe(_onHitTextBoxShouldChangeCallback);
+            _events?.OnRoomChanging?.Unsubscribe(_onHitTextBoxShouldChangeCallback);
         }
 
         public void Lock()
@@ -191,14 +199,11 @@ namespace AGS.Engine
             }
             var crop = _crop;
 
-            _isCropDirty = false;
             _areViewportsDirty = false;
             viewportBoxes.IsDirty = false;
 
-			Size resolution;
-			PointF resolutionFactor;
-			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
-                                                 drawable, null, out resolutionFactor, out resolution);
+            bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
+                                                 drawable, null, out PointF _, out Size _);
 
             var viewportMatrix = drawable.IgnoreViewport ? Matrix4.Identity : viewport.GetMatrix(drawable.RenderLayer);
             AGSBoundingBox intermediateBox, hitTestBox;
@@ -218,8 +223,7 @@ namespace AGS.Engine
                 intermediateBox = _boundingBoxBuilder.BuildIntermediateBox(width, height, ref modelMatrix);
             }
 
-            PointF renderCropScale;
-            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out renderCropScale);
+            var renderBox = _boundingBoxBuilder.BuildRenderBox(ref intermediateBox, ref viewportMatrix, out PointF renderCropScale);
 
             PointF hitTestCropScale = renderCropScale;
             if (MathUtils.FloatEquals(hitTestCropScale.X, 1f) && MathUtils.FloatEquals(hitTestCropScale.Y, 1f))
@@ -239,8 +243,10 @@ namespace AGS.Engine
             {
                 var textureOffset = _textureOffset;
                 var image = sprite?.Image;
+                // ReSharper disable CompareOfFloatsByEqualityOperator
                 if (image != null && (width != image.Width || height != image.Height ||
-                                      (!textureOffset?.TextureOffset.Equals(Vector2.Zero) ?? false)))
+                // ReSharper restore CompareOfFloatsByEqualityOperator
+                                      (!textureOffset?.TextureOffset.Equals(PointF.Empty) ?? false)))
                 {
                     var offset = textureOffset?.TextureOffset ?? PointF.Empty;
                     setProportionalTextureSize(boundingBoxes, image, width, height, offset);
@@ -257,6 +263,7 @@ namespace AGS.Engine
                 hitTestBox = hitTestBox.Crop(BoundingBoxType.HitTest, crop, hitTestCropScale).BoundingBox;
                 boundingBoxes.WorldBox = hitTestBox;
             }
+            _isCropDirty = false;
 
             return boundingBoxes;
 		}
@@ -277,10 +284,8 @@ namespace AGS.Engine
             var modelMatrices = matrix.GetModelMatrices();
             var modelMatrix = modelMatrices.InVirtualResolutionMatrix;
 
-			Size resolution;
-			PointF resolutionFactor;
-			bool resolutionMatches = AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
-												 drawable, null, out resolutionFactor, out resolution);
+            AGSModelMatrixComponent.GetVirtualResolution(false, _settings.VirtualResolution,
+                drawable, null, out PointF resolutionFactor, out Size _);
 
             float width = size.Width / resolutionFactor.X;
             float height = size.Height / resolutionFactor.Y;
@@ -334,13 +339,15 @@ namespace AGS.Engine
         private class ViewportBoundingBoxes
         {
             private IViewport _viewport;
+            private readonly PropertyChangedEventHandler _onViewportChangedCallback;
 
             public ViewportBoundingBoxes(IViewport viewport)
             {
                 IsDirty = true;
                 _viewport = viewport;
                 BoundingBoxes = new AGSBoundingBoxes();
-                viewport.PropertyChanged += onViewportChanged;
+                _onViewportChangedCallback = onViewportChanged;
+                viewport.PropertyChanged += _onViewportChangedCallback;
             }
 
             public AGSBoundingBoxes PreLockBoundingBoxes { get; set; }
@@ -354,7 +361,7 @@ namespace AGS.Engine
 
             public void Dispose()
             {
-                _viewport.PropertyChanged -= onViewportChanged;
+                _viewport.PropertyChanged -= _onViewportChangedCallback;
             }
         }
 	}

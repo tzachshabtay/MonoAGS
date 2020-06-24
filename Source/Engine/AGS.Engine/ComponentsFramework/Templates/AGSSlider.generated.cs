@@ -87,7 +87,9 @@ namespace AGS.Engine
 
         public string Name { get { return ID; } }
         public bool AllowMultiple { get { return false; } }
-        public void Init(IEntity entity) {}
+        public IEntity Entity { get => this; }
+        public Type RegistrationType { get => typeof(IEntity); }
+        public void Init(IEntity entity, Type registrationType) { }
 
         public override string ToString()
         {
@@ -173,6 +175,21 @@ namespace AGS.Engine
         public IBlockingEvent<SliderValueEventArgs> OnValueChanging 
         {  
             get { return _sliderComponent.OnValueChanging; } 
+        }
+
+        public void Increase(float step)
+        {
+            _sliderComponent.Increase(step);
+        }
+
+        public void Decrease(float step)
+        {
+            _sliderComponent.Decrease(step);
+        }
+
+        public bool IsHorizontal()
+        {
+            return _sliderComponent.IsHorizontal();
         }
 
         #endregion

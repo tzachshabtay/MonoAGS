@@ -13,11 +13,12 @@ namespace AGS.Engine
 
 	//Inspired from css: https://css-tricks.com/almanac/properties/b/border-image/
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Sliced Image (9-Slice)")]
 	public class AGSSlicedImageBorder : IBorderStyle
 	{
 		private int _texture;
 		private float _width, _height;
-		private readonly IGLColor _white;
+		private readonly GLColor _white;
         private readonly IGLUtils _glUtils;
 
         public AGSSlicedImageBorder(IGLUtils glUtils)
@@ -25,6 +26,18 @@ namespace AGS.Engine
             _glUtils = glUtils;
 			_white = Colors.White.ToGLColor();
 		}
+
+        [MethodWizard]
+        public AGSSlicedImageBorder(SliceValues slice, SliceValues width, SliceValues outset, BorderRepeat repeat, [MethodParam(Browsable = false, DefaultProvider = nameof(GetDefaultGLUtils))]IGLUtils glUtils)
+            :this(glUtils)
+        {
+            Slice = slice;
+            Width = width;
+            Outset = outset;
+            Repeat = repeat;
+        }
+
+        public static IGLUtils GetDefaultGLUtils(Resolver resolver) => resolver.Resolve<IGLUtils>();
 
 		public IAnimation Image { get; set; }
 
@@ -40,9 +53,16 @@ namespace AGS.Engine
 
 		public bool DrawBorderBehind { get; set; }
 
+        [Property(Browsable = false)]
         public float WidthLeft => Width.Left.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthRight => Width.Right.ToPixels(_width).Value;
+
+        [Property(Browsable = false)]
         public float WidthTop => Width.Top.ToPixels(_height).Value;
+
+        [Property(Browsable = false)]
         public float WidthBottom => Width.Bottom.ToPixels(_height).Value;
 
         #region IBorderStyle implementation
@@ -79,9 +99,11 @@ namespace AGS.Engine
 			if (!DrawBorderBehind) drawBorders(square);
 		}
 
-		#endregion
+        #endregion
 
-		private void drawBorders(AGSBoundingBox square)
+        public override string ToString() => "Sliced Image";
+
+        private void drawBorders(AGSBoundingBox square)
 		{
 			var slice = Slice.ToPercentage(_width, _height);
 			var width = Width.ToPixels(_width, _height);
@@ -192,7 +214,7 @@ namespace AGS.Engine
 			float rowWidth = rightX - leftX;
 			float textureWorldWidth = ((1f - slice.Left.Value - slice.Right.Value) * _width);
 			int stepsX = (int)(rowWidth / textureWorldWidth);
-			float remainderX = rowWidth - textureWorldWidth * ((float)stepsX);
+			float remainderX = rowWidth - textureWorldWidth * stepsX;
 
 			float textureWidth = 1f - slice.Left.Value - slice.Right.Value;
 			if (textureWidth < 0f) textureWidth = 1f;
@@ -226,7 +248,7 @@ namespace AGS.Engine
 			int stepsY = (int)(rowHeight / textureWorldHeight);
 			float textureHeight = 1f - slice.Top.Value - slice.Bottom.Value;
 			if (textureHeight < 0f) textureHeight = 1f;
-			float remainderY = rowHeight - textureWorldHeight * ((float)stepsY);
+			float remainderY = rowHeight - textureWorldHeight * stepsY;
 			float stepY = textureWorldHeight;
 			float heightY = textureWorldHeight;
 			float startY = bottomY;
@@ -312,4 +334,3 @@ namespace AGS.Engine
 		}
 	}
 }
-

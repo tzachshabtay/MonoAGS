@@ -1,28 +1,26 @@
 ﻿using AGS.API;
+using System;
 
 namespace AGS.Engine
 {
-    public partial class AGSArea : AGSEntity, IArea
+    public class AGSArea : AGSEntity, IArea
     {
-        private IAreaComponent _areaComponent;
+        private readonly IAreaComponent _areaComponent;
 
         public AGSArea(string id, Resolver resolver) : base(id, resolver)
         {
             _areaComponent = AddComponent<IAreaComponent>();
 
-            beforeInitComponents(resolver);
             InitComponents();
-            afterInitComponents(resolver);
         }
 
         public string Name => ID;
         public bool AllowMultiple => false;
-        public void Init(IEntity entity) { }
+        public IEntity Entity => this;
+        public Type RegistrationType => typeof(IArea);
+        public void Init(IEntity entity, Type registrationType) { }
 
         public override string ToString() => $"{ID ?? ""} ({GetType().Name})";
-
-        partial void beforeInitComponents(Resolver resolver);
-        partial void afterInitComponents(Resolver resolver);
 
         public bool Enabled
         {

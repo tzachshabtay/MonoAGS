@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.IO;
 using Autofac;
@@ -12,7 +13,9 @@ namespace AGS.Engine.Desktop
 		{                        
 			OpenTK.Toolkit.Init();
             OpenALSoftLoader.Load();
-			string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(".Desktop", "");
+		    string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+		    Trace.Assert(currentDir != null);
+			currentDir = currentDir.Replace(".Desktop", "");
 			Directory.CreateDirectory(currentDir);
 			Environment.CurrentDirectory = currentDir;
 

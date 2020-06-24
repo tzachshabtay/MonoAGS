@@ -1,4 +1,5 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
@@ -6,22 +7,47 @@ namespace AGS.Engine
     {
         private readonly IGameWindow _gameWindow;
         private readonly IRenderMessagePump _messagePump;
-        private readonly IGLUtils _glUtils;
         private bool _preserveAspectRatio;
         private string _title;
+        private VsyncMode _vsync;
+        private Size _windowSize;
 
-        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump, IGLUtils glUtils)
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        public AGSRuntimeSettings(IGameSettings settings, IGameWindow gameWindow, IRenderMessagePump messagePump)
         {
-            _glUtils = glUtils;
             _gameWindow = gameWindow;
             _messagePump = messagePump;
+            LoadFrom(settings);
+        }
+
+        public void LoadFrom(IGameSettings settings)
+        {
             Title = settings.Title;
             VirtualResolution = settings.VirtualResolution;
             Vsync = settings.Vsync;
             PreserveAspectRatio = settings.PreserveAspectRatio;
             WindowState = settings.WindowState;
             WindowBorder = settings.WindowBorder;
+            _windowSize = new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
+            var messageBoxSettings = Defaults?.MessageBox;
+            var fontSettings = Defaults?.Fonts;
+            var dialogSettings = Defaults?.Dialog;
             Defaults = settings.Defaults;
+            if (Defaults.MessageBox == null)
+            {
+                Defaults.MessageBox = messageBoxSettings; 
+            }
+            if (Defaults.Fonts == null)
+            {
+                Defaults.Fonts = fontSettings;
+            }
+            if (Defaults.Dialog == null)
+            {
+                Defaults.Dialog = dialogSettings;
+            }
         }
 
         public string Title 
@@ -34,14 +60,26 @@ namespace AGS.Engine
             } 
         }
         
-        public AGS.API.Size VirtualResolution { get; }
+        public Size VirtualResolution { get; private set; }
 
-        public VsyncMode Vsync { get => _gameWindow.Vsync; set => _gameWindow.Vsync = value; }
+        public VsyncMode Vsync 
+        { 
+            get => _vsync; 
+            set
+            {
+                _vsync = value;
+                _messagePump.Post(_ => _gameWindow.Vsync = value, null);
+            }
+        }
 
-        public AGS.API.Size WindowSize 
+        public Size WindowSize 
         {
-            get => new AGS.API.Size(_gameWindow.ClientWidth, _gameWindow.ClientHeight);
-            set => _messagePump.Post(_ => _gameWindow.SetSize(value), null);
+            get => _windowSize;
+            set
+            {
+                _windowSize = value;
+                _messagePump.Post(_ => _gameWindow.SetSize(value), null);
+            }
         }
 
         public bool PreserveAspectRatio 
@@ -50,18 +88,18 @@ namespace AGS.Engine
             set => _preserveAspectRatio = value;
         }
 
-        public AGS.API.WindowState WindowState 
+        public WindowState WindowState 
         {
-            get => (AGS.API.WindowState)_gameWindow.WindowState;
+            get => _gameWindow.WindowState;
             set => _messagePump.Post(_ => _gameWindow.WindowState = value, null);
         }
 
-        public AGS.API.WindowBorder WindowBorder 
+        public WindowBorder WindowBorder 
         {
-            get => (AGS.API.WindowBorder)_gameWindow.WindowBorder;
+            get => _gameWindow.WindowBorder;
             set => _messagePump.Post(_ => _gameWindow.WindowBorder = value, null);
         }
 
-        public IDefaultsSettings Defaults { get; }
+        public IDefaultsSettings Defaults { get; private set; }
     }
 }

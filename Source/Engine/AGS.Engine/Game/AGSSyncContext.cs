@@ -15,20 +15,20 @@ namespace AGS.Engine
 
 		public void SetSyncContext ()
 		{
-			SynchronizationContext.SetSynchronizationContext (this);
+			SetSynchronizationContext (this);
 		}
 
 		public void PumpMessages ()
 		{
 			Action action;
 			while (_queue.TryDequeue (out action)) {
-				action ();
+				action();
 			}
 		}
 
 		public override void Post (SendOrPostCallback d, object state)
 		{
-			_queue.Enqueue (() => d (state));
+			_queue.Enqueue(() => d (state));
 		}
 
 		public override void Send (SendOrPostCallback d, object state)
@@ -39,11 +39,14 @@ namespace AGS.Engine
 				resetEvent.Set ();
 			};
 			_queue.Enqueue (action);
-            resetEvent.WaitOne(120000);
+            if (!resetEvent.WaitOne(120000))
+            {
+                throw new TimeoutException($"timeout when sending action");
+            }
 		}
 
         public void RunBlocking(Action action)
-        { 
+        {
             if (Environment.CurrentManagedThreadId == AGSGame.UIThreadID)
             {
                 action();
@@ -61,4 +64,3 @@ namespace AGS.Engine
     {
     }
 }
-

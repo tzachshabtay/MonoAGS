@@ -32,6 +32,10 @@ namespace AGS.Engine
 #pragma warning restore CS0067
 
         #endregion
+
+        public override string ToString() => $"Loop: {CurrentLoop}, frame: {CurrentFrame}";
+
+        [CustomStringValue(CustomStringApplyWhen.Both)]
+        public string ToInspectorString() => "Animation State";
     }
 }
-

@@ -11,7 +11,7 @@ namespace DemoGame
 
 		public async Task<ICharacter> LoadAsync(IGame game)
 		{
-            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 
 			var footstep = await game.Factory.Sound.LoadAudioClipAsync("Sounds/151238__owlstorm__hard-female-footstep-2.wav");
 			ISoundEmitter emitter = new AGSSoundEmitter (game);
@@ -37,7 +37,7 @@ namespace DemoGame
             /*
             var portrait = game.Factory.Object.GetObject("CrisPortrait");
             portrait.StartAnimation(game.Factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Talk"));
-            portrait.Border = AGSBorders.SolidColor(Colors.AliceBlue, 3f, true);
+            portrait.Border = game.Factory.Graphics.Borders.SolidColor(Colors.AliceBlue, 3f, true);
             portrait.Visible = false;
             portrait.RenderLayer = AGSLayers.Speech;
             portrait.IgnoreViewport = true;
@@ -51,7 +51,6 @@ namespace DemoGame
 			Characters.RandomAnimationDelay(speakAnimation.Right);
             emitter.Assign(_character.Outfit[AGSOutfit.Walk], 1, 5);
 
-            _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.DisplayName = "Cris";
             _character.IsPixelPerfect = true;
 

@@ -16,7 +16,7 @@ namespace AGS.API
 		public RequiredComponentAttribute(Type component, bool mandatory = true)
 		{
 			Component = component;
-			Mandatory = true;
+			Mandatory = mandatory;
 		}
 
         /// <summary>

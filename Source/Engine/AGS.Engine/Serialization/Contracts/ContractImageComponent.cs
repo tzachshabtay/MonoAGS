@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using Autofac;
 
@@ -8,10 +7,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractImageComponent : IContract<IImageComponent>
     {
-        public ContractImageComponent()
-        {
-        }
-        
         [ProtoMember(1)]
         public IContract<ISpriteProvider> SpriteProvider { get; set; }
 
@@ -26,8 +21,7 @@ namespace AGS.Engine
             var container = context.Resolver.Container;
             AGSImageComponent imageComponent = new AGSImageComponent(image, context.Factory.Graphics, 
                                  container.Resolve<IRenderPipeline>(), container.Resolve<IGLTextureRenderer>(),
-                                 container.Resolve<ITextureCache>(), container.Resolve<ITextureFactory>(), 
-                                 container.Resolve<IGLColorBuilder>());
+                                 container.Resolve<ITextureCache>(), container.Resolve<ITextureFactory>());
             ToItem(context, imageComponent);
             return imageComponent;
         }

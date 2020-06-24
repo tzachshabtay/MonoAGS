@@ -1,7 +1,6 @@
 ﻿using AGS.API;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AGS.Engine
 {
@@ -29,6 +28,14 @@ namespace AGS.Engine
             else child.TreeNode.SetParent(this);
 		}
 
+        public void InsertChild(int index, TItem child)
+        {
+            if (HasChild(child))
+                throw new InvalidOperationException($"Can't insert child at index {index}, child is already in the collection");
+            _children.Insert(index, child);
+            ((AGSTreeNode<TItem>)child.TreeNode).setParentOneWay(this);
+        }
+
         public void AddChildren(List<TItem> children)
         {
             foreach (var child in children)
@@ -49,12 +56,46 @@ namespace AGS.Engine
 
         public bool HasChild(TItem child) => _children.Contains(child);
 
+        public TItem FindDescendant(Predicate<TItem> isMatch)
+        {
+            if (isMatch(Node)) return Node;
+            foreach (var child in Children)
+            {
+                var found = child.TreeNode.FindDescendant(isMatch);
+                if (found != null) return found;
+            }
+            return null;
+        }
+
+        public TItem FindPreviousSibling(Predicate<TItem> isMatch)
+        {
+            if (Parent == null) return default;
+            TItem prev = default;
+            foreach (var child in Parent.TreeNode.Children)
+            {
+                if (child == this.Node) return prev;
+                if (isMatch(child))
+                {
+                    prev = child;
+                }
+            }
+            throw new Exception($"Node {Node} wasn't found in the list of children");
+        }
+
         public void Dispose()
         {
             SetParent(null);
             OnParentChanged?.Dispose();
             _children?.Dispose();
             Node = null;
+        }
+
+        public override string ToString()
+        {
+            var count = ChildrenCount;
+            var countString = count == 0 ? "No children" : count == 1 ? "1 child" : $"{count} children";
+            if (Parent == null) return countString;
+            return $"Child of {Parent}, {countString}";
         }
 
         public TItem Node { get; set; }
@@ -120,6 +161,5 @@ namespace AGS.Engine
             prevParent?.RemoveChild(Node);
             fireParentChanged();
         }
-	}
+    }
 }
-

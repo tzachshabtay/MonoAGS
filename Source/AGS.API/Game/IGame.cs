@@ -81,6 +81,12 @@
         ICoordinates Coordinates { get; }
 
         /// <summary>
+        /// Allows retrieving various systems from the engine.
+        /// </summary>
+        /// <value>The resolver.</value>
+        IResolver Resolver { get; }
+
+        /// <summary>
         /// Starts the game.
         /// </summary>
 		void Start();

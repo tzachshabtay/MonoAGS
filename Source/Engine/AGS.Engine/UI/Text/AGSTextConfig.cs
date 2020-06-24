@@ -4,6 +4,7 @@ using AGS.API;
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(Browsable = false)]
     public class AGSTextConfig : ITextConfig
     {
         private static IBrushLoader _brushes => AGSGame.Device.BrushLoader;
@@ -12,31 +13,24 @@ namespace AGS.Engine
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public AGSTextConfig(IBrush brush = null, IFont font = null, IBrush outlineBrush = null, float outlineWidth = 0f,
-            IBrush shadowBrush = null, float shadowOffsetX = 0f, float shadowOffsetY = 0f,
-            Alignment alignment = Alignment.TopLeft, AutoFit autoFit = AutoFit.NoFitting,
-            float paddingLeft = 2f, float paddingRight = 2f, float paddingTop = 2f, float paddingBottom = 2f)
-        {
-            Brush = brush ?? _brushes.LoadSolidBrush(Colors.White);
-            Font = font ?? AGSGame.Game?.Settings.Defaults.TextFont;
-            OutlineBrush = outlineBrush ?? _brushes.LoadSolidBrush(Colors.White);
-            OutlineWidth = outlineWidth;
-            ShadowBrush = shadowBrush;
-            ShadowOffsetX = shadowOffsetX;
-            ShadowOffsetY = shadowOffsetY;
-            Alignment = alignment;
-            AutoFit = autoFit;
-            PaddingLeft = paddingLeft;
-            PaddingRight = paddingRight;
-            PaddingTop = paddingTop;
-            PaddingBottom = paddingBottom;
-        }
-
         public static AGSTextConfig Clone(ITextConfig config)
         {
-            AGSTextConfig textConfig = new AGSTextConfig(config.Brush, config.Font, config.OutlineBrush, config.OutlineWidth,
-                                                         config.ShadowBrush, config.ShadowOffsetX, config.ShadowOffsetY, config.Alignment, config.AutoFit, 
-                                                         config.PaddingLeft, config.PaddingRight, config.PaddingTop, config.PaddingBottom);
+            AGSTextConfig textConfig = new AGSTextConfig();
+            textConfig.Brush = config.Brush;
+            textConfig.Font = config.Font;
+            textConfig.OutlineBrush = config.OutlineBrush;
+            textConfig.OutlineWidth = config.OutlineWidth;
+            textConfig.ShadowBrush = config.ShadowBrush;
+            textConfig.ShadowOffsetX = config.ShadowOffsetX;
+            textConfig.ShadowOffsetY = config.ShadowOffsetY;
+            textConfig.Alignment = config.Alignment;
+            textConfig.AutoFit = config.AutoFit;
+            textConfig.PaddingLeft = config.PaddingLeft;
+            textConfig.PaddingRight = config.PaddingRight;
+            textConfig.PaddingTop = config.PaddingTop;
+            textConfig.PaddingBottom = config.PaddingBottom;
+            textConfig.LabelMinSize = config.LabelMinSize;
+
             return textConfig;
         }
 
@@ -69,7 +63,7 @@ namespace AGS.Engine
 
         public IFont Font { get; set; }
 
-        public Alignment Alignment { get; set; }
+        public Alignment Alignment { get; set; } = Alignment.TopLeft;
 
         public IBrush OutlineBrush { get; set; }
 
@@ -80,11 +74,13 @@ namespace AGS.Engine
         public float ShadowOffsetX { get; set; }
         public float ShadowOffsetY { get; set; }
 
-        public AutoFit AutoFit { get; set; }
-        public float PaddingLeft { get; set; }
-        public float PaddingRight { get; set; }
-        public float PaddingTop { get; set; }
-        public float PaddingBottom { get; set; }
+        public AutoFit AutoFit { get; set; } = AutoFit.NoFitting;
+        public float PaddingLeft { get; set; } = 2f;
+        public float PaddingRight { get; set; } = 2f;
+        public float PaddingTop { get; set; } = 2f;
+        public float PaddingBottom { get; set; } = 2f;
+
+        public SizeF? LabelMinSize { get; set; }
 
         #endregion
 
@@ -93,7 +89,7 @@ namespace AGS.Engine
         public bool Equals(ITextConfig config)
         {
             if (config == null) return false;
-            if (config == this) return true;
+            if (ReferenceEquals(config, this)) return true;
             return Brush == config.Brush && Font == config.Font && Alignment == config.Alignment
                   && OutlineBrush == config.OutlineBrush && MathUtils.FloatEquals(OutlineWidth, config.OutlineWidth)
                   && ShadowBrush == config.ShadowBrush && MathUtils.FloatEquals(ShadowOffsetX, config.ShadowOffsetX)
@@ -102,6 +98,8 @@ namespace AGS.Engine
                   && MathUtils.FloatEquals(PaddingRight, config.PaddingRight) && MathUtils.FloatEquals(PaddingBottom, config.PaddingBottom);
         }
 
-        public override int GetHashCode() => Font?.GetHashCode() ?? 0;
+        public override int GetHashCode() => 0; //We don't have any immutable field which can be used for the hash code, unfortunately.
+
+        public override string ToString() => "Text Configuration";
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using CSCore.Codecs.FLAC;
 using System.Diagnostics;
 
@@ -22,7 +21,7 @@ namespace AGS.Engine
 			}
 			catch (FlacException e)
 			{
-				Debug.WriteLine("Failed to parse flac file: " + e.ToString());
+				Debug.WriteLine("Failed to parse flac file: " + e);
 				return null;
 			}
 		}

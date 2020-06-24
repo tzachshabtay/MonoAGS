@@ -1,42 +1,26 @@
 ﻿using System;
 using AGS.API;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
     public class AGSAreaComponent : AGSComponent, IAreaComponent
     {
-        private static List<(int stepX,int stepY)> _searchVectors;
         private ITranslateComponent _translate;
         private IRotateComponent _rotate;
-
-        static AGSAreaComponent()
-        {
-            _searchVectors = new List<(int,int)>
-            {
-                (0, -1),
-                (0, 1),
-                (1, 0),
-                (-1, 0),
-                (-1, -1),
-                (1, 1),
-            };
-        }
 
         public AGSAreaComponent ()
         {
             Enabled = true;
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<ITranslateComponent>(
+            base.Init();
+            Entity.Bind<ITranslateComponent>(
                 c => { _translate = c; c.PropertyChanged += onLocationChanged; },
                 c => { _translate = null; c.PropertyChanged -= onLocationChanged; });
-            entity.Bind<IRotateComponent>(
+            Entity.Bind<IRotateComponent>(
                 c => { _rotate = c; c.PropertyChanged += onAngleChanged; },
                 c => { _rotate = null; c.PropertyChanged -= onAngleChanged; });
         }
@@ -82,7 +66,7 @@ namespace AGS.Engine
                 y = height - 1;
             }
             float insideDistance;
-            PointF? result = findClosestPoint(x, y, width, height, out insideDistance);
+            PointF? result = findClosestPoint(x, y, out insideDistance);
             distance += insideDistance;
             return result;
         }
@@ -125,42 +109,40 @@ namespace AGS.Engine
             return transformation;
         }
 
-        private PointF? findClosestPoint(int x, int y, int width, int height, out float distance)
+        private PointF? findClosestPoint(int x, int y, out float distance)
         {
             //todo: This will not always give the real closest position.
-            //It's "good enough" most of the time, but can be improved (it only searches using straight lines currently).
-            distance = float.MaxValue;
-            PointF? closestPoint = null;
-            foreach (var (stepX, stepY) in _searchVectors) 
-            {
-                float tmpDistance;
-                PointF? point = findClosestPoint (x, y, width, height, stepX, stepY, out tmpDistance);
-                if (tmpDistance < distance) 
-                {
-                    closestPoint = point;
-                    distance = tmpDistance;
-                }
-            }
-            return closestPoint;
+            //It's "good enough" most of the time, taken from "classic" AGS code, first we scan every 2 pixels in a close vicinity, if didn't find then looking at every 5 pixels in the entire mask.
+            return findClosestPointInRange(x, y, 20, 2, out distance) ?? findClosestPointInRange(x, y, Mask.Width, 5, out distance);
         }
             
-        private PointF? findClosestPoint(int x, int y, int width, int height, int stepX, int stepY,
-            out float distance)
+        private PointF? findClosestPointInRange(int x, int y, int range, int step, out float distance)
         {
-            distance = 0f;
-            while (!Mask.IsMasked(new PointF(x, y)))
+            int startX = Math.Max(0, x - range);
+            int startY = Math.Max(0, y - range);
+            int endX = Math.Min(Mask.Width, startX + range);
+            int endY = Math.Min(Mask.Height, startY + range);
+            distance = float.MaxValue;
+            PointF? closestPoint = null;
+            for (int currentX = startX; currentX < endX; currentX += step)
             {
-                x += stepX;
-                y += stepY;
-                distance++;
-                if (x < 0 || x >= width || y < 0 || y >= height) 
+                for (int currentY = startY; currentY < endY; currentY += step)
                 {
-                    distance = float.MaxValue;
-                    return null;
+                    var currentPoint = new PointF(currentX, currentY);
+                    if (!Mask.IsMasked(currentPoint))
+                    {
+                        continue;
+                    }
+                    float currentDistance = (currentX - x) * (currentX - x) + (currentY - y) * (currentY - y);
+                    if (currentDistance < distance)
+                    {
+                        distance = currentDistance;
+                        closestPoint = currentPoint;
+                    }
                 }
             }
-            return new PointF (x, y);
+            distance = (float)Math.Sqrt(distance);
+            return closestPoint;
         }
     }
 }
-

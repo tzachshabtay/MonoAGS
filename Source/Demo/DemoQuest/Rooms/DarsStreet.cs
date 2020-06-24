@@ -26,7 +26,6 @@ namespace DemoGame
 			bg.StartAnimation(bgAnimation);
 			_room.Background = bg;
 
-            var device = AGSGame.Device;
             await factory.Room.GetAreaAsync(_baseFolder + "walkable1.png", _room, isWalkable: true);
             await factory.Room.GetAreaAsync(_baseFolder + "walkable2.png", _room, isWalkable: true);
             factory.Room.CreateScaleArea(_room.Areas[0], 0.35f, 0.75f);

@@ -87,6 +87,14 @@ namespace AGS.API
         void Unsubscribe(Action<TEventArgs> callback, CallbackPriority priority = CallbackPriority.Normal);
 
         /// <summary>
+        /// Unsubscribe the specified callback from the event.
+        /// This will stops notifications to call this callback.
+        /// </summary>
+        /// <param name="callback">Callback.</param>
+        /// <param name="priority">The callback priority (determines the order in which the subscribers get the events).</param>
+        void Unsubscribe(Action callback, CallbackPriority priority = CallbackPriority.Normal);
+
+        /// <summary>
         /// Subscribe the specified callback to the event.
         /// Once subscribed, whenever the event happens this callback will be called.
         ///

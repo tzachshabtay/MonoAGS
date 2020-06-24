@@ -36,12 +36,12 @@ namespace AGS.Engine.Android
 
 			TextPaint paint = getPaint(_config.Brush);
 
-			float left = xOffset + _config.AlignX(textSize.Width, baseSize);
-			float top = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
-			float centerX = left + _config.OutlineWidth / 2f;
-			float centerY = top + _config.OutlineWidth / 2f;
-			float right = left + _config.OutlineWidth;
-			float bottom = top + _config.OutlineWidth;
+            float centerX = xOffset + _config.AlignX(textSize.Width, baseSize);
+            float centerY = _config.AlignY(_bitmap.Height, textSize.Height, baseSize);
+            float left = centerX - _config.OutlineWidth / 2f;
+            float top = centerY - _config.OutlineWidth / 2f;
+            float right = left + _config.OutlineWidth;
+            float bottom = top + _config.OutlineWidth;
 
             var canvas = _canvas;
 			if (_config.OutlineWidth > 0f)
@@ -103,4 +103,3 @@ namespace AGS.Engine.Android
 		}
 	}
 }
-

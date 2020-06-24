@@ -11,14 +11,14 @@ A border can be drawn both behind and in front of the object it's assigned to, w
 
 A solid color border will be drawn around the object.
 You can choose the color, the border width, and whether or not to make the corners rounded.
-You can create a solid border by calling `AGSBorders.Solid`.
+You can create a solid border by using the border factory: `factory.Graphics.Border.SolidColor(...)`.
 By default the border will be drawn in front of the object, but you can change it to be drawn behind the object by setting the `DrawBorderBehind` property of the border to `true`.
 
 ### Gradient Color
 
 A gradient color border will be drawn around the object.
 This gives you the same choices as the solid color border, only instead of selecting one color, you can select 4 colors, one for each corner of the border. The color along the edges will be interpolated, thus creating the gradient effect.
-You can create a gradient border by calling `AGSBorders.Gradient`.
+You can create a gradient border by using the border factory: `factory.Graphics.Border.Gradient(...)`.
 
 ### 9-slice Image
 

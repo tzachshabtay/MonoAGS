@@ -3,6 +3,7 @@ using AGS.API;
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(Browsable = false)]
     public class ArrowIcon : IBorderStyle
     {
         private readonly IGLUtils _glUtils;
@@ -11,7 +12,7 @@ namespace AGS.Engine
         private GLVertex[] _quad = new GLVertex[4];
         private IRuntimeSettings _settings;
         private ArrowDirection _direction;
-        private IGLColor _color;
+        private GLColor _color;
         private AGSBoundingBox _lastSquare;
         private Size _lastWindowSize;
 
@@ -30,7 +31,7 @@ namespace AGS.Engine
         public float WidthTop => 0f;
 
         public ArrowDirection Direction { get => _direction; set { if (_direction == value) return; _direction = value; _frameBuffer = null; } }
-        public IGLColor ArrowColor { get => _color; set { if (_color == value) return; _color = value; _frameBuffer = null; } }
+        public GLColor ArrowColor { get => _color; set { if (_color.Equals(value)) return; _color = value; _frameBuffer = null; } }
 
         public void RenderBorderBack(AGSBoundingBox square)
         {
@@ -80,7 +81,7 @@ namespace AGS.Engine
 
             _frameBuffer = _glUtils.BeginFrameBuffer(square, _settings);
             if (_frameBuffer == null) return;
-            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex((point1).ToVector2(), _emptyVector, ArrowColor),
+            _glUtils.DrawTriangle(0, new[] { new GLVertex((point1).ToVector2(), _emptyVector, ArrowColor),
                 new GLVertex((point2).ToVector2(), _emptyVector, ArrowColor), new GLVertex((point3).ToVector2(), _emptyVector, ArrowColor)});
             _frameBuffer.End();
 

@@ -45,8 +45,9 @@ namespace AGS.Engine.IOS
 
         public FontStyle Style => _style;
 
-        public SizeF MeasureString(string text, int maxWidth = int.MaxValue)
+        public SizeF MeasureString(string text, Alignment alignment, int maxWidth = int.MaxValue)
         {
+            //todo: support alignment
             var key = new TextMeasureKey(text, InnerFont, maxWidth);
             return _measurements.GetOrAdd(key, k =>
             {

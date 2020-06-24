@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using AGS.API;
 using AGS.Engine;
@@ -53,7 +52,6 @@ namespace Tests
 
         private async Task testAllocation<TObj>() where TObj : class
         {
-            Mocks mocks = new Mocks();
             Resolver resolver = Mocks.GetResolver();
             resolver.Build();
 
@@ -63,6 +61,7 @@ namespace Tests
             var weakRef = alloc(myReference);
             await Task.Delay(5);
 
+            // ReSharper disable once RedundantAssignment
             myReference = null;
 
             GC.Collect(2, GCCollectionMode.Forced, true, true);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace AGS.Editor.Desktop
@@ -23,7 +24,6 @@ namespace AGS.Editor.Desktop
                         Environment.SetEnvironmentVariable("MSBuildExtensionsPath", Path.Combine(monoDir, "xbuild"));
                     });
                 });
-                return;
             }
 #endif
         }
@@ -44,9 +44,11 @@ namespace AGS.Editor.Desktop
 
             var assembly = typeof(System.Runtime.GCSettings).Assembly;
             var assemblyDirectory = Path.GetDirectoryName(assembly.Location);
+            Trace.Assert(assemblyDirectory != null, $"GetNetCoreMsBuildPath: Directory path for assembly {assembly.FullName} returned null");
             var directoryInfo = new DirectoryInfo(assemblyDirectory);
             var netCoreVersion = directoryInfo.Name; // e.g. 2.0.0
                                                      // Get the dotnet folder
+            Trace.Assert(directoryInfo.Parent?.Parent?.Parent != null, $"GetNetCoreMsBuildPath: Bad hierarchy for directory {assemblyDirectory} in assembly {assembly.FullName}");
             var dotnetFolder = directoryInfo.Parent.Parent.Parent.FullName;
             // MSBuild should be located at dotnet/sdk/{version}/MSBuild.dll
             var msBuildPath = Path.Combine(dotnetFolder, "sdk", netCoreVersion, "MSBuild.dll");
@@ -67,7 +69,9 @@ namespace AGS.Editor.Desktop
 
             var assembly = typeof(System.Runtime.GCSettings).Assembly;
             var assemblyDirectory = Path.GetDirectoryName(assembly.Location);
+            Trace.Assert(assemblyDirectory != null, $"GetMonoMsBuildPath: Directory path for assembly {assembly.FullName} returned null");
             var directoryInfo = new DirectoryInfo(assemblyDirectory).Parent; // get mono directory
+            Trace.Assert(directoryInfo != null, $"GetMonoMsBuildPath: Bad hierarchy for directory {assemblyDirectory} in assembly {assembly.FullName}");
             monoDirectoryAction?.Invoke(directoryInfo.FullName);
             var msBuildPath = Path.Combine(directoryInfo.FullName, "msbuild", "15.0", "bin", "MSBuild.dll");
             return File.Exists(msBuildPath) ? msBuildPath : null;

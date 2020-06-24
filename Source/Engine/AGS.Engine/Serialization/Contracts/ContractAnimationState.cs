@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using ProtoBuf;
 
 namespace AGS.Engine
@@ -7,11 +6,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractAnimationState : IContract<IAnimationState>
 	{
-		public ContractAnimationState()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public bool RunningBackwards { get; set; }
 
 		[ProtoMember(2)]

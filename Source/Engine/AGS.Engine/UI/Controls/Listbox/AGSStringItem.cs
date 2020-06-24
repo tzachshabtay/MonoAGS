@@ -6,9 +6,10 @@ namespace AGS.Engine
     {
         public AGSStringItem(IFont font = null)
         {
-            font = font ?? AGSGame.Game.Settings.Defaults.SpeechFont;
-            IdleTextConfig = new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText, font: font);
-            HoverTextConfig = AGSTextConfig.ChangeColor(IdleTextConfig, Colors.Yellow, Colors.Black, 1f);
+            //todo: remove usage of AGSGame
+            font = font ?? AGSGame.Game.Settings.Defaults.Fonts.Speech;
+            IdleTextConfig = AGSGame.Game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText, font: font);
+            HoverTextConfig = AGSTextConfig.ChangeColor(IdleTextConfig, Colors.Yellow, Colors.Black, 0f);
             Properties = new AGSCustomProperties();
         }
 

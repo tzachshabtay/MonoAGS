@@ -105,10 +105,9 @@ Resolver.Override(resolver =>
 
 cHero.OnBeforeSay.Subscribe(args => 
 {
-    args.Label.X = 400f;
-    args.Label.Y = 100f;
+    args.Label.Position = (400f, 100f);
 });
 
 ```
 
-So the conclusion here is that there might be a built in way to achieve what you want (or more than one way), so if you're not sure how to achieve something), please ask!
+So the conclusion here is that there might be a built in way to achieve what you want (or more than one way), so if you're not sure how to achieve something, please ask!

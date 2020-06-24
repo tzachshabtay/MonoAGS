@@ -1,7 +1,5 @@
 ﻿using System;
 using AGS.API;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Threading;
 
 namespace AGS.Engine
@@ -9,12 +7,12 @@ namespace AGS.Engine
 	public class AGSGameLoop : IGameLoop
 	{
 		private readonly IGameState _gameState;
-		private readonly AGS.API.Size _virtualResolution;
+		private readonly Size _virtualResolution;
         private int _inUpdate; //For preventing re-entrancy
         private readonly IDisplayList _displayList;
         private readonly IInput _input;
 
-		public AGSGameLoop (IGameState gameState, AGS.API.Size virtualResolution, 
+		public AGSGameLoop (IGameState gameState, Size virtualResolution, 
                             IDisplayList displayList, IInput input)
 		{
             _displayList = displayList;
@@ -31,7 +29,6 @@ namespace AGS.Engine
             try
             {
                 if (_gameState.Room == null) return;
-                IRoom room = _gameState.Room;
                 updateViewports(resetCamera);
                 _displayList.Update(resetCamera);
                 updateCursor();
@@ -79,7 +76,7 @@ namespace AGS.Engine
 
         private void updateCursor()
         {
-            IObject cursor = _input.Cursor;
+            IObject cursor = _gameState.Cursor;
             if (cursor == null) return;
             var viewport = _gameState.Viewport;
             cursor.X = _input.MousePosition.XMainViewport;
@@ -97,7 +94,7 @@ namespace AGS.Engine
 			if (_gameState.Cutscene.IsSkipping && animation.Configuration.Loops > 0)
 			{
 				animation.State.TimeToNextFrame = 0;
-				while (animation.NextFrame()) ;
+				while (animation.NextFrame()) {}
 			}
 			else
 			{

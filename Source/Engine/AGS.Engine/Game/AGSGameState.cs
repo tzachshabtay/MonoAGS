@@ -11,11 +11,14 @@ namespace AGS.Engine
 	{
 		private Lazy<ICutscene> _cutscene;
         private readonly ViewportCollection _viewports;
+        private readonly IAGSCursor _cursor;
 
         public AGSGameState (ICustomProperties globalVariables, IRoomTransitions roomTransitions,
-                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport, IEvent<RoomTransitionEventArgs> onRoomChangeRequired)
+                             Resolver resolver, IFocusedUI focusedUi, IViewport viewport, 
+                             IEvent<RoomTransitionEventArgs> onRoomChangeRequired, IAGSCursor cursor)
 		{
 			Speed = 100;
+            _cursor = cursor;
 			Rooms = new AGSBindingList<IRoom>(10);
 			UI = new AGSConcurrentHashSet<IObject> ();
             SecondaryViewports = new AGSBindingList<IViewport>(5);
@@ -46,6 +49,8 @@ namespace AGS.Engine
 
         public List<IViewport> GetSortedViewports() => _viewports.SortedViewports;
 
+        public IObject Cursor { get => _cursor.Cursor; set => _cursor.Cursor = value; }
+
 		public IConcurrentHashSet<IObject> UI { get; private set; }
 
         public IFocusedUI FocusedUI { get; }
@@ -73,7 +78,7 @@ namespace AGS.Engine
                 Room = newRoom;
             }));
             DuringRoomTransition = false;
-            await newRoom?.Events.OnAfterFadeIn.InvokeAsync();
+            await (newRoom?.Events.OnAfterFadeIn.InvokeAsync() ?? Task.CompletedTask);
         }
 
 		public void CopyFrom(IGameState state)
@@ -110,7 +115,22 @@ namespace AGS.Engine
 			}
 		}
 
-		private TEntity findUi<TEntity>(string id) where TEntity : class, IEntity
+        public IEnumerable<TEntity> All<TEntity>() where TEntity : class, IEntity
+        {
+            foreach (var room in Rooms)
+            {
+                foreach (var obj in room.Objects)
+                {
+                    if (obj is TEntity entity) yield return entity;
+                }
+            }
+            foreach (var obj in UI)
+            {
+                if (obj is TEntity entity) yield return entity; 
+            }
+        }
+
+        private TEntity findUi<TEntity>(string id) where TEntity : class, IEntity
 		{
 			return (UI.FirstOrDefault(o => o.ID == id)) as TEntity;
 		}

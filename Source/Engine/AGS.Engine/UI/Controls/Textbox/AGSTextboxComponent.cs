@@ -1,7 +1,6 @@
-﻿using AGS.API;
-using System.Diagnostics;
+﻿using System;
+using AGS.API;
 using System.ComponentModel;
-using System;
 
 namespace AGS.Engine
 {
@@ -10,13 +9,10 @@ namespace AGS.Engine
         private bool _isFocused;
         private ITextComponent _textComponent;
         private IImageComponent _imageComponent;
-        private IBorderComponent _borderComponent;
         private IVisibleComponent _visibleComponent;
         private IDrawableInfoComponent _drawableComponent;
-        private IUIEvents _uiEvents;        
         private IInObjectTreeComponent _tree;
         private IHasRoomComponent _room;
-        private IEntity _entity;
         private readonly IKeyboardState _keyboardState;
         private readonly IGame _game;
         private readonly IFocusedUI _focusedUi;
@@ -28,7 +24,8 @@ namespace AGS.Engine
         private bool _leftShiftOn, _rightShiftOn;
         private bool _shiftOn => _leftShiftOn || _rightShiftOn || (_capslock && _keyboardState.SoftKeyboardVisible);
 
-        private ILabel _withCaret, _watermark;
+        private ILabel _watermark;
+        private Lazy<ILabel> _withCaret;
 
         public AGSTextBoxComponent(IBlockingEvent<TextBoxKeyPressingEventArgs> onPressingKey,
                                    IInput input, IGame game, IKeyboardState keyboardState, IFocusedUI focusedUi)
@@ -44,11 +41,10 @@ namespace AGS.Engine
             input.KeyUp.Subscribe(onKeyUp);
         }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<ITextComponent>(c =>
+            base.Init();
+            Entity.Bind<ITextComponent>(c =>
             {
                 _textComponent = c;
                 c.PropertyChanged += onTextPropertyChanged;
@@ -57,40 +53,30 @@ namespace AGS.Engine
                 _textComponent = null;
                 c.PropertyChanged -= onTextPropertyChanged;
             });
-            entity.Bind<IUIEvents>(c =>
+            Entity.Bind<IUIEvents>(c =>
             {
-                _uiEvents = c;
                 c.MouseDown.Subscribe(onMouseDown);
                 c.LostFocus.Subscribe(onMouseDownOutside);
             }, c =>
             {
-                _uiEvents = null;
                 c.MouseDown.Unsubscribe(onMouseDown);
                 c.LostFocus.Unsubscribe(onMouseDownOutside);
             });
-            entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
-            entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
-            entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
+            Entity.Bind<IInObjectTreeComponent>(c => _tree = c, _ => _tree = null);
+            Entity.Bind<IHasRoomComponent>(c => _room = c, _ => _room = null);
+            Entity.Bind<IVisibleComponent>(c => _visibleComponent = c, _ => _visibleComponent = null);
 
             _caretFlashCounter = (int)CaretFlashDelay;
-            _withCaret = _game.Factory.UI.GetLabel(entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: new AGSTextConfig(autoFit: AutoFit.LabelShouldFitText));
-            _withCaret.Pivot = new PointF(0f, 0f);
-            _withCaret.TextBackgroundVisible = false;
-
-            entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
-
-            entity.Bind<IBorderComponent>(c => _borderComponent = c, _ => _borderComponent = null);
-
-            entity.Bind<IDrawableInfoComponent>(c =>
+            _withCaret = new Lazy<ILabel>(() =>
             {
-                _drawableComponent = c;
-                c.PropertyChanged += onDrawableChanged;
-                onRenderLayerChanged();
-            }, c => 
-            { 
-                c.PropertyChanged -= onDrawableChanged; 
-                _drawableComponent = null; 
+                var label = _game.Factory.UI.GetLabel(Entity.ID + " Caret", "|", 1f, 1f, 0f, 0f, config: _game.Factory.Fonts.GetTextConfig(autoFit: AutoFit.LabelShouldFitText));
+                label.Pivot = new PointF(0f, 0f);
+                label.TextBackgroundVisible = false;
+                return label;
             });
+
+            Entity.Bind<IImageComponent>(c => _imageComponent = c, _ => _imageComponent = null);
+            Entity.Bind<IDrawableInfoComponent>(c => _drawableComponent = c, _ => _drawableComponent = null);
 
             _game.Events.OnRepeatedlyExecute.Subscribe(onRepeatedlyExecute);
         }
@@ -99,12 +85,6 @@ namespace AGS.Engine
         {
             if (e.PropertyName != nameof(ITextComponent.Text)) return;
             updateWatermark();
-        }
-
-        public override void AfterInit()
-        {
-            base.AfterInit();
-            _game.Events.OnBeforeRender.Subscribe(onBeforeRender);
         }
 
         public bool IsFocused
@@ -119,12 +99,12 @@ namespace AGS.Engine
                     _keyboardState.ShowSoftKeyboard();
                     var textComponent = _textComponent;
                     CaretPosition = textComponent == null ? 0 : textComponent.Text.Length;
-                    _focusedUi.HasKeyboardFocus = _entity;
+                    _focusedUi.HasKeyboardFocus = Entity;
                 }
                 else
                 {
                     _keyboardState.HideSoftKeyboard();
-                    if (_focusedUi.HasKeyboardFocus == _entity)
+                    if (_focusedUi.HasKeyboardFocus == Entity)
                         _focusedUi.HasKeyboardFocus = null;
                 }
                 updateWatermark();
@@ -142,32 +122,15 @@ namespace AGS.Engine
         {
             base.Dispose();
             _game?.Events.OnRepeatedlyExecute.Unsubscribe(onRepeatedlyExecute);
-            _game?.Events.OnBeforeRender.Unsubscribe(onBeforeRender);
             _input?.KeyDown.Unsubscribe(onKeyDown);
             _input?.KeyUp.Unsubscribe(onKeyUp);
-            _entity = null;
-        }
-
-        private void onDrawableChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(IDrawableInfoComponent.RenderLayer)) return;
-            onRenderLayerChanged();
-        }
-
-        private void onRenderLayerChanged()
-        {
-            var drawable = _drawableComponent;
-            if (drawable == null) return;
-            var layer = drawable.RenderLayer;
-            if (layer == null) return;
-            _withCaret.RenderLayer = layer;
         }
 
         private void onRepeatedlyExecute()
         {
             var visible = _visibleComponent;
             if (visible == null || !visible.Visible) IsFocused = false;
-            if (_withCaret.TreeNode.Parent == null) _withCaret.TreeNode.SetParent(_tree.TreeNode);
+            updateCaret();
         }
 
         private void onSoftKeyboardHidden()
@@ -193,11 +156,15 @@ namespace AGS.Engine
             IsFocused = false;
         }
 
-        private void onBeforeRender()
+        private void updateCaret()
         {
-            if (_textComponent == null) return;
+            var drawable = _drawableComponent;
+            if (drawable == null) return;
+            var textComponent = _textComponent;
+            if (textComponent == null) return;
             if (_room?.Room != null && _room?.Room != _game?.State?.Room) return;
             bool isVisible = IsFocused;
+            ILabel caret = _withCaret.IsValueCreated ? _withCaret.Value : null;
             if (isVisible)
             {
                 _caretFlashCounter--;
@@ -210,34 +177,34 @@ namespace AGS.Engine
                     }
                 }
 
-                _withCaret.Tint = _imageComponent.Tint;
-                _withCaret.Border = isVisible ? _borderComponent?.Border : null;
-                _withCaret.Text = _textComponent.Text;
-                _withCaret.TextConfig = _textComponent.TextConfig;
+                caret = caret ?? _withCaret.Value;
+                if (caret.TreeNode.Parent == null)
+                    caret.TreeNode.SetParent(_tree.TreeNode);
+                caret.RenderLayer = drawable.RenderLayer;
+                caret.Tint = _imageComponent.Tint;
+                caret.Text = _textComponent.Text;
+                caret.TextConfig = _textComponent.TextConfig;
+                caret.CaretXOffset = _textComponent.CaretXOffset;
             }
-            _withCaret.TextVisible = isVisible;
-            _textComponent.TextVisible = !isVisible;
-
-            var caretTextComponent = _withCaret.GetComponent<ITextComponent>();
-            if (caretTextComponent != null)
+            if (caret != null)
             {
-                caretTextComponent.CaretPosition = CaretPosition;
-                caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
-                caretTextComponent.RenderCaret = true;
+                caret.TextVisible = isVisible;
+                var caretTextComponent = caret.GetComponent<ITextComponent>();
+                if (caretTextComponent != null)
+                {
+                    caretTextComponent.CaretPosition = CaretPosition;
+                    caretTextComponent.LabelRenderSize = _textComponent.LabelRenderSize;
+                    caretTextComponent.RenderCaret = true;
+                }
             }
-            _textComponent.TextVisible = !isVisible;
-            var imageComponent = _imageComponent;
-            var textComponent = _textComponent;
-            if (textComponent != null)
-            {
-                textComponent.CaretPosition = CaretPosition;
-            }
+            textComponent.TextVisible = !isVisible;
+            textComponent.CaretPosition = CaretPosition;
         }
 
         private void onKeyUp(KeyboardEventArgs args)
         {
             if (args.Key == Key.ShiftLeft) { _leftShiftOn = false; return; }
-            if (args.Key == Key.ShiftRight) { _rightShiftOn = false; return; }
+            if (args.Key == Key.ShiftRight) { _rightShiftOn = false; }
         }
 
         private void onKeyDown(KeyboardEventArgs args)
@@ -292,11 +259,11 @@ namespace AGS.Engine
                     }
                     if (key >= Key.Number0 && key <= Key.Number9)
                     {
-                        return processDigit((char)((int)'0' + (key - Key.Number0)));
+                        return processDigit((char)('0' + (key - Key.Number0)));
                     }
                     if (key >= Key.Keypad0 && key <= Key.Keypad9)
                     {
-                        return addCharacter((char)((int)'0' + (key - Key.Keypad0)));
+                        return addCharacter((char)('0' + (key - Key.Keypad0)));
                     }
                     return getCurrentState();
             }
@@ -326,7 +293,7 @@ namespace AGS.Engine
 
         private TextboxState processLetter(Key key)
         {
-            char c = (char)((int)'a' + (key - Key.A));
+            char c = (char)('a' + (key - Key.A));
             if (_capslock || _shiftOn) c = char.ToUpperInvariant(c);
             return addCharacter(c);
         }

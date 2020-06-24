@@ -42,6 +42,12 @@ namespace AGS.API
         List<IViewport> GetSortedViewports();
 
         /// <summary>
+        /// Gets or sets the mouse cursor.
+        /// </summary>
+        /// <value>The mouse cursor.</value>
+        IObject Cursor { get; set; }
+
+        /// <summary>
         /// All of the non-room objects in the game. Those are usually GUIs which stay on the screen
         /// even if you switch between rooms (like the top bar, a hotspot label, inventory window, menus, etc).
         /// </summary>
@@ -124,6 +130,13 @@ namespace AGS.API
         /// <param name="id">The entity's unique identifier.</param>
         /// <typeparam name="TEntity">The entity's type.</typeparam>
 		TEntity Find<TEntity>(string id) where TEntity : class, IEntity;
-	}
+
+        /// <summary>
+        /// Returns all entities of the specified type.
+        /// </summary>
+        /// <returns>All entities of the specified type.</returns>
+        /// <typeparam name="TEntity">The entity type.</typeparam>
+        IEnumerable<TEntity> All<TEntity>() where TEntity : class, IEntity;
+    }
 }
 

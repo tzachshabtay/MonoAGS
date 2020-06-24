@@ -4,7 +4,7 @@ namespace AGS.Engine
 {
 	public interface IGLTextureRenderer
 	{
-		void Render(int texture, AGSBoundingBoxes boundingBoxes, IGLColor color);
+		void Render(int texture, AGSBoundingBoxes boundingBoxes, GLColor color);
 	}
 }
 

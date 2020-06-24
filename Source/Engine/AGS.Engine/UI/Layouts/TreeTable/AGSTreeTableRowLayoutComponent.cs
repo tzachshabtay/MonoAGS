@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using AGS.API;
 
 namespace AGS.Engine
@@ -11,7 +11,6 @@ namespace AGS.Engine
         private ITreeTableLayout _table;
         private IInObjectTreeComponent _tree;
         private IVisibleComponent _visible;
-        private IEntity _entity;
         private EntityListSubscriptions<IObject> _subscriptions;
         private List<float> _columnSizes;
 
@@ -31,17 +30,18 @@ namespace AGS.Engine
                 _table = value;
                 value.OnQueryLayout.Subscribe(onQueryLayout);
                 value.OnRefreshLayoutNeeded.Subscribe(onRefreshLayout);
-                value?.Rows.Add(this);
+                value.Rows.Add(this);
             }
         }
 
         public IRestrictionList RestrictionList { get; private set; }
 
-        public override void Init(IEntity entity)
+        public Dictionary<int, float> FixedWidthOverrides { get; } = new Dictionary<int, float>();
+
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            _entity.Bind<IVisibleComponent>(c => 
+            base.Init();
+            Entity.Bind<IVisibleComponent>(c => 
             { 
                 _visible = c; 
                 c.PropertyChanged += onVisiblePropertyChanged;
@@ -53,7 +53,7 @@ namespace AGS.Engine
                 _table?.PerformLayout();
             });
 
-            _entity.Bind<IInObjectTreeComponent>(c => 
+            Entity.Bind<IInObjectTreeComponent>(c => 
             {
                 _tree = c;
                 calculateColumns();
@@ -74,7 +74,6 @@ namespace AGS.Engine
                 restrictionList.PropertyChanged -= onRestrictionListChanged;
                 RestrictionList = null;
             }
-            _entity = null;
         }
 
         private void subscribeChildren()
@@ -108,7 +107,7 @@ namespace AGS.Engine
             var tree = _tree;
             if (tree == null)
             { 
-                return; 
+                return;
             }
             if (tree.TreeNode.ChildrenCount > _columnSizes.Count)
             {
@@ -163,7 +162,7 @@ namespace AGS.Engine
 
         private void onQueryLayout(QueryLayoutEventArgs args)
         {
-            if (!_visible?.Visible ?? true || _columnSizes == null) return;
+            if (!(_visible?.Visible ?? true) || _columnSizes == null) return;
             if (_columnSizes.Count > args.ColumnSizes.Count)
             {
                 int diff = _columnSizes.Count - args.ColumnSizes.Count;
@@ -182,8 +181,12 @@ namespace AGS.Engine
             }
         }
 
-        private void onRefreshLayout()
+        private void onRefreshLayout(ITreeTableRowLayoutComponent specificRow)
         {
+            if (specificRow != null && specificRow != this)
+            {
+                return; 
+            }
             var table = Table;
             var tree = _tree;
             if (table == null || tree == null) return;
@@ -193,9 +196,16 @@ namespace AGS.Engine
             {
                 var child = tree.TreeNode.Children[index];
                 child.X = x;
-                var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f : 
-                                                table.ColumnSizes[index];
-                x += width + table.ColumnPadding;
+                if (FixedWidthOverrides.TryGetValue(index, out float fixedWidth))
+                {
+                    x += fixedWidth;
+                }
+                else
+                {
+                    var width = isRestricted(child) ? child.AddComponent<IBoundingBoxWithChildrenComponent>()?.PreCropBoundingBoxWithChildren.Width ?? 0f :
+                                                    table.ColumnSizes[index];
+                    x += (width + table.ColumnPadding);
+                }
             }
         }
     }

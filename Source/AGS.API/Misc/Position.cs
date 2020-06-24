@@ -1,9 +1,14 @@
-﻿namespace AGS.API
+﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace AGS.API
 {
     /// <summary>
     /// A 3D location in the world.
     /// </summary>
-    public struct Position
+    [DataContract]
+    public struct Position : IEquatable<Position>
     {
         private readonly float? _z;
         private readonly PointF _xy;
@@ -14,6 +19,7 @@
             _z = z;
         }
 
+        [JsonConstructor]
         public Position(float x, float y, float? z = null) : this(new PointF(x, y), z)
         { }
 
@@ -23,12 +29,14 @@
         /// Gets the x coordinate.
         /// </summary>
         /// <value>The x.</value>
+        [DataMember(Name = "X")]
         public float X => XY.X;
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
         /// <value>The y.</value>
+        [DataMember(Name = "Y")]
         public float Y => XY.Y;
 
         /// <summary>
@@ -40,6 +48,7 @@
         /// be reverted again by explicitly setting Z to be Y).
         /// </summary>
         /// <value>The z.</value>
+        [DataMember(Name = "Z")]
         public float Z => _z.HasValue ? _z.Value : Y;
 
         /// <summary>
@@ -73,5 +82,11 @@
             y = this.Y;
             z = this.Z;
         }
+
+        public override bool Equals(object obj) => obj is Position other && Equals(other);
+
+        public override int GetHashCode() => XY.GetHashCode();
+
+        public bool Equals(Position other) => XY.Equals(other.XY) && MathUtils.FloatEquals(Z, other.Z);
     }
 }

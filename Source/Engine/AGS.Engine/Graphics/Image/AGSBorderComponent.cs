@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 
 namespace AGS.Engine
 {
@@ -7,7 +6,6 @@ namespace AGS.Engine
     public class AGSBorderComponent : AGSComponent, IBorderComponent
     {
         private IBoundingBoxComponent _box;
-        private IEntity _entity;
         private readonly IRenderPipeline _pipeline;
         private BorderBack _back;
         private BorderFront _front;
@@ -23,19 +21,17 @@ namespace AGS.Engine
 
         public IBorderStyle Border { get; set; }
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-            base.Init(entity);
-            _entity = entity;
-            entity.Bind<IBoundingBoxComponent>(c => _box = c, _ => _box = null);
-            _pipeline.Subscribe(entity.ID, _back, 100);
-            _pipeline.Subscribe(entity.ID, _front, -100);
+            base.Init();
+            Entity.Bind<IBoundingBoxComponent>(c => _box = c, _ => _box = null);
+            _pipeline.Subscribe(Entity.ID, _back, 100);
+            _pipeline.Subscribe(Entity.ID, _front, -100);
 		}
 
 		public override void Dispose()
 		{
-            base.Dispose();
-            var entity = _entity;
+            var entity = Entity;
             if (entity != null)
             {
                 _pipeline.Unsubscribe(entity.ID, _back);
@@ -45,7 +41,7 @@ namespace AGS.Engine
             _front?.Dispose();
             _back = null;
             _front = null;
-            _entity = null;
+            base.Dispose();
 		}
 
 		private class BorderBack : IRenderer

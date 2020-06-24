@@ -15,7 +15,7 @@ namespace DemoGame
 		{
 			_game = game;
 			IGameFactory factory = game.Factory;
-            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new AGS.API.Point(0, 0));
+            AGSLoadImageConfig loadConfig = new AGSLoadImageConfig(new Point(0, 0));
 
 			IOutfit outfit = await factory.Outfit.LoadOutfitFromFoldersAsync(_baseFolder, 
 				walkLeftFolder: "Walk/left", walkDownFolder: "Walk/down", walkRightFolder: "Walk/right", walkUpFolder: "Walk/up", 
@@ -35,7 +35,7 @@ namespace DemoGame
             /*
             var portrait = game.Factory.Object.GetObject("BemanPortrait");
             portrait.StartAnimation(game.Factory.Graphics.LoadAnimationFromFolder(_baseFolder + "Talk/down"));
-            portrait.Border = AGSBorders.SolidColor(Colors.AliceBlue, 3f, true);
+            portrait.Border = game.Factory.Graphics.Borders.SolidColor(Colors.AliceBlue, 3f, true);
             portrait.Visible = false;
             portrait.RenderLayer = AGSLayers.Speech;
             portrait.IgnoreViewport = true;
@@ -50,7 +50,6 @@ namespace DemoGame
 			Characters.RandomAnimationDelay(speakAnimation.Down);
 			Characters.RandomAnimationDelay(speakAnimation.Up);
 
-            _character.StartAnimation (_character.Outfit[AGSOutfit.Idle].Down);
 			_character.DisplayName = "Beman";
             _character.IsPixelPerfect = true;
 

@@ -22,7 +22,6 @@ namespace AGS.Editor
 
             private IRotateComponent _rotate;
             private IDrawableInfoComponent _drawable;
-            private float _angleOnDown;
             private float _xOnDown, _yOnDown;
             private bool _isDown;
             private bool _isVisible;
@@ -129,7 +128,7 @@ namespace AGS.Editor
                 }
 
                 PropertyInfo prop = rotate.GetType().GetProperty(nameof(IRotateComponent.Angle));
-                PropertyAction action = new PropertyAction(new InspectorProperty(rotate, "Angle", prop), angle);
+                PropertyAction action = new PropertyAction(new InspectorProperty(rotate, null, nameof(IRotate.Angle), prop), angle, _editor.Project.Model);
                 _actions.RecordAction(action);
             }
 
@@ -174,15 +173,12 @@ namespace AGS.Editor
 
             private void onMouseDown(MouseButtonEventArgs args)
             {
-                var rotateComponent = _rotate;
-                if (rotateComponent == null) return;
-                _angleOnDown = rotateComponent.Angle;
                 _xOnDown = args.MousePosition.XMainViewport;
                 _yOnDown = args.MousePosition.YMainViewport;
                 _isDown = true;
             }
 
-            private void onMouseLeave(MousePositionEventArgs args)
+            private void onMouseLeave()
             {
                 if (_isDown) return;
                 var handle = _handle;
@@ -190,7 +186,7 @@ namespace AGS.Editor
                 handle.TextConfig = _idleConfig;
             }
 
-            private void onMouseEnter(MousePositionEventArgs args)
+            private void onMouseEnter()
             {
                 var handle = _handle;
                 if (handle == null) return;

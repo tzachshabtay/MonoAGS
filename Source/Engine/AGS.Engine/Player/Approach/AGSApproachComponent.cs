@@ -14,13 +14,14 @@ namespace AGS.Engine
             ApproachStyle = new AGSApproachStyle();
         }
 
+        [Property(DisplayName = "Approach")]
         public IApproachStyle ApproachStyle { get; set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
-            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            base.Init();
+            Entity.Bind<IFaceDirectionComponent>(c => _faceDirection = c, _ => _faceDirection = null);
+            Entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
         }
 
         public async Task<bool> ApproachAsync(string verb, IObject obj)
@@ -38,12 +39,8 @@ namespace AGS.Engine
                     if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.WalkIfHaveWalkPoint:
-                    if (walkPt == null && faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
-                    else
-                    {
-                        if (walk != null && !await walk.WalkAsync(new Position(walkPt.Value))) return false;
-                        if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
-                    }
+                    if (walk != null && walkPt != null && !await walk.WalkAsync(new Position(walkPt.Value))) return false;
+                    if (faceDirection != null) await faceDirection.FaceDirectionAsync(obj);
                     break;
                 case ApproachHotspots.AlwaysWalk:
                     PointF? walkPoint = walkPt ?? obj.CenterPoint ?? obj.Position.XY;

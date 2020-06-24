@@ -39,17 +39,17 @@ namespace AGS.Engine
                 if (propertyChanged != null)
                 {
                     bool hasChanged = false;
-                    if (prevX != value.X)
+                    if (!MathUtils.FloatEquals(prevX, value.X))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsX);
                     }
-                    if (prevY != value.Y)
+                    if (!MathUtils.FloatEquals(prevY, value.Y))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsY);
                     }
-                    if (prevZ != value.Z)
+                    if (!MathUtils.FloatEquals(prevZ, value.Z))
                     {
                         hasChanged = true;
                         propertyChanged(this, _argsZ);
@@ -70,8 +70,10 @@ namespace AGS.Engine
             set
             {
                 var prevX = _position.X;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 _position = new Position(value, Y, Z == Y ? (float?)null : Z);
                 var propertyChanged = PropertyChanged;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (prevX != value && propertyChanged != null)
                 {
                     propertyChanged(this, _argsX);
@@ -89,13 +91,16 @@ namespace AGS.Engine
             {
                 float prevY = _position.Y;
                 float prevZ = _position.Z;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 _position = new Position(X, value, Z == Y ? value : Z);
                 var propertyChanged = PropertyChanged;
                 if (propertyChanged == null) return;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (prevZ != _position.Z)
                 {
                     propertyChanged(this, _argsZ);
                 }
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (prevY != value)
                 {
                     propertyChanged(this, _argsY);
@@ -114,6 +119,7 @@ namespace AGS.Engine
                 float prevZ = _position.Z;
                 _position = new Position(X, Y, value);
                 var propertyChanged = PropertyChanged;
+                // ReSharper disable once CompareOfFloatsByEqualityOperator
                 if (prevZ != value && propertyChanged != null)
                 {
                     propertyChanged(this, _argsZ);

@@ -1,10 +1,19 @@
 ﻿using System;
-using System.Linq;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Drawing.Drawing2D;
-using System.Threading;
 using System.Collections.Concurrent;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Linq;
+using System.Threading;
+using AGS.API;
+using Color = System.Drawing.Color;
+using FontStyle = System.Drawing.FontStyle;
+using HatchStyle = System.Drawing.Drawing2D.HatchStyle;
+using Point = System.Drawing.Point;
+using PointF = System.Drawing.PointF;
+using Rectangle = System.Drawing.Rectangle;
+using SizeF = System.Drawing.SizeF;
+using WrapMode = System.Drawing.Drawing2D.WrapMode;
 
 namespace AGS.Engine.Desktop
 {
@@ -12,17 +21,23 @@ namespace AGS.Engine.Desktop
 	{
         private static readonly ThreadLocal<Graphics> _graphics;
 
+        private static StringFormat _leftFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Near };
+        private static StringFormat _centerFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Center };
+        private static StringFormat _rightFormat = new StringFormat(StringFormat.GenericTypographic) { Alignment = StringAlignment.Far };
+
         private struct TextMeasureKey
         {
-            public TextMeasureKey(string text, Font font, int maxWidth)
+            public TextMeasureKey(string text, Font font, int maxWidth, API.Alignment alignment)
             {
                 Text = text;
                 Font = font;
                 MaxWidth = maxWidth;
+                Alignment = alignment;
             }
             public string Text;
             public Font Font;
             public int MaxWidth;
+            public API.Alignment Alignment;
         }
 
         private static readonly ConcurrentDictionary<TextMeasureKey, SizeF> _measurements = 
@@ -59,17 +74,18 @@ namespace AGS.Engine.Desktop
 			bitmap.Clear(Color.White);
 		}
 
-        public static System.Drawing.SizeF Measure(this string text, Font font, int maxWidth = int.MaxValue)
+        public static System.Drawing.SizeF Measure(this string text, Font font, API.Alignment alignment, int maxWidth = int.MaxValue)
 		{
             try
             {
-                var key = new TextMeasureKey(text, font, maxWidth);
+                var key = new TextMeasureKey(text, font, maxWidth, alignment);
                 var size = _measurements.GetOrAdd(key,
                           k =>
                 {
+                    var format = alignment.GetFormat(maxWidth != int.MaxValue);
                     lock (DesktopBitmapTextDraw.GraphicsLocker)
                     {
-                        return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, StringFormat.GenericTypographic);
+                        return _graphics.Value.MeasureString(k.Text, k.Font, k.MaxWidth, format);
                     }
                 });
                 return size;
@@ -80,76 +96,98 @@ namespace AGS.Engine.Desktop
             }
 		}
 
+        public static StringFormat GetFormat(this API.Alignment alignment, bool wrap)
+        {
+            if (!wrap) return StringFormat.GenericTypographic;
+            switch (alignment)
+            {
+                case API.Alignment.BottomCenter:
+                case API.Alignment.MiddleCenter:
+                case API.Alignment.TopCenter:
+                    return _centerFormat;
+                case API.Alignment.BottomLeft:
+                case API.Alignment.MiddleLeft:
+                case API.Alignment.TopLeft:
+                    return _leftFormat;
+                case API.Alignment.BottomRight:
+                case API.Alignment.MiddleRight:
+                case API.Alignment.TopRight:
+                    return _rightFormat;
+                default:
+                    throw new NotSupportedException(alignment.ToString());
+            }
+        }
+
 		public static System.Drawing.Color Convert(this AGS.API.Color color)
 		{
 			return Color.FromArgb((int)color.Value);
 		}
 
-		public static System.Drawing.Color[] Convert(this AGS.API.Color[] colors)
+		public static Color[] Convert(this API.Color[] colors)
 		{
 			return colors.Select(Convert).ToArray();
 		}
 
-		public static AGS.API.Color Convert(this System.Drawing.Color color)
+		public static API.Color Convert(this Color color)
 		{
-			return AGS.API.Color.FromHexa((uint)color.ToArgb());
+			return API.Color.FromHexa((uint)color.ToArgb());
 		}
 
-		public static System.Drawing.PointF Convert(this AGS.API.PointF point)
+		public static PointF Convert(this API.PointF point)
 		{
-			return new System.Drawing.PointF (point.X, point.Y);
+			return new PointF (point.X, point.Y);
 		}
 
-		public static System.Drawing.Point Convert(this AGS.API.Point point)
+		public static Point Convert(this API.Point point)
 		{
-			return new System.Drawing.Point (point.X, point.Y);
+			return new Point (point.X, point.Y);
 		}
 
-		public static System.Drawing.Point[] Convert(this AGS.API.Point[] points)
+		public static Point[] Convert(this API.Point[] points)
 		{
 			return points.Select(Convert).ToArray();
 		}
 
-		public static System.Drawing.Drawing2D.WrapMode Convert(this AGS.API.WrapMode wrapMode)
+		public static WrapMode Convert(this API.WrapMode wrapMode)
 		{
-			return (System.Drawing.Drawing2D.WrapMode)wrapMode;
+			return (WrapMode)wrapMode;
 		}
 
-		public static System.Drawing.Drawing2D.Blend Convert(this AGS.API.IBlend blend)
+		public static Blend Convert(this IBlend blend)
 		{
-			var result = new System.Drawing.Drawing2D.Blend(blend.Positions.Length);
+			var result = new Blend(blend.Positions.Length);
 			result.Positions = blend.Positions;
 			result.Factors = blend.Factors;
 			return result;
 		}
 
-		public static System.Drawing.Drawing2D.ColorBlend Convert(this AGS.API.IColorBlend blend)
+		public static ColorBlend Convert(this IColorBlend blend)
 		{
-			var result = new System.Drawing.Drawing2D.ColorBlend (blend.Colors.Length);
+			var result = new ColorBlend (blend.Colors.Length);
 			result.Colors = blend.Colors.Convert();
 			result.Positions = blend.Positions;
 			return result;
 		}
 
-		public static System.Drawing.Drawing2D.Matrix Convert(this AGS.API.ITransformMatrix transform)
+		public static Matrix Convert(this ITransformMatrix transform)
 		{
-			var result = new System.Drawing.Drawing2D.Matrix (transform.Elements[0],
+			var result = new Matrix (transform.Elements[0],
 				transform.Elements[1], transform.Elements[2], transform.Elements[3],
 				transform.Elements[4], transform.Elements[5]);
 			return result;
 		}
 
-		public static System.Drawing.Drawing2D.HatchStyle Convert(this AGS.API.HatchStyle hatchStyle)
+		public static HatchStyle Convert(this API.HatchStyle hatchStyle)
 		{
-			return (System.Drawing.Drawing2D.HatchStyle)hatchStyle;
+			return (HatchStyle)hatchStyle;
 		}
 
-		public static System.Drawing.FontStyle Convert(this AGS.API.FontStyle fontStyle)
+		public static FontStyle Convert(this API.FontStyle fontStyle)
 		{
-			return (System.Drawing.FontStyle)fontStyle;
+			return (FontStyle)fontStyle;
 		}
 
-		public static System.Drawing.Rectangle Convert (this AGS.API.Rectangle rectangle)
+		public static Rectangle Convert (this API.Rectangle rectangle)
 		{
 			return new Rectangle (rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 		}

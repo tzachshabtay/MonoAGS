@@ -1,90 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
+using System.Linq;
 using AGS.API;
 using AGS.Engine;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
 {
-    public class ColorPropertyEditor : IInspectorPropertyEditor
+    public class ColorPropertyEditor : IEditorSupportsNulls
     {
         private readonly IGameFactory _factory;
         private readonly ActionManager _actions;
-        private InspectorProperty _property;
+        private readonly StateModel _model;
+        private IProperty _property;
         private ITextBox _text;
         private ILabel _colorLabel;
-        private IButton _dropDownButton;
-        private Dictionary<string, uint> _namedColors;
-        private Dictionary<uint, string> _namedColorsReversed;
+        private IComboBox _combobox;
 
-        public ColorPropertyEditor(IGameFactory factory, ActionManager actions)
+        private static List<IStringItem> _colorList = new List<IStringItem>(NamedColorsMap.NamedColors.Keys.Select(c => new AGSStringItem { Text = c }));
+
+        public ColorPropertyEditor(IGameFactory factory, ActionManager actions, StateModel model)
         {
             _factory = factory;
             _actions = actions;
-            _namedColors = new Dictionary<string, uint>();
-            _namedColorsReversed = new Dictionary<uint, string>();
+            _model = model;
         }
 
-        public void AddEditorUI(string id, ITreeNodeView view, InspectorProperty property)
+        public void AddEditorUI(string id, ITreeNodeView view, IProperty property)
         {
             _property = property;
             var label = view.TreeItem;
-            var combobox = _factory.UI.GetComboBox(id, null, null, null, label.TreeNode.Parent, defaultWidth: 200f, defaultHeight: 25f);
-            _dropDownButton = combobox.DropDownButton;
-            _text = combobox.TextBox;
-            _text.TextBackgroundVisible = false;
-            var list = new List<IStringItem>();
-            foreach (var field in typeof(Colors).GetTypeInfo().DeclaredFields)
-            {
-                list.Add(new AGSStringItem { Text = field.Name });
-                Color color = (Color)field.GetValue(null);
-                _namedColors[field.Name] = color.Value;
-                _namedColorsReversed[color.Value] = field.Name;
-            }
-            combobox.DropDownPanelList.Items.AddRange(list);
-            combobox.Z = label.Z;
+            var panel = _factory.UI.GetPanel(id, 0f, 0f, 0f, 0f, label.TreeNode.Parent);
+            _combobox = SelectEditor.GetCombobox($"{id}_Combobox", _factory, panel, 200f);
+            _text = _combobox.TextBox;
+            _combobox.DropDownPanelList.MinWidth = 200f;
+            _combobox.DropDownPanelList.Items.AddRange(_colorList);
+            _combobox.Z = label.Z;
 
-            _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, combobox.Width + 10f, 0f, label.TreeNode.Parent);
+            _colorLabel = _factory.UI.GetLabel($"{id}_ColorLabel", "", 50f, 25f, 250f, 0f, panel);
             _colorLabel.TextVisible = false;
 
-            view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>().RestrictionList.RestrictionList.AddRange(new List<string> { combobox.ID, _colorLabel.ID });
+            var layout = view.HorizontalPanel.GetComponent<ITreeTableRowLayoutComponent>();
+            if (layout != null)
+            {
+                layout.RestrictionList.RestrictionList.AddRange(new List<string> { panel.ID });
+            }
 
             RefreshUI();
-            _text.TextConfig.AutoFit = AutoFit.TextShouldFitLabel;
-            _text.TextConfig.Alignment = Alignment.MiddleLeft;
-            _text.TextBackgroundVisible = true;
-            _text.Border = AGSBorders.SolidColor(Colors.White, 2f);
-            var whiteBrush = _text.TextConfig.Brush;
-            var yellowBrush = _factory.Graphics.Brushes.LoadSolidBrush(Colors.Yellow);
-            _text.MouseEnter.Subscribe(_ => { _text.TextConfig.Brush = yellowBrush; });
-            _text.MouseLeave.Subscribe(_ => { _text.TextConfig.Brush = whiteBrush; });
             _text.OnPressingKey.Subscribe(onTextboxPressingKey);
-            combobox.SuggestMode = ComboSuggest.Suggest;
-            combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
+            _combobox.SuggestMode = ComboSuggest.Suggest;
+            _combobox.DropDownPanelList.OnSelectedItemChanged.Subscribe(args =>
             {
-                setColor(Color.FromHexa(_namedColors[args.Item.Text]));
+                setColor(Color.FromHexa(NamedColorsMap.NamedColors[args.Item.Text]));
             });
         }
 
         public void RefreshUI()
         {
-            var color = (Color)_property.Prop.GetValue(_property.Object);
-            if (_namedColorsReversed.ContainsKey(color.Value))
+            if (_property == null) return;
+            OnNullChanged(false);
+        }
+
+        public void OnNullChanged(bool isNull)
+        {
+            if (isNull)
             {
-                _text.Text = _namedColorsReversed[color.Value];
+                _text.Text = "";
+                _colorLabel.Tint = Colors.Transparent;
+                _combobox.Visible = false;
+                return;
             }
-            else
+            var color = Colors.Red;
+            if (_property.Value.Value is Color c)
+                color = c;
+            else if (_property.Value.Value is uint u)
             {
-                _text.Text = $"{color.R},{color.G},{color.B},{color.A}";
+                color = Color.FromHexa(u);
+                _property.Value = new ValueModel(color);
             }
+
+            Action onBoxChanged = null;
+            onBoxChanged = () =>
+            {
+                _colorLabel.X = _text.WorldBoundingBox.Width + 40f;
+                _text.OnBoundingBoxesChanged.Unsubscribe(onBoxChanged);
+            };
+            _text.OnBoundingBoxesChanged.Subscribe(onBoxChanged);
+            _text.Text = color.Value == 0 ? "" : color.ToString();
             _colorLabel.Tint = color;
-            _text.Border = AGSBorders.SolidColor(color, 2f);
-            var buttonBorder = AGSBorders.Multiple(AGSBorders.SolidColor(color, 1f),
-                               _factory.Graphics.Icons.GetArrowIcon(ArrowDirection.Down, color));
-            _dropDownButton.IdleAnimation = new ButtonAnimation(buttonBorder, null, Colors.Transparent);
-            _dropDownButton.Border = buttonBorder;
+            _combobox.Visible = true;
         }
 
         private void onTextboxPressingKey(TextBoxKeyPressingEventArgs args)
@@ -115,17 +120,17 @@ namespace AGS.Editor
             return true;
         }
 
-        private bool parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
+        private void parseRgbColor(string text, TextBoxKeyPressingEventArgs args)
         {
             var tokens = text.Split(',');
-            if (tokens.Length != 3 && tokens.Length != 4) return false;
-            if (!byte.TryParse(tokens[0], out byte r)) return false;
-            if (!byte.TryParse(tokens[1], out byte g)) return false;
-            if (!byte.TryParse(tokens[2], out byte b)) return false;
+            if (tokens.Length != 3 && tokens.Length != 4) return;
+            if (!byte.TryParse(tokens[0], out byte r)) return;
+            if (!byte.TryParse(tokens[1], out byte g)) return;
+            if (!byte.TryParse(tokens[2], out byte b)) return;
             byte a = 255;
             if (tokens.Length == 4)
             {
-                if (!byte.TryParse(tokens[3], out a)) return false;
+                if (!byte.TryParse(tokens[3], out a)) return;
             }
 
             var color = Color.FromRgba(r, g, b, a);
@@ -137,7 +142,6 @@ namespace AGS.Editor
                 else args.IntendedState.Text = $"{color.R},{color.G},{color.B}";
             }
             setColor(color);
-            return true;
         }
 
         private Color? manipulateRgb(Color color, string[] tokens, string text, TextBoxKeyPressingEventArgs args)
@@ -192,7 +196,7 @@ namespace AGS.Editor
         private void setColor(Color color)
         {
             if (_actions.ActionIsExecuting) return;
-            _actions.RecordAction(new PropertyAction(_property, color));
+            _actions.RecordAction(new PropertyAction(_property, color, _model));
         }
     }
 }

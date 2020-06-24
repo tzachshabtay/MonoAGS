@@ -87,7 +87,9 @@ namespace AGS.Engine
 
         public string Name { get { return ID; } }
         public bool AllowMultiple { get { return false; } }
-        public void Init(IEntity entity) {}
+        public IEntity Entity { get => this; }
+        public Type RegistrationType { get => typeof(IEntity); }
+        public void Init(IEntity entity, Type registrationType) { }
 
         public override string ToString()
         {
@@ -622,6 +624,12 @@ namespace AGS.Engine
         {  
             get { return _checkboxComponent.TextLabel; }  
             set { _checkboxComponent.TextLabel = value; } 
+        }
+
+        public IRadioGroup RadioGroup
+        {
+            get { return _checkboxComponent.RadioGroup; }
+            set { _checkboxComponent.RadioGroup = value; }
         }
 
         #endregion

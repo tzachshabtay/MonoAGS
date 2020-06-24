@@ -6,8 +6,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractButtonAnimation : IContract<ButtonAnimation>
     {
-        public ContractButtonAnimation() { }
-
         [ProtoMember(1)]
         public IContract<IAnimation> Animation { get; set; }
 
@@ -34,10 +32,8 @@ namespace AGS.Engine
 
         public ButtonAnimation ToItem(AGSSerializationContext context)
         {
-            var button = new ButtonAnimation(Border.ToItem(context), TextConfig.ToItem(context),
+            var button = new ButtonAnimation(Animation.ToItem(context), Image.ToItem(context), Border.ToItem(context), TextConfig.ToItem(context),
                                              Tint == null ? (Color?)null : Color.FromHexa(Tint.Value));
-            button.Animation = Animation.ToItem(context);
-            button.Image = Image.ToItem(context);
             return button;
         }
     }

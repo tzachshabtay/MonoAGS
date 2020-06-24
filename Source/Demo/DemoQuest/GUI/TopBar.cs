@@ -65,9 +65,9 @@ namespace DemoGame
             _inventoryItemIcon.IgnoreViewport = true;
             game.State.UI.Add(_inventoryItemIcon);
 
-            ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, _panel, new AGSTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
+            ILabel label = game.Factory.UI.GetLabel("Hotspot Label", "", 150f, 20f, 200f, 0f, _panel, game.Factory.Fonts.GetTextConfig(brush: AGSGame.Device.BrushLoader.LoadSolidBrush(Colors.LightGreen),
                 alignment: Alignment.MiddleCenter, autoFit: AutoFit.TextShouldFitLabel, paddingBottom: 5f,
-                font: game.Factory.Fonts.LoadFont(game.Settings.Defaults.TextFont.FontFamily, 10f)));
+                font: game.Factory.Fonts.LoadFont(game.Settings.Defaults.Fonts.Text.FontFamily, 10f)));
             label.Pivot = (0.5f, 0f);
             VerbOnHotspotLabel hotspotLabel = new VerbOnHotspotLabel(() => _scheme.CurrentMode, game, label);
             hotspotLabel.Start();

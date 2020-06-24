@@ -78,7 +78,7 @@ namespace Tests
             Mock<IUIFactory> uiFactory = new Mock<IUIFactory>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
             gameEvents.Setup(g => g.OnBeforeRender).Returns(new Mock<IBlockingEvent>().Object);
-            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IEvent<IRepeatedlyExecuteEventArgs>>().Object);
+            gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(new Mock<IBlockingEvent<IRepeatedlyExecuteEventArgs>>().Object);
             game.Setup(g => g.Events).Returns(gameEvents.Object);
             game.Setup(g => g.Factory).Returns(factory.Object);
             factory.Setup(f => f.UI).Returns(uiFactory.Object);
@@ -93,7 +93,7 @@ namespace Tests
 
             AGSTextBoxComponent textbox = new AGSTextBoxComponent(new AGSEvent<TextBoxKeyPressingEventArgs>(), 
                                                   input.Object, game.Object, new DesktopKeyboardState(), focusedUi.Object);
-            textbox.Init(entity.Object);
+            textbox.Init(entity.Object, typeof(ITextBoxComponent));
             textbox.IsFocused = true;
             bool isShiftDown = false;
 

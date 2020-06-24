@@ -7,8 +7,5 @@ namespace AGS.API
     [AttributeUsage(AttributeTargets.Class)]
     public class PropertyFolderAttribute : Attribute
     {
-        public PropertyFolderAttribute()
-        {
-        }
     }
 }

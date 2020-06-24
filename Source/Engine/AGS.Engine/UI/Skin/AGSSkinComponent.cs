@@ -4,8 +4,6 @@ namespace AGS.Engine
 {
     public class AGSSkinComponent : AGSComponent, ISkinComponent
     {
-        private IEntity _entity;
-
         public AGSSkinComponent(IGameSettings settings)
         {
             Skin = settings.Defaults.Skin;
@@ -16,24 +14,17 @@ namespace AGS.Engine
 
         public IConcurrentHashSet<string> SkinTags { get; private set; }
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            _entity = entity;
-            entity.OnComponentsInitialized.Subscribe(onComponentsInitialized);
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _entity = null;
+            base.Init();
+            Entity.OnComponentsInitialized.Subscribe(onComponentsInitialized);
         }
 
         private void onComponentsInitialized()
         {
             var skin = Skin;
             if (skin == null) return;
-            skin.Apply(_entity);
+            skin.Apply(Entity);
         }
     }
 }

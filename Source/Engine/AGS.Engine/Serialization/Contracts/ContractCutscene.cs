@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf;
+﻿using ProtoBuf;
 using AGS.API;
 using Autofac;
 
@@ -8,11 +7,7 @@ namespace AGS.Engine
 	[ProtoContract]
 	public class ContractCutscene : IContract<ICutscene>
 	{
-		public ContractCutscene()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public bool IsSkipping { get; set; }
 
 		[ProtoMember(2)]

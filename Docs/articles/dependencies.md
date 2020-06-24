@@ -57,6 +57,14 @@ Framework for supporting undo/redo operations.
 
 Font used to display icons in the editor.
 
+### [Humanizer](https://github.com/Humanizr/Humanizer)
+
+Used by the editor to show human friendly names for properties from code.
+
+### [Fira Sans](https://github.com/mozilla/Fira)
+
+The font used by the editor.
+
 ## Development only dependencies
 
 ### [NUnit](http://nunit.org/)

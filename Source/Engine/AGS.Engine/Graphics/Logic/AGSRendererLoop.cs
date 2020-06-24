@@ -1,9 +1,5 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using System.Collections.Generic;
-using Autofac;
-using System.Diagnostics;
-using System.ComponentModel;
 
 namespace AGS.Engine
 {
@@ -17,8 +13,6 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private IShader _lastShaderUsed;
 		
-        private IFrameBuffer _fromTransitionBuffer, _toTransitionBuffer;        
-
         public AGSRendererLoop (IGameSettings settings, IGameState state,
             IGLUtils glUtils, IWindowInfo window, IAGSRenderPipeline pipeline,
             IMatrixUpdater matrixUpdater)

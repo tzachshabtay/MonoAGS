@@ -39,11 +39,11 @@ namespace AGS.Engine
 			input.KeyUp.SubscribeToAsync(onKeyUp);
 		}
 
-        public override void Init(IEntity entity)
+        public override void Init()
         {
-            base.Init(entity);
-            entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
-            entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
+            base.Init();
+            Entity.Bind<IWalkComponent>(c => _walk = c, _ => _walk = null);
+            Entity.Bind<ITranslateComponent>(c => _translate = c, _ => _translate = null);
         }
 
         public void AddArrows()

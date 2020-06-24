@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using NUnit.Framework;
-using AGS.Engine;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AGS.API;
+using AGS.Engine;
 using Moq;
-using System.Collections.Generic;
-using System;
+using NUnit.Framework;
 
 namespace Tests
 {
@@ -58,7 +57,6 @@ namespace Tests
 			Mock<IGameState> gameState = new Mock<IGameState> ();
             Mock<IGame> game = new Mock<IGame>();
             Mock<IGameEvents> gameEvents = new Mock<IGameEvents>();
-            Mock<IGLUtils> glUtils = new Mock<IGLUtils>();
 
 			gameEvents.Setup(g => g.OnRepeatedlyExecute).Returns(_onRepeatedlyExecute);
             game.Setup(g => g.State).Returns(gameState.Object);
@@ -68,15 +66,17 @@ namespace Tests
             room.Setup(r => r.Areas).Returns(new AGSBindingList<IArea>(1) { area.Object });
             walkableArea.Setup(w => w.IsWalkable).Returns(true);
 			area.Setup(a => a.Enabled).Returns(true);
-			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
-			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
-            area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX - 1 && p.Y == toY - 1))).Returns(toWalkable);
-            area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == toX + 1 && p.Y == toY + 1))).Returns(toWalkable);
-			area.Setup(a => a.IsInArea(It.Is<AGS.API.PointF>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
+		    // ReSharper disable CompareOfFloatsByEqualityOperator
+		    area.Setup(a => a.IsInArea(It.Is<PointF>(p => p.X == fromX && p.Y == fromY))).Returns(fromWalkable);
+			area.Setup(a => a.IsInArea(It.Is<PointF>(p => p.X == toX && p.Y == toY))).Returns(toWalkable);
+            area.Setup(a => a.IsInArea(It.Is<PointF>(p => p.X == toX - 1 && p.Y == toY - 1))).Returns(toWalkable);
+            area.Setup(a => a.IsInArea(It.Is<PointF>(p => p.X == toX + 1 && p.Y == toY + 1))).Returns(toWalkable);
+			area.Setup(a => a.IsInArea(It.Is<PointF>(p => p.X == closeToX && p.Y == closeToY))).Returns(hasCloseToWalkable);
 			area.Setup(a => a.Mask).Returns(mask.Object);
             area.Setup(a => a.GetComponent<IWalkableArea>()).Returns(walkableArea.Object);
-			float distance = 1f;
-			area.Setup(a => a.FindClosestPoint(It.Is<AGS.API.PointF>(p => p.X == toX && p.Y == toY), out distance)).Returns(new AGS.API.PointF (closeToX, closeToY));
+			float distance;
+			area.Setup(a => a.FindClosestPoint(It.Is<PointF>(p => p.X == toX && p.Y == toY), out distance)).Returns(new PointF (closeToX, closeToY));
+		    // ReSharper restore CompareOfFloatsByEqualityOperator
 			mask.Setup(m => m.Width).Returns(10);
 
 			outfitHolder.Setup(o => o.Outfit).Returns(outfit.Object);
@@ -100,18 +100,20 @@ namespace Tests
             Position toLocation = (toX, toY);
             Position closeLocation = (closeToX, closeToY);
 
-            pathFinder.Setup(p => p.GetWalkPoints(It.Is<Position>(l => l.X == fromX && l.Y == fromY),
+		    // ReSharper disable CompareOfFloatsByEqualityOperator
+		    pathFinder.Setup(p => p.GetWalkPoints(It.Is<Position>(l => l.X == fromX && l.Y == fromY),
 				It.Is<Position>(l => l.X == toX && l.Y == toY))).Returns(toWalkable ? new List<Position> {toLocation} : new List<Position>());
 
             pathFinder.Setup(p => p.GetWalkPoints(It.Is<Position>(l => l.X == fromX && l.Y == fromY),
 				It.Is<Position>(l => l.X == closeToX && l.Y == closeToY))).Returns(hasCloseToWalkable ? new List<Position> {closeLocation} : new List<Position>());
-			
-			AGSWalkComponent walk = new AGSWalkComponent (pathFinder.Object, objFactory.Object, game.Object, 
-                                                        glUtils.Object) { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
+		    // ReSharper restore CompareOfFloatsByEqualityOperator
+
+			AGSWalkComponent walk = new AGSWalkComponent (pathFinder.Object, objFactory.Object, game.Object) 
+			    { WalkStep = new PointF(4f, 4f), MovementLinkedToAnimation = false };
 
 			bool walkShouldSucceed = fromWalkable && (toWalkable || hasCloseToWalkable);
 
-            walk.Init(entity.Object);
+            walk.Init(entity.Object, typeof(IWalkComponent));
             walk.AfterInit();
 
 			//Act:

@@ -37,7 +37,6 @@ namespace DemoGame
 			bg.Image = await factory.Graphics.LoadImageAsync(_baseFolder + "bg.png");
 			_room.Background = bg;
 
-            var device = AGSGame.Device;
             await factory.Room.GetAreaAsync(_baseFolder + "walkable1.png", _room, isWalkable: true);
             await factory.Room.GetAreaAsync(_baseFolder + "walkable2.png", _room, isWalkable: true);
             factory.Room.CreateScaleArea(_room.Areas[0], 0.50f, 0.75f);
@@ -45,7 +44,7 @@ namespace DemoGame
 
             IObject bottleHotspot = await factory.Object.GetHotspotAsync(_baseFolder + "BottleHotspot.png", "Bottle", _room);
 			bottleHotspot.GetComponent<IHotspotComponent>().WalkPoint = (140f, 50f);
-			await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room);
+            await factory.Object.GetHotspotAsync(_baseFolder + "CurbHotspot.png", "Curb", _room, new[]{"I have something long and very important to say about this curb, and about how much this curb means to me!"});
 			await factory.Object.GetHotspotAsync(_baseFolder + "GapHotspot.png", "Gap", _room, new[]{"It's a gap!", "I wonder what's in there!"});
 
 			_bottle = factory.Object.GetAdventureObject(_bottleId, _room);

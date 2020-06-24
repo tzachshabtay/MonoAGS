@@ -75,7 +75,7 @@ namespace AGS.Engine
 			}
 			catch (InvalidDataException e)
 			{
-				Debug.WriteLine("OggDecoder: Failed to read ogg. " + e.ToString());
+				Debug.WriteLine("OggDecoder: Failed to read ogg. " + e);
 				return null;
 			}
 			finally

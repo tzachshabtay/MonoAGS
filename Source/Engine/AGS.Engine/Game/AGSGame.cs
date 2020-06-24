@@ -15,7 +15,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly RepeatedlyExecuteEventArgs _repeatArgs = new RepeatedlyExecuteEventArgs();
         public const double UPDATE_RATE = 60.0;
-        private int _renderFrameRetries = 0;
+        private int _renderFrameRetries;
         private static AGSUpdateThread _updateThread;
         private bool _shouldSetRestart = true;
         private int _gameIndex;
@@ -46,8 +46,6 @@ namespace AGS.Engine
         public static IDevice Device { get; set; }
 
         public static IShader Shader { get; set; }
-
-        public static Resolver Resolver => ((AGSGame)Game)._resolver;
 
         public static IGLUtils GLUtils { get; private set; }
 
@@ -98,21 +96,21 @@ namespace AGS.Engine
 
         public ICoordinates Coordinates { get; private set; }
 
-        public Resolver GetResolver() => _resolver;
+        public IResolver Resolver => _resolver;
 
         public void Start()
         {
             _gameCount++;
             _gameIndex = _gameCount;
             var settings = _resolver.Container.Resolve<IGameSettings>();
-            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(AGS.API.Size), settings.VirtualResolution));
+            GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(Size), settings.VirtualResolution));
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
             bool isNewWindow = false;
             if (GameWindow == null)
             {
                 isNewWindow = true;
-                try { GameWindow = Resolver.Container.Resolve<IGameWindow>(settingsParameter); }
+                try { GameWindow = _resolver.Container.Resolve<IGameWindow>(settingsParameter); }
                 catch (Exception ese)
                 {
                     Debug.WriteLine(ese.ToString());
@@ -172,23 +170,17 @@ namespace AGS.Engine
 
         #endregion
 
-        private async void onUpdateFrame(object sender, FrameEventArgs e)
+        private void onUpdateFrame(object sender, FrameEventArgs e)
         {
             try
             {
                 _updateMessagePump.PumpMessages();
                 _repeatArgs.DeltaTime = e.Time;
-                await Events.OnRepeatedlyExecuteAlways.InvokeAsync(_repeatArgs);
+                Events.OnRepeatedlyExecuteAlways.Invoke(_repeatArgs);
                 if (State.Paused) return;
                 adjustSpeed();
                 GameLoop.Update(false);
-
-                //Invoking repeatedly execute asynchronously, as if one subscriber is waiting on another subscriber the event will 
-                //never get to it (for example: calling ChangeRoom from within RepeatedlyExecute calls StopWalking which 
-                //waits for the walk to stop, only the walk also happens on RepeatedlyExecute and we'll hang.
-                //Since we're running asynchronously, the next UpdateFrame will call RepeatedlyExecute for the walk cycle to stop itself and we're good.
-                ///The downside of this approach is that we need to look out for re-entrancy issues.
-                await Events.OnRepeatedlyExecute.InvokeAsync(_repeatArgs);
+                Events.OnRepeatedlyExecute.Invoke(_repeatArgs);
 
                 _pipeline?.Update();
             }
@@ -208,7 +200,13 @@ namespace AGS.Engine
                 // render graphics
                 if (_gameCount == 1 || _gameIndex == 2) //if we have 2 games (editor + game) we want the editor layout drawn above the game so only clear screen from the actual game
                 {
-                    _graphics.ClearScreen();
+                    var bgColor = State.Room?.BackgroundColor;
+                    if (bgColor != null)
+                    {
+                        var color = bgColor.Value.ToGLColor();
+                        _graphics.ClearColor(color.R, color.G, color.B, color.A);
+                        _graphics.ClearScreen();
+                    }
                 }
                 Events.OnBeforeRender.Invoke();
 
@@ -254,17 +252,18 @@ namespace AGS.Engine
             TypedParameter gameWindowParameter = new TypedParameter(typeof(IGameWindow), GameWindow);
             Settings = _resolver.Container.Resolve<IRuntimeSettings>(settingsParameter, gameWindowParameter);
 
-            _graphics.ClearColor(0f, 0f, 0f, 1f);
-
             _graphics.Init();
             _glUtils.GenBuffers();
 
             Factory = _resolver.Container.Resolve<IGameFactory>();
+            _resolver.Resolve<ITextureFactory>(); //Need to resolve this early in the rendering thread, as it creates the static empty texture and therefore need to be in the rendering thread
+
+            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
+            Settings.Defaults.MessageBox = _resolver.Container.Resolve<IMessageBoxSettings>(gameParameter);
 
             var input = _resolver.Container.Resolve<IInput>();
             Input = input;
             TypedParameter inputParamater = new TypedParameter(typeof(IInput), Input);
-            TypedParameter gameParameter = new TypedParameter(typeof(IGame), this);
             _pipeline = _resolver.Container.Resolve<IAGSRenderPipeline>(gameParameter);
             TypedParameter pipelineParameter = new TypedParameter(typeof(IAGSRenderPipeline), _pipeline);
             RenderLoop = _resolver.Container.Resolve<IRendererLoop>(inputParamater, gameParameter,

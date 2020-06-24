@@ -12,18 +12,19 @@ namespace AGS.Engine
         private IBoundingBoxComponent _box;
         private IImageComponent _image;
 
-		public override void Init(IEntity entity)
+		public override void Init()
 		{
-            base.Init(entity);
-            entity.Bind<IBoundingBoxComponent>(
+            base.Init();
+            Entity.Bind<IBoundingBoxComponent>(
                 c => { _box = c; c.OnBoundingBoxesChanged.Subscribe(refresh); refresh(); },
                 c => { _box = null; c.OnBoundingBoxesChanged.Unsubscribe(refresh); });
-            entity.Bind<IImageComponent>(
+            Entity.Bind<IImageComponent>(
                 c => { _image = c; c.PropertyChanged += onImagePropertyChanged; refresh(); },
                 c => { _image = null; c.PropertyChanged -= onImagePropertyChanged; });
 		}
 
         [DoNotNotify]
+        [Property(Browsable = false)]
 		public float WorldX 
         { 
             get => _worldXY.X;
@@ -31,12 +32,14 @@ namespace AGS.Engine
         }
 
         [DoNotNotify]
+        [Property(Browsable = false)]
         public float WorldY 
         { 
             get => _worldXY.Y;
             //todo: set
         }
 
+        [Property(DisplayName = "Position")]
         public PointF WorldXY
         {
             get => _worldXY;

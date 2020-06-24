@@ -127,6 +127,8 @@ namespace AGS.Engine
 
         #endregion
 
+        public override string ToString() => $"{_list.Count} item(s)";
+
         #region IEnumerable implementation
 
         public IEnumerator<TItem> GetEnumerator()
@@ -138,7 +140,7 @@ namespace AGS.Engine
 
 		#region IEnumerable implementation
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		IEnumerator IEnumerable.GetEnumerator()
 		{
             return _list.GetEnumerator();
 		}

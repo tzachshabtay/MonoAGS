@@ -7,10 +7,6 @@ namespace AGS.Engine
     [ProtoContract]
     public class ContractDisplayListSettings : IContract<IDisplayListSettings>
     {
-        public ContractDisplayListSettings()
-        {
-        }
-
         [ProtoMember(1)]
 		public bool DisplayRoom { get; set; }
 

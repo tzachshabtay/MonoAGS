@@ -1,8 +1,10 @@
-﻿using AGS.API;
+﻿using System.ComponentModel;
+using AGS.API;
 
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Inventory")]
 	public class AGSInventory : IInventory
 	{
 		public AGSInventory()
@@ -16,6 +18,12 @@ namespace AGS.Engine
 
         public IAGSBindingList<IInventoryItem> Items { get; private set; }
 
-		#endregion
-	}
+#pragma warning disable CS0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067
+
+        #endregion
+
+        public override string ToString() => $"{Items.Count} inventory item(s)";
+    }
 }

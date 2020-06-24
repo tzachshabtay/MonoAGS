@@ -2,6 +2,7 @@
 
 namespace AGS.Engine
 {
+    [ConcreteImplementation(Browsable = false)]
     public class FileIcon : ISelectableIcon
     {
         /*     ****+
@@ -15,7 +16,7 @@ namespace AGS.Engine
         private readonly IGLUtils _glUtils;
         private readonly IRuntimeSettings _settings;
 
-        private readonly IGLColor _color, _foldColor, _selectedColor, _selectedFoldColor;
+        private readonly GLColor _color, _foldColor, _selectedColor, _selectedFoldColor;
 
         private readonly Vector2 _emptyVector = new Vector2();
         private IFrameBuffer _frameBuffer;
@@ -58,8 +59,8 @@ namespace AGS.Engine
             float height = _glUtils.CurrentResolution.Height;
             float foldWidth = (width) * (1f / 5f);
             float foldHeight = (height) * (1f / 5f);
-            IGLColor color = IsSelected ? _selectedColor : _color;
-            IGLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
+            GLColor color = IsSelected ? _selectedColor : _color;
+            GLColor foldColor = IsSelected ? _selectedFoldColor : _foldColor;
 
             Vector3 foldBottomLeft = new Vector3(width - foldWidth, foldHeight, 0);
             Vector3 foldTopLeft = new Vector3(width - foldWidth, 0, 0);
@@ -75,7 +76,7 @@ namespace AGS.Engine
                 foldBottomLeft, foldTopRight,
                 color, color, color, color);
 
-            _glUtils.DrawTriangle(0, new GLVertex[] { new GLVertex(foldBottomLeft.Xy, _emptyVector, foldColor),
+            _glUtils.DrawTriangle(0, new[] { new GLVertex(foldBottomLeft.Xy, _emptyVector, foldColor),
                 new GLVertex(foldTopLeft.Xy, _emptyVector, foldColor), new GLVertex(foldTopRight.Xy, _emptyVector, foldColor)});
             _frameBuffer.End();
 

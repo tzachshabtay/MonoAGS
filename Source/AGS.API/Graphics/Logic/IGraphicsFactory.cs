@@ -8,6 +8,12 @@ namespace AGS.API
     public interface IGraphicsFactory
 	{
         /// <summary>
+        /// Factory for creating borders.
+        /// </summary>
+        /// <value>The borders.</value>
+        IBorderFactory Borders { get; }
+
+        /// <summary>
         /// Factory for creating icons.
         /// </summary>
         /// <value>The icons.</value>
@@ -33,7 +39,7 @@ namespace AGS.API
         /// <param name="loadConfig">Configuration on how to load the image.</param>
         ISprite LoadSprite(string path, ILoadImageConfig loadConfig = null);
 
-        // <summary>
+        /// <summary>
         /// Loads a sprite asynchronously from a resource/file path (<see cref="IResourceLoader"/>). 
         /// </summary>
         /// <returns>The sprite.</returns>
@@ -41,13 +47,14 @@ namespace AGS.API
         /// <param name="loadConfig">Configuration on how to load the image.</param>
         Task<ISprite> LoadSpriteAsync(string path, ILoadImageConfig loadConfig = null);
 
-        /// <summary>
-        /// Loads a sprite from a bitmap.
-        /// </summary>
-        /// <returns>The image.</returns>
-        /// <param name="loadConfig">Configuration on how to load the image.</param>
-        /// <param name="id">An optional unique id for the image (if not given, the engine will generate one automatically).</param>
-        ISprite LoadSprite(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
+	    /// <summary>
+	    /// Loads a sprite from a bitmap.
+	    /// </summary>
+	    /// <returns>The image.</returns>
+	    /// <param name="bitmap">The bitmap.</param>
+	    /// <param name="loadConfig">Configuration on how to load the image.</param>
+	    /// <param name="id">An optional unique id for the image (if not given, the engine will generate one automatically).</param>
+	    ISprite LoadSprite(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
 
         /// <summary>
         /// Creates an empty bitmap with the specified width and height (in pixels).
@@ -87,13 +94,14 @@ namespace AGS.API
         /// <param name="loadConfig">Configuration on how to load the image.</param>
 		Task<IImage> LoadImageAsync(string filePath, ILoadImageConfig loadConfig = null);
 
-        /// <summary>
-        /// Loads an image from a bitmap.
-        /// </summary>
-        /// <returns>The image.</returns>
-        /// <param name="loadConfig">Configuration on how to load the image.</param>
-        /// <param name="id">An optional unique id for the image (if not given, the engine will generate one automatically).</param>
-		IImage LoadImage(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
+	    /// <summary>
+	    /// Loads an image from a bitmap.
+	    /// </summary>
+	    /// <returns>The image.</returns>
+	    /// <param name="bitmap">The bitmap.</param>
+	    /// <param name="loadConfig">Configuration on how to load the image.</param>
+	    /// <param name="id">An optional unique id for the image (if not given, the engine will generate one automatically).</param>
+	    IImage LoadImage(IBitmap bitmap, ILoadImageConfig loadConfig = null, string id = null);
 
         /// <summary>
         /// Loads a directional animation from file/resource folders (<see cref="IResourceLoader"/> .

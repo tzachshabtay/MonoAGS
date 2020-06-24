@@ -21,7 +21,7 @@ namespace AGS.Engine
 		/// Linear.
 		/// </summary>
 		/// <param name="t">Time elapsed.</param>
-		/// <param name="t">Eased timescale.</param>
+		/// <returns>Eased timescale.</returns>
 		public static float Linear(float t)
 		{
 			return t;

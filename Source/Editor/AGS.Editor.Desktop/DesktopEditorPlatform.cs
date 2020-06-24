@@ -1,5 +1,4 @@
-﻿using System;
-using AGS.API;
+﻿using AGS.API;
 using AGS.Engine;
 using AGS.Engine.Desktop;
 using Autofac;
@@ -31,6 +30,11 @@ namespace AGS.Editor.Desktop
         public void SetHostedGameWindow(Rectangle windowSize)
         {
             _windowSize.Window = windowSize;
+        }
+
+        public ISerialization GetSerialization(IGame game)
+        {
+            return new DesktopSerialization(game);
         }
     }
 }

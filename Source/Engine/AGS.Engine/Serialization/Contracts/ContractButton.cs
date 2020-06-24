@@ -11,11 +11,7 @@ namespace AGS.Engine
 			ContractsFactory.RegisterFactory(typeof(IButton), () => new ContractButton ());
 		}
 
-		public ContractButton()
-		{
-		}
-
-		[ProtoMember(1)]
+	    [ProtoMember(1)]
 		public ContractObject Object { get; set; }
 
 		[ProtoMember(2)]

@@ -101,7 +101,7 @@ namespace AGS.Engine
             _invocationList.Remove(callback, priority);
 		}
 
-		private class Callback
+		private struct Callback
 		{
 			private readonly Delegate _origObject;
             private string _methodName;
@@ -110,25 +110,36 @@ namespace AGS.Engine
 			{
 				_origObject = callback;
 				Event = callback;
+                BlockingEventWithClaimToken = null;
+                BlockingEvent = null;
+                _methodName = null;
 			}
 
 			public Callback(Action callback)
 			{
 				_origObject = callback;
 				Event = convert(callback);
-				BlockingEvent = callback;
+                BlockingEvent = callback;
+                BlockingEventWithClaimToken = null;
+                _methodName = null;
 			}
 
 			public Callback(Func<bool> condition, TaskCompletionSource<object> tcs)
 			{
 				_origObject = condition;
 				Event = convert(condition, tcs);
+                BlockingEventWithClaimToken = null;
+                BlockingEvent = null;
+                _methodName = null;
 			}
 
             public Callback(ClaimableCallback callback)
             {
                 _origObject = callback;
                 BlockingEventWithClaimToken = callback;
+                Event = null;
+                BlockingEvent = null;
+                _methodName = null;
             }
 
 			public Func<Task> Event { get; }
@@ -137,11 +148,13 @@ namespace AGS.Engine
 
 			public override bool Equals(object obj)
 			{
-				Callback other = obj as Callback;
-				if (other == null) return false;
-				if (other._origObject == _origObject) return true;
-				if (_origObject.Target != other._origObject.Target) return false;
-				return getMethodName() == other.getMethodName();
+                if (obj is Callback other)
+                {
+    				if (other._origObject == _origObject) return true;
+    				if (_origObject.Target != other._origObject.Target) return false;
+    				return getMethodName() == other.getMethodName();
+                }
+                else return false;
 			}
 
 			public override int GetHashCode()
@@ -152,7 +165,7 @@ namespace AGS.Engine
 
 			public override string ToString()
 			{
-				return $"[Event on {_origObject.Target.ToString()} ({getMethodName()})]";
+				return $"[Event on {_origObject.Target} ({getMethodName()})]";
 			}
 
             private string getMethodName()
@@ -164,7 +177,7 @@ namespace AGS.Engine
                 return _methodName;
             }
 
-            private Func<Task> convert(Action callback)
+            private static Func<Task> convert(Action callback)
 			{
 				return () =>
 				{
@@ -173,7 +186,7 @@ namespace AGS.Engine
 				};
 			}
 
-			private Func<Task> convert(Func<bool> condition, TaskCompletionSource<object> tcs)
+			private static Func<Task> convert(Func<bool> condition, TaskCompletionSource<object> tcs)
 			{
 				return () =>
 				{

@@ -3,6 +3,7 @@
 namespace AGS.Engine
 {
     [PropertyFolder]
+    [ConcreteImplementation(DisplayName = "Portrait Config")]
     public class AGSPortraitConfig : IPortraitConfig
     {
         public AGSPortraitConfig()
@@ -20,4 +21,3 @@ namespace AGS.Engine
         public PortraitPositioning Positioning { get; set; }
     }
 }
-

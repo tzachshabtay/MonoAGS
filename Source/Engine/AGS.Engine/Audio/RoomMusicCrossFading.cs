@@ -44,8 +44,7 @@ namespace AGS.Engine
                 var fader = _map.GetOrAdd(item.Item.ID, _ => new RoomCrossFader(this, item.Item));
                 if (args.ChangeType == ListChangeType.Remove)
                 {
-                    RoomCrossFader val;
-                    _map.TryRemove(item.Item.ID, out val);
+                    _map.TryRemove(item.Item.ID, out RoomCrossFader _);
                     fader.Dispose();
                 }
             }

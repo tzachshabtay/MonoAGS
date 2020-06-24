@@ -1,6 +1,5 @@
 ﻿using System;
 using AGS.API;
-using AGS.Engine;
 using GuiLabs.Undo;
 
 namespace AGS.Editor
@@ -11,11 +10,14 @@ namespace AGS.Editor
         private DateTime _timestamp;
         private readonly IImageComponent _image;
         private readonly ITranslateComponent _translate;
+        private readonly StateModel _model;
         private float _fromPivotX, _fromPivotY, _fromX, _fromY, _toPivotX, _toPivotY, _toX, _toY;
+        private Action _undoModel;
 
         public MovePivotAction(string entityName, IImageComponent image, ITranslateComponent translate, 
-                               float toPivotX, float toPivotY, float toX, float toY)
+                               float toPivotX, float toPivotY, float toX, float toY, StateModel model)
         {
+            _model = model;
             _timestamp = DateTime.Now;
             _translate = translate;
             _image = image;
@@ -23,7 +25,7 @@ namespace AGS.Editor
             _toPivotY = toPivotY;
             _toX = toX;
             _toY = toY;
-            _actionDisplayName = $"{entityName?.ToString() ?? "Null"}.Pivot = ({toPivotX},{toPivotY})";
+            _actionDisplayName = $"{entityName ?? "Null"}.Pivot = ({toPivotX},{toPivotY})";
         }
 
         public override string ToString() => _actionDisplayName;
@@ -34,14 +36,14 @@ namespace AGS.Editor
             _fromPivotY = _image.Pivot.Y;
             _fromX = _translate.X;
             _fromY = _translate.Y;
-            _image.Pivot = new PointF(_toPivotX, _toPivotY);
-            _translate.Position = new Position(_toX, _toY);
+            execute();
         }
 
         protected override void UnExecuteCore()
         {
             _image.Pivot = new PointF(_fromPivotX, _fromPivotY);
             _translate.Position = new Position(_fromX, _fromY);
+            _undoModel?.Invoke();
         }
 
         /// <summary>
@@ -60,8 +62,7 @@ namespace AGS.Editor
                 _toPivotX = next._toPivotX;
                 _toPivotY = next._toPivotY;
                 _actionDisplayName = next._actionDisplayName;
-                _image.Pivot = new PointF(_toPivotX, _toPivotY);
-                _translate.Position = new Position(_toX, _toY);
+                execute();
                 return true;
             }
             return false;
@@ -71,6 +72,17 @@ namespace AGS.Editor
         {
             var timeDelta = followingAction._timestamp.Subtract(_timestamp);
             return timeDelta.Seconds < 2;
+        }
+
+        private void execute()
+        {
+            var pivot = new PointF(_toPivotX, _toPivotY);
+            var position = new Position(_toX, _toY);
+            _image.Pivot = pivot;
+            _translate.Position = position;
+            _undoModel = ModelAction.Execute(_model,
+                (_image, nameof(IImageComponent.Pivot), new ValueModel(pivot), null),
+                (_translate, nameof(ITranslateComponent.Position), new ValueModel(position), null));
         }
     }
 }
