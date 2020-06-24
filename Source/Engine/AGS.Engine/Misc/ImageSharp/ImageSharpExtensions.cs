@@ -1,25 +1,26 @@
 ﻿using System;
 using AGS.API;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Processing.Drawing;
-using SixLabors.ImageSharp.Processing.Drawing.Brushes;
 
 namespace AGS.Engine
 {
     public static class ImageSharpExtensions
     {
-        private static GraphicsOptions _clearOptions = new GraphicsOptions { BlenderMode = PixelBlenderMode.Src };
+        private static GraphicsOptions _clearOptions = new GraphicsOptions { AlphaCompositionMode = PixelAlphaCompositionMode.Src };
 
-        public static void Clear(this Image<Rgba32> image, SolidBrush<Rgba32> color)
+        public static void Clear(this Image<Rgba32> image, SolidBrush color)
         {
             image.Mutate(x => x.Fill(_clearOptions, color));
         }
 
-        public static Rgba32 Convert(this Color color) => new Rgba32(color.Value);
+        public static SixLabors.ImageSharp.Color Convert(this API.Color color) => new SixLabors.ImageSharp.Color(new Rgba32(color.Value));
 
-        public static Color Convert(this Rgba32 color) => Color.FromHexa(color.PackedValue);
+        public static API.Color Convert(this SixLabors.ImageSharp.Color color) => API.Color.FromHexa(color.ToPixel<Rgba32>().PackedValue);
+
+        public static API.Color Convert(this Rgba32 color) => API.Color.FromHexa(color.PackedValue);
 
         public static SixLabors.Fonts.FontStyle Convert(this FontStyle style)
         {
@@ -31,9 +32,9 @@ namespace AGS.Engine
             return SixLabors.Fonts.FontStyle.Regular;
         }
 
-        public static SizeF Convert(this SixLabors.Primitives.SizeF size)
+        public static API.SizeF Convert(this SixLabors.ImageSharp.SizeF size)
         {
-            return new SizeF(size.Width, size.Height);
+            return new API.SizeF(size.Width, size.Height);
         }
     }
 }

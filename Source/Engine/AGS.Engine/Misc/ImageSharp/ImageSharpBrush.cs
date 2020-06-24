@@ -1,20 +1,19 @@
 ﻿using System;
 using AGS.API;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing.Drawing.Brushes;
+using SixLabors.ImageSharp.Drawing.Processing;
 
 namespace AGS.Engine
 {
-    public class ImageSharpBrush : IBrush
+    public class ImageSharpBrush : API.IBrush
     {
-        public ImageSharpBrush(SolidBrush<Rgba32> brush)
+        public ImageSharpBrush(SolidBrush brush)
         {
             Color = brush.Color.Convert();
             Type = BrushType.Solid;
             InnerBrush = brush;
         }
 
-        public IBrush<Rgba32> InnerBrush { get; }
+        public SixLabors.ImageSharp.Drawing.Processing.IBrush InnerBrush { get; }
 
         public BrushType Type { get; }
 

@@ -18,9 +18,9 @@ namespace AGS.Engine
 
         public IBitmap Load(Stream stream)
         {
-            var format = Image.DetectFormat(stream);
-            var b = Image.Load(stream);
-            if (format.Name == "BMP")
+            //var format = Image.DetectFormat(stream);
+            var b = Image.Load<Rgba32>(stream);
+            /*if (format.Name == "BMP")
             {
                 //workaround for this bug: https://github.com/SixLabors/ImageSharp/issues/581
                 for (int x = 0; x < b.Width; x++)
@@ -31,7 +31,7 @@ namespace AGS.Engine
                         b[x, y] = new Rgba32(c.R, c.G, c.B, 255);
                     }
                 }
-            }
+            }*/
             return new ImageSharpBitmap(b, _graphics);
         }
 

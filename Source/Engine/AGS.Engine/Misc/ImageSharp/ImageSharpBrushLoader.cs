@@ -1,7 +1,8 @@
 ﻿using System;
 using AGS.API;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing.Drawing.Brushes;
+using IBrush = AGS.API.IBrush;
 
 namespace AGS.Engine
 {
@@ -34,7 +35,7 @@ namespace AGS.Engine
 
         public IBrush LoadSolidBrush(Color color)
         {
-            return new ImageSharpBrush(new SolidBrush<Rgba32>(color.Convert()));
+            return new ImageSharpBrush(new SolidBrush(color.Convert()));
         }
     }
 }

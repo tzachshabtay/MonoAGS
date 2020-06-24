@@ -4,10 +4,9 @@ using System.Runtime.InteropServices;
 using AGS.API;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Processing.Drawing.Brushes;
-using SixLabors.ImageSharp.Processing.Transforms;
 
 namespace AGS.Engine
 {
@@ -15,7 +14,7 @@ namespace AGS.Engine
     {
         private Image<Rgba32> _image;
         private readonly IGraphicsBackend _graphics;
-        private static SolidBrush<Rgba32> _whiteBrush = Brushes.Solid(Rgba32.White);
+        private static SolidBrush _whiteBrush = Brushes.Solid(SixLabors.ImageSharp.Color.White);
 
         public ImageSharpBitmap(Image<Rgba32> image, IGraphicsBackend graphics)
         {
@@ -55,7 +54,7 @@ namespace AGS.Engine
             _image.Clear(_whiteBrush);
         }
 
-        public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
+        public IMask CreateMask(IGameFactory factory, string path, bool transparentMeansMasked = false, AGS.API.Color? debugDrawColor = null, string saveMaskToFile = null, string id = null)
         {
             Image<Rgba32> debugMask = null;
             int bitmapWidth = Width;
@@ -66,7 +65,7 @@ namespace AGS.Engine
             }
 
             bool[][] mask = new bool[bitmapWidth][];
-            Rgba32 drawColor = debugDrawColor != null ? debugDrawColor.Value.Convert() : Rgba32.Black;
+            Rgba32 drawColor = (debugDrawColor != null ? debugDrawColor.Value.Convert() : SixLabors.ImageSharp.Color.Black).ToPixel<Rgba32>();
 
             for (int x = 0; x < bitmapWidth; x++)
             {
@@ -81,7 +80,7 @@ namespace AGS.Engine
                         mask[x] = new bool[bitmapHeight];
                     mask[x][bitmapHeight - y - 1] = masked;
 
-                    debugMask[x, y] = masked ? drawColor : Rgba32.Transparent;
+                    debugMask[x, y] = masked ? drawColor : SixLabors.ImageSharp.Color.Transparent.ToPixel<Rgba32>();
                 }
             }
 
@@ -100,13 +99,13 @@ namespace AGS.Engine
             return new AGSMask(mask, debugDraw);
         }
 
-        public IBitmap Crop(Rectangle rectangle)
+        public IBitmap Crop(AGS.API.Rectangle rectangle)
         {
-            var clone = _image.Clone(x => x.Crop(new SixLabors.Primitives.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height)));
+            var clone = _image.Clone(x => x.Crop(new SixLabors.ImageSharp.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height)));
             return new ImageSharpBitmap(clone, _graphics);
         }
 
-        public Color GetPixel(int x, int y)
+        public AGS.API.Color GetPixel(int x, int y)
         {
             var rgba = _image[x, y];
             return rgba.Convert();
@@ -119,7 +118,7 @@ namespace AGS.Engine
 
         public unsafe void LoadTexture(int? textureToBind)
         {
-            fixed (void* pin = &_image.DangerousGetPinnableReferenceToPixelBuffer())
+            fixed (void* pin = &MemoryMarshal.GetReference(_image.GetPixelRowSpan(0)))
             {
                 if (textureToBind != null)
                     _graphics.BindTexture2D(textureToBind.Value);
@@ -128,7 +127,7 @@ namespace AGS.Engine
             }
         }
 
-        public void MakeTransparent(Color color)
+        public void MakeTransparent(AGS.API.Color color)
         {
             for (int x = 0; x < Width; x++)
             {
@@ -136,7 +135,7 @@ namespace AGS.Engine
                 {
                     if (_image[x, y].PackedValue == color.Value)
                     {
-                        _image[x, y] = Rgba32.Transparent;
+                        _image[x, y] = SixLabors.ImageSharp.Color.Transparent.ToPixel<Rgba32>();
                     }
                 }
             }
@@ -147,12 +146,12 @@ namespace AGS.Engine
             _image.Save(path);
         }
 
-        public void SetPixel(Color color, int x, int y)
+        public void SetPixel(AGS.API.Color color, int x, int y)
         {
             _image[x, y] = color.Convert();
         }
 
-        public void SetPixels(Color color, List<Point> points)
+        public void SetPixels(AGS.API.Color color, List<AGS.API.Point> points)
         {
             var rgba = color.Convert();
             foreach (var point in points)
