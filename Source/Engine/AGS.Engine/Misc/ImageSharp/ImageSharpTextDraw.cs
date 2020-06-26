@@ -4,6 +4,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
+using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -14,6 +15,7 @@ namespace AGS.Engine
         private int _maxWidth, _height;
         private string _text;
         private static SolidBrush _transparentBrush = Brushes.Solid(SixLabors.ImageSharp.Color.Transparent);
+        private readonly TextGraphicsOptions _noWrapOptions = new TextGraphicsOptions();
 
         private class DummyDisposable : IDisposable
         {
@@ -84,8 +86,7 @@ namespace AGS.Engine
 
             if (_maxWidth == int.MaxValue)
             {
-                var options = new TextGraphicsOptions();
-                context.DrawText(options, _text, font, brush, new SixLabors.ImageSharp.PointF(x, y));
+                context.DrawText(_noWrapOptions, _text, font, brush, new SixLabors.ImageSharp.PointF(x, y));
             }
             else
             {
