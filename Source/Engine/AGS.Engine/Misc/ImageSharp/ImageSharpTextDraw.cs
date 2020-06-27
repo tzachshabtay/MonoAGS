@@ -4,7 +4,6 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
-using System.Diagnostics;
 
 namespace AGS.Engine
 {
@@ -15,7 +14,8 @@ namespace AGS.Engine
         private int _maxWidth, _height;
         private string _text;
         private static SolidBrush _transparentBrush = Brushes.Solid(SixLabors.ImageSharp.Color.Transparent);
-        private readonly TextGraphicsOptions _noWrapOptions = new TextGraphicsOptions();
+        private readonly GraphicsOptions _graphicsOptions = new GraphicsOptions { Antialias = false };
+        private readonly TextGraphicsOptions _noWrapOptions;
 
         private class DummyDisposable : IDisposable
         {
@@ -27,6 +27,7 @@ namespace AGS.Engine
         public ImageSharpTextDraw(Image<Rgba32> bitmap)
         {
             _bitmap = bitmap;
+            _noWrapOptions = new TextGraphicsOptions { GraphicsOptions = _graphicsOptions };
         }
 
         public IDisposable CreateContext()
@@ -91,7 +92,7 @@ namespace AGS.Engine
             else
             {
                 //todo: draw in rectangle (not constrained by height)
-                var options = new TextGraphicsOptions { TextOptions = new TextOptions { WrapTextWidth = _maxWidth } };
+                var options = new TextGraphicsOptions { TextOptions = new TextOptions { WrapTextWidth = _maxWidth }, GraphicsOptions = _graphicsOptions };
                 context.DrawText(options, _text, font, brush, new SixLabors.ImageSharp.PointF(x, y));
                 //gfx.DrawString(_text, font, brush, new System.Drawing.RectangleF(x, y, _maxWidth, _height),
                 //    _wrapFormat);
