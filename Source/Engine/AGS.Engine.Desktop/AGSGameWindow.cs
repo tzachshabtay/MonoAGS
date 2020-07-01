@@ -16,7 +16,12 @@ namespace AGS.Engine.Desktop
         public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize)
         {
             _windowSize = windowSize;
-            _gameWindow = new GameWindow(new GameWindowSettings(), new NativeWindowSettings { Title = settings.Title, Size = new Vector2i(settings.WindowSize.Width, settings.WindowSize.Height) });
+            _gameWindow = new GameWindow(new GameWindowSettings(), new NativeWindowSettings
+            {
+                Title = settings.Title,
+                Size = new Vector2i(settings.WindowSize.Width, settings.WindowSize.Height),
+                Flags = ContextFlags.ForwardCompatible,
+            });
             OnInit?.Invoke();
 
             _updateFrameArgs = new FrameEventArgs();
