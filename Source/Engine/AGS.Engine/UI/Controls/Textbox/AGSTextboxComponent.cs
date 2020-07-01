@@ -232,24 +232,24 @@ namespace AGS.Engine
                 case Key.End: return new TextboxState(_textComponent.Text, _endOfLine);
                 case Key.Left: return new TextboxState(_textComponent.Text, CaretPosition > 0 ? CaretPosition - 1 : 0);
                 case Key.Right: return new TextboxState(_textComponent.Text, CaretPosition < _endOfLine ? CaretPosition + 1 : _endOfLine);
-                case Key.BackSpace: return processBackspace();
+                case Key.Backspace: return processBackspace();
                 case Key.Delete: return processDelete();
 
-                case Key.Tilde: return addCharacter(_shiftOn ? '~' : '`');
+                case Key.GraveAccent: return addCharacter(_shiftOn ? '~' : '`');
                 case Key.Minus: return addCharacter(_shiftOn ? '_' : '-');
-                case Key.Plus: return addCharacter(_shiftOn ? '+' : '=');
-                case Key.BracketLeft: return addCharacter(_shiftOn ? '{' : '[');
-                case Key.BracketRight: return addCharacter(_shiftOn ? '}' : ']');
-                case Key.BackSlash: case Key.NonUSBackSlash: return addCharacter(_shiftOn ? '|' : '\\');
+                case Key.Equal: return addCharacter(_shiftOn ? '+' : '=');
+                case Key.LeftBracket: return addCharacter(_shiftOn ? '{' : '[');
+                case Key.RightBracket: return addCharacter(_shiftOn ? '}' : ']');
+                case Key.BackSlash: return addCharacter(_shiftOn ? '|' : '\\');
                 case Key.Semicolon: return addCharacter(_shiftOn ? ':' : ';');
-                case Key.Quote: return addCharacter(_shiftOn ? '"' : '\'');
+                case Key.Apostrophe: return addCharacter(_shiftOn ? '"' : '\'');
                 case Key.Comma: return addCharacter(_shiftOn ? '<' : ',');
                 case Key.Period: return addCharacter(_shiftOn ? '>' : '.');
                 case Key.Slash: return addCharacter(_shiftOn ? '?' : '/');
                 case Key.KeypadAdd: return addCharacter('+');
-                case Key.KeypadPeriod: return addCharacter('.');
+                case Key.KeypadDecimal: return addCharacter('.');
                 case Key.KeypadDivide: return addCharacter('/');
-                case Key.KeypadMinus: return addCharacter('-');
+                case Key.KeypadSubtract: return addCharacter('-');
                 case Key.KeypadMultiply: return addCharacter('*');
                 case Key.Space: return addCharacter(' ');
                 default:

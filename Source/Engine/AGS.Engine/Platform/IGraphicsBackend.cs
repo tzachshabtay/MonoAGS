@@ -8,7 +8,6 @@ namespace AGS.Engine
         FragmentShader,
         VertexShader,
         GeometryShader,
-        GeometryShaderExt,
         TessEvaluationShader,
         TessControlShader,
         ComputeShader,
@@ -16,7 +15,6 @@ namespace AGS.Engine
 
     public enum MatrixType
     {
-        Color,
         ModelView,
         ModelView0Ext,
         Projection,
@@ -32,9 +30,6 @@ namespace AGS.Engine
         Triangles,
         TriangleStrip,
         TriangleFan,
-        Quads,
-        QuadStrip,
-        Polygon,
         LinesAdjacency,
         LineStripAdjacency,
         TrianglesAdjacency,

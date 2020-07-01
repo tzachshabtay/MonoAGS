@@ -10,8 +10,8 @@ namespace AGS.Engine
 
     public interface IGameWindow : IDisposable
     {
-        event EventHandler<EventArgs> Load;
-        event EventHandler<EventArgs> Resize;
+        event Action Load;
+        event Action<System.Drawing.Size> Resize;
         event EventHandler<FrameEventArgs> UpdateFrame;
         event EventHandler<FrameEventArgs> RenderFrame;
 

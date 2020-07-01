@@ -4,7 +4,7 @@
     <RootNamespace>DemoQuest.Desktop</RootNamespace>
     <AssemblyName>DemoQuest.Desktop</AssemblyName>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

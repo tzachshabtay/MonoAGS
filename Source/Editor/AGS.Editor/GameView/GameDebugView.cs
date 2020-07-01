@@ -265,10 +265,10 @@ namespace AGS.Editor
             if (_input.IsKeyDown(Key.Left)) moveEntity(entity, -1f, 0f);
             else if (_input.IsKeyDown(Key.Right)) moveEntity(entity, 1f, 0f);
 
-            if (_input.IsKeyDown(Key.BracketLeft)) rotateEntity(entity, -1f);
-            else if (_input.IsKeyDown(Key.BracketRight)) rotateEntity(entity, 1f);
+            if (_input.IsKeyDown(Key.LeftBracket)) rotateEntity(entity, -1f);
+            else if (_input.IsKeyDown(Key.RightBracket)) rotateEntity(entity, 1f);
 
-            if (_input.IsKeyDown(Key.Plus)) scaleEntity(entity, 0.1f);
+            if (_input.IsKeyDown(Key.Equal)) scaleEntity(entity, 0.1f);
             else if (_input.IsKeyDown(Key.Minus)) scaleEntity(entity, -0.1f);
         }
     }

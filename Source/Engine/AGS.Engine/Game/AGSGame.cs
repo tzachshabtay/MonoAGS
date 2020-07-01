@@ -100,10 +100,13 @@ namespace AGS.Engine
 
         public void Start()
         {
+            Debug.WriteLine("Starting Game");
             _gameCount++;
             _gameIndex = _gameCount;
             var settings = _resolver.Container.Resolve<IGameSettings>();
+            Debug.WriteLine("Game settings are available");
             GameLoop = _resolver.Container.Resolve<IGameLoop>(new TypedParameter(typeof(Size), settings.VirtualResolution));
+            Debug.WriteLine("Game loop is available");
             TypedParameter settingsParameter = new TypedParameter(typeof(IGameSettings), settings);
 
             bool isNewWindow = false;
@@ -118,18 +121,19 @@ namespace AGS.Engine
                 }
                 _updateThread = new AGSUpdateThread(GameWindow);
             }
+            Debug.WriteLine("Game window is available");
 
             //using (GameWindow)
             {
                 try
                 {
-                    GameWindow.Load += (sender, e) =>
+                    GameWindow.Load += () =>
                     {
                         onGameWindowLoaded(settingsParameter, settings);
                     };
                     if (!isNewWindow) onGameWindowLoaded(settingsParameter, settings);
 
-                    GameWindow.Resize += (sender, e) =>
+                    GameWindow.Resize += (size) =>
                     {
                         Events.OnScreenResize.Invoke();
                     };
@@ -143,6 +147,7 @@ namespace AGS.Engine
 
                     GameWindow.RenderFrame += onRenderFrame;
 
+                    Debug.WriteLine($"New window = {isNewWindow}");
                     // Run the game at 60 updates per second
                     _updateThread.Run(UPDATE_RATE);
                     if (isNewWindow)

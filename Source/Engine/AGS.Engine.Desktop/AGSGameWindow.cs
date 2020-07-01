@@ -1,40 +1,46 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using AGS.API;
-using OpenTK;
-using OpenTK.Graphics;
+using Silk.NET.Windowing;
+using Silk.NET.Windowing.Common;
 
 namespace AGS.Engine.Desktop
 {
     public class AGSGameWindow : IGameWindow, IWindowInfo
     {
-        private static GameWindow _gameWindow;
+        private static IWindow _gameWindow;
         private IGameWindowSize _windowSize;
         private FrameEventArgs _updateFrameArgs, _renderFrameArgs;
 
         public AGSGameWindow(IGameSettings settings, IGameWindowSize windowSize)
         {
             _windowSize = windowSize;
-            _gameWindow = new GameWindow(settings.WindowSize.Width, settings.WindowSize.Height,
-                                         GraphicsMode.Default, settings.Title);
+            _gameWindow = Window.Create(new WindowOptions
+            {
+                Title = settings.Title,
+                UseSingleThreadedWindow = false,
+                IsEventDriven = true,
+                Size = new System.Drawing.Size(settings.WindowSize.Width, settings.WindowSize.Height)
+            });
             OnInit?.Invoke();
 
             _updateFrameArgs = new FrameEventArgs();
             _renderFrameArgs = new FrameEventArgs();
-            _gameWindow.UpdateFrame += onUpdateFrame;
-            _gameWindow.RenderFrame += onRenderFrame;
+            _gameWindow.Update += onUpdateFrame;
+            _gameWindow.Render += onRenderFrame;
         }
 
-        public static GameWindow GameWindow => _gameWindow;
+        public static IWindow GameWindow => _gameWindow;
 
         public static Action OnInit { get; set; }
 
-        public event EventHandler<EventArgs> Load
+        public event Action Load
         {
             add { _gameWindow.Load += value; }
             remove { _gameWindow.Load -= value; }
         }
-        public event EventHandler<EventArgs> Resize
+        public event Action<System.Drawing.Size> Resize
         {
             add { _gameWindow.Resize += value; }
             remove { _gameWindow.Resize -= value; }
@@ -45,22 +51,22 @@ namespace AGS.Engine.Desktop
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore CS0067
 
-        public double TargetUpdateFrequency { get => _gameWindow.TargetUpdateFrequency; set => _gameWindow.TargetUpdateFrequency = value; }
+        public double TargetUpdateFrequency { get => _gameWindow.UpdatesPerSecond; set => _gameWindow.UpdatesPerSecond = value; }
         public string Title { get => _gameWindow.Title; set => _gameWindow.Title = value; }
         public VsyncMode Vsync { get => (VsyncMode)_gameWindow.VSync; set => _gameWindow.VSync = (VSyncMode)value; }
-        public bool IsExiting => _gameWindow.IsExiting;
+        public bool IsExiting => _gameWindow.IsClosing;
         public API.WindowState WindowState
         {
             get => (API.WindowState)_gameWindow.WindowState;
-            set => _gameWindow.WindowState = (OpenTK.WindowState)value;
+            set => _gameWindow.WindowState = (Silk.NET.Windowing.Common.WindowState)value;
         }
         public API.WindowBorder WindowBorder
         {
             get => (API.WindowBorder)_gameWindow.WindowBorder;
-            set => _gameWindow.WindowBorder = (OpenTK.WindowBorder)value;
+            set => _gameWindow.WindowBorder = (Silk.NET.Windowing.Common.WindowBorder)value;
         }
-        public int Width => Math.Max(1, _gameWindow.Width);
-        public int Height => Math.Max(1, _gameWindow.Height);
+        public int Width => Math.Max(1, _gameWindow.Size.Width);
+        public int Height => Math.Max(1, _gameWindow.Size.Height);
         public int ClientWidth => Math.Max(1, _windowSize.GetWidth(_gameWindow));
         public int ClientHeight => Math.Max(1, _windowSize.GetHeight(_gameWindow));
         public void SetSize(Size size) => _windowSize.SetSize(_gameWindow, size);
@@ -69,21 +75,26 @@ namespace AGS.Engine.Desktop
         public float AppWindowWidth => Math.Max(1, _windowSize.GetWidth(_gameWindow));
         public Rectangle ScreenViewport { get; set; } = new Rectangle(0, 0, 1, 1);
 
-        public void Run(double updateRate) => _gameWindow.Run(updateRate);
+        public void Run(double updateRate)
+        {
+            Debug.WriteLine("Running Window");
+            _gameWindow.UpdatesPerSecond = updateRate;
+            _gameWindow.Run();
+        }
         public void SwapBuffers() => _gameWindow.SwapBuffers();
-        public void Exit() => _gameWindow.Exit();
+        public void Exit() => _gameWindow.Close();
         public void Dispose() => _gameWindow.Dispose();
 
-        private void onUpdateFrame(object sender, OpenTK.FrameEventArgs args)
+        private void onUpdateFrame(double time)
         {
-            _updateFrameArgs.Time = args.Time;
-            UpdateFrame?.Invoke(sender, _updateFrameArgs);
+            _updateFrameArgs.Time = time;
+            UpdateFrame?.Invoke(null, _updateFrameArgs);
         }
 
-        private void onRenderFrame(object sender, OpenTK.FrameEventArgs args)
+        private void onRenderFrame(double time)
         {
-            _renderFrameArgs.Time = args.Time;
-            RenderFrame?.Invoke(sender, _renderFrameArgs);
+            _renderFrameArgs.Time = time;
+            RenderFrame?.Invoke(null, _renderFrameArgs);
         }
     }
 }

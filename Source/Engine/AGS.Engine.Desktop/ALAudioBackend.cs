@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
-using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
+using System.Runtime.InteropServices;
+using Silk.NET.OpenAL;
 
 namespace AGS.Engine
 {
     public class ALAudioBackend : IAudioBackend
     {
-        private readonly int _playingState = (int)ALSourceState.Playing;
+        private readonly int _playingState = (int)SourceState.Playing;
         private readonly AudioContext _context;
+        private readonly AL _al;
 
         public ALAudioBackend()
         {
             try
             {
+                _al = AL.GetApi();
                 _context = new AudioContext();
                 IsValid = true;
             }
@@ -40,63 +42,80 @@ namespace AGS.Engine
         }
 
         public bool IsValid { get; }
-        public int GenBuffer() => _context == null ? 0 : AL.GenBuffer();
-        public int GenSource() => _context == null ? 0 : AL.GenSource();
-        public void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq)
+        public int GenBuffer() => _context == null ? 0 : (int)_al.GenBuffer();
+        public int GenSource() => _context == null ? 0 : (int)_al.GenSource();
+        public unsafe void BufferData(int bufferId, SoundFormat format, byte[] buffer, int size, int freq)
         {
             if (_context == null) return;
-            AL.BufferData(bufferId, getFormat(format), buffer, size, freq);
+            GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+            try
+            {
+                _al.BufferData((uint)bufferId, getFormat(format), handle.AddrOfPinnedObject().ToPointer(), size, freq);
+            }
+            finally
+            {
+                handle.Free();
+            }
         }
-        public void BufferData(int bufferId, SoundFormat format, short[] buffer, int size, int freq)
-        { 
-            if (_context == null) return;
-            AL.BufferData(bufferId, getFormat(format), buffer, size, freq);
+        public unsafe void BufferData(int bufferId, SoundFormat format, short[] buffer, int size, int freq)
+        {
+            if (_context == null)
+                return;
+            GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+            try
+            {
+                _al.BufferData((uint)bufferId, getFormat(format), handle.AddrOfPinnedObject().ToPointer(), size, freq);
+            }
+            finally
+            {
+                handle.Free();
+            }
         }
-        public void SourceStop(int sourceId) { if (_context == null) return; AL.SourceStop(sourceId); }
-        public void DeleteSource(int sourceId) { if (_context == null) return;AL.DeleteSource(sourceId); }
-        public void SourceSetBuffer(int sourceId, int bufferId) { if (_context == null) return;AL.Source(sourceId, ALSourcei.Buffer, bufferId); }
-        public void SourceSetLooping(int sourceId, bool looping) { if (_context == null) return;AL.Source(sourceId, ALSourceb.Looping, looping); }
-        public void SourceSetGain(int sourceId, float gain) { if (_context == null) return;AL.Source(sourceId, ALSourcef.Gain, gain); }
-        public void SourceSetPitch(int sourceId, float pitch) { if (_context == null) return;AL.Source(sourceId, ALSourcef.Pitch, pitch); }
-        public void SourceSetPosition(int sourceId, float x, float y, float z) { if (_context == null) return;AL.Source(sourceId, ALSource3f.Position, x, y, z); }
-        public void SourceSetSeek(int sourceId, float seek) { if (_context == null) return;AL.Source(sourceId, ALSourcef.SecOffset, seek); }
+        public void SourceStop(int sourceId) { if (_context == null) return; _al.SourceStop((uint)sourceId); }
+        public void DeleteSource(int sourceId) { if (_context == null) return;_al.DeleteSource((uint)sourceId); }
+        public void SourceSetBuffer(int sourceId, int bufferId) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceInteger.Buffer, bufferId); }
+        public void SourceSetLooping(int sourceId, bool looping) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceBoolean.Looping, looping); }
+        public void SourceSetGain(int sourceId, float gain) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceFloat.Gain, gain); }
+        public void SourceSetPitch(int sourceId, float pitch) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceFloat.Pitch, pitch); }
+        public void SourceSetPosition(int sourceId, float x, float y, float z) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceVector3.Position, x, y, z); }
+        public void SourceSetSeek(int sourceId, float seek) { if (_context == null) return;_al.SetSourceProperty((uint)sourceId, SourceFloat.SecOffset, seek); }
         public float SourceGetSeek(int sourceId)
         {
             if (_context == null) return -1f;
             float seek;
-            AL.GetSource(sourceId, ALSourcef.SecOffset, out seek);
+            _al.GetSourceProperty((uint)sourceId, SourceFloat.SecOffset, out seek);
             return seek;
         }
-        public void SourcePlay(int sourceId) { if (_context == null) return; AL.SourcePlay(sourceId); }
-        public void SourcePause(int sourceId) { if (_context == null) return; AL.SourcePause(sourceId); }
-        public void SourceRewind(int sourceId) { if (_context == null) return; AL.SourceRewind(sourceId); }
+        public void SourcePlay(int sourceId) { if (_context == null) return; _al.SourcePlay((uint)sourceId); }
+        public void SourcePause(int sourceId) { if (_context == null) return; _al.SourcePause((uint)sourceId); }
+        public void SourceRewind(int sourceId) { if (_context == null) return; _al.SourceRewind((uint)sourceId); }
         public bool SourceIsPlaying(int sourceId)
         {
             if (_context == null) return false;
             int state;
-            AL.GetSource(sourceId, ALGetSourcei.SourceState, out state);
+            _al.GetSourceProperty((uint)sourceId, GetSourceInteger.SourceState, out state);
             return state == _playingState;
         }
         public string GetError()
         {
             if (_context == null) return null;
-            ALError error = AL.GetError();
-            if (error == ALError.NoError) return null;
+            AudioError error = _al.GetError();
+            if (error == AudioError.NoError) return null;
             return error.ToString();
         }
-        public void ListenerSetGain(float gain) { if (_context == null) return; AL.Listener(ALListenerf.Gain, gain); }
-        public void ListenerSetPosition(float x, float y, float z) { if (_context == null) return; AL.Listener(ALListener3f.Position, x, y, z); }
+        public void ListenerSetGain(float gain) { if (_context == null) return; _al.SetListenerProperty(ListenerFloat.Gain, gain); }
+        public void ListenerSetPosition(float x, float y, float z) { if (_context == null) return; _al.SetListenerProperty(ListenerVector3.Position, x, y, z); }
 
         public void Dispose() { if (_context == null) return; _context.Dispose(); }
 
-        private ALFormat getFormat(SoundFormat format)
+        private BufferFormat getFormat(SoundFormat format)
         {
             switch (format)
             {
-                case SoundFormat.Mono16: return ALFormat.Mono16;
-                case SoundFormat.Mono8: return ALFormat.Mono8;
-                case SoundFormat.Stereo16: return ALFormat.Stereo16;
-                case SoundFormat.Stereo8: return ALFormat.Stereo8;
+                case SoundFormat.Mono16: return BufferFormat.Mono16;
+                case SoundFormat.Mono8: return BufferFormat.Mono8;
+                case SoundFormat.Stereo16: return BufferFormat.Stereo16;
+                case SoundFormat.Stereo8: return BufferFormat.Stereo8;
                 default: throw new NotSupportedException(format.ToString());
             }
         }

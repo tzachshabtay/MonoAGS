@@ -2,15 +2,17 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using AGS.API;
-using OpenTK;
-using OpenTK.Input;
+using Silk.NET.Windowing.Common;
+using Silk.NET.Input.Common;
+using Silk.NET.Input;
 
 namespace AGS.Engine.Desktop
 {
     public class AGSInput : IInput
     {
-        private GameWindow _game;
+        private IWindow _game;
         private float _mouseX, _mouseY;
         private readonly IShouldBlockInput _shouldBlockInput;
         private readonly IConcurrentHashSet<API.Key> _keysDown;
@@ -19,7 +21,7 @@ namespace AGS.Engine.Desktop
         private readonly IAGSCursor _cursor;
         private readonly IAGSHitTest _hitTest;
 
-        private MouseCursor _originalOSCursor;
+        private IInputContext _input;
         private readonly ConcurrentQueue<Func<Task>> _actions;
         private int _inUpdate; //For preventing re-entrancy
 
@@ -46,48 +48,57 @@ namespace AGS.Engine.Desktop
             else AGSGameWindow.OnInit = () => init(AGSGameWindow.GameWindow);
         }
 
-        private void init(GameWindow game)
+        private void init(IWindow game)
         {
             if (_game != null) return;
             _game = game;
-            _originalOSCursor = game.Cursor;
-
-            _cursor.PropertyChanged += (sender, e) =>
+            _input = game.CreateInput();
+            foreach (IMouse mouse in _input.Mice)
             {
-                if (_cursor.Cursor != null) _game.Cursor = MouseCursor.Empty;
-            };
-            game.MouseDown += (sender, e) =>
+                _cursor.PropertyChanged += (sender, e) =>
+                {
+                    if (_cursor.Cursor != null) mouse.Cursor.CursorMode = CursorMode.Hidden;
+                };
+                mouse.MouseDown += (_, button) =>
+                {
+                    if (isInputBlocked())
+                        return;
+                    var apiButton = convert(button);
+                    _actions.Enqueue(() => MouseDown.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, apiButton, MousePosition)));
+                };
+                mouse.MouseUp += (_, button) =>
+                {
+                    if (isInputBlocked())
+                        return;
+                    var apiButton = convert(button);
+                    _actions.Enqueue(() => MouseUp.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, apiButton, MousePosition)));
+                };
+                mouse.MouseMove += (_, point) =>
+                {
+                    _mouseX = point.X;
+                    _mouseY = point.Y;
+                    _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
+                };
+            }
+            foreach (IKeyboard keyboard in _input.Keyboards)
             {
-                if (isInputBlocked()) return;
-                var button = convert(e.Button);
-                _actions.Enqueue(() => MouseDown.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
-            };
-            game.MouseUp += (sender, e) =>
-            {
-                if (isInputBlocked()) return;
-                var button = convert(e.Button);
-                _actions.Enqueue(() => MouseUp.InvokeAsync(new API.MouseButtonEventArgs(_hitTest.ObjectAtMousePosition, button, MousePosition)));
-            };
-            game.MouseMove += (sender, e) =>
-            {
-                _mouseX = e.Mouse.X;
-                _mouseY = e.Mouse.Y;
-                _actions.Enqueue(() => MouseMove.InvokeAsync(new MousePositionEventArgs(MousePosition)));
-            };
-            game.KeyDown += (sender, e) =>
-            {
-                API.Key key = convert(e.Key);
-                _keysDown.Add(key);
-                if (isInputBlocked()) return;
-                _actions.Enqueue(() => KeyDown.InvokeAsync(new KeyboardEventArgs(key)));
-            };
-            game.KeyUp += (sender, e) =>
-            {
-                API.Key key = convert(e.Key);
-                _keysDown.Remove(key);
-                if (isInputBlocked()) return;
-                _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(key)));
-            };
+                keyboard.KeyDown += (_, key, __) =>
+                {
+                    API.Key apiKey = convert(key);
+                    _keysDown.Add(apiKey);
+                    if (isInputBlocked())
+                        return;
+                    _actions.Enqueue(() => KeyDown.InvokeAsync(new KeyboardEventArgs(apiKey)));
+                };
+                keyboard.KeyUp += (_, key, __) =>
+                {
+                    API.Key apiKey = convert(key);
+                    _keysDown.Remove(apiKey);
+                    if (isInputBlocked())
+                        return;
+                    _actions.Enqueue(() => KeyUp.InvokeAsync(new KeyboardEventArgs(apiKey)));
+                };
+            }
 
             _events.OnRepeatedlyExecuteAlways.Subscribe(onRepeatedlyExecute);
         }
@@ -116,21 +127,27 @@ namespace AGS.Engine.Desktop
 
         public bool ShowHardwareCursor
         {
-            get => _game.Cursor != MouseCursor.Empty;
-            set => _game.Cursor = value ? _originalOSCursor : MouseCursor.Empty;
+            get => _input.Mice.Any(m => m.Cursor.CursorMode != CursorMode.Hidden);
+            set
+            {
+                foreach (IMouse mouse in _input.Mice)
+                {
+                    mouse.Cursor.CursorMode = value ? CursorMode.Normal : CursorMode.Hidden;
+                }
+            }
         }
 
         private bool isInputBlocked() => _shouldBlockInput.ShouldBlockInput();
 
-        private API.MouseButton convert(OpenTK.Input.MouseButton button)
+        private API.MouseButton convert(Silk.NET.Input.Common.MouseButton button)
         {
             switch (button)
             {
-                case OpenTK.Input.MouseButton.Left:
+                case Silk.NET.Input.Common.MouseButton.Left:
                     return API.MouseButton.Left;
-                case OpenTK.Input.MouseButton.Right:
+                case Silk.NET.Input.Common.MouseButton.Right:
                     return API.MouseButton.Right;
-                case OpenTK.Input.MouseButton.Middle:
+                case Silk.NET.Input.Common.MouseButton.Middle:
                     return API.MouseButton.Middle;
                 default:
                     throw new NotSupportedException();
@@ -142,9 +159,16 @@ namespace AGS.Engine.Desktop
             _hitTest.Refresh(MousePosition);
             if (!isInputBlocked())
             {
-                var cursorState = Mouse.GetCursorState();
-                LeftMouseButtonDown = cursorState.LeftButton == ButtonState.Pressed;
-                RightMouseButtonDown = cursorState.RightButton == ButtonState.Pressed;
+                bool leftDown = false;
+                bool rightDown = false;
+                foreach (IMouse mouse in _input.Mice)
+                {
+                    if (mouse.IsButtonPressed(Silk.NET.Input.Common.MouseButton.Left)) leftDown = true;
+                    if (mouse.IsButtonPressed(Silk.NET.Input.Common.MouseButton.Right)) rightDown = true;
+                    if (leftDown && rightDown) break;
+                }
+                LeftMouseButtonDown = leftDown;
+                RightMouseButtonDown = rightDown;
             }
 
             if (Interlocked.CompareExchange(ref _inUpdate, 1, 0) != 0) return;
@@ -161,6 +185,6 @@ namespace AGS.Engine.Desktop
             }
         }
 
-        private API.Key convert(OpenTK.Input.Key key) => (API.Key)(int)key;
+        private API.Key convert(Silk.NET.Input.Common.Key key) => (API.Key)(int)key;
     }
 }
