@@ -29,6 +29,19 @@ install:
   - ps: 7z x $zipPath | Out-Null
   - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
   - npm install gh-pages -g
+artifacts:
+  - path: 'Source\Demo\DemoQuest.Desktop\bin'
+    name: Demo Game (Windows)
+  
+  - path: 'Source\Engine\AGS.Engine.Desktop\bin'
+    name: Engine (Windows)
+    
+  - path: 'Source\Demo\Droid\bin'
+    name: Demo Game (Android)
+    
+  - path: 'Source\Engine\AGS.Engine.Android\bin'
+    name: Engine (Android)
+
 before_build:
   - ps: msbuild /t:restore MonoAGS.sln
   - nuget restore ".\MonoAGS.sln"
